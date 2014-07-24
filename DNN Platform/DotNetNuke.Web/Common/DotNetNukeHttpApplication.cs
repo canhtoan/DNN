@@ -88,6 +88,7 @@ namespace DotNetNuke.Web.Common.Internal
             #pragma warning disable 0618
             ComponentFactory.InstallComponents(new ProviderInstaller("searchDataStore", typeof(SearchDataStoreProvider), typeof(SearchDataStore)));
             #pragma warning restore 0618
+            ComponentFactory.InstallComponents(new ProviderInstaller("searchIFilter", typeof(IFilterDocumentIndexerProvider)));
             ComponentFactory.InstallComponents(new ProviderInstaller("members", typeof(MembershipProvider), typeof(AspNetMembershipProvider)));
             ComponentFactory.InstallComponents(new ProviderInstaller("roles", typeof(RoleProvider), typeof(DNNRoleProvider)));
             ComponentFactory.InstallComponents(new ProviderInstaller("profiles", typeof(ProfileProvider), typeof(DNNProfileProvider)));
