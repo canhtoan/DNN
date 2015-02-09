@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Modules.DigitalAssets.Components.Controllers;
 using DotNetNuke.Modules.DigitalAssets.Components.Controllers.Models;
@@ -35,9 +35,9 @@ namespace DotNetNuke.Modules.DigitalAssets
                 return PreviewInfo.Title;
             }
         }
-                
+
         protected string PreviewImageUrl
-        { 
+        {
             get
             {
                 return PreviewInfo.PreviewImageUrl;
@@ -50,7 +50,7 @@ namespace DotNetNuke.Modules.DigitalAssets
 
         protected ModuleInfo ModuleConfiguration { get; private set; }
         #endregion
-        
+
         #region Public Methods
         public void SetPreviewInfo(PreviewInfoViewModel previewInfoViewModel)
         {
@@ -62,7 +62,7 @@ namespace DotNetNuke.Modules.DigitalAssets
                 fieldsControl.GenerateFieldsTable();
             }
         }
-        
+
         public void SetController(IDigitalAssetsController damController)
         {
             Controller = damController;

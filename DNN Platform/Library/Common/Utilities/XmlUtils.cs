@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,7 +41,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     /// -----------------------------------------------------------------------------
@@ -56,7 +55,7 @@ namespace DotNetNuke.Common.Utilities
     /// -----------------------------------------------------------------------------
     public class XmlUtils
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (XmlUtils));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(XmlUtils));
         public static void AppendElement(ref XmlDocument objDoc, XmlNode objNode, string attName, string attValue, bool includeIfEmpty)
         {
             AppendElement(ref objDoc, objNode, attName, attValue, includeIfEmpty, false);
@@ -184,7 +183,7 @@ namespace DotNetNuke.Common.Utilities
 
         public static Hashtable DeSerializeHashtable(string xmlSource, string rootname)
         {
-            var hashTable  = new Hashtable();
+            var hashTable = new Hashtable();
 
             if (!String.IsNullOrEmpty(xmlSource))
             {
@@ -315,7 +314,7 @@ namespace DotNetNuke.Common.Utilities
         {
             return GetNodeValue(objNode, nodeName, String.Empty);
         }
-        
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets the value of node

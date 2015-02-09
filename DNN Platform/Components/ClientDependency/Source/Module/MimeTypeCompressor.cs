@@ -34,13 +34,13 @@ namespace ClientDependency.Core.Module
             if (!Context.IsDebuggingEnabled)
             {
                 //check if this request should be compressed based on the mime type and path
-                var m = GetSupportedPath(); 
+                var m = GetSupportedPath();
                 if (IsSupportedMimeType() && m != null)
                 {
                     var cType = Context.GetClientCompression();
                     Context.AddCompressionResponseHeader(cType);
 
-                    
+
 
                     if (cType == CompressionType.deflate)
                     {
@@ -50,9 +50,6 @@ namespace ClientDependency.Core.Module
                     {
                         response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
                     }
-
-                    
-
                 }
             }
         }
@@ -77,8 +74,6 @@ namespace ClientDependency.Core.Module
         protected bool IsSupportedMimeType()
         {
             return MatchedTypes.Count() > 0;
-
         }
-
     }
 }

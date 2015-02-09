@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Services.Authentication
 {
     public enum AuthMode

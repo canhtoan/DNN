@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -48,8 +47,8 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:IntegerEditControl runat=server></{0}:IntegerEditControl>")]
     public class IntegerEditControl : EditControl
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (IntegerEditControl));
-		#region "Constructors"
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(IntegerEditControl));
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -64,9 +63,9 @@ namespace DotNetNuke.UI.WebControls
             SystemType = "System.Int32";
         }
 
-		#endregion
+        #endregion
 
-		#region "Protected Properties"
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -106,16 +105,15 @@ namespace DotNetNuke.UI.WebControls
                 int intValue = Null.NullInteger;
                 try
                 {
-					//Try and cast the value to an Integer
-                    if(Value != null)
+                    //Try and cast the value to an Integer
+                    if (Value != null)
                     {
                         Int32.TryParse(Value.ToString(), out intValue);
                     }
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return intValue;
             }
@@ -137,21 +135,20 @@ namespace DotNetNuke.UI.WebControls
                 int intValue = Null.NullInteger;
                 try
                 {
-					//Try and cast the value to an Integer
+                    //Try and cast the value to an Integer
                     int.TryParse(OldValue.ToString(), out intValue);
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return intValue;
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Protected Methods"
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -191,7 +188,7 @@ namespace DotNetNuke.UI.WebControls
             writer.RenderBeginTag(HtmlTextWriterTag.Input);
             writer.RenderEndTag();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

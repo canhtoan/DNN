@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +30,6 @@ using System.Xml;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Syndication
 {
     /// <summary>
@@ -38,9 +37,9 @@ namespace DotNetNuke.Services.Syndication
     /// </summary>
     internal class RssDownloadManager
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (RssDownloadManager));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(RssDownloadManager));
         private const string RSS_Dir = "/RSS/";
-        private static readonly RssDownloadManager _theManager = new RssDownloadManager();
+        private static readonly RssDownloadManager s_theManager = new RssDownloadManager();
 
         private readonly Dictionary<string, RssChannelDom> _cache;
         private readonly int _defaultTtlMinutes;
@@ -145,10 +144,10 @@ namespace DotNetNuke.Services.Syndication
                     {
                         File.Delete(rssFilename);
                     }
-					catch (Exception ex)
-					{
-						Logger.Error(ex);
-					}
+                    catch (Exception ex)
+                    {
+                        s_logger.Error(ex);
+                    }
 
                     // try next file
                     continue;
@@ -220,7 +219,7 @@ namespace DotNetNuke.Services.Syndication
 
         public static RssChannelDom GetChannel(string url)
         {
-            return _theManager.GetChannelDom(url);
+            return s_theManager.GetChannelDom(url);
         }
 
         private static int GetTtlFromString(string ttlString, int defaultTtlMinutes)

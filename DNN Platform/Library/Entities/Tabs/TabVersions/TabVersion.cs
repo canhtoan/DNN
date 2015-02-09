@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 
 namespace DotNetNuke.Entities.Tabs.TabVersions
@@ -28,9 +28,9 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
     ///</summary>    
     [Serializable]
     public class TabVersion : BaseEntityInfo
-    {       
+    {
         #region Public Properties       
- 
+
         /// <summary>
         /// Id of the TabVersion object
         /// </summary>

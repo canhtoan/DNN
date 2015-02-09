@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,7 +37,6 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Security.Roles.Internal;
 
 #endregion
-
 namespace DotNetNuke.Entities.Portals
 {
     public class PortalGroupController : ComponentBase<IPortalGroupController, PortalGroupController>, IPortalGroupController
@@ -81,27 +80,27 @@ namespace DotNetNuke.Entities.Portals
             if (callback == null) return;
 
             var args = new UserCopiedEventArgs
-                           {
-                               TotalUsers = 0,
-                               UserNo = 0,
-                               UserName = "",
-                               PortalName = portal.PortalName,
-                               Stage = "starting"
-                           };
+            {
+                TotalUsers = 0,
+                UserNo = 0,
+                UserName = "",
+                PortalName = portal.PortalName,
+                Stage = "starting"
+            };
             callback(args);
         }
 
-        private void OnUserAddedToSiteGroup(UserCopiedCallback callback, PortalInfo portal,  UserInfo currentUser, int totalUsers, int currentUserNumber)
+        private void OnUserAddedToSiteGroup(UserCopiedCallback callback, PortalInfo portal, UserInfo currentUser, int totalUsers, int currentUserNumber)
         {
             if (callback == null) return;
 
             var args = new UserCopiedEventArgs
-                    {
-                        TotalUsers = totalUsers,
-                        UserNo = currentUserNumber,
-                        UserName = currentUser.Username,
-                        PortalName = portal.PortalName
-                    };
+            {
+                TotalUsers = totalUsers,
+                UserNo = currentUserNumber,
+                UserName = currentUser.Username,
+                PortalName = portal.PortalName
+            };
             callback(args);
         }
 
@@ -149,12 +148,12 @@ namespace DotNetNuke.Entities.Portals
             Requires.PropertyNotNegative("portalGroup", "MasterPortalId", portalGroup.MasterPortalId);
 
             OnAddPortalToGroupStart(callback, portal);
-            
+
             var users = UserController.GetUsers(portal.PortalID);
             var masterUsers = UserController.GetUsers(portalGroup.MasterPortalId);
             var totalUsers = users.Count + masterUsers.Count;
             var userNo = 0;
-            
+
             if (users.Count > 0)
             {
                 var masterPortal = _portalController.GetPortal(portalGroup.MasterPortalId);
@@ -196,7 +195,7 @@ namespace DotNetNuke.Entities.Portals
 
             OnAddPortalToGroupFinished(callback, portal, portalGroup, users.Count);
         }
-        
+
         private static void RemoveProfileDefinitions(PortalInfo portal)
         {
             foreach (ProfilePropertyDefinition definition in ProfileController.GetPropertyDefinitionsByPortal(portal.PortalID))
@@ -210,7 +209,7 @@ namespace DotNetNuke.Entities.Portals
             var sharedModules = GetSharedModulesWithPortal(portal);
             foreach (var sharedModule in sharedModules)
             {
-                ModuleController.Instance.DeleteTabModule(sharedModule.TabID, sharedModule.ModuleID, false);                
+                ModuleController.Instance.DeleteTabModule(sharedModule.TabID, sharedModule.ModuleID, false);
             }
 
             sharedModules = GetSharedModulesByPortal(portal);
@@ -228,7 +227,7 @@ namespace DotNetNuke.Entities.Portals
         private IEnumerable<ModuleInfo> GetSharedModulesByPortal(PortalInfo portal)
         {
             return CBO.FillCollection<ModuleInfo>(_dataService.GetSharedModulesByPortal(portal));
-        } 
+        }
 
         public int AddPortalGroup(PortalGroupInfo portalGroup)
         {
@@ -379,7 +378,7 @@ namespace DotNetNuke.Entities.Portals
 
             ClearCache();
         }
-        
+
         public bool IsModuleShared(int moduleId, PortalInfo portal)
         {
             if (portal == null) return false;

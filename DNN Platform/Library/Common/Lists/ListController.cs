@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,12 +35,10 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Common.Lists
 {
     public class ListController
     {
-
         public readonly string[] NonLocalizedLists = { "ContentTypes", "Processor", "DataType", "ProfanityFilter", "BannedPasswords" };
 
         #region Private Methods
@@ -126,7 +124,6 @@ namespace DotNetNuke.Common.Lists
 
         private IEnumerable<ListEntryInfo> GetListEntries(string listName, int portalId)
         {
-
             string cacheKey = string.Format(DataCache.ListEntriesCacheKey, portalId, listName);
             return CBO.GetCachedObject<IEnumerable<ListEntryInfo>>(new CacheItemArgs(cacheKey,
                                                                         DataCache.ListsCacheTimeOut,
@@ -164,14 +161,14 @@ namespace DotNetNuke.Common.Lists
             }
             if (System.Threading.Thread.CurrentThread.CurrentCulture.Name != DotNetNuke.Services.Localization.Localization.SystemLocale && !NonLocalizedLists.Contains(listEntry.ListName))
             {
-				if (string.IsNullOrEmpty(listEntry.ParentKey))
-				{
-					DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
-				}
-				else
-				{
-					DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.ParentKey + "." + listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
-				}
+                if (string.IsNullOrEmpty(listEntry.ParentKey))
+                {
+                    DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
+                }
+                else
+                {
+                    DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.ParentKey + "." + listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
+                }
             }
             ClearEntriesCache(listEntry.ListName, listEntry.PortalID);
             return entryId;
@@ -371,14 +368,14 @@ namespace DotNetNuke.Common.Lists
             {
                 ListEntryInfo oldItem = GetListEntryInfo(listEntry.EntryID); // look up existing db record to be able to just update the value or description and not touch the en-US text value
                 DataProvider.Instance().UpdateListEntry(listEntry.EntryID, listEntry.Value, oldItem.TextNonLocalized, listEntry.Description, UserController.Instance.GetCurrentUserInfo().UserID);
-				if (string.IsNullOrEmpty(listEntry.ParentKey))
-				{
-					DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
-				}
-				else
-				{
-					DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.ParentKey + "." + listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
-				}
+                if (string.IsNullOrEmpty(listEntry.ParentKey))
+                {
+                    DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
+                }
+                else
+                {
+                    DotNetNuke.Services.Localization.LocalizationProvider.Instance.SaveString(listEntry.ParentKey + "." + listEntry.Value + ".Text", listEntry.TextNonLocalized, "App_GlobalResources/List_" + listEntry.ListName + ".resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name, PortalController.Instance.GetCurrentPortalSettings(), Services.Localization.LocalizationProvider.CustomizedLocale.None, true, true);
+                }
             }
             EventLogController.Instance.AddLog(listEntry, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", EventLogController.EventLogType.LISTENTRY_UPDATED);
             ClearListCache(listEntry.PortalID);

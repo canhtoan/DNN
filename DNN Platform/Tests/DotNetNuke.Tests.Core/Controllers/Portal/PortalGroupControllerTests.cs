@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -39,13 +39,13 @@ using NUnit.Framework;
 namespace DotNetNuke.Tests.Core.Controllers.Portal
 {
     // ReSharper disable InconsistentNaming
-    
+
     [TestFixture]
     public class PortalGroupControllerTests
     {
         private Mock<DataProvider> _mockData;
 #pragma warning disable 649
-        private UserCopiedCallback userCopied;
+        private UserCopiedCallback _userCopied;
 #pragma warning restore 649
 
         #region Test Initialize
@@ -112,7 +112,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
             var portal = new PortalInfo { PortalID = Constants.PORTAL_ValidPortalId };
 
             //Act, Assert
-            controller.AddPortalToGroup(portal, null, userCopied);
+            controller.AddPortalToGroup(portal, null, _userCopied);
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
 
 
             //Act, Assert
-            controller.AddPortalToGroup(null, portalGroup, userCopied);
+            controller.AddPortalToGroup(null, portalGroup, _userCopied);
         }
 
         [Test]
@@ -139,12 +139,12 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
             var mockPortalController = new Mock<IPortalController>();
             var controller = new PortalGroupController(mockDataService.Object, mockPortalController.Object);
 
-            var portal = new PortalInfo {PortalID = Constants.PORTAL_ValidPortalId};
+            var portal = new PortalInfo { PortalID = Constants.PORTAL_ValidPortalId };
 
             PortalGroupInfo portalGroup = new PortalGroupInfo { PortalGroupId = -1 };
 
             //Act, Assert
-            controller.AddPortalToGroup(portal, portalGroup, userCopied);
+            controller.AddPortalToGroup(portal, portalGroup, _userCopied);
         }
 
         [Test]
@@ -161,7 +161,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
             PortalGroupInfo portalGroup = new PortalGroupInfo { PortalGroupId = Constants.PORTALGROUP_ValidPortalGroupId };
 
             //Act, Assert
-            controller.AddPortalToGroup(portal, portalGroup, userCopied);
+            controller.AddPortalToGroup(portal, portalGroup, _userCopied);
         }
 
         #endregion
@@ -396,7 +396,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
             var portal = new PortalInfo { PortalID = Constants.PORTAL_ValidPortalId };
 
             //Act, Assert
-            controller.RemovePortalFromGroup(portal, null, false, userCopied);
+            controller.RemovePortalFromGroup(portal, null, false, _userCopied);
         }
 
         [Test]
@@ -411,7 +411,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
 
 
             //Act, Assert
-            controller.RemovePortalFromGroup(null, portalGroup, false, userCopied);
+            controller.RemovePortalFromGroup(null, portalGroup, false, _userCopied);
         }
 
         [Test]
@@ -428,7 +428,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
             PortalGroupInfo portalGroup = new PortalGroupInfo { PortalGroupId = -1 };
 
             //Act, Assert
-            controller.RemovePortalFromGroup(portal, portalGroup, false, userCopied);
+            controller.RemovePortalFromGroup(portal, portalGroup, false, _userCopied);
         }
 
         [Test]
@@ -445,7 +445,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
             PortalGroupInfo portalGroup = new PortalGroupInfo { PortalGroupId = Constants.PORTALGROUP_ValidPortalGroupId };
 
             //Act, Assert
-            controller.RemovePortalFromGroup(portal, portalGroup, false, userCopied);
+            controller.RemovePortalFromGroup(portal, portalGroup, false, _userCopied);
         }
 
         #endregion
@@ -536,12 +536,12 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
 
         private static PortalGroupInfo CreateValidPortalGroup()
         {
-            var portalGroup = new PortalGroupInfo 
-                                        {
-                                            PortalGroupName = Constants.PORTALGROUP_ValidName,
-                                            PortalGroupDescription = Constants.PORTALGROUP_ValidDescription,
-                                            MasterPortalId = Constants.PORTAL_ValidPortalId
-                                        };
+            var portalGroup = new PortalGroupInfo
+            {
+                PortalGroupName = Constants.PORTALGROUP_ValidName,
+                PortalGroupDescription = Constants.PORTALGROUP_ValidDescription,
+                MasterPortalId = Constants.PORTAL_ValidPortalId
+            };
             return portalGroup;
         }
 
@@ -559,7 +559,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
                                    {
                                        i,
                                        -1,
-                                       name, 
+                                       name,
                                        description,
                                        domain,
                                        userId
@@ -568,7 +568,6 @@ namespace DotNetNuke.Tests.Core.Controllers.Portal
 
             return table.CreateDataReader();
         }
- 
     }
 
     // ReSharper restore InconsistentNaming

@@ -17,21 +17,18 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
-
-	public class RenderTemplateUrl : System.Web.UI.WebControls.Literal
-	{
-
-		protected override void OnPreRender(System.EventArgs e)
-		{
-			base.OnPreRender(e);
-			Text = "<script type=\"text/javascript\">var __dnnTemplateBaseUrl=\"" + Page.ResolveUrl("~/DesktopModules/Admin/RadEditorProvider/Dialogs/RenderTemplate.aspx") + "\";</script>";
-		}
-
-	}
-
+    public class RenderTemplateUrl : System.Web.UI.WebControls.Literal
+    {
+        protected override void OnPreRender(System.EventArgs e)
+        {
+            base.OnPreRender(e);
+            Text = "<script type=\"text/javascript\">var __dnnTemplateBaseUrl=\"" + Page.ResolveUrl("~/DesktopModules/Admin/RadEditorProvider/Dialogs/RenderTemplate.aspx") + "\";</script>";
+        }
+    }
 }

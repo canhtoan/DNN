@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Xml;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Modules.Dashboard.Data;
 
 #endregion
-
 namespace DotNetNuke.Modules.Dashboard.Components.Portals
 {
     public class PortalsController : IDashboardData
@@ -36,15 +35,15 @@ namespace DotNetNuke.Modules.Dashboard.Components.Portals
 
         public void ExportData(XmlWriter writer)
         {
-			//Write start of Portals 
+            //Write start of Portals 
             writer.WriteStartElement("portals");
-			
-			//Iterate through Portals 
+
+            //Iterate through Portals 
             foreach (PortalInfo portal in GetPortals())
             {
                 portal.WriteXml(writer);
             }
-			
+
             //Write end of Portals 
             writer.WriteEndElement();
         }

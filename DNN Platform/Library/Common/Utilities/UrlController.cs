@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.IO;
@@ -32,14 +32,13 @@ using DotNetNuke.Services.FileSystem;
 using FileInfo = DotNetNuke.Services.FileSystem.FileInfo;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     public class UrlController
     {
         public ArrayList GetUrls(int PortalID)
         {
-            return CBO.FillCollection(DataProvider.Instance().GetUrls(PortalID), typeof (UrlInfo));
+            return CBO.FillCollection(DataProvider.Instance().GetUrls(PortalID), typeof(UrlInfo));
         }
 
         public UrlInfo GetUrl(int PortalID, string Url)
@@ -90,7 +89,7 @@ namespace DotNetNuke.Common.Utilities
             TabType UrlType = Globals.GetURLType(Url);
             if (UrlType == TabType.File && Url.ToLower().StartsWith("fileid=") == false)
             {
-				//to handle legacy scenarios before the introduction of the FileServerHandler
+                //to handle legacy scenarios before the introduction of the FileServerHandler
                 var fileName = Path.GetFileName(Url);
 
                 var folderPath = Url.Substring(0, Url.LastIndexOf(fileName));
@@ -124,7 +123,7 @@ namespace DotNetNuke.Common.Utilities
             UrlTrackingInfo objUrlTracking = GetUrlTracking(PortalID, Url, ModuleId);
             if (objUrlTracking != null)
             {
-                arrUrlLog = CBO.FillCollection(DataProvider.Instance().GetUrlLog(objUrlTracking.UrlTrackingID, StartDate, EndDate), typeof (UrlLogInfo));
+                arrUrlLog = CBO.FillCollection(DataProvider.Instance().GetUrlLog(objUrlTracking.UrlTrackingID, StartDate, EndDate), typeof(UrlLogInfo));
             }
             return arrUrlLog;
         }

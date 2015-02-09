@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,75 +29,74 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Mobile
 {
     [Serializable]
-	public class MatchRule : IMatchRule, IHydratable
-	{
-		private int _id = -1;
+    public class MatchRule : IMatchRule, IHydratable
+    {
+        private int _id = -1;
 
-		/// <summary>
-		/// Match rule's primary key.
-		/// </summary>
+        /// <summary>
+        /// Match rule's primary key.
+        /// </summary>
         [XmlAttribute]
-		public int Id
-		{
-			get
-			{
-				return _id;
-			}
-			set
-			{
-				_id = value;
-			}
-		}
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
 
-		/// <summary>
-		/// Capability's name.
-		/// </summary>
+        /// <summary>
+        /// Capability's name.
+        /// </summary>
         [XmlAttribute]
         public string Capability
-		{
-			get;
-			set;
-		}
+        {
+            get;
+            set;
+        }
 
-		/// <summary>
-		/// The value to match the capability from request.
-		/// </summary>
+        /// <summary>
+        /// The value to match the capability from request.
+        /// </summary>
         [XmlAttribute]
         public string Expression
-		{
-			get;
-			set;
-		}
+        {
+            get;
+            set;
+        }
 
-		/// <summary>
-		/// IHydratable.KeyID.
-		/// </summary>
+        /// <summary>
+        /// IHydratable.KeyID.
+        /// </summary>
         [XmlAttribute]
         public int KeyID
-		{
-			get
-			{
-				return this.Id;
-			}
-			set
-			{
-				this.Id = value;
-			}
-		}
+        {
+            get
+            {
+                return this.Id;
+            }
+            set
+            {
+                this.Id = value;
+            }
+        }
 
-		/// <summary>
-		/// Fill the object with data from database.
-		/// </summary>
-		/// <param name="dr">the data reader.</param>
-		public void Fill(System.Data.IDataReader dr)
-		{
-			this.Id = Convert.ToInt32(dr["Id"]);
-			this.Capability = dr["Capability"].ToString();
-			this.Expression = dr["Expression"].ToString();
-		}
-	}
+        /// <summary>
+        /// Fill the object with data from database.
+        /// </summary>
+        /// <param name="dr">the data reader.</param>
+        public void Fill(System.Data.IDataReader dr)
+        {
+            this.Id = Convert.ToInt32(dr["Id"]);
+            this.Capability = dr["Capability"].ToString();
+            this.Expression = dr["Expression"].ToString();
+        }
+    }
 }

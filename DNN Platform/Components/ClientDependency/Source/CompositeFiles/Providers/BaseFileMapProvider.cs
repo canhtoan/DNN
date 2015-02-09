@@ -7,7 +7,6 @@ namespace ClientDependency.Core.CompositeFiles.Providers
 {
     public abstract class BaseFileMapProvider : ProviderBase, IHttpProvider
     {
-        
         /// <summary>
         /// Retreives the file map for the key/version/compression type specified
         /// </summary>
@@ -15,8 +14,8 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         /// <param name="version"></param>
         /// <param name="compression"></param>
         /// <returns></returns>
-        public abstract CompositeFileMap GetCompositeFile(string fileKey, 
-            int version, 
+        public abstract CompositeFileMap GetCompositeFile(string fileKey,
+            int version,
             string compression);
 
         /// <summary>
@@ -35,10 +34,10 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         /// <param name="dependentFiles"></param>
         /// <param name="compositeFile"></param>
         /// <param name="version"></param>
-        public abstract void CreateUpdateMap(string fileKey, 
+        public abstract void CreateUpdateMap(string fileKey,
             string compressionType,
-            IEnumerable<IClientDependencyFile> dependentFiles, 
-            string compositeFile, 
+            IEnumerable<IClientDependencyFile> dependentFiles,
+            string compositeFile,
             int version);
 
         /// <summary>
@@ -53,7 +52,5 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         /// </summary>
         /// <param name="http"></param>
         public abstract void Initialize(System.Web.HttpContextBase http);
-
-
     }
 }

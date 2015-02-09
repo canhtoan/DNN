@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -35,15 +35,13 @@ using DotNetNuke.Framework;
 using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Scheduling;
 using DotNetNuke.UI.Skins;
+using DotNetNuke.Entities.Portals;
+
+using Web.Client;
 
 #endregion
-
 namespace DotNetNuke.Entities.Host
 {
-    using DotNetNuke.Entities.Portals;
-
-    using Web.Client;
-
     /// <summary>
 	/// Contains most of the host settings.
 	/// </summary>
@@ -426,7 +424,7 @@ namespace DotNetNuke.Entities.Host
                 return HostController.Instance.GetBoolean("EnableBannedList", true);
             }
         }
-        
+
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -677,7 +675,7 @@ namespace DotNetNuke.Entities.Host
                 return HostController.Instance.GetBoolean("SMTPEnableSSL", false);
             }
         }
-        
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         ///   Gets whether the Event Log Buffer is Enabled
@@ -707,7 +705,7 @@ namespace DotNetNuke.Entities.Host
                 return new FileExtensionWhitelist(HostController.Instance.GetString("FileExtensions"));
             }
         }
-        
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         ///   Gets the GUID
@@ -900,7 +898,7 @@ namespace DotNetNuke.Entities.Host
         {
             get
             {
-                return HostController.Instance.GetInteger("MessageSchedulerBatchSize",50);
+                return HostController.Instance.GetInteger("MessageSchedulerBatchSize", 50);
             }
         }
 
@@ -1077,7 +1075,7 @@ namespace DotNetNuke.Entities.Host
             }
         }
 
-        private static Globals.PerformanceSettings? _performanceSetting;
+        private static Globals.PerformanceSettings? s_performanceSetting;
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -1094,7 +1092,7 @@ namespace DotNetNuke.Entities.Host
         {
             get
             {
-                if (!_performanceSetting.HasValue)
+                if (!s_performanceSetting.HasValue)
                 {
                     var s = HostController.Instance.GetString("PerformanceSetting");
                     if (string.IsNullOrEmpty(s))
@@ -1102,12 +1100,12 @@ namespace DotNetNuke.Entities.Host
                         return Globals.PerformanceSettings.ModerateCaching;
                     }
 
-                    _performanceSetting = (Globals.PerformanceSettings)Enum.Parse(typeof(Globals.PerformanceSettings), s);
+                    s_performanceSetting = (Globals.PerformanceSettings)Enum.Parse(typeof(Globals.PerformanceSettings), s);
                 }
 
-                return _performanceSetting.Value;
+                return s_performanceSetting.Value;
             }
-            set { _performanceSetting = value; }
+            set { s_performanceSetting = value; }
         }
 
         /// -----------------------------------------------------------------------------
@@ -1244,7 +1242,7 @@ namespace DotNetNuke.Entities.Host
                 string s = HostController.Instance.GetString("SchedulerMode");
                 if (!string.IsNullOrEmpty(s))
                 {
-                    setting = (SchedulerMode) Enum.Parse(typeof (SchedulerMode), s);
+                    setting = (SchedulerMode)Enum.Parse(typeof(SchedulerMode), s);
                 }
                 return setting;
             }
@@ -1770,28 +1768,28 @@ namespace DotNetNuke.Entities.Host
             }
         }
 
-		/// <summary>
-		///   Gets the Url for a hosted version of jQuery Migrate plugin.
-		/// </summary>
-		/// <remarks>
-		///   Defaults to the DefaultHostedUrl constant in the jQuery class.
-		///   The framework will default to the latest released 1.x version hosted on Google.
-		/// </remarks>
-		[Obsolete("This is managed through the JavaScript Library package")]
-		public static string jQueryMigrateUrl
-		{
-			get
-			{
-				if (HttpContext.Current.Request.IsSecureConnection)
-				{
-					return HostController.Instance.GetString("jQueryMigrateUrl", string.Empty).Replace("http://", "https://");
-				}
-				else
-				{
-					return HostController.Instance.GetString("jQueryMigrateUrl", string.Empty);
-				}
-			}
-		}
+        /// <summary>
+        ///   Gets the Url for a hosted version of jQuery Migrate plugin.
+        /// </summary>
+        /// <remarks>
+        ///   Defaults to the DefaultHostedUrl constant in the jQuery class.
+        ///   The framework will default to the latest released 1.x version hosted on Google.
+        /// </remarks>
+        [Obsolete("This is managed through the JavaScript Library package")]
+        public static string jQueryMigrateUrl
+        {
+            get
+            {
+                if (HttpContext.Current.Request.IsSecureConnection)
+                {
+                    return HostController.Instance.GetString("jQueryMigrateUrl", string.Empty).Replace("http://", "https://");
+                }
+                else
+                {
+                    return HostController.Instance.GetString("jQueryMigrateUrl", string.Empty);
+                }
+            }
+        }
 
         /// <summary>
         ///   Gets the Url for a hosted version of jQuery UI
@@ -1816,76 +1814,76 @@ namespace DotNetNuke.Entities.Host
             }
         }
 
-		/// <summary>
-		///   Gets whether to use a hosted version of the MS Ajax Library
-		/// </summary>
-		/// <remarks>
-		///   Defaults to False
-		/// </remarks>
-	    public static bool EnableMsAjaxCdn
-	    {
-		    get
-		    {
-				return HostController.Instance.GetBoolean("EnableMsAjaxCDN", false);
-		    }
-	    }
+        /// <summary>
+        ///   Gets whether to use a hosted version of the MS Ajax Library
+        /// </summary>
+        /// <remarks>
+        ///   Defaults to False
+        /// </remarks>
+        public static bool EnableMsAjaxCdn
+        {
+            get
+            {
+                return HostController.Instance.GetBoolean("EnableMsAjaxCDN", false);
+            }
+        }
 
-		/// <summary>
-		///   Gets whether to use a hosted version of the Telerik Library
-		/// </summary>
-		/// <remarks>
-		///   Defaults to False
-		/// </remarks>
-		public static bool EnableTelerikCdn
-		{
-			get
-			{
-				return HostController.Instance.GetBoolean("EnableTelerikCDN", false);
-			}
-		}
+        /// <summary>
+        ///   Gets whether to use a hosted version of the Telerik Library
+        /// </summary>
+        /// <remarks>
+        ///   Defaults to False
+        /// </remarks>
+        public static bool EnableTelerikCdn
+        {
+            get
+            {
+                return HostController.Instance.GetBoolean("EnableTelerikCDN", false);
+            }
+        }
 
-		/// <summary>
-		/// Get Telerik CDN Basic Path.
-		/// </summary>
-	    public static string TelerikCdnBasicUrl
-	    {
-			get
-			{
-				return HostController.Instance.GetString("TelerikCDNBasicUrl");
-			}
-	    }
+        /// <summary>
+        /// Get Telerik CDN Basic Path.
+        /// </summary>
+        public static string TelerikCdnBasicUrl
+        {
+            get
+            {
+                return HostController.Instance.GetString("TelerikCDNBasicUrl");
+            }
+        }
 
-		/// <summary>
-		/// Get Telerik CDN Secure Path.
-		/// </summary>
-		public static string TelerikCdnSecureUrl
-		{
-			get
-			{
-				return HostController.Instance.GetString("TelerikCDNSecureUrl");
-			}
-		}
+        /// <summary>
+        /// Get Telerik CDN Secure Path.
+        /// </summary>
+        public static string TelerikCdnSecureUrl
+        {
+            get
+            {
+                return HostController.Instance.GetString("TelerikCDNSecureUrl");
+            }
+        }
 
-		/// <summary>
-		/// Get the time, in seconds, before asynchronous postbacks time out if no response is received.
-		/// </summary>
-		public static int AsyncTimeout
-		{
-			get
-			{
-				var timeout = HostController.Instance.GetInteger("AsyncTimeout", 90);
-				if (timeout < 90)
-				{
-					timeout = 90;
-				}
+        /// <summary>
+        /// Get the time, in seconds, before asynchronous postbacks time out if no response is received.
+        /// </summary>
+        public static int AsyncTimeout
+        {
+            get
+            {
+                var timeout = HostController.Instance.GetInteger("AsyncTimeout", 90);
+                if (timeout < 90)
+                {
+                    timeout = 90;
+                }
 
-				return timeout;
-			}
-		}
+                return timeout;
+            }
+        }
         /// <summary>
         /// Get the IgnoreWhiteList value, used during portal template import.
         /// </summary>
-        static bool IgnoreWhiteList
+        private static bool IgnoreWhiteList
         {
             get { return HostController.Instance.GetBoolean("IgnoreWhiteList", false); }
         }
@@ -2031,7 +2029,6 @@ namespace DotNetNuke.Entities.Host
                 return false;
             }
         }
-
 
         #endregion
     }

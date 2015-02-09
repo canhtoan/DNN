@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Modules.Groups.Components
 {
     internal class GroupMemberType

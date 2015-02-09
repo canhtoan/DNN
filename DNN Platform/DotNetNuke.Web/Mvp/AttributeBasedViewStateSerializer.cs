@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.Mvp
 {
     public class AttributeBasedViewStateSerializer
@@ -41,7 +40,7 @@ namespace DotNetNuke.Web.Mvp
             foreach (PropertyInfo member in typ.GetProperties(MemberBindingFlags))
             {
                 //Determine if they are attributed with a ViewState Attribute
-                ViewStateAttribute attr = member.GetCustomAttributes(typeof (ViewStateAttribute), true).OfType<ViewStateAttribute>().FirstOrDefault();
+                ViewStateAttribute attr = member.GetCustomAttributes(typeof(ViewStateAttribute), true).OfType<ViewStateAttribute>().FirstOrDefault();
                 if ((attr != null))
                 {
                     //Get object from ViewState bag
@@ -65,7 +64,7 @@ namespace DotNetNuke.Web.Mvp
             foreach (PropertyInfo member in typ.GetProperties(MemberBindingFlags))
             {
                 //Determine if they are attributed with a ViewState Attribute
-                ViewStateAttribute attr = member.GetCustomAttributes(typeof (ViewStateAttribute), true).OfType<ViewStateAttribute>().FirstOrDefault();
+                ViewStateAttribute attr = member.GetCustomAttributes(typeof(ViewStateAttribute), true).OfType<ViewStateAttribute>().FirstOrDefault();
                 if ((attr != null))
                 {
                     //Add property to ViewState bag

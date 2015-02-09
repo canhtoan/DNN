@@ -11,12 +11,12 @@ namespace DotNetNuke.Services.FileSystem.FolderMappings
         /// All folder types read from folderMappings config file
         /// </summary>
         IList<FolderTypeConfig> FolderTypes { get; }
-        
+
         /// <summary>
         /// Root node in folderMappings config file
         /// </summary>
         string ConfigNode { get; }
-        
+
         /// <summary>
         /// Load data from folderMappings config file
         /// </summary>

@@ -30,7 +30,6 @@
 // Author Url: http://voiceoftech.com/
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -52,7 +51,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
     public abstract class OAuthClientBase
     {
         #region Private Members
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(OAuthClientBase));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(OAuthClientBase));
         private const string HMACSHA1SignatureType = "HMAC-SHA1";
 
         //oAuth 1
@@ -75,7 +74,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
         private const string OAuthGrantTyepKey = "grant_type";
         private const string OAuthCodeKey = "code";
 
-        private readonly Random random = new Random();
+        private readonly Random _random = new Random();
 
         private const string UnreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
 
@@ -102,7 +101,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
 
         protected const string OAuthTokenKey = "oauth_token";
 
-        protected virtual string UserGuidKey 
+        protected virtual string UserGuidKey
         {
             get { return String.Empty; }
         }
@@ -131,7 +130,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
         protected Uri TokenEndpoint { get; set; }
 
         //oAuth 2
-        protected string AuthTokenName { get; set; }        
+        protected string AuthTokenName { get; set; }
         protected string Scope { get; set; }
         protected string VerificationCode
         {
@@ -291,7 +290,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
             string nonce = GenerateNonce();
             string timeStamp = GenerateTimeStamp();
 
-            string verifier = (uri == TokenEndpoint) ? OAuthVerifier: String.Empty;
+            string verifier = (uri == TokenEndpoint) ? OAuthVerifier : String.Empty;
             //Generate Signature
             string sig = GenerateSignature(uri,
                                             AuthToken,
@@ -348,8 +347,8 @@ namespace DotNetNuke.Services.Authentication.OAuth
             }
             else
             {
-                request = WebRequest.CreateDefault(String.IsNullOrEmpty(parameters) 
-                            ? new Uri(uri.ToString()) 
+                request = WebRequest.CreateDefault(String.IsNullOrEmpty(parameters)
+                            ? new Uri(uri.ToString())
                             : new Uri(uri + "?" + parameters));
             }
 
@@ -383,7 +382,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
                     {
                         using (var responseReader = new StreamReader(responseStream))
                         {
-                            Logger.ErrorFormat("WebResponse exception: {0}", responseReader.ReadToEnd());
+                            s_logger.ErrorFormat("WebResponse exception: {0}", responseReader.ReadToEnd());
                         }
                     }
                 }
@@ -548,7 +547,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
         protected virtual string GenerateNonce()
         {
             // Just a simple implementation of a random number between 123400 and 9999999
-            return random.Next(123400, 9999999).ToString(CultureInfo.InvariantCulture);
+            return _random.Next(123400, 9999999).ToString(CultureInfo.InvariantCulture);
         }
 
         protected virtual TimeSpan GetExpiry(string responseText)
@@ -591,9 +590,9 @@ namespace DotNetNuke.Services.Authentication.OAuth
 
             //Raise UserAuthenticated Event
             var eventArgs = new UserAuthenticatedEventArgs(objUserInfo, userName, loginStatus, Service)
-                                            {
-                                                AutoRegister = true
-                                            };
+            {
+                AutoRegister = true
+            };
 
             var profileProperties = new NameValueCollection();
 
@@ -684,12 +683,12 @@ namespace DotNetNuke.Services.Authentication.OAuth
             string signatureBase = GenerateSignatureBase(url, token, callbackurl, oauthVerifier, httpMethod, timeStamp, nonce, out normalizedUrl, out requestParameters);
 
             var hmacsha1 = new HMACSHA1
-                               {
-                                   Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", UrlEncode(APISecret),
+            {
+                Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", UrlEncode(APISecret),
                                                                              string.IsNullOrEmpty(tokenSecret)
                                                                                  ? ""
                                                                                  : UrlEncode(tokenSecret)))
-                               };
+            };
 
             return GenerateSignatureUsingHash(signatureBase, hmacsha1);
         }
@@ -704,7 +703,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
             }
 
             string responseText = (OAuthVersion == "1.0")
-                ? ExecuteAuthorizedRequest(HttpMethod.GET, MeGraphEndpoint) 
+                ? ExecuteAuthorizedRequest(HttpMethod.GET, MeGraphEndpoint)
                 : ExecuteWebRequest(HttpMethod.GET, new Uri(MeGraphEndpoint + "?" + "access_token=" + AuthToken), null, String.Empty);
             var user = Json.Deserialize<TUserData>(responseText);
             return user;

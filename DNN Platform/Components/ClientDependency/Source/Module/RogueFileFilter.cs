@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,21 +15,19 @@ using System.Net;
 
 namespace ClientDependency.Core.Module
 {
-
     /// <summary>
     /// Used as an http response filter to modify the contents of the output html.
     /// This filter is used to intercept js and css rogue registrations on the html page.
     /// </summary>
     public class RogueFileFilter : IFilter
     {
-
         #region Private members
 
-        private bool? m_Runnable = null;
-        private string m_MatchScript = "<script(?:(?:.*(?<src>(?<=src=\")[^\"]*(?=\"))[^>]*)|[^>]*)>(?<content>(?:(?:\n|.)(?!(?:\n|.)<script))*)</script>";
-        private string m_MatchLink = "<link\\s+[^>]*(href\\s*=\\s*(['\"])(?<href>.*?)\\2)";
+        private bool? _runnable = null;
+        private string _matchScript = "<script(?:(?:.*(?<src>(?<=src=\")[^\"]*(?=\"))[^>]*)|[^>]*)>(?<content>(?:(?:\n|.)(?!(?:\n|.)<script))*)</script>";
+        private string _matchLink = "<link\\s+[^>]*(href\\s*=\\s*(['\"])(?<href>.*?)\\2)";
 
-        private RogueFileCompressionElement m_FoundPath = null;
+        private RogueFileCompressionElement _foundPath = null;
 
         #endregion
 
@@ -38,7 +36,7 @@ namespace ClientDependency.Core.Module
         public void SetHttpContext(HttpContextBase ctx)
         {
             CurrentContext = ctx;
-            m_FoundPath = GetSupportedPath();
+            _foundPath = GetSupportedPath();
         }
 
         /// <summary>
@@ -65,12 +63,11 @@ namespace ClientDependency.Core.Module
                 return false;
             }
 
-            if (!m_Runnable.HasValue)
+            if (!_runnable.HasValue)
             {
-                m_Runnable = (m_FoundPath != null);
+                _runnable = (_foundPath != null);
             }
-            return m_Runnable.Value;
-
+            return _runnable.Value;
         }
 
         /// <summary>
@@ -115,9 +112,9 @@ namespace ClientDependency.Core.Module
         private string ReplaceScripts(string html)
         {
             //check if we should be processing!            
-            if (CanExecute() && m_FoundPath.CompressJs)
+            if (CanExecute() && _foundPath.CompressJs)
             {
-                return ReplaceContent(html, "src", m_FoundPath.JsRequestExtension.Split(','), ClientDependencyType.Javascript, m_MatchScript, CurrentContext);
+                return ReplaceContent(html, "src", _foundPath.JsRequestExtension.Split(','), ClientDependencyType.Javascript, _matchScript, CurrentContext);
             }
             return html;
         }
@@ -131,9 +128,9 @@ namespace ClientDependency.Core.Module
         private string ReplaceStyles(string html)
         {
             //check if we should be processing!            
-            if (CanExecute() && m_FoundPath.CompressCss)
+            if (CanExecute() && _foundPath.CompressCss)
             {
-                return ReplaceContent(html, "href", m_FoundPath.CssRequestExtension.Split(','), ClientDependencyType.Css, m_MatchLink, CurrentContext);
+                return ReplaceContent(html, "href", _foundPath.CssRequestExtension.Split(','), ClientDependencyType.Css, _matchLink, CurrentContext);
             }
             return html;
         }
@@ -168,7 +165,7 @@ namespace ClientDependency.Core.Module
                         || grp.ToString().StartsWith(ClientDependencySettings.Instance.CompositeFileHandlerPath))
                         return m.ToString();
 
-                    
+
                     //make sure that it's an internal request, though we can deal with external 
                     //requests, we'll leave that up to the developer to register an external request
                     //explicitly if they want to include in the composite scripts.
@@ -179,7 +176,6 @@ namespace ClientDependency.Core.Module
                             return m.ToString(); //not a local uri        
                         else
                         {
-                           
                             var dependency = new BasicFile(type) { FilePath = grp.ToString() };
 
                             var file = new[] { new BasicFile(type) { FilePath = dependency.ResolveFilePath(http) } };
@@ -197,15 +193,12 @@ namespace ClientDependency.Core.Module
                         //malformed url, let's exit
                         return m.ToString();
                     }
-
                 },
                 RegexOptions.Compiled);
 
             return html;
         }
 
-
         #endregion
-
     }
 }

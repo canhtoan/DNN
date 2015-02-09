@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +33,6 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Search.Entities;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules.Definitions
 {
     /// -----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ namespace DotNetNuke.Entities.Modules.Definitions
     public class ModuleDefinitionController
     {
         private const string key = "ModuleDefID";
-        private static readonly DataProvider dataProvider = DataProvider.Instance();
+        private static readonly DataProvider s_dataProvider = DataProvider.Instance();
 
         #region Private Members
 
@@ -68,7 +67,7 @@ namespace DotNetNuke.Entities.Modules.Definitions
         /// -----------------------------------------------------------------------------
         private static object GetModuleDefinitionsCallBack(CacheItemArgs cacheItemArgs)
         {
-            return CBO.FillDictionary(key, dataProvider.GetModuleDefinitions(), new Dictionary<int, ModuleDefinitionInfo>());
+            return CBO.FillDictionary(key, s_dataProvider.GetModuleDefinitions(), new Dictionary<int, ModuleDefinitionInfo>());
         }
 
         #endregion
@@ -98,13 +97,13 @@ namespace DotNetNuke.Entities.Modules.Definitions
         /// -----------------------------------------------------------------------------
         public void DeleteModuleDefinition(int moduleDefinitionId)
         {
-			//Delete associated permissions
+            //Delete associated permissions
             var permissionController = new PermissionController();
             foreach (PermissionInfo permission in permissionController.GetPermissionsByModuleDefID(moduleDefinitionId))
             {
                 permissionController.DeletePermission(permission.PermissionID);
             }
-            dataProvider.DeleteModuleDefinition(moduleDefinitionId);
+            s_dataProvider.DeleteModuleDefinition(moduleDefinitionId);
             DataCache.ClearHostCache(true);
 
             // queue remove module definition from search index
@@ -133,17 +132,17 @@ namespace DotNetNuke.Entities.Modules.Definitions
                    .FirstOrDefault();
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// GetModuleDefinitionByFriendlyName gets a Module Definition by its Friendly
-		/// Name (and DesktopModuleID)
-		/// </summary>
-		/// <param name="friendlyName">The friendly name</param>
-		/// <history>
-		/// 	[cnurse]	01/14/2008   Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		public static ModuleDefinitionInfo GetModuleDefinitionByFriendlyName(string friendlyName)
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// GetModuleDefinitionByFriendlyName gets a Module Definition by its Friendly
+        /// Name (and DesktopModuleID)
+        /// </summary>
+        /// <param name="friendlyName">The friendly name</param>
+        /// <history>
+        /// 	[cnurse]	01/14/2008   Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        public static ModuleDefinitionInfo GetModuleDefinitionByFriendlyName(string friendlyName)
         {
             Requires.NotNullOrEmpty("friendlyName", friendlyName);
 
@@ -185,7 +184,7 @@ namespace DotNetNuke.Entities.Modules.Definitions
         /// -----------------------------------------------------------------------------
         public static Dictionary<int, ModuleDefinitionInfo> GetModuleDefinitions()
         {
-            return CBO.GetCachedObject<Dictionary<int, ModuleDefinitionInfo>>(new CacheItemArgs(DataCache.ModuleDefinitionCacheKey, 
+            return CBO.GetCachedObject<Dictionary<int, ModuleDefinitionInfo>>(new CacheItemArgs(DataCache.ModuleDefinitionCacheKey,
                                                                                         DataCache.ModuleDefinitionCachePriority),
                                                                               GetModuleDefinitionsCallBack);
         }
@@ -240,8 +239,8 @@ namespace DotNetNuke.Entities.Modules.Definitions
             int moduleDefinitionID = moduleDefinition.ModuleDefID;
             if (moduleDefinitionID == Null.NullInteger)
             {
-				//Add new Module Definition
-                moduleDefinitionID = dataProvider.AddModuleDefinition(moduleDefinition.DesktopModuleID,
+                //Add new Module Definition
+                moduleDefinitionID = s_dataProvider.AddModuleDefinition(moduleDefinition.DesktopModuleID,
                                                                       moduleDefinition.FriendlyName,
                                                                       moduleDefinition.DefinitionName,
                                                                       moduleDefinition.DefaultCacheTime,
@@ -249,8 +248,8 @@ namespace DotNetNuke.Entities.Modules.Definitions
             }
             else
             {
-				//Upgrade Module Definition
-                dataProvider.UpdateModuleDefinition(moduleDefinition.ModuleDefID, moduleDefinition.FriendlyName, moduleDefinition.DefinitionName, moduleDefinition.DefaultCacheTime, UserController.Instance.GetCurrentUserInfo().UserID);
+                //Upgrade Module Definition
+                s_dataProvider.UpdateModuleDefinition(moduleDefinition.ModuleDefID, moduleDefinition.FriendlyName, moduleDefinition.DefinitionName, moduleDefinition.DefaultCacheTime, UserController.Instance.GetCurrentUserInfo().UserID);
             }
             if (saveChildren)
             {
@@ -263,7 +262,7 @@ namespace DotNetNuke.Entities.Modules.Definitions
                     ArrayList permissions = permissionController.GetPermissionByCodeAndKey(kvp.Value.PermissionCode, kvp.Value.PermissionKey);
                     if (permissions != null && permissions.Count == 1)
                     {
-                        var permission = (PermissionInfo) permissions[0];
+                        var permission = (PermissionInfo)permissions[0];
                         kvp.Value.PermissionID = permission.PermissionID;
                         permissionController.UpdatePermission(kvp.Value);
                     }

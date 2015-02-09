@@ -4,9 +4,9 @@
 // by DotNetNuke Corporation
 // All Rights Reserved
 // 
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -26,97 +26,94 @@ using Moq;
 using NUnit.Framework;
 
 #endregion
-
 namespace DotNetNuke.Tests.MobileManagement
 {
-	// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
-	[TestFixture]
-	public class RedirectionManagerPresenterTests
-	{
-		#region "Private Properties"
+    [TestFixture]
+    public class RedirectionManagerPresenterTests
+    {
+        #region "Private Properties"
 
-		private Mock<IRedirectionManagerView> _mockView;
-		private Mock<IRedirectionController> _mockController;
-		private RedirectionManagerPresenter _presenter;
+        private Mock<IRedirectionManagerView> _mockView;
+        private Mock<IRedirectionController> _mockController;
+        private RedirectionManagerPresenter _presenter;
 
-		#endregion
+        #endregion
 
-		#region "Set Up"
+        #region "Set Up"
 
-		[SetUp]
-		public void Setup()
-		{
-			_mockView = MockHelper.CreateNew<IRedirectionManagerView>();
-			_mockView.Setup(v => v.Model).Returns(new RedirectionManagerViewModel());
+        [SetUp]
+        public void Setup()
+        {
+            _mockView = MockHelper.CreateNew<IRedirectionManagerView>();
+            _mockView.Setup(v => v.Model).Returns(new RedirectionManagerViewModel());
 
-			_mockController = MockHelper.CreateNew<IRedirectionController>();
-			_mockController.Setup(c => c.GetRedirectionById(It.IsAny<int>(), It.IsAny<int>())).Returns<int, int>(GetRedirectionByIdCallback);
-			_mockController.Setup(c => c.GetRedirectionsByPortal(It.IsAny<int>())).Returns<int>(GetRedirectionsByPortalCallback);
-			_mockController.Setup(c => c.Save(It.IsAny<IRedirection>())).Callback<IRedirection>(SaveCallback);
-			_mockController.Setup(c => c.Delete(It.IsAny<int>(), It.IsAny<int>())).Callback<int, int>(DeleteCallback);
+            _mockController = MockHelper.CreateNew<IRedirectionController>();
+            _mockController.Setup(c => c.GetRedirectionById(It.IsAny<int>(), It.IsAny<int>())).Returns<int, int>(GetRedirectionByIdCallback);
+            _mockController.Setup(c => c.GetRedirectionsByPortal(It.IsAny<int>())).Returns<int>(GetRedirectionsByPortalCallback);
+            _mockController.Setup(c => c.Save(It.IsAny<IRedirection>())).Callback<IRedirection>(SaveCallback);
+            _mockController.Setup(c => c.Delete(It.IsAny<int>(), It.IsAny<int>())).Callback<int, int>(DeleteCallback);
 
-			CreatePresenter();
-		}
+            CreatePresenter();
+        }
 
-		#endregion
+        #endregion
 
-		#region "Test Methods"
+        #region "Test Methods"
 
-		[Test]
-		public void RedirectionManagerPresenter_RedirectionItemAction()
-		{
-			var eventArgs = new DataGridCommandEventArgs(null, null, new CommandEventArgs("delete", 1));
+        [Test]
+        public void RedirectionManagerPresenter_RedirectionItemAction()
+        {
+            var eventArgs = new DataGridCommandEventArgs(null, null, new CommandEventArgs("delete", 1));
 
-			_mockView.Raise(v => v.RedirectionItemAction += null, eventArgs);
-		}
+            _mockView.Raise(v => v.RedirectionItemAction += null, eventArgs);
+        }
 
-		[Test]
-		public void RedirectionManagerPresenter_SortRedirections()
-		{
-			_presenter.SortRedirections(1, -1);
-		}
+        [Test]
+        public void RedirectionManagerPresenter_SortRedirections()
+        {
+            _presenter.SortRedirections(1, -1);
+        }
 
-		#endregion
+        #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
-		private IRedirection GetRedirectionByIdCallback(int portalId, int id)
-		{
-			return new Redirection { Id = id, PortalId = portalId };
-		}
+        private IRedirection GetRedirectionByIdCallback(int portalId, int id)
+        {
+            return new Redirection { Id = id, PortalId = portalId };
+        }
 
-		private IList<IRedirection> GetRedirectionsByPortalCallback(int portalId)
-		{
-			var profiles = new List<IRedirection>();
-			profiles.Add(new Redirection{PortalId = portalId});
+        private IList<IRedirection> GetRedirectionsByPortalCallback(int portalId)
+        {
+            var profiles = new List<IRedirection>();
+            profiles.Add(new Redirection { PortalId = portalId });
 
-			return profiles;
-		}
+            return profiles;
+        }
 
-		private void SaveCallback(IRedirection profile)
-		{
-			
-		}
+        private void SaveCallback(IRedirection profile)
+        {
+        }
 
-		private void DeleteCallback(int portalId, int id)
-		{
-			
-		}
+        private void DeleteCallback(int portalId, int id)
+        {
+        }
 
-		private void CreatePresenter()
-		{
+        private void CreatePresenter()
+        {
             var simulator = new Instance.Utilities.HttpSimulator.HttpSimulator("/", "c:\\");
             simulator.SimulateRequest(new Uri("http://localhost/dnn/Default.aspx"));
 
-			HttpContext.Current.Items.Add("PortalSettings", new PortalSettings());
+            HttpContext.Current.Items.Add("PortalSettings", new PortalSettings());
 
-			_presenter = new RedirectionManagerPresenter(_mockView.Object, _mockController.Object)
-			             	{
-								ModuleContext = new ModuleInstanceContext()
-			             	};
-		}
+            _presenter = new RedirectionManagerPresenter(_mockView.Object, _mockController.Object)
+            {
+                ModuleContext = new ModuleInstanceContext()
+            };
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

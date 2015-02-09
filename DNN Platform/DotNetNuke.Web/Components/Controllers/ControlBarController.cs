@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,15 +35,15 @@ using DotNetNuke.Web.Components.Controllers.Models;
 
 namespace DotNetNuke.Web.Components.Controllers
 {
-    public class ControlBarController: ServiceLocator<IControlBarController, ControlBarController>, IControlBarController
+    public class ControlBarController : ServiceLocator<IControlBarController, ControlBarController>, IControlBarController
     {
         private const string BookmarkModulesTitle = "module";
         private const string BookmarkCategoryProperty = "ControlBar_BookmarkCategory";
-        private readonly ExtensionPointManager mef;
+        private readonly ExtensionPointManager _mef;
 
         public ControlBarController()
         {
-            mef = new ExtensionPointManager();
+            _mef = new ExtensionPointManager();
         }
         public IEnumerable<KeyValuePair<string, PortalDesktopModuleInfo>> GetCategoryDesktopModules(int portalId, string category, string searchTerm = "")
         {
@@ -61,7 +60,7 @@ namespace DotNetNuke.Web.Components.Controllers
         public IEnumerable<KeyValuePair<string, PortalDesktopModuleInfo>> GetBookmarkedDesktopModules(int portalId, int userId, string searchTerm = "")
         {
             var formattedSearchTerm = String.IsNullOrEmpty(searchTerm) ? string.Empty : searchTerm.ToLower(CultureInfo.InvariantCulture);
-            
+
             IEnumerable<KeyValuePair<string, PortalDesktopModuleInfo>> bookmarkedModules = GetBookmarkedModules(PortalSettings.Current.PortalId, userId)
                 .Where(kvp => kvp.Key.ToLower(CultureInfo.InvariantCulture).Contains(formattedSearchTerm));
 
@@ -75,7 +74,7 @@ namespace DotNetNuke.Web.Components.Controllers
             {
                 ensuredBookmarkValue = EnsureBookmarkValue(portalId, ensuredBookmarkValue);
             }
-            
+
             var personalizationController = new DotNetNuke.Services.Personalization.PersonalizationController();
             var personalization = personalizationController.LoadProfile(userId, portalId);
             personalization.Profile["ControlBar:" + bookmarkTitle + portalId] = ensuredBookmarkValue;
@@ -97,7 +96,7 @@ namespace DotNetNuke.Web.Components.Controllers
         public UpgradeIndicatorViewModel GetUpgradeIndicator(Version version, bool isLocal, bool isSecureConnection)
         {
             var imageUrl = Upgrade.UpgradeIndicator(version, isLocal, isSecureConnection);
-            return !String.IsNullOrEmpty(imageUrl) ? GetDefaultUpgradeIndicator(imageUrl) : null;            
+            return !String.IsNullOrEmpty(imageUrl) ? GetDefaultUpgradeIndicator(imageUrl) : null;
         }
 
         public string GetControlBarLogoURL()
@@ -107,7 +106,7 @@ namespace DotNetNuke.Web.Components.Controllers
 
         public IEnumerable<MenuItemViewModel> GetCustomMenuItems()
         {
-            var menuItemsExtensionPoints = mef.GetUserControlExtensionPoints("ControlBar", "CustomMenuItems");
+            var menuItemsExtensionPoints = _mef.GetUserControlExtensionPoints("ControlBar", "CustomMenuItems");
             return menuItemsExtensionPoints.Select(GetMenuItemFromExtensionPoint);
         }
 
@@ -125,7 +124,7 @@ namespace DotNetNuke.Web.Components.Controllers
                 AltText = alt,
                 ToolTip = toolTip,
                 CssClass = ""
-            };            
+            };
         }
 
         private MenuItemViewModel GetMenuItemFromExtensionPoint(IUserControlExtensionPoint userControlExtensionPoint)
@@ -154,7 +153,7 @@ namespace DotNetNuke.Web.Components.Controllers
 
         private string EnsureBookmarkValue(int portalId, string bookmarkValue)
         {
-            var bookmarkCategoryModules = GetCategoryDesktopModules(portalId, GetBookmarkCategory(portalId));            
+            var bookmarkCategoryModules = GetCategoryDesktopModules(portalId, GetBookmarkCategory(portalId));
             var ensuredModules = bookmarkValue.Split(',').Where(desktopModuleId => bookmarkCategoryModules.All(m => m.Value.DesktopModuleID.ToString(CultureInfo.InvariantCulture) != desktopModuleId)).ToList();
             return String.Join(",", ensuredModules.Distinct());
         }
@@ -163,7 +162,7 @@ namespace DotNetNuke.Web.Components.Controllers
         {
             var personalizationController = new Services.Personalization.PersonalizationController();
             var personalization = personalizationController.LoadProfile(userId, portalId);
-            var bookmarkItems = personalization.Profile["ControlBar:"+ BookmarkModulesTitle + portalId];
+            var bookmarkItems = personalization.Profile["ControlBar:" + BookmarkModulesTitle + portalId];
             if (bookmarkItems == null)
             {
                 return new List<KeyValuePair<string, PortalDesktopModuleInfo>>();
@@ -174,7 +173,7 @@ namespace DotNetNuke.Web.Components.Controllers
 
             return bookmarkedModules;
         }
-        
+
         protected override Func<IControlBarController> GetFactory()
         {
             return () => new ControlBarController();

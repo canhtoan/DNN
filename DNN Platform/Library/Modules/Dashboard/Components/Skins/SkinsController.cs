@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +29,6 @@ using DotNetNuke.Common;
 using DotNetNuke.UI.Skins;
 
 #endregion
-
 namespace DotNetNuke.Modules.Dashboard.Components.Skins
 {
     public class SkinsController : IDashboardData
@@ -38,16 +37,16 @@ namespace DotNetNuke.Modules.Dashboard.Components.Skins
 
         public void ExportData(XmlWriter writer)
         {
-			//Write start of Installed Skins 
+            //Write start of Installed Skins 
             writer.WriteStartElement("installedSkins");
-			
-			//Iterate through Installed Skins 
+
+            //Iterate through Installed Skins 
             foreach (SkinInfo skin in GetInstalledSkins())
             {
                 skin.WriteXml(writer);
             }
-			
-			//Write end of Installed Skins 
+
+            //Write end of Installed Skins 
             writer.WriteEndElement();
         }
 

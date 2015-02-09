@@ -17,27 +17,26 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnFormLiteralItem : DnnFormItemBase
     {
         public DnnFormLiteralItem() : base()
         {
-            ViewStateMode = ViewStateMode.Disabled;    
+            ViewStateMode = ViewStateMode.Disabled;
         }
 
         protected override WebControl CreateControlInternal(Control container)
         {
-            var literal = new Label {ID = ID + "_Label", Text = Convert.ToString(Value)};
+            var literal = new Label { ID = ID + "_Label", Text = Convert.ToString(Value) };
             container.Controls.Add(literal);
             return literal;
         }

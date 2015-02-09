@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -31,7 +31,6 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -52,7 +51,7 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:CollectionEditorControl runat=server></{0}:CollectionEditorControl>")]
     public class CollectionEditorControl : PropertyEditorControl
     {
-		#region Protected Members
+        #region Protected Members
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -71,9 +70,9 @@ namespace DotNetNuke.UI.WebControls
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Public Properties
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -195,10 +194,10 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         [Browsable(true), Category("Data"), DefaultValue(""), Description("Enter the name of the field that determines the visibility.")]
         public string VisibilityDataField { get; set; }
-		
-		#endregion
 
-		#region Private Methods
+        #endregion
+
+        #region Private Methods
 
         private Hashtable GetFieldNames()
         {
@@ -215,10 +214,10 @@ namespace DotNetNuke.UI.WebControls
 
             return fields;
         }
-		
-		#endregion
 
-		#region Protected Methods
+        #endregion
+
+        #region Protected Methods
 
         protected override void AddEditorRow(Table table, object obj)
         {
@@ -247,8 +246,8 @@ namespace DotNetNuke.UI.WebControls
         {
             PropertyInfo objProperty;
             string _Category = Null.NullString;
-			
-			//Get Category Field
+
+            //Get Category Field
             if (!String.IsNullOrEmpty(CategoryDataField))
             {
                 objProperty = obj.GetType().GetProperty(CategoryDataField);
@@ -275,7 +274,7 @@ namespace DotNetNuke.UI.WebControls
 
             foreach (object obj in arrObjects)
             {
-				//Get Category Field
+                //Get Category Field
                 if (!String.IsNullOrEmpty(CategoryDataField))
                 {
                     objProperty = obj.GetType().GetProperty(CategoryDataField);
@@ -318,7 +317,7 @@ namespace DotNetNuke.UI.WebControls
             }
             if (!isVisible && EditMode == PropertyEditorMode.Edit)
             {
-				//Check if property is required - as this will need to override visibility
+                //Check if property is required - as this will need to override visibility
                 objProperty = obj.GetType().GetProperty(RequiredDataField);
                 if (!(objProperty == null || (objProperty.GetValue(obj, null) == null)))
                 {
@@ -327,7 +326,7 @@ namespace DotNetNuke.UI.WebControls
             }
             return isVisible;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

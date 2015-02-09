@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Data;
 
@@ -39,18 +39,18 @@ namespace DotNetNuke.Modules.Html.Components
 
         // singleton reference to the instantiated object 
 
-        private static readonly DataProvider provider;
+        private static readonly DataProvider s_provider;
 
         // constructor
         static DataProvider()
         {
-            provider = new DataProvider();
+            s_provider = new DataProvider();
         }
 
         // return the provider
         public static DataProvider Instance()
         {
-            return provider;
+            return s_provider;
         }
 
         #endregion

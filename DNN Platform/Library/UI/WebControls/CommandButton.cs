@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,7 +28,6 @@ using DotNetNuke.Framework;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -48,9 +47,9 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:CommandButton runat=server></{0}:CommandButton>")]
     public class CommandButton : WebControl, INamingContainer
     {
-        private ImageButton icon;
-        private LinkButton link;
-        private LiteralControl separator;
+        private ImageButton _icon;
+        private LinkButton _link;
+        private LiteralControl _separator;
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -67,12 +66,12 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return separator.Text;
+                return _separator.Text;
             }
             set
             {
                 EnsureChildControls();
-                separator.Text = value;
+                _separator.Text = value;
             }
         }
 
@@ -91,13 +90,13 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.CausesValidation;
+                return _link.CausesValidation;
             }
             set
             {
                 EnsureChildControls();
-                icon.CausesValidation = value;
-                link.CausesValidation = value;
+                _icon.CausesValidation = value;
+                _link.CausesValidation = value;
             }
         }
 
@@ -115,13 +114,13 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.CommandArgument;
+                return _link.CommandArgument;
             }
             set
             {
                 EnsureChildControls();
-                icon.CommandArgument = value;
-                link.CommandArgument = value;
+                _icon.CommandArgument = value;
+                _link.CommandArgument = value;
             }
         }
 
@@ -139,13 +138,13 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.CommandName;
+                return _link.CommandName;
             }
             set
             {
                 EnsureChildControls();
-                icon.CommandName = value;
-                link.CommandName = value;
+                _icon.CommandName = value;
+                _link.CommandName = value;
             }
         }
 
@@ -164,12 +163,12 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.Visible;
+                return _link.Visible;
             }
             set
             {
                 EnsureChildControls();
-                link.Visible = value;
+                _link.Visible = value;
             }
         }
 
@@ -188,12 +187,12 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return icon.Visible;
+                return _icon.Visible;
             }
             set
             {
                 EnsureChildControls();
-                icon.Visible = value;
+                _icon.Visible = value;
             }
         }
 
@@ -210,16 +209,16 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                EnsureChildControls();                
-                if (string.IsNullOrEmpty(icon.ImageUrl))
-                    icon.ImageUrl = Entities.Icons.IconController.IconURL(IconKey, IconSize, IconStyle);
+                EnsureChildControls();
+                if (string.IsNullOrEmpty(_icon.ImageUrl))
+                    _icon.ImageUrl = Entities.Icons.IconController.IconURL(IconKey, IconSize, IconStyle);
 
-                return icon.ImageUrl;
+                return _icon.ImageUrl;
             }
             set
             {
                 EnsureChildControls();
-                icon.ImageUrl = value;
+                _icon.ImageUrl = value;
             }
         }
 
@@ -261,20 +260,20 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.Attributes["onclick"];
+                return _link.Attributes["onclick"];
             }
             set
             {
                 EnsureChildControls();
                 if (String.IsNullOrEmpty(value))
                 {
-                    icon.Attributes.Remove("onclick");
-                    link.Attributes.Remove("onclick");
+                    _icon.Attributes.Remove("onclick");
+                    _link.Attributes.Remove("onclick");
                 }
                 else
                 {
-                    icon.Attributes.Add("onclick", value);
-                    link.Attributes.Add("onclick", value);
+                    _icon.Attributes.Add("onclick", value);
+                    _link.Attributes.Add("onclick", value);
                 }
             }
         }
@@ -293,13 +292,13 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.OnClientClick;
+                return _link.OnClientClick;
             }
             set
             {
                 EnsureChildControls();
-                icon.OnClientClick = value;
-                link.OnClientClick = value;
+                _icon.OnClientClick = value;
+                _link.OnClientClick = value;
             }
         }
 
@@ -317,20 +316,20 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.Attributes["resourcekey"];
+                return _link.Attributes["resourcekey"];
             }
             set
             {
                 EnsureChildControls();
                 if (String.IsNullOrEmpty(value))
                 {
-                    icon.Attributes.Remove("resourcekey");
-                    link.Attributes.Remove("resourcekey");
+                    _icon.Attributes.Remove("resourcekey");
+                    _link.Attributes.Remove("resourcekey");
                 }
                 else
                 {
-                    icon.Attributes.Add("resourcekey", value);
-                    link.Attributes.Add("resourcekey", value);
+                    _icon.Attributes.Add("resourcekey", value);
+                    _link.Attributes.Add("resourcekey", value);
                 }
             }
         }
@@ -349,12 +348,12 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.Text;
+                return _link.Text;
             }
             set
             {
                 EnsureChildControls();
-                link.Text = value;
+                _link.Text = value;
             }
         }
 
@@ -383,13 +382,13 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 EnsureChildControls();
-                return link.ValidationGroup;
+                return _link.ValidationGroup;
             }
             set
             {
                 EnsureChildControls();
-                icon.ValidationGroup = value;
-                link.ValidationGroup = value;
+                _icon.ValidationGroup = value;
+                _link.ValidationGroup = value;
             }
         }
 
@@ -416,29 +415,29 @@ namespace DotNetNuke.UI.WebControls
             {
                 CssClass = "CommandButton";
             }
-            icon = new ImageButton();
-            icon.Visible = true;
-            icon.CausesValidation = true;
-            icon.Click += RaiseImageClick;
-            icon.Command += RaiseCommand;
-            Controls.Add(icon);
-            separator = new LiteralControl();
-            separator.Text = "&nbsp;";
-            Controls.Add(separator);
-            link = new LinkButton();
-            link.Visible = true;
-            link.CausesValidation = true;
-            link.Click += RaiseClick;
-            link.Command += RaiseCommand;
-            Controls.Add(link);
+            _icon = new ImageButton();
+            _icon.Visible = true;
+            _icon.CausesValidation = true;
+            _icon.Click += RaiseImageClick;
+            _icon.Command += RaiseCommand;
+            Controls.Add(_icon);
+            _separator = new LiteralControl();
+            _separator.Text = "&nbsp;";
+            Controls.Add(_separator);
+            _link = new LinkButton();
+            _link.Visible = true;
+            _link.CausesValidation = true;
+            _link.Click += RaiseClick;
+            _link.Command += RaiseCommand;
+            Controls.Add(_link);
             if (DisplayIcon && !String.IsNullOrEmpty(ImageUrl))
             {
-                icon.EnableViewState = EnableViewState;
+                _icon.EnableViewState = EnableViewState;
             }
             if (DisplayLink)
             {
-                link.CssClass = CssClass;
-                link.EnableViewState = EnableViewState;
+                _link.CssClass = CssClass;
+                _link.EnableViewState = EnableViewState;
             }
         }
 
@@ -486,7 +485,7 @@ namespace DotNetNuke.UI.WebControls
         {
             base.OnPreRender(e);
             EnsureChildControls();
-            separator.Visible = DisplayLink && DisplayIcon;
+            _separator.Visible = DisplayLink && DisplayIcon;
 
             LocalResourceFile = UIUtilities.GetLocalResourceFile(this);
 
@@ -503,14 +502,14 @@ namespace DotNetNuke.UI.WebControls
 
             if (!string.IsNullOrEmpty(tooltipText))
             {
-                icon.ToolTip = link.ToolTip = icon.AlternateText = tooltipText;
+                _icon.ToolTip = _link.ToolTip = _icon.AlternateText = tooltipText;
             }
         }
 
         public void RegisterForPostback()
         {
-            AJAX.RegisterPostBackControl(link);
-            AJAX.RegisterPostBackControl(icon);
+            AJAX.RegisterPostBackControl(_link);
+            AJAX.RegisterPostBackControl(_icon);
         }
 
         /// -----------------------------------------------------------------------------

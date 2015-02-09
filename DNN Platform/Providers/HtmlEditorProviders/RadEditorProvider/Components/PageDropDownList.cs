@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Threading;
 using System.Web;
 
@@ -34,71 +34,67 @@ using Telerik.Web.UI;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
+    public class PageDropDownList : RadComboBox
+    {
+        private string LinksType
+        {
+            get
+            {
+                if (HttpContext.Current.Request.QueryString["linkstype"] != null)
+                {
+                    return HttpContext.Current.Request.QueryString["linkstype"];
+                }
 
-	public class PageDropDownList : RadComboBox
-	{
-		private string LinksType
-		{
-			get
-			{
-				if (HttpContext.Current.Request.QueryString["linkstype"] != null)
-				{
-					return HttpContext.Current.Request.QueryString["linkstype"];
-				}
+                return "Normal";
+            }
+        }
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
 
-				return "Normal";
-			}
-		}
-		protected override void OnPreRender(EventArgs e)
-		{
-			base.OnPreRender(e);
-
-			Entities.Users.UserInfo userInfo = Entities.Users.UserController.Instance.GetCurrentUserInfo();
-			if (! Page.IsPostBack && userInfo != null && userInfo.UserID != Null.NullInteger)
-			{
-				//check view permissions - Yes?
-				var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
-			    var pageCulture = Thread.CurrentThread.CurrentCulture.Name;
-				if (string.IsNullOrEmpty(pageCulture))
-				{
+            Entities.Users.UserInfo userInfo = Entities.Users.UserController.Instance.GetCurrentUserInfo();
+            if (!Page.IsPostBack && userInfo != null && userInfo.UserID != Null.NullInteger)
+            {
+                //check view permissions - Yes?
+                var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
+                var pageCulture = Thread.CurrentThread.CurrentCulture.Name;
+                if (string.IsNullOrEmpty(pageCulture))
+                {
                     pageCulture = PortalController.GetActivePortalLanguage(portalSettings.PortalId);
-				}
+                }
 
                 List<TabInfo> tabs = TabController.GetTabsBySortOrder(portalSettings.PortalId, pageCulture, true);
-				var sortedTabList = TabController.GetPortalTabs(tabs, Null.NullInteger, false, Null.NullString, true, false, true, true, true);
+                var sortedTabList = TabController.GetPortalTabs(tabs, Null.NullInteger, false, Null.NullString, true, false, true, true, true);
 
-				Items.Clear();
-				foreach (var _tab in sortedTabList)
-				{
-					var linkUrl = string.Empty;
-					switch (LinksType.ToUpperInvariant())
-					{
-						case "USETABNAME":
-							var nameLinkFormat = "http://{0}/Default.aspx?TabName={1}";
-							linkUrl = string.Format(nameLinkFormat, portalSettings.PortalAlias.HTTPAlias, HttpUtility.UrlEncode(_tab.TabName));
-							break;
-						case "USETABID":
-							var idLinkFormat = "http://{0}/Default.aspx?TabId={1}";
-							linkUrl = string.Format(idLinkFormat, portalSettings.PortalAlias.HTTPAlias, _tab.TabID);
-							break;
-						default:
-							linkUrl = _tab.FullUrl;
-							break;
-					}
-					RadComboBoxItem tabItem = new RadComboBoxItem(_tab.IndentedTabName, linkUrl);
-					tabItem.Enabled = ! _tab.DisableLink;
+                Items.Clear();
+                foreach (var _tab in sortedTabList)
+                {
+                    var linkUrl = string.Empty;
+                    switch (LinksType.ToUpperInvariant())
+                    {
+                        case "USETABNAME":
+                            var nameLinkFormat = "http://{0}/Default.aspx?TabName={1}";
+                            linkUrl = string.Format(nameLinkFormat, portalSettings.PortalAlias.HTTPAlias, HttpUtility.UrlEncode(_tab.TabName));
+                            break;
+                        case "USETABID":
+                            var idLinkFormat = "http://{0}/Default.aspx?TabId={1}";
+                            linkUrl = string.Format(idLinkFormat, portalSettings.PortalAlias.HTTPAlias, _tab.TabID);
+                            break;
+                        default:
+                            linkUrl = _tab.FullUrl;
+                            break;
+                    }
+                    RadComboBoxItem tabItem = new RadComboBoxItem(_tab.IndentedTabName, linkUrl);
+                    tabItem.Enabled = !_tab.DisableLink;
 
-					Items.Add(tabItem);
-				}
+                    Items.Add(tabItem);
+                }
 
-				Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("", ""));
-			}
+                Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("", ""));
+            }
 
-			Width = Unit.Pixel(245);
-
-		}
-
-	}
-
+            Width = Unit.Pixel(245);
+        }
+    }
 }
 

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -61,7 +62,7 @@ namespace DotNetNuke.Modules.Html
     /// -----------------------------------------------------------------------------
     public class HtmlTextController : ModuleSearchBase, IPortable, IUpgradeable
     {
-		public const int MAX_DESCRIPTION_LENGTH = 100;
+        public const int MAX_DESCRIPTION_LENGTH = 100;
         private const string PortalRootToken = "{{PortalRoot}}";
 
         #region Private Methods
@@ -72,7 +73,7 @@ namespace DotNetNuke.Modules.Html
             var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
             var sender = UserController.GetUserById(portalSettings.PortalId, portalSettings.AdministratorId);
 
-            var notification = new Notification {NotificationTypeID = notificationType.NotificationTypeId, Subject = subject, Body = body, IncludeDismissAction = true, SenderUserID = sender.UserID};
+            var notification = new Notification { NotificationTypeID = notificationType.NotificationTypeId, Subject = subject, Body = body, IncludeDismissAction = true, SenderUserID = sender.UserID };
             NotificationsController.Instance.SendNotification(notification, portalSettings.PortalId, null, new List<UserInfo> { user });
         }
 
@@ -253,7 +254,7 @@ namespace DotNetNuke.Modules.Html
         #endregion
 
         #region Public Methods
-        
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         ///   DeleteHtmlText deletes an HtmlTextInfo object for the Module and Item
@@ -286,50 +287,50 @@ namespace DotNetNuke.Modules.Html
         /// </history>
         /// -----------------------------------------------------------------------------
 		public static string FormatHtmlText(int moduleId, string content, Hashtable settings)
-		{
-			return FormatHtmlText(moduleId, content, settings, PortalController.Instance.GetCurrentPortalSettings());
-		}
+        {
+            return FormatHtmlText(moduleId, content, settings, PortalController.Instance.GetCurrentPortalSettings());
+        }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		///   FormatHtmlText formats HtmlText content for display in the browser
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <param name="moduleId">The ModuleID</param>
-		/// <param name = "content">The HtmlText Content</param>
-		/// <param name = "settings">A Hashtable of Module Settings</param>
-		/// <param name="portalSettings">The Portal Settings.</param>
-		/// <history>
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		public static string FormatHtmlText(int moduleId, string content, Hashtable settings, PortalSettings portalSettings)
-		{
-			// token replace
-			bool blnReplaceTokens = false;
-			if (!string.IsNullOrEmpty(Convert.ToString(settings["HtmlText_ReplaceTokens"])))
-			{
-				blnReplaceTokens = Convert.ToBoolean(settings["HtmlText_ReplaceTokens"]);
-			}
-			if (blnReplaceTokens)
-			{
-				var tr = new TokenReplace();
-				tr.AccessingUser = UserController.Instance.GetCurrentUserInfo();
-				tr.DebugMessages = portalSettings.UserMode != PortalSettings.Mode.View;
-				tr.ModuleId = moduleId;
-				tr.PortalSettings = portalSettings;
-				content = tr.ReplaceEnvironmentTokens(content);
-			}
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        ///   FormatHtmlText formats HtmlText content for display in the browser
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="moduleId">The ModuleID</param>
+        /// <param name = "content">The HtmlText Content</param>
+        /// <param name = "settings">A Hashtable of Module Settings</param>
+        /// <param name="portalSettings">The Portal Settings.</param>
+        /// <history>
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        public static string FormatHtmlText(int moduleId, string content, Hashtable settings, PortalSettings portalSettings)
+        {
+            // token replace
+            bool blnReplaceTokens = false;
+            if (!string.IsNullOrEmpty(Convert.ToString(settings["HtmlText_ReplaceTokens"])))
+            {
+                blnReplaceTokens = Convert.ToBoolean(settings["HtmlText_ReplaceTokens"]);
+            }
+            if (blnReplaceTokens)
+            {
+                var tr = new TokenReplace();
+                tr.AccessingUser = UserController.Instance.GetCurrentUserInfo();
+                tr.DebugMessages = portalSettings.UserMode != PortalSettings.Mode.View;
+                tr.ModuleId = moduleId;
+                tr.PortalSettings = portalSettings;
+                content = tr.ReplaceEnvironmentTokens(content);
+            }
 
-			// Html decode content
-			content = HttpUtility.HtmlDecode(content);
+            // Html decode content
+            content = HttpUtility.HtmlDecode(content);
 
-			// manage relative paths
-			content = ManageRelativePaths(content, portalSettings.HomeDirectory, "src", portalSettings.PortalId);
-			content = ManageRelativePaths(content, portalSettings.HomeDirectory, "background", portalSettings.PortalId);
+            // manage relative paths
+            content = ManageRelativePaths(content, portalSettings.HomeDirectory, "src", portalSettings.PortalId);
+            content = ManageRelativePaths(content, portalSettings.HomeDirectory, "background", portalSettings.PortalId);
 
-			return content;
-		}
+            return content;
+        }
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -387,8 +388,8 @@ namespace DotNetNuke.Modules.Html
                     htmlText.WorkflowName = "[REPAIR_WORKFLOW]";
 
                     var workflowStateController = new WorkflowStateController();
-                    htmlText.StateID = htmlText.IsPublished 
-                                        ? workflowStateController.GetLastWorkflowStateID(workflowId) 
+                    htmlText.StateID = htmlText.IsPublished
+                                        ? workflowStateController.GetLastWorkflowStateID(workflowId)
                                         : workflowStateController.GetFirstWorkflowStateID(workflowId);
                     // update object
                     UpdateHtmlText(htmlText, GetMaximumVersionHistory(htmlText.PortalID));
@@ -595,7 +596,7 @@ namespace DotNetNuke.Modules.Html
                 // add content
                 htmlContent.ItemID = DataProvider.Instance().AddHtmlText(htmlContent.ModuleID,
                                                                          htmlContent.Content,
-																		 htmlContent.Summary,
+                                                                         htmlContent.Summary,
                                                                          htmlContent.StateID,
                                                                          htmlContent.IsPublished,
                                                                          UserController.Instance.GetCurrentUserInfo().UserID,
@@ -604,7 +605,7 @@ namespace DotNetNuke.Modules.Html
             else
             {
                 // update content
-				DataProvider.Instance().UpdateHtmlText(htmlContent.ItemID, htmlContent.Content, htmlContent.Summary, htmlContent.StateID, htmlContent.IsPublished, UserController.Instance.GetCurrentUserInfo().UserID);
+                DataProvider.Instance().UpdateHtmlText(htmlContent.ItemID, htmlContent.Content, htmlContent.Summary, htmlContent.StateID, htmlContent.IsPublished, UserController.Instance.GetCurrentUserInfo().UserID);
             }
 
             // add log history
@@ -735,7 +736,7 @@ namespace DotNetNuke.Modules.Html
 
         #region IPortable Members
 
-         /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         ///   ExportModule implements the IPortable ExportModule Interface
         /// </summary>
@@ -866,7 +867,7 @@ namespace DotNetNuke.Modules.Html
 
             return collectTagsFunc(terms, new List<string>());
         }
-		
+
         #endregion
 
         #region IUpgradeable Members
@@ -895,7 +896,7 @@ namespace DotNetNuke.Modules.Html
                     break;
             }
 
-           return string.Empty;
+            return string.Empty;
         }
 
         private void AddNotificationTypes()

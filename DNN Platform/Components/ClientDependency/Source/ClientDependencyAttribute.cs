@@ -11,45 +11,45 @@ namespace ClientDependency.Core
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ClientDependencyAttribute : Attribute, IClientDependencyFile, IRequiresHtmlAttributesParsing
-	{
+    {
         public ClientDependencyAttribute()
         {
             Priority = Constants.DefaultPriority;
             Group = Constants.DefaultGroup;
-			PathNameAlias = "";
+            PathNameAlias = "";
             HtmlAttributes = new Dictionary<string, string>();
         }
-        
-		public ClientDependencyAttribute(ClientDependencyType dependencyType, string fullFilePath)
+
+        public ClientDependencyAttribute(ClientDependencyType dependencyType, string fullFilePath)
             : this(Constants.DefaultPriority, dependencyType, fullFilePath, string.Empty)
-		{ }
+        { }
 
-		public ClientDependencyAttribute(ClientDependencyType dependencyType, string fileName, string pathNameAlias)
+        public ClientDependencyAttribute(ClientDependencyType dependencyType, string fileName, string pathNameAlias)
             : this(Constants.DefaultPriority, dependencyType, fileName, pathNameAlias)
-		{ }
+        { }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ClientDependencyAttribute"/> class.
-		/// </summary>
-		/// <param name="priority">The priority.</param>
-		/// <param name="dependencyType">Type of the dependency.</param>
-		/// <param name="fullFilePath">The file path to the dependency.</param>
-		public ClientDependencyAttribute(int priority, ClientDependencyType dependencyType, string fullFilePath)
-			: this(priority, dependencyType, fullFilePath, string.Empty)
-		{ }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientDependencyAttribute"/> class.
+        /// </summary>
+        /// <param name="priority">The priority.</param>
+        /// <param name="dependencyType">Type of the dependency.</param>
+        /// <param name="fullFilePath">The file path to the dependency.</param>
+        public ClientDependencyAttribute(int priority, ClientDependencyType dependencyType, string fullFilePath)
+            : this(priority, dependencyType, fullFilePath, string.Empty)
+        { }
 
 
-	    /// <summary>
-	    /// Initializes a new instance of the <see cref="ClientDependencyAttribute"/> class.
-	    /// </summary>
-	    /// <param name="priority">The priority.</param>
-	    /// <param name="dependencyType">Type of the dependency.</param>
-	    /// <param name="fileName"></param>
-	    /// <param name="pathNameAlias"></param>
-	    public ClientDependencyAttribute(int priority, ClientDependencyType dependencyType, string fileName, string pathNameAlias)
-		    : this(Constants.DefaultGroup, priority, dependencyType, fileName, pathNameAlias, false)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientDependencyAttribute"/> class.
+        /// </summary>
+        /// <param name="priority">The priority.</param>
+        /// <param name="dependencyType">Type of the dependency.</param>
+        /// <param name="fileName"></param>
+        /// <param name="pathNameAlias"></param>
+        public ClientDependencyAttribute(int priority, ClientDependencyType dependencyType, string fileName, string pathNameAlias)
+            : this(Constants.DefaultGroup, priority, dependencyType, fileName, pathNameAlias, false)
         {
-		}
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientDependencyAttribute"/> class.
@@ -72,7 +72,7 @@ namespace ClientDependency.Core
             PathNameAlias = pathNameAlias;
 
             DependencyType = dependencyType;
-			ForceBundle = forceBundle;
+            ForceBundle = forceBundle;
 
             HtmlAttributes = new Dictionary<string, string>();
         }
@@ -132,7 +132,5 @@ namespace ClientDependency.Core
         /// </summary>
         /// <value>The type of the dependency.</value>
         public ClientDependencyType DependencyType { get; set; }
-	}
-
-	
+    }
 }

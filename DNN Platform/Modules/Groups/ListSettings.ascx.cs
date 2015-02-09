@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Entities.Modules;
@@ -38,7 +38,6 @@ using DotNetNuke.Entities.Modules.Definitions;
 
 
 #endregion
-
 namespace DotNetNuke.Modules.Groups
 {
     /// -----------------------------------------------------------------------------
@@ -63,16 +62,19 @@ namespace DotNetNuke.Modules.Groups
                 {
                     BindGroups();
                     BindPages();
-                    
-                    if (Settings.ContainsKey(Constants.DefaultRoleGroupSetting)) {
+
+                    if (Settings.ContainsKey(Constants.DefaultRoleGroupSetting))
+                    {
                         drpRoleGroup.SelectedIndex = drpRoleGroup.Items.IndexOf(drpRoleGroup.Items.FindByValue(Settings[Constants.DefaultRoleGroupSetting].ToString()));
                     }
 
-                    if (Settings.ContainsKey(Constants.GroupViewPage)) {
+                    if (Settings.ContainsKey(Constants.GroupViewPage))
+                    {
                         drpGroupViewPage.SelectedIndex = drpGroupViewPage.Items.IndexOf(drpGroupViewPage.Items.FindByValue(Settings[Constants.GroupViewPage].ToString()));
                     }
 
-                    if (Settings.ContainsKey(Constants.GroupListTemplate)) {
+                    if (Settings.ContainsKey(Constants.GroupListTemplate))
+                    {
                         txtListTemplate.Text = Settings[Constants.GroupListTemplate].ToString();
                     }
 
@@ -81,12 +83,13 @@ namespace DotNetNuke.Modules.Groups
                         txtViewTemplate.Text = Settings[Constants.GroupViewTemplate].ToString();
                     }
 
-                    if (Settings.ContainsKey(Constants.GroupModerationEnabled)) 
+                    if (Settings.ContainsKey(Constants.GroupModerationEnabled))
                     {
                         chkGroupModeration.Checked = Convert.ToBoolean(Settings[Constants.GroupModerationEnabled].ToString());
                     }
 
-                    if (Settings.ContainsKey(Constants.GroupLoadView)) {
+                    if (Settings.ContainsKey(Constants.GroupLoadView))
+                    {
                         drpViewMode.SelectedIndex = drpViewMode.Items.IndexOf(drpViewMode.Items.FindByValue(Settings[Constants.GroupLoadView].ToString()));
                     }
 
@@ -150,35 +153,37 @@ namespace DotNetNuke.Modules.Groups
         }
 
         #endregion
-        private void BindGroups() {
+        private void BindGroups()
+        {
             var arrGroups = RoleController.GetRoleGroups(PortalId);
-			drpRoleGroup.Items.Add(new ListItem(Localization.GetString("AllRoles"), "-2"));
+            drpRoleGroup.Items.Add(new ListItem(Localization.GetString("AllRoles"), "-2"));
             drpRoleGroup.Items.Add(new ListItem(Localization.GetString("GlobalRoles"), "-1"));
 
-            foreach (RoleGroupInfo roleGroup in arrGroups) {
+            foreach (RoleGroupInfo roleGroup in arrGroups)
+            {
                 drpRoleGroup.Items.Add(new ListItem(roleGroup.RoleGroupName, roleGroup.RoleGroupID.ToString()));
             }
         }
-        private void BindPages() {
-            foreach (ModuleInfo moduleInfo in ModuleController.Instance.GetModules(PortalId)) 
+        private void BindPages()
+        {
+            foreach (ModuleInfo moduleInfo in ModuleController.Instance.GetModules(PortalId))
             {
                 if (moduleInfo.DesktopModule.ModuleName.Contains("Social Groups") && moduleInfo.IsDeleted == false)
                 {
                     TabInfo tabInfo = TabController.Instance.GetTab(moduleInfo.TabID, PortalId, false);
-                    if (tabInfo != null) 
+                    if (tabInfo != null)
                     {
-                        if (tabInfo.IsDeleted == false) 
+                        if (tabInfo.IsDeleted == false)
                         {
-                            foreach (KeyValuePair<string, ModuleDefinitionInfo> def in moduleInfo.DesktopModule.ModuleDefinitions) 
+                            foreach (KeyValuePair<string, ModuleDefinitionInfo> def in moduleInfo.DesktopModule.ModuleDefinitions)
                             {
-                                if (moduleInfo.ModuleDefinition.FriendlyName == def.Key) 
+                                if (moduleInfo.ModuleDefinition.FriendlyName == def.Key)
                                 {
-                                    if (drpGroupViewPage.Items.FindByValue(tabInfo.TabID.ToString()) == null) 
+                                    if (drpGroupViewPage.Items.FindByValue(tabInfo.TabID.ToString()) == null)
                                     {
                                         drpGroupViewPage.Items.Add(new ListItem(tabInfo.TabName + " - " + def.Key, tabInfo.TabID.ToString()));
                                     }
                                 }
-
                             }
                         }
                     }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,19 +17,18 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Linq;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content.Taxonomy
 {
-	/// <summary>
-	/// Interface of TermController.
-	/// </summary>
-	/// <seealso cref="TermController"/>
+    /// <summary>
+    /// Interface of TermController.
+    /// </summary>
+    /// <seealso cref="TermController"/>
     public interface ITermController
     {
         int AddTerm(Term term);

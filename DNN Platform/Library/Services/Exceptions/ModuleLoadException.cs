@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -28,19 +28,18 @@ using System.Xml.Serialization;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Exceptions
 {
     public class ModuleLoadException : BasePortalException
     {
-        private readonly ModuleInfo m_ModuleConfiguration;
-        private string m_FriendlyName;
-        private string m_ModuleControlSource;
-        private int m_ModuleDefId;
-        private int m_ModuleId;
+        private readonly ModuleInfo _moduleConfiguration;
+        private string _friendlyName;
+        private string _moduleControlSource;
+        private int _moduleDefId;
+        private int _moduleId;
 
         //default constructor
-		public ModuleLoadException()
+        public ModuleLoadException()
         {
         }
 
@@ -53,7 +52,7 @@ namespace DotNetNuke.Services.Exceptions
         //constructor with exception message
         public ModuleLoadException(string message, Exception inner, ModuleInfo ModuleConfiguration) : base(message, inner)
         {
-            m_ModuleConfiguration = ModuleConfiguration;
+            _moduleConfiguration = ModuleConfiguration;
             InitilizePrivateVariables();
         }
 
@@ -66,9 +65,9 @@ namespace DotNetNuke.Services.Exceptions
         protected ModuleLoadException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             InitilizePrivateVariables();
-            m_ModuleId = info.GetInt32("m_ModuleId");
-            m_ModuleDefId = info.GetInt32("m_ModuleDefId");
-            m_FriendlyName = info.GetString("m_FriendlyName");
+            _moduleId = info.GetInt32("m_ModuleId");
+            _moduleDefId = info.GetInt32("m_ModuleDefId");
+            _friendlyName = info.GetString("m_FriendlyName");
         }
 
         [XmlElement("ModuleID")]
@@ -76,7 +75,7 @@ namespace DotNetNuke.Services.Exceptions
         {
             get
             {
-                return m_ModuleId;
+                return _moduleId;
             }
         }
 
@@ -85,7 +84,7 @@ namespace DotNetNuke.Services.Exceptions
         {
             get
             {
-                return m_ModuleDefId;
+                return _moduleDefId;
             }
         }
 
@@ -94,7 +93,7 @@ namespace DotNetNuke.Services.Exceptions
         {
             get
             {
-                return m_FriendlyName;
+                return _friendlyName;
             }
         }
 
@@ -103,25 +102,25 @@ namespace DotNetNuke.Services.Exceptions
         {
             get
             {
-                return m_ModuleControlSource;
+                return _moduleControlSource;
             }
         }
 
         private void InitilizePrivateVariables()
         {
-			//Try and get the Portal settings from context
+            //Try and get the Portal settings from context
             //If an error occurs getting the context then set the variables to -1
-            if ((m_ModuleConfiguration != null))
+            if ((_moduleConfiguration != null))
             {
-                m_ModuleId = m_ModuleConfiguration.ModuleID;
-                m_ModuleDefId = m_ModuleConfiguration.ModuleDefID;
-                m_FriendlyName = m_ModuleConfiguration.ModuleTitle;
-                m_ModuleControlSource = m_ModuleConfiguration.ModuleControl.ControlSrc;
+                _moduleId = _moduleConfiguration.ModuleID;
+                _moduleDefId = _moduleConfiguration.ModuleDefID;
+                _friendlyName = _moduleConfiguration.ModuleTitle;
+                _moduleControlSource = _moduleConfiguration.ModuleControl.ControlSrc;
             }
             else
             {
-                m_ModuleId = -1;
-                m_ModuleDefId = -1;
+                _moduleId = -1;
+                _moduleDefId = -1;
             }
         }
 

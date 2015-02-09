@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.IO;
@@ -33,21 +33,20 @@ using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Services.Analytics.Config
 {
     [Serializable, XmlRoot("AnalyticsConfig")]
     public class AnalyticsConfiguration
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (AnalyticsConfiguration));
-		#region "Private Members"
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(AnalyticsConfiguration));
+        #region "Private Members"
 
         private AnalyticsRuleCollection _rules;
         private AnalyticsSettingCollection _settings;
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
         public AnalyticsSettingCollection Settings
         {
@@ -72,10 +71,10 @@ namespace DotNetNuke.Services.Analytics.Config
                 _rules = value;
             }
         }
-		
-		#endregion
 
-		#region "Shared Methods"
+        #endregion
+
+        #region "Shared Methods"
 
         public static AnalyticsConfiguration GetConfig(string analyticsEngineName)
         {
@@ -89,7 +88,7 @@ namespace DotNetNuke.Services.Analytics.Config
             string filePath = "";
             try
             {
-                Config = (AnalyticsConfiguration) DataCache.GetCache(cacheKey);
+                Config = (AnalyticsConfiguration)DataCache.GetCache(cacheKey);
                 if ((Config == null))
                 {
                     filePath = PortalSettings.Current.HomeDirectoryMapPath + "\\" + analyticsEngineName + ".config";
@@ -98,7 +97,7 @@ namespace DotNetNuke.Services.Analytics.Config
                     {
                         return null;
                     }
-					
+
                     //Create a FileStream for the Config file
                     fileReader = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
@@ -130,26 +129,26 @@ namespace DotNetNuke.Services.Analytics.Config
                     }
                     if (File.Exists(filePath))
                     {
-						//Set back into Cache
+                        //Set back into Cache
                         DataCache.SetCache(cacheKey, Config, new DNNCacheDependency(filePath));
                     }
                 }
             }
             catch (Exception ex)
             {
-				//log it
-                var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.ADMIN_ALERT.ToString()};
+                //log it
+                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.ADMIN_ALERT.ToString() };
                 log.AddProperty("Analytics.AnalyticsConfiguration", "GetConfig Failed");
                 log.AddProperty("FilePath", filePath);
                 log.AddProperty("ExceptionMessage", ex.Message);
                 LogController.Instance.AddLog(log);
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
             finally
             {
                 if (fileReader != null)
                 {
-					//Close the Reader
+                    //Close the Reader
                     fileReader.Close();
                 }
             }
@@ -162,7 +161,7 @@ namespace DotNetNuke.Services.Analytics.Config
             if (config.Settings != null)
             {
                 //Create a new Xml Serializer
-                var ser = new XmlSerializer(typeof (AnalyticsConfiguration));
+                var ser = new XmlSerializer(typeof(AnalyticsConfiguration));
                 string filePath = "";
 
                 //Create a FileStream for the Config file
@@ -185,7 +184,7 @@ namespace DotNetNuke.Services.Analytics.Config
                 DataCache.SetCache(cacheKey, config, new DNNCacheDependency(filePath));
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

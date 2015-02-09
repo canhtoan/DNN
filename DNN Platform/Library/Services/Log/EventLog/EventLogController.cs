@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,7 +37,6 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Services.FileSystem;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.EventLog
 {
     public class EventLogController : ServiceLocator<IEventLogController, EventLogController>, IEventLogController
@@ -212,7 +211,7 @@ namespace DotNetNuke.Services.Log.EventLog
         public void AddLog(string propertyName, string propertyValue, PortalSettings portalSettings, int userID, string logType)
         {
             var properties = new LogProperties();
-            var logDetailInfo = new LogDetailInfo {PropertyName = propertyName, PropertyValue = propertyValue};
+            var logDetailInfo = new LogDetailInfo { PropertyName = propertyName, PropertyValue = propertyValue };
             properties.Add(logDetailInfo);
             AddLog(properties, portalSettings, userID, logType, false);
         }
@@ -221,12 +220,12 @@ namespace DotNetNuke.Services.Log.EventLog
         {
             //supports adding a custom string for LogType
             var log = new LogInfo
-                {
-                    LogUserID = userID,
-                    LogTypeKey = logTypeKey,
-                    LogProperties = properties,
-                    BypassBuffering = bypassBuffering
-                };
+            {
+                LogUserID = userID,
+                LogTypeKey = logTypeKey,
+                LogProperties = properties,
+                BypassBuffering = bypassBuffering
+            };
             if (portalSettings != null)
             {
                 log.LogPortalID = portalSettings.PortalId;
@@ -247,7 +246,7 @@ namespace DotNetNuke.Services.Log.EventLog
 
         public void AddLog(object businessObject, PortalSettings portalSettings, int userID, string userName, string logType)
         {
-            var log = new LogInfo {LogUserID = userID, LogTypeKey = logType};
+            var log = new LogInfo { LogUserID = userID, LogTypeKey = logType };
             if (portalSettings != null)
             {
                 log.LogPortalID = portalSettings.PortalId;
@@ -256,7 +255,7 @@ namespace DotNetNuke.Services.Log.EventLog
             switch (businessObject.GetType().FullName)
             {
                 case "DotNetNuke.Entities.Portals.PortalInfo":
-                    var portal = (PortalInfo) businessObject;
+                    var portal = (PortalInfo)businessObject;
                     log.LogProperties.Add(new LogDetailInfo("PortalID",
                                                                 portal.PortalID.ToString(CultureInfo.InvariantCulture)));
                     log.LogProperties.Add(new LogDetailInfo("PortalName", portal.PortalName));
@@ -265,7 +264,7 @@ namespace DotNetNuke.Services.Log.EventLog
                     log.LogProperties.Add(new LogDetailInfo("LogoFile", portal.LogoFile));
                     break;
                 case "DotNetNuke.Entities.Tabs.TabInfo":
-                    var tab = (TabInfo) businessObject;
+                    var tab = (TabInfo)businessObject;
                     log.LogProperties.Add(new LogDetailInfo("TabID",
                                                                 tab.TabID.ToString(CultureInfo.InvariantCulture)));
                     log.LogProperties.Add(new LogDetailInfo("PortalID",
@@ -284,7 +283,7 @@ namespace DotNetNuke.Services.Log.EventLog
                     log.LogProperties.Add(new LogDetailInfo("ContainerSrc", tab.ContainerSrc));
                     break;
                 case "DotNetNuke.Entities.Modules.ModuleInfo":
-                    var module = (ModuleInfo) businessObject;
+                    var module = (ModuleInfo)businessObject;
                     log.LogProperties.Add(new LogDetailInfo("ModuleId",
                                                                 module.ModuleID.ToString(CultureInfo.InvariantCulture)));
                     log.LogProperties.Add(new LogDetailInfo("ModuleTitle", module.ModuleTitle));
@@ -302,7 +301,7 @@ namespace DotNetNuke.Services.Log.EventLog
                     log.LogProperties.Add(new LogDetailInfo("ContainerSrc", module.ContainerSrc));
                     break;
                 case "DotNetNuke.Entities.Users.UserInfo":
-                    var user = (UserInfo) businessObject;
+                    var user = (UserInfo)businessObject;
                     log.LogProperties.Add(new LogDetailInfo("UserID",
                                                                 user.UserID.ToString(CultureInfo.InvariantCulture)));
                     log.LogProperties.Add(new LogDetailInfo("FirstName", user.Profile.FirstName));
@@ -311,7 +310,7 @@ namespace DotNetNuke.Services.Log.EventLog
                     log.LogProperties.Add(new LogDetailInfo("Email", user.Email));
                     break;
                 case "DotNetNuke.Security.Roles.RoleInfo":
-                    var role = (RoleInfo) businessObject;
+                    var role = (RoleInfo)businessObject;
                     log.LogProperties.Add(new LogDetailInfo("RoleID",
                                                                 role.RoleID.ToString(CultureInfo.InvariantCulture)));
                     log.LogProperties.Add(new LogDetailInfo("RoleName", role.RoleName));
@@ -322,7 +321,7 @@ namespace DotNetNuke.Services.Log.EventLog
                                                                 role.IsPublic.ToString(CultureInfo.InvariantCulture)));
                     break;
                 case "DotNetNuke.Entities.Modules.DesktopModuleInfo":
-                    var desktopModule = (DesktopModuleInfo) businessObject;
+                    var desktopModule = (DesktopModuleInfo)businessObject;
                     log.LogProperties.Add(new LogDetailInfo("DesktopModuleID",
                                                                 desktopModule.DesktopModuleID.ToString(
                                                                     CultureInfo.InvariantCulture)));
@@ -332,7 +331,7 @@ namespace DotNetNuke.Services.Log.EventLog
                     log.LogProperties.Add(new LogDetailInfo("Description", desktopModule.Description));
                     break;
                 case "DotNetNuke.Services.FileSystem.FolderInfo":
-                    var folderInfo = (FolderInfo) businessObject;
+                    var folderInfo = (FolderInfo)businessObject;
                     log.LogProperties.Add(new LogDetailInfo("FolderID", folderInfo.FolderID.ToString(CultureInfo.InvariantCulture)));
                     log.LogProperties.Add(new LogDetailInfo("PortalID", folderInfo.PortalID.ToString(CultureInfo.InvariantCulture)));
                     log.LogProperties.Add(new LogDetailInfo("FolderName", folderInfo.FolderName));
@@ -446,6 +445,5 @@ namespace DotNetNuke.Services.Log.EventLog
         }
 
         #endregion
-
     }
 }

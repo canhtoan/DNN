@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections;
 using System.Xml;
 
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Framework.Providers
 {
     public class ProviderConfiguration
@@ -52,17 +51,17 @@ namespace DotNetNuke.Framework.Providers
 
         public static ProviderConfiguration GetProviderConfiguration(string strProvider)
         {
-            return (ProviderConfiguration) Config.GetSection("dotnetnuke/" + strProvider);
+            return (ProviderConfiguration)Config.GetSection("dotnetnuke/" + strProvider);
         }
 
         internal void LoadValuesFromConfigurationXml(XmlNode node)
         {
             XmlAttributeCollection attributeCollection = node.Attributes;
 
-			//Get the default provider
+            //Get the default provider
             _DefaultProvider = attributeCollection["defaultProvider"].Value;
 
-			//Read child nodes
+            //Read child nodes
             foreach (XmlNode child in node.ChildNodes)
             {
                 if (child.Name == "providers")

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Text;
@@ -28,13 +28,12 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Scheduling
 {
     [Serializable]
     public class ScheduleHistoryItem : ScheduleItem
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ScheduleHistoryItem));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ScheduleHistoryItem));
         private StringBuilder _LogNotes;
         private int _ScheduleHistoryID;
         private string _Server;
@@ -231,7 +230,7 @@ namespace DotNetNuke.Services.Scheduling
         public virtual void AddLogNote(string notes)
         {
             _LogNotes.Append(notes);
-            Logger.Trace(notes.Replace(@"<br/>", Environment.NewLine));
+            s_logger.Trace(notes.Replace(@"<br/>", Environment.NewLine));
         }
 
         public override void Fill(IDataReader dr)

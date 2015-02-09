@@ -1,5 +1,5 @@
-// 
-// DotNetNuke� - http://www.dotnetnuke.com
+﻿// 
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,11 +19,9 @@
 
 
 #region Usings
-
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnRotator : RadRotator

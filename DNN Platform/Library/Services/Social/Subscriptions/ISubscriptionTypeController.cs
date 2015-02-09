@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using DotNetNuke.Services.Social.Subscriptions.Entities;
@@ -56,7 +56,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
         /// <param name="predicate">Where predicate</param>
         /// <returns>Subscription Type collection</returns>
         IEnumerable<SubscriptionType> GetSubscriptionTypes(Func<SubscriptionType, bool> predicate);
-        
+
         /// <summary>
         /// Deletes a Subscription Type from the system.
         /// </summary>

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ using DotNetNuke.UI.Skins;
 
 namespace DotNetNuke.Entities.Tabs
 {
-    public class TabModulesController: ServiceLocator<ITabModulesController, TabModulesController>, ITabModulesController
+    public class TabModulesController : ServiceLocator<ITabModulesController, TabModulesController>, ITabModulesController
     {
         #region Public Methods
         public ArrayList GetTabModules(TabInfo tab)
@@ -93,7 +93,7 @@ namespace DotNetNuke.Entities.Tabs
             {
                 return TabVersionBuilder.Instance.GetVersionModules(tab.TabID, urlVersion);
             }
-            
+
             if (Globals.IsEditMode())
             {
                 return TabVersionBuilder.Instance.GetUnPublishedVersionModules(tab.TabID);
@@ -105,7 +105,7 @@ namespace DotNetNuke.Entities.Tabs
 
         protected override Func<ITabModulesController> GetFactory()
         {
-            return ()  => new TabModulesController();
+            return () => new TabModulesController();
         }
     }
 }

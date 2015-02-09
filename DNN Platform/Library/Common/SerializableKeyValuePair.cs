@@ -25,5 +25,4 @@ namespace DotNetNuke.Common
             return Json.Serialize(this);
         }
     }
-
 }

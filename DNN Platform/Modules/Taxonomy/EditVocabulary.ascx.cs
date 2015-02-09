@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,14 +34,11 @@ using DotNetNuke.Web.UI.WebControls;
 using WebFormsMvp;
 
 #endregion
-
 namespace DotNetNuke.Modules.Taxonomy.Views
 {
-
-    [PresenterBinding(typeof (EditVocabularyPresenter))]
+    [PresenterBinding(typeof(EditVocabularyPresenter))]
     public partial class EditVocabulary : ModuleView<EditVocabularyModel>, IEditVocabularyView
     {
-
         #region IEditVocabularyView Implementation
 
         public event EventHandler AddTerm;
@@ -91,7 +88,7 @@ namespace DotNetNuke.Modules.Taxonomy.Views
             else
             {
                 termLabel.Text = Localization.GetString("CurrentTerm", LocalResourceFile);
-                saveTermButton.Text = Localization.GetString("CurrentTerm", LocalResourceFile); 
+                saveTermButton.Text = Localization.GetString("CurrentTerm", LocalResourceFile);
             }
 
             deleteVocabulary.Visible = !isAddMode;
@@ -107,19 +104,19 @@ namespace DotNetNuke.Modules.Taxonomy.Views
 
         #region Event Handlers
 
-		protected override void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
 
-			editVocabularyControl.LocalResourceFile = LocalResourceFile;
-		}
+            editVocabularyControl.LocalResourceFile = LocalResourceFile;
+        }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
             JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-			ServicesFramework.Instance.RequestAjaxAntiForgerySupport();
+            ServicesFramework.Instance.RequestAjaxAntiForgerySupport();
 
             addTermButton.Click += OnAddTermClick;
             cancelTermButton.Click += OnCancelTermClick;
@@ -189,6 +186,5 @@ namespace DotNetNuke.Modules.Taxonomy.Views
         }
 
         #endregion
-
     }
 }

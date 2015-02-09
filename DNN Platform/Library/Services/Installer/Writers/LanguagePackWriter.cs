@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +33,6 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -48,15 +47,15 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class LanguagePackWriter : PackageWriterBase
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private bool _IsCore = Null.NullBoolean;
         private Locale _Language;
         private LanguagePackInfo _LanguagePack;
-		
-		#endregion
 
-		#region "Constructors"
+        #endregion
+
+        #region "Constructors"
 
 
         public LanguagePackWriter(PackageInfo package) : base(package)
@@ -71,7 +70,7 @@ namespace DotNetNuke.Services.Installer.Writers
                 }
                 else
                 {
-					//Get the BasePath of the Dependent Package
+                    //Get the BasePath of the Dependent Package
                     PackageInfo dependendentPackage = PackageController.Instance.GetExtensionPackage(Null.NullInteger, p => p.PackageID == LanguagePack.DependentPackageID);
                     PackageWriterBase dependentPackageWriter = PackageWriterFactory.GetWriter(dependendentPackage);
                     BasePath = dependentPackageWriter.BasePath;
@@ -117,10 +116,10 @@ namespace DotNetNuke.Services.Installer.Writers
             _Language = language;
             BasePath = Null.NullString;
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public override bool IncludeAssemblies
         {
@@ -496,7 +495,7 @@ namespace DotNetNuke.Services.Installer.Writers
                         //2. Module packages only include one module
                         if (!_IsCore && _LanguagePack == null)
                         {
-							//Check if language is installed
+                            //Check if language is installed
                             Locale locale = LocaleController.Instance.GetLocale(_Language.Code);
                             if (locale == null)
                             {
@@ -504,13 +503,13 @@ namespace DotNetNuke.Services.Installer.Writers
                             }
                             else
                             {
-								//Attempt to figure out the Extension
+                                //Attempt to figure out the Extension
                                 foreach (KeyValuePair<int, DesktopModuleInfo> kvp in
                                     DesktopModuleController.GetDesktopModules(Null.NullInteger))
                                 {
                                     if (kvp.Value.FolderName.ToLowerInvariant() == moduleName)
                                     {
-										//Found Module - Get Package
+                                        //Found Module - Get Package
                                         var dependentPackage = PackageController.Instance.GetExtensionPackage(Null.NullInteger, p => p.PackageID == kvp.Value.PackageID);
                                         Package.Name += "_" + dependentPackage.Name;
                                         Package.FriendlyName += " " + dependentPackage.FriendlyName;
@@ -540,14 +539,14 @@ namespace DotNetNuke.Services.Installer.Writers
                 }
             }
         }
-		
-		#endregion
 
-		#region "Protected methods"
+        #endregion
+
+        #region "Protected methods"
 
         protected override void GetFiles(bool includeSource, bool includeAppCode)
         {
-			//Language file starts at the root
+            //Language file starts at the root
             ParseFolder(Path.Combine(Globals.ApplicationMapPath, BasePath), Globals.ApplicationMapPath);
         }
 
@@ -564,9 +563,9 @@ namespace DotNetNuke.Services.Installer.Writers
                     return;
                 }
             }
-            if (folder.Name.ToLowerInvariant() == "app_localresources" || folder.Name.ToLowerInvariant() == "app_globalresources" || folder.Name.ToLowerInvariant() =="_default")
+            if (folder.Name.ToLowerInvariant() == "app_localresources" || folder.Name.ToLowerInvariant() == "app_globalresources" || folder.Name.ToLowerInvariant() == "_default")
             {
-				//Add the Files in the Folder
+                //Add the Files in the Folder
                 FileInfo[] files = folder.GetFiles();
                 foreach (FileInfo file in files)
                 {
@@ -596,6 +595,6 @@ namespace DotNetNuke.Services.Installer.Writers
             }
             languageFileWriter.WriteManifest(writer);
         }
-		#endregion
+        #endregion
     }
 }

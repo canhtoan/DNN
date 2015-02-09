@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,10 +27,8 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 
 #endregion
-
 namespace DotNetNuke.Modules.Html
 {
-
     /// <summary>
     ///   The Settings ModuleSettingsBase is used to manage the 
     ///   settings for the HTML Module
@@ -42,7 +40,6 @@ namespace DotNetNuke.Modules.Html
     /// </history>
     public partial class Settings : ModuleSettingsBase
     {
-
         #region Event Handlers
 
         protected override void OnLoad(EventArgs e)
@@ -73,7 +70,7 @@ namespace DotNetNuke.Modules.Html
                     {
                         strDescription = strDescription + " >> " + "<strong>" + objState.StateName + "</strong>";
                     }
-                    strDescription = strDescription + "<br />" + ((WorkflowStateInfo) arrStates[0]).Description;
+                    strDescription = strDescription + "<br />" + ((WorkflowStateInfo)arrStates[0]).Description;
                 }
                 lblDescription.Text = strDescription;
             }
@@ -105,9 +102,9 @@ namespace DotNetNuke.Modules.Html
                         chkReplaceTokens.Checked = Convert.ToBoolean(ModuleSettings["HtmlText_ReplaceTokens"]);
                     }
 
-					//get decoration setting, set to true as default.
-					cbDecorate.Checked = !ModuleSettings.ContainsKey("HtmlText_UseDecorate")
-											|| ModuleSettings["HtmlText_UseDecorate"].ToString() == "1";
+                    //get decoration setting, set to true as default.
+                    cbDecorate.Checked = !ModuleSettings.ContainsKey("HtmlText_UseDecorate")
+                                            || ModuleSettings["HtmlText_UseDecorate"].ToString() == "1";
 
                     // get workflow/version settings
                     var workflows = new ArrayList();
@@ -133,9 +130,9 @@ namespace DotNetNuke.Modules.Html
                         rblApplyTo.Items.FindByValue(workflow.Key).Selected = true;
                     }
 
-					txtSearchDescLength.Text = ModuleSettings.ContainsKey("HtmlText_SearchDescLength") 
+                    txtSearchDescLength.Text = ModuleSettings.ContainsKey("HtmlText_SearchDescLength")
                                                 && !string.IsNullOrEmpty(ModuleSettings["HtmlText_SearchDescLength"].ToString())
-								                    ? ModuleSettings["HtmlText_SearchDescLength"].ToString() 
+                                                    ? ModuleSettings["HtmlText_SearchDescLength"].ToString()
                                                     : HtmlTextController.MAX_DESCRIPTION_LENGTH.ToString();
                 }
                 //Module failed to load
@@ -194,6 +191,5 @@ namespace DotNetNuke.Modules.Html
         }
 
         #endregion
-
     }
 }

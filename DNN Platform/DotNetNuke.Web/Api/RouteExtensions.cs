@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Web.Http.Routing;
@@ -45,7 +46,7 @@ namespace DotNetNuke.Web.Api
         /// <returns>Namespaces</returns>
         internal static string[] GetNameSpaces(this Route route)
         {
-            return (string[]) route.DataTokens[NamespaceKey];
+            return (string[])route.DataTokens[NamespaceKey];
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace DotNetNuke.Web.Api
         /// <returns>Route name</returns>
         public static string GetName(this Route route)
         {
-            return (string) route.DataTokens[NameKey];
+            return (string)route.DataTokens[NameKey];
         }
 
         /// <summary>

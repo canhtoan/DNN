@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -67,11 +68,11 @@ namespace DotNetNuke.Tests.Web.Api
             //including the assembly with object ensures that the assignabliity is done correctly
             var assembliesToReflect = new IAssembly[2];
             assembliesToReflect[0] = new AssemblyWrapper(GetType().Assembly);
-            assembliesToReflect[1] = new AssemblyWrapper(typeof (Object).Assembly);
+            assembliesToReflect[1] = new AssemblyWrapper(typeof(Object).Assembly);
 
             assemblyLocator.Setup(x => x.Assemblies).Returns(assembliesToReflect);
 
-            var locator = new TypeLocator {AssemblyLocator = assemblyLocator.Object};
+            var locator = new TypeLocator { AssemblyLocator = assemblyLocator.Object };
 
             List<Type> types = locator.GetAllMatchingTypes(ServicesRoutingManager.IsValidServiceRouteMapper).ToList();
 
@@ -108,9 +109,9 @@ namespace DotNetNuke.Tests.Web.Api
                                                               typeof (FakeServiceRouteMapper)
                                                           });
             var al = new Mock<IAssemblyLocator>();
-            al.Setup(x => x.Assemblies).Returns(new[] {assembly.Object});
-            var tl = new TypeLocator {AssemblyLocator = al.Object};
-            var srm = new ServicesRoutingManager(new RouteCollection()) {TypeLocator = tl};
+            al.Setup(x => x.Assemblies).Returns(new[] { assembly.Object });
+            var tl = new TypeLocator { AssemblyLocator = al.Object };
+            var srm = new ServicesRoutingManager(new RouteCollection()) { TypeLocator = tl };
 
             srm.RegisterRoutes();
 
@@ -122,11 +123,11 @@ namespace DotNetNuke.Tests.Web.Api
         {
             FakeServiceRouteMapper.RegistrationCalls = 0;
             var assembly = new Mock<IAssembly>();
-            assembly.Setup(x => x.GetTypes()).Returns(new[] {typeof (FakeServiceRouteMapper)});
+            assembly.Setup(x => x.GetTypes()).Returns(new[] { typeof(FakeServiceRouteMapper) });
             var al = new Mock<IAssemblyLocator>();
-            al.Setup(x => x.Assemblies).Returns(new[] {assembly.Object});
-            var tl = new TypeLocator {AssemblyLocator = al.Object};
-            var srm = new ServicesRoutingManager(new RouteCollection()) {TypeLocator = tl};
+            al.Setup(x => x.Assemblies).Returns(new[] { assembly.Object });
+            var tl = new TypeLocator { AssemblyLocator = al.Object };
+            var srm = new ServicesRoutingManager(new RouteCollection()) { TypeLocator = tl };
 
             srm.RegisterRoutes();
 
@@ -148,7 +149,7 @@ namespace DotNetNuke.Tests.Web.Api
         {
             //Arrange
             _mockPortalController.Setup(x => x.GetPortals()).Returns(new ArrayList());
-            
+
             //Act
             var srm = new ServicesRoutingManager(new RouteCollection());
 
@@ -173,7 +174,7 @@ namespace DotNetNuke.Tests.Web.Api
             srm.MapHttpRoute("folder", "default", "url", new[] { "foo" });
 
             //Assert
-            var route = (Route) routeCollection[0];
+            var route = (Route)routeCollection[0];
             Assert.AreEqual("folder-default-0", route.DataTokens["Name"]);
         }
 

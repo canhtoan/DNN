@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Data;
 
 #endregion
-
 namespace DotNetNuke.Entities.Portals.Data
 {
     public interface IDataService
@@ -49,6 +48,5 @@ namespace DotNetNuke.Entities.Portals.Data
         /// <param name="portal">The owner Portal</param>
         /// <returns>A list of ModuleInfo objects</returns>
         IDataReader GetSharedModulesByPortal(PortalInfo portal);
-
     }
 }

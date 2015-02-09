@@ -20,12 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 
 namespace DotNetNuke.Web.Mvp
 {
-    public abstract class SettingsView<TModel> : SettingsViewBase, ISettingsView<TModel> where TModel : SettingsModel, new() 
+    public abstract class SettingsView<TModel> : SettingsViewBase, ISettingsView<TModel> where TModel : SettingsModel, new()
     {
         private TModel _model;
 
@@ -51,7 +50,7 @@ namespace DotNetNuke.Web.Mvp
         {
             var value = defaultValue;
 
-            if(Model.ModuleSettings.ContainsKey(key))
+            if (Model.ModuleSettings.ContainsKey(key))
             {
                 value = Model.ModuleSettings[key];
             }
@@ -70,6 +69,5 @@ namespace DotNetNuke.Web.Mvp
 
             return value;
         }
-
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using DotNetNuke.Common;
@@ -27,7 +27,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Upgrade.Internals.Steps;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 {
     /// -----------------------------------------------------------------------------
@@ -37,7 +36,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
     /// -----------------------------------------------------------------------------    
     public class InstallExtensionsStep : BaseInstallationStep
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (InstallExtensionsStep));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(InstallExtensionsStep));
         #region Implementation of IInstallationStep
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                 var packageType = package.Value.PackageType;
                 var message = string.Format(Localization.Localization.GetString("InstallingExtension", LocalInstallResourceFile), packageType, Path.GetFileName(file));
                 Details = message;
-                Logger.Trace(Details);
+                s_logger.Trace(Details);
                 var success = Upgrade.InstallPackage(file, packageType, false);
                 if (!success)
                 {
@@ -73,7 +72,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                 }
                 Percentage = percentForEachStep * counter++;
             }
-			Status = Errors.Count > 0 ? StepStatus.Retry : StepStatus.Done;
+            Status = Errors.Count > 0 ? StepStatus.Retry : StepStatus.Done;
         }
 
         #endregion

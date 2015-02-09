@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Web.UI;
@@ -40,7 +40,6 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Services.Personalization;
 
 #endregion
-
 namespace DotNetNuke.UI.ControlPanels
 {
     /// -----------------------------------------------------------------------------
@@ -56,13 +55,13 @@ namespace DotNetNuke.UI.ControlPanels
     /// -----------------------------------------------------------------------------
     public class ControlPanelBase : UserControl
     {
-		#region Private Members
+        #region Private Members
 
         private string _localResourceFile;
-		
-		#endregion
 
-		#region Protected Properties
+        #endregion
+
+        #region Protected Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -152,8 +151,8 @@ namespace DotNetNuke.UI.ControlPanels
 
         public virtual bool IsDockable
         {
-          get { return false; }
-          set { }
+            get { return false; }
+            set { }
         }
 
         protected bool IsModuleAdmin()
@@ -195,9 +194,9 @@ namespace DotNetNuke.UI.ControlPanels
             return _IsPageAdmin;
         }
 
-		#endregion
-		
-		#region Private Methods
+        #endregion
+
+        #region Private Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -229,11 +228,11 @@ namespace DotNetNuke.UI.ControlPanels
             }
             return objModulePermission;
         }
-		
-		#endregion
 
-		#region Protected Methods
-		
+        #endregion
+
+        #region Protected Methods
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Adds an Existing Module to a Pane
@@ -346,7 +345,7 @@ namespace DotNetNuke.UI.ControlPanels
                         objModule.InheritViewPermissions = false;
                         break;
                 }
-				
+
                 //get the default module view permissions
                 ArrayList arrSystemModuleViewPermissions = objPermissionController.GetPermissionByCodeAndKey("SYSTEM_MODULE_DEFINITION", "VIEW");
 
@@ -355,10 +354,10 @@ namespace DotNetNuke.UI.ControlPanels
                 {
                     if (objTabPermission.PermissionKey == "VIEW" && permissionType == ViewPermissionType.View)
                     {
-						//Don't need to explicitly add View permisisons if "Same As Page"
+                        //Don't need to explicitly add View permisisons if "Same As Page"
                         continue;
                     }
-					
+
                     //get the system module permissions for the permissionkey
                     ArrayList arrSystemModulePermissions = objPermissionController.GetPermissionByCodeAndKey("SYSTEM_MODULE_DEFINITION", objTabPermission.PermissionKey);
                     //loop through the system module permissions
@@ -366,10 +365,10 @@ namespace DotNetNuke.UI.ControlPanels
                     for (j = 0; j <= arrSystemModulePermissions.Count - 1; j++)
                     {
                         PermissionInfo objSystemModulePermission;
-                        objSystemModulePermission = (PermissionInfo) arrSystemModulePermissions[j];
+                        objSystemModulePermission = (PermissionInfo)arrSystemModulePermissions[j];
                         if (objSystemModulePermission.PermissionKey == "VIEW" && permissionType == ViewPermissionType.Edit && objTabPermission.PermissionKey != "EDIT")
                         {
-							//Only Page Editors get View permissions if "Page Editors Only"
+                            //Only Page Editors get View permissions if "Page Editors Only"
                             continue;
                         }
                         ModulePermissionInfo objModulePermission = AddModulePermission(objModule,
@@ -382,13 +381,13 @@ namespace DotNetNuke.UI.ControlPanels
                         if (objModulePermission.PermissionKey == "EDIT" && objModulePermission.AllowAccess)
                         {
                             ModulePermissionInfo objModuleViewperm = AddModulePermission(objModule,
-                                                                                         (PermissionInfo) arrSystemModuleViewPermissions[0],
+                                                                                         (PermissionInfo)arrSystemModuleViewPermissions[0],
                                                                                          objModulePermission.RoleID,
                                                                                          objModulePermission.UserID,
                                                                                          true);
                         }
                     }
-					
+
                     //Get the custom Module Permissions,  Assume that roles with Edit Tab Permissions
                     //are automatically assigned to the Custom Module Permissions
                     if (objTabPermission.PermissionKey == "EDIT")
@@ -398,9 +397,9 @@ namespace DotNetNuke.UI.ControlPanels
                         //loop through the custom module permissions
                         for (j = 0; j <= arrCustomModulePermissions.Count - 1; j++)
                         {
-							//create the module permission
+                            //create the module permission
                             PermissionInfo objCustomModulePermission;
-                            objCustomModulePermission = (PermissionInfo) arrCustomModulePermissions[j];
+                            objCustomModulePermission = (PermissionInfo)arrCustomModulePermissions[j];
                             AddModulePermission(objModule, objCustomModulePermission, objTabPermission.RoleID, objTabPermission.UserID, objTabPermission.AllowAccess);
                         }
                     }
@@ -491,22 +490,22 @@ namespace DotNetNuke.UI.ControlPanels
             Personalization.SetProfile("Usability", "ControlPanelVisible" + PortalSettings.PortalId, isVisible.ToString());
         }
 
-		protected override void OnInit(EventArgs e)
-		{
-			if (this.Page.Items.Contains(typeof(ControlPanelBase)) && this.Page.Items[typeof(ControlPanelBase)] is ControlPanelBase)
-			{
-				this.Parent.Controls.Remove(this);
-			}
-			else
-			{
-				this.Page.Items[typeof(ControlPanelBase)] = this;
-				base.OnInit(e);
-			}
-		}
-		
-		#endregion
-		
-		#region Obsolete
+        protected override void OnInit(EventArgs e)
+        {
+            if (this.Page.Items.Contains(typeof(ControlPanelBase)) && this.Page.Items[typeof(ControlPanelBase)] is ControlPanelBase)
+            {
+                this.Parent.Controls.Remove(this);
+            }
+            else
+            {
+                this.Page.Items[typeof(ControlPanelBase)] = this;
+                base.OnInit(e);
+            }
+        }
+
+        #endregion
+
+        #region Obsolete
 
         [Obsolete("Deprecated in 5.0. Replaced by SetMode(UserMode).")]
         protected void SetContentMode(bool showContent)
@@ -548,8 +547,8 @@ namespace DotNetNuke.UI.ControlPanels
                 return true;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region Nested type: ViewPermissionType
 

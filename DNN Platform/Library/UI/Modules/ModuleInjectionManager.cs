@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,20 +34,20 @@ namespace DotNetNuke.UI.Modules
 {
     internal class ModuleInjectionManager
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ModuleInjectionManager));
-        private static NaiveLockingList<IModuleInjectionFilter> _filters;
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ModuleInjectionManager));
+        private static NaiveLockingList<IModuleInjectionFilter> s_filters;
 
         public static void RegisterInjectionFilters()
         {
-            _filters = new NaiveLockingList<IModuleInjectionFilter>();
+            s_filters = new NaiveLockingList<IModuleInjectionFilter>();
 
             foreach (IModuleInjectionFilter filter in GetFilters())
             {
-                _filters.Add(filter);
+                s_filters.Add(filter);
             }
         }
 
-        private static IEnumerable<IModuleInjectionFilter>  GetFilters()
+        private static IEnumerable<IModuleInjectionFilter> GetFilters()
         {
             var typeLocator = new TypeLocator();
             IEnumerable<Type> types = typeLocator.GetAllMatchingTypes(IsValidModuleInjectionFilter);
@@ -62,7 +61,7 @@ namespace DotNetNuke.UI.Modules
                 }
                 catch (Exception e)
                 {
-                    Logger.ErrorFormat("Unable to create {0} while registering module injection filters.  {1}", filterType.FullName,
+                    s_logger.ErrorFormat("Unable to create {0} while registering module injection filters.  {1}", filterType.FullName,
                                  e.Message);
                     filter = null;
                 }
@@ -82,7 +81,7 @@ namespace DotNetNuke.UI.Modules
 
         public static bool CanInjectModule(ModuleInfo module, PortalSettings portalSettings)
         {
-            return _filters.All(filter => filter.CanInjectModule(module, portalSettings));
+            return s_filters.All(filter => filter.CanInjectModule(module, portalSettings));
         }
     }
 }

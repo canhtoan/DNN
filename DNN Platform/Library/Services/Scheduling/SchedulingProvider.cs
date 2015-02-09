@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +31,6 @@ using Microsoft.VisualBasic;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
-
 namespace DotNetNuke.Services.Scheduling
 {
     // ReSharper disable InconsistentNaming
@@ -93,7 +92,7 @@ namespace DotNetNuke.Services.Scheduling
 
                 string str;
                 bool dbg;
- 
+
                 if (settings.TryGetValue("debug", out str) && bool.TryParse(str, out dbg))
                 {
                     Debug = dbg;
@@ -112,7 +111,7 @@ namespace DotNetNuke.Services.Scheduling
                 //}
                 if (DotNetNuke.Common.Globals.Status != Globals.UpgradeStatus.Install)
                 {
-                    DelayAtAppStart = HostController.Instance.GetInteger("SchedulerdelayAtAppStart", 1)*60;
+                    DelayAtAppStart = HostController.Instance.GetInteger("SchedulerdelayAtAppStart", 1) * 60;
                 }
                 else
                 {
@@ -258,6 +257,5 @@ namespace DotNetNuke.Services.Scheduling
             //Do Nothing
         }
         public abstract void RemoveFromScheduleInProgress(ScheduleItem scheduleItem);
-
     }
 }

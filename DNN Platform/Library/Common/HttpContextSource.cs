@@ -1,4 +1,4 @@
-// // DotNetNuke� - http://www.dotnetnuke.com
+﻿// // DotNetNuke® - http://www.dotnetnuke.com
 // // Copyright (c) 2002-2014
 // // by DotNetNuke Corporation
 // // 
@@ -26,7 +26,7 @@ namespace DotNetNuke.Common
     /// </summary>
     public class HttpContextSource
     {
-        private static HttpContextBase _fakeContext;
+        private static HttpContextBase s_fakeContext;
 
         /// <summary>
         /// Gets the current HttpContext
@@ -35,9 +35,9 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_fakeContext != null)
+                if (s_fakeContext != null)
                 {
-                    return _fakeContext;
+                    return s_fakeContext;
                 }
 
                 if (HttpContext.Current != null)
@@ -54,7 +54,7 @@ namespace DotNetNuke.Common
         /// <param name="instance">The fake context to inject</param>
         public static void RegisterInstance(HttpContextBase instance)
         {
-            _fakeContext = instance;
+            s_fakeContext = instance;
         }
     }
 }

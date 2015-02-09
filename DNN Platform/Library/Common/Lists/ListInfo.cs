@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,15 +19,14 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities;
 
 #endregion
-
 namespace DotNetNuke.Common.Lists
 {
     [Serializable]

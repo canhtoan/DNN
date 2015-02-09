@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Globalization;
 
@@ -31,7 +31,6 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Services.Journal;
 
 #endregion
-
 namespace DotNetNuke.Modules.Groups.Components
 {
     public class GroupUtilities
@@ -40,9 +39,9 @@ namespace DotNetNuke.Modules.Groups.Components
         {
             var journalController = JournalController.Instance;
             var journalItem = new JournalItem();
-            
+
             string url = "";
-            
+
             if (roleInfo.Settings.ContainsKey("URL"))
             {
                 url = roleInfo.Settings["URL"];
@@ -52,23 +51,23 @@ namespace DotNetNuke.Modules.Groups.Components
             journalItem.ProfileId = createdBy.UserID;
             journalItem.UserId = createdBy.UserID;
             journalItem.Title = roleInfo.RoleName;
-            journalItem.ItemData = new ItemData {Url = url};
+            journalItem.ItemData = new ItemData { Url = url };
             journalItem.SocialGroupId = roleInfo.RoleID;
             journalItem.Summary = roleInfo.Description;
             journalItem.Body = null;
             journalItem.JournalTypeId = journalController.GetJournalType("groupcreate").JournalTypeId;
             journalItem.ObjectKey = string.Format("groupcreate:{0}:{1}", roleInfo.RoleID.ToString(CultureInfo.InvariantCulture), createdBy.UserID.ToString(CultureInfo.InvariantCulture));
-            
+
             if (journalController.GetJournalItemByKey(roleInfo.PortalID, journalItem.ObjectKey) != null)
                 journalController.DeleteJournalItemByKey(roleInfo.PortalID, journalItem.ObjectKey);
-            
-            
+
+
             journalItem.SecuritySet = string.Empty;
-            
+
             if (roleInfo.IsPublic)
                 journalItem.SecuritySet += "E,";
-            
-            
+
+
             journalController.SaveJournalItem(journalItem, null);
         }
     }

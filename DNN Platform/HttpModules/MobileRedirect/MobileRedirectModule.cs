@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -44,7 +44,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Mobile;
 
 #endregion
-
 namespace DotNetNuke.HttpModules
 {
     public class MobileRedirectModule : IHttpModule
@@ -77,40 +76,40 @@ namespace DotNetNuke.HttpModules
         {
             var app = (HttpApplication)s;
             var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
-            
+
             //First check if we are upgrading/installing
             if (!Initialize.ProcessHttpModule(app.Request, false, false)
                     || app.Request.HttpMethod == "POST"
-                    || ServicesModule.ServiceApi.IsMatch(app.Request.RawUrl) 
+                    || ServicesModule.ServiceApi.IsMatch(app.Request.RawUrl)
                     || IsSpecialPage(app.Request.RawUrl)
                     || (portalSettings != null && !IsRedirectAllowed(app.Request.RawUrl, app, portalSettings)))
             {
                 return;
             }
- 
+
             if (_redirectionController != null)
             {
                 if (portalSettings != null && portalSettings.ActiveTab != null)
                 {
                     if (app != null && app.Request != null && !string.IsNullOrEmpty(app.Request.UserAgent))
                     {
-						//Check if redirection has been disabled for the session
+                        //Check if redirection has been disabled for the session
                         //This method inspects cookie and query string. It can also setup / clear cookies.
                         if (!_redirectionController.IsRedirectAllowedForTheSession(app))
-						{                         
-							return;
-						}
+                        {
+                            return;
+                        }
 
                         string redirectUrl = _redirectionController.GetRedirectUrl(app.Request.UserAgent);
                         if (!string.IsNullOrEmpty(redirectUrl))
                         {
-							//append thr query string from original url
-	                        var queryString = app.Request.RawUrl.Contains("?") ? app.Request.RawUrl.Substring(app.Request.RawUrl.IndexOf("?") + 1) : string.Empty;
-	                        if (!string.IsNullOrEmpty(queryString))
-	                        {
-		                        redirectUrl = string.Format("{0}{1}{2}", redirectUrl, redirectUrl.Contains("?") ? "&" : "?", queryString);
-	                        }
-	                        app.Response.Redirect(redirectUrl);
+                            //append thr query string from original url
+                            var queryString = app.Request.RawUrl.Contains("?") ? app.Request.RawUrl.Substring(app.Request.RawUrl.IndexOf("?") + 1) : string.Empty;
+                            if (!string.IsNullOrEmpty(queryString))
+                            {
+                                redirectUrl = string.Format("{0}{1}{2}", redirectUrl, redirectUrl.Contains("?") ? "&" : "?", queryString);
+                            }
+                            app.Response.Redirect(redirectUrl);
                         }
                     }
                 }
@@ -125,25 +124,25 @@ namespace DotNetNuke.HttpModules
         }
 
         private bool IsSpecialPage(string url)
-		{
-			var tabPath = url.ToLowerInvariant();
-			if (tabPath.Contains("?"))
-			{
-				tabPath = tabPath.Substring(0, tabPath.IndexOf("?"));
-			}
+        {
+            var tabPath = url.ToLowerInvariant();
+            if (tabPath.Contains("?"))
+            {
+                tabPath = tabPath.Substring(0, tabPath.IndexOf("?"));
+            }
 
-			var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
-			if (portalSettings == null)
-			{
-				return true;
-			}
+            var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
+            if (portalSettings == null)
+            {
+                return true;
+            }
 
-			var alias = PortalController.Instance.GetCurrentPortalSettings().PortalAlias.HTTPAlias.ToLowerInvariant();
-			if (alias.Contains("/"))
-			{
-				tabPath = tabPath.Replace(alias.Substring(alias.IndexOf("/")), string.Empty);
-			}
-			return _specialPages.Contains(tabPath);
-		}
+            var alias = PortalController.Instance.GetCurrentPortalSettings().PortalAlias.HTTPAlias.ToLowerInvariant();
+            if (alias.Contains("/"))
+            {
+                tabPath = tabPath.Replace(alias.Substring(alias.IndexOf("/")), string.Empty);
+            }
+            return _specialPages.Contains(tabPath);
+        }
     }
 }

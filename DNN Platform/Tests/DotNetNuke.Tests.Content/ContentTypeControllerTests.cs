@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace DotNetNuke.Tests.Content
     [TestFixture]
     public class ContentTypeControllerTests
     {
-        private Mock<CachingProvider> mockCache;
+        private Mock<CachingProvider> _mockCache;
 
         #region Test Initialize
 
@@ -49,7 +50,7 @@ namespace DotNetNuke.Tests.Content
         public void SetUp()
         {
             //Register MockCachingProvider
-            mockCache = MockComponentProvider.CreateNew<CachingProvider>();
+            _mockCache = MockComponentProvider.CreateNew<CachingProvider>();
             MockComponentProvider.CreateDataProvider().Setup(c => c.GetProviderPath()).Returns(String.Empty);
         }
 

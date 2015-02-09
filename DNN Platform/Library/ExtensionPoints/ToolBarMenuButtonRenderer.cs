@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Text;
 using System.Web;
@@ -63,12 +63,12 @@ namespace DotNetNuke.ExtensionPoints
             foreach (var item in extension.Items)
             {
                 str.AppendLine(GetItemOutput(item));
-            }            
+            }
 
             str.AppendLine("</ul>");
             str.AppendLine("</div>");
             str.AppendLine("</div>");
-            
+
             return str.ToString();
         }
 
@@ -78,7 +78,7 @@ namespace DotNetNuke.ExtensionPoints
             {
                 return string.Format("<li class='{0}' id='{1}' ><a href='#' onclick='{2}; return false;'><span {3}>{4}</span></a></li>", item.CssClass, item.ItemId, item.Action, item.Attributes, item.Text);
             }
-            
+
             return string.Format("<li><input type='{0}' name='{1}' id='{2}' value='{3}' {4} onclick='{5}; return false;'/>{6}</li>", item.Type, item.ItemId, item.ItemId, item.Text, item.Attributes, item.Action, item.Text);
         }
     }

@@ -17,15 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Web.UI;
 using DotNetNuke.Framework;
 
 namespace DotNetNuke.Common.Utilities
 {
-    public class JavaScriptUtils: ServiceLocator<IJavaScriptUtils,JavaScriptUtils>, IJavaScriptUtils
+    public class JavaScriptUtils : ServiceLocator<IJavaScriptUtils, JavaScriptUtils>, IJavaScriptUtils
     {
         public void RegisterJavascriptVariable(string variableName, object value, Page page, Type type)
         {

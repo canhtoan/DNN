@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -78,7 +78,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
             var isHostDefault = Boolean.Parse(testFields["IsHostDefault"]);
             var defaultValue = testFields["DefaultValue"];
             var controller = new PortalSettingsController();
-            var settings = new PortalSettings() { PortalId = ValidPortalId};
+            var settings = new PortalSettings() { PortalId = ValidPortalId };
             var hostSettings = PortalSettingsControllerTestFactory.GetHostSettings();
 
             var mockPortalController = new Mock<IPortalController>();
@@ -205,15 +205,15 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
             var controller = new PortalSettingsController();
             var portal = new PortalInfo()
             {
-                Users = 2, 
-                Pages = 5, 
+                Users = 2,
+                Pages = 5,
                 DefaultLanguage = Localization.SystemLocale,
                 HomeDirectory = "Portals/0"
             };
             var settings = new PortalSettings() { PortalId = ValidPortalId };
 
             //Act
-            controller.LoadPortal(portal,settings);
+            controller.LoadPortal(portal, settings);
 
             //Assert
             Assert.AreEqual(portal.AdminTabId, settings.AdminTabId);
@@ -311,10 +311,10 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
         {
             //Arrange
             var controller = new PortalSettingsController();
-            var settings = new PortalSettings { PortalId = ValidPortalId, SplashTabId = SplashTabId};
-            var splashTabId = new TabInfo {TabID = SplashTabId, PortalID = ValidPortalId};
+            var settings = new PortalSettings { PortalId = ValidPortalId, SplashTabId = SplashTabId };
+            var splashTabId = new TabInfo { TabID = SplashTabId, PortalID = ValidPortalId };
 
-            var mockLocaleController = new Mock<ILocaleController> ();
+            var mockLocaleController = new Mock<ILocaleController>();
             mockLocaleController.Setup(c => c.GetLocales(ValidPortalId)).Returns(new Dictionary<string, Locale>());
             LocaleController.RegisterInstance(mockLocaleController.Object);
 
@@ -357,7 +357,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
         {
             //Arrange
             var controller = new PortalSettingsController();
-            var settings = new PortalSettings { PortalId = ValidPortalId, SplashTabId = SplashTabId, HomeTabId = HomeTabId};
+            var settings = new PortalSettings { PortalId = ValidPortalId, SplashTabId = SplashTabId, HomeTabId = HomeTabId };
             var splashTabId = new TabInfo { TabID = SplashTabId, PortalID = ValidPortalId };
             var homeTabId = new TabInfo { TabID = HomeTabId, PortalID = ValidPortalId };
 
@@ -432,7 +432,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
             //Arrange
             var controller = new PortalSettingsController();
             var settings = new PortalSettings { PortalId = ValidPortalId, DefaultPortalSkin = DefaultSkin };
-            var validTab = new TabInfo { TabID = ValidTabId, PortalID = ValidPortalId, SkinSrc = TabSkin};
+            var validTab = new TabInfo { TabID = ValidTabId, PortalID = ValidPortalId, SkinSrc = TabSkin };
             settings.ActiveTab = validTab;
 
             var mockLocaleController = new Mock<ILocaleController>();
@@ -583,7 +583,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
             //Arrange
             var controller = new PortalSettingsController();
             var settings = new PortalSettings { PortalId = ValidPortalId };
-            var validTab = new TabInfo { TabID = ValidTabId, PortalID = ValidPortalId, ParentId = ParentTabId};
+            var validTab = new TabInfo { TabID = ValidTabId, PortalID = ValidPortalId, ParentId = ParentTabId };
             var parentTab = new TabInfo { TabID = ParentTabId, PortalID = ValidPortalId };
             settings.ActiveTab = validTab;
 

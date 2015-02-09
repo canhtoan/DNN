@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Linq;
 using System.Web;
@@ -39,7 +39,6 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.Containers
 {
     /// -----------------------------------------------------------------------------
@@ -57,15 +56,15 @@ namespace DotNetNuke.UI.Containers
     /// -----------------------------------------------------------------------------
     public class ActionManager
     {
-		#region Private Members
+        #region Private Members
 
-        private readonly PortalSettings PortalSettings = PortalController.Instance.GetCurrentPortalSettings();
-        private readonly HttpRequest Request = HttpContext.Current.Request;
-        private readonly HttpResponse Response = HttpContext.Current.Response;
+        private readonly PortalSettings _portalSettings = PortalController.Instance.GetCurrentPortalSettings();
+        private readonly HttpRequest _request = HttpContext.Current.Request;
+        private readonly HttpResponse _response = HttpContext.Current.Response;
 
-		#endregion
+        #endregion
 
-		#region Constructors
+        #region Constructors
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -79,10 +78,10 @@ namespace DotNetNuke.UI.Containers
         {
             ActionControl = actionControl;
         }
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -113,17 +112,17 @@ namespace DotNetNuke.UI.Containers
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Private Methods
+        #region Private Methods
 
         private void ClearCache(ModuleAction Command)
         {
-			//synchronize cache
+            //synchronize cache
             ModuleController.SynchronizeModule(ModuleContext.ModuleId);
 
             //Redirect to the same page to pick up changes
-            Response.Redirect(Request.RawUrl, true);
+            _response.Redirect(_request.RawUrl, true);
         }
 
         private void Delete(ModuleAction Command)
@@ -136,20 +135,20 @@ namespace DotNetNuke.UI.Containers
             {
                 foreach (ModuleInfo instance in ModuleController.Instance.GetTabModulesByModule(module.ModuleID))
                 {
-                    if(instance.IsShared)
+                    if (instance.IsShared)
                     {
                         //HARD Delete Shared Instance
                         ModuleController.Instance.DeleteTabModule(instance.TabID, instance.ModuleID, false);
-                        EventLogController.Instance.AddLog(instance, PortalSettings, user.UserID, "", EventLogController.EventLogType.MODULE_DELETED);
+                        EventLogController.Instance.AddLog(instance, _portalSettings, user.UserID, "", EventLogController.EventLogType.MODULE_DELETED);
                     }
                 }
             }
 
             ModuleController.Instance.DeleteTabModule(ModuleContext.TabId, int.Parse(Command.CommandArgument), true);
-            EventLogController.Instance.AddLog(module, PortalSettings, user.UserID, "", EventLogController.EventLogType.MODULE_SENT_TO_RECYCLE_BIN);
+            EventLogController.Instance.AddLog(module, _portalSettings, user.UserID, "", EventLogController.EventLogType.MODULE_SENT_TO_RECYCLE_BIN);
 
             //Redirect to the same page to pick up changes
-            Response.Redirect(Request.RawUrl, true);
+            _response.Redirect(_request.RawUrl, true);
         }
 
         private void DoAction(ModuleAction Command)
@@ -160,7 +159,7 @@ namespace DotNetNuke.UI.Containers
             }
             else
             {
-                Response.Redirect(Command.Url, true);
+                _response.Redirect(Command.Url, true);
             }
         }
 
@@ -179,7 +178,7 @@ namespace DotNetNuke.UI.Containers
             }
 
             // Redirect to the same page to pick up changes
-            Response.Redirect(Request.RawUrl, true);
+            _response.Redirect(_request.RawUrl, true);
         }
 
         private void Translate(ModuleAction Command)
@@ -196,7 +195,7 @@ namespace DotNetNuke.UI.Containers
             }
 
             // Redirect to the same page to pick up changes
-            Response.Redirect(Request.RawUrl, true);
+            _response.Redirect(_request.RawUrl, true);
         }
 
         private void MoveToPane(ModuleAction Command)
@@ -205,7 +204,7 @@ namespace DotNetNuke.UI.Containers
             ModuleController.Instance.UpdateTabModuleOrder(ModuleContext.TabId);
 
             //Redirect to the same page to pick up changes
-            Response.Redirect(Request.RawUrl, true);
+            _response.Redirect(_request.RawUrl, true);
         }
 
         private void MoveUpDown(ModuleAction Command)
@@ -228,12 +227,12 @@ namespace DotNetNuke.UI.Containers
             ModuleController.Instance.UpdateTabModuleOrder(ModuleContext.TabId);
 
             //Redirect to the same page to pick up changes
-            Response.Redirect(Request.RawUrl, true);
+            _response.Redirect(_request.RawUrl, true);
         }
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -246,22 +245,22 @@ namespace DotNetNuke.UI.Containers
         /// -----------------------------------------------------------------------------
         public bool DisplayControl(DNNNodeCollection objNodes)
         {
-            if (objNodes != null && objNodes.Count > 0 && PortalSettings.UserMode != PortalSettings.Mode.View)
+            if (objNodes != null && objNodes.Count > 0 && _portalSettings.UserMode != PortalSettings.Mode.View)
             {
                 DNNNode objRootNode = objNodes[0];
                 if (objRootNode.HasNodes && objRootNode.DNNNodes.Count == 0)
                 {
-					//if has pending node then display control
+                    //if has pending node then display control
                     return true;
                 }
                 else if (objRootNode.DNNNodes.Count > 0)
                 {
-					//verify that at least one child is not a break
+                    //verify that at least one child is not a break
                     foreach (DNNNode childNode in objRootNode.DNNNodes)
                     {
                         if (!childNode.IsBreak)
                         {
-							//Found a child so make Visible
+                            //Found a child so make Visible
                             return true;
                         }
                     }
@@ -441,7 +440,7 @@ namespace DotNetNuke.UI.Containers
             }
             return bProcessed;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

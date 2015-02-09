@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -314,10 +313,10 @@ namespace DotNetNuke.Entities.Urls
         {
             var dictionary = new Dictionary<string, string>();
 
-            if(!String.IsNullOrEmpty(delimitedString))
+            if (!String.IsNullOrEmpty(delimitedString))
             {
                 var pairs = delimitedString.Split(pairSeparator);
-                foreach (string pair  in pairs)
+                foreach (string pair in pairs)
                 {
                     if (!String.IsNullOrEmpty(pair))
                     {

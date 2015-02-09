@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Data;
 using DotNetNuke.Data;
@@ -29,12 +29,12 @@ namespace DotNetNuke.Services.Social.Subscriptions.Data
     public class DataService : ServiceLocator<IDataService, DataService>, IDataService
     {
         #region Private Members
-        private readonly DataProvider provider;
+        private readonly DataProvider _provider;
         #endregion
 
         public DataService()
         {
-            provider = DataProvider.Instance();
+            _provider = DataProvider.Instance();
         }
 
         protected override Func<IDataService> GetFactory()
@@ -45,17 +45,17 @@ namespace DotNetNuke.Services.Social.Subscriptions.Data
         #region Subscription Types
         public int AddSubscriptionType(string subscriptionName, string friendlyName, int desktopModuleId)
         {
-            return provider.ExecuteScalar<int>("CoreMessaging_AddSubscriptionType", subscriptionName, friendlyName, desktopModuleId);
+            return _provider.ExecuteScalar<int>("CoreMessaging_AddSubscriptionType", subscriptionName, friendlyName, desktopModuleId);
         }
 
         public IDataReader GetSubscriptionTypes()
         {
-            return provider.ExecuteReader("CoreMessaging_GetSubscriptionTypes");
+            return _provider.ExecuteReader("CoreMessaging_GetSubscriptionTypes");
         }
 
         public bool DeleteSubscriptionType(int subscriptionTypeId)
         {
-            return provider.ExecuteScalar<int>("CoreMessaging_DeleteSubscriptionType", subscriptionTypeId) == 0;
+            return _provider.ExecuteScalar<int>("CoreMessaging_DeleteSubscriptionType", subscriptionTypeId) == 0;
         }
         #endregion
 
@@ -63,46 +63,46 @@ namespace DotNetNuke.Services.Social.Subscriptions.Data
         #region Subscriptions
         public int AddSubscription(int userId, int portalId, int subscriptionTypeId, string objectKey, string description, int moduleId, int tabId, string objectData)
         {
-            return provider.ExecuteScalar<int>("CoreMessaging_AddSubscription", 
-                userId, 
-                provider.GetNull(portalId),
-                subscriptionTypeId, 
-                objectKey, 
+            return _provider.ExecuteScalar<int>("CoreMessaging_AddSubscription",
+                userId,
+                _provider.GetNull(portalId),
+                subscriptionTypeId,
+                objectKey,
                 description,
-                provider.GetNull(moduleId),
-                provider.GetNull(tabId),
+                _provider.GetNull(moduleId),
+                _provider.GetNull(tabId),
                 objectData);
         }
 
         public IDataReader GetSubscriptionsByUser(int portalId, int userId, int subscriptionTypeId)
         {
-            return provider.ExecuteReader("CoreMessaging_GetSubscriptionsByUser", provider.GetNull(portalId), userId, provider.GetNull(subscriptionTypeId));
+            return _provider.ExecuteReader("CoreMessaging_GetSubscriptionsByUser", _provider.GetNull(portalId), userId, _provider.GetNull(subscriptionTypeId));
         }
 
         public IDataReader GetSubscriptionsByContent(int portalId, int subscriptionTypeId, string objectKey)
         {
-            return provider.ExecuteReader("CoreMessaging_GetSubscriptionsByContent", provider.GetNull(portalId), subscriptionTypeId, objectKey);
+            return _provider.ExecuteReader("CoreMessaging_GetSubscriptionsByContent", _provider.GetNull(portalId), subscriptionTypeId, objectKey);
         }
 
         public IDataReader IsSubscribed(int portalId, int userId, int subscriptionTypeId, string objectKey, int moduleId, int tabId)
         {
-            return provider.ExecuteReader("CoreMessaging_IsSubscribed",
-                provider.GetNull(portalId), 
-                userId, 
-                subscriptionTypeId, 
-                objectKey, 
-                provider.GetNull(moduleId),
-                provider.GetNull(tabId));
+            return _provider.ExecuteReader("CoreMessaging_IsSubscribed",
+                _provider.GetNull(portalId),
+                userId,
+                subscriptionTypeId,
+                objectKey,
+                _provider.GetNull(moduleId),
+                _provider.GetNull(tabId));
         }
 
         public bool DeleteSubscription(int subscriptionId)
         {
-            return provider.ExecuteScalar<int>("CoreMessaging_DeleteSubscription", subscriptionId) == 0;
+            return _provider.ExecuteScalar<int>("CoreMessaging_DeleteSubscription", subscriptionId) == 0;
         }
 
         public int UpdateSubscriptionDescription(string objectKey, int portalId, string newDescription)
         {
-            return provider.ExecuteScalar<int>("CoreMessaging_UpdateSubscriptionDescription",
+            return _provider.ExecuteScalar<int>("CoreMessaging_UpdateSubscriptionDescription",
                 objectKey,
                 portalId,
                 newDescription);
@@ -110,7 +110,7 @@ namespace DotNetNuke.Services.Social.Subscriptions.Data
 
         public void DeleteSubscriptionsByObjectKey(int portalId, string objectKey)
         {
-            provider.ExecuteNonQuery("CoreMessaging_DeleteSubscriptionsByObjectKey", portalId, objectKey);
+            _provider.ExecuteNonQuery("CoreMessaging_DeleteSubscriptionsByObjectKey", portalId, objectKey);
         }
 
         #endregion

@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 
@@ -145,6 +144,5 @@ namespace DotNetNuke.Tests.Data
             //Assert
             Assert.AreEqual(providerPath, provider.ProviderPath);
         }
-
     }
 }

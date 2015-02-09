@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +39,6 @@ using DotNetNuke.Services.Social.Messaging.Internal;
 using Message = DotNetNuke.Services.Messaging.Data.Message;
 
 #endregion
-
 namespace DotNetNuke.Services.Messaging
 {
     /// -----------------------------------------------------------------------------
@@ -54,7 +53,7 @@ namespace DotNetNuke.Services.Messaging
     [Obsolete("Deprecated in DNN 6.2.0, please use DotNetNuke.Services.Social.Messaging.MessagingController")]
     public class MessagingController : IMessagingController
     {
-        private static TabInfo _MessagingPage;
+        private static TabInfo s_messagingPage;
 
         #region "Constructors"
 
@@ -103,9 +102,9 @@ namespace DotNetNuke.Services.Messaging
 
         public static TabInfo MessagingPage(string ModuleFriendlyName)
         {
-            if (((_MessagingPage != null)))
+            if (((s_messagingPage != null)))
             {
-                return _MessagingPage;
+                return s_messagingPage;
             }
 
             ModuleInfo md = ModuleController.Instance.GetModuleByDefinition(PortalSettings.Current.PortalId, ModuleFriendlyName);
@@ -117,12 +116,12 @@ namespace DotNetNuke.Services.Messaging
                     var mi = a[0];
                     if ((mi != null))
                     {
-                        _MessagingPage = TabController.Instance.GetTab(mi.TabID, PortalSettings.Current.PortalId, false);
+                        s_messagingPage = TabController.Instance.GetTab(mi.TabID, PortalSettings.Current.PortalId, false);
                     }
                 }
             }
 
-            return _MessagingPage;
+            return s_messagingPage;
         }
 
         public Message GetMessageByID(int PortalID, int UserID, int messageId)
@@ -171,8 +170,8 @@ namespace DotNetNuke.Services.Messaging
 
             List<RoleInfo> emptyRoles = null;
             List<int> files = null;
-            
-            var coremessage = new Social.Messaging.Message {Body = message.Body, Subject = message.Subject};
+
+            var coremessage = new Social.Messaging.Message { Body = message.Body, Subject = message.Subject };
 
 
             Social.Messaging.MessagingController.Instance.SendMessage(coremessage, emptyRoles, users, files);

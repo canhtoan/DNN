@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Text;
 using System.Web.Caching;
@@ -29,7 +29,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Cache;
 
 #endregion
-
 namespace DotNetNuke.Framework
 {
     /// -----------------------------------------------------------------------------
@@ -102,12 +101,12 @@ namespace DotNetNuke.Framework
         /// -----------------------------------------------------------------------------
         public override void Save()
         {
-			//No processing needed if no states available
+            //No processing needed if no states available
             if (ViewState == null && ControlState == null)
             {
                 return;
             }
-			
+
             //Generate a unique cache key
             var key = new StringBuilder();
             {
@@ -116,7 +115,7 @@ namespace DotNetNuke.Framework
                 key.Append("_");
                 key.Append(DateTime.Now.Ticks.ToString());
             }
-			
+
             //Save view state and control state separately
             var state = new Pair(ViewState, ControlState);
 

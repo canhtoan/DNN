@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
@@ -27,12 +27,11 @@ using DotNetNuke.Data;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.SiteLog
 {
     public class BufferedSiteLog
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (BufferedSiteLog));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(BufferedSiteLog));
         public ArrayList SiteLog;
         public string SiteLogStorage;
 
@@ -43,11 +42,11 @@ namespace DotNetNuke.Services.Log.SiteLog
                 SiteLogInfo objSiteLog;
                 var objSiteLogs = new SiteLogController();
 
-				//iterate through buffered sitelog items and insert into database
+                //iterate through buffered sitelog items and insert into database
                 int intIndex;
                 for (intIndex = 0; intIndex <= SiteLog.Count - 1; intIndex++)
                 {
-                    objSiteLog = (SiteLogInfo) SiteLog[intIndex];
+                    objSiteLog = (SiteLogInfo)SiteLog[intIndex];
                     switch (SiteLogStorage)
                     {
                         case "D": //database
@@ -79,8 +78,7 @@ namespace DotNetNuke.Services.Log.SiteLog
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
-
+                s_logger.Error(exc);
             }
         }
     }

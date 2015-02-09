@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -36,17 +37,17 @@ namespace DotNetNuke.Services.ClientCapability
     /// </summary>
     public class FacebookRequestController
     {
-        public string AccessToken{ get; set; }
+        public string AccessToken { get; set; }
         public DateTime Expires { get; set; }
         public long UserID { get; set; }
         public long ProfileId { get; set; }
         public static string API_SECRET { get; set; }
         public static string APP_ID { get; set; }
         public string RawSignedRequest { get; set; }
-        const string SignedRequestParameter = "signed_request";
+        private const string SignedRequestParameter = "signed_request";
         public bool IsValid { get; set; }
 
-		public static FacebookRequest GetFacebookDetailsFromRequest(HttpRequest Request)
+        public static FacebookRequest GetFacebookDetailsFromRequest(HttpRequest Request)
         {
             if (Request == null) return null;
             if (Request.RequestType != "POST") return null;
@@ -58,30 +59,30 @@ namespace DotNetNuke.Services.ClientCapability
         {
             if (string.IsNullOrEmpty(rawSignedRequest)) return null;
 
-			try
-			{
-				var facebookRequest = new FacebookRequest();
-				facebookRequest.RawSignedRequest = rawSignedRequest;
-				facebookRequest.IsValid = false;
+            try
+            {
+                var facebookRequest = new FacebookRequest();
+                facebookRequest.RawSignedRequest = rawSignedRequest;
+                facebookRequest.IsValid = false;
 
-				string[] signedRequestSplit = rawSignedRequest.Split('.');
-				string expectedSignature = signedRequestSplit[0];
-				string payload = signedRequestSplit[1];
+                string[] signedRequestSplit = rawSignedRequest.Split('.');
+                string expectedSignature = signedRequestSplit[0];
+                string payload = signedRequestSplit[1];
 
-				var decodedJson = ReplaceSpecialCharactersInSignedRequest(payload);
-				var base64JsonArray = Convert.FromBase64String(decodedJson.PadRight(decodedJson.Length + (4 - decodedJson.Length%4)%4, '='));
+                var decodedJson = ReplaceSpecialCharactersInSignedRequest(payload);
+                var base64JsonArray = Convert.FromBase64String(decodedJson.PadRight(decodedJson.Length + (4 - decodedJson.Length % 4) % 4, '='));
 
-				var encoding = new UTF8Encoding();
-				FaceBookData faceBookData = encoding.GetString(base64JsonArray).FromJson<FaceBookData>();
-				
+                var encoding = new UTF8Encoding();
+                FaceBookData faceBookData = encoding.GetString(base64JsonArray).FromJson<FaceBookData>();
+
                 if (faceBookData.algorithm == "HMAC-SHA256")
                 {
                     facebookRequest.IsValid = true;
                     facebookRequest.Algorithm = faceBookData.algorithm;
                     facebookRequest.ProfileId = faceBookData.profile_id;
                     facebookRequest.AppData = faceBookData.app_data;
-					facebookRequest.OauthToken = !string.IsNullOrEmpty(faceBookData.oauth_token) ? faceBookData.oauth_token : "";
-					facebookRequest.Expires = ConvertToTimestamp(faceBookData.expires);
+                    facebookRequest.OauthToken = !string.IsNullOrEmpty(faceBookData.oauth_token) ? faceBookData.oauth_token : "";
+                    facebookRequest.Expires = ConvertToTimestamp(faceBookData.expires);
                     facebookRequest.IssuedAt = ConvertToTimestamp(faceBookData.issued_at);
                     facebookRequest.UserID = !string.IsNullOrEmpty(faceBookData.user_id) ? faceBookData.user_id : "";
 
@@ -93,14 +94,14 @@ namespace DotNetNuke.Services.ClientCapability
                     facebookRequest.UserCountry = faceBookData.user.country;
                     facebookRequest.UserMinAge = faceBookData.user.age.min;
                     facebookRequest.UserMaxAge = faceBookData.user.age.max;
-				}
+                }
 
-				return facebookRequest;
-			}
-			catch(Exception)
-			{
-				return null;
-			}
+                return facebookRequest;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public static bool IsValidSignature(string rawSignedRequest, string secretKey)
@@ -117,7 +118,7 @@ namespace DotNetNuke.Services.ClientCapability
                     var encoding = new UTF8Encoding();
                     var hmac = SignWithHmac(encoding.GetBytes(payload), encoding.GetBytes(secretKey));
                     var hmacBase64 = Base64UrlDecode(Convert.ToBase64String(hmac));
-                    if (hmacBase64 == expectedSignature) 
+                    if (hmacBase64 == expectedSignature)
                         return true;
                 }
             }
@@ -164,27 +165,27 @@ namespace DotNetNuke.Services.ClientCapability
         }
     }
 
-    struct Page
+    internal struct Page
     {
         public string id { get; set; }
         public bool liked { get; set; }
         public bool admin { get; set; }
     }
 
-    struct Age
+    internal struct Age
     {
         public long min { get; set; }
         public long max { get; set; }
     }
 
-    struct User
+    internal struct User
     {
         public string locale { get; set; }
         public string country { get; set; }
         public Age age { get; set; }
     }
 
-    struct FaceBookData
+    internal struct FaceBookData
     {
         public User user { get; set; }
         public string algorithm { get; set; }
@@ -194,6 +195,6 @@ namespace DotNetNuke.Services.ClientCapability
         public long expires { get; set; }
         public string app_data { get; set; }
         public Page page { get; set; }
-        public long profile_id { get; set; }        
+        public long profile_id { get; set; }
     }
 }

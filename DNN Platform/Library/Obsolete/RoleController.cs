@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -36,7 +36,7 @@ namespace DotNetNuke.Security.Roles
     /// The RoleController class provides Business Layer methods for Roles
     /// </summary>
     /// -----------------------------------------------------------------------------
-    public partial class RoleController 
+    public partial class RoleController
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Deprecated in DotNetNuke 5.0. This function has been replaced by AddRole(role)")]
@@ -158,7 +158,7 @@ namespace DotNetNuke.Security.Roles
         [Obsolete("Deprecated in DotNetNuke 6.2.")]
         public string[] GetRolesByUser(int UserId, int PortalId)
         {
-            if(UserId == -1)
+            if (UserId == -1)
             {
                 return new string[0];
             }
@@ -176,7 +176,7 @@ namespace DotNetNuke.Security.Roles
         [Obsolete("Deprecated in DotNetNuke 5.0. This function has been replaced by GetUserRoles")]
         public ArrayList GetServices(int PortalId, int UserId)
         {
-            return provider.GetUserRoles(PortalId, UserId, false);
+            return s_provider.GetUserRoles(PortalId, UserId, false);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -190,28 +190,28 @@ namespace DotNetNuke.Security.Roles
         [Obsolete("Deprecated in DotNetNuke 6.2. Replaced by overload that returns IList")]
         public ArrayList GetUserRoles(int PortalId, int UserId)
         {
-            return provider.GetUserRoles(PortalId, UserId, true);
+            return s_provider.GetUserRoles(PortalId, UserId, true);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Deprecated in DotNetNuke 6.2. Replaced by overload that returns IList")]
         public ArrayList GetUserRoles(int PortalId, int UserId, bool includePrivate)
         {
-            return provider.GetUserRoles(PortalId, UserId, includePrivate);
+            return s_provider.GetUserRoles(PortalId, UserId, includePrivate);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Deprecated in DotNetNuke 6.2. Replaced by overload of GetUserRoles that returns IList")]
         public ArrayList GetUserRolesByUsername(int PortalID, string Username, string Rolename)
         {
-            return provider.GetUserRoles(PortalID, Username, Rolename);
+            return s_provider.GetUserRoles(PortalID, Username, Rolename);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Deprecated in DotNetNuke 6.2.")]
         public ArrayList GetUserRolesByRoleName(int portalId, string roleName)
         {
-            return provider.GetUserRoles(portalId, null, roleName);
+            return s_provider.GetUserRoles(portalId, null, roleName);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -225,7 +225,7 @@ namespace DotNetNuke.Security.Roles
         [Obsolete("Deprecated in DotNetNuke 5.0. This function has been replaced by GetUserRolesByRole")]
         public ArrayList GetUsersInRole(int PortalID, string RoleName)
         {
-            return provider.GetUserRolesByRoleName(PortalID, RoleName);
+            return s_provider.GetUserRolesByRoleName(PortalID, RoleName);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -275,7 +275,5 @@ namespace DotNetNuke.Security.Roles
         {
             UpdateUserRole(portalId, userId, roleId, RoleStatus.Approved, false, cancel);
         }
-
-
-     }
+    }
 }

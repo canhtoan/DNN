@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Web.InternalServices
 {
     public class NotificationDTO

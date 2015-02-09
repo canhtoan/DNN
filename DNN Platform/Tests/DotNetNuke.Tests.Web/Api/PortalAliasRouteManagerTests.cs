@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +35,6 @@ namespace DotNetNuke.Tests.Web.Api
     [TestFixture]
     public class PortalAliasRouteManagerTests
     {
-
         [TearDown]
         public void TearDown()
         {
@@ -76,9 +74,9 @@ namespace DotNetNuke.Tests.Web.Api
             {
                 new PortalAliasRouteManager().GetRouteUrl(moduleFolderName, "url", count);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(e.GetType() == expectedException)
+                if (e.GetType() == expectedException)
                 {
                     Assert.Pass();
                     return;
@@ -94,7 +92,7 @@ namespace DotNetNuke.Tests.Web.Api
         {
             //Arrange
             var mockPortalController = new Mock<IPortalController>();
-            var portals = new ArrayList {new PortalInfo {PortalID = 1}};
+            var portals = new ArrayList { new PortalInfo { PortalID = 1 } };
             mockPortalController.Setup(x => x.GetPortals()).Returns(portals);
             PortalController.SetTestableInstance(mockPortalController.Object);
 
@@ -111,7 +109,7 @@ namespace DotNetNuke.Tests.Web.Api
             List<int> prefixes = new PortalAliasRouteManager().GetRoutePrefixCounts().ToList();
 
             //Assert
-            CollectionAssert.AreEquivalent(new[] {0}, prefixes);
+            CollectionAssert.AreEquivalent(new[] { 0 }, prefixes);
         }
 
         [Test]
@@ -119,7 +117,7 @@ namespace DotNetNuke.Tests.Web.Api
         {
             //Arrange
             var mockPortalController = new Mock<IPortalController>();
-            var portals = new ArrayList {new PortalInfo {PortalID = 1}};
+            var portals = new ArrayList { new PortalInfo { PortalID = 1 } };
             mockPortalController.Setup(x => x.GetPortals()).Returns(portals);
             PortalController.SetTestableInstance(mockPortalController.Object);
 
@@ -136,7 +134,7 @@ namespace DotNetNuke.Tests.Web.Api
             List<int> prefixes = new PortalAliasRouteManager().GetRoutePrefixCounts().ToList();
 
             //Assert
-            CollectionAssert.AreEquivalent(new[] {0}, prefixes);
+            CollectionAssert.AreEquivalent(new[] { 0 }, prefixes);
         }
 
         [Test]
@@ -197,7 +195,7 @@ namespace DotNetNuke.Tests.Web.Api
         {
             //Arrange
             var mockPortalController = new Mock<IPortalController>();
-            var portals = new ArrayList {new PortalInfo {PortalID = 1}};
+            var portals = new ArrayList { new PortalInfo { PortalID = 1 } };
             mockPortalController.Setup(x => x.GetPortals()).Returns(portals);
             PortalController.SetTestableInstance(mockPortalController.Object);
 
@@ -217,7 +215,7 @@ namespace DotNetNuke.Tests.Web.Api
             List<int> prefixes = new PortalAliasRouteManager().GetRoutePrefixCounts().ToList();
 
             //Assert
-            CollectionAssert.AreEqual(new[] {1, 0}, prefixes);
+            CollectionAssert.AreEqual(new[] { 1, 0 }, prefixes);
         }
 
         [Test]
@@ -227,7 +225,7 @@ namespace DotNetNuke.Tests.Web.Api
         public void GetRouteNameHashesNameInCorrectFormat(string moduleFolderName, string routeName, int count, string expected)
         {
             //Arrange
-            
+
 
             //Act
             var result = new PortalAliasRouteManager().GetRouteName(moduleFolderName, routeName, count);
@@ -246,7 +244,7 @@ namespace DotNetNuke.Tests.Web.Api
 
 
             //Act
-            var result = new PortalAliasRouteManager().GetRouteName(moduleFolderName, routeName, new PortalAliasInfo {HTTPAlias = httpAlias});
+            var result = new PortalAliasRouteManager().GetRouteName(moduleFolderName, routeName, new PortalAliasInfo { HTTPAlias = httpAlias });
 
             //Assert
             Assert.AreEqual(expected, result);
@@ -259,7 +257,7 @@ namespace DotNetNuke.Tests.Web.Api
         public void GetRouteNameThrowsOnEmptyModuleFolderName(string moduleFolderName)
         {
             //Arrange
-            
+
 
             //Act
             new PortalAliasRouteManager().GetRouteName(moduleFolderName, "", 0);
@@ -272,7 +270,7 @@ namespace DotNetNuke.Tests.Web.Api
         public void GetRouteNameThrowsOnCountLessThan0()
         {
             //Arrange
-            
+
 
             //Act
             new PortalAliasRouteManager().GetRouteName("foo", "", -1);
@@ -281,13 +279,13 @@ namespace DotNetNuke.Tests.Web.Api
         }
 
         [Test]
-        public void GetAllRouteValuesWorksWithNullRouteValues   ()
+        public void GetAllRouteValuesWorksWithNullRouteValues()
         {
             //Arrange
-            
+
 
             //Act
-            new PortalAliasRouteManager().GetAllRouteValues(new PortalAliasInfo {HTTPAlias = ""}, null);
+            new PortalAliasRouteManager().GetAllRouteValues(new PortalAliasInfo { HTTPAlias = "" }, null);
 
             //Assert
             Assert.Pass();
@@ -297,14 +295,14 @@ namespace DotNetNuke.Tests.Web.Api
         public void GetAllRouteValuesPreservesPassedInRouteValues()
         {
             //Arrange
-            
+
 
             //Act
-            var result = new PortalAliasRouteManager().GetAllRouteValues(new PortalAliasInfo {HTTPAlias = ""},
-                                                               new {value1 = 1, value2 = 2});
+            var result = new PortalAliasRouteManager().GetAllRouteValues(new PortalAliasInfo { HTTPAlias = "" },
+                                                               new { value1 = 1, value2 = 2 });
 
             //Assert
-            var expected = new Dictionary<string, object> {{"value1", 1}, {"value2", 2}};
+            var expected = new Dictionary<string, object> { { "value1", 1 }, { "value2", 2 } };
             CollectionAssert.AreEquivalent(expected, result);
         }
 
@@ -312,11 +310,11 @@ namespace DotNetNuke.Tests.Web.Api
         public void GetAllRouteValuesExtractsChildPortalParams()
         {
             //Arrange
-            
+
 
             //Act
             var result =
-                new PortalAliasRouteManager().GetAllRouteValues(new PortalAliasInfo {HTTPAlias = "ce.lvh.me/child"},
+                new PortalAliasRouteManager().GetAllRouteValues(new PortalAliasInfo { HTTPAlias = "ce.lvh.me/child" },
                                                                    null);
 
             //Assert
@@ -333,10 +331,10 @@ namespace DotNetNuke.Tests.Web.Api
             //Act
             var result =
                 new PortalAliasRouteManager().GetAllRouteValues(new PortalAliasInfo { HTTPAlias = "ce.lvh.me/child0/child1/child2/child3" },
-                                                                   new {value1 = 1, value2 = 2});
+                                                                   new { value1 = 1, value2 = 2 });
 
             //Assert
-            var expected = new Dictionary<string, object> { { "prefix0", "child0" }, { "prefix1", "child1" }, { "prefix2", "child2" }, { "prefix3", "child3" }, { "value1", 1}, {"value2", 2} };
+            var expected = new Dictionary<string, object> { { "prefix0", "child0" }, { "prefix1", "child1" }, { "prefix2", "child2" }, { "prefix3", "child3" }, { "value1", 1 }, { "value2", 2 } };
             CollectionAssert.AreEquivalent(expected, result);
         }
     }

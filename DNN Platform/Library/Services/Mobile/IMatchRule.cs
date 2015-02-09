@@ -17,29 +17,28 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 #endregion
-
 namespace DotNetNuke.Services.Mobile
 {
-	public interface IMatchRule
-	{
-		/// <summary>
-		/// Primary Id.
-		/// </summary>
-		int Id { get; }
-		/// <summary>
-		/// capbility name.
-		/// </summary>
-		string Capability { get; set; }
+    public interface IMatchRule
+    {
+        /// <summary>
+        /// Primary Id.
+        /// </summary>
+        int Id { get; }
+        /// <summary>
+        /// capbility name.
+        /// </summary>
+        string Capability { get; set; }
 
-		/// <summary>
-		/// reg expression to match the request
-		/// </summary>
-		string Expression { get; set; }
-	}
+        /// <summary>
+        /// reg expression to match the request
+        /// </summary>
+        string Expression { get; set; }
+    }
 }

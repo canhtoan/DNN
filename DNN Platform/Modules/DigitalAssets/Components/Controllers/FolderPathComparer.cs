@@ -17,21 +17,20 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
+using DotNetNuke.Services.FileSystem;
 
 namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
 {
-    using DotNetNuke.Services.FileSystem;
-
     public class FolderPathComparer : IComparer<int>
-    {        
-        private readonly Dictionary<int, string> cache;
+    {
+        private readonly Dictionary<int, string> _cache;
 
         public FolderPathComparer()
         {
-            this.cache = new Dictionary<int, string>();
+            _cache = new Dictionary<int, string>();
         }
 
         public int Compare(int folderIdA, int folderIdB)
@@ -46,13 +45,13 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
 
         private string GetFolderPath(int folderId)
         {
-            if (!cache.ContainsKey(folderId))
+            if (!_cache.ContainsKey(folderId))
             {
                 var folder = FolderManager.Instance.GetFolder(folderId);
-                cache.Add(folderId, folder.FolderPath);
+                _cache.Add(folderId, folder.FolderPath);
             }
 
-            return cache[folderId];
+            return _cache[folderId];
         }
     }
 }

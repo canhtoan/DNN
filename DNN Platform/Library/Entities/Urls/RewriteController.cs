@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -42,7 +42,6 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     public class RewriteController
@@ -248,7 +247,7 @@ namespace DotNetNuke.Entities.Urls
                                 else
                                 {
                                     tabId = portal.HomeTabId;
-                                }                                
+                                }
                                 if (culture == null)
                                 {
                                     culture = portal.DefaultLanguage; //set culture to default if not found specifically
@@ -332,7 +331,7 @@ namespace DotNetNuke.Entities.Urls
         private static UserInfo GetUser(int portalId, string vanityUrl)
         {
             string cacheKey = string.Format(CacheController.VanityUrlLookupKey, portalId);
-            var vanityUrlLookupDictionary = CBO.GetCachedObject<Dictionary<string, UserInfo>>(new CacheItemArgs(cacheKey, 20, CacheItemPriority.High, portalId), 
+            var vanityUrlLookupDictionary = CBO.GetCachedObject<Dictionary<string, UserInfo>>(new CacheItemArgs(cacheKey, 20, CacheItemPriority.High, portalId),
                                                                         c => new Dictionary<string, UserInfo>());
 
             if (!vanityUrlLookupDictionary.ContainsKey(vanityUrl))
@@ -487,15 +486,15 @@ namespace DotNetNuke.Entities.Urls
                                                                     Guid parentTraceId)
         {
             string rewrittenUrl;
-            rewriteParms = ExtensionUrlProviderController.TransformFriendlyUrlPath(newUrl, 
-                                                                                    tabKeyVal, 
+            rewriteParms = ExtensionUrlProviderController.TransformFriendlyUrlPath(newUrl,
+                                                                                    tabKeyVal,
                                                                                     urlParms,
-                                                                                    isSiteRootMatch, 
-                                                                                    ref result, 
+                                                                                    isSiteRootMatch,
+                                                                                    ref result,
                                                                                     settings,
-                                                                                    out rewrittenUrl, 
+                                                                                    out rewrittenUrl,
                                                                                     out newAction,
-                                                                                    ref messages, 
+                                                                                    ref messages,
                                                                                     parentTraceId);
             if (rewriteParms)
             {
@@ -634,18 +633,18 @@ namespace DotNetNuke.Entities.Urls
                 //}
                 //else
                 //{
-                    if (String.IsNullOrEmpty(settings.DoNotRewriteRegex) ||
-                        (!Regex.IsMatch(requestedPath, settings.DoNotRewriteRegex,
-                            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)))
-                    {
-                        retVal = true;
-                        result.CanRewrite = StateBoolean.True;
-                    }
-                    else
-                    {
-                        retVal = false;
-                        result.CanRewrite = StateBoolean.False;
-                    }
+                if (String.IsNullOrEmpty(settings.DoNotRewriteRegex) ||
+                    (!Regex.IsMatch(requestedPath, settings.DoNotRewriteRegex,
+                        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)))
+                {
+                    retVal = true;
+                    result.CanRewrite = StateBoolean.True;
+                }
+                else
+                {
+                    retVal = false;
+                    result.CanRewrite = StateBoolean.False;
+                }
                 //}
             }
             catch (Exception ex)
@@ -984,10 +983,10 @@ namespace DotNetNuke.Entities.Urls
                                                 //866 : redirect back from no extension to extension if it didn't have one
                                                 if (settings.PageExtensionUsageType != PageExtensionUsageType.Never &&
                                                     hadExtension == false)
-                                                {
-                                                    //948 : use new 'no downgrade' method
-                                                    result.SetActionWithNoDowngrade(ActionType.CheckFor301);
-                                                }
+                                            {
+                                                //948 : use new 'no downgrade' method
+                                                result.SetActionWithNoDowngrade(ActionType.CheckFor301);
+                                            }
                                         }
 
                                         if (isSiteRootMatch && !finished)
@@ -1343,7 +1342,7 @@ namespace DotNetNuke.Entities.Urls
                         }
                         break; //exit loop, match found
                     }
-                }            
+                }
             }
 
             return doRewrite;
@@ -1376,7 +1375,7 @@ namespace DotNetNuke.Entities.Urls
             {
                 //add the portal default language to the rewrite path
                 PortalInfo portal = CacheController.GetPortal(result.PortalId, false);
-                
+
                 //DNN-3789 - culture is defined by GetPageLocale
                 string currentLocale = Localization.GetPageLocale(new PortalSettings(result.TabId, result.PortalAlias)).Name;
                 if (portal != null && !string.IsNullOrEmpty(currentLocale))
@@ -1422,7 +1421,7 @@ namespace DotNetNuke.Entities.Urls
         {
             var portal = PortalController.Instance.GetPortal(portalId);
             var adminTab = TabController.Instance.GetTab(portal.AdminTabId, portalId);
-            
+
             string adminPageName = adminTab.TabName;
             //we should be checking that the tab path matches //Admin//pagename or //admin
             //in this way we should avoid partial matches (ie //Administrators

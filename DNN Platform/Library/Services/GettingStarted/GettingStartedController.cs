@@ -14,7 +14,7 @@ namespace DotNetNuke.Services.GettingStarted
             {
                 var result = false;
                 if ((GettingStartedTabId == Null.NullInteger || !IsPage(GettingStartedTabId))
-                        && PortalController.Instance.GetCurrentPortalSettings().UserInfo.IsSuperUser 
+                        && PortalController.Instance.GetCurrentPortalSettings().UserInfo.IsSuperUser
                         && Host.EnableGettingStartedPage)
                 {
                     var settings = PortalController.Instance.GetCurrentPortalSettings();
@@ -39,6 +39,5 @@ namespace DotNetNuke.Services.GettingStarted
         {
             return (PortalController.Instance.GetCurrentPortalSettings().ActiveTab.TabID == tabId);
         }
-
     }
 }

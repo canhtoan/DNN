@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using DotNetNuke.Data;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -38,7 +37,7 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class AssemblyInstaller : FileInstaller
     {
-		#region "Protected Properties"
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -107,10 +106,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return PhysicalSitePath + "\\";
             }
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -128,11 +127,11 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "dll";
             }
         }
-		
-		
-		#endregion
 
-		#region "Protected Methods"
+
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -205,21 +204,21 @@ namespace DotNetNuke.Services.Installer.Installers
                         break;
                     case 2:
                     case 3:
-						//Assembly already Registered
+                        //Assembly already Registered
                         Log.AddInfo(Util.ASSEMBLY_Registered + " - " + file.FullName);
                         break;
                 }
-				
+
                 //If assembly not registered, is newer (or is the same version and we are in repair mode)
                 if (returnCode < 2 || (returnCode == 2 && file.InstallerInfo.RepairInstall))
                 {
                     //Call base class version to copy file to \bin
-					bSuccess = base.InstallFile(file);
+                    bSuccess = base.InstallFile(file);
                 }
             }
             return bSuccess;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

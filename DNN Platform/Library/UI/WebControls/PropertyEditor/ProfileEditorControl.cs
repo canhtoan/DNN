@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 
@@ -32,6 +32,7 @@ using DotNetNuke.Security;
 #endregion
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.UI.WebControls
 // ReSharper restore CheckNamespace
 {
@@ -53,7 +54,7 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:ProfileEditorControl runat=server></{0}:ProfileEditorControl>")]
     public class ProfileEditorControl : CollectionEditorControl
     {
-		#region Protected Methods
+        #region Protected Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -102,34 +103,34 @@ namespace DotNetNuke.UI.WebControls
                     {
                         if (checkEditor.Editor is DNNCountryEditControl)
                         {
-							if (editor.Editor.Category == checkEditor.Editor.Category)
-							{
-								var countryEdit = (DNNCountryEditControl)checkEditor.Editor;
-								country = Convert.ToString(countryEdit.Value);
-							}
+                            if (editor.Editor.Category == checkEditor.Editor.Category)
+                            {
+                                var countryEdit = (DNNCountryEditControl)checkEditor.Editor;
+                                country = Convert.ToString(countryEdit.Value);
+                            }
                         }
                     }
-					
+
                     //Create a ListAttribute for the Region
-					string countryKey = "Unknown";
-					int entryId;
-					if (int.TryParse(country, out entryId))
-					{
-						ListController lc = new ListController();
-						ListEntryInfo item = lc.GetListEntryInfo(entryId);
-						if (item != null)
-						{
-							countryKey = item.Value;
-						}
-					}
-					countryKey = "Country." + countryKey;
+                    string countryKey = "Unknown";
+                    int entryId;
+                    if (int.TryParse(country, out entryId))
+                    {
+                        ListController lc = new ListController();
+                        ListEntryInfo item = lc.GetListEntryInfo(entryId);
+                        if (item != null)
+                        {
+                            countryKey = item.Value;
+                        }
+                    }
+                    countryKey = "Country." + countryKey;
                     var attributes = new object[1];
                     attributes[0] = new ListAttribute("Region", countryKey, ListBoundField.Id, ListBoundField.Text);
                     editor.Editor.CustomAttributes = attributes;
                 }
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

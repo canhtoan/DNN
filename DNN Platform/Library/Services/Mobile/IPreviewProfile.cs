@@ -17,32 +17,31 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Mobile
 {
-	public interface IPreviewProfile
-	{
-		int Id { get; set; }
+    public interface IPreviewProfile
+    {
+        int Id { get; set; }
 
-		int PortalId { get; set; }
+        int PortalId { get; set; }
 
-		string Name { get; set; }
+        string Name { get; set; }
 
-		int Width { get; set; }
+        int Width { get; set; }
 
-		string UserAgent { get; set; }
+        string UserAgent { get; set; }
 
-		int Height { get; set; }
+        int Height { get; set; }
 
-		int SortOrder { get; set; }
-	}
+        int SortOrder { get; set; }
+    }
 }

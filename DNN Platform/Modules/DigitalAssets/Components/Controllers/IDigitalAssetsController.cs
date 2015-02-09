@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -203,8 +203,8 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
         /// <param name="fileId">File reference to the source file</param>
         /// <param name="overwrite">Overwrite destination if a file with the same name already exists</param>
         /// <returns>The response object with the result of the action</returns>
-        ZipExtractViewModel UnzipFile(int fileId, bool overwrite);        
-        
+        ZipExtractViewModel UnzipFile(int fileId, bool overwrite);
+
         /// <summary>
         /// Returns all invalid chars for folder and file names
         /// </summary>
@@ -216,7 +216,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
         /// </summary>
         /// <returns>The error text to show when a name contains an invalid character</returns>
         string GetInvalidCharsErrorText();
-        
+
         /// <summary>
         /// Get the URL of a file
         /// </summary>

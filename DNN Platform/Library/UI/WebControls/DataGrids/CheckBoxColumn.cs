@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Web;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -43,17 +42,17 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class CheckBoxColumn : TemplateColumn
     {
-		#region "Private Members"
+        #region "Private Members"
 
-        private bool mAutoPostBack = true;
-        private string mDataField = Null.NullString;
-        private bool mEnabled = true;
-        private string mEnabledField = Null.NullString;
-        private bool mHeaderCheckBox = true;
-		
-		#endregion
+        private bool _mAutoPostBack = true;
+        private string _mDataField = Null.NullString;
+        private bool _mEnabled = true;
+        private string _mEnabledField = Null.NullString;
+        private bool _mHeaderCheckBox = true;
 
-		#region "Constructors"
+        #endregion
+
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -81,10 +80,10 @@ namespace DotNetNuke.UI.WebControls
         {
             AutoPostBack = autoPostBack;
         }
-		
-		#endregion
-		
-		#region "Public Properties"
+
+        #endregion
+
+        #region "Public Properties"
 
 
         /// -----------------------------------------------------------------------------
@@ -101,11 +100,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mAutoPostBack;
+                return _mAutoPostBack;
             }
             set
             {
-                mAutoPostBack = value;
+                _mAutoPostBack = value;
             }
         }
 
@@ -134,11 +133,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mDataField;
+                return _mDataField;
             }
             set
             {
-                mDataField = value;
+                _mDataField = value;
             }
         }
 
@@ -157,11 +156,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabled;
+                return _mEnabled;
             }
             set
             {
-                mEnabled = value;
+                _mEnabled = value;
             }
         }
 
@@ -179,11 +178,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabledField;
+                return _mEnabledField;
             }
             set
             {
-                mEnabledField = value;
+                _mEnabledField = value;
             }
         }
 
@@ -201,23 +200,23 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mHeaderCheckBox;
+                return _mHeaderCheckBox;
             }
             set
             {
-                mHeaderCheckBox = value;
+                _mHeaderCheckBox = value;
             }
         }
-		
-		#endregion
 
-		#region "Events"
+        #endregion
+
+        #region "Events"
 
         public event DNNDataGridCheckedColumnEventHandler CheckedChanged;
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -272,10 +271,10 @@ namespace DotNetNuke.UI.WebControls
                 CheckedChanged(sender, e);
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -292,14 +291,14 @@ namespace DotNetNuke.UI.WebControls
             HeaderTemplate = CreateTemplate(ListItemType.Header);
             if (HttpContext.Current == null)
             {
-                HeaderStyle.Font.Names = new[] {"Tahoma, Verdana, Arial"};
+                HeaderStyle.Font.Names = new[] { "Tahoma, Verdana, Arial" };
                 HeaderStyle.Font.Size = new FontUnit("10pt");
                 HeaderStyle.Font.Bold = true;
             }
             ItemStyle.HorizontalAlign = HorizontalAlign.Center;
             HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

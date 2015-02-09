@@ -5,8 +5,8 @@
 // All Rights Reserved
 #endregion
 
-#region "Usings"
 
+#region "Usings"
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,81 +31,80 @@ using Telerik.Web.UI.Grid;
 using WebFormsMvp;
 
 #endregion
-
 namespace DotNetNuke.Modules.PreviewProfileManagement.Views
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	[PresenterBinding(typeof(ProfileManagerPresenter))]
-	public partial class ProfileManagerView : ModuleView<ProfileManagerViewModel>, IProfileManagerView, IClientAPICallbackEventHandler
-	{
-		#region "Public Events"
+    /// <summary>
+    /// 
+    /// </summary>
+    [PresenterBinding(typeof(ProfileManagerPresenter))]
+    public partial class ProfileManagerView : ModuleView<ProfileManagerViewModel>, IProfileManagerView, IClientAPICallbackEventHandler
+    {
+        #region "Public Events"
 
-		/// <summary>
-		/// Event for get profile data.
-		/// </summary>
-		public event EventHandler GetProfiles;
+        /// <summary>
+        /// Event for get profile data.
+        /// </summary>
+        public event EventHandler GetProfiles;
 
-		/// <summary>
-		/// Event for get highlight profile data, this data will be used for auto complete the device name.
-		/// </summary>
-		public event EventHandler GetHighlightProfiles;
+        /// <summary>
+        /// Event for get highlight profile data, this data will be used for auto complete the device name.
+        /// </summary>
+        public event EventHandler GetHighlightProfiles;
 
-		/// <summary>
-		/// Event for save a profile.
-		/// </summary>
-		public event EventHandler<ProfileEventArgs> SaveProfile;
+        /// <summary>
+        /// Event for save a profile.
+        /// </summary>
+        public event EventHandler<ProfileEventArgs> SaveProfile;
 
-		/// <summary>
-		/// Event for delete a profile.
-		/// </summary>
-		public event EventHandler<PrimaryKeyEventArgs> DeleteProfile;
+        /// <summary>
+        /// Event for delete a profile.
+        /// </summary>
+        public event EventHandler<PrimaryKeyEventArgs> DeleteProfile;
 
-		/// <summary>
-		/// Event for get a profile to edit.
-		/// </summary>
-		public event EventHandler<PrimaryKeyEventArgs> GetEditProfile;
+        /// <summary>
+        /// Event for get a profile to edit.
+        /// </summary>
+        public event EventHandler<PrimaryKeyEventArgs> GetEditProfile;
 
-		#endregion
+        #endregion
 
-		#region "Event Handlers"
+        #region "Event Handlers"
 
-		/// <summary>
-		/// OnLoad Event.
-		/// </summary>
-		/// <param name="e"></param>
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad(e);
+        /// <summary>
+        /// OnLoad Event.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
-			btnSave.Click += new EventHandler(btnSave_Click);
+            btnSave.Click += new EventHandler(btnSave_Click);
             //ProfilesList.ItemCommand += new DataGridCommandEventHandler(ProfilesList_ItemCommand);
             //ProfilesList.ItemDataBound += new DataGridItemEventHandler(ProfilesList_ItemDataBound);
 
             ProfilesList.ItemCommand += new Telerik.Web.UI.GridCommandEventHandler(ProfilesList_ItemCommand);
             ProfilesList.ItemDataBound += new Telerik.Web.UI.GridItemEventHandler(ProfilesList_ItemDataBound);
 
-			BindControls();
+            BindControls();
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 //Localization.LocalizeDataGrid(ref ProfilesList, LocalResourceFile);
             }
 
-			ClientAPI.RegisterClientVariable(Page, "ActionCallback", ClientAPI.GetCallbackEventReference(this, "[ACTIONTOKEN]", "success", "this", "error"), true);
-		}
+            ClientAPI.RegisterClientVariable(Page, "ActionCallback", ClientAPI.GetCallbackEventReference(this, "[ACTIONTOKEN]", "success", "this", "error"), true);
+        }
 
-        void ProfilesList_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        private void ProfilesList_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            if (e.Item.ItemType == GridItemType.Item || e.Item.ItemType == GridItemType.AlternatingItem || e.Item.ItemType == GridItemType.EditFormItem )
+            if (e.Item.ItemType == GridItemType.Item || e.Item.ItemType == GridItemType.AlternatingItem || e.Item.ItemType == GridItemType.EditFormItem)
             {
                 IPreviewProfile profile = e.Item.DataItem as IPreviewProfile;
                 e.Item.Attributes.Add("data", profile.Id.ToString());
             }
         }
 
-        void ProfilesList_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        private void ProfilesList_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -113,7 +112,7 @@ namespace DotNetNuke.Modules.PreviewProfileManagement.Views
                     //ProfilesList.EditItemIndex = e.Item.ItemIndex;
                     //ProfilesList.EditIndexes.Add(e.Item.ItemIndex);                    
                     e.Item.Edit = true;
-                    
+
                     LoadProfiles(true);
                     AddProfile.Visible = false;
                     break;
@@ -168,25 +167,25 @@ namespace DotNetNuke.Modules.PreviewProfileManagement.Views
         //    }
         //}
 
-		private void btnSave_Click(object sender, EventArgs e)
-		{
-			if (Page.IsValid)
-			{
-				var name = cbName.Text;
-				var width = Convert.ToInt32(txtWidth.Text);
-				var height = Convert.ToInt32(txtHeight.Text);
-				var userAgent = txtUserAgent.Text;
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                var name = cbName.Text;
+                var width = Convert.ToInt32(txtWidth.Text);
+                var height = Convert.ToInt32(txtHeight.Text);
+                var userAgent = txtUserAgent.Text;
 
-				var profile = new PreviewProfile { Name = name, Width = width, Height = height, UserAgent = userAgent, PortalId = ModuleContext.PortalId };
+                var profile = new PreviewProfile { Name = name, Width = width, Height = height, UserAgent = userAgent, PortalId = ModuleContext.PortalId };
 
-				SaveProfile(this, new ProfileEventArgs(profile));
+                SaveProfile(this, new ProfileEventArgs(profile));
 
-				cbName.SelectedIndex = -1;
-				cbName.Text = txtWidth.Text = txtHeight.Text = txtUserAgent.Text = string.Empty;
+                cbName.SelectedIndex = -1;
+                cbName.Text = txtWidth.Text = txtHeight.Text = txtUserAgent.Text = string.Empty;
 
-				LoadProfiles(true);
-			}
-		}
+                LoadProfiles(true);
+            }
+        }
 
         //private void ProfilesList_ItemCommand(object source, DataGridCommandEventArgs e)
         //{
@@ -233,47 +232,47 @@ namespace DotNetNuke.Modules.PreviewProfileManagement.Views
         //    }
         //}
 
-		protected void ValidateName(object sender, ServerValidateEventArgs e)
-		{
-			if (string.IsNullOrEmpty(e.Value))
-			{
-				e.IsValid = false;
-			}
-			else
-			{
-				var validator = sender as CustomValidator;
-				GetProfiles(this, new EventArgs());
+        protected void ValidateName(object sender, ServerValidateEventArgs e)
+        {
+            if (string.IsNullOrEmpty(e.Value))
+            {
+                e.IsValid = false;
+            }
+            else
+            {
+                var validator = sender as CustomValidator;
+                GetProfiles(this, new EventArgs());
 
-				if (validator.ValidationGroup == "AddProfile")
-				{
-					e.IsValid = !Model.PreviewProfiles.Any(p => p.Name == e.Value);
-				}
-				else if(validator.ValidationGroup == "EditProfile")
-				{
-					var initValue = validator.Attributes["InitValue"];
-					
-					if(e.Value != initValue)
-					{
-						e.IsValid = !Model.PreviewProfiles.Any(p => p.Name == e.Value);
-					}
-				}
-			}
-		}
+                if (validator.ValidationGroup == "AddProfile")
+                {
+                    e.IsValid = !Model.PreviewProfiles.Any(p => p.Name == e.Value);
+                }
+                else if (validator.ValidationGroup == "EditProfile")
+                {
+                    var initValue = validator.Attributes["InitValue"];
 
-		#endregion
+                    if (e.Value != initValue)
+                    {
+                        e.IsValid = !Model.PreviewProfiles.Any(p => p.Name == e.Value);
+                    }
+                }
+            }
+        }
 
-		#region "Private Methods"
+        #endregion
 
-		private void BindControls()
-		{
-			LoadProfiles();
+        #region "Private Methods"
+
+        private void BindControls()
+        {
+            LoadProfiles();
             LoadHighlightProfiles();
-		}
+        }
 
-		private void LoadProfiles()
-		{
-			LoadProfiles(false);
-		}
+        private void LoadProfiles()
+        {
+            LoadProfiles(false);
+        }
 
         private void LoadHighlightProfiles()
         {
@@ -292,46 +291,46 @@ namespace DotNetNuke.Modules.PreviewProfileManagement.Views
             }
         }
 
-		private void LoadProfiles(bool rebind)
-		{
-			GetProfiles(this, new EventArgs());
-			ProfilesList.DataSource = Model.PreviewProfiles;
+        private void LoadProfiles(bool rebind)
+        {
+            GetProfiles(this, new EventArgs());
+            ProfilesList.DataSource = Model.PreviewProfiles;
 
-			if (!IsPostBack || rebind)
-			{
-				ProfilesList.DataBind();
-			}
-		}
+            if (!IsPostBack || rebind)
+            {
+                ProfilesList.DataBind();
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region "IClientAPICallbackEventHandler Implementation"
+        #region "IClientAPICallbackEventHandler Implementation"
 
-		/// <summary>
-		/// IClientAPICallbackEventHandler.RaiseClientAPICallbackEvent
-		/// </summary>
-		/// <param name="eventArgument"></param>
-		/// <returns></returns>
-		public string RaiseClientAPICallbackEvent(string eventArgument)
-		{
-			IDictionary<string, string> arguments = new Dictionary<string, string>();
-			foreach (var arg in eventArgument.Split('&'))
-			{
-				arguments.Add(arg.Split('=')[0], arg.Split('=')[1]);
-			}
-			switch (arguments["action"])
-			{
-				case "sort":
-					var moveId = Convert.ToInt32(arguments["moveId"]);
-					var nextId = Convert.ToInt32(arguments["nextId"]);
+        /// <summary>
+        /// IClientAPICallbackEventHandler.RaiseClientAPICallbackEvent
+        /// </summary>
+        /// <param name="eventArgument"></param>
+        /// <returns></returns>
+        public string RaiseClientAPICallbackEvent(string eventArgument)
+        {
+            IDictionary<string, string> arguments = new Dictionary<string, string>();
+            foreach (var arg in eventArgument.Split('&'))
+            {
+                arguments.Add(arg.Split('=')[0], arg.Split('=')[1]);
+            }
+            switch (arguments["action"])
+            {
+                case "sort":
+                    var moveId = Convert.ToInt32(arguments["moveId"]);
+                    var nextId = Convert.ToInt32(arguments["nextId"]);
 
-					new ProfileManagerPresenter(this).SortProfiles(moveId, nextId);
-					break;
-			}
+                    new ProfileManagerPresenter(this).SortProfiles(moveId, nextId);
+                    break;
+            }
 
-			return string.Empty;
-		}
+            return string.Empty;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -16,8 +16,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,11 +38,11 @@ namespace DotNetNuke.Services.Search.Internals
             return () => new SearchQueryStringParser();
         }
 
-        private static readonly Regex TagRegex = new Regex(@"\[(.*?)\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex s_tagRegex = new Regex(@"\[(.*?)\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private static readonly Regex DateRegex = new Regex(@"after:(\w+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex s_dateRegex = new Regex(@"after:(\w+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private static readonly Regex TypeRegex = new Regex(@"type:([^,]+(,[^,]+)*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex s_typeRegex = new Regex(@"type:([^,]+(,[^,]+)*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         /// <summary>
         /// Gets the list of tags parsing the search keywords
@@ -59,7 +59,7 @@ namespace DotNetNuke.Services.Search.Internals
             }
             else
             {
-                var m = TagRegex.Match(keywords);
+                var m = s_tagRegex.Match(keywords);
                 while (m.Success)
                 {
                     var tag = m.Groups[1].ToString();
@@ -70,7 +70,7 @@ namespace DotNetNuke.Services.Search.Internals
                     m = m.NextMatch();
                 }
 
-                outputKeywords = TagRegex.Replace(keywords, string.Empty).Trim();
+                outputKeywords = s_tagRegex.Replace(keywords, string.Empty).Trim();
             }
             return tags;
         }
@@ -83,7 +83,7 @@ namespace DotNetNuke.Services.Search.Internals
         /// <returns>Last Modified Date</returns>
         public DateTime GetLastModifiedDate(string keywords, out string outputKeywords)
         {
-            var m = DateRegex.Match(keywords);
+            var m = s_dateRegex.Match(keywords);
             var date = "";
             while (m.Success && string.IsNullOrEmpty(date))
             {
@@ -113,7 +113,7 @@ namespace DotNetNuke.Services.Search.Internals
                 }
             }
 
-            outputKeywords = DateRegex.Replace(keywords, string.Empty).Trim();
+            outputKeywords = s_dateRegex.Replace(keywords, string.Empty).Trim();
             return result;
         }
 
@@ -125,7 +125,7 @@ namespace DotNetNuke.Services.Search.Internals
         /// <returns>List of Search Types</returns>
         public IList<string> GetSearchTypeList(string keywords, out string outputKeywords)
         {
-            var m = TypeRegex.Match(keywords);
+            var m = s_typeRegex.Match(keywords);
             var types = "";
             while (m.Success && string.IsNullOrEmpty(types))
             {
@@ -138,7 +138,7 @@ namespace DotNetNuke.Services.Search.Internals
                 typesList = types.Split(',').ToList();
             }
 
-            outputKeywords = TypeRegex.Replace(keywords, string.Empty).Trim();
+            outputKeywords = s_typeRegex.Replace(keywords, string.Empty).Trim();
             return typesList;
         }
     }

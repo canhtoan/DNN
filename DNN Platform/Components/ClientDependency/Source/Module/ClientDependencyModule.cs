@@ -8,7 +8,6 @@ using ClientDependency.Core.Config;
 
 namespace ClientDependency.Core.Module
 {
-
     /// <summary>
     /// This module currently replaces rogue scripts with composite scripts.
     /// Eventually it will handle css files and MVC implementation
@@ -41,7 +40,7 @@ namespace ClientDependency.Core.Module
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void HandleRequest(object sender, EventArgs e)
+        private void HandleRequest(object sender, EventArgs e)
         {
             var app = (HttpApplication)sender;
             var http = new HttpContextWrapper(app.Context);
@@ -63,7 +62,7 @@ namespace ClientDependency.Core.Module
 
         #endregion
 
-        private List<Type> m_FilterTypes = new List<Type>();
+        private List<Type> _filterTypes = new List<Type>();
 
         #region Private Methods
 
@@ -74,7 +73,7 @@ namespace ClientDependency.Core.Module
                 var t = BuildManager.GetType(f.Type, false, true);
                 if (t != null)
                 {
-                    m_FilterTypes.Add(t);
+                    _filterTypes.Add(t);
                 }
             }
         }
@@ -87,12 +86,11 @@ namespace ClientDependency.Core.Module
         {
             var loadedFilters = new List<IFilter>();
 
-            foreach (var t in m_FilterTypes)
+            foreach (var t in _filterTypes)
             {
                 var filter = (IFilter)Activator.CreateInstance(t);
                 filter.SetHttpContext(http);
                 loadedFilters.Add(filter);
-
             }
 
             return loadedFilters;
@@ -119,6 +117,5 @@ namespace ClientDependency.Core.Module
         }
 
         #endregion
-
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web.UI.HtmlControls;
@@ -33,7 +33,6 @@ using DotNetNuke.Services.Localization;
 using Image = System.Drawing.Image;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins
 {
     /// -----------------------------------------------------------------------------
@@ -49,15 +48,15 @@ namespace DotNetNuke.UI.Skins
     /// -----------------------------------------------------------------------------
     public abstract class SkinThumbNailControl : UserControlBase
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SkinThumbNailControl));
-		#region "Private Members"
-		
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SkinThumbNailControl));
+        #region "Private Members"
+
         protected HtmlGenericControl ControlContainer;
         protected RadioButtonList OptSkin;
-		
-		#endregion
 
-		#region "Properties"
+        #endregion
+
+        #region "Properties"
 
         public string Border
         {
@@ -130,7 +129,7 @@ namespace DotNetNuke.UI.Skins
             }
             set
             {
-				//select current skin
+                //select current skin
                 int intIndex;
                 for (intIndex = 0; intIndex <= OptSkin.Items.Count - 1; intIndex++)
                 {
@@ -158,10 +157,10 @@ namespace DotNetNuke.UI.Skins
                 }
             }
         }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -225,8 +224,8 @@ namespace DotNetNuke.UI.Skins
             {
                 return strSkinFile;
             }
-			
-			//portal folder
+
+            //portal folder
             switch (strSkinFile.ToLower())
             {
                 case "skin":
@@ -272,58 +271,58 @@ namespace DotNetNuke.UI.Skins
                 try
                 {
                     objImage = Image.FromFile(strImage);
-					
-					//scale the image to prevent distortion
+
+                    //scale the image to prevent distortion
                     int intWidth;
                     int intHeight;
                     double dblScale;
                     if (objImage.Height > objImage.Width)
                     {
-						//The height was larger, so scale the width 
+                        //The height was larger, so scale the width 
                         dblScale = (double)intSize / objImage.Height;
                         intHeight = intSize;
-                        intWidth = Convert.ToInt32(objImage.Width*dblScale);
+                        intWidth = Convert.ToInt32(objImage.Width * dblScale);
                     }
                     else
                     {
-						//The width was larger, so scale the height 
+                        //The width was larger, so scale the height 
                         dblScale = (double)intSize / objImage.Width;
                         intWidth = intSize;
-                        intHeight = Convert.ToInt32(objImage.Height*dblScale);
+                        intHeight = Convert.ToInt32(objImage.Height * dblScale);
                     }
-                    
-					//create the thumbnail image
-					var objThumbnail = objImage.GetThumbnailImage(intWidth, intHeight, null, IntPtr.Zero);
-                    
-					//delete the old file ( if it exists )
-					if (File.Exists(strThumbnail))
+
+                    //create the thumbnail image
+                    var objThumbnail = objImage.GetThumbnailImage(intWidth, intHeight, null, IntPtr.Zero);
+
+                    //delete the old file ( if it exists )
+                    if (File.Exists(strThumbnail))
                     {
                         File.Delete(strThumbnail);
                     }
-                    
-					//save the thumbnail image 
-					objThumbnail.Save(strThumbnail, objImage.RawFormat);
-                    
-					//set the file attributes
-					File.SetAttributes(strThumbnail, FileAttributes.Normal);
+
+                    //save the thumbnail image 
+                    objThumbnail.Save(strThumbnail, objImage.RawFormat);
+
+                    //set the file attributes
+                    File.SetAttributes(strThumbnail, FileAttributes.Normal);
                     File.SetLastWriteTime(strThumbnail, File.GetLastWriteTime(strImage));
 
                     //tidy up
                     objImage.Dispose();
                     objThumbnail.Dispose();
                 }
-				catch (Exception ex)
-				{
-					Logger.Error(ex);
-				}
+                catch (Exception ex)
+                {
+                    s_logger.Error(ex);
+                }
             }
             strThumbnail = Globals.ApplicationPath + "\\" + strThumbnail.Substring(strThumbnail.ToLower().IndexOf("portals\\"));
             return strThumbnail;
         }
 
-		#endregion
+        #endregion
 
-		#region "Public Methods"
+        #region "Public Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -358,7 +357,7 @@ namespace DotNetNuke.UI.Skins
             {
                 AddDefaultSkin();
             }
-			
+
             //load host skins (includeNotSpecified = false as we have already added it)
             LoadHostSkins(false);
 
@@ -379,14 +378,13 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         public void LoadHostSkins(bool includeNotSpecified)
         {
-
             //default value
             if (includeNotSpecified)
             {
                 AddDefaultSkin();
             }
-			
-			//load host skins
+
+            //load host skins
             var strRoot = Globals.HostMapPath + SkinRoot;
             if (Directory.Exists(strRoot))
             {
@@ -419,8 +417,8 @@ namespace DotNetNuke.UI.Skins
             {
                 AddDefaultSkin();
             }
-			
-			//load portal skins
+
+            //load portal skins
             var strRoot = PortalSettings.HomeDirectoryMapPath + SkinRoot;
             if (Directory.Exists(strRoot))
             {
@@ -463,8 +461,7 @@ namespace DotNetNuke.UI.Skins
                 }
             }
         }
-		
-		#endregion
 
+        #endregion
     }
 }

@@ -17,19 +17,19 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 
 using DotNetNuke.Web.Api;
 
 namespace DotNetNuke.Modules.Taxonomy.Services
 {
-	public class TaxonomyRouteMapper : IServiceRouteMapper
+    public class TaxonomyRouteMapper : IServiceRouteMapper
     {
         public void RegisterRoutes(IMapRoute mapRouteManager)
         {
-			mapRouteManager.MapHttpRoute("Taxonomy", "default", "{controller}/{action}", new[] { "DotNetNuke.Modules.Taxonomy.Services" });
+            mapRouteManager.MapHttpRoute("Taxonomy", "default", "{controller}/{action}", new[] { "DotNetNuke.Modules.Taxonomy.Services" });
         }
     }
 }

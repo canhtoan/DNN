@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +31,6 @@ using DotNetNuke.Data;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     /// -----------------------------------------------------------------------------
@@ -49,7 +48,7 @@ namespace DotNetNuke.Entities.Modules
     public class ModuleControlController
     {
         private const string key = "ModuleControlID";
-        private static readonly DataProvider dataProvider = DataProvider.Instance();
+        private static readonly DataProvider s_dataProvider = DataProvider.Instance();
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -62,9 +61,9 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         private static Dictionary<int, ModuleControlInfo> GetModuleControls()
         {
-            return CBO.GetCachedObject<Dictionary<int, ModuleControlInfo>>(new CacheItemArgs(DataCache.ModuleControlsCacheKey, 
-                                                                                    DataCache.ModuleControlsCacheTimeOut, 
-                                                                                    DataCache.ModuleControlsCachePriority), 
+            return CBO.GetCachedObject<Dictionary<int, ModuleControlInfo>>(new CacheItemArgs(DataCache.ModuleControlsCacheKey,
+                                                                                    DataCache.ModuleControlsCacheTimeOut,
+                                                                                    DataCache.ModuleControlsCachePriority),
                                                                             GetModuleControlsCallBack);
         }
 
@@ -81,7 +80,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         private static object GetModuleControlsCallBack(CacheItemArgs cacheItemArgs)
         {
-            return CBO.FillDictionary(key, dataProvider.GetModuleControls(), new Dictionary<int, ModuleControlInfo>());
+            return CBO.FillDictionary(key, s_dataProvider.GetModuleControls(), new Dictionary<int, ModuleControlInfo>());
         }
 
         /// -----------------------------------------------------------------------------
@@ -109,7 +108,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public static void DeleteModuleControl(int moduleControlID)
         {
-            dataProvider.DeleteModuleControl(moduleControlID);
+            s_dataProvider.DeleteModuleControl(moduleControlID);
             DataCache.ClearHostCache(true);
         }
 
@@ -123,7 +122,7 @@ namespace DotNetNuke.Entities.Modules
         /// </history>
         /// -----------------------------------------------------------------------------
         public static ModuleControlInfo GetModuleControl(int moduleControlID)
-        {           
+        {
             return (from kvp in GetModuleControls()
                     where kvp.Key == moduleControlID
                     select kvp.Value)
@@ -158,7 +157,7 @@ namespace DotNetNuke.Entities.Modules
         public static ModuleControlInfo GetModuleControlByControlKey(string controlKey, int moduleDefID)
         {
             return (from kvp in GetModuleControls()
-                    where kvp.Value.ControlKey.ToLowerInvariant() == controlKey.ToLowerInvariant() 
+                    where kvp.Value.ControlKey.ToLowerInvariant() == controlKey.ToLowerInvariant()
                                 && kvp.Value.ModuleDefID == moduleDefID
                     select kvp.Value)
                    .FirstOrDefault();
@@ -179,8 +178,8 @@ namespace DotNetNuke.Entities.Modules
             int moduleControlID = moduleControl.ModuleControlID;
             if (moduleControlID == Null.NullInteger)
             {
-				//Add new Module Definition
-                moduleControlID = dataProvider.AddModuleControl(moduleControl.ModuleDefID,
+                //Add new Module Definition
+                moduleControlID = s_dataProvider.AddModuleControl(moduleControl.ModuleDefID,
                                                                 moduleControl.ControlKey,
                                                                 moduleControl.ControlTitle,
                                                                 moduleControl.ControlSrc,
@@ -194,8 +193,8 @@ namespace DotNetNuke.Entities.Modules
             }
             else
             {
-				//Upgrade Module Control
-                dataProvider.UpdateModuleControl(moduleControl.ModuleControlID,
+                //Upgrade Module Control
+                s_dataProvider.UpdateModuleControl(moduleControl.ModuleControlID,
                                                  moduleControl.ModuleDefID,
                                                  moduleControl.ControlKey,
                                                  moduleControl.ControlTitle,
@@ -242,7 +241,7 @@ namespace DotNetNuke.Entities.Modules
         [Obsolete("This method replaced in DotNetNuke 5.0 by Shared method GetModuleControlByControlKey(String, Integer)")]
         public static ArrayList GetModuleControlsByKey(string controlKey, int moduleDefID)
         {
-            var arrControls = new ArrayList {GetModuleControlByControlKey(controlKey, moduleDefID)};
+            var arrControls = new ArrayList { GetModuleControlByControlKey(controlKey, moduleDefID) };
             return arrControls;
         }
 

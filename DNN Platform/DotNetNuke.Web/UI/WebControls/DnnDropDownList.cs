@@ -16,7 +16,6 @@ using DotNetNuke.Web.UI.WebControls.Extensions;
 
 namespace DotNetNuke.Web.UI.WebControls
 {
-
     [DataContract]
     public class DnnDropDownListState
     {
@@ -29,7 +28,7 @@ namespace DotNetNuke.Web.UI.WebControls
     {
         #region Private Fields
 
-        private static readonly object EventSelectionChanged = new object();
+        private static readonly object s_eventSelectionChanged = new object();
 
         private readonly Lazy<DnnDropDownListOptions> _options =
             new Lazy<DnnDropDownListOptions>(() => new DnnDropDownListOptions());
@@ -90,11 +89,11 @@ namespace DotNetNuke.Web.UI.WebControls
         {
             add
             {
-                Events.AddHandler(EventSelectionChanged, value);
+                Events.AddHandler(s_eventSelectionChanged, value);
             }
             remove
             {
-                Events.RemoveHandler(EventSelectionChanged, value);
+                Events.RemoveHandler(s_eventSelectionChanged, value);
             }
         }
 
@@ -301,7 +300,6 @@ namespace DotNetNuke.Web.UI.WebControls
             _stateControl = new DnnGenericHiddenField<DnnDropDownListState> { ID = "state" };
             _stateControl.ValueChanged += (sender, args) => OnSelectionChanged(EventArgs.Empty);
             Controls.Add(_stateControl);
-
         }
 
         protected override void OnInit(EventArgs e)
@@ -324,7 +322,7 @@ namespace DotNetNuke.Web.UI.WebControls
 
         protected virtual void OnSelectionChanged(EventArgs e)
         {
-            var eventHandler = (EventHandler)Events[EventSelectionChanged];
+            var eventHandler = (EventHandler)Events[s_eventSelectionChanged];
             if (eventHandler == null)
             {
                 return;
@@ -427,7 +425,5 @@ namespace DotNetNuke.Web.UI.WebControls
         }
 
         #endregion
-
     }
-
 }

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -32,19 +32,18 @@ using System.Web.Compilation;
 using log4net.Config;
 
 #endregion
-
 namespace DotNetNuke.Instrumentation
 {
     [Obsolete("Deprecated in 7.0.1 due to poor performance, use LoggerSource.Instance")]
     public static class DnnLog
     {
         private const string ConfigFile = "DotNetNuke.log4net.config";
-        private static bool _configured;
+        private static bool s_configured;
 
         //use a single static logger to avoid the performance impact of type reflection on every call for logging
-        private static readonly DnnLogger Logger = DnnLogger.GetClassLogger(typeof(DnnLog));
-        
-        private static readonly object ConfigLock = new object();
+        private static readonly DnnLogger s_logger = DnnLogger.GetClassLogger(typeof(DnnLog));
+
+        private static readonly object s_configLock = new object();
 
         private static StackFrame CallingFrame
         {
@@ -78,13 +77,12 @@ namespace DotNetNuke.Instrumentation
 
         private static void EnsureConfig()
         {
-            if (!_configured)
+            if (!s_configured)
             {
-                lock (ConfigLock)
+                lock (s_configLock)
                 {
-                    if (!_configured)
+                    if (!s_configured)
                     {
-
                         var configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigFile);
                         var originalPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config\\" + ConfigFile);
                         if (!File.Exists(configPath) && File.Exists(originalPath))
@@ -96,9 +94,8 @@ namespace DotNetNuke.Instrumentation
                         {
                             XmlConfigurator.ConfigureAndWatch(new FileInfo(configPath));
                         }
-                        _configured = true;
+                        s_configured = true;
                     }
-
                 }
             }
         }
@@ -110,9 +107,9 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
             {
-                Logger.TraceFormat("Entering Method [{0}]", CallingFrame.GetMethod().Name);
+                s_logger.TraceFormat("Entering Method [{0}]", CallingFrame.GetMethod().Name);
             }
         }
 
@@ -123,14 +120,14 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
             {
                 if (returnObject == null)
                 {
                     returnObject = "NULL";
                 }
 
-                Logger.TraceFormat("Method [{0}] Returned [{1}]", CallingFrame.GetMethod().Name, returnObject);
+                s_logger.TraceFormat("Method [{0}] Returned [{1}]", CallingFrame.GetMethod().Name, returnObject);
             }
         }
 
@@ -141,9 +138,9 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
             {
-                Logger.TraceFormat("Method [{0}] Returned", CallingFrame.GetMethod().Name);
+                s_logger.TraceFormat("Method [{0}] Returned", CallingFrame.GetMethod().Name);
             }
         }
 
@@ -153,9 +150,9 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
             {
-                Logger.Trace(message);
+                s_logger.Trace(message);
             }
         }
 
@@ -163,9 +160,9 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
             {
-                Logger.TraceFormat(format, args);
+                s_logger.TraceFormat(format, args);
             }
         }
 
@@ -173,9 +170,9 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelTrace))
             {
-                Logger.TraceFormat(provider, format, args);
+                s_logger.TraceFormat(provider, format, args);
             }
         }
 
@@ -187,9 +184,9 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelDebug))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelDebug))
             {
-                Logger.Debug(message);
+                s_logger.Debug(message);
             }
         }
 
@@ -197,15 +194,15 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelDebug))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelDebug))
             {
-                if(!args.Any())
+                if (!args.Any())
                 {
-                    Logger.Debug(format);
+                    s_logger.Debug(format);
                 }
                 else
                 {
-                    Logger.DebugFormat(format, args);    
+                    s_logger.DebugFormat(format, args);
                 }
             }
         }
@@ -214,9 +211,9 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelDebug))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelDebug))
             {
-                Logger.DebugFormat(provider, format, args);
+                s_logger.DebugFormat(provider, format, args);
             }
         }
 
@@ -227,33 +224,33 @@ namespace DotNetNuke.Instrumentation
         public static void Info(object message)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelInfo))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelInfo))
             {
-                Logger.Info(message);
+                s_logger.Info(message);
             }
         }
 
         public static void Info(IFormatProvider provider, string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelInfo))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelInfo))
             {
-                Logger.InfoFormat(provider, format, args);
+                s_logger.InfoFormat(provider, format, args);
             }
         }
 
         public static void Info(string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelInfo))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelInfo))
             {
-                if(!args.Any())
+                if (!args.Any())
                 {
-                    Logger.Info(format);
+                    s_logger.Info(format);
                 }
                 else
                 {
-                    Logger.InfoFormat(format, args);    
+                    s_logger.InfoFormat(format, args);
                 }
             }
         }
@@ -265,27 +262,27 @@ namespace DotNetNuke.Instrumentation
         public static void Warn(string message, Exception exception)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
             {
-                Logger.Warn(message, exception);
+                s_logger.Warn(message, exception);
             }
         }
 
         public static void Warn(object message)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
             {
-                Logger.Warn(message);
+                s_logger.Warn(message);
             }
         }
 
         public static void Warn(IFormatProvider provider, string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
             {
-                Logger.WarnFormat(provider, format, args);
+                s_logger.WarnFormat(provider, format, args);
             }
         }
 
@@ -293,15 +290,15 @@ namespace DotNetNuke.Instrumentation
         public static void Warn(string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelWarn))
             {
-                if(!args.Any())
+                if (!args.Any())
                 {
-                    Logger.Warn(format);
+                    s_logger.Warn(format);
                 }
                 else
                 {
-                    Logger.WarnFormat(format, args);
+                    s_logger.WarnFormat(format, args);
                 }
             }
         }
@@ -314,53 +311,51 @@ namespace DotNetNuke.Instrumentation
         {
             EnsureConfig();
 
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelError))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelError))
             {
-                Logger.Error(message, exception);
-            }  
-
-            
+                s_logger.Error(message, exception);
+            }
         }
 
         public static void Error(object message)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelError))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelError))
             {
-                Logger.Error(message);
+                s_logger.Error(message);
             }
         }
 
         public static void Error(Exception exception)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelError))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelError))
             {
-                Logger.Error(exception.Message, exception);
+                s_logger.Error(exception.Message, exception);
             }
         }
 
         public static void Error(IFormatProvider provider, string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelError))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelError))
             {
-                Logger.ErrorFormat(provider, format, args);
+                s_logger.ErrorFormat(provider, format, args);
             }
         }
 
         public static void Error(string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelError))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelError))
             {
                 if (!args.Any())
                 {
-                    Logger.ErrorFormat(format);
+                    s_logger.ErrorFormat(format);
                 }
                 else
                 {
-                    Logger.ErrorFormat(format, args);
+                    s_logger.ErrorFormat(format, args);
                 }
             }
         }
@@ -372,42 +367,42 @@ namespace DotNetNuke.Instrumentation
         public static void Fatal(string message, Exception exception)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
             {
-                Logger.Fatal(message, exception);
+                s_logger.Fatal(message, exception);
             }
         }
 
         public static void Fatal(object message)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
             {
-                Logger.Fatal(message);
+                s_logger.Fatal(message);
             }
         }
 
         public static void Fatal(IFormatProvider provider, string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
             {
-                Logger.FatalFormat(provider, format, args);
+                s_logger.FatalFormat(provider, format, args);
             }
         }
 
         public static void Fatal(string format, params object[] args)
         {
             EnsureConfig();
-            if (Logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
+            if (s_logger.Logger.IsEnabledFor(DnnLogger.LevelFatal))
             {
                 if (!args.Any())
                 {
-                    Logger.Fatal(format);
+                    s_logger.Fatal(format);
                 }
                 else
                 {
-                    Logger.FatalFormat(format, args);
+                    s_logger.FatalFormat(format, args);
                 }
             }
         }

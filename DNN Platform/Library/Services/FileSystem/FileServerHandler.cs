@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Globalization;
 using System.IO;
@@ -36,12 +36,11 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Services.FileSystem
 {
     public class FileServerHandler : IHttpHandler
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (FileServerHandler));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FileServerHandler));
         #region IHttpHandler Members
 
         /// -----------------------------------------------------------------------------
@@ -106,7 +105,6 @@ namespace DotNetNuke.Services.FileSystem
             bool blnForceDownload = false;
             if (context.Request.QueryString["fileticket"] != null)
             {
-
                 URL = "FileID=" + FileLinkClickController.Instance.GetFileIdFromLinkClick(context.Request.QueryString);
             }
             if (context.Request.QueryString["userticket"] != null)
@@ -129,7 +127,7 @@ namespace DotNetNuke.Services.FileSystem
                 var objUrls = new UrlController();
                 objUrls.UpdateUrlTracking(_portalSettings.PortalId, URL, ModuleId, -1);
                 TabType UrlType = Globals.GetURLType(URL);
-                if(UrlType == TabType.Tab)
+                if (UrlType == TabType.Tab)
                 {
                     //verify whether the tab is exist, otherwise throw out 404.
                     if (TabController.Instance.GetTab(int.Parse(URL), _portalSettings.PortalId, false) == null)
@@ -217,11 +215,10 @@ namespace DotNetNuke.Services.FileSystem
                                 }
                                 catch (ThreadAbortException) //if call fileManager.WriteFileToResponse ThreadAbortException will shown, should catch it and do nothing.
                                 {
-
                                 }
                                 catch (Exception ex)
                                 {
-                                    Logger.Error(ex);
+                                    s_logger.Error(ex);
                                 }
                             }
 

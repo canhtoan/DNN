@@ -17,19 +17,20 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Entities.Content.Workflow
 // ReSharper enable CheckNamespace
 {
     /// <summary>
     /// This entity represents a Workflow State
     /// </summary>
-    [Obsolete("Deprecated in Platform 7.4.0")]    
-    public class ContentWorkflowState 
+    [Obsolete("Deprecated in Platform 7.4.0")]
+    public class ContentWorkflowState
     {
         /// <summary>
         /// State Id
@@ -54,7 +55,7 @@ namespace DotNetNuke.Entities.Content.Workflow
 
         public bool SendEmail { get; set; }
 
-        public bool SendMessage { get; set; } 
+        public bool SendMessage { get; set; }
 
         public bool IsDisposalState { get; set; }
 

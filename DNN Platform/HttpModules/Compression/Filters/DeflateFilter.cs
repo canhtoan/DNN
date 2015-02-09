@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.IO;
 using System.IO.Compression;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.Compression
 {
     /// <summary>
@@ -32,11 +31,11 @@ namespace DotNetNuke.HttpModules.Compression
     /// </summary>
     public class DeflateFilter : CompressingFilter
     {
-        private readonly DeflateStream m_stream;
+        private readonly DeflateStream _stream;
 
         public DeflateFilter(Stream baseStream) : base(baseStream)
         {
-            m_stream = new DeflateStream(baseStream, CompressionMode.Compress);
+            _stream = new DeflateStream(baseStream, CompressionMode.Compress);
         }
 
         public override string ContentEncoding
@@ -53,17 +52,17 @@ namespace DotNetNuke.HttpModules.Compression
             {
                 WriteHeaders();
             }
-            m_stream.Write(buffer, offset, count);
+            _stream.Write(buffer, offset, count);
         }
 
         public override void Close()
         {
-            m_stream.Close();
+            _stream.Close();
         }
 
         public override void Flush()
         {
-            m_stream.Flush();
+            _stream.Flush();
         }
     }
 }

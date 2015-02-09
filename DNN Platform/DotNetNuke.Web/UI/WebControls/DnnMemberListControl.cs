@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +33,6 @@ using DotNetNuke.Entities.Users.Social;
 using DotNetNuke.Services.Tokens;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     /// <summary>
@@ -58,7 +57,7 @@ namespace DotNetNuke.Web.UI.WebControls
         /// </summary>
         [DefaultValue(""), PersistenceMode(PersistenceMode.InnerProperty)]
         public string HeaderTemplate { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the template for the row header.
         /// </summary>
@@ -104,7 +103,7 @@ namespace DotNetNuke.Web.UI.WebControls
         #endregion
 
         #region Filter Properties
-        
+
         /// <summary>
         /// Gets or sets the index of the currently displayed page.
         /// </summary>
@@ -116,13 +115,13 @@ namespace DotNetNuke.Web.UI.WebControls
         /// </summary>
         [DefaultValue(10)]
         public int PageSize { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the number of items displayed on each row.
         /// </summary>
         [DefaultValue(1)]
         public int RowSize { get; set; }
-        
+
         /// <summary>
         /// Sets the property value to sort by.
         /// </summary>
@@ -144,15 +143,15 @@ namespace DotNetNuke.Web.UI.WebControls
         public IDictionary<string, string> Filters { get; set; }
 
         #endregion
-        
+
         #endregion
-        
+
         #region Event Handlers
 
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
-            
+
             _currentUser = UserController.Instance.GetCurrentUserInfo();
             _relationshipController = new RelationshipController();
         }
@@ -176,7 +175,7 @@ namespace DotNetNuke.Web.UI.WebControls
             var filterUser = Filters.ContainsKey("UserId") && Filters["UserId"] != null ? new UserInfo() { UserID = int.Parse(Filters["UserId"]) } : new UserInfo() { PortalID = _currentUser.PortalID };
             var role = Filters.ContainsKey("RoleId") && Filters["RoleId"] != null ? new UserRoleInfo() { RoleID = int.Parse(Filters["RoleId"]) } : null;
             var relationship = Filters.ContainsKey("RelationshipTypeId") && Filters["RelationshipTypeId"] != null ? new RelationshipType() { RelationshipTypeId = int.Parse(Filters["RelationshipTypeId"]) } : null;
-            
+
             foreach (var filter in Filters.Where(filter => !additionalFilters.ContainsKey(filter.Key)))
             {
                 additionalFilters.Add(filter.Key, filter.Value);
@@ -192,7 +191,7 @@ namespace DotNetNuke.Web.UI.WebControls
                 foreach (DataRow user in users.Rows)
                 {
                     //Row Header
-                    writer.Write(string.IsNullOrEmpty(AlternatingRowHeaderTemplate) || row%2 == 0 ? RowHeaderTemplate : AlternatingRowHeaderTemplate);
+                    writer.Write(string.IsNullOrEmpty(AlternatingRowHeaderTemplate) || row % 2 == 0 ? RowHeaderTemplate : AlternatingRowHeaderTemplate);
 
                     var tokenReplace = new TokenReplace();
                     var tokenKeyValues = new Dictionary<string, string>();
@@ -202,12 +201,12 @@ namespace DotNetNuke.Web.UI.WebControls
                         tokenKeyValues.Add(col.ColumnName, user[col.ColumnName].ToString());
                     }
 
-                    var listItem = string.IsNullOrEmpty(AlternatingItemTemplate) || row%2 == 0 ? ItemTemplate : AlternatingItemTemplate;
+                    var listItem = string.IsNullOrEmpty(AlternatingItemTemplate) || row % 2 == 0 ? ItemTemplate : AlternatingItemTemplate;
                     listItem = tokenReplace.ReplaceEnvironmentTokens(listItem, tokenKeyValues, "Member");
                     writer.Write(listItem);
 
                     //Row Footer
-                    writer.Write(string.IsNullOrEmpty(AlternatingRowFooterTemplate) || row%2 == 0 ? RowFooterTemplate : AlternatingRowFooterTemplate);
+                    writer.Write(string.IsNullOrEmpty(AlternatingRowFooterTemplate) || row % 2 == 0 ? RowFooterTemplate : AlternatingRowFooterTemplate);
 
                     row++;
                 }

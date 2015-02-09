@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using DotNetNuke.Common.Utilities;
@@ -61,7 +62,7 @@ namespace DotNetNuke.Entities.Tabs
                 TabWorkflowTracker.Instance.TrackModuleModification(module, moduleVersion, userId);
             }
         }
-        
+
         public void TrackModuleDeletion(ModuleInfo module, int moduleVersion, int userId)
         {
             var unPublishedVersion = TabVersionBuilder.Instance.GetUnPublishedVersion(module.TabID);
@@ -74,23 +75,23 @@ namespace DotNetNuke.Entities.Tabs
                 TabWorkflowTracker.Instance.TrackModuleDeletion(module, moduleVersion, userId);
             }
         }
-        
+
         public void TrackModuleUncopy(ModuleInfo module, int moduleVersion, int originalTabId, int userId)
         {
             if (TabChangeSettings.Instance.IsChangeControlEnabled(module.PortalID, module.TabID))
             {
                 TabVersionTracker.Instance.TrackModuleUncopy(module, moduleVersion, originalTabId, userId);
-            } 
+            }
         }
-        
+
         public void TrackModuleCopy(ModuleInfo module, int moduleVersion, int originalTabId, int userId)
         {
             if (TabChangeSettings.Instance.IsChangeControlEnabled(module.PortalID, module.TabID))
             {
                 TabVersionTracker.Instance.TrackModuleCopy(module, moduleVersion, originalTabId, userId);
-            }            
+            }
         }
-        
+
         protected override Func<ITabChangeTracker> GetFactory()
         {
             return () => new TabChangeTracker();

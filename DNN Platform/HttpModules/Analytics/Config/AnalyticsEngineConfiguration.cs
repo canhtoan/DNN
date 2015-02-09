@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Xml.Serialization;
@@ -31,7 +31,6 @@ using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.Config
 {
     /// -----------------------------------------------------------------------------
@@ -52,7 +51,7 @@ namespace DotNetNuke.HttpModules.Config
     [Serializable, XmlRoot("AnalyticsEngineConfig")]
     public class AnalyticsEngineConfiguration
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (AnalyticsEngineConfiguration));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(AnalyticsEngineConfiguration));
         private AnalyticsEngineCollection _analyticsEngines;
 
         public AnalyticsEngineCollection AnalyticsEngines
@@ -69,12 +68,12 @@ namespace DotNetNuke.HttpModules.Config
 
         public static AnalyticsEngineConfiguration GetConfig()
         {
-            var config = new AnalyticsEngineConfiguration {AnalyticsEngines = new AnalyticsEngineCollection()};
+            var config = new AnalyticsEngineConfiguration { AnalyticsEngines = new AnalyticsEngineCollection() };
             FileStream fileReader = null;
             string filePath = "";
             try
             {
-                config = (AnalyticsEngineConfiguration) DataCache.GetCache("AnalyticsEngineConfig");
+                config = (AnalyticsEngineConfiguration)DataCache.GetCache("AnalyticsEngineConfig");
                 if ((config == null))
                 {
                     filePath = Common.Utilities.Config.GetPathToFile(Common.Utilities.Config.ConfigFileType.SiteAnalytics);
@@ -82,17 +81,17 @@ namespace DotNetNuke.HttpModules.Config
                     //Create a FileStream for the Config file
                     fileReader = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                     var doc = new XPathDocument(fileReader);
-                    config = new AnalyticsEngineConfiguration {AnalyticsEngines = new AnalyticsEngineCollection()};
+                    config = new AnalyticsEngineConfiguration { AnalyticsEngines = new AnalyticsEngineCollection() };
                     foreach (XPathNavigator nav in
                         doc.CreateNavigator().Select("AnalyticsEngineConfig/Engines/AnalyticsEngine"))
                     {
                         var analyticsEngine = new AnalyticsEngine
-                                                  {
-                                                      EngineType = nav.SelectSingleNode("EngineType").Value,
-                                                      ElementId = nav.SelectSingleNode("ElementId").Value,
-                                                      InjectTop = Convert.ToBoolean(nav.SelectSingleNode("InjectTop").Value),
-                                                      ScriptTemplate = nav.SelectSingleNode("ScriptTemplate").Value
-                                                  };
+                        {
+                            EngineType = nav.SelectSingleNode("EngineType").Value,
+                            ElementId = nav.SelectSingleNode("ElementId").Value,
+                            InjectTop = Convert.ToBoolean(nav.SelectSingleNode("InjectTop").Value),
+                            ScriptTemplate = nav.SelectSingleNode("ScriptTemplate").Value
+                        };
                         config.AnalyticsEngines.Add(analyticsEngine);
                     }
                     if (File.Exists(filePath))
@@ -105,13 +104,12 @@ namespace DotNetNuke.HttpModules.Config
             catch (Exception ex)
             {
                 //log it
-                var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString()};
+                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString() };
                 log.AddProperty("Analytics.AnalyticsEngineConfiguration", "GetConfig Failed");
                 log.AddProperty("FilePath", filePath);
                 log.AddProperty("ExceptionMessage", ex.Message);
                 LogController.Instance.AddLog(log);
-                Logger.Error(log);
-
+                s_logger.Error(log);
             }
             finally
             {

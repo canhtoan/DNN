@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,30 +17,29 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.Services.Exceptions
 {
     public class SchedulerException : BasePortalException
     {
         //default constructor
-		public SchedulerException()
+        public SchedulerException()
         {
         }
 
         //constructor with exception message
-		public SchedulerException(string message) : base(message)
+        public SchedulerException(string message) : base(message)
         {
         }
 
-		//constructor with message and inner exception
+        //constructor with message and inner exception
         public SchedulerException(string message, Exception inner) : base(message, inner)
         {
         }

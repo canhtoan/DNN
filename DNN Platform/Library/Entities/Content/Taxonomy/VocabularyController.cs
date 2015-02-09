@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,13 +30,12 @@ using DotNetNuke.Entities.Content.Data;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content.Taxonomy
 {
-	/// <summary>
-	/// VocabularyController provides the business layer of Vocabulary and VocabularyType.
-	/// </summary>
-	/// <seealso cref="TermController"/>
+    /// <summary>
+    /// VocabularyController provides the business layer of Vocabulary and VocabularyType.
+    /// </summary>
+    /// <seealso cref="TermController"/>
     public class VocabularyController : IVocabularyController
     {
         private readonly IDataService _DataService;

@@ -1,4 +1,4 @@
-/*
+﻿/*
 ' Copyright (c) 2011  DotNetNuke Corporation
 '  All rights reserved.
 ' 
@@ -12,12 +12,9 @@
 
 using DotNetNuke.Entities.Modules;
 
-namespace DotNetNuke.Modules.Journal {
-
-    public class JournalSettingsBase : ModuleSettingsBase {
-
-
-
+namespace DotNetNuke.Modules.Journal
+{
+    public class JournalSettingsBase : ModuleSettingsBase
+    {
     }
-
 }

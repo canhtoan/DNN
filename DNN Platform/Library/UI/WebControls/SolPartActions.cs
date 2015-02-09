@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Common;
@@ -29,24 +29,23 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.UI.Containers;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     public class SolPartActions : ActionBase
     {
-        private int m_intExpandDepth = -1;
-        private NavigationProvider m_objControl;
-        private string m_strProviderName = "SolpartMenuNavigationProvider";
+        private int _intExpandDepth = -1;
+        private NavigationProvider _objControl;
+        private string _strProviderName = "SolpartMenuNavigationProvider";
 
         public string ProviderName
         {
             get
             {
-                return m_strProviderName;
+                return _strProviderName;
             }
             set
             {
-                m_strProviderName = value;
+                _strProviderName = value;
             }
         }
 
@@ -60,11 +59,11 @@ namespace DotNetNuke.UI.WebControls
                 {
                     return -1;
                 }
-                return m_intExpandDepth;
+                return _intExpandDepth;
             }
             set
             {
-                m_intExpandDepth = value;
+                _intExpandDepth = value;
             }
         }
 
@@ -72,7 +71,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return m_objControl;
+                return _objControl;
             }
         }
 
@@ -89,7 +88,7 @@ namespace DotNetNuke.UI.WebControls
         {
             try
             {
-				//--- original page set attributes ---
+                //--- original page set attributes ---
                 Control.StyleIconWidth = 15;
                 Control.MouseOutHideDelay = 500;
                 Control.MouseOverAction = NavigationProvider.HoverAction.Expand;
@@ -105,9 +104,9 @@ namespace DotNetNuke.UI.WebControls
                 Control.CSSNodeHover = "ModuleTitle_MenuItemSel"; //ctlActions.MenuCSS.MenuItemSel
                 Control.CSSIndicateChildSub = "ModuleTitle_MenuArrow"; //ctlActions.MenuCSS.MenuArrow
                 Control.CSSIndicateChildRoot = "ModuleTitle_RootMenuArrow"; //ctlActions.MenuCSS.RootMenuArrow
-                
-				//generate dynamic menu
-				if (String.IsNullOrEmpty(Control.PathSystemScript))
+
+                //generate dynamic menu
+                if (String.IsNullOrEmpty(Control.PathSystemScript))
                 {
                     Control.PathSystemScript = Globals.ApplicationPath + "/Controls/SolpartMenu/";
                 }
@@ -183,7 +182,7 @@ namespace DotNetNuke.UI.WebControls
 
         protected override void OnInit(EventArgs e)
         {
-            m_objControl = NavigationProvider.Instance(ProviderName);
+            _objControl = NavigationProvider.Instance(ProviderName);
             Control.PopulateOnDemand += Control_PopulateOnDemand;
             base.OnInit(e);
             Control.ControlID = "ctl" + ID;

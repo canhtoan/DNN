@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
@@ -29,12 +29,11 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Scheduling;
 
 #endregion
-
 namespace DotNetNuke.Services.Messaging.Scheduler
-{[Obsolete("Deprecated in 6.2.0 - scheduled item type will automatically update.")]
+{
+    [Obsolete("Deprecated in 6.2.0 - scheduled item type will automatically update.")]
     public class MessagingScheduler : SchedulerClient
     {
-        
         private readonly MessagingController _mController = new MessagingController();
 
         public MessagingScheduler(ScheduleHistoryItem objScheduleHistoryItem)
@@ -65,8 +64,8 @@ namespace DotNetNuke.Services.Messaging.Scheduler
 
                     while (_messageLeft)
                     {
-                       Data.Message currentMessage = _mController.GetNextMessageForDispatch(_schedulerInstance);
-                        
+                        Data.Message currentMessage = _mController.GetNextMessageForDispatch(_schedulerInstance);
+
                         if ((currentMessage != null))
                         {
                             try

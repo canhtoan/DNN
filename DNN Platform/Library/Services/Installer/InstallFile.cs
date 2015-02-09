@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -28,7 +28,6 @@ using System.Text.RegularExpressions;
 using ICSharpCode.SharpZipLib.Zip;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer
 {
     /// -----------------------------------------------------------------------------
@@ -41,11 +40,11 @@ namespace DotNetNuke.Services.Installer
     [Serializable]
     public class InstallFile
     {
-		#region Private Members
+        #region Private Members
 
         #endregion
 
-		#region Constructors
+        #region Constructors
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -119,10 +118,10 @@ namespace DotNetNuke.Services.Installer
             Name = fileName;
             Path = filePath;
         }
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -265,7 +264,7 @@ namespace DotNetNuke.Services.Installer
 
         #endregion
 
-		#region Private Methods
+        #region Private Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -334,7 +333,7 @@ namespace DotNetNuke.Services.Installer
                         break;
                 }
             }
-			
+
             //remove [app_code] token
             Path = Path.Replace("[app_code]", "");
 
@@ -358,10 +357,10 @@ namespace DotNetNuke.Services.Installer
             Util.WriteStream(unzip, TempFileName);
             File.SetLastWriteTime(TempFileName, entry.DateTime);
         }
-		
-		#endregion
 
-		#region Public Methods
+        #endregion
+
+        #region Public Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -373,7 +372,7 @@ namespace DotNetNuke.Services.Installer
         {
             Version = version;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

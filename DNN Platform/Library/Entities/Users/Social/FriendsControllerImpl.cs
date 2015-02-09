@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -68,7 +67,7 @@ namespace DotNetNuke.Entities.Users.Social.Internal
                 friendRelationship.UserRelationshipId.ToString(CultureInfo.InvariantCulture), initiatingUser.UserID);
 
             if (FriendshipAccepted != null)
-                FriendshipAccepted(null, new RelationshipEventArgs(friendRelationship,initiatingUser.PortalID));
+                FriendshipAccepted(null, new RelationshipEventArgs(friendRelationship, initiatingUser.PortalID));
         }
 
         /// -----------------------------------------------------------------------------
@@ -102,7 +101,7 @@ namespace DotNetNuke.Entities.Users.Social.Internal
         {
             Requires.NotNull("user1", initiatingUser);
 
-            var userRelationship = RelationshipController.Instance.InitiateUserRelationship(initiatingUser, targetUser, 
+            var userRelationship = RelationshipController.Instance.InitiateUserRelationship(initiatingUser, targetUser,
                                         RelationshipController.Instance.GetFriendsRelationshipByPortal(initiatingUser.PortalID));
 
             AddFriendRequestNotification(initiatingUser, targetUser, userRelationship);

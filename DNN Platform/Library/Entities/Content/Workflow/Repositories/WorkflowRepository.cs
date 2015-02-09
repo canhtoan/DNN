@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,7 +67,7 @@ namespace DotNetNuke.Entities.Content.Workflow.Repositories
             {
                 var rep = context.GetRepository<Entities.Workflow>();
                 var workflows = rep.Find("WHERE (PortalId = @0 OR PortalId IS NULL) AND IsSystem = 1", portalId).ToArray();
-                
+
                 // Worfklow States eager loading
                 foreach (var workflow in workflows)
                 {
@@ -81,12 +81,12 @@ namespace DotNetNuke.Entities.Content.Workflow.Repositories
         public Entities.Workflow GetWorkflow(int workflowId)
         {
             Entities.Workflow workflow;
-            using(var context = DataContext.Instance())
+            using (var context = DataContext.Instance())
             {
                 var rep = context.GetRepository<Entities.Workflow>();
                 workflow = rep.Find("WHERE WorkflowId = @0", workflowId).SingleOrDefault();
             }
-            
+
             if (workflow == null)
             {
                 return null;
@@ -116,7 +116,7 @@ namespace DotNetNuke.Entities.Content.Workflow.Repositories
                 rep.Insert(workflow);
             }
         }
-        
+
         // TODO: validation
         public void UpdateWorkflow(Entities.Workflow workflow)
         {

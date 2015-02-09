@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Net;
 using System.Net.Http;
@@ -98,11 +97,10 @@ namespace DotNetNuke.Web.InternalServices
             {
                 Scheme = request.Url.Scheme,
                 Host = "www.dnnsoftware.com",
-                Path = String.Format("DesktopModules/DNNCorp/GettingStarted/{0}/{1}/index.html", 
-                                            DotNetNukeContext.Current.Application.Name.Replace(".", "_"), 
+                Path = String.Format("DesktopModules/DNNCorp/GettingStarted/{0}/{1}/index.html",
+                                            DotNetNukeContext.Current.Application.Name.Replace(".", "_"),
                                             DotNetNukeContext.Current.Application.Version.ToString(3)),
                 Query = String.Format("locale={0}", Thread.CurrentThread.CurrentUICulture)
-
             };
             var contentUrl = builder.Uri.AbsoluteUri;
 
@@ -152,6 +150,5 @@ namespace DotNetNuke.Web.InternalServices
             }
             return true;
         }
-
     }
 }

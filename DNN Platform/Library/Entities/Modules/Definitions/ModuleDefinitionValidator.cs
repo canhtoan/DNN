@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web;
@@ -30,7 +30,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules.Definitions
 {
     public enum ModuleDefinitionVersion
@@ -71,7 +70,7 @@ namespace DotNetNuke.Entities.Modules.Definitions
 
         private static string GetLocalizedString(string key)
         {
-            var objPortalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+            var objPortalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
             if (objPortalSettings == null)
             {
                 return key;

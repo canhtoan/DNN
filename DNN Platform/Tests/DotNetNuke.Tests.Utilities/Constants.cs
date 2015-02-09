@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Web.Caching;
 
@@ -47,7 +47,7 @@ namespace DotNetNuke.Tests.Utilities
         public const int USER_TenId = 10;
         public const string USER_TenName = "user10";
         public const int USER_ElevenId = 11;
-        public const string USER_ElevenName = "user11";        
+        public const string USER_ElevenName = "user11";
         public const int UserID_Host = 1;
         public const int UserID_Admin = 2;
         public const int UserID_User12 = 12;
@@ -59,7 +59,7 @@ namespace DotNetNuke.Tests.Utilities
         public const string UserDisplayName_Admin = "Administrator Account";
         public const string UserDisplayName_User12 = "User 12";
         public const string UserDisplayName_FirstSocialGroupOwner = "First Social Group Owner";
-        
+
 
         #endregion
 
@@ -106,8 +106,8 @@ namespace DotNetNuke.Tests.Utilities
         public const int PORTALGROUP_ValidPortalGroupId = 1;
         public const int PORTALGROUP_AddPortalGroupId = 2;
         public const int PORTALGROUP_DeletePortalGroupId = 3;
-        public const int PORTALGROUP_InValidPortalGroupId = 999; 
-        
+        public const int PORTALGROUP_InValidPortalGroupId = 999;
+
         public const string PORTALGROUP_ValidName = "PortalGroupName";
         public const string PORTALGROUP_ValidDescription = "PortalGroupDescription";
         public const int PORTALGROUP_UpdatePortalGroupId = 4;
@@ -117,7 +117,7 @@ namespace DotNetNuke.Tests.Utilities
 
         public const int PORTALGROUP_ValidPortalGroupCount = 5;
         public const string PORTALGROUP_ValidNameFormat = "PortalGroupName {0}";
-        public const string PORTALGROUP_ValidDescriptionFormat = "PortalGroupDescription {0}";        
+        public const string PORTALGROUP_ValidDescriptionFormat = "PortalGroupDescription {0}";
         #endregion
 
         #region ContentItem Constants

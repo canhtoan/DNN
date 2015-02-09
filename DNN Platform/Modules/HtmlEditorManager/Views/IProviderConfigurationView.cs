@@ -16,16 +16,17 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+using System;
+using System.Web.UI.WebControls;
+
+using DotNetNuke.Modules.HtmlEditorManager.ViewModels;
+using DotNetNuke.Web.Mvp;
+
 
 namespace DotNetNuke.Modules.HtmlEditorManager.Views
 {
-    using System;
-    using System.Web.UI.WebControls;
-
-    using DotNetNuke.Modules.HtmlEditorManager.ViewModels;
-    using DotNetNuke.Web.Mvp;
-
     /// <summary>
     /// Interface for the Provider Configuration View
     /// </summary>

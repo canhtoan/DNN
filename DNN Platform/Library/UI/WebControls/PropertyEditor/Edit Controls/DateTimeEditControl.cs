@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -29,7 +29,6 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -50,10 +49,10 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:DateTimeEditControl runat=server></{0}:DateTimeEditControl>")]
     public class DateTimeEditControl : DateEditControl
     {
-        private DropDownList ampmField;
-        private DropDownList hourField;
-        private bool is24HourClock;
-        private DropDownList minutesField;
+        private DropDownList _ampmField;
+        private DropDownList _hourField;
+        private bool _is24HourClock;
+        private DropDownList _minutesField;
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -79,7 +78,7 @@ namespace DotNetNuke.UI.WebControls
             base.OnInit(e);
             if (string.IsNullOrEmpty(CultureInfo.CurrentCulture.DateTimeFormat.AMDesignator))
             {
-                is24HourClock = true;
+                _is24HourClock = true;
             }
         }
 
@@ -87,39 +86,39 @@ namespace DotNetNuke.UI.WebControls
         {
             base.CreateChildControls();
             Controls.Add(new LiteralControl("<br/>"));
-            hourField = new DropDownList();
+            _hourField = new DropDownList();
             int maxHour = 12;
             int minHour = 1;
-            if (is24HourClock)
+            if (_is24HourClock)
             {
                 minHour = 0;
                 maxHour = 23;
             }
             for (int i = minHour; i <= maxHour; i++)
             {
-                hourField.Items.Add(new ListItem(i.ToString("00"), i.ToString()));
+                _hourField.Items.Add(new ListItem(i.ToString("00"), i.ToString()));
             }
-            hourField.ControlStyle.CopyFrom(ControlStyle);
-            hourField.ID = ID + "hours";
-            Controls.Add(hourField);
+            _hourField.ControlStyle.CopyFrom(ControlStyle);
+            _hourField.ID = ID + "hours";
+            Controls.Add(_hourField);
             Controls.Add(new LiteralControl("&nbsp"));
-            minutesField = new DropDownList();
+            _minutesField = new DropDownList();
             for (int i = 0; i <= 59; i++)
             {
-                minutesField.Items.Add(new ListItem(i.ToString("00"), i.ToString()));
+                _minutesField.Items.Add(new ListItem(i.ToString("00"), i.ToString()));
             }
-            minutesField.ControlStyle.CopyFrom(ControlStyle);
-            minutesField.ID = ID + "minutes";
-            Controls.Add(minutesField);
-            if (!is24HourClock)
+            _minutesField.ControlStyle.CopyFrom(ControlStyle);
+            _minutesField.ID = ID + "minutes";
+            Controls.Add(_minutesField);
+            if (!_is24HourClock)
             {
                 Controls.Add(new LiteralControl("&nbsp"));
-                ampmField = new DropDownList();
-                ampmField.Items.Add(new ListItem("AM", "AM"));
-                ampmField.Items.Add(new ListItem("PM", "PM"));
-                ampmField.ControlStyle.CopyFrom(ControlStyle);
-                ampmField.ID = ID + "ampm";
-                Controls.Add(ampmField);
+                _ampmField = new DropDownList();
+                _ampmField.Items.Add(new ListItem("AM", "AM"));
+                _ampmField.Items.Add(new ListItem("PM", "PM"));
+                _ampmField.ControlStyle.CopyFrom(ControlStyle);
+                _ampmField.ID = ID + "ampm";
+                Controls.Add(_ampmField);
             }
         }
 
@@ -129,7 +128,7 @@ namespace DotNetNuke.UI.WebControls
             int hour = DateValue.Hour;
             int minute = DateValue.Minute;
             bool isAM = true;
-            if (!is24HourClock)
+            if (!_is24HourClock)
             {
                 if (hour >= 12)
                 {
@@ -141,23 +140,23 @@ namespace DotNetNuke.UI.WebControls
                     hour = 12;
                 }
             }
-            if (hourField.Items.FindByValue(hour.ToString()) != null)
+            if (_hourField.Items.FindByValue(hour.ToString()) != null)
             {
-                hourField.Items.FindByValue(hour.ToString()).Selected = true;
+                _hourField.Items.FindByValue(hour.ToString()).Selected = true;
             }
-            if (minutesField.Items.FindByValue(minute.ToString()) != null)
+            if (_minutesField.Items.FindByValue(minute.ToString()) != null)
             {
-                minutesField.Items.FindByValue(minute.ToString()).Selected = true;
+                _minutesField.Items.FindByValue(minute.ToString()).Selected = true;
             }
-            if (!is24HourClock)
+            if (!_is24HourClock)
             {
                 if (isAM)
                 {
-                    ampmField.SelectedIndex = 0;
+                    _ampmField.SelectedIndex = 0;
                 }
                 else
                 {
-                    ampmField.SelectedIndex = 1;
+                    _ampmField.SelectedIndex = 1;
                 }
             }
         }
@@ -175,13 +174,13 @@ namespace DotNetNuke.UI.WebControls
             {
                 DateTime.TryParse(postedDate, out postedValue);
             }
-            if (postedHours != "12" || is24HourClock)
+            if (postedHours != "12" || _is24HourClock)
             {
-                int hours = 0;                
-                if(Int32.TryParse(postedHours, out hours)) postedValue = postedValue.AddHours(hours);
+                int hours = 0;
+                if (Int32.TryParse(postedHours, out hours)) postedValue = postedValue.AddHours(hours);
             }
             postedValue = postedValue.AddMinutes(Int32.Parse(postedMinutes));
-            if (!is24HourClock && postedAMPM.Equals("PM"))
+            if (!_is24HourClock && postedAMPM.Equals("PM"))
             {
                 postedValue = postedValue.AddHours(12);
             }

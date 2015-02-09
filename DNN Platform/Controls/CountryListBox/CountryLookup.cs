@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -25,21 +25,20 @@
 // The database and the c# implementation of this class
 // are available from http://www.maxmind.com/app/csharp
 //------------------------------------------------------------------------------------------------
-#region Usings
 
+#region Usings
 using System;
 using System.IO;
 using System.Net;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     public class CountryLookup
     {
-        private static long CountryBegin = 16776960;
+        private static long s_countryBegin = 16776960;
 
-        private static readonly string[] CountryName = new[]
+        private static readonly string[] s_countryName = new[]
                                                            {
                                                                "N/A", "Asia/Pacific Region", "Europe", "Andorra", "United Arab Emirates", "Afghanistan", "Antigua and Barbuda", "Anguilla", "Albania",
                                                                "Armenia", "Netherlands Antilles", "Angola", "Antarctica", "Argentina", "American Samoa", "Austria", "Australia", "Aruba", "Azerbaijan",
@@ -72,7 +71,7 @@ namespace DotNetNuke.UI.WebControls
                                                                "Satellite Provider"
                                                            };
 
-        private static readonly string[] CountryCode = new[]
+        private static readonly string[] s_countryCode = new[]
                                                            {
                                                                "--", "AP", "EU", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AN", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AZ", "BA", "BB", "BD", "BE",
                                                                "BF", "BG", "BH", "BI", "BJ", "BM", "BN", "BO", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK",
@@ -96,7 +95,7 @@ namespace DotNetNuke.UI.WebControls
 
         public CountryLookup(string FileLocation)
         {
-			//------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------
             //Load the passed in GeoIP Data file to the memorystream
             //------------------------------------------------------------------------------------------------
             var _FileStream = new FileStream(FileLocation, FileMode.Open, FileAccess.Read);
@@ -115,7 +114,7 @@ namespace DotNetNuke.UI.WebControls
             string[] _Address = _IPAddress.ToString().Split('.');
             if (_Address.Length == 4)
             {
-                return Convert.ToInt64(16777216*Convert.ToDouble(_Address[0]) + 65536*Convert.ToDouble(_Address[1]) + 256*Convert.ToDouble(_Address[2]) + Convert.ToDouble(_Address[3]));
+                return Convert.ToInt64(16777216 * Convert.ToDouble(_Address[0]) + 65536 * Convert.ToDouble(_Address[1]) + 256 * Convert.ToDouble(_Address[2]) + Convert.ToDouble(_Address[3]));
             }
             else
             {
@@ -126,10 +125,10 @@ namespace DotNetNuke.UI.WebControls
         private string ConvertIPNumberToAddress(long _IPNumber)
         {
             //Convert an IP Number to the IP Address equivalent
-            string _IPNumberPart1 = Convert.ToString(((int) (_IPNumber/16777216))%256);
-            string _IPNumberPart2 = Convert.ToString(((int) (_IPNumber/65536))%256);
-            string _IPNumberPart3 = Convert.ToString(((int) (_IPNumber/256))%256);
-            string _IPNumberPart4 = Convert.ToString(((int) (_IPNumber))%256);
+            string _IPNumberPart1 = Convert.ToString(((int)(_IPNumber / 16777216)) % 256);
+            string _IPNumberPart2 = Convert.ToString(((int)(_IPNumber / 65536)) % 256);
+            string _IPNumberPart3 = Convert.ToString(((int)(_IPNumber / 256)) % 256);
+            string _IPNumberPart4 = Convert.ToString(((int)(_IPNumber)) % 256);
             return _IPNumberPart1 + "." + _IPNumberPart2 + "." + _IPNumberPart3 + "." + _IPNumberPart4;
         }
 
@@ -159,7 +158,7 @@ namespace DotNetNuke.UI.WebControls
         public string LookupCountryCode(IPAddress _IPAddress)
         {
             //Look up the country code, e.g. US, for the passed in IP Address
-            return CountryCode[Convert.ToInt32(SeekCountry(0, ConvertIPAddressToNumber(_IPAddress), 31))];
+            return s_countryCode[Convert.ToInt32(SeekCountry(0, ConvertIPAddressToNumber(_IPAddress), 31))];
         }
 
         public string LookupCountryCode(string _IPAddress)
@@ -180,7 +179,7 @@ namespace DotNetNuke.UI.WebControls
         public string LookupCountryName(IPAddress addr)
         {
             //Look up the country name, e.g. United States, for the IP Address
-            return CountryName[Convert.ToInt32(SeekCountry(0, ConvertIPAddressToNumber(addr), 31))];
+            return s_countryName[Convert.ToInt32(SeekCountry(0, ConvertIPAddressToNumber(addr), 31))];
         }
 
         public string LookupCountryName(string _IPAddress)
@@ -200,7 +199,7 @@ namespace DotNetNuke.UI.WebControls
 
         private long vbShiftLeft(long value, int Count)
         {
-			//------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------
             // Replacement for Bitwise operators which are missing in VB.NET,
             // these functions are present in .NET 1.1, but for developers
             // using 1.0, replacement functions must be implemented
@@ -210,14 +209,14 @@ namespace DotNetNuke.UI.WebControls
             returnValue = value;
             for (_Iterator = 1; _Iterator <= Count; _Iterator++)
             {
-                returnValue = returnValue*2;
+                returnValue = returnValue * 2;
             }
             return returnValue;
         }
 
         private long vbShiftRight(long value, int Count)
         {
-			//------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------
             // Replacement for Bitwise operators which are missing in VB.NET,
             // these functions are present in .NET 1.1, but for developers
             // using 1.0, replacement functions must be implemented
@@ -227,7 +226,7 @@ namespace DotNetNuke.UI.WebControls
             returnValue = value;
             for (_Iterator = 1; _Iterator <= Count; _Iterator++)
             {
-                returnValue = returnValue/2;
+                returnValue = returnValue / 2;
             }
             return returnValue;
         }
@@ -245,34 +244,34 @@ namespace DotNetNuke.UI.WebControls
                 {
                     throw new Exception();
                 }
-                m_MemoryStream.Seek(6*Offset, 0);
+                m_MemoryStream.Seek(6 * Offset, 0);
                 m_MemoryStream.Read(Buffer, 0, 6);
                 for (I = 0; I <= 1; I++)
                 {
                     X[I] = 0;
                     for (J = 0; J <= 2; J++)
                     {
-                        Y = Buffer[I*3 + J];
+                        Y = Buffer[I * 3 + J];
                         if (Y < 0)
                         {
                             Y = Convert.ToByte(Y + 256);
                         }
-                        X[I] = Convert.ToInt32(X[I] + vbShiftLeft(Y, J*8));
+                        X[I] = Convert.ToInt32(X[I] + vbShiftLeft(Y, J * 8));
                     }
                 }
                 if ((Ipnum & vbShiftLeft(1, Depth)) > 0)
                 {
-                    if (X[1] >= CountryBegin)
+                    if (X[1] >= s_countryBegin)
                     {
-                        return Convert.ToInt32(X[1] - CountryBegin);
+                        return Convert.ToInt32(X[1] - s_countryBegin);
                     }
                     return SeekCountry(X[1], Ipnum, Convert.ToInt16(Depth - 1));
                 }
                 else
                 {
-                    if (X[0] >= CountryBegin)
+                    if (X[0] >= s_countryBegin)
                     {
-                        return Convert.ToInt32(X[0] - CountryBegin);
+                        return Convert.ToInt32(X[0] - s_countryBegin);
                     }
                     return SeekCountry(X[0], Ipnum, Convert.ToInt16(Depth - 1));
                 }

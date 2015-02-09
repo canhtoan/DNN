@@ -12,9 +12,8 @@ namespace ClientDependency.Core.FileRegistration.Providers
 {
     public class LoaderControlProvider : WebFormsFileRegistrationProvider
     {
-
         public const string DefaultName = "LoaderControlProvider";
-        
+
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
@@ -108,7 +107,5 @@ namespace ClientDependency.Core.FileRegistration.Providers
             var dCtl = new LiteralControl(literal);
             ClientDependencyLoader.GetInstance(http).Controls.Add(dCtl);
         }
-
-       
     }
 }

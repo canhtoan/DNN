@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Modules.CoreMessaging.ViewModels
 {
     public class TotalsViewModel

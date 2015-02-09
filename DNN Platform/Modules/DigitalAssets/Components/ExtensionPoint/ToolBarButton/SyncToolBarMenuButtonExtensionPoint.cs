@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -37,14 +37,14 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.ExtensionPoint.ToolBarButt
     {
         public List<IMenuButtonItemExtensionPoint> Items
         {
-            get 
-            { 
+            get
+            {
                 return new List<IMenuButtonItemExtensionPoint>
                 {
-                    new DefaultMenuButtonItem("Refresh", "", "first permission_READ permission_BROWSE", LocalizationHelper.GetString("RefreshMenuItemExtensionPoint.Text"), "dnnModule.digitalAssets.refresFolderFromMenu()", "", 0, ""), 
-                    new DefaultMenuButtonItem("Sync", "", "medium permission_MANAGE permission_WRITE", LocalizationHelper.GetString("SyncMenuItemExtensionPoint.Text"), "dnnModule.digitalAssets.syncFromMenu(false)", "", 0, ""), 
+                    new DefaultMenuButtonItem("Refresh", "", "first permission_READ permission_BROWSE", LocalizationHelper.GetString("RefreshMenuItemExtensionPoint.Text"), "dnnModule.digitalAssets.refresFolderFromMenu()", "", 0, ""),
+                    new DefaultMenuButtonItem("Sync", "", "medium permission_MANAGE permission_WRITE", LocalizationHelper.GetString("SyncMenuItemExtensionPoint.Text"), "dnnModule.digitalAssets.syncFromMenu(false)", "", 0, ""),
                     new DefaultMenuButtonItem("SyncRecursively", "", "last permission_MANAGE permission_WRITE", LocalizationHelper.GetString("SyncRecursivelyMenuItemExtensionPoint.Text"), "dnnModule.digitalAssets.syncFromMenu(true)", "", 0, "")
-                }; 
+                };
             }
         }
 
@@ -124,7 +124,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.ExtensionPoint.ToolBarButt
         {
             get
             {
-                return 5; 
+                return 5;
             }
         }
 

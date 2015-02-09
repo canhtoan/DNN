@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Services.Syndication
 {
     public class SyndicationHandlerBase : GenericRssHttpHandlerBase
@@ -51,7 +50,7 @@ namespace DotNetNuke.Services.Syndication
             {
                 if (_tabId == Null.NullInteger && Request.QueryString["tabid"] != null)
                 {
-                    if (! Int32.TryParse(Request.QueryString["tabid"], out _tabId))
+                    if (!Int32.TryParse(Request.QueryString["tabid"], out _tabId))
                     {
                         _tabId = Null.NullInteger;
                     }
@@ -66,7 +65,7 @@ namespace DotNetNuke.Services.Syndication
             {
                 if (_moduleId == Null.NullInteger && Request.QueryString["moduleid"] != null)
                 {
-                    if (! Int32.TryParse(Request.QueryString["moduleid"], out _moduleId))
+                    if (!Int32.TryParse(Request.QueryString["moduleid"], out _moduleId))
                     {
                         _moduleId = Null.NullInteger;
                     }

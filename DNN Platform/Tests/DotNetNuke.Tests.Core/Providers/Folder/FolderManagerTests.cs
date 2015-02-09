@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -56,13 +57,13 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
         private Mock<IFolderInfo> _folderInfo;
         private Mock<IFolderMappingController> _folderMappingController;
         private Mock<IDirectory> _directory;
-	    private Mock<IFile> _file;
+        private Mock<IFile> _file;
         private Mock<ICBO> _cbo;
         private Mock<IPathUtils> _pathUtils;
         private Mock<IUserSecurityController> _mockUserSecurityController;
         private Mock<IFileDeletionController> _mockFileDeletionController;
 
-            #endregion
+        #endregion
 
         #region Setup & TearDown
 
@@ -74,7 +75,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
 
             _folderMappingController = new Mock<IFolderMappingController>();
             _directory = new Mock<IDirectory>();
-			_file = new Mock<IFile>();
+            _file = new Mock<IFile>();
             _cbo = new Mock<ICBO>();
             _pathUtils = new Mock<IPathUtils>();
             _mockUserSecurityController = new Mock<IUserSecurityController>();
@@ -82,7 +83,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
 
             FolderMappingController.RegisterInstance(_folderMappingController.Object);
             DirectoryWrapper.RegisterInstance(_directory.Object);
-			FileWrapper.RegisterInstance(_file.Object);
+            FileWrapper.RegisterInstance(_file.Object);
             CBO.SetTestableInstance(_cbo.Object);
             PathUtils.RegisterInstance(_pathUtils.Object);
             UserSecurityController.SetTestableInstance(_mockUserSecurityController.Object);
@@ -93,7 +94,6 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             _folderManager = new FolderManager();
 
             _folderInfo = new Mock<IFolderInfo>();
-
         }
 
         [TearDown]
@@ -199,7 +199,6 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             _mockFolderManager.Setup(mfm => mfm.FolderExists(Constants.CONTENT_ValidPortalId, Constants.FOLDER_ValidSubFolderRelativePath)).Returns(true);
 
             _mockFolderManager.Object.AddFolder(folderMapping, Constants.FOLDER_ValidSubFolderRelativePath);
-
         }
 
         #endregion
@@ -266,7 +265,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
 
             var subfolder1 = new FolderInfoBuilder()
                 .WithFolderId(2)
-                .WithPhysicalPath(Constants.FOLDER_ValidFolderPath+"\\subfolder1")
+                .WithPhysicalPath(Constants.FOLDER_ValidFolderPath + "\\subfolder1")
                 .Build();
             var subfolder2 = new FolderInfoBuilder()
                 .WithFolderId(3)
@@ -331,7 +330,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             _folderMappingController.Setup(fmc => fmc.GetFolderMapping(Constants.FOLDER_ValidFolderMappingID)).Returns(folderMapping);
 
             _mockFolder.Setup(mf => mf.DeleteFolder(subfolder1));
-            
+
             _mockFolderManager.Setup(mfm => mfm.DeleteFolder(Constants.CONTENT_ValidPortalId, Constants.FOLDER_ValidFolderRelativePath));
             _mockFolderManager.Setup(mfm => mfm.GetFolders(folderInfo)).Returns(subfolders);
             _mockFolderManager.Setup(mfm => mfm.GetFolders(It.IsNotIn(folderInfo))).Returns(new List<IFolderInfo>());
@@ -379,7 +378,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
 
             _mockFolderManager.Setup(mfm => mfm.DeleteFolder(Constants.CONTENT_ValidPortalId, Constants.FOLDER_ValidFolderRelativePath));
             _mockFolderManager.Setup(mfm => mfm.GetFolders(folderInfo)).Returns(new List<IFolderInfo>());
-            
+
             _mockFolderManager.Setup(mfm => mfm.GetFiles(folderInfo, It.IsAny<bool>(), It.IsAny<bool>())).Returns(files);
 
             _mockUserSecurityController.Setup(musc => musc.HasFolderPermission(It.IsAny<IFolderInfo>(), "DELETE")).Returns(true);
@@ -873,7 +872,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
         {
             _folderManager.Synchronize(It.IsAny<int>(), null, It.IsAny<bool>(), It.IsAny<bool>());
         }
-        
+
         [Test]
         [ExpectedException(typeof(NoNetworkAvailableException))]
         public void SynchronizeFolder_Throws_When_Some_Folder_Mapping_Requires_Network_Connectivity_But_There_Is_No_Network_Available()
@@ -969,7 +968,6 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             var result = _mockFolderManager.Object.GetFileSystemFoldersRecursive(Constants.CONTENT_ValidPortalId, @"C:\folder");
 
             Assert.AreEqual(5, result.Count);
-
         }
 
         [Test]
@@ -2169,7 +2167,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
         {
             _folderInfo.Setup(fi => fi.FolderPath).Returns(Constants.FOLDER_ValidFolderRelativePath);
             _folderInfo.Setup(fi => fi.FolderMappingID).Returns(Constants.FOLDER_ValidFolderMappingID);
-            
+
             IFolderInfo destinationFolder = new FolderInfo();
             destinationFolder.FolderPath = Constants.FOLDER_OtherValidFolderRelativePath;
             destinationFolder.FolderMappingID = Constants.FOLDER_ValidFolderMappingID;

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +31,6 @@ using DotNetNuke.Entities;
 using DotNetNuke.Services.Installer.Log;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Packages
 {
     /// -----------------------------------------------------------------------------
@@ -71,12 +70,12 @@ namespace DotNetNuke.Services.Installer.Packages
         }
 
         [XmlIgnore]
-        public IList<PackageDependencyInfo> Dependencies 
-        { 
+        public IList<PackageDependencyInfo> Dependencies
+        {
             get
             {
-                return _dependencies ?? (_dependencies = (PackageID == -1) 
-                                        ? new List<PackageDependencyInfo>() 
+                return _dependencies ?? (_dependencies = (PackageID == -1)
+                                        ? new List<PackageDependencyInfo>()
                                         : PackageController.Instance.GetPackageDependencies(p => p.PackageId == PackageID));
             }
         }
@@ -313,29 +312,29 @@ namespace DotNetNuke.Services.Installer.Packages
         public PackageInfo Clone()
         {
             return new PackageInfo
-                   {
-                       PackageID = PackageID,
-                       PortalID = PortalID,
-                       PackageType = PackageType,
-                       InstallerInfo = InstallerInfo,
-                       Name = Name,
-                       FriendlyName = FriendlyName,
-                       Manifest = Manifest,
-                       Email = Email,
-                       Description = Description,
-                       FolderName = FolderName,
-                       FileName = FileName,
-                       IconFile = IconFile,
-                       IsSystemPackage = IsSystemPackage,
-                       IsValid = IsValid,
-                       Organization = Organization,
-                       Owner = Owner,
-                       License = License,
-                       ReleaseNotes = ReleaseNotes,
-                       Url = Url,
-                       Version = Version,
-                       InstalledVersion = InstalledVersion
-                   };
+            {
+                PackageID = PackageID,
+                PortalID = PortalID,
+                PackageType = PackageType,
+                InstallerInfo = InstallerInfo,
+                Name = Name,
+                FriendlyName = FriendlyName,
+                Manifest = Manifest,
+                Email = Email,
+                Description = Description,
+                FolderName = FolderName,
+                FileName = FileName,
+                IconFile = IconFile,
+                IsSystemPackage = IsSystemPackage,
+                IsValid = IsValid,
+                Organization = Organization,
+                Owner = Owner,
+                License = License,
+                ReleaseNotes = ReleaseNotes,
+                Url = Url,
+                Version = Version,
+                InstalledVersion = InstalledVersion
+            };
         }
     }
 }

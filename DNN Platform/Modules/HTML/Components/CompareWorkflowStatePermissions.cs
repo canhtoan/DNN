@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System.Collections;
-
 
 namespace DotNetNuke.Security.Permissions
 {
@@ -41,7 +41,7 @@ namespace DotNetNuke.Security.Permissions
 
         public int Compare(object x, object y)
         {
-            return ((WorkflowStatePermissionInfo) x).WorkflowStatePermissionID.CompareTo(((WorkflowStatePermissionInfo) y).WorkflowStatePermissionID);
+            return ((WorkflowStatePermissionInfo)x).WorkflowStatePermissionID.CompareTo(((WorkflowStatePermissionInfo)y).WorkflowStatePermissionID);
         }
 
         #endregion

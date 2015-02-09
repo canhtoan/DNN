@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +32,6 @@ using DotNetNuke.Framework.JavaScriptLibraries;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     [ParseChildren(true)]
@@ -96,7 +95,7 @@ namespace DotNetNuke.Web.UI.WebControls
                 foreach (var item in GetAllItems())
                 {
                     item.CheckIsValid();
-                    if(!item.IsValid)
+                    if (!item.IsValid)
                     {
                         isValid = false;
                         break;
@@ -157,7 +156,7 @@ namespace DotNetNuke.Web.UI.WebControls
             {
                 foreach (DnnFormSection section in sections)
                 {
-                    var panel = new DnnFormPanel {CssClass = "dnnFormSectionHead"};
+                    var panel = new DnnFormPanel { CssClass = "dnnFormSectionHead" };
                     parentControl.Controls.Add(panel);
 
                     var resourceKey = section.ResourceKey;
@@ -177,7 +176,7 @@ namespace DotNetNuke.Web.UI.WebControls
         {
             if (Tabs.Count > 0)
             {
-                var tabStrip = new DnnFormTabStrip {CssClass = "dnnAdminTabNav dnnClear"};
+                var tabStrip = new DnnFormTabStrip { CssClass = "dnnAdminTabNav dnnClear" };
                 Controls.Add(tabStrip);
                 tabStrip.Items.Clear();
 
@@ -189,12 +188,12 @@ namespace DotNetNuke.Web.UI.WebControls
                         resourceKey = formTab.ID;
                     }
 
-                    var tab = new Panel {CssClass = formTab.ID + " dnnClear", ID = "tab_" + formTab.ID};
+                    var tab = new Panel { CssClass = formTab.ID + " dnnClear", ID = "tab_" + formTab.ID };
                     Controls.Add(tab);
 
                     if (formTab.IncludeExpandAll)
                     {
-                        var expandAll = new Panel {CssClass = "dnnFormExpandContent"};
+                        var expandAll = new Panel { CssClass = "dnnFormExpandContent" };
                         string expandAllText = Localization.GetString("ExpandAll", Localization.SharedResourceFile);
                         expandAll.Controls.Add(new LiteralControl("<a href=\"\">" + expandAllText + "</a>"));
                         tab.Controls.Add(expandAll);
@@ -266,9 +265,9 @@ namespace DotNetNuke.Web.UI.WebControls
 
         protected virtual void CreateControlHierarchy(bool useDataSource)
         {
-        	CssClass = string.IsNullOrEmpty(CssClass) ? "dnnForm" : CssClass.Contains("dnnForm") ? CssClass : string.Format("dnnForm {0}", CssClass);
+            CssClass = string.IsNullOrEmpty(CssClass) ? "dnnForm" : CssClass.Contains("dnnForm") ? CssClass : string.Format("dnnForm {0}", CssClass);
 
-        	SetUpTabs();
+            SetUpTabs();
 
             SetUpSections(Sections, this);
 
@@ -295,7 +294,7 @@ namespace DotNetNuke.Web.UI.WebControls
         {
             if (state != null)
             {
-                _itemCount = (int) state;
+                _itemCount = (int)state;
             }
         }
 
@@ -310,7 +309,7 @@ namespace DotNetNuke.Web.UI.WebControls
         {
             base.OnPreRender(e);
 
-            if(Tabs.Count > 0)
+            if (Tabs.Count > 0)
             {
                 const string scriptName = "FormEditorjQuery";
                 ClientScriptManager cs = Page.ClientScript;
@@ -350,7 +349,7 @@ namespace DotNetNuke.Web.UI.WebControls
 
         protected override object SaveControlState()
         {
-            return _itemCount > 0 ? (object) _itemCount : null;
+            return _itemCount > 0 ? (object)_itemCount : null;
         }
 
         #endregion

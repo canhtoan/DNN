@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,10 +28,9 @@ using System.Text.RegularExpressions;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Services.Tokens
 {
-	#region " Type Definitions "
+    #region " Type Definitions "
 
     /// <summary>
     /// Scope informs the property access classes about the planned usage of the token
@@ -43,25 +42,25 @@ namespace DotNetNuke.Services.Tokens
     /// </remarks>
     public enum Scope
     {
-		/// <summary>
-		/// Only access to Date and Time
-		/// </summary>
+        /// <summary>
+        /// Only access to Date and Time
+        /// </summary>
         NoSettings = 0,
-		/// <summary>
-		/// Tokens for Host, Portal, Tab (, Module), user name
-		/// </summary>
+        /// <summary>
+        /// Tokens for Host, Portal, Tab (, Module), user name
+        /// </summary>
         Configuration = 1,
-		/// <summary>
-		/// Configuration, Current User data and user data allowed for registered members
-		/// </summary>
+        /// <summary>
+        /// Configuration, Current User data and user data allowed for registered members
+        /// </summary>
         DefaultSettings = 2,
-		/// <summary>
-		/// System notifications to users and adminstrators
-		/// </summary>
+        /// <summary>
+        /// System notifications to users and adminstrators
+        /// </summary>
         SystemMessages = 3,
-		/// <summary>
-		/// internal debugging, error messages, logs
-		/// </summary>
+        /// <summary>
+        /// internal debugging, error messages, logs
+        /// </summary>
         Debug = 4
     }
 
@@ -86,8 +85,8 @@ namespace DotNetNuke.Services.Tokens
         /// </summary>
         fullyCacheable = 10
     }
-	
-	#endregion
+
+    #endregion
 
     /// <summary>
     /// BaseCustomTokenReplace  allows to add multiple sources implementing <see cref="IPropertyAccess">IPropertyAccess</see>
@@ -96,7 +95,7 @@ namespace DotNetNuke.Services.Tokens
     public abstract class BaseCustomTokenReplace : BaseTokenReplace
     {
         protected Dictionary<string, IPropertyAccess> PropertySource = new Dictionary<string, IPropertyAccess>();
-		#region "Protected Properties"
+        #region "Protected Properties"
 
         /// <summary>
         /// Gets/sets the current Access Level controlling access to critical user settings
@@ -105,9 +104,9 @@ namespace DotNetNuke.Services.Tokens
         protected Scope CurrentAccessLevel { get; set; }
 
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
         /// <summary>
         /// Gets/sets the user object representing the currently accessing user (permission)
@@ -123,9 +122,9 @@ namespace DotNetNuke.Services.Tokens
         /// <remarks></remarks>
         public bool DebugMessages { get; set; }
 
-		#endregion
+        #endregion
 
-		#region "Protected Methods"
+        #region "Protected Methods"
 
         protected override string replacedTokenValue(string strObjectName, string strPropertyName, string strFormat)
         {
@@ -167,10 +166,10 @@ namespace DotNetNuke.Services.Tokens
 
             return result;
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         /// <summary>
         /// Checks for present [Object:Property] tokens
@@ -221,7 +220,7 @@ namespace DotNetNuke.Services.Tokens
                     {
                         if (strObjectName == "[")
                         {
-							//nothing
+                            //nothing
                         }
                         else if (!PropertySource.ContainsKey(strObjectName.ToLower()))
                         {
@@ -239,7 +238,7 @@ namespace DotNetNuke.Services.Tokens
             }
             return IsSafe;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

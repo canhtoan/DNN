@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ using DotNetNuke.Framework;
 
 namespace DotNetNuke.Entities.Content.Workflow.Repositories
 {
-    internal class WorkflowLogRepository : ServiceLocator<IWorkflowLogRepository, WorkflowLogRepository> , IWorkflowLogRepository
+    internal class WorkflowLogRepository : ServiceLocator<IWorkflowLogRepository, WorkflowLogRepository>, IWorkflowLogRepository
     {
         #region Public Methods
         public IEnumerable<WorkflowLog> GetWorkflowLogs(int contentItemId, int workflowId)
@@ -37,7 +37,7 @@ namespace DotNetNuke.Entities.Content.Workflow.Repositories
             {
                 var rep = context.GetRepository<WorkflowLog>();
                 var workflowLogs = rep.Find("WHERE (ContentItemID = @0 AND WorkflowID = @1)", contentItemId, workflowId).ToArray();
-                
+
                 return workflowLogs;
             }
         }
@@ -68,5 +68,5 @@ namespace DotNetNuke.Entities.Content.Workflow.Repositories
             return () => new WorkflowLogRepository();
         }
         #endregion
-    }    
+    }
 }

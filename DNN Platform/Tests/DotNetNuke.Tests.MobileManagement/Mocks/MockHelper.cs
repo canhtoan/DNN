@@ -4,6 +4,7 @@
 // by DotNetNuke Corporation
 // All Rights Reserved
 // 
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -19,34 +20,34 @@ namespace DotNetNuke.Tests.MobileManagement.Mocks
 {
     internal class MockHelper
     {
-		public static Mock<T> CreateNew<T>() where T : class
-		{
-			if (ComponentFactory.Container == null)
-			{
-				ResetContainer();
-			}
+        public static Mock<T> CreateNew<T>() where T : class
+        {
+            if (ComponentFactory.Container == null)
+            {
+                ResetContainer();
+            }
 
-			//Try and get mock
-			var mockComp = ComponentFactory.GetComponent<Mock<T>>();
-			var objComp = ComponentFactory.GetComponent<T>();
+            //Try and get mock
+            var mockComp = ComponentFactory.GetComponent<Mock<T>>();
+            var objComp = ComponentFactory.GetComponent<T>();
 
-			if (mockComp == null)
-			{
-				mockComp = new Mock<T>();
-				ComponentFactory.RegisterComponentInstance<Mock<T>>(mockComp);
-			}
+            if (mockComp == null)
+            {
+                mockComp = new Mock<T>();
+                ComponentFactory.RegisterComponentInstance<Mock<T>>(mockComp);
+            }
 
-			if (objComp == null)
-			{
-				ComponentFactory.RegisterComponentInstance<T>(mockComp.Object);
-			}
+            if (objComp == null)
+            {
+                ComponentFactory.RegisterComponentInstance<T>(mockComp.Object);
+            }
 
-			return mockComp;
-		}
+            return mockComp;
+        }
 
-		public static void ResetContainer()
-		{
-			ComponentFactory.Container = new SimpleContainer();
-		}
+        public static void ResetContainer()
+        {
+            ComponentFactory.Container = new SimpleContainer();
+        }
     }
 }

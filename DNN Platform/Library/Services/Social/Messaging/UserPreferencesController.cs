@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
@@ -31,7 +31,7 @@ namespace DotNetNuke.Services.Social.Messaging
     public class UserPreferencesController : ServiceLocator<IUserPreferencesController, UserPreferencesController>, IUserPreferencesController
     {
         #region Private Memebers
-        private readonly IDataService dataService;
+        private readonly IDataService _dataService;
         #endregion
 
         protected override Func<IUserPreferencesController> GetFactory()
@@ -49,22 +49,21 @@ namespace DotNetNuke.Services.Social.Messaging
             //Argument Contract
             Requires.NotNull("dataService", dataService);
 
-            this.dataService = dataService;
+            _dataService = dataService;
         }
         #endregion
 
         #region Public API
         public void SetUserPreference(UserPreference userPreference)
         {
-            dataService.SetUserPreference(userPreference.PortalId, userPreference.UserId, Convert.ToInt32(userPreference.MessagesEmailFrequency), Convert.ToInt32(userPreference.NotificationsEmailFrequency));
+            _dataService.SetUserPreference(userPreference.PortalId, userPreference.UserId, Convert.ToInt32(userPreference.MessagesEmailFrequency), Convert.ToInt32(userPreference.NotificationsEmailFrequency));
         }
 
         public UserPreference GetUserPreference(UserInfo userinfo)
         {
-            return CBO.FillObject<UserPreference>(dataService.GetUserPreference(userinfo.PortalID, userinfo.UserID));
+            return CBO.FillObject<UserPreference>(_dataService.GetUserPreference(userinfo.PortalID, userinfo.UserID));
         }
 
         #endregion
-
     }
 }

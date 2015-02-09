@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,32 +17,31 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Common.Lists
 {
     [Serializable]
     public class ListInfoCollection : CollectionBase
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ListInfoCollection));
-        private readonly Hashtable mKeyIndexLookup = new Hashtable();
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ListInfoCollection));
+        private readonly Hashtable _mKeyIndexLookup = new Hashtable();
 
         public ListInfo GetChildren(string ParentName)
         {
-            return (ListInfo) Item(ParentName);
+            return (ListInfo)Item(ParentName);
         }
 
         internal new void Clear()
         {
-            mKeyIndexLookup.Clear();
+            _mKeyIndexLookup.Clear();
             base.Clear();
         }
 
@@ -53,11 +52,11 @@ namespace DotNetNuke.Common.Lists
             try
             {
                 index = base.List.Add(value);
-                mKeyIndexLookup.Add(key.ToLower(), index);
+                _mKeyIndexLookup.Add(key.ToLower(), index);
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
         }
 
@@ -71,7 +70,7 @@ namespace DotNetNuke.Common.Lists
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return null;
             }
         }
@@ -82,17 +81,17 @@ namespace DotNetNuke.Common.Lists
             object obj;
             try //Do validation first
             {
-                if (mKeyIndexLookup[key.ToLower()] == null)
+                if (_mKeyIndexLookup[key.ToLower()] == null)
                 {
                     return null;
                 }
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return null;
             }
-            index = Convert.ToInt32(mKeyIndexLookup[key.ToLower()]);
+            index = Convert.ToInt32(_mKeyIndexLookup[key.ToLower()]);
             obj = base.List[index];
             return obj;
         }
@@ -105,14 +104,14 @@ namespace DotNetNuke.Common.Lists
             bool itemExists = false;
             try //Do validation first
             {
-                if (mKeyIndexLookup[key.ToLower()] != null)
+                if (_mKeyIndexLookup[key.ToLower()] != null)
                 {
                     itemExists = true;
                 }
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
             //key will be in format Country.US:Region
             if (!itemExists)
@@ -130,7 +129,7 @@ namespace DotNetNuke.Common.Lists
             }
             else
             {
-                index = Convert.ToInt32(mKeyIndexLookup[key.ToLower()]);
+                index = Convert.ToInt32(_mKeyIndexLookup[key.ToLower()]);
                 obj = base.List[index];
             }
             return obj;
@@ -141,7 +140,7 @@ namespace DotNetNuke.Common.Lists
             var childList = new ArrayList();
             foreach (object child in List)
             {
-                if (((ListInfo) child).Key.IndexOf(ParentKey.ToLower()) > -1)
+                if (((ListInfo)child).Key.IndexOf(ParentKey.ToLower()) > -1)
                 {
                     childList.Add(child);
                 }

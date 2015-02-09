@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 
 namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider.Properties
@@ -37,7 +37,7 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider.Properties
         /// The name of the module definition.
         /// </summary>
         public const string ModuleDefinitionName = "Administration";
-        
+
         /// <summary>
         /// The name of the module.
         /// </summary>

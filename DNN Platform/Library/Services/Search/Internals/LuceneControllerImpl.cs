@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,7 +44,6 @@ using DotNetNuke.Instrumentation;
 using System.Web;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Internals
 {
     /// -----------------------------------------------------------------------------
@@ -64,7 +63,7 @@ namespace DotNetNuke.Services.Search.Internals
 
         #region Private Properties
 
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(LuceneControllerImpl));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(LuceneControllerImpl));
 
         internal string IndexFolder { get; private set; }
 
@@ -97,7 +96,7 @@ namespace DotNetNuke.Services.Search.Internals
         private void CheckDisposed()
         {
             if (Thread.VolatileRead(ref _isDisposed) == DISPOSED)
-                throw new ObjectDisposedException(Localization.Localization.GetExceptionMessage("LuceneControlerIsDisposed","LuceneController is disposed and cannot be used anymore"));
+                throw new ObjectDisposedException(Localization.Localization.GetExceptionMessage("LuceneControlerIsDisposed", "LuceneController is disposed and cannot be used anymore"));
         }
         #endregion
 
@@ -124,7 +123,7 @@ namespace DotNetNuke.Services.Search.Internals
                                 {
 #pragma warning disable 0618
                                     throw new SearchException(
-                                        Localization.Localization.GetExceptionMessage("UnableToCreateLuceneWriter","Unable to create Lucene writer (lock file is in use). Please recycle AppPool in IIS to release lock."),
+                                        Localization.Localization.GetExceptionMessage("UnableToCreateLuceneWriter", "Unable to create Lucene writer (lock file is in use). Please recycle AppPool in IIS to release lock."),
                                         e, new SearchItemInfo());
 #pragma warning restore 0618
                                 }
@@ -179,8 +178,8 @@ namespace DotNetNuke.Services.Search.Internals
             }
 
             var reader = new CachedReader(searcher);
-            var cutoffTime = DateTime.Now - TimeSpan.FromSeconds(_readerTimeSpan*10);
-            lock (((ICollection) _oldReaders).SyncRoot)
+            var cutoffTime = DateTime.Now - TimeSpan.FromSeconds(_readerTimeSpan * 10);
+            lock (((ICollection)_oldReaders).SyncRoot)
             {
                 CheckDisposed();
                 _oldReaders.RemoveAll(r => r.LastUsed <= cutoffTime);
@@ -196,8 +195,8 @@ namespace DotNetNuke.Services.Search.Internals
         {
             get
             {
-                return (DateTime.UtcNow - _lastReadTimeUtc).TotalSeconds >= _readerTimeSpan && 
-                    System.IO.Directory.Exists(IndexFolder) && 
+                return (DateTime.UtcNow - _lastReadTimeUtc).TotalSeconds >= _readerTimeSpan &&
+                    System.IO.Directory.Exists(IndexFolder) &&
                     System.IO.Directory.GetLastWriteTimeUtc(IndexFolder) != _lastDirModifyTimeUtc;
             }
         }
@@ -225,7 +224,7 @@ namespace DotNetNuke.Services.Search.Internals
         {
             if (!ValidateIndexFolder())
             {
-                throw new SearchIndexEmptyException(Localization.Localization.GetExceptionMessage("SearchIndexingDirectoryNoValid","Search indexing directory is either empty or does not exist"));
+                throw new SearchIndexEmptyException(Localization.Localization.GetExceptionMessage("SearchIndexingDirectoryNoValid", "Search indexing directory is either empty or does not exist"));
             }
         }
 
@@ -276,38 +275,38 @@ namespace DotNetNuke.Services.Search.Internals
 
             var searcher = GetSearcher();
             var searchSecurityTrimmer = new SearchSecurityTrimmer(new SearchSecurityTrimmerContext
-                {
-                    Searcher = searcher,
-                    SecurityChecker = searchContext.SecurityCheckerDelegate,
-                    LuceneQuery = searchContext.LuceneQuery,
-                    SearchQuery = searchContext.SearchQuery
-                });
+            {
+                Searcher = searcher,
+                SecurityChecker = searchContext.SecurityCheckerDelegate,
+                LuceneQuery = searchContext.LuceneQuery,
+                SearchQuery = searchContext.SearchQuery
+            });
             searcher.Search(searchContext.LuceneQuery.Query, null, searchSecurityTrimmer);
             luceneResults.TotalHits = searchSecurityTrimmer.TotalHits;
 
-            if (Logger.IsDebugEnabled)
+            if (s_logger.IsDebugEnabled)
             {
                 var sb = GetSearcResultExplanation(searchContext.LuceneQuery, searchSecurityTrimmer.ScoreDocs, searcher);
-		        Logger.Trace(sb);
+                s_logger.Trace(sb);
             }
 
             //Page doesn't exist
             if (luceneResults.TotalHits < minResults)
                 return luceneResults;
 
-            luceneResults.Results  = searchSecurityTrimmer.ScoreDocs.Select(match =>
-                new LuceneResult
-                    {
-                        Document = searcher.Doc(match.Doc),
-                        Score = match.Score,
-                        DisplayScore = GetDisplayScoreFromMatch(match.ToString()),
-                        TitleSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.TitleTag, searchContext.LuceneQuery.TitleSnippetLength),
-                        BodySnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.BodyTag, searchContext.LuceneQuery.BodySnippetLength),
-                        DescriptionSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.DescriptionTag, searchContext.LuceneQuery.TitleSnippetLength),
-                        TagSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.Tag, searchContext.LuceneQuery.TitleSnippetLength),
-                        AuthorSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.AuthorNameTag, searchContext.LuceneQuery.TitleSnippetLength),
-                        ContentSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.ContentTag, searchContext.LuceneQuery.TitleSnippetLength)
-                    }).ToList();
+            luceneResults.Results = searchSecurityTrimmer.ScoreDocs.Select(match =>
+               new LuceneResult
+               {
+                   Document = searcher.Doc(match.Doc),
+                   Score = match.Score,
+                   DisplayScore = GetDisplayScoreFromMatch(match.ToString()),
+                   TitleSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.TitleTag, searchContext.LuceneQuery.TitleSnippetLength),
+                   BodySnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.BodyTag, searchContext.LuceneQuery.BodySnippetLength),
+                   DescriptionSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.DescriptionTag, searchContext.LuceneQuery.TitleSnippetLength),
+                   TagSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.Tag, searchContext.LuceneQuery.TitleSnippetLength),
+                   AuthorSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.AuthorNameTag, searchContext.LuceneQuery.TitleSnippetLength),
+                   ContentSnippet = GetHighlightedText(highlighter, fieldQuery, searcher, match, Constants.ContentTag, searchContext.LuceneQuery.TitleSnippetLength)
+               }).ToList();
             return luceneResults;
         }
 
@@ -402,17 +401,17 @@ namespace DotNetNuke.Services.Search.Internals
             {
                 if (doWait)
                 {
-                    Logger.Debug("Compacting Search Index - started");
+                    s_logger.Debug("Compacting Search Index - started");
                 }
 
                 CheckDisposed();
                 //optimize down to "> 1 segments" for better performance than down to 1
                 _writer.Optimize(4, doWait);
-                
+
                 if (doWait)
                 {
                     Commit();
-                    Logger.Debug("Compacting Search Index - finished");
+                    s_logger.Debug("Compacting Search Index - finished");
                 }
 
                 return true;
@@ -431,7 +430,7 @@ namespace DotNetNuke.Services.Search.Internals
         public int MaxDocsCount()
         {
             CheckDisposed();
-            var searcher  = GetSearcher();
+            var searcher = GetSearcher();
             return searcher.IndexReader.MaxDoc;
         }
 
@@ -452,14 +451,14 @@ namespace DotNetNuke.Services.Search.Internals
             var size = files.Select(name => new FileInfo(name)).Select(fInfo => fInfo.Length).Sum();
 
             return new SearchStatistics
-                {
-                    //Hack: seems that NumDocs/MaxDoc are buggy and return incorrect/swapped values
-                    TotalActiveDocuments = searcher.IndexReader.NumDocs(),
-                    TotalDeletedDocuments = searcher.IndexReader.NumDeletedDocs,
-                    IndexLocation = IndexFolder,
-                    LastModifiedOn = System.IO.Directory.GetLastWriteTimeUtc(IndexFolder),
-                    IndexDbSize = size
-                };
+            {
+                //Hack: seems that NumDocs/MaxDoc are buggy and return incorrect/swapped values
+                TotalActiveDocuments = searcher.IndexReader.NumDocs(),
+                TotalDeletedDocuments = searcher.IndexReader.NumDeletedDocs,
+                IndexLocation = IndexFolder,
+                LastModifiedOn = System.IO.Directory.GetLastWriteTimeUtc(IndexFolder),
+                IndexDbSize = size
+            };
         }
 
         public void Dispose()
@@ -478,7 +477,7 @@ namespace DotNetNuke.Services.Search.Internals
             if (analyzer == null)
             {
                 var customAnalyzerType = HostController.Instance.GetString("Search_CustomAnalyzer", string.Empty);
-                
+
                 if (!string.IsNullOrEmpty(customAnalyzerType))
                 {
                     try
@@ -488,7 +487,7 @@ namespace DotNetNuke.Services.Search.Internals
                         if (analyzer == null)
                         {
                             throw new ArgumentException(String.Format(
-                                Localization.Localization.GetExceptionMessage("InvalidAnalyzerClass", "The class '{0}' cannot be created because it's invalid or is not an analyzer, will use default analyzer."), 
+                                Localization.Localization.GetExceptionMessage("InvalidAnalyzerClass", "The class '{0}' cannot be created because it's invalid or is not an analyzer, will use default analyzer."),
                                 customAnalyzerType));
                         }
 
@@ -497,7 +496,7 @@ namespace DotNetNuke.Services.Search.Internals
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(ex);
+                        s_logger.Error(ex);
                     }
                 }
             }
@@ -537,7 +536,7 @@ namespace DotNetNuke.Services.Search.Internals
             }
         }
 
-        class CachedReader : IDisposable
+        private class CachedReader : IDisposable
         {
             public DateTime LastUsed { get; private set; }
             private readonly IndexSearcher _searcher;

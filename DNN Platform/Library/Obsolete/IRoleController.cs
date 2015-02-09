@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,13 +38,13 @@ namespace DotNetNuke.Security.Roles.Internal
         /// -----------------------------------------------------------------------------
         int AddRole(RoleInfo role);
 
-		/// <summary>
-		/// Adds a role
-		/// </summary>
-		/// <param name="role">The Role to Add</param>
-		/// <param name="addToExistUsers">Add this role on all exist users if auto assignment is true.</param>
-		/// <returns>The Id of the new role</returns>
-		int AddRole(RoleInfo role, bool addToExistUsers);
+        /// <summary>
+        /// Adds a role
+        /// </summary>
+        /// <param name="role">The Role to Add</param>
+        /// <param name="addToExistUsers">Add this role on all exist users if auto assignment is true.</param>
+        /// <returns>The Id of the new role</returns>
+        int AddRole(RoleInfo role, bool addToExistUsers);
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -109,12 +109,12 @@ namespace DotNetNuke.Security.Roles.Internal
         /// -----------------------------------------------------------------------------
         void UpdateRole(RoleInfo role);
 
-		/// <summary>
-		/// Persists a role to the Data Store
-		/// </summary>
-		/// <param name="role">The role to persist</param>
-		/// <param name="addToExistUsers">Add this role on all exist users if auto assignment is true.</param>
-		void UpdateRole(RoleInfo role, bool addToExistUsers);
+        /// <summary>
+        /// Persists a role to the Data Store
+        /// </summary>
+        /// <param name="role">The role to persist</param>
+        /// <param name="addToExistUsers">Add this role on all exist users if auto assignment is true.</param>
+        void UpdateRole(RoleInfo role, bool addToExistUsers);
 
         /// -----------------------------------------------------------------------------
         /// <summary>

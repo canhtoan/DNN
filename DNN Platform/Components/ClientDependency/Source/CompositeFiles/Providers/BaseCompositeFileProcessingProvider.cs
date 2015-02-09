@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,6 @@ namespace ClientDependency.Core.CompositeFiles.Providers
 {
     public abstract class BaseCompositeFileProcessingProvider : ProviderBase, IHttpProvider
     {
-
         private const string DefaultDependencyPath = "~/App_Data/ClientDependency";
         private readonly string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
 
@@ -91,8 +90,8 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         /// <returns>An array containing the list of composite file URLs. This will generally only contain 1 value unless
         /// the number of files registered exceeds the maximum length, then it will return more than one file.</returns>
         public virtual string[] ProcessCompositeList(
-            IEnumerable<IClientDependencyFile> dependencies, 
-            ClientDependencyType type, 
+            IEnumerable<IClientDependencyFile> dependencies,
+            ClientDependencyType type,
             HttpContextBase http)
         {
             if (!dependencies.Any())
@@ -101,7 +100,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
             switch (UrlType)
             {
                 case CompositeUrlType.MappedId:
-                    
+
                     //use the file mapper to create us a file key/id for the file set
                     var fileKey = ClientDependencySettings.Instance.DefaultFileMapProvider.CreateNewMap(http, dependencies, GetVersion());
 
@@ -109,9 +108,9 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                     return new[] { GetCompositeFileUrl(fileKey, type, http, CompositeUrlType.MappedId) };
 
                 default:
-                    
+
                     //build the combined composite list urls          
-                    
+
                     var files = new List<string>();
                     var currBuilder = new StringBuilder();
                     var base64Builder = new StringBuilder();
@@ -123,7 +122,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                         base64Builder.Append(a.FilePath.EncodeTo64());
 
                         //test if the current base64 string exceeds the max length, if so we need to split
-                        if ((base64Builder.Length + ClientDependencySettings.Instance.CompositeFileHandlerPath.Length + stringType.Length + 10) 
+                        if ((base64Builder.Length + ClientDependencySettings.Instance.CompositeFileHandlerPath.Length + stringType.Length + 10)
                             >= (CompositeDependencyHandler.MaxHandlerUrlLength))
                         {
                             //add the current output to the array
@@ -152,7 +151,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                     }
 
                     return files.ToArray();
-            }            
+            }
         }
 
         public virtual int GetVersion()
@@ -169,9 +168,9 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         /// <param name="urlType"></param>
         /// <returns></returns>
         public virtual string GetCompositeFileUrl(
-            string fileKey, 
-            ClientDependencyType type, 
-            HttpContextBase http, 
+            string fileKey,
+            ClientDependencyType type,
+            HttpContextBase http,
             CompositeUrlType urlType)
         {
             var url = new StringBuilder();
@@ -252,7 +251,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                 if (bool.TryParse(config["persistFiles"], out persistFiles))
                     PersistCompositeFiles = persistFiles;
             }
-                        
+
             if (config["urlType"] != null)
             {
                 try
@@ -370,7 +369,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                             return false;
                         }
                     }
-                    
+
                     //if this is a call for a web resource, we should http get it
                     if (url.StartsWith(http.Request.ApplicationPath.TrimEnd('/') + "/webresource.axd", StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -401,7 +400,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                             }
                         }
                     }
-                    
+
                     if (bundleExternalUri)
                     {
                         requestContents = GetXmlResponse(uri);
@@ -416,8 +415,6 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                 {
                     ClientDependencySettings.Instance.Logger.Error(string.Format("Could not load file contents from {0}. EXCEPTION: {1}", url, ex.Message), ex);
                 }
-
-
             }
             requestContents = "";
             return false;

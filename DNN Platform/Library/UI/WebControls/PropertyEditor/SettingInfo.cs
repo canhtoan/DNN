@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -44,7 +43,7 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class SettingInfo
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SettingInfo));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SettingInfo));
         private Type _Type;
 
         public SettingInfo(object name, object value)
@@ -69,8 +68,7 @@ namespace DotNetNuke.UI.WebControls
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
             }
             if (!IsFound)
@@ -83,8 +81,7 @@ namespace DotNetNuke.UI.WebControls
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
             }
         }

@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,7 +37,7 @@ namespace DotNetNuke.Web.InternalServices
 {
     public class UserFileController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (UserFileController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(UserFileController));
         private readonly IFolderManager _folderManager = FolderManager.Instance;
 
         [DnnAuthorize]
@@ -47,7 +46,7 @@ namespace DotNetNuke.Web.InternalServices
         {
             return GetItems(null);
         }
-        
+
         [DnnAuthorize]
         [HttpGet]
         public HttpResponseMessage GetItems(string fileExtensions)
@@ -75,7 +74,7 @@ namespace DotNetNuke.Web.InternalServices
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -149,8 +148,8 @@ namespace DotNetNuke.Web.InternalServices
         {
             return file.ContentType == null
                        ? string.Empty
-                       : (file.ContentType.StartsWith("image/") 
-                            ? file.ContentType.Replace("image/", string.Empty) 
+                       : (file.ContentType.StartsWith("image/")
+                            ? file.ContentType.Replace("image/", string.Empty)
                             : (file.Extension != null ? file.Extension.ToLowerInvariant() : string.Empty));
         }
 
@@ -172,7 +171,7 @@ namespace DotNetNuke.Web.InternalServices
             return size.ToString(CultureInfo.InvariantCulture) + (biggerThanAMegabyte ? "Mb" : "k");
         }
 
-        class Item
+        private class Item
         {
             // ReSharper disable InconsistentNaming
             // ReSharper disable UnusedAutoPropertyAccessor.Local

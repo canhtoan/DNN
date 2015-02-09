@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Xml.XPath;
@@ -32,7 +32,6 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.EventQueue;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -47,15 +46,15 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class ModuleInstaller : ComponentInstallerBase
     {
-		#region Private Properties
+        #region Private Properties
 
         private DesktopModuleInfo _desktopModule;
         private EventMessage _eventMessage;
         private DesktopModuleInfo _installedDesktopModule;
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -70,13 +69,13 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             get
             {
-				return "cshtml, vbhtml, ashx, aspx, ascx, vb, cs, resx, css, js, resources, config, vbproj, csproj, sln, htm, html, xml, psd, svc, asmx, xsl, xslt";
+                return "cshtml, vbhtml, ashx, aspx, ascx, vb, cs, resx, css, js, resources, config, vbproj, csproj, sln, htm, html, xml, psd, svc, asmx, xsl, xslt";
             }
         }
-		
-		#endregion
 
-		#region Private Methods
+        #endregion
+
+        #region Private Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -90,11 +89,11 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             try
             {
-				//Attempt to get the Desktop Module
+                //Attempt to get the Desktop Module
                 DesktopModuleInfo tempDesktopModule = DesktopModuleController.GetDesktopModuleByPackageID(Package.PackageID);
                 if (tempDesktopModule != null)
                 {
-					//Remove CodeSubDirectory
+                    //Remove CodeSubDirectory
                     if ((_desktopModule != null) && (!string.IsNullOrEmpty(_desktopModule.CodeSubDirectory)))
                     {
                         Config.RemoveCodeSubDirectory(_desktopModule.CodeSubDirectory);
@@ -110,10 +109,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 Log.AddFailure(ex);
             }
         }
-		
-		#endregion
 
-		#region Public Methods
+        #endregion
+
+        #region Public Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -126,7 +125,7 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void Commit()
         {
-			//Add CodeSubDirectory
+            //Add CodeSubDirectory
             if (!string.IsNullOrEmpty(_desktopModule.CodeSubDirectory))
             {
                 Config.AddCodeSubDirectory(_desktopModule.CodeSubDirectory);
@@ -135,14 +134,14 @@ namespace DotNetNuke.Services.Installer.Installers
             {
                 //Set an Event Message so the features are loaded by reflection on restart
                 var oAppStartMessage = new EventMessage
-                                        {
-                                            Priority = MessagePriority.High,
-                                            ExpirationDate = DateTime.Now.AddYears(-1),
-                                            SentDate = DateTime.Now,
-                                            Body = "",
-                                            ProcessorType = "DotNetNuke.Entities.Modules.EventMessageProcessor, DotNetNuke",
-                                            ProcessorCommand = "UpdateSupportedFeatures"
-                                        };
+                {
+                    Priority = MessagePriority.High,
+                    ExpirationDate = DateTime.Now.AddYears(-1),
+                    SentDate = DateTime.Now,
+                    Body = "",
+                    ProcessorType = "DotNetNuke.Entities.Modules.EventMessageProcessor, DotNetNuke",
+                    ProcessorCommand = "UpdateSupportedFeatures"
+                };
 
                 //Add custom Attributes for this message
                 oAppStartMessage.Attributes.Add("BusinessControllerClass", _desktopModule.BusinessControllerClass);
@@ -151,8 +150,8 @@ namespace DotNetNuke.Services.Installer.Installers
                 //send it to occur on next App_Start Event
                 EventQueueController.SendMessage(oAppStartMessage, "Application_Start_FirstRequest");
             }
-			
-			//Add Event Message
+
+            //Add Event Message
             if (_eventMessage != null)
             {
                 if (!String.IsNullOrEmpty(_eventMessage.Attributes["UpgradeVersionsList"]))
@@ -161,9 +160,9 @@ namespace DotNetNuke.Services.Installer.Installers
                     EventQueueController.SendMessage(_eventMessage, "Application_Start");
                 }
             }
-            
-			//Add DesktopModule to all portals
-			if (!_desktopModule.IsPremium)
+
+            //Add DesktopModule to all portals
+            if (!_desktopModule.IsPremium)
             {
                 DesktopModuleController.AddDesktopModuleToPortals(_desktopModule.DesktopModuleID);
             }
@@ -181,16 +180,16 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             try
             {
-				//Attempt to get the Desktop Module
+                //Attempt to get the Desktop Module
                 _installedDesktopModule = DesktopModuleController.GetDesktopModuleByModuleName(_desktopModule.ModuleName, Package.InstallerInfo.PortalID);
 
                 if (_installedDesktopModule != null)
                 {
                     _desktopModule.DesktopModuleID = _installedDesktopModule.DesktopModuleID;
-					//save the module's category
-                	_desktopModule.Category = _installedDesktopModule.Category;
+                    //save the module's category
+                    _desktopModule.Category = _installedDesktopModule.Category;
                 }
-				
+
                 //Clear ModuleControls and Module Definitions caches in case script has modifed the contents
                 DataCache.RemoveCache(DataCache.ModuleDefinitionCacheKey);
                 DataCache.RemoveCache(DataCache.ModuleControlsCacheKey);
@@ -235,14 +234,14 @@ namespace DotNetNuke.Services.Installer.Installers
             if (eventMessageNav != null)
             {
                 _eventMessage = new EventMessage
-                                    {
-                                        Priority = MessagePriority.High,
-                                        ExpirationDate = DateTime.Now.AddYears(-1),
-                                        SentDate = DateTime.Now,
-                                        Body = "",
-                                        ProcessorType = Util.ReadElement(eventMessageNav, "processorType", Log, Util.EVENTMESSAGE_TypeMissing),
-                                        ProcessorCommand = Util.ReadElement(eventMessageNav, "processorCommand", Log, Util.EVENTMESSAGE_CommandMissing)
-                                    };
+                {
+                    Priority = MessagePriority.High,
+                    ExpirationDate = DateTime.Now.AddYears(-1),
+                    SentDate = DateTime.Now,
+                    Body = "",
+                    ProcessorType = Util.ReadElement(eventMessageNav, "processorType", Log, Util.EVENTMESSAGE_TypeMissing),
+                    ProcessorCommand = Util.ReadElement(eventMessageNav, "processorCommand", Log, Util.EVENTMESSAGE_CommandMissing)
+                };
                 foreach (XPathNavigator attributeNav in eventMessageNav.Select("attributes/*"))
                 {
                     var attribName = attributeNav.Name;
@@ -252,7 +251,7 @@ namespace DotNetNuke.Services.Installer.Installers
                         if (!String.IsNullOrEmpty(attribValue))
                         {
                             string[] upgradeVersions = attribValue.Split(',');
-                            attribValue = ""; 
+                            attribValue = "";
                             foreach (string version in upgradeVersions)
                             {
                                 Version upgradeVersion = null;
@@ -267,7 +266,7 @@ namespace DotNetNuke.Services.Installer.Installers
 
                                 if (upgradeVersion != null && (Globals.Status == Globals.UpgradeStatus.Install)) //To allow when fresh installing or installresources
                                 {
-                                    attribValue += version + ",";                                    
+                                    attribValue += version + ",";
                                 }
                                 else if (upgradeVersion != null && upgradeVersion > Package.InstalledVersion)
                                 {
@@ -277,10 +276,10 @@ namespace DotNetNuke.Services.Installer.Installers
                             attribValue = attribValue.TrimEnd(',');
                         }
                     }
-                   _eventMessage.Attributes.Add(attribName, attribValue);
+                    _eventMessage.Attributes.Add(attribName, attribValue);
                 }
             }
-			
+
             //Load permissions (to add)
             foreach (XPathNavigator moduleDefinitionNav in manifestNav.Select("desktopModule/moduleDefinitions/moduleDefinition"))
             {
@@ -315,15 +314,15 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void Rollback()
         {
-			//If Temp Module exists then we need to update the DataStore with this 
+            //If Temp Module exists then we need to update the DataStore with this 
             if (_installedDesktopModule == null)
             {
-				//No Temp Module - Delete newly added module
+                //No Temp Module - Delete newly added module
                 DeleteModule();
             }
             else
             {
-				//Temp Module - Rollback to Temp
+                //Temp Module - Rollback to Temp
                 DesktopModuleController.SaveDesktopModule(_installedDesktopModule, true, false);
             }
         }
@@ -340,7 +339,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             DeleteModule();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

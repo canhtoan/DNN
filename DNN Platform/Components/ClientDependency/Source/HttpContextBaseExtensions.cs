@@ -6,13 +6,11 @@ using System.Web;
 
 namespace ClientDependency.Core
 {
-
     /// <summary>
     /// Extension methods for the HttpContext object
     /// </summary>
     public static class HttpContextBaseExtensions
     {
-
         public static void AddCompressionResponseHeader(this HttpContextBase context, CompressionType cType)
         {
             if (cType == CompressionType.deflate)
@@ -22,7 +20,7 @@ namespace ClientDependency.Core
             else if (cType == CompressionType.gzip)
             {
                 context.Response.AddHeader("Content-encoding", "gzip");
-            }            
+            }
         }
 
         /// <summary>
@@ -131,7 +129,6 @@ namespace ClientDependency.Core
             {
                 return VirtualPathUtility.ToAbsolute(originalUrl, context.Request.ApplicationPath);
             }
-
         }
 
         /// <summary>

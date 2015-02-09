@@ -1,4 +1,4 @@
-/*
+﻿/*
 ' Copyright (c) 2011 DotNetNuke Corporation
 '  All rights reserved.
 ' 
@@ -27,8 +27,8 @@ using DotNetNuke.Services.Journal;
 using DotNetNuke.Services.Search.Controllers;
 using DotNetNuke.Services.Search.Entities;
 
-namespace DotNetNuke.Modules.Journal.Components {
-
+namespace DotNetNuke.Modules.Journal.Components
+{
     /// -----------------------------------------------------------------------------
     /// <summary>
     /// The Controller class for Journal
@@ -46,7 +46,8 @@ namespace DotNetNuke.Modules.Journal.Components {
         /// </summary>
         /// <param name="moduleID">The Id of the module to be exported</param>
         /// -----------------------------------------------------------------------------
-        public string ExportModule(int moduleID) {
+        public string ExportModule(int moduleID)
+        {
             //string strXML = "";
 
             //List<JournalInfo> colJournals = GetJournals(ModuleID);
@@ -77,7 +78,8 @@ namespace DotNetNuke.Modules.Journal.Components {
         /// <param name="version">The version of the module to be imported</param>
         /// <param name="userId">The Id of the user performing the import</param>
         /// -----------------------------------------------------------------------------
-        public void ImportModule(int moduleID, string content, string version, int userId) {
+        public void ImportModule(int moduleID, string content, string version, int userId)
+        {
             //XmlNode xmlJournals = DotNetNuke.Common.Globals.GetContent(Content, "Journals");
             //foreach (XmlNode xmlJournal in xmlJournals.SelectNodes("Journal"))
             //{
@@ -97,7 +99,8 @@ namespace DotNetNuke.Modules.Journal.Components {
         /// </summary>
         /// <param name="version">The current version of the module</param>
         /// -----------------------------------------------------------------------------
-        public string UpgradeModule(string version) {
+        public string UpgradeModule(string version)
+        {
             throw new NotImplementedException("The method or operation is not implemented.");
         }
 
@@ -197,7 +200,7 @@ namespace DotNetNuke.Modules.Journal.Components {
         {
             var securityKeys = searchResult.UniqueKey.Split('_')[2].Split(',');
             var userInfo = UserController.Instance.GetCurrentUserInfo();
-            
+
             var selfKey = string.Format("U{0}", userInfo.UserID);
 
             if (securityKeys.Contains("E") || securityKeys.Contains(selfKey))
@@ -280,5 +283,4 @@ namespace DotNetNuke.Modules.Journal.Components {
 
         #endregion
     }
-
 }

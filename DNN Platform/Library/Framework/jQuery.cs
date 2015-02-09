@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -40,17 +40,16 @@ using DataCache = DotNetNuke.UI.Utilities.DataCache;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
-
 namespace DotNetNuke.Framework
 {
     public class jQuery
     {
         private const string jQueryDebugFile = "~/Resources/Shared/Scripts/jquery/jquery.js";
         private const string jQueryMinFile = "~/Resources/Shared/Scripts/jquery/jquery.min.js";
-		private const string jQueryMigrateDebugFile = "~/Resources/Shared/Scripts/jquery/jquery-migrate.js";
-		private const string jQueryMigrateMinFile = "~/Resources/Shared/Scripts/jquery/jquery-migrate.min.js";
+        private const string jQueryMigrateDebugFile = "~/Resources/Shared/Scripts/jquery/jquery-migrate.js";
+        private const string jQueryMigrateMinFile = "~/Resources/Shared/Scripts/jquery/jquery-migrate.min.js";
         private const string jQueryVersionKey = "jQueryVersionKey";
-		private const string jQueryVersionMatch = "(?<=(jquery|core_version)\\s*[:=]\\s*\")(.*)(?=\")";
+        private const string jQueryVersionMatch = "(?<=(jquery|core_version)\\s*[:=]\\s*\")(.*)(?=\")";
 
         /// <summary>
         /// Returns the default URL for a hosted version of the jQuery script
@@ -90,25 +89,25 @@ namespace DotNetNuke.Framework
             }
         }
 
-		/// <summary>
-		/// Gets the HostSetting for the URL of the hosted version of the jQuery migrated script.
-		/// </summary>
-		/// <value></value>
-		/// <returns></returns>
-		/// <remarks>This is a simple wrapper around the Host.jQueryUrl property</remarks>
+        /// <summary>
+        /// Gets the HostSetting for the URL of the hosted version of the jQuery migrated script.
+        /// </summary>
+        /// <value></value>
+        /// <returns></returns>
+        /// <remarks>This is a simple wrapper around the Host.jQueryUrl property</remarks>
         [Obsolete("This is managed through the JavaScript Library package")]
         public static string HostedMigrateUrl
-		{
-			get
-			{
-				if (Globals.Status != Globals.UpgradeStatus.None)
-				{
-					return String.Empty;
-				}
+        {
+            get
+            {
+                if (Globals.Status != Globals.UpgradeStatus.None)
+                {
+                    return String.Empty;
+                }
 
-				return Host.jQueryMigrateUrl;
-			}
-		}
+                return Host.jQueryMigrateUrl;
+            }
+        }
 
         /// <summary>
         /// Gets the HostSetting for the URL of the hosted version of the jQuery UI script.
@@ -367,14 +366,14 @@ namespace DotNetNuke.Framework
 
         [Obsolete("This is managed through the JavaScript Library package")]
         public static string JQueryMigrateFile(bool getMinFile)
-		{
-			string jfile = jQueryMigrateDebugFile;
-			if (getMinFile)
-			{
-				jfile = jQueryMigrateMinFile;
-			}
-			return jfile;
-		}
+        {
+            string jfile = jQueryMigrateDebugFile;
+            if (getMinFile)
+            {
+                jfile = jQueryMigrateMinFile;
+            }
+            return jfile;
+        }
 
         [Obsolete("This is managed through the JavaScript Library package")]
         public static string JQueryUIFile(bool getMinFile)
@@ -400,14 +399,14 @@ namespace DotNetNuke.Framework
 
         [Obsolete("This is managed through the JavaScript Library package")]
         public static string GetJQueryMigrateScriptReference()
-		{
-			string scriptsrc = HostedMigrateUrl;
-			if (!UseHostedScript || string.IsNullOrEmpty(scriptsrc))
-			{
-				scriptsrc = JQueryMigrateFile(!UseDebugScript);
-			}
-			return scriptsrc;
-		}
+        {
+            string scriptsrc = HostedMigrateUrl;
+            if (!UseHostedScript || string.IsNullOrEmpty(scriptsrc))
+            {
+                scriptsrc = JQueryMigrateFile(!UseDebugScript);
+            }
+            return scriptsrc;
+        }
 
         [Obsolete("This is managed through the JavaScript Library package")]
         public static string GetJQueryUIScriptReference()
@@ -422,28 +421,28 @@ namespace DotNetNuke.Framework
 
 
 
-		/// <summary>
-		/// Active the page with keep alive, so that authentication will not expire.
-		/// </summary>
-		/// <param name="page">The page instance.</param>
-		public static void KeepAlive(Page page)
-		{
-			var cookieTimeout = Config.GetAuthCookieTimeout();
-			if(cookieTimeout <= 0 || page.ClientScript.IsClientScriptBlockRegistered("PageKeepAlive"))
-			{
-				return;
-			}
+        /// <summary>
+        /// Active the page with keep alive, so that authentication will not expire.
+        /// </summary>
+        /// <param name="page">The page instance.</param>
+        public static void KeepAlive(Page page)
+        {
+            var cookieTimeout = Config.GetAuthCookieTimeout();
+            if (cookieTimeout <= 0 || page.ClientScript.IsClientScriptBlockRegistered("PageKeepAlive"))
+            {
+                return;
+            }
 
-			if(cookieTimeout > 5)
-			{
-				cookieTimeout = 5; // ping server in 5 minutes to make sure the server is not IDLE.
-			}
+            if (cookieTimeout > 5)
+            {
+                cookieTimeout = 5; // ping server in 5 minutes to make sure the server is not IDLE.
+            }
             JavaScript.RequestRegistration(CommonJs.jQuery);
 
-			var seconds = (cookieTimeout*60 - 30)*1000; //ping server 30 seconds before cookie is time out.
-			var scriptBlock = string.Format("(function($){{setInterval(function(){{$.get(location.href)}}, {1});}}(jQuery));", Globals.ApplicationPath, seconds);
-			ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "PageKeepAlive", scriptBlock, true);
-		}
+            var seconds = (cookieTimeout * 60 - 30) * 1000; //ping server 30 seconds before cookie is time out.
+            var scriptBlock = string.Format("(function($){{setInterval(function(){{$.get(location.href)}}, {1});}}(jQuery));", Globals.ApplicationPath, seconds);
+            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "PageKeepAlive", scriptBlock, true);
+        }
 
         #endregion
 
@@ -502,13 +501,11 @@ namespace DotNetNuke.Framework
         public static void RegisterFileUpload(Page page)
         {
             JavaScript.RequestRegistration(CommonJs.jQueryFileUpload);
-
         }
 
         [Obsolete("Obsoleted in 7.2.0 - use JavaScript.RequestRegistration(CommonJs.jQuery);")]
         public static void RequestRegistration()
         {
-
             JavaScript.RequestRegistration(CommonJs.jQuery);
             JavaScript.RequestRegistration(CommonJs.jQueryMigrate);
         }
@@ -516,24 +513,20 @@ namespace DotNetNuke.Framework
         [Obsolete("Obsoleted in 7.2.0 - use JavaScript.RequestRegistration(CommonJs.jQueryUI);")]
         public static void RequestUIRegistration()
         {
-
             JavaScript.RequestRegistration(CommonJs.jQueryUI);
         }
 
         [Obsolete("Obsoleted in 7.2.0 - use JavaScript.RequestRegistration(CommonJs.DnnPlugins);")]
         public static void RequestDnnPluginsRegistration()
         {
-
             JavaScript.RequestRegistration(CommonJs.DnnPlugins);
         }
 
         [Obsolete("Obsoleted in 7.2.0 - use JavaScript.RequestRegistration(CommonJs.HoverIntent);")]
         public static void RequestHoverIntentRegistration()
         {
-
             JavaScript.RequestRegistration(CommonJs.HoverIntent);
         }
-
 
         #endregion
     }

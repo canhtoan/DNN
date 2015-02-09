@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Web.UI;
@@ -29,7 +29,6 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Security;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -50,13 +49,13 @@ namespace DotNetNuke.UI.WebControls
     [ValidationPropertyAttribute("Value")]
     public abstract class EditControl : WebControl, IPostBackDataHandler
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private object[] _CustomAttributes;
 
-		#endregion
+        #endregion
 
-		#region "Data Properties"
+        #region "Data Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -122,29 +121,29 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         public string LocalResourceFile { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Name is the name of the field as a string
-		/// </summary>
-		/// <value>A string representing the Name of the property</value>
-		/// <history>
-		///     [cnurse]	02/21/2006	created
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		public string Name { get; set; }
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Name is the name of the field as a string
+        /// </summary>
+        /// <value>A string representing the Name of the property</value>
+        /// <history>
+        ///     [cnurse]	02/21/2006	created
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        public string Name { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// The Category to which this edit control belongs
-		/// </summary>
-		/// <value>A string representing the Category of the property</value>
-		/// <history>
-		///     [cnurse]	02/21/2006	created
-		/// </history>
-		/// -----------------------------------------------------------------------------
-		public string Category { get; set; }
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The Category to which this edit control belongs
+        /// </summary>
+        /// <value>A string representing the Category of the property</value>
+        /// <history>
+        ///     [cnurse]	02/21/2006	created
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        public string Category { get; set; }
 
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// OldValue is the initial value of the field
         /// </summary>
@@ -243,16 +242,16 @@ namespace DotNetNuke.UI.WebControls
         }
 
         #endregion
-		
-		#region "Events"
+
+        #region "Events"
 
         public event PropertyChangedEventHandler ItemAdded;
         public event PropertyChangedEventHandler ItemDeleted;
         public event PropertyChangedEventHandler ValueChanged;
 
-		#endregion
+        #endregion
 
-		#region "Abstract Members"
+        #region "Abstract Members"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -265,9 +264,9 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         protected abstract void OnDataChanged(EventArgs e);
 
-		#endregion
+        #endregion
 
-		#region "Protected Methods"
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -393,7 +392,7 @@ namespace DotNetNuke.UI.WebControls
                 RenderViewMode(writer);
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

@@ -20,7 +20,6 @@ namespace DotNetNuke.Modules.Groups
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             RoleInfo role = RoleController.Instance.GetRole(PortalId, r => r.SecurityMode != SecurityMode.SecurityRole && r.RoleID == GroupId);
             if (role == null && GroupId > 0)
             {
@@ -33,7 +32,6 @@ namespace DotNetNuke.Modules.Groups
                 role.RoleID = -1;
                 role.RoleName = Localization.GetString("Sample_RoleName", LocalResourceFile);
                 role.Description = Localization.GetString("Sample_RoleDescription", LocalResourceFile);
-
             }
 
             if (role == null)
@@ -58,11 +56,9 @@ namespace DotNetNuke.Modules.Groups
 
                 var groupParser = new GroupViewParser(PortalSettings, role, UserInfo, template, TabId);
                 groupParser.GroupEditUrl = GetEditUrl();
-                
+
                 litOutput.Text = groupParser.ParseView();
-
             }
-
         }
     }
 }

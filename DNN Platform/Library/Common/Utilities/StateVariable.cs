@@ -2,7 +2,6 @@
 
 namespace DotNetNuke.Common.Utilities
 {
-
     /// <summary>
     /// Wrapper class for any object that maps string key onto the object value (like Dictionary).
     /// </summary>
@@ -10,7 +9,6 @@ namespace DotNetNuke.Common.Utilities
     /// <remarks></remarks>
     public abstract class StateVariable<T>
     {
-
         private readonly string _key;
         private readonly Func<T> _initializer;
 
@@ -41,7 +39,7 @@ namespace DotNetNuke.Common.Utilities
             {
                 throw new ArgumentNullException("initializer");
             }
-            this._initializer = initializer;
+            _initializer = initializer;
         }
 
         private object GetInitializedInternalValue()
@@ -128,7 +126,5 @@ namespace DotNetNuke.Common.Utilities
         {
             Remove(_key);
         }
-
     }
-
 }

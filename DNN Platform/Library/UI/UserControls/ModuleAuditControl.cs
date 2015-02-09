@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Text.RegularExpressions;
 using System.Web.UI;
@@ -33,7 +33,6 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     public abstract class ModuleAuditControl : UserControl
@@ -43,14 +42,14 @@ namespace DotNetNuke.UI.UserControls
         protected Label lblCreatedBy;
         protected Label lblUpdatedBy;
 
-		[Serializable]
-		private class EntityInfo
-		{
-			public int CreatedByUserID { get; set; }
-			public DateTime CreatedOnDate { get; set; }
-			public int LastModifiedByUserID { get; set; }
-			public DateTime LastModifiedOnDate { get; set; }
-		}
+        [Serializable]
+        private class EntityInfo
+        {
+            public int CreatedByUserID { get; set; }
+            public DateTime CreatedOnDate { get; set; }
+            public int LastModifiedByUserID { get; set; }
+            public DateTime LastModifiedOnDate { get; set; }
+        }
 
         public ModuleAuditControl()
         {
@@ -68,31 +67,31 @@ namespace DotNetNuke.UI.UserControls
 
         public string LastModifiedDate { private get; set; }
 
-		public BaseEntityInfo Entity
-		{
-			set
-			{
-				if (value != null)
-				{
-					var entity = new EntityInfo();
-					entity.CreatedByUserID = value.CreatedByUserID;
-					entity.CreatedOnDate = value.CreatedOnDate;
-					entity.LastModifiedByUserID = value.LastModifiedByUserID;
-					entity.LastModifiedOnDate = value.LastModifiedOnDate;
+        public BaseEntityInfo Entity
+        {
+            set
+            {
+                if (value != null)
+                {
+                    var entity = new EntityInfo();
+                    entity.CreatedByUserID = value.CreatedByUserID;
+                    entity.CreatedOnDate = value.CreatedOnDate;
+                    entity.LastModifiedByUserID = value.LastModifiedByUserID;
+                    entity.LastModifiedOnDate = value.LastModifiedOnDate;
 
-					ViewState["Entity"] = entity;
-				}
-				else
-				{
-					ViewState["Entity"] = null;
-				}
-			}
-		}
+                    ViewState["Entity"] = entity;
+                }
+                else
+                {
+                    ViewState["Entity"] = null;
+                }
+            }
+        }
 
-	    private EntityInfo Model
-	    {
-		    get { return ViewState["Entity"] as EntityInfo; }
-	    }
+        private EntityInfo Model
+        {
+            get { return ViewState["Entity"] as EntityInfo; }
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -100,12 +99,12 @@ namespace DotNetNuke.UI.UserControls
 
             try
             {
-				if (Model != null)
+                if (Model != null)
                 {
-					CreatedByUser = Model.CreatedByUserID.ToString();
-					CreatedDate = Model.CreatedOnDate.ToString();
-					LastModifiedByUser = Model.LastModifiedByUserID.ToString();
-					LastModifiedDate = Model.LastModifiedOnDate.ToString();
+                    CreatedByUser = Model.CreatedByUserID.ToString();
+                    CreatedDate = Model.CreatedOnDate.ToString();
+                    LastModifiedByUser = Model.LastModifiedByUserID.ToString();
+                    LastModifiedDate = Model.LastModifiedOnDate.ToString();
                 }
 
                 //check to see if updated check is redundant
@@ -141,7 +140,6 @@ namespace DotNetNuke.UI.UserControls
             }
             string createdString = Localization.GetString("CreatedBy", Localization.GetResourceFile(this, MyFileName));
             lblCreatedBy.Text = string.Format(createdString, CreatedByUser, CreatedDate);
-
         }
 
         private void ShowUpdatedString(bool isCreatorAndUpdater)

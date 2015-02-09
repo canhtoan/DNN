@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Web;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -43,13 +42,13 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class DNNMultiStateBoxColumn : TemplateColumn
     {
-        private bool mAutoPostBack = true;
-        private string mDataField = Null.NullString;
-        private bool mEnabled = true;
-        private string mEnabledField = Null.NullString;
-        private string mImagePath = "";
-        private string mSelectedStateKey = "";
-        private DNNMultiStateCollection mStates;
+        private bool _mAutoPostBack = true;
+        private string _mDataField = Null.NullString;
+        private bool _mEnabled = true;
+        private string _mEnabledField = Null.NullString;
+        private string _mImagePath = "";
+        private string _mSelectedStateKey = "";
+        private DNNMultiStateCollection _mStates;
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -91,11 +90,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mAutoPostBack;
+                return _mAutoPostBack;
             }
             set
             {
-                mAutoPostBack = value;
+                _mAutoPostBack = value;
             }
         }
 
@@ -112,11 +111,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mSelectedStateKey;
+                return _mSelectedStateKey;
             }
             set
             {
-                mSelectedStateKey = value;
+                _mSelectedStateKey = value;
             }
         }
 
@@ -134,11 +133,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mDataField;
+                return _mDataField;
             }
             set
             {
-                mDataField = value;
+                _mDataField = value;
             }
         }
 
@@ -157,11 +156,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabled;
+                return _mEnabled;
             }
             set
             {
-                mEnabled = value;
+                _mEnabled = value;
             }
         }
 
@@ -179,11 +178,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabledField;
+                return _mEnabledField;
             }
             set
             {
-                mEnabledField = value;
+                _mEnabledField = value;
             }
         }
 
@@ -200,11 +199,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mImagePath;
+                return _mImagePath;
             }
             set
             {
-                mImagePath = value;
+                _mImagePath = value;
             }
         }
 
@@ -221,15 +220,15 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                if (mStates == null)
+                if (_mStates == null)
                 {
-                    mStates = new DNNMultiStateCollection(new DNNMultiStateBox());
+                    _mStates = new DNNMultiStateCollection(new DNNMultiStateBox());
                 }
-                return mStates;
+                return _mStates;
             }
             set
             {
-                mStates = value;
+                _mStates = value;
             }
         }
 
@@ -287,7 +286,7 @@ namespace DotNetNuke.UI.WebControls
             HeaderTemplate = CreateTemplate(ListItemType.Header);
             if (HttpContext.Current == null)
             {
-                HeaderStyle.Font.Names = new[] {"Tahoma, Verdana, Arial"};
+                HeaderStyle.Font.Names = new[] { "Tahoma, Verdana, Arial" };
                 HeaderStyle.Font.Size = new FontUnit("10pt");
                 HeaderStyle.Font.Bold = true;
             }

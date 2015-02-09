@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,28 +30,28 @@ using DotNetNuke.Services.Localization;
 
 namespace DotNetNuke.Entities.Tabs.TabVersions
 {
-    public class TabVersionController: ServiceLocator<ITabVersionController, TabVersionController>, ITabVersionController
+    public class TabVersionController : ServiceLocator<ITabVersionController, TabVersionController>, ITabVersionController
     {
-        private static readonly DataProvider Provider = DataProvider.Instance();
+        private static readonly DataProvider s_provider = DataProvider.Instance();
 
         #region Public Methods
         public TabVersion GetTabVersion(int tabVersionId, int tabId, bool ignoreCache = false)
         {
             return GetTabVersions(tabId, ignoreCache).SingleOrDefault(tv => tv.TabVersionId == tabVersionId);
         }
-        
+
         public IEnumerable<TabVersion> GetTabVersions(int tabId, bool ignoreCache = false)
         {
             //if we are not using the cache
             if (ignoreCache || Host.Host.PerformanceSetting == Globals.PerformanceSettings.NoCaching)
             {
-                return CBO.FillCollection<TabVersion>(Provider.GetTabVersions(tabId));
+                return CBO.FillCollection<TabVersion>(s_provider.GetTabVersions(tabId));
             }
-            
+
             return CBO.GetCachedObject<List<TabVersion>>(new CacheItemArgs(GetTabVersionsCacheKey(tabId),
                                                                     DataCache.TabVersionsCacheTimeOut,
                                                                     DataCache.TabVersionsCachePriority),
-                                                            c => CBO.FillCollection<TabVersion>(Provider.GetTabVersions(tabId)));            
+                                                            c => CBO.FillCollection<TabVersion>(s_provider.GetTabVersions(tabId)));
         }
         public void SaveTabVersion(TabVersion tabVersion)
         {
@@ -65,7 +65,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 
         public void SaveTabVersion(TabVersion tabVersion, int createdByUserID, int modifiedByUserID)
         {
-            tabVersion.TabVersionId = Provider.SaveTabVersion(tabVersion.TabVersionId, tabVersion.TabId, tabVersion.TimeStamp, tabVersion.Version, tabVersion.IsPublished, createdByUserID, modifiedByUserID);
+            tabVersion.TabVersionId = s_provider.SaveTabVersion(tabVersion.TabVersionId, tabVersion.TabId, tabVersion.TimeStamp, tabVersion.Version, tabVersion.IsPublished, createdByUserID, modifiedByUserID);
             ClearCache(tabVersion.TabId);
         }
 
@@ -82,8 +82,8 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                 }
                 newVersion = lastTabVersion.Version + 1;
             }
-            
-            var tabVersionId = Provider.SaveTabVersion(0, tabId, DateTime.UtcNow, newVersion, isPublished, createdByUserID, createdByUserID);
+
+            var tabVersionId = s_provider.SaveTabVersion(0, tabId, DateTime.UtcNow, newVersion, isPublished, createdByUserID, createdByUserID);
             ClearCache(tabId);
 
             return GetTabVersion(tabVersionId, tabId);
@@ -91,7 +91,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 
         public void DeleteTabVersion(int tabId, int tabVersionId)
         {
-            Provider.DeleteTabVersion(tabVersionId);
+            s_provider.DeleteTabVersion(tabVersionId);
             ClearCache(tabId);
         }
         #endregion

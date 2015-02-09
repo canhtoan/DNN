@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -32,7 +32,6 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     internal class FriendlyUrlPathController
@@ -151,13 +150,13 @@ namespace DotNetNuke.Entities.Urls
         /// <param name="changeToSiteRoot"></param>
         /// <param name="parentTraceId"></param>
         /// <returns></returns>
-        internal static bool CheckParameterRegexReplacement(string parameterPath, 
+        internal static bool CheckParameterRegexReplacement(string parameterPath,
                                                             TabInfo tab,
-                                                            FriendlyUrlSettings settings, 
+                                                            FriendlyUrlSettings settings,
                                                             int portalId,
-                                                            out string replacedPath, 
+                                                            out string replacedPath,
                                                             ref List<string> messages,
-                                                            out bool changeToSiteRoot, 
+                                                            out bool changeToSiteRoot,
                                                             Guid parentTraceId)
         {
             bool replaced = false;

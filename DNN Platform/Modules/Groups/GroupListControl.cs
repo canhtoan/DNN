@@ -79,7 +79,6 @@ namespace DotNetNuke.Modules.Groups.Controls
         {
             base.OnInit(e);
             currentUser = UserController.Instance.GetCurrentUserInfo();
-
         }
 
         private static bool TestPredicateGroup(IEnumerable<Func<RoleInfo, bool>> predicates, RoleInfo ri)
@@ -101,9 +100,9 @@ namespace DotNetNuke.Modules.Groups.Controls
             };
 
             if (RoleGroupId >= -1)
-	        {
-		        whereCls.Add(grp => grp.RoleGroupID == RoleGroupId);
-	        }
+            {
+                whereCls.Add(grp => grp.RoleGroupID == RoleGroupId);
+            }
 
             if (DisplayCurrentUserGroups)
                 whereCls.Add(grp => currentUser.IsInRole(grp.RoleName));
@@ -137,7 +136,7 @@ namespace DotNetNuke.Modules.Groups.Controls
             ItemTemplate = ItemTemplate.Replace("{resx:Pending}", Localization.GetString("Pending", Constants.SharedResourcesPath));
             ItemTemplate = ItemTemplate.Replace("{resx:LeaveGroup}", Localization.GetString("LeaveGroup", Constants.SharedResourcesPath));
             ItemTemplate = ItemTemplate.Replace("[GroupViewTabId]", GroupViewTabId.ToString());
-            
+
             if (roles.Count == 0)
                 output.Write(String.Format("<div class=\"dnnFormMessage dnnFormInfo\"><span>{0}</span></div>", Localization.GetString("NoGroupsFound", Constants.SharedResourcesPath)));
 
@@ -225,16 +224,11 @@ namespace DotNetNuke.Modules.Groups.Controls
 
                     sb.AppendFormat(sUrlFormat, sUrl, cssClass, x.ToString());
                 }
-
             }
 
             output.Write("<div class=\"dnnClear groupPager\">");
             output.Write(sb.ToString());
             output.Write("</div>");
-
         }
-
-
     }
-
 }

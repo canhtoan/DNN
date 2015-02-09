@@ -17,17 +17,18 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Entities.Content.Workflow
 // ReSharper enable CheckNamespace
 {
     /// <summary>
     /// This entity represents a Workflow Log
     /// </summary>
-    [Obsolete("Deprecated in Platform 7.4.0")]   
+    [Obsolete("Deprecated in Platform 7.4.0")]
     public class ContentWorkflowLog
     {
         /// <summary>
@@ -44,7 +45,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         /// Content Item associated to the log entry
         /// </summary>
         public int ContentItemID { get; set; }
-        
+
         /// <summary>
         /// Action name (usually is a localized representation of the ContentWorkflowLogType)
         /// </summary>

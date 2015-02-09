@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,14 +21,13 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Runtime.Serialization;
 
 using DotNetNuke.Services.Authentication.OAuth;
 
 #endregion
-
 namespace DotNetNuke.Authentication.Twitter.Components
 {
     [DataContract]

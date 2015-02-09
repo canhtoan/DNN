@@ -19,14 +19,13 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Internals
 {
     /// <summary>

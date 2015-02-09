@@ -1,6 +1,6 @@
-#region Copyright
+ï»¿#region Copyright
 // 
-// DotNetNuke® - http://www.dotnetnuke.com
+// DotNetNukeÂ® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,7 +50,6 @@ using DotNetNuke.UI.Modules;
 using System.Text.RegularExpressions;
 
 #endregion
-
 namespace DotNetNuke.Services.Localization
 {
     /// <summary>
@@ -114,18 +113,18 @@ namespace DotNetNuke.Services.Localization
     /// </example>
     public class Localization
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(Localization));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Localization));
         #region Private Members
 
-        private static string _defaultKeyName = "resourcekey";
+        private static string s_defaultKeyName = "resourcekey";
         //private static readonly ILocaleController LocaleController.Instance = LocaleController.Instance;
         //private static readonly ILocalizationProvider _localizationProvider = LocalizationProvider.Instance;
-        private static Nullable<Boolean> _showMissingKeys;
+        private static Nullable<Boolean> s_showMissingKeys;
 
         #endregion
 
         #region Public Shared Properties
-        
+
         /// <summary>
         /// Returns ~/App_GlobalResources
         /// </summary>
@@ -170,14 +169,14 @@ namespace DotNetNuke.Services.Localization
         {
             get
             {
-                return _defaultKeyName;
+                return s_defaultKeyName;
             }
             set
             {
-                _defaultKeyName = value;
-                if (String.IsNullOrEmpty(_defaultKeyName))
+                s_defaultKeyName = value;
+                if (String.IsNullOrEmpty(s_defaultKeyName))
                 {
-                    _defaultKeyName = "resourcekey";
+                    s_defaultKeyName = "resourcekey";
                 }
             }
         }
@@ -222,19 +221,19 @@ namespace DotNetNuke.Services.Localization
         {
             get
             {
-                if (_showMissingKeys == null)
+                if (s_showMissingKeys == null)
                 {
                     if (Config.GetSetting("ShowMissingKeys") == null)
                     {
-                        _showMissingKeys = false;
+                        s_showMissingKeys = false;
                     }
                     else
                     {
-                        _showMissingKeys = bool.Parse(Config.GetSetting("ShowMissingKeys".ToLower()));
+                        s_showMissingKeys = bool.Parse(Config.GetSetting("ShowMissingKeys".ToLower()));
                     }
                 }
 
-                return _showMissingKeys.Value;
+                return s_showMissingKeys.Value;
             }
         }
 
@@ -411,7 +410,6 @@ namespace DotNetNuke.Services.Localization
 
         public static void AddLanguageToPortal(int portalID, int languageID, bool clearCache)
         {
-
             // try to get valid locale reference
             var newLocale = LocaleController.Instance.GetLocale(languageID);
 
@@ -484,7 +482,6 @@ namespace DotNetNuke.Services.Localization
 
                 if (currentAlias != null && !string.IsNullOrEmpty(httpAlias) && portalInfo != null)
                 {
-
                     if (!string.IsNullOrEmpty(currentAlias.CultureCode))
                     {
                         // the portal alias is culture specific
@@ -499,11 +496,11 @@ namespace DotNetNuke.Services.Localization
                     if (!String.IsNullOrEmpty(alias))
                     {
                         var newAlias = new PortalAliasInfo(currentAlias)
-                            {
-                                IsPrimary = true,
-                                CultureCode = locale.Code,
-                                HTTPAlias = GetValidLanguageURL(portalId, httpAlias, locale.Code.ToLowerInvariant())
-                            };
+                        {
+                            IsPrimary = true,
+                            CultureCode = locale.Code,
+                            HTTPAlias = GetValidLanguageURL(portalId, httpAlias, locale.Code.ToLowerInvariant())
+                        };
 
                         PortalAliasController.Instance.AddPortalAlias(newAlias);
                     }
@@ -924,7 +921,7 @@ namespace DotNetNuke.Services.Localization
         /// <returns>A valid CultureInfo if any is found</returns>
         private static CultureInfo GetCultureFromProfile(PortalSettings portalSettings)
         {
-			UserInfo objUserInfo = UserController.Instance.GetCurrentUserInfo();
+            UserInfo objUserInfo = UserController.Instance.GetCurrentUserInfo();
 
             if (HttpContext.Current == null || !HttpContext.Current.Request.IsAuthenticated || objUserInfo.UserID == -1)
                 return null;
@@ -1265,12 +1262,12 @@ namespace DotNetNuke.Services.Localization
         public static string GetSafeJSString(string unsafeString)
         {
             var safeString = !string.IsNullOrEmpty(unsafeString) && unsafeString.Length > 0 ? Regex.Replace(unsafeString, "(['\"\\\\])", "\\$1") : unsafeString;
-			if (!string.IsNullOrEmpty(safeString))
-	        {
-				safeString = safeString.Replace("\r\n", string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);
-	        }
+            if (!string.IsNullOrEmpty(safeString))
+            {
+                safeString = safeString.Replace("\r\n", string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);
+            }
 
-			return safeString;
+            return safeString;
         }
 
         /// <summary>
@@ -1307,7 +1304,7 @@ namespace DotNetNuke.Services.Localization
         /// - [Date:Current]: Current date
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         /// </history>
         /// -----------------------------------------------------------------------------
         public static string GetSystemMessage(PortalSettings portalSettings, string messageName)
@@ -1334,7 +1331,7 @@ namespace DotNetNuke.Services.Localization
         /// - [Date:Current]: Current date
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         /// </history>
         /// -----------------------------------------------------------------------------
         public static string GetSystemMessage(PortalSettings portalSettings, string messageName, UserInfo userInfo)
@@ -1362,7 +1359,7 @@ namespace DotNetNuke.Services.Localization
         /// - [Date:Current]: Current date
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         /// </history>
         /// -----------------------------------------------------------------------------
         public static string GetSystemMessage(string strLanguage, PortalSettings portalSettings, string messageName, UserInfo userInfo)
@@ -1390,7 +1387,7 @@ namespace DotNetNuke.Services.Localization
         /// - [Date:Current]: Current date
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         /// </history>
         /// -----------------------------------------------------------------------------
         public static string GetSystemMessage(PortalSettings portalSettings, string messageName, string resourceFile)
@@ -1419,7 +1416,7 @@ namespace DotNetNuke.Services.Localization
         /// - [Date:Current]: Current date
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         /// </history>
         /// -----------------------------------------------------------------------------
         public static string GetSystemMessage(PortalSettings portalSettings, string messageName, UserInfo userInfo, string resourceFile)
@@ -1442,7 +1439,7 @@ namespace DotNetNuke.Services.Localization
         /// will be used to find the replacement value in <b>Custom</b> parameter.
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         ///     [cnurse]    10/06/2004  Moved from SystemMessages to Localization
         ///     [DanCaron]  10/27/2004  Simplified Profile replacement, added Membership replacement
         /// </history>
@@ -1468,7 +1465,7 @@ namespace DotNetNuke.Services.Localization
         /// will be used to find the replacement value in <b>Custom</b> parameter.
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         ///     [cnurse]    10/06/2004  Moved from SystemMessages to Localization
         ///     [DanCaron]  10/27/2004  Simplified Profile replacement, added Membership replacement
         /// </history>
@@ -1495,7 +1492,7 @@ namespace DotNetNuke.Services.Localization
         /// will be used to find the replacement value in <b>Custom</b> parameter.
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         ///     [cnurse]    10/06/2004  Moved from SystemMessages to Localization
         ///     [DanCaron]  10/27/2004  Simplified Profile replacement, added Membership replacement
         /// </history>
@@ -1524,7 +1521,7 @@ namespace DotNetNuke.Services.Localization
         /// will be used to find the replacement value in <b>Custom</b> parameter.
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	05/07/2004	Documented
+        /// 	[VicenÃ§]	05/07/2004	Documented
         ///     [cnurse]    10/06/2004  Moved from SystemMessages to Localization
         ///     [DanCaron]  10/27/2004  Simplified Profile replacement, added Membership replacement
         /// </history>
@@ -2204,8 +2201,7 @@ namespace DotNetNuke.Services.Localization
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 if (Host.PerformanceSetting != Globals.PerformanceSettings.NoCaching)
                 {

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,39 +17,38 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Services.Search;
 
 #endregion
-
 namespace DotNetNuke.Services.Exceptions
 {
-    #pragma warning disable 0618
+#pragma warning disable 0618
     public class SearchException : BasePortalException
     {
-        private readonly SearchItemInfo m_SearchItem;
+        private readonly SearchItemInfo _searchItem;
 
         //default constructor
-		public SearchException()
+        public SearchException()
         {
         }
 
         public SearchException(string message, Exception inner, SearchItemInfo searchItem) : base(message, inner)
         {
-            m_SearchItem = searchItem;
+            _searchItem = searchItem;
         }
 
         public SearchItemInfo SearchItem
         {
             get
             {
-                return m_SearchItem;
+                return _searchItem;
             }
         }
     }
-    #pragma warning restore 0618
+#pragma warning restore 0618
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,12 +29,11 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Scheduling;
 
 #endregion
-
 namespace DotNetNuke.Services.ModuleCache
 {
     public class PurgeModuleCache : SchedulerClient
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (PurgeModuleCache));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(PurgeModuleCache));
         public PurgeModuleCache(ScheduleHistoryItem objScheduleHistoryItem)
         {
             ScheduleHistoryItem = objScheduleHistoryItem; //REQUIRED
@@ -57,9 +56,8 @@ namespace DotNetNuke.Services.ModuleCache
                     }
                     catch (NotSupportedException exc)
                     {
-						//some Module caching providers don't use this feature
-                        Logger.Debug(exc);
-
+                        //some Module caching providers don't use this feature
+                        s_logger.Debug(exc);
                     }
                 }
                 ScheduleHistoryItem.Succeeded = true; //REQUIRED
@@ -72,8 +70,8 @@ namespace DotNetNuke.Services.ModuleCache
 
                 //notification that we have errored
                 Errored(ref exc); //REQUIRED
-				
-				//log the exception
+
+                //log the exception
                 Exceptions.Exceptions.LogException(exc); //OPTIONAL
             }
         }

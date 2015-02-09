@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web.UI.WebControls;
@@ -36,12 +36,11 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     public abstract class Help : PortalModuleBase
     {
-        private string MyFileName = "Help.ascx";
+        private string _myFileName = "Help.ascx";
         private string _key;
         protected LinkButton cmdCancel;
         protected Literal helpFrame;
@@ -88,7 +87,7 @@ namespace DotNetNuke.UI.UserControls
                     }
                     else
                     {
-                        lblHelp.Text = Localization.GetString("lblHelp.Text", Localization.GetResourceFile(this, MyFileName));
+                        lblHelp.Text = Localization.GetString("lblHelp.Text", Localization.GetResourceFile(this, _myFileName));
                     }
                 }
 
@@ -96,7 +95,7 @@ namespace DotNetNuke.UI.UserControls
                 //display module info to Host users
                 if (UserInfo.IsSuperUser)
                 {
-                    string strInfo = Localization.GetString("lblInfo.Text", Localization.GetResourceFile(this, MyFileName));
+                    string strInfo = Localization.GetString("lblInfo.Text", Localization.GetResourceFile(this, _myFileName));
                     strInfo = strInfo.Replace("[CONTROL]", objModuleControl.ControlKey);
                     strInfo = strInfo.Replace("[SRC]", objModuleControl.ControlSrc);
                     ModuleDefinitionInfo objModuleDefinition = ModuleDefinitionController.GetModuleDefinitionByID(objModuleControl.ModuleDefID);

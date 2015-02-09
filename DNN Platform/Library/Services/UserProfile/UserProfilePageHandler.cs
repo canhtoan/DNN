@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 
@@ -30,12 +30,11 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.UserProfile
 {
     public class UserProfilePageHandler : IHttpHandler
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (UserProfilePageHandler));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(UserProfilePageHandler));
         #region IHttpHandler Members
 
         /// -----------------------------------------------------------------------------
@@ -66,7 +65,6 @@ namespace DotNetNuke.Services.UserProfile
                     {
                         //The user cannot be found (potential DOS)
                         Exceptions.Exceptions.ProcessHttpException(context.Request);
-
                     }
                 }
 
@@ -96,7 +94,6 @@ namespace DotNetNuke.Services.UserProfile
                             {
                                 //The user cannot be found (potential DOS)
                                 Exceptions.Exceptions.ProcessHttpException(context.Request);
-
                             }
                         }
                     }
@@ -110,7 +107,7 @@ namespace DotNetNuke.Services.UserProfile
             }
             catch (Exception exc)
             {
-                Logger.Debug(exc);
+                s_logger.Debug(exc);
                 //The user cannot be found (potential DOS)
                 Exceptions.Exceptions.ProcessHttpException(context.Request);
             }

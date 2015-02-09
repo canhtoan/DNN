@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,13 +38,12 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users.Social
 {
-	/// <summary>
-	/// Business Layer to manage Relationships. Also contains CRUD methods.
-	/// </summary>
-	public class RelationshipController : ServiceLocator<IRelationshipController, RelationshipController>
+    /// <summary>
+    /// Business Layer to manage Relationships. Also contains CRUD methods.
+    /// </summary>
+    public class RelationshipController : ServiceLocator<IRelationshipController, RelationshipController>
     {
         protected override Func<IRelationshipController> GetFactory()
         {

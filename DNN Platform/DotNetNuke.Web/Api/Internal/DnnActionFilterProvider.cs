@@ -21,7 +21,7 @@ namespace DotNetNuke.Web.Api.Internal
 
             bool overrideFilterPresent = allFilters.Any(x => x.Instance is IOverrideDefaultAuthLevel);
 
-            if(!overrideFilterPresent)
+            if (!overrideFilterPresent)
             {
                 allFilters.Add(new FilterInfo(new RequireHostAttribute(), FilterScope.Action));
             }

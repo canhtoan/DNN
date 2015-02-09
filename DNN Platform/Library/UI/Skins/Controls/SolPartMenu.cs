@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Common;
@@ -27,7 +27,6 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins.Controls
 {
     /// -----------------------------------------------------------------------------
@@ -40,8 +39,8 @@ namespace DotNetNuke.UI.Skins.Controls
     /// -----------------------------------------------------------------------------
     public class SolPartMenu : NavObjectBase
     {
-		#region "Public Members"
-		
+        #region "Public Members"
+
         public string SeparateCss { get; set; }
 
         public string MenuBarCssClass
@@ -815,16 +814,16 @@ namespace DotNetNuke.UI.Skins.Controls
         }
 
         public string RootOnly { get; set; }
-		
-		#endregion
-		
-		#region "Protected Methods"
-        
-		/// <summary>
-		/// The Page_Load server event handler on this page is used
+
+        #endregion
+
+        #region "Protected Methods"
+
+        /// <summary>
+        /// The Page_Load server event handler on this page is used
         /// to populate the role information for the page
-		/// </summary>
-		protected override void OnLoad(EventArgs e)
+        /// </summary>
+        protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
@@ -857,8 +856,8 @@ namespace DotNetNuke.UI.Skins.Controls
                 {
                     strRootBreadcrumbArrow = Globals.ApplicationPath + "/images/breadcrumb.gif";
                 }
-				
-				//image for submenu breadcrumb marking
+
+                //image for submenu breadcrumb marking
                 if (!String.IsNullOrEmpty(SubMenuBreadCrumbArrow))
                 {
                     strSubMenuBreadcrumbArrow = PortalSettings.ActiveTab.SkinPath + SubMenuBreadCrumbArrow;
@@ -872,8 +871,8 @@ namespace DotNetNuke.UI.Skins.Controls
                 {
                     NodeLeftHTMLBreadCrumbRoot = "<img alt=\"*\" BORDER=\"0\" src=\"" + strRootBreadcrumbArrow + "\">";
                 }
-				
-				//image for right facing arrow
+
+                //image for right facing arrow
                 if (!String.IsNullOrEmpty(RightArrow))
                 {
                     strRightArrow = RightArrow;
@@ -890,8 +889,8 @@ namespace DotNetNuke.UI.Skins.Controls
                 {
                     strDownArrow = "menu_down.gif";
                 }
-				
-				//Set correct image path for all separator images
+
+                //Set correct image path for all separator images
                 if (!String.IsNullOrEmpty(Separator))
                 {
                     if (Separator.IndexOf("src=") != -1)
@@ -941,8 +940,8 @@ namespace DotNetNuke.UI.Skins.Controls
                         RightSeparatorActive = RightSeparatorActive.Replace("src=\"", "src=\"" + PortalSettings.ActiveTab.SkinPath);
                     }
                 }
-				
-				//generate dynamic menu
+
+                //generate dynamic menu
                 if (blnUseSkinPathArrowImages)
                 {
                     PathSystemImage = PortalSettings.ActiveTab.SkinPath;
@@ -1160,7 +1159,7 @@ namespace DotNetNuke.UI.Skins.Controls
             InitializeNavControl(this, "SolpartMenuNavigationProvider");
             base.OnInit(e);
         }
-		
-		#endregion
+
+        #endregion
     }
 }

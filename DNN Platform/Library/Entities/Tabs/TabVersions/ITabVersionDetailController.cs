@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 
 namespace DotNetNuke.Entities.Tabs.TabVersions
@@ -44,7 +44,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <param name="version">The Tab Id to be queried</param>        
         /// <returns>List of TabVersionDetail objects</returns>
         IEnumerable<TabVersionDetail> GetVersionHistory(int tabId, int version);
-        
+
         /// <summary>
         /// Gets all TabVersionDetail objects of an existing TabVersion
         /// </summary>        
@@ -58,7 +58,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// </summary>      
         /// <param name="tabVersionDetail">TabVersionDetail object to be saved</param>        
         void SaveTabVersionDetail(TabVersionDetail tabVersionDetail);
-        
+
         /// <summary>
         /// Saves a TabVersionDetail object. Adds or updates an existing one
         /// </summary>        

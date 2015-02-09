@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Xml;
 using System.Xml.Schema;
@@ -122,7 +122,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
                             CDNPath = reader.ReadElementContentAsString();
                             break;
                         default:
-                            if(reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
+                            if (reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
                             {
                                 reader.ReadElementContentAsString();
                             }

@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,6 @@ using Telerik.Web.UI;
 
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnModuleComboBox : WebControl
@@ -79,7 +78,8 @@ namespace DotNetNuke.Web.UI.WebControls
             }
         }
 
-        public override bool Enabled {
+        public override bool Enabled
+        {
             get
             {
                 return _moduleCombo.Enabled;
@@ -110,7 +110,7 @@ namespace DotNetNuke.Web.UI.WebControls
                     .OrderBy(c => c.Key);
             }
 
-            return portalModulesList.ToDictionary(portalModule => portalModule.Value.DesktopModuleID, 
+            return portalModulesList.ToDictionary(portalModule => portalModule.Value.DesktopModuleID,
                                                     portalModule => portalModule.Key);
         }
 

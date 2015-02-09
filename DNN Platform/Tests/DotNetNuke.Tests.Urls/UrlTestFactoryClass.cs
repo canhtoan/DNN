@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +38,6 @@ namespace DotNetNuke.Tests.Urls
                 string[] fields = line.Split(',');
                 GetTests(fields[1].Trim(), fields[0].Trim(), testType, testName, testData);
             });
-            
         }
 
         private static void GetTests(string testPrefix, string alias, string testType, string testName, ArrayList testData)
@@ -53,10 +52,10 @@ namespace DotNetNuke.Tests.Urls
                                 fieldList["Alias"] = alias;
                                 string[] headers = header.Split(',');
                                 string[] fields = line.Split(',');
-                                for (int i = 0; i < fields.Length; i++ )
+                                for (int i = 0; i < fields.Length; i++)
                                 {
                                     string key = headers[i].Trim(new[] { '\t', '"' });
-                                    string val = fields[i].Trim(new[] {'\t', '"'});
+                                    string val = fields[i].Trim(new[] { '\t', '"' });
 
                                     fieldList[key] = val;
                                 }
@@ -70,13 +69,12 @@ namespace DotNetNuke.Tests.Urls
 
                                 testData.Add(new TestCaseData(fieldList).SetName(name));
                             });
-                        }
+            }
             // ReSharper disable RedundantCatchClause
-            #pragma warning disable 168
+#pragma warning disable 168
             catch (Exception exc)
-            #pragma warning restore 168
+#pragma warning restore 168
             {
-
                 throw;
             }
             // ReSharper restore RedundantCatchClause
@@ -194,7 +192,7 @@ namespace DotNetNuke.Tests.Urls
                 var testData = new ArrayList();
 
                 GetTestsWithAliases("FriendlyUrl", "PrimaryPortalAlias", testData);
-                
+
                 return testData;
             }
         }

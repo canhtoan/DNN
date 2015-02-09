@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Xml;
 
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins
 {
     public enum SkinDefaultType
@@ -92,7 +91,7 @@ namespace DotNetNuke.UI.Skins
 
         private static object GetSkinDefaultsCallback(CacheItemArgs cacheItemArgs)
         {
-            var defaultType = (SkinDefaultType) cacheItemArgs.ParamList[0];
+            var defaultType = (SkinDefaultType)cacheItemArgs.ParamList[0];
             return new SkinDefaults(defaultType);
         }
 

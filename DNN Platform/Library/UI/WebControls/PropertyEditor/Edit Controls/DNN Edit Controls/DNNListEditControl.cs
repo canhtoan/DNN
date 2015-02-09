@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +33,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -52,7 +51,7 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:DNNListEditControl runat=server></{0}:DNNListEditControl>")]
     public class DNNListEditControl : EditControl, IPostBackEventHandler
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (DNNListEditControl));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(DNNListEditControl));
         private List<ListEntryInfo> _listEntries;
         private string _listName = "";
 
@@ -83,7 +82,7 @@ namespace DotNetNuke.UI.WebControls
         /// </history>
         /// -----------------------------------------------------------------------------
         protected bool SortAlphabetically { get; set; }
-        
+
         #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
@@ -100,18 +99,17 @@ namespace DotNetNuke.UI.WebControls
             get
             {
                 int intValue = Null.NullInteger;
-				if (Value == null || string.IsNullOrEmpty((string)Value))
-				{
-					return intValue;
-				}
-				try
+                if (Value == null || string.IsNullOrEmpty((string)Value))
+                {
+                    return intValue;
+                }
+                try
                 {
                     intValue = Convert.ToInt32(Value);
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return intValue;
             }
@@ -137,7 +135,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                if(_listEntries == null)
+                if (_listEntries == null)
                 {
                     var listController = new ListController();
                     if (SortAlphabetically)
@@ -195,17 +193,16 @@ namespace DotNetNuke.UI.WebControls
                 int intValue = Null.NullInteger;
                 if (OldValue == null || string.IsNullOrEmpty(OldValue.ToString()))
                 {
-					return intValue;
-	            }
-	            try
+                    return intValue;
+                }
+                try
                 {
-					//Try and cast the value to an Integer
+                    //Try and cast the value to an Integer
                     intValue = Convert.ToInt32(OldValue);
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return intValue;
             }
@@ -270,18 +267,18 @@ namespace DotNetNuke.UI.WebControls
             {
                 if (ValueField == ListBoundField.Id)
                 {
-					//Integer type field
+                    //Integer type field
                     Value = Int32.Parse(value);
                 }
                 else
                 {
-					//String type Field
+                    //String type Field
                     Value = value;
                 }
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IPostBackEventHandler Members
 
@@ -296,31 +293,31 @@ namespace DotNetNuke.UI.WebControls
         #endregion
 
         public event PropertyChangedEventHandler ItemChanged;
-		
-		#region "Private Methods"
+
+        #region "Private Methods"
 
         private PropertyEditorEventArgs GetEventArgs()
         {
             var args = new PropertyEditorEventArgs(Name);
             if (ValueField == ListBoundField.Id)
             {
-				//This is an Integer Value
+                //This is an Integer Value
                 args.Value = IntegerValue;
                 args.OldValue = OldIntegerValue;
             }
             else
             {
-				//This is a String Value
+                //This is a String Value
                 args.Value = StringValue;
                 args.OldValue = OldStringValue;
             }
             args.StringValue = StringValue;
             return args;
         }
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -332,14 +329,14 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         protected override void OnAttributesChanged()
         {
-			//Get the List settings out of the "Attributes"
+            //Get the List settings out of the "Attributes"
             if ((CustomAttributes != null))
             {
                 foreach (Attribute attribute in CustomAttributes)
                 {
                     if (attribute is ListAttribute)
                     {
-                        var listAtt = (ListAttribute) attribute;
+                        var listAtt = (ListAttribute)attribute;
                         ListName = listAtt.ListName;
                         ParentKey = listAtt.ParentKey;
                         TextField = listAtt.TextField;
@@ -427,8 +424,8 @@ namespace DotNetNuke.UI.WebControls
             {
                 writer.Write(entryText);
             }
-			
-			//Close Select Tag
+
+            //Close Select Tag
             writer.RenderEndTag();
         }
 
@@ -447,10 +444,10 @@ namespace DotNetNuke.UI.WebControls
             ControlStyle.AddAttributesToRender(writer);
             writer.AddAttribute(HtmlTextWriterAttribute.Name, UniqueID);
             writer.AddAttribute(HtmlTextWriterAttribute.Id, ClientID);
-			writer.AddAttribute("data-name", Name);
-			writer.AddAttribute("data-list", ListName);
-			writer.AddAttribute("data-category", Category);
-			writer.AddAttribute("data-editor", "DNNListEditControl");
+            writer.AddAttribute("data-name", Name);
+            writer.AddAttribute("data-list", ListName);
+            writer.AddAttribute("data-category", Category);
+            writer.AddAttribute("data-editor", "DNNListEditControl");
             if (AutoPostBack)
             {
                 writer.AddAttribute(HtmlTextWriterAttribute.Onchange, Page.ClientScript.GetPostBackEventReference(this, ID));
@@ -468,19 +465,19 @@ namespace DotNetNuke.UI.WebControls
             }
             if (StringValue == Null.NullString)
             {
-				//Add the Selected Attribute
+                //Add the Selected Attribute
                 writer.AddAttribute(HtmlTextWriterAttribute.Selected, "selected");
             }
             writer.RenderBeginTag(HtmlTextWriterTag.Option);
             writer.Write("<" + Localization.GetString("Not_Specified", Localization.SharedResourceFile) + ">");
             writer.RenderEndTag();
-            
+
             foreach (ListEntryInfo item in ListEntries)
             {
                 string itemValue = Null.NullString;
-                
-				//Add the Value Attribute
-				switch (ValueField)
+
+                //Add the Value Attribute
+                switch (ValueField)
                 {
                     case ListBoundField.Id:
                         itemValue = item.EntryID.ToString();
@@ -495,12 +492,12 @@ namespace DotNetNuke.UI.WebControls
                 writer.AddAttribute(HtmlTextWriterAttribute.Value, itemValue);
                 if (StringValue == itemValue)
                 {
-					//Add the Selected Attribute
+                    //Add the Selected Attribute
                     writer.AddAttribute(HtmlTextWriterAttribute.Selected, "selected");
                 }
-                
-				//Render Option Tag
-				writer.RenderBeginTag(HtmlTextWriterTag.Option);
+
+                //Render Option Tag
+                writer.RenderBeginTag(HtmlTextWriterTag.Option);
                 switch (TextField)
                 {
                     case ListBoundField.Id:
@@ -515,11 +512,11 @@ namespace DotNetNuke.UI.WebControls
                 }
                 writer.RenderEndTag();
             }
-            
-			//Close Select Tag
-			writer.RenderEndTag();
+
+            //Close Select Tag
+            writer.RenderEndTag();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

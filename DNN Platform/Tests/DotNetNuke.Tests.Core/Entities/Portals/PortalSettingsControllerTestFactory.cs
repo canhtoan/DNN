@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -74,16 +73,16 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
                                 var testName = "Load_Default_Value";
                                 string[] headers = header.Split(',');
                                 string[] fields = line.Split(',');
-                                for (int i = 0; i < fields.Length; i++ )
+                                for (int i = 0; i < fields.Length; i++)
                                 {
                                     string key = headers[i].Trim(new[] { '\t', '"' });
-                                    string val = fields[i].Trim(new[] {'\t', '"'});
+                                    string val = fields[i].Trim(new[] { '\t', '"' });
 
                                     fieldList[key] = val;
                                 }
 
                                 testName += "_";
- 
+
                                 testName += fields[0];
 
                                 testData.Add(new TestCaseData(fieldList).SetName(testName));

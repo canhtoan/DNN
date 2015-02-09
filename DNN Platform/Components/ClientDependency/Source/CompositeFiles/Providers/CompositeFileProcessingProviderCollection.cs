@@ -5,22 +5,22 @@ using System.Configuration.Provider;
 
 namespace ClientDependency.Core.CompositeFiles.Providers
 {
-	public class CompositeFileProcessingProviderCollection : ProviderCollection
-	{
-		public new BaseCompositeFileProcessingProvider this[string name]
-		{
-			get { return (BaseCompositeFileProcessingProvider)base[name]; }
-		}
+    public class CompositeFileProcessingProviderCollection : ProviderCollection
+    {
+        public new BaseCompositeFileProcessingProvider this[string name]
+        {
+            get { return (BaseCompositeFileProcessingProvider)base[name]; }
+        }
 
-		public override void Add(ProviderBase provider)
-		{
-			if (provider == null)
-				throw new ArgumentNullException("provider");
+        public override void Add(ProviderBase provider)
+        {
+            if (provider == null)
+                throw new ArgumentNullException("provider");
 
-			if (!(provider is BaseCompositeFileProcessingProvider))
-				throw new ArgumentException("Invalid provider type", "provider");
+            if (!(provider is BaseCompositeFileProcessingProvider))
+                throw new ArgumentException("Invalid provider type", "provider");
 
-			base.Add(provider);
-		}
-	}
+            base.Add(provider);
+        }
+    }
 }

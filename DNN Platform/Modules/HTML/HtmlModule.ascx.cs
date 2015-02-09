@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 
@@ -35,7 +35,6 @@ using DotNetNuke.UI.WebControls;
 
 
 #endregion
-
 namespace DotNetNuke.Modules.Html
 {
     /// -----------------------------------------------------------------------------
@@ -49,8 +48,8 @@ namespace DotNetNuke.Modules.Html
     /// -----------------------------------------------------------------------------
     public partial class HtmlModule : PortalModuleBase, IActionable
     {
-        private bool EditorEnabled;
-        private int WorkflowID;
+        private bool _editorEnabled;
+        private int _workflowID;
 
         #region "Private Methods"
 
@@ -71,10 +70,10 @@ namespace DotNetNuke.Modules.Html
         {
             base.OnInit(e);
             lblContent.UpdateLabel += lblContent_UpdateLabel;
-            EditorEnabled = PortalSettings.InlineEditorEnabled;
+            _editorEnabled = PortalSettings.InlineEditorEnabled;
             try
             {
-                WorkflowID = new HtmlTextController().GetWorkflow(ModuleId, TabId, PortalId).Value;
+                _workflowID = new HtmlTextController().GetWorkflow(ModuleId, TabId, PortalId).Value;
 
                 //Add an Action Event Handler to the Skin
                 AddActionHandler(ModuleAction_Click);
@@ -102,20 +101,20 @@ namespace DotNetNuke.Modules.Html
                 var objHTML = new HtmlTextController();
 
                 // edit in place
-                if (EditorEnabled && IsEditable && PortalSettings.UserMode == PortalSettings.Mode.Edit)
+                if (_editorEnabled && IsEditable && PortalSettings.UserMode == PortalSettings.Mode.Edit)
                 {
-                    EditorEnabled = true;
+                    _editorEnabled = true;
                 }
                 else
                 {
-                    EditorEnabled = false;
+                    _editorEnabled = false;
                 }
 
                 // get content
                 HtmlTextInfo htmlTextInfo = null;
                 string contentString = "";
 
-                htmlTextInfo = objHTML.GetTopHtmlText(ModuleId, !IsEditable, WorkflowID);
+                htmlTextInfo = objHTML.GetTopHtmlText(ModuleId, !IsEditable, _workflowID);
 
                 if ((htmlTextInfo != null))
                 {
@@ -129,7 +128,7 @@ namespace DotNetNuke.Modules.Html
                     {
                         if (PortalSettings.UserMode == PortalSettings.Mode.Edit)
                         {
-                            if (EditorEnabled)
+                            if (_editorEnabled)
                             {
                                 contentString = Localization.GetString("AddContentFromToolBar.Text", LocalResourceFile);
                             }
@@ -147,15 +146,15 @@ namespace DotNetNuke.Modules.Html
                 }
 
                 // token replace
-                if (EditorEnabled && Settings["HtmlText_ReplaceTokens"] != null)
+                if (_editorEnabled && Settings["HtmlText_ReplaceTokens"] != null)
                 {
-                    EditorEnabled = !Convert.ToBoolean(Settings["HtmlText_ReplaceTokens"]);
+                    _editorEnabled = !Convert.ToBoolean(Settings["HtmlText_ReplaceTokens"]);
                 }
 
                 // localize toolbar
                 if (!IsPostBack)
                 {
-                    if (EditorEnabled)
+                    if (_editorEnabled)
                     {
                         foreach (DNNToolBarButton button in editorDnnToobar.Buttons)
                         {
@@ -168,16 +167,16 @@ namespace DotNetNuke.Modules.Html
                     }
                 }
 
-                lblContent.EditEnabled = EditorEnabled;
+                lblContent.EditEnabled = _editorEnabled;
 
                 // add content to module
                 lblContent.Controls.Add(new LiteralControl(HtmlTextController.FormatHtmlText(ModuleId, contentString, Settings)));
 
-				//set normalCheckBox on the content wrapper to prevent form decoration if its disabled.
-				if (Settings.ContainsKey("HtmlText_UseDecorate") && Settings["HtmlText_UseDecorate"].ToString() == "0")
-				{
-					lblContent.CssClass = string.Format("{0} normalCheckBox", lblContent.CssClass);
-				}
+                //set normalCheckBox on the content wrapper to prevent form decoration if its disabled.
+                if (Settings.ContainsKey("HtmlText_UseDecorate") && Settings["HtmlText_UseDecorate"].ToString() == "0")
+                {
+                    lblContent.CssClass = string.Format("{0} normalCheckBox", lblContent.CssClass);
+                }
             }
             catch (Exception exc)
             {
@@ -203,12 +202,12 @@ namespace DotNetNuke.Modules.Html
                 {
                     throw new SecurityException();
                 }
-                else if (EditorEnabled && IsEditable && PortalSettings.UserMode == PortalSettings.Mode.Edit)
+                else if (_editorEnabled && IsEditable && PortalSettings.UserMode == PortalSettings.Mode.Edit)
                 {
                     // get content
                     var objHTML = new HtmlTextController();
                     var objWorkflow = new WorkflowStateController();
-                    HtmlTextInfo objContent = objHTML.GetTopHtmlText(ModuleId, false, WorkflowID);
+                    HtmlTextInfo objContent = objHTML.GetTopHtmlText(ModuleId, false, _workflowID);
                     if (objContent == null)
                     {
                         objContent = new HtmlTextInfo();
@@ -218,8 +217,8 @@ namespace DotNetNuke.Modules.Html
                     // set content attributes
                     objContent.ModuleID = ModuleId;
                     objContent.Content = Server.HtmlEncode(e.Text);
-                    objContent.WorkflowID = WorkflowID;
-                    objContent.StateID = objWorkflow.GetFirstWorkflowStateID(WorkflowID);
+                    objContent.WorkflowID = _workflowID;
+                    objContent.StateID = objWorkflow.GetFirstWorkflowStateID(_workflowID);
 
                     // save the content
                     objHTML.UpdateHtmlText(objContent, objHTML.GetMaximumVersionHistory(PortalId));
@@ -255,10 +254,10 @@ namespace DotNetNuke.Modules.Html
                     {
                         // get content
                         var objHTML = new HtmlTextController();
-                        HtmlTextInfo objContent = objHTML.GetTopHtmlText(ModuleId, false, WorkflowID);
+                        HtmlTextInfo objContent = objHTML.GetTopHtmlText(ModuleId, false, _workflowID);
 
                         var objWorkflow = new WorkflowStateController();
-                        if (objContent.StateID == objWorkflow.GetFirstWorkflowStateID(WorkflowID))
+                        if (objContent.StateID == objWorkflow.GetFirstWorkflowStateID(_workflowID))
                         {
                             // publish content
                             objContent.StateID = objWorkflow.GetNextWorkflowStateID(objContent.WorkflowID, objContent.StateID);
@@ -311,16 +310,16 @@ namespace DotNetNuke.Modules.Html
                 // get the content
                 var objHTML = new HtmlTextController();
                 var objWorkflow = new WorkflowStateController();
-                WorkflowID = objHTML.GetWorkflow(ModuleId, TabId, PortalId).Value;
+                _workflowID = objHTML.GetWorkflow(ModuleId, TabId, PortalId).Value;
 
-                HtmlTextInfo objContent = objHTML.GetTopHtmlText(ModuleId, false, WorkflowID);
+                HtmlTextInfo objContent = objHTML.GetTopHtmlText(ModuleId, false, _workflowID);
                 if ((objContent != null))
                 {
                     // if content is in the first state
-                    if (objContent.StateID == objWorkflow.GetFirstWorkflowStateID(WorkflowID))
+                    if (objContent.StateID == objWorkflow.GetFirstWorkflowStateID(_workflowID))
                     {
                         // if not direct publish workflow
-                        if (objWorkflow.GetWorkflowStates(WorkflowID).Count > 1)
+                        if (objWorkflow.GetWorkflowStates(_workflowID).Count > 1)
                         {
                             // add publish action
                             Actions.Add(GetNextActionID(),
@@ -338,7 +337,7 @@ namespace DotNetNuke.Modules.Html
                     else
                     {
                         // if the content is not in the last state of the workflow then review is required
-                        if (objContent.StateID != objWorkflow.GetLastWorkflowStateID(WorkflowID))
+                        if (objContent.StateID != objWorkflow.GetLastWorkflowStateID(_workflowID))
                         {
                             // if the user has permissions to review the content
                             if (WorkflowStatePermissionController.HasWorkflowStatePermission(WorkflowStatePermissionController.GetWorkflowStatePermissions(objContent.StateID), "REVIEW"))

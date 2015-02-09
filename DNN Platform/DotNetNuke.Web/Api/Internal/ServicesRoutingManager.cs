@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Concurrent;
@@ -39,7 +40,7 @@ namespace DotNetNuke.Web.Api.Internal
 {
     public sealed class ServicesRoutingManager : IMapRoute
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ServicesRoutingManager));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ServicesRoutingManager));
         private readonly Dictionary<string, int> _moduleUsage = new Dictionary<string, int>();
         private readonly RouteCollection _routes;
         private readonly PortalAliasRouteManager _portalAliasRouteManager;
@@ -81,7 +82,7 @@ namespace DotNetNuke.Web.Api.Internal
                 string routeUrl = _portalAliasRouteManager.GetRouteUrl(moduleFolderName, url, count);
                 Route route = MapHttpRouteWithNamespace(fullRouteName, routeUrl, defaults, constraints, namespaces);
                 routes.Add(route);
-                Logger.Trace("Mapping route: " + fullRouteName + " @ " + routeUrl);
+                s_logger.Trace("Mapping route: " + fullRouteName + " @ " + routeUrl);
             }
 
             return routes;
@@ -111,7 +112,7 @@ namespace DotNetNuke.Web.Api.Internal
                 //dnnContext message handler
                 //this must run before any auth message handlers
                 GlobalConfiguration.Configuration.MessageHandlers.Add(new DnnContextMessageHandler());
-                
+
                 //authentication message handlers
                 GlobalConfiguration.Configuration.MessageHandlers.Add(new BasicAuthMessageHandler());
                 GlobalConfiguration.Configuration.MessageHandlers.Add(new DigestAuthMessageHandler());
@@ -140,14 +141,14 @@ namespace DotNetNuke.Web.Api.Internal
                 _routes.Clear();
                 LocateServicesAndMapRoutes();
             }
-            Logger.TraceFormat("Registered a total of {0} routes", _routes.Count);
+            s_logger.TraceFormat("Registered a total of {0} routes", _routes.Count);
         }
 
         private bool IsTracingEnabled()
         {
             var configValue = Config.GetSetting("EnableServicesFrameworkTracing");
 
-            if(!string.IsNullOrEmpty(configValue))
+            if (!string.IsNullOrEmpty(configValue))
             {
                 return Convert.ToBoolean(configValue);
             }
@@ -169,7 +170,7 @@ namespace DotNetNuke.Web.Api.Internal
                 }
                 catch (Exception e)
                 {
-                    Logger.ErrorFormat("{0}.RegisterRoutes threw an exception.  {1}\r\n{2}", routeMapper.GetType().FullName,
+                    s_logger.ErrorFormat("{0}.RegisterRoutes threw an exception.  {1}\r\n{2}", routeMapper.GetType().FullName,
                                  e.Message, e.StackTrace);
                 }
             }
@@ -198,7 +199,7 @@ namespace DotNetNuke.Web.Api.Internal
                 }
                 catch (Exception e)
                 {
-                    Logger.ErrorFormat("Unable to create {0} while registering service routes.  {1}", routeMapperType.FullName,
+                    s_logger.ErrorFormat("Unable to create {0} while registering service routes.  {1}", routeMapperType.FullName,
                                  e.Message);
                     routeMapper = null;
                 }
@@ -218,14 +219,14 @@ namespace DotNetNuke.Web.Api.Internal
         internal static bool IsValidServiceRouteMapper(Type t)
         {
             return t != null && t.IsClass && !t.IsAbstract && t.IsVisible &&
-                   typeof (IServiceRouteMapper).IsAssignableFrom(t);
+                   typeof(IServiceRouteMapper).IsAssignableFrom(t);
         }
 
         private Route MapHttpRouteWithNamespace(string name, string url, object defaults, object constraints, string[] namespaces)
         {
             Route route = _routes.MapHttpRoute(name, url, defaults, constraints);
-            
-            if(route.DataTokens == null)
+
+            if (route.DataTokens == null)
             {
                 route.DataTokens = new RouteValueDictionary();
             }

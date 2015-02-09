@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -31,7 +31,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Security;
 
 #endregion
-
 namespace DotNetNuke.Services.Journal.Internal
 {
     public class InternalJournalControllerImpl : IInternalJournalController
@@ -70,7 +69,7 @@ namespace DotNetNuke.Services.Journal.Internal
                 CBO.FillCollection<JournalItem>(_dataService.Journal_ListForSummary(portalId, moduleId, currentUserId,
                                                                                     rowIndex, maxRows));
         }
-        
+
         public void DeleteFilters(int portalId, int moduleId)
         {
             _dataService.Journal_TypeFilters_Delete(portalId, moduleId);

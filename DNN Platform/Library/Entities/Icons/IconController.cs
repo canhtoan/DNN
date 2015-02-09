@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Collections;
@@ -49,7 +49,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Icons
 {
     /// <summary>
@@ -62,7 +61,7 @@ namespace DotNetNuke.Entities.Icons
     /// </remarks>
     public class IconController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (IconController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(IconController));
         #region Constants
 
         public const string DefaultIconSize = "16X16";
@@ -105,10 +104,10 @@ namespace DotNetNuke.Entities.Icons
         /// <returns>Link to the image, e.g. /Icons/Sigma/edit_16x16_standard.png</returns>
         public static string IconURL(string key, string size, string style)
         {
-            if (string.IsNullOrEmpty(key)) 
+            if (string.IsNullOrEmpty(key))
                 return string.Empty;
 
-            if (string.IsNullOrEmpty(size)) 
+            if (string.IsNullOrEmpty(size))
                 size = DefaultIconSize;
 
             if (string.IsNullOrEmpty(style))
@@ -132,25 +131,25 @@ namespace DotNetNuke.Entities.Icons
             return IconURL("ExtFile", "32x32", "Standard");
         }
 
-        private static readonly SharedDictionary<string, bool> _iconsStatusOnDisk = new SharedDictionary<string, bool>();
+        private static readonly SharedDictionary<string, bool> s_iconsStatusOnDisk = new SharedDictionary<string, bool>();
         private static void CheckIconOnDisk(string path)
-        {            
-            using (_iconsStatusOnDisk.GetReadLock())
-            {                
-                if (_iconsStatusOnDisk.ContainsKey(path)) 
+        {
+            using (s_iconsStatusOnDisk.GetReadLock())
+            {
+                if (s_iconsStatusOnDisk.ContainsKey(path))
                     return;
             }
 
-            using (_iconsStatusOnDisk.GetWriteLock())
+            using (s_iconsStatusOnDisk.GetWriteLock())
             {
-                if (!_iconsStatusOnDisk.ContainsKey(path))
+                if (!s_iconsStatusOnDisk.ContainsKey(path))
                 {
-                    _iconsStatusOnDisk.Add(path, true);
+                    s_iconsStatusOnDisk.Add(path, true);
                     string iconPhysicalPath = Path.Combine(Globals.ApplicationMapPath, path.Replace('/', '\\'));
-                    if (!File.Exists(iconPhysicalPath)) 
-						Logger.WarnFormat(string.Format("Icon Not Present on Disk {0}", iconPhysicalPath));
+                    if (!File.Exists(iconPhysicalPath))
+                        s_logger.WarnFormat(string.Format("Icon Not Present on Disk {0}", iconPhysicalPath));
                 }
-            }            
+            }
         }
 
         public static string[] GetIconSets()
@@ -160,11 +159,11 @@ namespace DotNetNuke.Entities.Icons
             string result = "";
             foreach (var iconDir in iconRootDir.EnumerateDirectories())
             {
-                string testFile = Path.Combine(iconDir.FullName,"About_16x16_Standard.png");
+                string testFile = Path.Combine(iconDir.FullName, "About_16x16_Standard.png");
                 if (File.Exists(testFile))
                     result += iconDir.Name + ",";
             }
-            return result.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            return result.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

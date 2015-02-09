@@ -12,10 +12,9 @@ namespace DotNetNuke.Modules.Groups.Components
 {
     public class GroupViewParser
     {
-        
-        PortalSettings PortalSettings { get; set; }
-        RoleInfo RoleInfo { get; set; }
-        UserInfo CurrentUser { get; set; }
+        private PortalSettings PortalSettings { get; set; }
+        private RoleInfo RoleInfo { get; set; }
+        private UserInfo CurrentUser { get; set; }
         public string Template { get; set; }
         public int GroupViewTabId { get; set; }
         public string GroupEditUrl { get; set; }
@@ -56,7 +55,6 @@ namespace DotNetNuke.Modules.Groups.Components
 
             if (isOwner)
             {
-
                 Template = Template.Replace("[GROUPEDITBUTTON]", String.Format(editUrl, GroupEditUrl));
                 Template = Utilities.ParseTokenWrapper(Template, "IsNotOwner", false);
                 Template = Utilities.ParseTokenWrapper(Template, "IsOwner", true);
@@ -88,7 +86,7 @@ namespace DotNetNuke.Modules.Groups.Components
             Template = Template.Replace("[GROUPEDITBUTTON]", String.Empty);
 
             var url = Globals.NavigateURL(GroupViewTabId, "", new String[] { "groupid=" + RoleInfo.RoleID.ToString() });
-            
+
             Template = Utilities.ParseTokenWrapper(Template, "IsPendingMember", membershipPending);
             Template = Template.Replace("[groupviewurl]", url);
             Components.GroupItemTokenReplace tokenReplace = new Components.GroupItemTokenReplace(RoleInfo);

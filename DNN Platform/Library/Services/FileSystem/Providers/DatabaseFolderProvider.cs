@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Services.FileSystem
 // ReSharper restore CheckNamespace
 {
@@ -312,7 +314,7 @@ namespace DotNetNuke.Services.FileSystem
         /// <param name="content">The new content.</param>
         public static void UpdateFileContent(int fileId, byte[] content)
         {
-            if(content != null)
+            if (content != null)
             {
                 DataProvider.Instance().UpdateFileContent(fileId, content);
                 DataProvider.Instance().UpdateFileVersion(fileId, Guid.NewGuid());

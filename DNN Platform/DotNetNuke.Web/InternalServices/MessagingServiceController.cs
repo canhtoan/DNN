@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -46,7 +45,7 @@ namespace DotNetNuke.Web.InternalServices
     [DnnAuthorize]
     public class MessagingServiceController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (MessagingServiceController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(MessagingServiceController));
         [HttpGet]
         public HttpResponseMessage WaitTimeForNextMessage()
         {
@@ -56,7 +55,7 @@ namespace DotNetNuke.Web.InternalServices
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -97,7 +96,7 @@ namespace DotNetNuke.Web.InternalServices
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -126,23 +125,23 @@ namespace DotNetNuke.Web.InternalServices
                 //Roles should be visible to Administrators or User in the Role.
                 var roles = RoleController.Instance.GetRolesBasicSearch(portalId, numResults, q);
                 results.AddRange(from roleInfo in roles
-                                    where
-                                        isAdmin ||
-                                        UserInfo.Social.Roles.SingleOrDefault(ur => ur.RoleID == roleInfo.RoleID && ur.IsOwner) != null
-                                    select new SearchResult
-                                    {
-                                        id = "role-" + roleInfo.RoleID,
-                                        name = roleInfo.RoleName,
-                                        iconfile = TestableGlobals.Instance.ResolveUrl(string.IsNullOrEmpty(roleInfo.IconFile)
-                                                    ? "~/images/no_avatar.gif"
-                                                    : PortalSettings.HomeDirectory.TrimEnd('/') + "/" + roleInfo.IconFile)
-                                    });
+                                 where
+                                     isAdmin ||
+                                     UserInfo.Social.Roles.SingleOrDefault(ur => ur.RoleID == roleInfo.RoleID && ur.IsOwner) != null
+                                 select new SearchResult
+                                 {
+                                     id = "role-" + roleInfo.RoleID,
+                                     name = roleInfo.RoleName,
+                                     iconfile = TestableGlobals.Instance.ResolveUrl(string.IsNullOrEmpty(roleInfo.IconFile)
+                                                 ? "~/images/no_avatar.gif"
+                                                 : PortalSettings.HomeDirectory.TrimEnd('/') + "/" + roleInfo.IconFile)
+                                 });
 
                 return Request.CreateResponse(HttpStatusCode.OK, results.OrderBy(sr => sr.name));
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }

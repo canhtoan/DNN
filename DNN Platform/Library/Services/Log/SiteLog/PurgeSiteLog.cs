@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Scheduling;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.SiteLog
 {
     public class PurgeSiteLog : SchedulerClient
@@ -41,7 +40,7 @@ namespace DotNetNuke.Services.Log.SiteLog
         {
             try
             {
-				//notification that the event is progressing
+                //notification that the event is progressing
                 Progressing(); //OPTIONAL
 
                 DoPurgeSiteLog();
@@ -56,10 +55,10 @@ namespace DotNetNuke.Services.Log.SiteLog
 
                 ScheduleHistoryItem.AddLogNote("Site Log purge failed. " + exc); //OPTIONAL
 
-				//notification that we have errored
+                //notification that we have errored
                 Errored(ref exc);
-				
-				//log the exception
+
+                //log the exception
                 Exceptions.Exceptions.LogException(exc); //OPTIONAL
             }
         }
@@ -70,7 +69,7 @@ namespace DotNetNuke.Services.Log.SiteLog
             var portals = PortalController.Instance.GetPortals();
             for (var index = 0; index <= portals.Count - 1; index++)
             {
-                var portal = (PortalInfo) portals[index];
+                var portal = (PortalInfo)portals[index];
                 if (portal.SiteLogHistory > 0)
                 {
                     var purgeDate = DateTime.Now.AddDays(-(portal.SiteLogHistory));

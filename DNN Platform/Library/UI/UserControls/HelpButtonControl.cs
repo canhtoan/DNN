@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -30,7 +30,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     /// -----------------------------------------------------------------------------
@@ -48,18 +47,18 @@ namespace DotNetNuke.UI.UserControls
     /// -----------------------------------------------------------------------------
     public abstract class HelpButtonControl : UserControl
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         private string _HelpKey;
         private string _ResourceKey;
         protected LinkButton cmdHelp;
         protected Image imgHelp;
         protected Label lblHelp;
         protected Panel pnlHelp;
-		
-		#endregion
-		
-		#region "Public Properties"
+
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -118,8 +117,8 @@ namespace DotNetNuke.UI.UserControls
             {
                 lblHelp.Text = value;
                 imgHelp.AlternateText = HtmlUtils.Clean(value, false);
-				
-				//hide the help icon if the help text is ""
+
+                //hide the help icon if the help text is ""
                 if (String.IsNullOrEmpty(value))
                 {
                     imgHelp.Visible = false;
@@ -149,10 +148,10 @@ namespace DotNetNuke.UI.UserControls
                 _ResourceKey = value;
             }
         }
-		
-		#endregion
-		
-		#region "Event Handlers"
+
+        #endregion
+
+        #region "Event Handlers"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -176,7 +175,7 @@ namespace DotNetNuke.UI.UserControls
                 DNNClientAPI.EnableMinMax(cmdHelp, pnlHelp, true, DNNClientAPI.MinMaxPersistanceType.None);
                 if (String.IsNullOrEmpty(_HelpKey))
                 {
-					//Set Help Key to the Resource Key plus ".Help"
+                    //Set Help Key to the Resource Key plus ".Help"
                     _HelpKey = _ResourceKey + ".Help";
                 }
                 string helpText = Localization.GetString(_HelpKey, this);
@@ -195,7 +194,7 @@ namespace DotNetNuke.UI.UserControls
         {
             pnlHelp.Visible = true;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,7 +34,6 @@ using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.Search.Internals;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -57,8 +56,8 @@ namespace DotNetNuke.Services.Search
     {
         #region Private Fields
 
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ModuleIndexer));
-        private static readonly int ModuleSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("module").SearchTypeId;
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ModuleIndexer));
+        private static readonly int s_moduleSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("module").SearchTypeId;
 
         #endregion
 
@@ -93,8 +92,8 @@ namespace DotNetNuke.Services.Search
                         continue;
                     }
 
-                    var controller =  Reflection.CreateObject(module.DesktopModule.BusinessControllerClass, module.DesktopModule.BusinessControllerClass);
-                    var contentInfo = new SearchContentModuleInfo {ModSearchBaseControllerType= (ModuleSearchBase) controller, ModInfo = module};
+                    var controller = Reflection.CreateObject(module.DesktopModule.BusinessControllerClass, module.DesktopModule.BusinessControllerClass);
+                    var contentInfo = new SearchContentModuleInfo { ModSearchBaseControllerType = (ModuleSearchBase)controller, ModInfo = module };
                     var searchItems = contentInfo.ModSearchBaseControllerType.GetModifiedSearchDocuments(module, startDateLocal.ToUniversalTime());
 
                     if (searchItems != null && searchItems.Count > 0)
@@ -115,7 +114,7 @@ namespace DotNetNuke.Services.Search
                             }
                         }
 
-                        Logger.Trace("ModuleIndexer: " + searchItems.Count + " search documents found for module [" + module.DesktopModule.ModuleName + " mid:" + module.ModuleID + "]");
+                        s_logger.Trace("ModuleIndexer: " + searchItems.Count + " search documents found for module [" + module.DesktopModule.ModuleName + " mid:" + module.ModuleID + "]");
 
                         searchDocuments.AddRange(searchItems);
                     }
@@ -125,7 +124,7 @@ namespace DotNetNuke.Services.Search
                     Exceptions.Exceptions.LogException(ex);
                 }
             }
-            
+
             return searchDocuments;
         }
 
@@ -152,7 +151,7 @@ namespace DotNetNuke.Services.Search
                     {
                         var searchDoc = new SearchDocument
                         {
-                            SearchTypeId = ModuleSearchTypeId,
+                            SearchTypeId = s_moduleSearchTypeId,
                             UniqueKey = Constants.ModuleMetaDataPrefixTag + module.ModuleID,
                             ModuleDefId = module.ModuleDefID,
                             ModuleId = module.ModuleID,
@@ -168,7 +167,7 @@ namespace DotNetNuke.Services.Search
                             searchDoc.Tags = module.Terms.Select(t => t.Name);
                         }
 
-                        Logger.Trace("ModuleIndexer: Search document for metaData found for module [" + module.DesktopModule.ModuleName + " mid:" + module.ModuleID + "]");
+                        s_logger.Trace("ModuleIndexer: Search document for metaData found for module [" + module.DesktopModule.ModuleName + " mid:" + module.ModuleID + "]");
 
                         searchDocuments.Add(searchDoc);
                     }
@@ -194,7 +193,7 @@ namespace DotNetNuke.Services.Search
         ///     [vnguyen]   05/16/2013  created
         /// </history>
         /// -----------------------------------------------------------------------------
-        #pragma warning disable 0618
+#pragma warning disable 0618
         public SearchDocument ConvertSearchItemInfoToSearchDocument(SearchItemInfo searchItem)
         {
             var module = ModuleController.Instance.GetModule(searchItem.ModuleId, Null.NullInteger, true);
@@ -211,7 +210,7 @@ namespace DotNetNuke.Services.Search
                 AuthorUserId = searchItem.Author,
                 TabId = searchItem.TabId,
                 PortalId = module.PortalID,
-                SearchTypeId = ModuleSearchTypeId,
+                SearchTypeId = s_moduleSearchTypeId,
                 CultureCode = module.CultureCode,
                 //Add Module MetaData
                 ModuleDefId = module.ModuleDefID,
@@ -220,7 +219,7 @@ namespace DotNetNuke.Services.Search
 
             return searchDoc;
         }
-        #pragma warning restore 0618
+#pragma warning restore 0618
 
         #endregion
 
@@ -278,7 +277,7 @@ namespace DotNetNuke.Services.Search
                             searchItem.TabId = scModInfo.ModInfo.TabID;
                         }
 
-                        Logger.Trace("ModuleIndexer: " + myCollection.Count + " search documents found for module [" + scModInfo.ModInfo.DesktopModule.ModuleName + " mid:" + scModInfo.ModInfo.ModuleID + "]");
+                        s_logger.Trace("ModuleIndexer: " + myCollection.Count + " search documents found for module [" + scModInfo.ModInfo.DesktopModule.ModuleName + " mid:" + scModInfo.ModInfo.ModuleID + "]");
 
                         searchItems.AddRange(myCollection);
                     }
@@ -313,7 +312,7 @@ namespace DotNetNuke.Services.Search
             var arrModules = ModuleController.Instance.GetSearchModules(portalId);
             var businessControllers = new Hashtable();
             var htModules = new Hashtable();
-            
+
             foreach (var module in arrModules.Cast<ModuleInfo>().Where(module => !htModules.ContainsKey(module.ModuleID)))
             {
                 try
@@ -326,22 +325,22 @@ namespace DotNetNuke.Services.Search
                         if (controller == null)
                         {
                             //Add to hashtable
-                            controller = Reflection.CreateObject(module.DesktopModule.BusinessControllerClass, module.DesktopModule.BusinessControllerClass);                              
+                            controller = Reflection.CreateObject(module.DesktopModule.BusinessControllerClass, module.DesktopModule.BusinessControllerClass);
                             businessControllers.Add(module.DesktopModule.BusinessControllerClass, controller);
-                        }                            
+                        }
                         //Double-Check that module supports ISearchable
 
                         //Check if module inherits from ModuleSearchBase                        
                         if (controller is ISearchable && !(controller is ModuleSearchBase))
                         {
-                            var contentInfo = new SearchContentModuleInfo {ModControllerType = (ISearchable) controller, ModInfo = module};
+                            var contentInfo = new SearchContentModuleInfo { ModControllerType = (ISearchable)controller, ModInfo = module };
                             results.Add(contentInfo);
-                        }                           
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex);
+                    s_logger.Error(ex);
                     ThrowLogError(module, ex);
                 }
                 finally
@@ -411,7 +410,7 @@ namespace DotNetNuke.Services.Search
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex);
+                    s_logger.Error(ex);
                     ThrowLogError(module, ex);
                 }
                 finally
@@ -423,6 +422,5 @@ namespace DotNetNuke.Services.Search
         }
 
         #endregion
-
     }
 }

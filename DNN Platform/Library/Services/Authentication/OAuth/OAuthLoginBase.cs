@@ -21,15 +21,14 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Specialized;
 using System.Web;
 using DotNetNuke.Common;
 
 #endregion
-
 namespace DotNetNuke.Services.Authentication.OAuth
 {
     public abstract class OAuthLoginBase : AuthenticationLoginBase
@@ -45,7 +44,6 @@ namespace DotNetNuke.Services.Authentication.OAuth
 
         protected virtual void AddCustomProperties(NameValueCollection properties)
         {
-            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -63,7 +61,7 @@ namespace DotNetNuke.Services.Authentication.OAuth
             }
 
             bool shouldAuthorize = OAuthClient.IsCurrentService() && OAuthClient.HaveVerificationCode();
-            if(Mode == AuthMode.Login)
+            if (Mode == AuthMode.Login)
             {
                 shouldAuthorize = shouldAuthorize || OAuthClient.IsCurrentUserAuthorized();
             }

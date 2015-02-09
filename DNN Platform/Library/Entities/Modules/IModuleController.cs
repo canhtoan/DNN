@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -226,7 +227,7 @@ namespace DotNetNuke.Entities.Modules
         /// <param name = "moduleID">ID of the Module</param>
         /// <returns>ArrayList of ModuleInfo</returns>
         IList<ModuleInfo> GetTabModulesByModule(int moduleID);
-        
+
         void InitialModulePermission(ModuleInfo module, int tabId, int permissionType);
 
         void LocalizeModule(ModuleInfo sourceModule, Locale locale);
@@ -299,7 +300,7 @@ namespace DotNetNuke.Entities.Modules
         /// <param name="module">A ModuleInfo object to be checked</param>
         /// <returns>True is TabId points to a different tab from initial Tab where the module was added. Otherwise, False</returns>
         bool IsSharedModule(ModuleInfo module);
-        
+
         /// <summary>
         /// Get the Tab ID corresponding to the initial Tab where the module was added
         /// </summary>

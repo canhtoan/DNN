@@ -17,32 +17,31 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.IO;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Modules.RazorHost
 {
     public partial class Settings : ModuleSettingsBase
     {
-        private string razorScriptFolder = "~/DesktopModules/RazorModules/RazorHost/Scripts/";
+        private string _razorScriptFolder = "~/DesktopModules/RazorModules/RazorHost/Scripts/";
 
         public override void LoadSettings()
         {
-            string basePath = Server.MapPath(razorScriptFolder);
+            string basePath = Server.MapPath(_razorScriptFolder);
             var scriptFileSetting = Settings["ScriptFile"] as string;
 
-            foreach (string script in Directory.GetFiles(Server.MapPath(razorScriptFolder), "*.??html"))
+            foreach (string script in Directory.GetFiles(Server.MapPath(_razorScriptFolder), "*.??html"))
             {
                 string scriptPath = script.Replace(basePath, "");
                 var item = new ListItem(scriptPath, scriptPath);
-                if (! (string.IsNullOrEmpty(scriptFileSetting)) && scriptPath.ToLowerInvariant() == scriptFileSetting.ToLowerInvariant())
+                if (!(string.IsNullOrEmpty(scriptFileSetting)) && scriptPath.ToLowerInvariant() == scriptFileSetting.ToLowerInvariant())
                 {
                     item.Selected = true;
                 }

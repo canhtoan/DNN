@@ -4,12 +4,10 @@ using System.Web.UI.WebControls;
 
 using DotNetNuke.Common.Utilities;
 
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnGenericHiddenField<T> : HiddenField where T : class, new()
     {
-
         private T _typedValue = null;
 
         private bool _isValueSerialized = false;
@@ -91,6 +89,5 @@ namespace DotNetNuke.Web.UI.WebControls
             EnsureValue();
             base.RenderControl(writer);
         }
-
     }
 }

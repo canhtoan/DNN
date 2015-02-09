@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -36,7 +36,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 {
     public class TabVersionBuilder : ServiceLocator<ITabVersionBuilder, TabVersionBuilder>, ITabVersionBuilder
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(TabVersionBuilder));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(TabVersionBuilder));
         private const int DefaultVersionNumber = 1;
 
         #region Members
@@ -77,7 +77,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 
             var tab = _tabController.GetTab(tabId, portalId);
             var modules = _moduleController.GetTabModules(tabId).Where(m => m.Value.IsDeleted == false).Select(m => m.Value).ToArray();
-            
+
             // Check if the page has modules
             if (!modules.Any())
             {
@@ -86,12 +86,12 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 
             CreateFirstTabVersion(tabId, tab, modules);
         }
-        
+
         public void Publish(int portalId, int tabId, int createdByUserId)
         {
-            var tabVersion = GetUnPublishedVersion(tabId);            
+            var tabVersion = GetUnPublishedVersion(tabId);
             if (tabVersion == null)
-            {                
+            {
                 throw new InvalidOperationException(String.Format(Localization.GetString("TabHasNotAnUnpublishedVersion", Localization.ExceptionsResourceFile), tabId));
             }
             if (tabVersion.IsPublished)
@@ -111,7 +111,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 
         public void Discard(int tabId, int createdByUserId)
         {
-            var tabVersion = GetUnPublishedVersion(tabId);            
+            var tabVersion = GetUnPublishedVersion(tabId);
             if (tabVersion == null)
             {
                 throw new InvalidOperationException(String.Format(Localization.GetString("TabHasNotAnUnpublishedVersion", Localization.ExceptionsResourceFile), tabId));
@@ -134,7 +134,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             {
                 publishedChanges = GetVersionModulesDetails(tabId, GetCurrentVersion(tabId).Version).ToArray();
             }
-            
+
             foreach (var unPublishedDetail in unPublishedDetails)
             {
                 if (publishedChanges == null)
@@ -157,13 +157,13 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             ForceDeleteVersion(tabId, version);
         }
 
-        
+
         public TabVersion RollBackVesion(int tabId, int createdByUserId, int version)
         {
             CheckVersioningEnabled(tabId);
 
             if (GetUnPublishedVersion(tabId) != null)
-            {                
+            {
                 throw new InvalidOperationException(String.Format(Localization.GetString("TabVersionCannotBeRolledBack_UnpublishedVersionExists", Localization.ExceptionsResourceFile), tabId, version));
             }
 
@@ -177,10 +177,10 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 
             var rollbackDetails = CopyVersionDetails(GetVersionModulesDetails(tabId, version)).ToArray();
             var newVersion = CreateNewVersion(tabId, createdByUserId);
-            
+
             //Save Reset detail
             _tabVersionDetailController.SaveTabVersionDetail(GetResetTabVersionDetail(newVersion), createdByUserId);
-            
+
             foreach (var rollbackDetail in rollbackDetails)
             {
                 rollbackDetail.TabVersionId = newVersion.TabVersionId;
@@ -190,7 +190,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                 }
                 catch (DnnTabVersionException e)
                 {
-                    Logger.Error(string.Format("There was a problem making rollbak of the module {0}. Message: {1}.", rollbackDetail.ModuleId, e.Message));
+                    s_logger.Error(string.Format("There was a problem making rollbak of the module {0}. Message: {1}.", rollbackDetail.ModuleId, e.Message));
                     continue;
                 }
                 _tabVersionDetailController.SaveTabVersionDetail(rollbackDetail, createdByUserId);
@@ -203,15 +203,15 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                 else
                 {
                     UpdateModuleOrder(tabId, rollbackDetail);
-                }               
+                }
             }
-            
+
             //Check if current version contains modules not existing in restoring version 
             foreach (var publishedDetail in publishedDetails.Where(publishedDetail => rollbackDetails.All(tvd => tvd.ModuleId != publishedDetail.ModuleId)))
             {
                 _moduleController.DeleteTabModule(tabId, publishedDetail.ModuleId, true);
             }
-            
+
             // Publish Version
             return PublishVersion(GetCurrentPortalId(), tabId, createdByUserId, newVersion);
         }
@@ -278,7 +278,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                                                                     DataCache.PublishedTabModuleCachePriority),
                                                                     c => GetCurrentModulesInternal(tabId));
         }
-        
+
         public IEnumerable<ModuleInfo> GetVersionModules(int tabId, int version)
         {
             return ConvertToModuleInfo(GetVersionModulesDetails(tabId, version), tabId);
@@ -300,7 +300,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             {
                 return CBO.FillCollection<ModuleInfo>(DataProvider.Instance().GetTabModules(tabId));
             }
-            
+
             // If versionins is enabled but the tab doesn't have versions history, 
             // then it's a tab never edited after version enabling.
             var tabWithoutVersions = !_tabVersionController.GetTabVersions(tabId).Any();
@@ -364,7 +364,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         private void ForceDeleteVersion(int tabId, int version)
         {
             var unpublishedVersion = GetUnPublishedVersion(tabId);
-            if (unpublishedVersion != null 
+            if (unpublishedVersion != null
                 && unpublishedVersion.Version == version)
             {
                 throw new InvalidOperationException(
@@ -464,7 +464,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                 var module = _moduleController.GetModule(detail.ModuleId, tabId, true);
                 if (module.IsDeleted)
                 {
-                    _moduleController.RestoreModule(module);    
+                    _moduleController.RestoreModule(module);
                 }
             }
         }
@@ -477,7 +477,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                 _tabVersionController.DeleteTabVersion(tabId, tmpVersion.TabVersionId);
             }
         }
-        
+
         private void DeleteOldestVersionIfTabHasMaxNumberOfVersions(int portalId, int tabId)
         {
             var maxVersionsAllowed = GetMaxNumberOfVersions(portalId);
@@ -490,15 +490,15 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             CreateSnapshotOverVersion(tabId, snapShotTabVersion);
             DeleteOldVersions(tabVersionsOrdered, snapShotTabVersion);
         }
-      
+
         private int GetMaxNumberOfVersions(int portalId)
-        {            
+        {
             return _tabVersionSettings.GetMaxNumberOfVersions(portalId);
         }
 
         private void UpdateModuleOrder(int tabId, TabVersionDetail detailToRestore)
         {
-            var restoredModule = _moduleController.GetModule(detailToRestore.ModuleId, tabId, true);            
+            var restoredModule = _moduleController.GetModule(detailToRestore.ModuleId, tabId, true);
             UpdateModuleInfoOrder(restoredModule, detailToRestore);
         }
 
@@ -521,11 +521,11 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             };
         }
 
-        private void RestoreModuleInfo(int tabId, TabVersionDetail detailsToRestore )
+        private void RestoreModuleInfo(int tabId, TabVersionDetail detailsToRestore)
         {
             var restoredModule = _moduleController.GetModule(detailsToRestore.ModuleId, tabId, true);
-            _moduleController.RestoreModule(restoredModule);            
-            UpdateModuleInfoOrder(restoredModule, detailsToRestore);                  
+            _moduleController.RestoreModule(restoredModule);
+            UpdateModuleInfoOrder(restoredModule, detailsToRestore);
         }
 
         private IEnumerable<TabVersionDetail> GetVersionModulesDetails(int tabId, int version)
@@ -559,13 +559,13 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         private IEnumerable<TabVersionDetail> CopyVersionDetails(IEnumerable<TabVersionDetail> tabVersionDetails)
         {
             return tabVersionDetails.Select(tabVersionDetail => new TabVersionDetail
-                                                                {
-                                                                    ModuleId = tabVersionDetail.ModuleId, 
-                                                                    ModuleOrder = tabVersionDetail.ModuleOrder, 
-                                                                    ModuleVersion = tabVersionDetail.ModuleVersion, 
-                                                                    PaneName = tabVersionDetail.PaneName, 
-                                                                    Action = tabVersionDetail.Action
-                                                                }).ToList();
+            {
+                ModuleId = tabVersionDetail.ModuleId,
+                ModuleOrder = tabVersionDetail.ModuleOrder,
+                ModuleVersion = tabVersionDetail.ModuleVersion,
+                PaneName = tabVersionDetail.PaneName,
+                Action = tabVersionDetail.Action
+            }).ToList();
         }
 
         private void CheckVersioningEnabled(int tabId)
@@ -574,7 +574,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         }
 
         private void CheckVersioningEnabled(int portalId, int tabId)
-        {            
+        {
             if (portalId == Null.NullInteger || !_tabVersionSettings.IsVersioningEnabled(portalId, tabId))
             {
                 throw new InvalidOperationException(Localization.GetString("TabVersioningNotEnabled", Localization.ExceptionsResourceFile));
@@ -590,7 +590,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         {
             var snapShotTabVersionDetails = GetVersionModulesDetails(tabId, snapshotTabVersion.Version).ToArray();
             var existingTabVersionDetails = _tabVersionDetailController.GetTabVersionDetails(snapshotTabVersion.TabVersionId).ToArray();
-            
+
             for (var i = existingTabVersionDetails.Count(); i > 0; i--)
             {
                 var existingDetail = existingTabVersionDetails.ElementAtOrDefault(i - 1);
@@ -603,7 +603,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                             existingDetail.TabVersionDetailId);
                     }
                 }
-                else if (existingDetail.Action == TabVersionDetailAction.Deleted) 
+                else if (existingDetail.Action == TabVersionDetailAction.Deleted)
                 {
                     IEnumerable<TabVersionDetail> deletedTabVersionDetails = _tabVersionDetailController.GetTabVersionDetails(deletedTabVersion.TabVersionId);
                     var moduleAddedAndDeleted = deletedTabVersionDetails.Any(
@@ -624,7 +624,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         private void UpdateDeletedTabDetails(TabVersion snapshotTabVersion, TabVersion deletedTabVersion,
             TabVersionDetail[] snapShotTabVersionDetails)
         {
-            var tabVersionDetailsToBeUpdated = deletedTabVersion != null ? _tabVersionDetailController.GetTabVersionDetails(deletedTabVersion.TabVersionId).ToArray() 
+            var tabVersionDetailsToBeUpdated = deletedTabVersion != null ? _tabVersionDetailController.GetTabVersionDetails(deletedTabVersion.TabVersionId).ToArray()
                                                                                 : snapShotTabVersionDetails;
 
             foreach (var tabVersionDetail in tabVersionDetailsToBeUpdated)
@@ -639,7 +639,6 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                     tabVersionDetail.TabVersionId = snapshotTabVersion.TabVersionId;
                     _tabVersionDetailController.SaveTabVersionDetail(tabVersionDetail);
                 }
-                
             }
         }
 
@@ -659,7 +658,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             }
         }
 
-        private  IEnumerable<ModuleInfo> ConvertToModuleInfo(IEnumerable<TabVersionDetail> details, int tabId)
+        private IEnumerable<ModuleInfo> ConvertToModuleInfo(IEnumerable<TabVersionDetail> details, int tabId)
         {
             var modules = new List<ModuleInfo>();
             try
@@ -683,16 +682,15 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                     cloneModule.ModuleOrder = detail.ModuleOrder;
                     modules.Add(cloneModule);
                 }
-
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
-            
+
             return modules;
         }
-        
+
         private int RollBackDetail(int tabId, TabVersionDetail unPublishedDetail)
         {
             var moduleInfo = _moduleController.GetModule(unPublishedDetail.ModuleId, tabId, true);
@@ -736,7 +734,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             var versionableController = GetVersionableController(moduleInfo);
             if (versionableController != null)
             {
-                versionableController.DeleteVersion(unPublishedDetail.ModuleId, unPublishedDetail.ModuleVersion);                
+                versionableController.DeleteVersion(unPublishedDetail.ModuleId, unPublishedDetail.ModuleVersion);
             }
         }
 
@@ -746,7 +744,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             {
                 return null;
             }
-            
+
             object controller = Reflection.CreateObject(moduleInfo.DesktopModule.BusinessControllerClass, "");
             if (controller is IVersionable)
             {

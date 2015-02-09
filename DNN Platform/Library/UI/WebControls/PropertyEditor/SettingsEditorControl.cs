@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -28,7 +28,6 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -48,10 +47,10 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     [ToolboxData("<{0}:SettingsEditorControl runat=server></{0}:SettingsEditorControl>")]
     public class SettingsEditorControl : PropertyEditorControl
-	{
-		#region "Protected Properties"
+    {
+        #region "Protected Properties"
 
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets the Underlying DataSource
         /// </summary>
@@ -68,11 +67,11 @@ namespace DotNetNuke.UI.WebControls
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets and sets the CustomEditors that are used by this control
         /// </summary>
@@ -95,11 +94,11 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         public Hashtable Visibility { get; set; }
 
-		#endregion
+        #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// GetSettings converts the DataSource into an ArrayList (IEnumerable)
         /// </summary>
@@ -109,7 +108,7 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         private ArrayList GetSettings()
         {
-            var settings = (Hashtable) DataSource;
+            var settings = (Hashtable)DataSource;
             var arrSettings = new ArrayList();
             IDictionaryEnumerator settingsEnumerator = settings.GetEnumerator();
             while (settingsEnumerator.MoveNext())
@@ -125,13 +124,13 @@ namespace DotNetNuke.UI.WebControls
             return arrSettings;
         }
 
-		#endregion
+        #endregion
 
-		#region "Protected Override Methods"
+        #region "Protected Override Methods"
 
-		protected override void AddEditorRow(Table table, object obj)
+        protected override void AddEditorRow(Table table, object obj)
         {
-            var info = (SettingInfo) obj;
+            var info = (SettingInfo)obj;
             AddEditorRow(table, info.Name, new SettingsEditorInfoAdapter(DataSource, obj, ID));
         }
 
@@ -143,7 +142,7 @@ namespace DotNetNuke.UI.WebControls
 
         protected override void AddEditorRow(object obj)
         {
-            var info = (SettingInfo)obj; 
+            var info = (SettingInfo)obj;
             AddEditorRow(this, info.Name, new SettingsEditorInfoAdapter(DataSource, obj, ID));
         }
 
@@ -158,15 +157,15 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         protected override bool GetRowVisibility(object obj)
         {
-            var info = (SettingInfo) obj;
+            var info = (SettingInfo)obj;
             bool _IsVisible = true;
             if ((Visibility != null) && (Visibility[info.Name] != null))
             {
                 _IsVisible = Convert.ToBoolean(Visibility[info.Name]);
             }
             return _IsVisible;
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

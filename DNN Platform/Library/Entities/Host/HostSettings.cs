@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Controllers;
 
 #endregion
-
 namespace DotNetNuke.Entities.Host
 {
     [Obsolete("Replaced in DotNetNuke 5.0 by Host class because of Namespace clashes with Obsolete Globals.HostSetting Property")]
@@ -42,8 +41,8 @@ namespace DotNetNuke.Entities.Host
         }
 
         [Obsolete("Replaced in DNN 5.0 by Host.GetHostSettingsDictionary")]
-    	public static Hashtable GetHostSettings()
-	    {
+        public static Hashtable GetHostSettings()
+        {
             var h = new Hashtable();
             foreach (var kvp in Host.GetHostSettingsDictionary())
             {
@@ -51,7 +50,7 @@ namespace DotNetNuke.Entities.Host
             }
 
             return h;
-    	}
+        }
 
         [Obsolete("Replaced in DNN 5.0 by Host.GetSecureHostSettingsDictionary")]
         public static Hashtable GetSecureHostSettings()

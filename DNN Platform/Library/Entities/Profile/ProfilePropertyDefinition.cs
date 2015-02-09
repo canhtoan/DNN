@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -30,7 +30,7 @@ using DotNetNuke.UI.WebControls;
 
 namespace DotNetNuke.Entities.Profile
 {
-	/// -----------------------------------------------------------------------------
+    /// -----------------------------------------------------------------------------
     /// Project:    DotNetNuke
     /// Namespace:  DotNetNuke.Entities.Profile
     /// Class:      ProfilePropertyDefinition
@@ -55,15 +55,15 @@ namespace DotNetNuke.Entities.Profile
         private string _defaultValue;
         private UserVisibilityMode _defaultVisibility = UserVisibilityMode.AdminOnly;
         private bool _deleted;
-	    private int _length;
+        private int _length;
         private int _moduleDefId = Null.NullInteger;
         private int _portalId;
         private ProfileVisibility _profileVisibility = new ProfileVisibility
-                                                            {
-                                                                VisibilityMode = UserVisibilityMode.AdminOnly
-                                                            };
+        {
+            VisibilityMode = UserVisibilityMode.AdminOnly
+        };
         private string _propertyCategory;
-	    private string _propertyName;
+        private string _propertyName;
         private string _propertyValue;
         private bool _readOnly;
         private bool _required;
@@ -89,7 +89,7 @@ namespace DotNetNuke.Entities.Profile
             PortalId = portalId;
         }
 
-	    #endregion
+        #endregion
 
         #region Public Properties
 
@@ -101,7 +101,7 @@ namespace DotNetNuke.Entities.Profile
         ///     [cnurse]	01/31/2006	created
         /// </history>
         /// -----------------------------------------------------------------------------
-        [Editor("DotNetNuke.UI.WebControls.DNNListEditControl, DotNetNuke", typeof (EditControl))]
+        [Editor("DotNetNuke.UI.WebControls.DNNListEditControl, DotNetNuke", typeof(EditControl))]
         [List("DataType", "", ListBoundField.Id, ListBoundField.Value)]
         [IsReadOnly(true)]
         [Required(true)]
@@ -194,19 +194,19 @@ namespace DotNetNuke.Entities.Profile
             }
         }
 
-	    /// -----------------------------------------------------------------------------
-	    /// <summary>
-	    /// Gets whether the Definition has been modified since it has been retrieved
-	    /// </summary>
-	    /// <history>
-	    ///     [cnurse]	02/21/2006	created
-	    /// </history>
-	    /// -----------------------------------------------------------------------------
-	    [Browsable(false)]
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets whether the Definition has been modified since it has been retrieved
+        /// </summary>
+        /// <history>
+        ///     [cnurse]	02/21/2006	created
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        [Browsable(false)]
         [XmlIgnore]
-	    public bool IsDirty { get; private set; }
+        public bool IsDirty { get; private set; }
 
-	    /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets and sets the Length of the Profile Property
         /// </summary>
@@ -303,19 +303,19 @@ namespace DotNetNuke.Entities.Profile
             }
         }
 
-	    /// -----------------------------------------------------------------------------
-	    /// <summary>
-	    /// Gets and sets the Id of the ProfilePropertyDefinition
-	    /// </summary>
-	    /// <history>
-	    ///     [cnurse]	01/31/2006	created
-	    /// </history>
-	    /// -----------------------------------------------------------------------------
-	    [Browsable(false)]
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets and sets the Id of the ProfilePropertyDefinition
+        /// </summary>
+        /// <history>
+        ///     [cnurse]	01/31/2006	created
+        /// </history>
+        /// -----------------------------------------------------------------------------
+        [Browsable(false)]
         [XmlIgnore]
-	    public int PropertyDefinitionId { get; set; }
+        public int PropertyDefinitionId { get; set; }
 
-	    /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets and sets the Name of the Profile Property
         /// </summary>
@@ -512,7 +512,7 @@ namespace DotNetNuke.Entities.Profile
         [Browsable(false)]
         [XmlIgnore]
         public ProfileVisibility ProfileVisibility
-	    {
+        {
             get
             {
                 return _profileVisibility;
@@ -524,8 +524,8 @@ namespace DotNetNuke.Entities.Profile
                     IsDirty = true;
                 }
                 _profileVisibility = value;
-            }	        
-	    }
+            }
+        }
 
         #endregion
 
@@ -551,24 +551,24 @@ namespace DotNetNuke.Entities.Profile
         public ProfilePropertyDefinition Clone()
         {
             var clone = new ProfilePropertyDefinition(PortalId)
-                            {
-                                DataType = DataType,
-                                DefaultValue = DefaultValue,
-                                Length = Length,
-                                ModuleDefId = ModuleDefId,
-                                PropertyCategory = PropertyCategory,
-                                PropertyDefinitionId = PropertyDefinitionId,
-                                PropertyName = PropertyName,
-                                PropertyValue = PropertyValue,
-                                ReadOnly = ReadOnly,
-                                Required = Required,
-                                ValidationExpression = ValidationExpression,
-                                ViewOrder = ViewOrder,
-                                DefaultVisibility = DefaultVisibility,
-                                ProfileVisibility = ProfileVisibility.Clone(),
-                                Visible = Visible,
-                                Deleted = Deleted
-                            };
+            {
+                DataType = DataType,
+                DefaultValue = DefaultValue,
+                Length = Length,
+                ModuleDefId = ModuleDefId,
+                PropertyCategory = PropertyCategory,
+                PropertyDefinitionId = PropertyDefinitionId,
+                PropertyName = PropertyName,
+                PropertyValue = PropertyValue,
+                ReadOnly = ReadOnly,
+                Required = Required,
+                ValidationExpression = ValidationExpression,
+                ViewOrder = ViewOrder,
+                DefaultVisibility = DefaultVisibility,
+                ProfileVisibility = ProfileVisibility.Clone(),
+                Visible = Visible,
+                Deleted = Deleted
+            };
             clone.ClearIsDirty();
             return clone;
         }

@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -38,7 +38,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Web.Api;
 
 #endregion
-
 namespace DotNetNuke.Web.InternalServices
 {
     [DnnAuthorize]
@@ -60,12 +59,12 @@ namespace DotNetNuke.Web.InternalServices
 
             var controller = new ListController();
 
-			ListEntryInfo imageType = controller.GetListEntryInfo("DataType", "Image");
+            ListEntryInfo imageType = controller.GetListEntryInfo("DataType", "Image");
 
             IList<SearchResult> results = new List<SearchResult>();
             foreach (var definition in ProfileController.GetPropertyDefinitionsByPortal(portalId)
                                         .Cast<ProfilePropertyDefinition>()
-										.Where(definition => definition.DataType != imageType.EntryID))
+                                        .Where(definition => definition.DataType != imageType.EntryID))
             {
                 AddProperty(results, definition.PropertyName, q);
             }
@@ -95,13 +94,14 @@ namespace DotNetNuke.Web.InternalServices
 
             if (modified)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, 
-                    new {
-                            Result = "warning",
-                            Title = Localization.GetString("CleanWarningTitle", Localization.SharedResourceFile),
-                            Message = Localization.GetString("ProfileUrlCleaned", Localization.SharedResourceFile),
-                            SuggestedUrl = cleanUrl
-                        });
+                return Request.CreateResponse(HttpStatusCode.OK,
+                    new
+                    {
+                        Result = "warning",
+                        Title = Localization.GetString("CleanWarningTitle", Localization.SharedResourceFile),
+                        Message = Localization.GetString("ProfileUrlCleaned", Localization.SharedResourceFile),
+                        SuggestedUrl = cleanUrl
+                    });
             }
 
             //Validate for uniqueness
@@ -112,12 +112,12 @@ namespace DotNetNuke.Web.InternalServices
             {
                 return Request.CreateResponse(HttpStatusCode.OK,
                                               new
-                                                  {
-                                                      Result = "warning",
-                                                      Title = Localization.GetString("DuplicateUrlWarningTitle", Localization.SharedResourceFile),
-                                                      Message = Localization.GetString("ProfileUrlNotUnique", Localization.SharedResourceFile),
-                                                      SuggestedUrl = uniqueUrl
-                                                  });
+                                              {
+                                                  Result = "warning",
+                                                  Title = Localization.GetString("DuplicateUrlWarningTitle", Localization.SharedResourceFile),
+                                                  Message = Localization.GetString("ProfileUrlNotUnique", Localization.SharedResourceFile),
+                                                  SuggestedUrl = uniqueUrl
+                                              });
             }
 
             var user = PortalSettings.UserInfo;

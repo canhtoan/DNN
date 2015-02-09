@@ -52,6 +52,5 @@ namespace DotNetNuke.Web.UI.WebControls
                 SelectedItem = (value != null) ? new ListItem() { Text = value.IndentedTabName, Value = value.TabID.ToString(CultureInfo.InvariantCulture) } : null;
             }
         }
-
     }
 }

@@ -17,22 +17,21 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Web;
 using System.Web.UI;
+using ClientDependency.Core.Controls;
 
 namespace DotNetNuke.Web.Client.ClientResourceManagement
 {
-    using ClientDependency.Core.Controls;
-
     /// <summary>
     /// The central control with which all client resources are registered.
     /// </summary>
     public class ClientResourceLoader : ClientDependencyLoader
     {
-        private bool AsyncPostBackHandlerEnabled 
+        private bool AsyncPostBackHandlerEnabled
         {
             get
             {

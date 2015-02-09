@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Text.RegularExpressions;
 using System.Web.UI;
@@ -32,7 +32,6 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.Containers
 {
     /// -----------------------------------------------------------------------------
@@ -53,7 +52,7 @@ namespace DotNetNuke.UI.Containers
     /// -----------------------------------------------------------------------------
     public class ActionsMenu : Control, IActionControl
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private ActionManager _ActionManager;
         private ModuleAction _ActionRoot;
@@ -61,9 +60,9 @@ namespace DotNetNuke.UI.Containers
         private NavigationProvider _ProviderControl;
         private string _ProviderName = "DNNMenuNavigationProvider";
 
-		#endregion
+        #endregion
 
-		#region "Protected Properties"
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -102,10 +101,10 @@ namespace DotNetNuke.UI.Containers
                 return _ProviderControl;
             }
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -132,26 +131,26 @@ namespace DotNetNuke.UI.Containers
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets and Sets the Path to the Script Library for the provider
-		/// </summary>
-		/// <returns>A String</returns>
-		/// <history>
-		/// 	[cnurse]	12/24/2007  created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets and Sets the Path to the Script Library for the provider
+        /// </summary>
+        /// <returns>A String</returns>
+        /// <history>
+        /// 	[cnurse]	12/24/2007  created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string PathSystemScript { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets and Sets whether the Menu should be populated from the client
-		/// </summary>
-		/// <returns>A Boolean</returns>
-		/// <history>
-		/// 	[cnurse]	12/24/2007  created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets and Sets whether the Menu should be populated from the client
+        /// </summary>
+        /// <returns>A Boolean</returns>
+        /// <history>
+        /// 	[cnurse]	12/24/2007  created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool PopulateNodesFromClient { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -212,10 +211,10 @@ namespace DotNetNuke.UI.Containers
         public IModuleControl ModuleControl { get; set; }
 
         #endregion
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
 
         /// -----------------------------------------------------------------------------
@@ -242,15 +241,15 @@ namespace DotNetNuke.UI.Containers
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// ProcessNodes proceses a single node and its children
-		/// </summary>
-		/// <param name="objParent">The Node to process</param>
-		/// <history>
-		/// 	[cnurse]	12/24/2007  created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// ProcessNodes proceses a single node and its children
+        /// </summary>
+        /// <param name="objParent">The Node to process</param>
+        /// <history>
+        /// 	[cnurse]	12/24/2007  created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         private void ProcessNodes(DNNNode objParent)
         {
             if (!String.IsNullOrEmpty(objParent.JSFunction))
@@ -275,7 +274,7 @@ namespace DotNetNuke.UI.Containers
         {
             try
             {
-				//--- original page set attributes ---
+                //--- original page set attributes ---
                 ProviderControl.StyleIconWidth = 15;
                 ProviderControl.MouseOutHideDelay = 500;
                 ProviderControl.MouseOverAction = NavigationProvider.HoverAction.Expand;
@@ -291,9 +290,9 @@ namespace DotNetNuke.UI.Containers
                 ProviderControl.CSSNodeHover = "ModuleTitle_MenuItemSel";
                 ProviderControl.CSSIndicateChildSub = "ModuleTitle_MenuArrow";
                 ProviderControl.CSSIndicateChildRoot = "ModuleTitle_RootMenuArrow";
-                
-				//generate dynamic menu
-				if (String.IsNullOrEmpty(ProviderControl.PathSystemScript))
+
+                //generate dynamic menu
+                if (String.IsNullOrEmpty(ProviderControl.PathSystemScript))
                 {
                     ProviderControl.PathSystemScript = Globals.ApplicationPath + "/Controls/SolpartMenu/";
                 }
@@ -309,10 +308,10 @@ namespace DotNetNuke.UI.Containers
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
         }
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -394,9 +393,9 @@ namespace DotNetNuke.UI.Containers
             BindMenu();
         }
 
-		#endregion
+        #endregion
 
-		#region "Event Handlers"
+        #region "Event Handlers"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -443,7 +442,7 @@ namespace DotNetNuke.UI.Containers
             ProviderControl.ClearNodes(); //since we always bind we need to clear the nodes for providers that maintain their state
             BindMenu(Navigation.GetActionNodes(objAction, args.Node, this, ExpandDepth));
         }
-		
-		#endregion
+
+        #endregion
     }
 }

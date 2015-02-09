@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Users;
@@ -39,7 +39,7 @@ namespace DotNetNuke.Modules.Journal
     [ValidateAntiForgeryToken]
     public class NotificationServicesController : DnnApiController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(NotificationServicesController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(NotificationServicesController));
 
         public class NotificationDTO
         {
@@ -53,7 +53,7 @@ namespace DotNetNuke.Modules.Journal
             {
                 var notification = NotificationsController.Instance.GetNotification(postData.NotificationId);
 
-                if(notification != null && notification.Context != null && notification.Context.Contains("_"))
+                if (notification != null && notification.Context != null && notification.Context.Contains("_"))
                 {
                     //Dismiss the notification
                     NotificationsController.Instance.DeleteNotificationRecipient(postData.NotificationId, UserInfo.UserID);
@@ -72,11 +72,10 @@ namespace DotNetNuke.Modules.Journal
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "unable to process notification");
         }
-
     }
 }

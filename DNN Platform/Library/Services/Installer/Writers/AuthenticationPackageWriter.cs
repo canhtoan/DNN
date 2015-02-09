@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.IO;
 using System.Xml;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Services.Authentication;
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -42,8 +41,8 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class AuthenticationPackageWriter : PackageWriterBase
     {
-		#region "Constructors"
-		
+        #region "Constructors"
+
         public AuthenticationPackageWriter(PackageInfo package) : base(package)
         {
             AuthSystem = AuthenticationController.GetAuthenticationServiceByPackageID(package.PackageID);
@@ -55,25 +54,25 @@ namespace DotNetNuke.Services.Installer.Writers
             AuthSystem = authSystem;
             Initialize();
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets the associated Authentication System
-		/// </summary>
-		/// <value>An AuthenticationInfo object</value>
-		/// <history>
-		/// 	[cnurse]	01/30/2008  created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        #region "Public Properties"
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets the associated Authentication System
+        /// </summary>
+        /// <value>An AuthenticationInfo object</value>
+        /// <history>
+        /// 	[cnurse]	01/30/2008  created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public AuthenticationInfo AuthSystem { get; set; }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         private void Initialize()
         {
@@ -84,7 +83,7 @@ namespace DotNetNuke.Services.Installer.Writers
 
         private void WriteAuthenticationComponent(XmlWriter writer)
         {
-			//Start component Element
+            //Start component Element
             writer.WriteStartElement("component");
             writer.WriteAttributeString("type", "AuthenticationSystem");
 
@@ -102,12 +101,12 @@ namespace DotNetNuke.Services.Installer.Writers
             //End component Element
             writer.WriteEndElement();
         }
-		
-		#endregion
+
+        #endregion
 
         protected override void WriteManifestComponent(XmlWriter writer)
         {
-			//Write Authentication Component
+            //Write Authentication Component
             WriteAuthenticationComponent(writer);
         }
     }

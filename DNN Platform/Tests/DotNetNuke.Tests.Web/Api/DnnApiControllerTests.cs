@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Net.Http;
 using System.Web.Http;
@@ -35,7 +35,7 @@ namespace DotNetNuke.Tests.Web.Api
     [TestFixture]
     public class DnnApiControllerTests
     {
-        internal class DnnApiControllerHelper : DnnApiController {}
+        internal class DnnApiControllerHelper : DnnApiController { }
 
         [TearDown]
         public void TearDown()
@@ -55,7 +55,7 @@ namespace DotNetNuke.Tests.Web.Api
             configuration.AddTabAndModuleInfoProvider(provider.Object);
             request.Properties[HttpPropertyKeys.HttpConfigurationKey] = configuration;
 
-            var controller = new DnnApiControllerHelper {Request = request};
+            var controller = new DnnApiControllerHelper { Request = request };
 
             //Act
             var result = controller.ActiveModule;
@@ -85,23 +85,23 @@ namespace DotNetNuke.Tests.Web.Api
 
         //A test that would be nice to run, but I see not good way to test the source of the 
         //userinfo
-//        [Test]
-//        public void UserInfoComesFromPortalSettings()
-//        {
-//            //Arrange
-//            var controller = new DnnApiControllerHelper();
-//            var mockPortalController = new Mock<IPortalController>();
-//            var expectedPortalSettings = new PortalSettings();
-              //expectedPortalSettings.UserInfo = ??????
-//            mockPortalController.Setup(x => x.GetCurrentPortalSettings()).Returns(expectedPortalSettings);
-//            TestablePortalController.SetTestableInstance(mockPortalController.Object);
-//
-//            //Act
-//            var result = controller.PortalSettings;
-//
-//            //Assert
-//            mockPortalController.Verify(x => x.GetCurrentPortalSettings(), Times.Once());
-//            Assert.AreEqual(expectedPortalSettings, result);
-//        }
+        //        [Test]
+        //        public void UserInfoComesFromPortalSettings()
+        //        {
+        //            //Arrange
+        //            var controller = new DnnApiControllerHelper();
+        //            var mockPortalController = new Mock<IPortalController>();
+        //            var expectedPortalSettings = new PortalSettings();
+        //expectedPortalSettings.UserInfo = ??????
+        //            mockPortalController.Setup(x => x.GetCurrentPortalSettings()).Returns(expectedPortalSettings);
+        //            TestablePortalController.SetTestableInstance(mockPortalController.Object);
+        //
+        //            //Act
+        //            var result = controller.PortalSettings;
+        //
+        //            //Assert
+        //            mockPortalController.Verify(x => x.GetCurrentPortalSettings(), Times.Once());
+        //            Assert.AreEqual(expectedPortalSettings, result);
+        //        }
     }
 }

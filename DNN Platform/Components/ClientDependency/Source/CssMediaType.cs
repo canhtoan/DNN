@@ -1,4 +1,5 @@
-﻿namespace ClientDependency.Core
+﻿
+namespace ClientDependency.Core
 {
     public enum CssMediaType
     {

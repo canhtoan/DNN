@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,7 +43,6 @@ using DotNetNuke.Services.Tokens;
 using System.Web;
 
 #endregion
-
 namespace DotNetNuke.Security.Roles
 {
     /// -----------------------------------------------------------------------------
@@ -405,8 +404,6 @@ namespace DotNetNuke.Security.Roles
                         IsSystemRole = Null.SetNullBoolean(dr["IsSystemRole"]);
                     }
                 }
-
-
             }
             catch (IndexOutOfRangeException)
             {
@@ -660,7 +657,7 @@ namespace DotNetNuke.Security.Roles
                             }
                             break;
                         default:
-                            if(reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
+                            if (reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
                             {
                                 reader.ReadElementContentAsString();
                             }
@@ -764,7 +761,7 @@ namespace DotNetNuke.Security.Roles
 
         private string FormatUrl(string url)
         {
-            if (url.StartsWith("/") && HttpContext.Current != null) 
+            if (url.StartsWith("/") && HttpContext.Current != null)
             {
                 //server absolute path
                 return Globals.AddHTTP(HttpContext.Current.Request.Url.Host) + url;

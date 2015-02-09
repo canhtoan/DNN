@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +41,7 @@ namespace DotNetNuke.Services.Social.Notifications
     /// <summary>
     /// Provides the methods to work with Notifications, NotificationTypes, NotificationTypeActions and NotificationActions.
     /// </summary>
-    public class NotificationsController 
+    public class NotificationsController
                         : ServiceLocator<INotificationsController, NotificationsController>
                         , INotificationsController
     {
@@ -206,12 +206,12 @@ namespace DotNetNuke.Services.Social.Notifications
             var recipients = from user in users
                              where InternalMessagingController.Instance.GetMessageRecipient(notification.NotificationID, user.UserID) == null
                              select new MessageRecipient
-                                        {
-                                            MessageID = notification.NotificationID,
-                                            UserID = user.UserID,
-                                            Read = false,
-                                            RecipientID = Null.NullInteger
-                                        };
+                             {
+                                 MessageID = notification.NotificationID,
+                                 UserID = user.UserID,
+                                 Read = false,
+                                 RecipientID = Null.NullInteger
+                             };
 
             foreach (var recipient in recipients)
             {
@@ -244,7 +244,7 @@ namespace DotNetNuke.Services.Social.Notifications
                                                                                       notificationType.Description,
                                                                                       (int)notificationType.TimeToLive.TotalMinutes == 0 ? Null.NullInteger : (int)notificationType.TimeToLive.TotalMinutes,
                                                                                       notificationType.DesktopModuleId,
-                                                                                      GetCurrentUserId(), 
+                                                                                      GetCurrentUserId(),
                                                                                       notificationType.IsTask);
         }
 
@@ -359,41 +359,41 @@ namespace DotNetNuke.Services.Social.Notifications
 
         #endregion
 
-		#region Toast APIS
+        #region Toast APIS
 
-		public bool IsToastPending(int notificationId)
-		{
-			return _dataService.IsToastPending(notificationId);
-		}
+        public bool IsToastPending(int notificationId)
+        {
+            return _dataService.IsToastPending(notificationId);
+        }
 
-		public void MarkReadyForToast(Notification notification, UserInfo userInfo)
-		{
-			MarkReadyForToast(notification, userInfo.UserID);
-		}
+        public void MarkReadyForToast(Notification notification, UserInfo userInfo)
+        {
+            MarkReadyForToast(notification, userInfo.UserID);
+        }
 
         public void MarkReadyForToast(Notification notification, int userId)
         {
             _dataService.MarkReadyForToast(notification.NotificationID, userId);
         }
 
-		public void MarkToastSent(int notificationId, int userId)
-		{
-			_dataService.MarkToastSent(notificationId, userId);
-		}
+        public void MarkToastSent(int notificationId, int userId)
+        {
+            _dataService.MarkToastSent(notificationId, userId);
+        }
 
-		public IList<Notification> GetToasts(UserInfo userInfo)
-		{
-			var toasts = CBO.FillCollection<Notification>(_dataService.GetToasts(userInfo.UserID, userInfo.PortalID));
+        public IList<Notification> GetToasts(UserInfo userInfo)
+        {
+            var toasts = CBO.FillCollection<Notification>(_dataService.GetToasts(userInfo.UserID, userInfo.PortalID));
 
-			foreach (var message in toasts)
-			{
-				_dataService.MarkToastSent(message.NotificationID, userInfo.UserID);
-			}
+            foreach (var message in toasts)
+            {
+                _dataService.MarkToastSent(message.NotificationID, userInfo.UserID);
+            }
 
-			return toasts;
-		}
+            return toasts;
+        }
 
-		#endregion
+        #endregion
 
         #region Internal Methods
 

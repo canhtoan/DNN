@@ -1,8 +1,9 @@
-#region Copyright
-// DotNetNuke� - http://www.dotnetnuke.com
+﻿#region Copyright
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -19,19 +20,19 @@ using DotNetNuke.Services.Upgrade;
 
 namespace DotNetNuke.Modules.MobileManagement.Components
 {
-	public class MobileManagementController : IUpgradeable
+    public class MobileManagementController : IUpgradeable
     {
         #region IUpgradable Implementation
 
         public string UpgradeModule(string version)
         {
-            switch(version)
+            switch (version)
             {
                 case "06.01.05":
                     RemoveProVersion();
                     break;
             }
-			return "Success";
+            return "Success";
         }
 
         private void RemoveProVersion()
@@ -41,7 +42,7 @@ namespace DotNetNuke.Modules.MobileManagement.Components
                 //Update Site Redirection management page
                 var tabId = TabController.GetTabByTabPath(portal.PortalID, "//Admin//SiteRedirectionManagement", Null.NullString);
                 TabInfo newTab;
-                if(tabId == Null.NullInteger)
+                if (tabId == Null.NullInteger)
                 {
                     newTab = Upgrade.AddAdminPage(portal,
                                                  "Site Redirection Management",
@@ -88,7 +89,7 @@ namespace DotNetNuke.Modules.MobileManagement.Components
             }
 
             var package = PackageController.Instance.GetExtensionPackage(Null.NullInteger, p => p.Name == "DotNetNuke.Professional.MobileManagement");
-            if(package != null)
+            if (package != null)
             {
                 var installer = new Installer(package, Globals.ApplicationMapPath);
                 installer.UnInstall(true);

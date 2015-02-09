@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 
 using DotNetNuke.Common.Utilities;
@@ -29,7 +29,6 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     /// -----------------------------------------------------------------------------
@@ -46,7 +45,7 @@ namespace DotNetNuke.Entities.Modules
     /// -----------------------------------------------------------------------------
     public class SkinControlController
     {
-        private static readonly DataProvider dataProvider = DataProvider.Instance();
+        private static readonly DataProvider s_dataProvider = DataProvider.Instance();
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -59,7 +58,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public static void DeleteSkinControl(SkinControlInfo skinControl)
         {
-            dataProvider.DeleteSkinControl(skinControl.SkinControlID);
+            s_dataProvider.DeleteSkinControl(skinControl.SkinControlID);
             EventLogController.Instance.AddLog(skinControl, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", EventLogController.EventLogType.SKINCONTROL_DELETED);
         }
 
@@ -74,7 +73,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public static SkinControlInfo GetSkinControl(int skinControlID)
         {
-            return CBO.FillObject<SkinControlInfo>(dataProvider.GetSkinControl(skinControlID));
+            return CBO.FillObject<SkinControlInfo>(s_dataProvider.GetSkinControl(skinControlID));
         }
 
         /// -----------------------------------------------------------------------------
@@ -88,7 +87,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public static SkinControlInfo GetSkinControlByPackageID(int packageID)
         {
-            return CBO.FillObject<SkinControlInfo>(dataProvider.GetSkinControlByPackageID(packageID));
+            return CBO.FillObject<SkinControlInfo>(s_dataProvider.GetSkinControlByPackageID(packageID));
         }
 
         /// -----------------------------------------------------------------------------
@@ -102,7 +101,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public static SkinControlInfo GetSkinControlByKey(string key)
         {
-            return CBO.FillObject<SkinControlInfo>(dataProvider.GetSkinControlByKey(key));
+            return CBO.FillObject<SkinControlInfo>(s_dataProvider.GetSkinControlByKey(key));
         }
 
         /// -----------------------------------------------------------------------------
@@ -115,7 +114,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public static Dictionary<string, SkinControlInfo> GetSkinControls()
         {
-            return CBO.FillDictionary("ControlKey", dataProvider.GetSkinControls(), new Dictionary<string, SkinControlInfo>());
+            return CBO.FillDictionary("ControlKey", s_dataProvider.GetSkinControls(), new Dictionary<string, SkinControlInfo>());
         }
 
         /// -----------------------------------------------------------------------------
@@ -132,8 +131,8 @@ namespace DotNetNuke.Entities.Modules
             int skinControlID = skinControl.SkinControlID;
             if (skinControlID == Null.NullInteger)
             {
-				//Add new Skin Control
-                skinControlID = dataProvider.AddSkinControl(skinControl.PackageID,
+                //Add new Skin Control
+                skinControlID = s_dataProvider.AddSkinControl(skinControl.PackageID,
                                                             skinControl.ControlKey,
                                                             skinControl.ControlSrc,
                                                             skinControl.SupportsPartialRendering,
@@ -142,8 +141,8 @@ namespace DotNetNuke.Entities.Modules
             }
             else
             {
-				//Upgrade Skin Control
-                dataProvider.UpdateSkinControl(skinControl.SkinControlID,
+                //Upgrade Skin Control
+                s_dataProvider.UpdateSkinControl(skinControl.SkinControlID,
                                                skinControl.PackageID,
                                                skinControl.ControlKey,
                                                skinControl.ControlSrc,

@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using DotNetNuke.Services.Localization;
 
 namespace DotNetNuke.Web.Components

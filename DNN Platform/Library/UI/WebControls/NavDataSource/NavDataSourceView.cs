@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,35 +17,34 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
-	/// <summary>The NavDataSourceView class encapsulates the capabilities of the NavDataSource data source control.</summary>
+    /// <summary>The NavDataSourceView class encapsulates the capabilities of the NavDataSource data source control.</summary>
     public class NavDataSourceView : HierarchicalDataSourceView
     {
-        private readonly string m_sKey;
-        private string m_sNamespace = "MyNS";
+        private readonly string _sKey;
+        private string _sNamespace = "MyNS";
 
         public NavDataSourceView(string viewPath)
         {
             if (String.IsNullOrEmpty(viewPath))
             {
-                m_sKey = "";
+                _sKey = "";
             }
             else if (viewPath.IndexOf("\\") > -1)
             {
-                m_sKey = viewPath.Substring(viewPath.LastIndexOf("\\") + 1);
+                _sKey = viewPath.Substring(viewPath.LastIndexOf("\\") + 1);
             }
             else
             {
-                m_sKey = viewPath;
+                _sKey = viewPath;
             }
         }
 
@@ -53,11 +52,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return m_sNamespace;
+                return _sNamespace;
             }
             set
             {
-                m_sNamespace = value;
+                _sNamespace = value;
             }
         }
 
@@ -73,10 +72,10 @@ namespace DotNetNuke.UI.WebControls
         {
             var objPages = new NavDataPageHierarchicalEnumerable();
             DNNNodeCollection objNodes;
-            objNodes = Navigation.GetNavigationNodes(m_sNamespace);
-            if (!String.IsNullOrEmpty(m_sKey))
+            objNodes = Navigation.GetNavigationNodes(_sNamespace);
+            if (!String.IsNullOrEmpty(_sKey))
             {
-                objNodes = objNodes.FindNodeByKey(m_sKey).DNNNodes;
+                objNodes = objNodes.FindNodeByKey(_sKey).DNNNodes;
             }
             foreach (DNNNode objNode in objNodes)
             {

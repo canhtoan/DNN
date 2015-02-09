@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -29,7 +29,6 @@ using DotNetNuke.Entities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Social.Messaging
 {
     /// -----------------------------------------------------------------------------
@@ -74,7 +73,7 @@ namespace DotNetNuke.Services.Social.Messaging
         [XmlAttribute]
         public int FileID { get; set; }
 
-      
+
         /// <summary>
         /// IHydratable.KeyID.
         /// </summary>
@@ -100,10 +99,9 @@ namespace DotNetNuke.Services.Social.Messaging
             this.MessageAttachmentID = Convert.ToInt32(dr["MessageAttachmentID"]);
             this.MessageID = Convert.ToInt32(dr["MessageID"]);
             this.FileID = Convert.ToInt32(dr["FileID"]);
-            
+
             //add audit column data
             FillInternal(dr);
-            
         }
     }
 }

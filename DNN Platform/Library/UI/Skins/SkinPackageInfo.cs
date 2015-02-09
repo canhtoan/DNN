@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,7 +30,6 @@ using DotNetNuke.Entities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins
 {
     /// -----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ namespace DotNetNuke.UI.Skins
     [Serializable]
     public class SkinPackageInfo : BaseEntityInfo, IHydratable
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private int _PackageID = Null.NullInteger;
         private int _PortalID = Null.NullInteger;
@@ -58,10 +57,10 @@ namespace DotNetNuke.UI.Skins
         private int _SkinPackageID = Null.NullInteger;
         private string _SkinType;
         private Dictionary<int, string> _Skins = new Dictionary<int, string>();
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public int PackageID
         {
@@ -135,8 +134,8 @@ namespace DotNetNuke.UI.Skins
                 _SkinType = value;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IHydratable Members
 

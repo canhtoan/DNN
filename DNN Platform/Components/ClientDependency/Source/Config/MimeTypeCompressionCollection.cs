@@ -6,8 +6,6 @@ using System.Configuration;
 
 namespace ClientDependency.Core.Config
 {
-    
-
     public class MimeTypeCompressionCollection : ConfigurationElementCollection
     {
         protected override bool ThrowOnDuplicate

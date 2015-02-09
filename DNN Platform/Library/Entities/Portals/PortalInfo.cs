@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -34,7 +34,6 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Security.Roles.Internal;
 
 #endregion
-
 namespace DotNetNuke.Entities.Portals
 {
     /// <summary>
@@ -73,13 +72,13 @@ namespace DotNetNuke.Entities.Portals
     [Serializable]
     public class PortalInfo : BaseEntityInfo, IHydratable
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private string _administratorRoleName;
         private int _pages = Null.NullInteger;
         private string _registeredRoleName;
-		
-		#endregion
+
+        #endregion
 
         #region Constructors
 
@@ -292,7 +291,8 @@ namespace DotNetNuke.Entities.Portals
         /// <returns>Portal home system directory in local filesystem</returns>
         /// <remarks><seealso cref="HomeSystemDirectoryMapPath"></seealso></remarks>
         [XmlElement("homesystemdirectory")]
-        public string HomeSystemDirectory {
+        public string HomeSystemDirectory
+        {
             get { return String.Format("{0}-System", HomeDirectory); }
         }
 
@@ -347,7 +347,7 @@ namespace DotNetNuke.Entities.Portals
         [XmlElement("hostspace")]
         public int HostSpace { get; set; }
 
-         /// <summary>
+        /// <summary>
         /// Keywords (separated by ,) for this portal
         /// </summary>
         /// <value>Keywords seperated by ,</value>
@@ -360,7 +360,7 @@ namespace DotNetNuke.Entities.Portals
         ///      txtDescription.Text = objPortal.Description
         ///      txtKeyWords.Text = objPortal.KeyWords
         ///  </code></example></remarks>
-       [XmlElement("keywords")]
+        [XmlElement("keywords")]
         public string KeyWords { get; set; }
 
         /// <summary>
@@ -676,7 +676,7 @@ namespace DotNetNuke.Entities.Portals
             {
                 if (_administratorRoleName == Null.NullString && AdministratorRoleId > Null.NullInteger)
                 {
-					//Get Role Name
+                    //Get Role Name
                     RoleInfo adminRole = RoleController.Instance.GetRole(PortalID, r => r.RoleID == AdministratorRoleId);
                     if (adminRole != null)
                     {
@@ -758,7 +758,7 @@ namespace DotNetNuke.Entities.Portals
             {
                 if (_registeredRoleName == Null.NullString && RegisteredRoleId > Null.NullInteger)
                 {
-					//Get Role Name
+                    //Get Role Name
                     RoleInfo regUsersRole = RoleController.Instance.GetRole(PortalID, r => r.RoleID == RegisteredRoleId);
                     if (regUsersRole != null)
                     {
@@ -796,7 +796,7 @@ namespace DotNetNuke.Entities.Portals
             }
             catch (IndexOutOfRangeException)
             {
-                if(Globals.Status == Globals.UpgradeStatus.None)
+                if (Globals.Status == Globals.UpgradeStatus.None)
                 {
                     //this should not happen outside of an upgrade situation
                     throw;
@@ -804,7 +804,7 @@ namespace DotNetNuke.Entities.Portals
 
                 //else swallow the error
             }
-            
+
             PortalName = Null.SetNullString(dr["PortalName"]);
             LogoFile = Null.SetNullString(dr["LogoFile"]);
             FooterText = Null.SetNullString(dr["FooterText"]);

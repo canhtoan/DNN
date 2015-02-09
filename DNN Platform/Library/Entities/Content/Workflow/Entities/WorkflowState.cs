@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.ComponentModel.DataAnnotations;
 using DotNetNuke.ComponentModel.DataAnnotations;
 
@@ -29,7 +29,7 @@ namespace DotNetNuke.Entities.Content.Workflow.Entities
     /// </summary>
     [PrimaryKey("StateID")]
     [TableName("ContentWorkflowStates")]
-    public class WorkflowState 
+    public class WorkflowState
     {
         /// <summary>
         /// State Id
@@ -51,7 +51,7 @@ namespace DotNetNuke.Entities.Content.Workflow.Entities
         /// <summary>
         /// State Order
         /// </summary>
-        public int Order { get; internal set; } 
+        public int Order { get; internal set; }
 
         /// <summary>
         /// Indicates if the state is a system state. System states (i.e.: Draft, Published) have a special behavior. They cannot be deleted or moved.

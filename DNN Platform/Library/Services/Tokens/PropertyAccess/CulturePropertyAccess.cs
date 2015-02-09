@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Globalization;
 
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Services.Tokens
 {
     public class CulturePropertyAccess : IPropertyAccess
@@ -66,7 +65,7 @@ namespace DotNetNuke.Services.Tokens
             }
             if (propertyName.ToLower() == "languagename")
             {
-                if(ci.IsNeutralCulture)
+                if (ci.IsNeutralCulture)
                 {
                     return PropertyAccess.FormatString(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ci.EnglishName), format);
                 }
@@ -77,7 +76,7 @@ namespace DotNetNuke.Services.Tokens
             }
             if (propertyName.ToLower() == "languagenativename")
             {
-                if(ci.IsNeutralCulture)
+                if (ci.IsNeutralCulture)
                 {
                     return PropertyAccess.FormatString(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ci.NativeName), format);
                 }
@@ -88,7 +87,7 @@ namespace DotNetNuke.Services.Tokens
             }
             if (propertyName.ToLower() == "countryname")
             {
-                if(ci.IsNeutralCulture)
+                if (ci.IsNeutralCulture)
                 {
                     //Neutral culture do not include region information
                     return "";
@@ -101,7 +100,7 @@ namespace DotNetNuke.Services.Tokens
             }
             if (propertyName.ToLower() == "countrynativename")
             {
-                if(ci.IsNeutralCulture)
+                if (ci.IsNeutralCulture)
                 {
                     //Neutral culture do not include region information
                     return "";
@@ -111,8 +110,6 @@ namespace DotNetNuke.Services.Tokens
                     RegionInfo country = new RegionInfo(new CultureInfo(ci.Name, false).LCID);
                     return PropertyAccess.FormatString(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(country.NativeName), format);
                 }
-
-                
             }
             PropertyNotFound = true;
             return string.Empty;

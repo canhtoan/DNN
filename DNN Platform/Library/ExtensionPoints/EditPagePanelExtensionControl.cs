@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -38,20 +38,19 @@ namespace DotNetNuke.ExtensionPoints
             control.ID = Path.GetFileNameWithoutExtension(extension.UserControlSrc);
             editPanel.Controls.Add(control);
             Controls.Add(editPanel);
-            
         }
 
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
             var extensionPointManager = new ExtensionPointManager();
-            
+
             if (!String.IsNullOrEmpty(Name))
             {
                 var extension = extensionPointManager.GetEditPagePanelExtensionPointFirstByPriority(Module, Name);
                 if (extension != null)
                 {
-                    LoadControl(extension);                    
+                    LoadControl(extension);
                 }
             }
             else
@@ -60,7 +59,7 @@ namespace DotNetNuke.ExtensionPoints
                 {
                     if (extension != null)
                     {
-                        LoadControl(extension);                        
+                        LoadControl(extension);
                     }
                 }
             }
@@ -131,10 +130,9 @@ namespace DotNetNuke.ExtensionPoints
 
         protected override void RenderContents(HtmlTextWriter op)
         {
-
-            op.Write(@"<div class="""+CssClass+@""">
-	<h2 id="""+PanelId+@""" class=""dnnFormSectionHead"">
-<a href="" class=""dnnLabelExpanded"">"+Text+@"</a>
+            op.Write(@"<div class=""" + CssClass + @""">
+	<h2 id=""" + PanelId + @""" class=""dnnFormSectionHead"">
+<a href="" class=""dnnLabelExpanded"">" + Text + @"</a>
 </h2>
 	<fieldset>");
             base.RenderContents(op);

@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -94,7 +95,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             _pathUtils = new Mock<IPathUtils>();
             _mockFileLockingController = new Mock<IFileLockingController>();
             _mockFileDeletionController = new Mock<IFileDeletionController>();
-            
+
             FolderManager.RegisterInstance(_folderManager.Object);
             FolderPermissionController.SetTestableInstance(_folderPermissionController.Object);
             PortalController.SetTestableInstance(_portalController.Object);
@@ -127,7 +128,6 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             FileDeletionController.ClearInstance();
             MockComponentProvider.ResetContainer();
             PortalController.ClearInstance();
-
         }
 
         #endregion
@@ -186,7 +186,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             _folderMappingController.Setup(fmc => fmc.GetFolderMapping(Constants.CONTENT_ValidPortalId, Constants.FOLDER_ValidFolderMappingID)).Returns(folderMapping);
 
             _portalController.Setup(pc => pc.HasSpaceAvailable(Constants.CONTENT_ValidPortalId, fileContent.Length)).Returns(false);
-            
+
             _mockFileManager.Setup(fm => fm.CreateFileContentItem()).Returns(new ContentItem());
 
             _mockFileManager.Object.AddFile(_folderInfo.Object, Constants.FOLDER_ValidFileName, fileContent, false, false, Constants.CONTENTTYPE_ValidContentType);
@@ -230,7 +230,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             _portalController.Verify(pc => pc.HasSpaceAvailable(Constants.CONTENT_ValidPortalId, fileContent.Length));
         }
 
-        class UnSeekableStream : MemoryStream
+        private class UnSeekableStream : MemoryStream
         {
             public override bool CanSeek
             {
@@ -253,7 +253,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
             _mockFileManager.Object.AddFile(_folderInfo.Object, Constants.FOLDER_ValidFileName, fileContent, false, false, Constants.CONTENTTYPE_ValidContentType);
         }
 
-         [Test]
+        [Test]
         public void AddFile_Does_Not_Call_FolderProvider_AddFile_When_Not_Overwritting_And_File_Exists()
         {
             _folderInfo.Setup(fi => fi.PortalID).Returns(Constants.CONTENT_ValidPortalId);
@@ -303,14 +303,14 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
                            It.IsAny<bool>(),
                            It.IsAny<int>()))
                .Returns(Constants.FOLDER_ValidFileId);
-            
+
             _mockData.Setup(md => md.UpdateFileLastModificationTime(It.IsAny<int>(), It.IsAny<DateTime>()));
 
             _mockFileManager.Object.AddFile(_folderInfo.Object, Constants.FOLDER_ValidFileName, fileContent, false, false, Constants.CONTENTTYPE_ValidContentType);
 
             _mockFolder.Verify(mf => mf.AddFile(It.IsAny<IFolderInfo>(), It.IsAny<string>(), It.IsAny<Stream>()), Times.Never());
         }
-        
+
         #endregion
 
         #region CopyFile

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.IO;
@@ -33,7 +33,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Installer;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins
 {
     public enum SkinParser
@@ -58,27 +57,27 @@ namespace DotNetNuke.UI.Skins
     /// -----------------------------------------------------------------------------
     public class SkinFileProcessor
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SkinFileProcessor));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SkinFileProcessor));
         #region "Private Members"
 
-        private readonly string DUPLICATE_DETAIL = Util.GetLocalizedString("DuplicateSkinObject.Detail");
-        private readonly string DUPLICATE_ERROR = Util.GetLocalizedString("DuplicateSkinObject.Error");
-        private readonly string FILES_END = Util.GetLocalizedString("EndSkinFiles");
-        private readonly string FILE_BEGIN = Util.GetLocalizedString("BeginSkinFile");
-        private readonly string FILE_END = Util.GetLocalizedString("EndSkinFile");
-        private readonly string INITIALIZE_PROCESSOR = Util.GetLocalizedString("StartProcessor");
-        private readonly string LOAD_SKIN_TOKEN = Util.GetLocalizedString("LoadingSkinToken");
-        private readonly string PACKAGE_LOAD = Util.GetLocalizedString("PackageLoad");
-        private readonly string PACKAGE_LOAD_ERROR = Util.GetLocalizedString("PackageLoad.Error");
-        private readonly ControlParser m_ControlFactory;
-        private readonly Hashtable m_ControlList = new Hashtable();
-        private readonly ObjectParser m_ObjectFactory;
-        private readonly PathParser m_PathFactory = new PathParser();
-        private readonly XmlDocument m_SkinAttributes = new XmlDocument();
-        private readonly string m_SkinName;
-        private readonly string m_SkinPath;
-        private readonly string m_SkinRoot;
-        private string m_Message = "";
+        private readonly string _DUPLICATE_DETAIL = Util.GetLocalizedString("DuplicateSkinObject.Detail");
+        private readonly string _DUPLICATE_ERROR = Util.GetLocalizedString("DuplicateSkinObject.Error");
+        private readonly string _FILES_END = Util.GetLocalizedString("EndSkinFiles");
+        private readonly string _FILE_BEGIN = Util.GetLocalizedString("BeginSkinFile");
+        private readonly string _FILE_END = Util.GetLocalizedString("EndSkinFile");
+        private readonly string _INITIALIZE_PROCESSOR = Util.GetLocalizedString("StartProcessor");
+        private readonly string _LOAD_SKIN_TOKEN = Util.GetLocalizedString("LoadingSkinToken");
+        private readonly string _PACKAGE_LOAD = Util.GetLocalizedString("PackageLoad");
+        private readonly string _PACKAGE_LOAD_ERROR = Util.GetLocalizedString("PackageLoad.Error");
+        private readonly ControlParser _controlFactory;
+        private readonly Hashtable _controlList = new Hashtable();
+        private readonly ObjectParser _objectFactory;
+        private readonly PathParser _pathFactory = new PathParser();
+        private readonly XmlDocument _skinAttributes = new XmlDocument();
+        private readonly string _skinName;
+        private readonly string _skinPath;
+        private readonly string _skinRoot;
+        private string _message = "";
 
         #endregion
 
@@ -97,13 +96,13 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         public SkinFileProcessor(string ControlKey, string ControlSrc)
         {
-            m_ControlList.Add(ControlKey, ControlSrc);
+            _controlList.Add(ControlKey, ControlSrc);
 
             //Instantiate the control parser with the list of skin objects
-            m_ControlFactory = new ControlParser(m_ControlList);
+            _controlFactory = new ControlParser(_controlList);
 
             //Instantiate the object parser with the list of skin objects
-            m_ObjectFactory = new ObjectParser(m_ControlList);
+            _objectFactory = new ObjectParser(_controlList);
         }
 
         /// -----------------------------------------------------------------------------
@@ -129,12 +128,12 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         public SkinFileProcessor(string SkinPath, string SkinRoot, string SkinName)
         {
-            Message += SkinController.FormatMessage(INITIALIZE_PROCESSOR, SkinRoot + " :: " + SkinName, 0, false);
+            Message += SkinController.FormatMessage(_INITIALIZE_PROCESSOR, SkinRoot + " :: " + SkinName, 0, false);
 
             //Save path information for future use
-            m_SkinRoot = SkinRoot;
-            m_SkinPath = SkinPath;
-            m_SkinName = SkinName;
+            _skinRoot = SkinRoot;
+            _skinPath = SkinPath;
+            _skinName = SkinName;
 
             //Check for and read skin package level attribute information file
             string FileName = this.SkinPath + this.SkinRoot + "\\" + this.SkinName + "\\" + SkinRoot.Substring(0, SkinRoot.Length - 1) + ".xml";
@@ -143,13 +142,13 @@ namespace DotNetNuke.UI.Skins
                 try
                 {
                     SkinAttributes.Load(FileName);
-                    Message += SkinController.FormatMessage(PACKAGE_LOAD, Path.GetFileName(FileName), 2, false);
+                    Message += SkinController.FormatMessage(_PACKAGE_LOAD, Path.GetFileName(FileName), 2, false);
                 }
                 catch (Exception ex)
                 {
                     //could not load XML file
-                    Logger.Error(ex);
-                    Message += SkinController.FormatMessage(string.Format(PACKAGE_LOAD_ERROR, ex.Message), Path.GetFileName(FileName), 2, true);
+                    s_logger.Error(ex);
+                    Message += SkinController.FormatMessage(string.Format(_PACKAGE_LOAD_ERROR, ex.Message), Path.GetFileName(FileName), 2, true);
                 }
             }
 
@@ -160,26 +159,26 @@ namespace DotNetNuke.UI.Skins
                 Token = objSkinControl.ControlKey.ToUpper();
 
                 //If the control is already in the hash table
-                if (m_ControlList.ContainsKey(Token))
+                if (_controlList.ContainsKey(Token))
                 {
-                    Message += SkinController.FormatMessage(string.Format(DUPLICATE_ERROR, objSkinControl.ControlKey.ToUpper()),
-                                                            string.Format(DUPLICATE_DETAIL, m_ControlList[Token], objSkinControl.ControlSrc),
+                    Message += SkinController.FormatMessage(string.Format(_DUPLICATE_ERROR, objSkinControl.ControlKey.ToUpper()),
+                                                            string.Format(_DUPLICATE_DETAIL, _controlList[Token], objSkinControl.ControlSrc),
                                                             2,
                                                             true);
                 }
                 else
                 {
                     //Add it
-                    Message += SkinController.FormatMessage(string.Format(LOAD_SKIN_TOKEN, objSkinControl.ControlKey.ToUpper()), objSkinControl.ControlSrc, 2, false);
-                    m_ControlList.Add(Token, objSkinControl.ControlSrc);
+                    Message += SkinController.FormatMessage(string.Format(_LOAD_SKIN_TOKEN, objSkinControl.ControlKey.ToUpper()), objSkinControl.ControlSrc, 2, false);
+                    _controlList.Add(Token, objSkinControl.ControlSrc);
                 }
             }
 
             //Instantiate the control parser with the list of skin objects
-            m_ControlFactory = new ControlParser(m_ControlList);
+            _controlFactory = new ControlParser(_controlList);
 
             //Instantiate the object parser with the list of skin objects
-            m_ObjectFactory = new ObjectParser(m_ControlList);
+            _objectFactory = new ObjectParser(_controlList);
         }
 
         #endregion
@@ -190,7 +189,7 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_PathFactory;
+                return _pathFactory;
             }
         }
 
@@ -198,7 +197,7 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_ControlFactory;
+                return _controlFactory;
             }
         }
 
@@ -206,7 +205,7 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_ObjectFactory;
+                return _objectFactory;
             }
         }
 
@@ -214,7 +213,7 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_SkinAttributes;
+                return _skinAttributes;
             }
         }
 
@@ -222,11 +221,11 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_Message;
+                return _message;
             }
             set
             {
-                m_Message = value;
+                _message = value;
             }
         }
 
@@ -238,7 +237,7 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_SkinRoot;
+                return _skinRoot;
             }
         }
 
@@ -246,7 +245,7 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_SkinPath;
+                return _skinPath;
             }
         }
 
@@ -254,7 +253,7 @@ namespace DotNetNuke.UI.Skins
         {
             get
             {
-                return m_SkinName;
+                return _skinName;
             }
         }
 
@@ -264,7 +263,7 @@ namespace DotNetNuke.UI.Skins
 
         public string ProcessFile(string FileName, SkinParser ParseOption)
         {
-            string strMessage = SkinController.FormatMessage(FILE_BEGIN, Path.GetFileName(FileName), 0, false);
+            string strMessage = SkinController.FormatMessage(_FILE_BEGIN, Path.GetFileName(FileName), 0, false);
             var objSkinFile = new SkinFile(SkinRoot, FileName, SkinAttributes);
             switch (objSkinFile.FileExtension)
             {
@@ -283,7 +282,7 @@ namespace DotNetNuke.UI.Skins
             }
             objSkinFile.Write();
             strMessage += objSkinFile.Messages;
-            strMessage += SkinController.FormatMessage(FILE_END, Path.GetFileName(FileName), 1, false);
+            strMessage += SkinController.FormatMessage(_FILE_END, Path.GetFileName(FileName), 1, false);
             return strMessage;
         }
 
@@ -310,7 +309,7 @@ namespace DotNetNuke.UI.Skins
             {
                 Message += ProcessFile(FileName, ParseOption);
             }
-            Message += SkinController.FormatMessage(FILES_END, SkinRoot + " :: " + SkinName, 0, false);
+            Message += SkinController.FormatMessage(_FILES_END, SkinRoot + " :: " + SkinName, 0, false);
             return Message;
         }
 
@@ -351,11 +350,11 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         private class ControlParser
         {
-            private readonly Hashtable m_ControlList = new Hashtable();
-            private readonly string m_InitMessages = "";
-            private XmlDocument m_Attributes = new XmlDocument();
-            private string m_ParseMessages = "";
-            private ArrayList m_RegisterList = new ArrayList();
+            private readonly Hashtable _controlList = new Hashtable();
+            private readonly string _initMessages = "";
+            private XmlDocument _attributes = new XmlDocument();
+            private string _parseMessages = "";
+            private ArrayList _registerList = new ArrayList();
 
             /// -----------------------------------------------------------------------------
             /// <summary>
@@ -370,7 +369,7 @@ namespace DotNetNuke.UI.Skins
             /// -----------------------------------------------------------------------------
             public ControlParser(Hashtable ControlList)
             {
-                m_ControlList = (Hashtable)ControlList.Clone();
+                _controlList = (Hashtable)ControlList.Clone();
             }
 
             /// -----------------------------------------------------------------------------
@@ -395,7 +394,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_RegisterList;
+                    return _registerList;
                 }
             }
 
@@ -411,11 +410,11 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_RegisterList;
+                    return _registerList;
                 }
                 set
                 {
-                    m_RegisterList = value;
+                    _registerList = value;
                 }
             }
 
@@ -423,7 +422,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_ControlList;
+                    return _controlList;
                 }
             }
 
@@ -431,11 +430,11 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_Attributes;
+                    return _attributes;
                 }
                 set
                 {
-                    m_Attributes = value;
+                    _attributes = value;
                 }
             }
 
@@ -443,11 +442,11 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_ParseMessages;
+                    return _parseMessages;
                 }
                 set
                 {
-                    m_ParseMessages = value;
+                    _parseMessages = value;
                 }
             }
 
@@ -468,7 +467,7 @@ namespace DotNetNuke.UI.Skins
             /// -----------------------------------------------------------------------------
             public string Parse(ref string Source, XmlDocument Attributes)
             {
-                Messages = m_InitMessages;
+                Messages = _initMessages;
                 //set the token attributes
                 this.Attributes = Attributes;
                 //clear register list
@@ -633,10 +632,10 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         private class ObjectParser
         {
-            private readonly Hashtable m_ControlList = new Hashtable();
-            private readonly string m_InitMessages = "";
-            private string m_ParseMessages = "";
-            private ArrayList m_RegisterList = new ArrayList();
+            private readonly Hashtable _controlList = new Hashtable();
+            private readonly string _initMessages = "";
+            private string _parseMessages = "";
+            private ArrayList _registerList = new ArrayList();
 
             /// -----------------------------------------------------------------------------
             /// <summary>
@@ -651,7 +650,7 @@ namespace DotNetNuke.UI.Skins
             /// -----------------------------------------------------------------------------
             public ObjectParser(Hashtable ControlList)
             {
-                m_ControlList = (Hashtable)ControlList.Clone();
+                _controlList = (Hashtable)ControlList.Clone();
             }
 
             /// -----------------------------------------------------------------------------
@@ -676,7 +675,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_RegisterList;
+                    return _registerList;
                 }
             }
 
@@ -692,11 +691,11 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_RegisterList;
+                    return _registerList;
                 }
                 set
                 {
-                    m_RegisterList = value;
+                    _registerList = value;
                 }
             }
 
@@ -704,7 +703,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_ControlList;
+                    return _controlList;
                 }
             }
 
@@ -712,11 +711,11 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_ParseMessages;
+                    return _parseMessages;
                 }
                 set
                 {
-                    m_ParseMessages = value;
+                    _parseMessages = value;
                 }
             }
 
@@ -734,7 +733,7 @@ namespace DotNetNuke.UI.Skins
             /// -----------------------------------------------------------------------------
             public string Parse(ref string Source)
             {
-                Messages = m_InitMessages;
+                Messages = _initMessages;
 
                 //clear register list
                 RegisterList.Clear();
@@ -921,12 +920,12 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         private class PathParser
         {
-            private readonly string SUBST = Util.GetLocalizedString("Substituting");
-            private readonly string SUBST_DETAIL = Util.GetLocalizedString("Substituting.Detail");
-            private readonly ArrayList m_CSSPatterns = new ArrayList();
-            private readonly ArrayList m_HTMLPatterns = new ArrayList();
-            private string m_Messages = "";
-            private string m_SkinPath = "";
+            private readonly string _SUBST = Util.GetLocalizedString("Substituting");
+            private readonly string _SUBST_DETAIL = Util.GetLocalizedString("Substituting.Detail");
+            private readonly ArrayList _CSSPatterns = new ArrayList();
+            private readonly ArrayList _HTMLPatterns = new ArrayList();
+            private string _messages = "";
+            private string _skinPath = "";
 
             /// -----------------------------------------------------------------------------
             /// <summary>
@@ -948,7 +947,7 @@ namespace DotNetNuke.UI.Skins
                 get
                 {
                     //if the arraylist in uninitialized
-                    if (m_HTMLPatterns.Count == 0)
+                    if (_HTMLPatterns.Count == 0)
                     {
                         //retrieve the patterns
                         string[] arrPattern = {
@@ -970,13 +969,13 @@ namespace DotNetNuke.UI.Skins
                         {
                             var re = new Regex(arrPattern[i], RegexOptions.Multiline | RegexOptions.IgnoreCase);
                             //add the Regex object to the pattern array list
-                            m_HTMLPatterns.Add(re);
+                            _HTMLPatterns.Add(re);
                         }
 
                         //optimize the arraylist size since it will not change
-                        m_HTMLPatterns.TrimToSize();
+                        _HTMLPatterns.TrimToSize();
                     }
-                    return m_HTMLPatterns;
+                    return _HTMLPatterns;
                 }
             }
 
@@ -1000,7 +999,7 @@ namespace DotNetNuke.UI.Skins
                 get
                 {
                     //if the arraylist in uninitialized
-                    if (m_CSSPatterns.Count == 0)
+                    if (_CSSPatterns.Count == 0)
                     {
                         //retrieve the patterns
                         string[] arrPattern = { "(?<tag>\\surl\\u0028)(?<content>[^\\u0029]*)(?<endtag>\\u0029.*;)" };
@@ -1011,13 +1010,13 @@ namespace DotNetNuke.UI.Skins
                             var re = new Regex(arrPattern[i], RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
                             //add the Regex object to the pattern array list
-                            m_CSSPatterns.Add(re);
+                            _CSSPatterns.Add(re);
                         }
 
                         //optimize the arraylist size since it will not change
-                        m_CSSPatterns.TrimToSize();
+                        _CSSPatterns.TrimToSize();
                     }
-                    return m_CSSPatterns;
+                    return _CSSPatterns;
                 }
             }
 
@@ -1033,11 +1032,11 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_SkinPath;
+                    return _skinPath;
                 }
                 set
                 {
-                    m_SkinPath = value;
+                    _skinPath = value;
                 }
             }
 
@@ -1061,7 +1060,7 @@ namespace DotNetNuke.UI.Skins
             /// -----------------------------------------------------------------------------
             public string Parse(ref string Source, ArrayList RegexList, string SkinPath, SkinParser ParseOption)
             {
-                m_Messages = "";
+                _messages = "";
 
                 //set path propery which is file specific
                 this.SkinPath = SkinPath;
@@ -1073,7 +1072,7 @@ namespace DotNetNuke.UI.Skins
                 {
                     Source = ((Regex)RegexList[i]).Replace(Source, Handler);
                 }
-                return m_Messages;
+                return _messages;
             }
 
             /// -----------------------------------------------------------------------------
@@ -1127,7 +1126,7 @@ namespace DotNetNuke.UI.Skins
                             break;
                     }
                 }
-                m_Messages += SkinController.FormatMessage(SUBST, string.Format(SUBST_DETAIL, HttpUtility.HtmlEncode(strOldTag), HttpUtility.HtmlEncode(strNewTag)), 2, false);
+                _messages += SkinController.FormatMessage(_SUBST, string.Format(_SUBST_DETAIL, HttpUtility.HtmlEncode(strOldTag), HttpUtility.HtmlEncode(strNewTag)), 2, false);
                 return strNewTag;
             }
         }
@@ -1148,20 +1147,20 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         private class SkinFile
         {
-            private readonly string CONTROL_DIR = Util.GetLocalizedString("ControlDirective");
-            private readonly string CONTROL_REG = Util.GetLocalizedString("ControlRegister");
-            private readonly string FILE_FORMAT_ERROR = Util.GetLocalizedString("FileFormat.Error");
-            private readonly string FILE_LOAD = Util.GetLocalizedString("SkinFileLoad");
-            private readonly string FILE_LOAD_ERROR = Util.GetLocalizedString("SkinFileLoad.Error");
-            private readonly string FILE_WRITE = Util.GetLocalizedString("FileWrite");
-            private readonly XmlDocument m_FileAttributes;
-            private readonly string m_FileExtension;
-            private readonly string m_FileName;
-            private readonly string m_SkinRoot;
-            private readonly string m_SkinRootPath;
-            private readonly string m_WriteFileName;
-            private string FILE_FORMAT_DETAIL = Util.GetLocalizedString("FileFormat.Detail");
-            private string m_Messages = "";
+            private readonly string _CONTROL_DIR = Util.GetLocalizedString("ControlDirective");
+            private readonly string _CONTROL_REG = Util.GetLocalizedString("ControlRegister");
+            private readonly string _FILE_FORMAT_ERROR = Util.GetLocalizedString("FileFormat.Error");
+            private readonly string _FILE_LOAD = Util.GetLocalizedString("SkinFileLoad");
+            private readonly string _FILE_LOAD_ERROR = Util.GetLocalizedString("SkinFileLoad.Error");
+            private readonly string _FILE_WRITE = Util.GetLocalizedString("FileWrite");
+            private readonly XmlDocument _fileAttributes;
+            private readonly string _fileExtension;
+            private readonly string _fileName;
+            private readonly string _skinRoot;
+            private readonly string _skinRootPath;
+            private readonly string _writeFileName;
+            private string _FILE_FORMAT_DETAIL = Util.GetLocalizedString("FileFormat.Detail");
+            private string _messages = "";
 
             /// -----------------------------------------------------------------------------
             /// <summary>
@@ -1180,7 +1179,7 @@ namespace DotNetNuke.UI.Skins
             /// -----------------------------------------------------------------------------
             public SkinFile(string SkinContents, XmlDocument SkinAttributes)
             {
-                m_FileAttributes = SkinAttributes;
+                _fileAttributes = SkinAttributes;
                 Contents = SkinContents;
             }
 
@@ -1203,15 +1202,15 @@ namespace DotNetNuke.UI.Skins
             public SkinFile(string SkinRoot, string FileName, XmlDocument SkinAttributes)
             {
                 //capture file information
-                m_FileName = FileName;
-                m_FileExtension = Path.GetExtension(FileName);
-                m_SkinRoot = SkinRoot;
-                m_FileAttributes = SkinAttributes;
+                _fileName = FileName;
+                _fileExtension = Path.GetExtension(FileName);
+                _skinRoot = SkinRoot;
+                _fileAttributes = SkinAttributes;
 
                 //determine and store path to portals skin root folder
                 string strTemp = FileName.Replace(Path.GetFileName(FileName), "");
                 strTemp = strTemp.Replace("\\", "/");
-                m_SkinRootPath = Globals.ApplicationPath + strTemp.Substring(strTemp.ToUpper().IndexOf("/PORTALS"));
+                _skinRootPath = Globals.ApplicationPath + strTemp.Substring(strTemp.ToUpper().IndexOf("/PORTALS"));
 
                 //read file contents
                 Contents = Read(FileName);
@@ -1222,14 +1221,14 @@ namespace DotNetNuke.UI.Skins
                     case ".htm":
                     case ".html":
                         //set output file name to <filename>.ASCX
-                        m_WriteFileName = FileName.Replace(Path.GetExtension(FileName), ".ascx");
+                        _writeFileName = FileName.Replace(Path.GetExtension(FileName), ".ascx");
 
                         //capture warning if file does not contain a id="ContentPane" or [CONTENTPANE]
                         var PaneCheck1 = new Regex("\\s*id\\s*=\\s*\"" + Globals.glbDefaultPane + "\"", RegexOptions.IgnoreCase);
                         var PaneCheck2 = new Regex("\\s*[" + Globals.glbDefaultPane + "]", RegexOptions.IgnoreCase);
                         if (PaneCheck1.IsMatch(Contents) == false && PaneCheck2.IsMatch(Contents) == false)
                         {
-                            m_Messages += SkinController.FormatMessage(FILE_FORMAT_ERROR, string.Format(FILE_FORMAT_ERROR, FileName), 2, true);
+                            _messages += SkinController.FormatMessage(_FILE_FORMAT_ERROR, string.Format(_FILE_FORMAT_ERROR, FileName), 2, true);
                         }
 
                         //Check for existence of and load skin file level attribute information 
@@ -1237,20 +1236,20 @@ namespace DotNetNuke.UI.Skins
                         {
                             try
                             {
-                                m_FileAttributes.Load(FileName.Replace(FileExtension, ".xml"));
-                                m_Messages += SkinController.FormatMessage(FILE_LOAD, FileName, 2, false);
+                                _fileAttributes.Load(FileName.Replace(FileExtension, ".xml"));
+                                _messages += SkinController.FormatMessage(_FILE_LOAD, FileName, 2, false);
                             }
                             catch (Exception exc) //could not load XML file
                             {
-                                Logger.Error(exc);
-                                m_FileAttributes = SkinAttributes;
-                                m_Messages += SkinController.FormatMessage(FILE_LOAD_ERROR, FileName, 2, true);
+                                s_logger.Error(exc);
+                                _fileAttributes = SkinAttributes;
+                                _messages += SkinController.FormatMessage(_FILE_LOAD_ERROR, FileName, 2, true);
                             }
                         }
                         break;
                     default:
                         //output file name is same as input file name
-                        m_WriteFileName = FileName;
+                        _writeFileName = FileName;
                         break;
                 }
             }
@@ -1259,7 +1258,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_SkinRoot;
+                    return _skinRoot;
                 }
             }
 
@@ -1267,7 +1266,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_FileAttributes;
+                    return _fileAttributes;
                 }
             }
 
@@ -1275,7 +1274,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_Messages;
+                    return _messages;
                 }
             }
 
@@ -1283,7 +1282,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_FileName;
+                    return _fileName;
                 }
             }
 
@@ -1291,7 +1290,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_WriteFileName;
+                    return _writeFileName;
                 }
             }
 
@@ -1299,7 +1298,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_FileExtension;
+                    return _fileExtension;
                 }
             }
 
@@ -1307,7 +1306,7 @@ namespace DotNetNuke.UI.Skins
             {
                 get
                 {
-                    return m_SkinRootPath;
+                    return _skinRootPath;
                 }
             }
 
@@ -1328,7 +1327,7 @@ namespace DotNetNuke.UI.Skins
                 {
                     File.Delete(WriteFileName);
                 }
-                m_Messages += SkinController.FormatMessage(FILE_WRITE, Path.GetFileName(WriteFileName), 2, false);
+                _messages += SkinController.FormatMessage(_FILE_WRITE, Path.GetFileName(WriteFileName), 2, false);
                 var objStreamWriter = new StreamWriter(WriteFileName);
                 objStreamWriter.WriteLine(Contents);
                 objStreamWriter.Flush();
@@ -1371,12 +1370,12 @@ namespace DotNetNuke.UI.Skins
                 {
                     Prefix += "<%@ Control language=\"vb\" AutoEventWireup=\"false\" Explicit=\"True\" Inherits=\"DotNetNuke.UI.Containers.Container\" %>" + Environment.NewLine;
                 }
-                Messages += SkinController.FormatMessage(CONTROL_DIR, HttpUtility.HtmlEncode(Prefix), 2, false);
+                Messages += SkinController.FormatMessage(_CONTROL_DIR, HttpUtility.HtmlEncode(Prefix), 2, false);
 
                 //add preformatted Control Registrations
                 foreach (string Item in Registrations)
                 {
-                    Messages += SkinController.FormatMessage(CONTROL_REG, HttpUtility.HtmlEncode(Item), 2, false);
+                    Messages += SkinController.FormatMessage(_CONTROL_REG, HttpUtility.HtmlEncode(Item), 2, false);
                     Prefix += Item;
                 }
 

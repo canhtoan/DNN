@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Globalization;
@@ -29,7 +29,6 @@ using DotNetNuke.Entities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Localization
 {
     /// <summary>
@@ -120,13 +119,13 @@ namespace DotNetNuke.Services.Localization
             //These fields may not be populated (for Host level locales)
             DataTable schemaTable = dr.GetSchemaTable();
             bool hasColumns = schemaTable.Select("ColumnName = 'IsPublished' Or ColumnName = 'PortalID'").Length == 2;
-            
-            if(hasColumns)
+
+            if (hasColumns)
             {
                 IsPublished = Null.SetNullBoolean(dr["IsPublished"]);
                 PortalId = Null.SetNullInteger(dr["PortalID"]);
             }
-            
+
             //Call the base classes fill method to populate base class proeprties
             base.FillInternal(dr);
         }
@@ -144,6 +143,5 @@ namespace DotNetNuke.Services.Localization
         }
 
         #endregion
-
-	}
+    }
 }

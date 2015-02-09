@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,12 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 namespace DotNetNuke.Services.Mail
 {
-	/// <summary>
-	/// Enum MailPriority, there are 3 levels of priorities: Normal, Low or High
-	/// </summary>
+    /// <summary>
+    /// Enum MailPriority, there are 3 levels of priorities: Normal, Low or High
+    /// </summary>
     public enum MailPriority
     {
         Normal,

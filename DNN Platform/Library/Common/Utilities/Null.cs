@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Reflection;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     public class Null
@@ -208,7 +207,7 @@ namespace DotNetNuke.Common.Utilities
                 default:
                     //Enumerations default to the first entry
                     Type pType = objPropertyInfo.PropertyType;
-                    if (pType.BaseType.Equals(typeof (Enum)))
+                    if (pType.BaseType.Equals(typeof(Enum)))
                     {
                         Array objEnumValues = Enum.GetValues(pType);
                         Array.Sort(objEnumValues);
@@ -309,7 +308,7 @@ namespace DotNetNuke.Common.Utilities
             }
             else if (objField is DateTime)
             {
-				//compare the Date part of the DateTime with the DatePart of the NullDate ( this avoids subtle time differences )
+                //compare the Date part of the DateTime with the DatePart of the NullDate ( this avoids subtle time differences )
                 if (Convert.ToDateTime(objField).Date == NullDate.Date)
                 {
                     returnValue = objDBNull;
@@ -338,7 +337,7 @@ namespace DotNetNuke.Common.Utilities
             }
             else if (objField is Guid)
             {
-                if (((Guid) objField).Equals(NullGuid))
+                if (((Guid)objField).Equals(NullGuid))
                 {
                     returnValue = objDBNull;
                 }
@@ -378,7 +377,7 @@ namespace DotNetNuke.Common.Utilities
                 }
                 else if (objField is DateTime)
                 {
-                    var objDate = (DateTime) objField;
+                    var objDate = (DateTime)objField;
                     isNull = objDate.Date.Equals(NullDate.Date);
                 }
                 else if (objField is string)

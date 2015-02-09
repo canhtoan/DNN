@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -86,10 +85,10 @@ namespace DotNetNuke.Services.Journal
                 return;
             }
 
-            for (var i = 0; i < role.Settings.Keys.Count; i++ )
+            for (var i = 0; i < role.Settings.Keys.Count; i++)
             {
                 var key = role.Settings.Keys.ElementAt(i);
-                if(key.StartsWith("stat_"))
+                if (key.StartsWith("stat_"))
                 {
                     role.Settings[key] = "0";
                 }
@@ -148,7 +147,7 @@ namespace DotNetNuke.Services.Journal
 
             DataProvider.Instance().AddSearchDeletedItems(document);
         }
-        
+
         private Stream GetJournalImageContent(Stream fileContent)
         {
             Image image = new Bitmap(fileContent);
@@ -190,7 +189,7 @@ namespace DotNetNuke.Services.Journal
 
         private bool IsImageFile(string fileName)
         {
-            return (Globals.glbImageFileTypes + ",").IndexOf(Path.GetExtension(fileName).ToLower().Replace(".", "") + ",") > -1;        
+            return (Globals.glbImageFileTypes + ",").IndexOf(Path.GetExtension(fileName).ToLower().Replace(".", "") + ",") > -1;
         }
 
         private bool ThumbnailCallback()
@@ -205,7 +204,7 @@ namespace DotNetNuke.Services.Journal
                    GetBooleanSetting(EditorEnabledSetting, true, module);
         }
         private bool GetBooleanSetting(string settingName, bool defaultValue, ModuleInfo module)
-        {            
+        {
             if (module.ModuleSettings.Contains(settingName))
             {
                 return Convert.ToBoolean(module.ModuleSettings[settingName].ToString());
@@ -217,7 +216,7 @@ namespace DotNetNuke.Services.Journal
         private void PrepareSecuritySet(JournalItem journalItem, UserInfo currentUser)
         {
             var originalSecuritySet =
-                journalItem.SecuritySet = (journalItem.SecuritySet ??string.Empty).ToUpperInvariant();
+                journalItem.SecuritySet = (journalItem.SecuritySet ?? string.Empty).ToUpperInvariant();
 
             if (String.IsNullOrEmpty(journalItem.SecuritySet))
             {
@@ -281,16 +280,16 @@ namespace DotNetNuke.Services.Journal
                 .Replace(" ", "")
                 .Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Distinct()
-                .Except(InvalidSecuritySetsWithoutId)
-                .Where(p => p.IndexOfAny(ValidSecurityDescriptors) >= 0);
+                .Except(s_invalidSecuritySetsWithoutId)
+                .Where(p => p.IndexOfAny(s_validSecurityDescriptors) >= 0);
 
             //TODO: validate existence and visibility/accessability of all Roles added to the set (if any)
 
             journalItem.SecuritySet = string.Join(",", parts);
         }
 
-        private static readonly string[] InvalidSecuritySetsWithoutId = new[] { "R", "U", "F", "P" };
-        private static readonly char[] ValidSecurityDescriptors = new[] { 'E', 'C', 'R', 'U', 'F', 'P' };
+        private static readonly string[] s_invalidSecuritySetsWithoutId = new[] { "R", "U", "F", "P" };
+        private static readonly char[] s_validSecurityDescriptors = new[] { 'E', 'C', 'R', 'U', 'F', 'P' };
 
         #endregion
 
@@ -529,7 +528,7 @@ namespace DotNetNuke.Services.Journal
                 }
             }
         }
-        
+
         public JournalItem GetJournalItem(int portalId, int currentUserId, int journalId)
         {
             return GetJournalItem(portalId, currentUserId, journalId, false, false);
@@ -578,9 +577,9 @@ namespace DotNetNuke.Services.Journal
                 return FileManager.Instance.AddFile(userFolder, fileName, GetJournalImageContent(fileContent), true);
             }
             //todo: deal with the case where the exact file name already exists.            
-            return FileManager.Instance.AddFile(userFolder, fileName, fileContent, true);                    
+            return FileManager.Instance.AddFile(userFolder, fileName, fileContent, true);
         }
-        
+
         public void SaveJournalItem(JournalItem journalItem, ModuleInfo module)
         {
             var tabId = module == null ? Null.NullInteger : module.TabID;
@@ -614,7 +613,7 @@ namespace DotNetNuke.Services.Journal
 
         public void ShowComments(int portalId, int journalId)
         {
-           _dataService.Journal_Comments_ToggleHidden(portalId, journalId, false);
+            _dataService.Journal_Comments_ToggleHidden(portalId, journalId, false);
         }
 
         // Delete Journal Items
@@ -681,7 +680,7 @@ namespace DotNetNuke.Services.Journal
         }
 
         // Journal Comments
-        public IList<CommentInfo> GetCommentsByJournalIds(List <int> journalIdList)
+        public IList<CommentInfo> GetCommentsByJournalIds(List<int> journalIdList)
         {
             var journalIds = journalIdList.Aggregate("", (current, journalId) => current + journalId + ";");
             return CBO.FillCollection<CommentInfo>(_dataService.Journal_Comment_ListByJournalIds(journalIds));
@@ -709,9 +708,9 @@ namespace DotNetNuke.Services.Journal
             {
                 xml = comment.CommentXML.OuterXml;
             }
-            
+
             comment.CommentId = _dataService.Journal_Comment_Save(comment.JournalId, comment.CommentId, comment.UserId, comment.Comment, xml, Null.NullDate);
-            
+
             var newComment = GetComment(comment.CommentId);
             comment.DateCreated = newComment.DateCreated;
             comment.DateUpdated = newComment.DateUpdated;
@@ -750,10 +749,10 @@ namespace DotNetNuke.Services.Journal
         public IEnumerable<JournalTypeInfo> GetJournalTypes(int portalId)
         {
             return CBO.GetCachedObject<IEnumerable<JournalTypeInfo>>(
-                                            new CacheItemArgs(String.Format(DataCache.JournalTypesCacheKey, portalId), 
-                                                                DataCache.JournalTypesTimeOut, 
-                                                                DataCache.JournalTypesCachePriority, 
-                                                                portalId), 
+                                            new CacheItemArgs(String.Format(DataCache.JournalTypesCacheKey, portalId),
+                                                                DataCache.JournalTypesTimeOut,
+                                                                DataCache.JournalTypesCachePriority,
+                                                                portalId),
                                             c => CBO.FillCollection<JournalTypeInfo>(_dataService.Journal_Types_List(portalId)));
         }
 

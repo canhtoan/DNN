@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +32,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Entities.Tabs
 {
     /// <summary>
@@ -42,14 +41,14 @@ namespace DotNetNuke.Entities.Tabs
     [Serializable]
     public class TabCollection : Dictionary<int, TabInfo>
     {
-		//This is used to provide a collection of children
+        //This is used to provide a collection of children
         [NonSerialized]
         private readonly Dictionary<int, List<TabInfo>> _children;
 
         //This is used to return a sorted List
         [NonSerialized]
         private readonly List<TabInfo> _list;
-        
+
         //This is used to provide a culture based set of tabs
         [NonSerialized]
         private readonly Dictionary<String, List<TabInfo>> _localizedTabs;
@@ -121,7 +120,7 @@ namespace DotNetNuke.Entities.Tabs
             if (tab.PortalID == Null.NullInteger || IsLocalizationEnabled(tab.PortalID))
             {
                 AddToLocalizedTabs(tab);
-            }            
+            }
         }
 
         private int AddToChildren(TabInfo tab)
@@ -132,7 +131,7 @@ namespace DotNetNuke.Entities.Tabs
                 childList = new List<TabInfo>();
                 _children.Add(tab.ParentId, childList);
             }
-			
+
             //Add tab to end of child list as children are returned in order
             childList.Add(tab);
             return childList.Count;
@@ -219,7 +218,7 @@ namespace DotNetNuke.Entities.Tabs
 
         public void Add(TabInfo tab)
         {
-			//Call base class to add to base Dictionary
+            //Call base class to add to base Dictionary
             Add(tab.TabID, tab);
 
             //Update all child collections
@@ -259,14 +258,14 @@ namespace DotNetNuke.Entities.Tabs
             return new ArrayList(_list);
         }
 
-		public TabCollection WithCulture(string cultureCode, bool includeNeutral)
-		{
-			return WithCulture(cultureCode, includeNeutral, IsLocalizationEnabled());
-		}
+        public TabCollection WithCulture(string cultureCode, bool includeNeutral)
+        {
+            return WithCulture(cultureCode, includeNeutral, IsLocalizationEnabled());
+        }
         public TabCollection WithCulture(string cultureCode, bool includeNeutral, bool localizationEnabled)
         {
             TabCollection collection;
-			if (localizationEnabled)
+            if (localizationEnabled)
             {
                 if (string.IsNullOrEmpty(cultureCode))
                 {
@@ -282,10 +281,10 @@ namespace DotNetNuke.Entities.Tabs
                     }
                     else
                     {
-                        collection = !includeNeutral 
-                                        ? new TabCollection(from t in tabs 
-                                                            where t.CultureCode.ToLowerInvariant() == cultureCode.ToLowerInvariant() 
-                                                            select t) 
+                        collection = !includeNeutral
+                                        ? new TabCollection(from t in tabs
+                                                            where t.CultureCode.ToLowerInvariant() == cultureCode.ToLowerInvariant()
+                                                            select t)
                                         : new TabCollection(tabs);
                     }
                 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -27,7 +27,6 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -44,12 +43,12 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class CheckBoxColumnTemplate : ITemplate
     {
-        private string mDataField = Null.NullString;
-        private bool mEnabled = true;
-        private string mEnabledField = Null.NullString;
-        private bool mHeaderCheckBox = true;
-        private ListItemType mItemType = ListItemType.Item;
-        private string mText = "";
+        private string _mDataField = Null.NullString;
+        private bool _mEnabled = true;
+        private string _mEnabledField = Null.NullString;
+        private bool _mHeaderCheckBox = true;
+        private ListItemType _mItemType = ListItemType.Item;
+        private string _mText = "";
 
         public CheckBoxColumnTemplate() : this(ListItemType.Item)
         {
@@ -60,27 +59,27 @@ namespace DotNetNuke.UI.WebControls
             ItemType = itemType;
         }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// Gets and sets whether the column fires a postback when any check box is
- /// changed
- /// </summary>
- /// <value>A Boolean</value>
- /// <history>
- /// 	[cnurse]	02/16/2006	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets and sets whether the column fires a postback when any check box is
+        /// changed
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/16/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool AutoPostBack { get; set; }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// Gets and sets whether the checkbox is checked (unless DataBound)
- /// </summary>
- /// <value>A Boolean</value>
- /// <history>
- /// 	[cnurse]	02/21/2006	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets and sets whether the checkbox is checked (unless DataBound)
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/21/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool Checked { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -96,23 +95,23 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mDataField;
+                return _mDataField;
             }
             set
             {
-                mDataField = value;
+                _mDataField = value;
             }
         }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// Gets or sets the Design Mode of the Column
- /// </summary>
- /// <value>A Boolean</value>
- /// <history>
- /// 	[cnurse]	02/24/2006	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Design Mode of the Column
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/24/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool DesignMode { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -130,11 +129,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabled;
+                return _mEnabled;
             }
             set
             {
-                mEnabled = value;
+                _mEnabled = value;
             }
         }
 
@@ -152,11 +151,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabledField;
+                return _mEnabledField;
             }
             set
             {
-                mEnabledField = value;
+                _mEnabledField = value;
             }
         }
 
@@ -174,11 +173,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mHeaderCheckBox;
+                return _mHeaderCheckBox;
             }
             set
             {
-                mHeaderCheckBox = value;
+                _mHeaderCheckBox = value;
             }
         }
 
@@ -195,11 +194,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mItemType;
+                return _mItemType;
             }
             set
             {
-                mItemType = value;
+                _mItemType = value;
             }
         }
 
@@ -216,11 +215,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mText;
+                return _mText;
             }
             set
             {
-                mText = value;
+                _mText = value;
             }
         }
 
@@ -265,8 +264,8 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         private void Item_DataBinding(object sender, EventArgs e)
         {
-            var box = (CheckBox) sender;
-            var container = (DataGridItem) box.NamingContainer;
+            var box = (CheckBox)sender;
+            var container = (DataGridItem)box.NamingContainer;
             if (!String.IsNullOrEmpty(DataField) && ItemType != ListItemType.Header)
             {
                 if (DesignMode)
@@ -309,8 +308,8 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         private void OnCheckChanged(object sender, EventArgs e)
         {
-            var box = (CheckBox) sender;
-            var container = (DataGridItem) box.NamingContainer;
+            var box = (CheckBox)sender;
+            var container = (DataGridItem)box.NamingContainer;
             DNNDataGridCheckChangedEventArgs evntArgs;
             if (container.ItemIndex == Null.NullInteger)
             {

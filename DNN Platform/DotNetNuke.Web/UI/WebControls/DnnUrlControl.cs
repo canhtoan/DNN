@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -41,7 +41,6 @@ using DotNetNuke.Web.Common;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public abstract class DnnUrlControl : UserControlBase
@@ -183,11 +182,11 @@ namespace DotNetNuke.Web.UI.WebControls
 
         public bool NewWindow
         {
-            get 
+            get
             {
                 return chkNewWindow.Visible && chkNewWindow.Checked;
             }
-            set 
+            set
             {
                 chkNewWindow.Checked = chkNewWindow.Visible && value;
             }
@@ -511,7 +510,7 @@ namespace DotNetNuke.Web.UI.WebControls
             set
             {
                 ViewState["Url"] = value;
-				txtUrl.Text = string.Empty;
+                txtUrl.Text = string.Empty;
 
                 if (IsTrackingViewState)
                 {

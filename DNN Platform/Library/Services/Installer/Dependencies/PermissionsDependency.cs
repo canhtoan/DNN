@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Xml.XPath;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Dependencies
 {
     /// -----------------------------------------------------------------------------
@@ -42,14 +41,14 @@ namespace DotNetNuke.Services.Installer.Dependencies
     /// -----------------------------------------------------------------------------
     public class PermissionsDependency : DependencyBase
     {
-        private string Permission = Null.NullString;
-        private string Permissions;
+        private string _permission = Null.NullString;
+        private string _permissions;
 
         public override string ErrorMessage
         {
             get
             {
-                return Util.INSTALL_Permissions + " - " + Localization.Localization.GetString(Permission, Localization.Localization.GlobalResourceFile);
+                return Util.INSTALL_Permissions + " - " + Localization.Localization.GetString(_permission, Localization.Localization.GlobalResourceFile);
             }
         }
 
@@ -57,13 +56,13 @@ namespace DotNetNuke.Services.Installer.Dependencies
         {
             get
             {
-                return SecurityPolicy.HasPermissions(Permissions, ref Permission);
+                return SecurityPolicy.HasPermissions(_permissions, ref _permission);
             }
         }
 
         public override void ReadManifest(XPathNavigator dependencyNav)
         {
-            Permissions = dependencyNav.Value;
+            _permissions = dependencyNav.Value;
         }
     }
 }

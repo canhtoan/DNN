@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,15 +39,14 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.UI.Skins.Controls;
 
 #endregion
-
 namespace DotNetNuke.Modules.RazorHost
 {
     public partial class CreateModule : ModuleUserControlBase
     {
-		private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(CreateModule));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(CreateModule));
 
-        private string razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
-        private string razorScriptFolder = "~/DesktopModules/RazorModules/RazorHost/Scripts/";
+        private string _razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
+        private string _razorScriptFolder = "~/DesktopModules/RazorModules/RazorHost/Scripts/";
 
         protected string ModuleControl
         {
@@ -63,9 +62,9 @@ namespace DotNetNuke.Modules.RazorHost
             {
                 string m_RazorScriptFile = Null.NullString;
                 var scriptFileSetting = ModuleContext.Settings["ScriptFile"] as string;
-                if (! (string.IsNullOrEmpty(scriptFileSetting)))
+                if (!(string.IsNullOrEmpty(scriptFileSetting)))
                 {
-                    m_RazorScriptFile = string.Format(razorScriptFileFormatString, scriptFileSetting);
+                    m_RazorScriptFile = string.Format(_razorScriptFileFormatString, scriptFileSetting);
                 }
                 return m_RazorScriptFile;
             }
@@ -104,7 +103,7 @@ namespace DotNetNuke.Modules.RazorHost
             }
 
             //Copy Script to new Folder
-            string scriptSourceFile = Server.MapPath(string.Format(razorScriptFileFormatString, scriptList.SelectedValue));
+            string scriptSourceFile = Server.MapPath(string.Format(_razorScriptFileFormatString, scriptList.SelectedValue));
             string scriptTargetFile = folderMapPath + "/" + scriptList.SelectedValue;
             try
             {
@@ -118,37 +117,37 @@ namespace DotNetNuke.Modules.RazorHost
             }
 
             //Create new Manifest in target folder
-			string manifestMapPath = folderMapPath + "/" + ModuleControl.Replace(".ascx", ".dnn");
-			try
-			{
-				using (var manifestWriter = new StreamWriter(manifestMapPath))
-				{
-					string manifestTemplate = Localization.GetString("ManifestText.Text", LocalResourceFile);
-					string manifest = string.Format(manifestTemplate, txtName.Text, txtDescription.Text, txtFolder.Text, ModuleControl, scriptList.SelectedValue);
-					manifestWriter.Write(manifest);
-					manifestWriter.Flush();
-				}
-			}
-			catch (Exception ex)
-			{
-				Exceptions.LogException(ex);
-				UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("ManifestCreationError", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
-				return;
-			}
+            string manifestMapPath = folderMapPath + "/" + ModuleControl.Replace(".ascx", ".dnn");
+            try
+            {
+                using (var manifestWriter = new StreamWriter(manifestMapPath))
+                {
+                    string manifestTemplate = Localization.GetString("ManifestText.Text", LocalResourceFile);
+                    string manifest = string.Format(manifestTemplate, txtName.Text, txtDescription.Text, txtFolder.Text, ModuleControl, scriptList.SelectedValue);
+                    manifestWriter.Write(manifest);
+                    manifestWriter.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+                UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("ManifestCreationError", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                return;
+            }
 
             //Register Module
             ModuleDefinitionInfo moduleDefinition = ImportManifest(manifestMapPath);
 
-			//remove the manifest file
-	        try
-	        {
-				FileWrapper.Instance.Delete(manifestMapPath);
-	        }
-	        catch (Exception ex)
-	        {
-				Logger.Error(ex);
-	        }
-			
+            //remove the manifest file
+            try
+            {
+                FileWrapper.Instance.Delete(manifestMapPath);
+            }
+            catch (Exception ex)
+            {
+                s_logger.Error(ex);
+            }
+
 
             //Optionally goto new Page
             if (chkAddPage.Checked)
@@ -244,14 +243,14 @@ namespace DotNetNuke.Modules.RazorHost
 
         private void LoadScripts()
         {
-            string basePath = Server.MapPath(razorScriptFolder);
+            string basePath = Server.MapPath(_razorScriptFolder);
             var scriptFileSetting = ModuleContext.Settings["ScriptFile"] as string;
 
-            foreach (string script in Directory.GetFiles(Server.MapPath(razorScriptFolder), "*.??html"))
+            foreach (string script in Directory.GetFiles(Server.MapPath(_razorScriptFolder), "*.??html"))
             {
                 string scriptPath = script.Replace(basePath, "");
                 var item = new ListItem(scriptPath, scriptPath);
-                if (! (string.IsNullOrEmpty(scriptFileSetting)) && scriptPath.ToLowerInvariant() == scriptFileSetting.ToLowerInvariant())
+                if (!(string.IsNullOrEmpty(scriptFileSetting)) && scriptPath.ToLowerInvariant() == scriptFileSetting.ToLowerInvariant())
                 {
                     item.Selected = true;
                 }
@@ -261,7 +260,7 @@ namespace DotNetNuke.Modules.RazorHost
 
         private void DisplayFile()
         {
-            string scriptFile = string.Format(razorScriptFileFormatString, scriptList.SelectedValue);
+            string scriptFile = string.Format(_razorScriptFileFormatString, scriptList.SelectedValue);
 
             lblSourceFile.Text = string.Format(Localization.GetString("SourceFile", LocalResourceFile), scriptFile);
             lblModuleControl.Text = string.Format(Localization.GetString("SourceControl", LocalResourceFile), ModuleControl);
@@ -280,12 +279,12 @@ namespace DotNetNuke.Modules.RazorHost
         {
             base.OnLoad(e);
 
-            if (! ModuleContext.PortalSettings.UserInfo.IsSuperUser)
+            if (!ModuleContext.PortalSettings.UserInfo.IsSuperUser)
             {
                 Response.Redirect(Globals.NavigateURL("Access Denied"), true);
             }
 
-            if (! Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
                 LoadScripts();
                 DisplayFile();
@@ -308,7 +307,7 @@ namespace DotNetNuke.Modules.RazorHost
         {
             try
             {
-                if (! ModuleContext.PortalSettings.UserInfo.IsSuperUser)
+                if (!ModuleContext.PortalSettings.UserInfo.IsSuperUser)
                 {
                     Response.Redirect(Globals.NavigateURL("Access Denied"), true);
                 }

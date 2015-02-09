@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,7 +27,6 @@ using System.Web;
 using DotNetNuke.ComponentModel;
 
 #endregion
-
 namespace DotNetNuke.Services.ClientCapability
 {
     public abstract class ClientCapabilityProvider : IClientCapabilityProvider
@@ -83,7 +82,7 @@ namespace DotNetNuke.Services.ClientCapability
         /// </summary>
         public virtual IClientCapability GetClientCapability(HttpRequest httpRequest)
         {
-            IClientCapability clientCapability = GetClientCapability(httpRequest.UserAgent);        	
+            IClientCapability clientCapability = GetClientCapability(httpRequest.UserAgent);
             clientCapability.FacebookRequest = FacebookRequestController.GetFacebookDetailsFromRequest(httpRequest);
 
             return clientCapability;
@@ -100,8 +99,8 @@ namespace DotNetNuke.Services.ClientCapability
         {
             get
             {
-                return Instance().GetClientCapability(HttpContext.Current.Request);                
-            }            
+                return Instance().GetClientCapability(HttpContext.Current.Request);
+            }
         }
         #endregion
     }

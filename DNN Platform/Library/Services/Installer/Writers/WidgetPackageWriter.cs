@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.IO;
 using System.Xml;
 
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -41,22 +40,22 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class WidgetPackageWriter : PackageWriterBase
     {
-		#region "Constructors"
-		
+        #region "Constructors"
+
         public WidgetPackageWriter(PackageInfo package) : base(package)
         {
             string company = package.Name;
-            if(company.Contains("."))
+            if (company.Contains("."))
             {
                 company = company.Substring(0, company.IndexOf("."));
             }
 
             BasePath = Path.Combine("Resources\\Widgets\\User", company);
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public override bool IncludeAssemblies
         {
@@ -65,12 +64,12 @@ namespace DotNetNuke.Services.Installer.Writers
                 return false;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         protected override void GetFiles(bool includeSource, bool includeAppCode)
         {
-			//Call base class method with includeAppCode = false
+            //Call base class method with includeAppCode = false
             base.GetFiles(includeSource, false);
         }
 

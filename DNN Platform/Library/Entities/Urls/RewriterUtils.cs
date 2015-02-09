@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -29,7 +29,6 @@ using DotNetNuke.Common;
 using DotNetNuke.Entities.Controllers;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     public class RewriterUtils
@@ -44,7 +43,7 @@ namespace DotNetNuke.Entities.Urls
                 sendToUrlLessQString = sendToUrl.Substring(0, sendToUrl.IndexOf("?", StringComparison.Ordinal));
                 queryString = sendToUrl.Substring(sendToUrl.IndexOf("?", StringComparison.Ordinal) + 1);
             }
-			
+
             //rewrite the path..
             context.RewritePath(sendToUrlLessQString, string.Empty, queryString);
             //NOTE!  The above RewritePath() overload is only supported in the .NET Framework 1.1
@@ -59,13 +58,13 @@ namespace DotNetNuke.Entities.Urls
             {
                 return url;
             }
-			
+
             //String does not contain a ~, so just return Url
             if ((url.StartsWith("~") == false))
             {
                 return url;
             }
-			
+
             //There is just the ~ in the Url, return the appPath
             if ((url.Length == 1))
             {
@@ -89,7 +88,7 @@ namespace DotNetNuke.Entities.Urls
             return appPath + url.Substring(1);
         }
 
-        private static readonly Regex ServicesFrameworkRegex = new Regex("DesktopModules/[^/]+/API/");
+        private static readonly Regex s_servicesFrameworkRegex = new Regex("DesktopModules/[^/]+/API/");
 
         static internal bool OmitFromRewriteProcessing(string localPath)
         {
@@ -99,19 +98,20 @@ namespace DotNetNuke.Entities.Urls
                 omitSettings = HostController.Instance.GetString("OmitFromRewriteProcessing");
             }
 
-            if (string.IsNullOrEmpty(omitSettings)) {
-		        omitSettings = "scriptresource.axd|webresource.axd|gif|ico|jpg|jpeg|png|css|js";
-	        }
-	        omitSettings = omitSettings.ToLower();
-	        localPath = localPath.ToLower();
+            if (string.IsNullOrEmpty(omitSettings))
+            {
+                omitSettings = "scriptresource.axd|webresource.axd|gif|ico|jpg|jpeg|png|css|js";
+            }
+            omitSettings = omitSettings.ToLower();
+            localPath = localPath.ToLower();
 
-	        var omissions = omitSettings.Split(new[] { '|' });
+            var omissions = omitSettings.Split(new[] { '|' });
 
             bool shouldOmit = omissions.Any(x => localPath.EndsWith(x));
 
-            if(!shouldOmit)
+            if (!shouldOmit)
             {
-                shouldOmit = ServicesFrameworkRegex.IsMatch(localPath);
+                shouldOmit = s_servicesFrameworkRegex.IsMatch(localPath);
             }
 
             return shouldOmit;

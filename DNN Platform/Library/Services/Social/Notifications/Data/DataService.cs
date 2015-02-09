@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Data;
 
@@ -146,40 +146,39 @@ namespace DotNetNuke.Services.Social.Notifications.Data
 
         #endregion
 
-		#region Toast
+        #region Toast
 
-		public bool IsToastPending(int notificationId)
-		{
-			return _provider.ExecuteScalar<bool>(GetFullyQualifiedName("IsToastPending"),
-												notificationId);
-		}
+        public bool IsToastPending(int notificationId)
+        {
+            return _provider.ExecuteScalar<bool>(GetFullyQualifiedName("IsToastPending"),
+                                                notificationId);
+        }
 
-		/// <summary>
-		/// Mark a Toast ready for sending
-		/// </summary>
-		/// <param name="notificationId">The notification Id </param>
-		/// <param name="userId">The Recipient User Id </param>
-		public void MarkReadyForToast(int notificationId, int userId)
-		{
-			_provider.ExecuteNonQuery(GetFullyQualifiedName("MarkReadyForToast"), notificationId, userId);
-		}
+        /// <summary>
+        /// Mark a Toast ready for sending
+        /// </summary>
+        /// <param name="notificationId">The notification Id </param>
+        /// <param name="userId">The Recipient User Id </param>
+        public void MarkReadyForToast(int notificationId, int userId)
+        {
+            _provider.ExecuteNonQuery(GetFullyQualifiedName("MarkReadyForToast"), notificationId, userId);
+        }
 
-		/// <summary>
-		/// Mark Toast being already sent
-		/// </summary>
-		/// <param name="notificationId">The notification Id </param>
-		/// <param name="userId">The Recipient User Id </param>
-		public void MarkToastSent(int notificationId, int userId)
-		{
+        /// <summary>
+        /// Mark Toast being already sent
+        /// </summary>
+        /// <param name="notificationId">The notification Id </param>
+        /// <param name="userId">The Recipient User Id </param>
+        public void MarkToastSent(int notificationId, int userId)
+        {
             _provider.ExecuteNonQuery(GetFullyQualifiedName("MarkToastSent"), notificationId, userId);
-		}
+        }
 
-		public IDataReader GetToasts(int userId, int portalId)
-		{
-			return _provider.ExecuteReader(GetFullyQualifiedName("GetToasts"), userId, portalId);
-		}
+        public IDataReader GetToasts(int userId, int portalId)
+        {
+            return _provider.ExecuteReader(GetFullyQualifiedName("GetToasts"), userId, portalId);
+        }
 
-		#endregion
-
+        #endregion
     }
 }

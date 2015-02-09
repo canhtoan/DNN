@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -39,7 +39,7 @@ using NUnit.Framework;
 namespace DotNetNuke.Tests.Urls
 {
     [TestFixture]
-    public class FriendlyUrlTests : UrlTestBase 
+    public class FriendlyUrlTests : UrlTestBase
     {
         private const string _defaultPage = Globals.glbDefaultPage;
         private int _tabId;
@@ -87,10 +87,10 @@ namespace DotNetNuke.Tests.Urls
                             if (alias == null)
                             {
                                 alias = new PortalAliasInfo
-                                                {
-                                                    HTTPAlias = fields[0],
-                                                    PortalID = PortalId
-                                                };
+                                {
+                                    HTTPAlias = fields[0],
+                                    PortalID = PortalId
+                                };
                                 PortalAliasController.Instance.AddPortalAlias(alias);
                             }
                         });
@@ -133,7 +133,7 @@ namespace DotNetNuke.Tests.Urls
         {
             base.TestFixtureTearDown();
 
-            var aliasController =PortalAliasController.Instance;
+            var aliasController = PortalAliasController.Instance;
             TestUtil.ReadStream(String.Format("{0}", "Aliases"), (line, header) =>
                         {
                             string[] fields = line.Split(',');
@@ -168,7 +168,7 @@ namespace DotNetNuke.Tests.Urls
             var tabName = testFields["Page Name"];
             var tab = TabController.Instance.GetTabByName(tabName, PortalId);
 
-            ExecuteTestForTab(test, tab, settings, testFields);            
+            ExecuteTestForTab(test, tab, settings, testFields);
         }
 
         private void ExecuteTestForTab(string test, TabInfo tab, FriendlyUrlSettings settings, Dictionary<string, string> testFields)

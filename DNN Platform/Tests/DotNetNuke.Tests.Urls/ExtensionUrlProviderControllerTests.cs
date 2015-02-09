@@ -17,23 +17,24 @@
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
 
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
+using System.Linq;
+
+using DotNetNuke.Common;
+using DotNetNuke.Entities.Portals;
+using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Entities.Urls;
+using DotNetNuke.Tests.Utilities;
+using DotNetNuke.Tests.Utilities.Mocks;
+
+using NUnit.Framework;
+
+
 namespace DotNetNuke.Tests.Urls
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Data;
-    using System.Linq;
-
-    using DotNetNuke.Common;
-    using DotNetNuke.Entities.Portals;
-    using DotNetNuke.Entities.Tabs;
-    using DotNetNuke.Entities.Urls;
-    using DotNetNuke.Tests.Utilities;
-    using DotNetNuke.Tests.Utilities.Mocks;
-
-    using NUnit.Framework;
-
     [TestFixture]
     public class ExtensionUrlProviderControllerTests
     {
@@ -100,7 +101,7 @@ namespace DotNetNuke.Tests.Urls
 
             var providerTabsTable = getExtensionUrlProvidersDataSet.Tables.Add();
             providerTabsTable.Columns.AddRange(new[] { new DataColumn("ExtensionUrlProviderID", typeof(int)), new DataColumn("TabId", typeof(int)), });
-            
+
             return getExtensionUrlProvidersDataSet;
         }
 
@@ -126,7 +127,7 @@ namespace DotNetNuke.Tests.Urls
                 throw new NotImplementedException();
             }
 
-            public override string ChangeFriendlyUrl(TabInfo tab, string friendlyUrlPath, FriendlyUrlOptions options, string cultureCode, ref string endingPageName, out bool useDnnPagePath, ref List<string> messages) 
+            public override string ChangeFriendlyUrl(TabInfo tab, string friendlyUrlPath, FriendlyUrlOptions options, string cultureCode, ref string endingPageName, out bool useDnnPagePath, ref List<string> messages)
             {
                 throw new NotImplementedException();
             }

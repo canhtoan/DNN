@@ -8,7 +8,6 @@ namespace ClientDependency.Core.Config
 {
     public class CompositeFileSection : ConfigurationElement
     {
-
         /// <summary>
         /// All of the file processing providers registered
         /// </summary>
@@ -73,7 +72,5 @@ namespace ClientDependency.Core.Config
                 return (RogueFileCompressionCollection)base["rogueFileCompression"];
             }
         }
-
-       
     }
 }

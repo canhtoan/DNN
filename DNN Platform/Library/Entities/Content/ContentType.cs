@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Linq;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content
 {
     /// <summary>
@@ -42,22 +41,22 @@ namespace DotNetNuke.Entities.Content
         public string ContentType { get; set; }
     }
 
-	/// <summary>
-	/// Content type of a content item.
-	/// </summary>
-	/// <remarks>
-	/// Content Types, simply put, are a way of telling the framework what module/functionality is associated with a Content Item. 
-	/// Each product (ie. module) that wishes to allow categorization of data (via Taxonomy or Folksonomy) for it's content items
-	///  will likely need to create its own content type. 
-	/// </remarks>
+    /// <summary>
+    /// Content type of a content item.
+    /// </summary>
+    /// <remarks>
+    /// Content Types, simply put, are a way of telling the framework what module/functionality is associated with a Content Item. 
+    /// Each product (ie. module) that wishes to allow categorization of data (via Taxonomy or Folksonomy) for it's content items
+    ///  will likely need to create its own content type. 
+    /// </remarks>
     [Serializable]
     public class ContentType : ContentTypeMemberNameFixer, IHydratable
     {
         #region Private Members
 
-        private static ContentType _desktopModule;
-        private static ContentType _module;
-        private static ContentType _tab;
+        private static ContentType s_desktopModule;
+        private static ContentType s_module;
+        private static ContentType s_tab;
 
         private const string desktopModuleContentTypeName = "DesktopModule";
         private const string moduleContentTypeName = "Module";
@@ -82,26 +81,26 @@ namespace DotNetNuke.Entities.Content
         #region Public Static Properties
 
         public static ContentType DesktopModule
-	    {
-	        get
-	        {
-	            return _desktopModule ?? (_desktopModule = new ContentTypeController().GetContentTypes().FirstOrDefault(type => type.ContentType ==  desktopModuleContentTypeName));
-	        }
-	    }
-
-	    public static ContentType Module
-	    {
-	        get
-	        {
-	            return _module ?? (_module = new ContentTypeController().GetContentTypes().FirstOrDefault(type => type.ContentType ==  moduleContentTypeName));
-	        }
-	    }
-
-        public static ContentType Tab 
         {
             get
             {
-                return _tab ?? (_tab = new ContentTypeController().GetContentTypes().FirstOrDefault(type => type.ContentType == tabContentTypeName));
+                return s_desktopModule ?? (s_desktopModule = new ContentTypeController().GetContentTypes().FirstOrDefault(type => type.ContentType == desktopModuleContentTypeName));
+            }
+        }
+
+        public static ContentType Module
+        {
+            get
+            {
+                return s_module ?? (s_module = new ContentTypeController().GetContentTypes().FirstOrDefault(type => type.ContentType == moduleContentTypeName));
+            }
+        }
+
+        public static ContentType Tab
+        {
+            get
+            {
+                return s_tab ?? (s_tab = new ContentTypeController().GetContentTypes().FirstOrDefault(type => type.ContentType == tabContentTypeName));
             }
         }
 
@@ -117,23 +116,23 @@ namespace DotNetNuke.Entities.Content
 
         #region IHydratable Implementation
 
-		/// <summary>
-		/// Fill this content object will the information from data reader.
-		/// </summary>
-		/// <param name="dr">The data reader.</param>
-		/// <seealso cref="IHydratable.Fill"/>
+        /// <summary>
+        /// Fill this content object will the information from data reader.
+        /// </summary>
+        /// <param name="dr">The data reader.</param>
+        /// <seealso cref="IHydratable.Fill"/>
         public void Fill(IDataReader dr)
         {
             ContentTypeId = Null.SetNullInteger(dr["ContentTypeID"]);
             ContentType = Null.SetNullString(dr["ContentType"]);
         }
 
-		/// <summary>
-		/// Gets or sets the key ID.
-		/// </summary>
-		/// <value>
-		/// ContentTypeID
-		/// </value>
+        /// <summary>
+        /// Gets or sets the key ID.
+        /// </summary>
+        /// <value>
+        /// ContentTypeID
+        /// </value>
         public int KeyID
         {
             get
@@ -148,12 +147,12 @@ namespace DotNetNuke.Entities.Content
 
         #endregion
 
-		/// <summary>
-		/// override ToString to return content type
-		/// </summary>
-		/// <returns>
-		/// property ContentType's value.
-		/// </returns>
+        /// <summary>
+        /// override ToString to return content type
+        /// </summary>
+        /// <returns>
+        /// property ContentType's value.
+        /// </returns>
         public override string ToString()
         {
             return ContentType;

@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Linq;
 using System.Net;
@@ -58,7 +57,7 @@ namespace DotNetNuke.Web.InternalServices
         public HttpResponseMessage GetNonTranslatedPages(string languageCode)
         {
             var request = HttpContext.Current.Request;
-           var locale = new LocaleController().GetLocale(languageCode);
+            var locale = new LocaleController().GetLocale(languageCode);
 
             List<PageDto> pages = new List<PageDto>();
             if (!IsDefaultLanguage(locale.Code))

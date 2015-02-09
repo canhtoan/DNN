@@ -19,10 +19,11 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+
 #region Usings
 using System.Text.RegularExpressions;
-#endregion
 
+#endregion
 namespace DotNetNuke.Services.Localization
 {
     public static class LocalizationExtensions
@@ -60,6 +61,5 @@ namespace DotNetNuke.Services.Localization
             }
             return string.Empty;
         }
-
     }
 }

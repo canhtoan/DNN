@@ -17,12 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+using System.Web;
+using ClientDependency.Core.FileRegistration.Providers;
+
+
 namespace DotNetNuke.Web.Client.Providers
 {
-    using System.Web;
-    using ClientDependency.Core.FileRegistration.Providers;
-
     public abstract class DnnFileRegistrationProvider : WebFormsFileRegistrationProvider
     {
         private int? _settingsVersion;

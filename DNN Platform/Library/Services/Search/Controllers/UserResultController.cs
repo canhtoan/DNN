@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -32,7 +32,6 @@ using DotNetNuke.Entities.Users.Social;
 using DotNetNuke.Services.Search.Entities;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Controllers
 {
     /// <summary>
@@ -70,11 +69,11 @@ namespace DotNetNuke.Services.Search.Controllers
             if (searchResult.UniqueKey.Contains("adminonly"))
             {
                 var currentUser = UserController.Instance.GetCurrentUserInfo();
-                return currentUser.IsSuperUser 
+                return currentUser.IsSuperUser
                         || currentUser.IsInRole("Administrators")
                         || currentUser.UserID == userId;
             }
-            
+
             if (searchResult.UniqueKey.Contains("friendsandgroups"))
             {
                 var extendedVisibility = searchResult.UniqueKey.IndexOf("_") != searchResult.UniqueKey.LastIndexOf("_")

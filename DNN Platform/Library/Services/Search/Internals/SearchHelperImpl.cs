@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -40,7 +40,6 @@ using DotNetNuke.Entities.Controllers;
 using System.IO;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Internals
 {
     internal class SearchHelperImpl : ISearchHelper
@@ -372,7 +371,6 @@ namespace DotNetNuke.Services.Search.Internals
         /// <returns>cleaned and pre-processed search phrase</returns>
         public string RephraseSearchText(string searchPhrase, bool useWildCard)
         {
-
             searchPhrase = CleanSearchPhrase(HttpUtility.HtmlDecode(searchPhrase));
 
             if (!useWildCard && !searchPhrase.Contains("\""))
@@ -447,7 +445,7 @@ namespace DotNetNuke.Services.Search.Internals
             if (string.IsNullOrEmpty(lastWord))
                 return string.Empty;
 
-            if (lastWord.IndexOfAny(new[] {'~', '*'}) < 0)
+            if (lastWord.IndexOfAny(new[] { '~', '*' }) < 0)
             {
                 var beginIsGroup = false;
                 var endIsGroup = false;
@@ -585,7 +583,7 @@ namespace DotNetNuke.Services.Search.Internals
             var cultureCode = splittedKeys[2];
 
             EnsurePortalDefaultsAreSet(portalId);
-            
+
             return CBO.FillCollection<SearchStopWords>(DataProvider.Instance().GetSearchStopWords(portalId, cultureCode));
         }
 
@@ -595,7 +593,7 @@ namespace DotNetNuke.Services.Search.Internals
 
             //check portal settings first
             if (PortalController.GetPortalSetting(setting, portalId, "false") != "false") return;
-            
+
             //Portal may not be present, especially during installation
             if (PortalController.Instance.GetPortal(portalId) == null) return;
 
@@ -603,7 +601,7 @@ namespace DotNetNuke.Services.Search.Internals
             {
                 var resourceFile = GetResourceFile(locale.Code);
 
-                var currentStopWords = CBO.FillCollection<SearchStopWords>(DataProvider.Instance().GetSearchStopWords(portalId, locale.Code)); 
+                var currentStopWords = CBO.FillCollection<SearchStopWords>(DataProvider.Instance().GetSearchStopWords(portalId, locale.Code));
                 if (currentStopWords == null || currentStopWords.Count == 0)
                 {
                     //Add Default StopWord
@@ -641,6 +639,5 @@ namespace DotNetNuke.Services.Search.Internals
         }
 
         #endregion
-
     }
 }

@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Data;
 
@@ -27,13 +27,12 @@ using DotNetNuke.Entities.Content.Taxonomy;
 using DotNetNuke.Services.FileSystem;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content.Data
 {
-	/// <summary>
-	/// Interface of DataService.
-	/// </summary>
-	/// <seealso cref="DataService"/>
+    /// <summary>
+    /// Interface of DataService.
+    /// </summary>
+    /// <seealso cref="DataService"/>
     public interface IDataService
     {
         //Content Item Methods
@@ -43,7 +42,7 @@ namespace DotNetNuke.Entities.Content.Data
 
         IDataReader GetContentItem(int contentItemId);
 
-	    IDataReader GetContentItems(int contentTypeId, int tabId, int moduleId);
+        IDataReader GetContentItems(int contentTypeId, int tabId, int moduleId);
 
         IDataReader GetContentItemsByTerm(string term);
 
@@ -51,9 +50,9 @@ namespace DotNetNuke.Entities.Content.Data
 
         IDataReader GetContentItemsByModuleId(int moduleId);
 
-	    IDataReader GetContentItemsByTabId(int tabId);
+        IDataReader GetContentItemsByTabId(int tabId);
 
-	    IDataReader GetContentItemsByVocabularyId(int vocabularyId);
+        IDataReader GetContentItemsByVocabularyId(int vocabularyId);
 
         IDataReader GetUnIndexedContentItems();
 
@@ -63,12 +62,12 @@ namespace DotNetNuke.Entities.Content.Data
         void AddMetaData(ContentItem contentItem, string name, string value);
 
         void DeleteMetaData(ContentItem contentItem, string name, string value);
-        
+
         IDataReader GetMetaData(int contentItemId);
 
-	    void SynchronizeMetaData(ContentItem contentItem,
-	                             IEnumerable<KeyValuePair<string, string>> added,
-	                             IEnumerable<KeyValuePair<string, string>> deleted);
+        void SynchronizeMetaData(ContentItem contentItem,
+                                 IEnumerable<KeyValuePair<string, string>> added,
+                                 IEnumerable<KeyValuePair<string, string>> deleted);
 
         //ContentType Methods
         int AddContentType(ContentType contentType);
@@ -101,7 +100,7 @@ namespace DotNetNuke.Entities.Content.Data
 
         IDataReader GetTerm(int termId);
 
-	    IDataReader GetTermUsage(int termId);
+        IDataReader GetTermUsage(int termId);
 
         IDataReader GetTermsByContent(int contentItemId);
 

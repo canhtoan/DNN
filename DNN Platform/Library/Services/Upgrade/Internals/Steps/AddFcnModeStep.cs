@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 
@@ -33,7 +34,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.Steps
     /// ------------------------------------------------------------------------------------------------  
     public class AddFcnModeStep : BaseInstallationStep
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(AddFcnModeStep));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(AddFcnModeStep));
 
         public override void Execute()
         {
@@ -44,7 +45,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.Steps
             if (!string.IsNullOrEmpty(strError))
             {
                 Errors.Add(Localization.Localization.GetString("FcnMode", LocalInstallResourceFile) + ": " + strError);
-                Logger.TraceFormat("Adding FcnMode : {0}", strError);
+                s_logger.TraceFormat("Adding FcnMode : {0}", strError);
             }
             Status = Errors.Count > 0 ? StepStatus.Retry : StepStatus.Done;
         }

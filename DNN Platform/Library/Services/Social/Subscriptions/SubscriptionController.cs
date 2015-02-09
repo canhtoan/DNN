@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,13 +36,13 @@ namespace DotNetNuke.Services.Social.Subscriptions
     /// </summary>
     public class SubscriptionController : ServiceLocator<ISubscriptionController, SubscriptionController>, ISubscriptionController
     {
-        private readonly IDataService dataService;
-        private readonly ISubscriptionSecurityController subscriptionSecurityController;
+        private readonly IDataService _dataService;
+        private readonly ISubscriptionSecurityController _subscriptionSecurityController;
 
         public SubscriptionController()
         {
-            dataService = DataService.Instance;
-            subscriptionSecurityController = SubscriptionSecurityController.Instance;
+            _dataService = DataService.Instance;
+            _subscriptionSecurityController = SubscriptionSecurityController.Instance;
         }
 
         protected override Func<ISubscriptionController> GetFactory()
@@ -53,27 +53,27 @@ namespace DotNetNuke.Services.Social.Subscriptions
         #region Implemented Methods
         public IEnumerable<Subscription> GetUserSubscriptions(UserInfo user, int portalId, int subscriptionTypeId = -1)
         {
-            var subscriptions = CBO.FillCollection<Subscription>(dataService.GetSubscriptionsByUser(
+            var subscriptions = CBO.FillCollection<Subscription>(_dataService.GetSubscriptionsByUser(
                 portalId,
                 user.UserID,
                 subscriptionTypeId));
 
-            return subscriptions.Where(s => subscriptionSecurityController.HasPermission(s));
+            return subscriptions.Where(s => _subscriptionSecurityController.HasPermission(s));
         }
 
         public IEnumerable<Subscription> GetContentSubscriptions(int portalId, int subscriptionTypeId, string objectKey)
         {
-            var subscriptions = CBO.FillCollection<Subscription>(dataService.GetSubscriptionsByContent(
+            var subscriptions = CBO.FillCollection<Subscription>(_dataService.GetSubscriptionsByContent(
                 portalId,
                 subscriptionTypeId,
                 objectKey));
 
-            return subscriptions.Where(s => subscriptionSecurityController.HasPermission(s));
+            return subscriptions.Where(s => _subscriptionSecurityController.HasPermission(s));
         }
 
         public bool IsSubscribed(Subscription subscription)
         {
-            var fetchedSubscription = CBO.FillObject<Subscription>(dataService.IsSubscribed(
+            var fetchedSubscription = CBO.FillObject<Subscription>(_dataService.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
@@ -81,7 +81,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
                 subscription.ModuleId,
                 subscription.TabId));
 
-            return fetchedSubscription != null && subscriptionSecurityController.HasPermission(fetchedSubscription);
+            return fetchedSubscription != null && _subscriptionSecurityController.HasPermission(fetchedSubscription);
         }
 
         public void AddSubscription(Subscription subscription)
@@ -91,7 +91,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
             Requires.NotNegative("subscription.SubscriptionTypeId", subscription.SubscriptionTypeId);
             Requires.NotNull("subscription.ObjectKey", subscription.ObjectKey);
 
-            subscription.SubscriptionId = dataService.AddSubscription(subscription.UserId,
+            subscription.SubscriptionId = _dataService.AddSubscription(subscription.UserId,
                                                subscription.PortalId,
                                                subscription.SubscriptionTypeId,
                                                subscription.ObjectKey,
@@ -105,7 +105,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
         {
             Requires.NotNull("subscription", subscription);
 
-            var subscriptionToDelete = CBO.FillObject<Subscription>(dataService.IsSubscribed(
+            var subscriptionToDelete = CBO.FillObject<Subscription>(_dataService.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
@@ -115,7 +115,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
 
             if (subscriptionToDelete == null) return;
 
-            dataService.DeleteSubscription(subscriptionToDelete.SubscriptionId);
+            _dataService.DeleteSubscription(subscriptionToDelete.SubscriptionId);
         }
 
         public int UpdateSubscriptionDescription(string objectKey, int portalId, string newDescription)
@@ -123,12 +123,12 @@ namespace DotNetNuke.Services.Social.Subscriptions
             Requires.NotNull("objectKey", objectKey);
             Requires.NotNull("portalId", portalId);
             Requires.NotNull("newDescription", newDescription);
-            return dataService.UpdateSubscriptionDescription(objectKey, portalId, newDescription);
+            return _dataService.UpdateSubscriptionDescription(objectKey, portalId, newDescription);
         }
 
         public void DeleteSubscriptionsByObjectKey(int portalId, string objectKey)
         {
-            dataService.DeleteSubscriptionsByObjectKey(portalId, objectKey);
+            _dataService.DeleteSubscriptionsByObjectKey(portalId, objectKey);
         }
 
         #endregion

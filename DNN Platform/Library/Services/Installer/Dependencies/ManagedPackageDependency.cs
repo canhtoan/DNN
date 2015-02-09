@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 //
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 //
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Xml.XPath;
 
@@ -29,7 +29,6 @@ namespace DotNetNuke.Services.Installer.Dependencies
 {
     public class ManagedPackageDependency : DependencyBase, IManagedPackageDependency
     {
-
         public override string ErrorMessage
         {
             get
@@ -45,8 +44,8 @@ namespace DotNetNuke.Services.Installer.Dependencies
                 bool _IsValid = true;
 
                 //Get Package from DataStore
-                PackageInfo package = PackageController.Instance.GetExtensionPackage(Null.NullInteger, 
-                                                (p) => p.Name == PackageDependency.PackageName 
+                PackageInfo package = PackageController.Instance.GetExtensionPackage(Null.NullInteger,
+                                                (p) => p.Name == PackageDependency.PackageName
                                                                 && p.Version >= PackageDependency.Version);
                 if (package == null)
                 {

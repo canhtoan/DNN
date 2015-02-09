@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -38,7 +39,7 @@ namespace DotNetNuke.Web.Api
         {
             Requires.NotNullOrEmpty("moduleFolderName", moduleFolderName);
             Requires.NotNegative("count", count);
-            
+
             return moduleFolderName + "-" + routeName + "-" + count.ToString(CultureInfo.InvariantCulture);
         }
 
@@ -53,7 +54,7 @@ namespace DotNetNuke.Web.Api
             {
                 return "";
             }
-            
+
             string prefix = "";
 
             for (int i = count - 1; i >= 0; i--)
@@ -69,15 +70,15 @@ namespace DotNetNuke.Web.Api
             var allRouteValues = new HttpRouteValueDictionary(routeValues);
 
             var segments = portalAliasInfo.HTTPAlias.Split('/');
-            
-            if(segments.Length > 1)
+
+            if (segments.Length > 1)
             {
-                  for(int i = 1; i < segments.Length; i++)
-                  {
-                      var key = "prefix" + (i - 1).ToString(CultureInfo.InvariantCulture);
-                      var value = segments[i];
-                      allRouteValues.Add(key, value);
-                  }
+                for (int i = 1; i < segments.Length; i++)
+                {
+                    var key = "prefix" + (i - 1).ToString(CultureInfo.InvariantCulture);
+                    var value = segments[i];
+                    allRouteValues.Add(key, value);
+                }
             }
 
             return allRouteValues;
@@ -103,9 +104,9 @@ namespace DotNetNuke.Web.Api
                 //prefixCounts are required for each route that is mapped but they only change
                 //when a new portal is added so cache them until that time
 
-                
+
                 var portals = PortalController.Instance.GetPortals();
-               
+
 
                 var segmentCounts1 = new List<int>();
 

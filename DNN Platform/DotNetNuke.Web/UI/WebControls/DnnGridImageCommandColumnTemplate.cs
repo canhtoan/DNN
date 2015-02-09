@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -184,10 +183,10 @@ namespace DotNetNuke.Web.UI.WebControls
                 case GridItemType.EditItem:
                     if (EditMode == ImageCommandColumnEditMode.URL)
                     {
-                        var hypLink = new HyperLink {ToolTip = Text};
+                        var hypLink = new HyperLink { ToolTip = Text };
                         if (!String.IsNullOrEmpty(ImageURL) && ShowImage)
                         {
-                            var img = new Image {ImageUrl = DesignMode ? ImageURL.Replace("~/", "../../") : ImageURL};
+                            var img = new Image { ImageUrl = DesignMode ? ImageURL.Replace("~/", "../../") : ImageURL };
                             hypLink.Controls.Add(img);
                             img.ToolTip = Text;
                         }
@@ -203,7 +202,7 @@ namespace DotNetNuke.Web.UI.WebControls
                         if (!String.IsNullOrEmpty(ImageURL) && ShowImage)
                         {
                             var colIcon = new ImageButton
-                                {ImageUrl = DesignMode ? ImageURL.Replace("~/", "../../") : ImageURL, ToolTip = Text};
+                            { ImageUrl = DesignMode ? ImageURL.Replace("~/", "../../") : ImageURL, ToolTip = Text };
                             if (!String.IsNullOrEmpty(OnClickJs))
                             {
                                 ClientAPI.AddButtonConfirm(colIcon, OnClickJs);
@@ -214,7 +213,7 @@ namespace DotNetNuke.Web.UI.WebControls
                         }
                         if (!String.IsNullOrEmpty(Text) && !ShowImage)
                         {
-                            var colLink = new LinkButton {ToolTip = Text};
+                            var colLink = new LinkButton { ToolTip = Text };
                             if (!String.IsNullOrEmpty(OnClickJs))
                             {
                                 ClientAPI.AddButtonConfirm(colLink, OnClickJs);
@@ -232,7 +231,7 @@ namespace DotNetNuke.Web.UI.WebControls
                     break;
             }
         }
-        
+
         public IOrderedDictionary ExtractValues(Control container)
         {
             //do nothing we don't really support databinding
@@ -285,8 +284,8 @@ namespace DotNetNuke.Web.UI.WebControls
             int keyValue;
             if (EditMode == ImageCommandColumnEditMode.URL)
             {
-                var hypLink = (HyperLink) sender;
-                container = (GridItem) hypLink.NamingContainer;
+                var hypLink = (HyperLink)sender;
+                container = (GridItem)hypLink.NamingContainer;
                 keyValue = GetValue(container);
                 if (!String.IsNullOrEmpty(NavigateURLFormatString))
                 {
@@ -302,8 +301,8 @@ namespace DotNetNuke.Web.UI.WebControls
                 //Bind Image Button
                 if (!String.IsNullOrEmpty(ImageURL) && ShowImage)
                 {
-                    var colIcon = (ImageButton) sender;
-                    container = (GridItem) colIcon.NamingContainer;
+                    var colIcon = (ImageButton)sender;
+                    container = (GridItem)colIcon.NamingContainer;
                     keyValue = GetValue(container);
                     colIcon.CommandArgument = keyValue.ToString(CultureInfo.InvariantCulture);
                     colIcon.Visible = GetIsVisible(container);
@@ -311,8 +310,8 @@ namespace DotNetNuke.Web.UI.WebControls
                 if (!String.IsNullOrEmpty(Text) && !ShowImage)
                 {
                     //Bind Link Button
-                    var colLink = (LinkButton) sender;
-                    container = (GridItem) colLink.NamingContainer;
+                    var colLink = (LinkButton)sender;
+                    container = (GridItem)colLink.NamingContainer;
                     keyValue = GetValue(container);
                     colLink.CommandArgument = keyValue.ToString(CultureInfo.InvariantCulture);
                     colLink.Visible = GetIsVisible(container);

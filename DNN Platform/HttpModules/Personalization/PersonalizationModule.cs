@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 using DotNetNuke.Common;
@@ -28,7 +28,6 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Personalization;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.Personalization
 {
     public class PersonalizationModule : IHttpModule
@@ -56,14 +55,14 @@ namespace DotNetNuke.HttpModules.Personalization
 
         public void OnEndRequest(object s, EventArgs e)
         {
-            HttpContext context = ((HttpApplication) s).Context;
+            HttpContext context = ((HttpApplication)s).Context;
             HttpRequest request = context.Request;
 
             if (!Initialize.ProcessHttpModule(request, false, false))
             {
                 return;
             }
-			
+
             //Obtain PortalSettings from Current Context
             var _portalSettings = (PortalSettings)context.Items["PortalSettings"];
             if (_portalSettings != null)

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.IO;
 using DotNetNuke.Common;
 using DotNetNuke.Services.FileSystem.Internal;
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Services.FileSystem
 // ReSharper restore CheckNamespace
 {
@@ -68,16 +69,16 @@ namespace DotNetNuke.Services.FileSystem
             {
                 var fileName = Path.GetFileName(fileNames[i]);
                 if (!fileName.EndsWith(ProtectedExtension, StringComparison.InvariantCultureIgnoreCase))
-				{
+                {
                     var destFileName = fileNames[i] + ProtectedExtension;
                     if (FileWrapper.Instance.Exists(destFileName))
                         FileWrapper.Instance.Delete(destFileName);
-					FileWrapper.Instance.Move(fileNames[i], destFileName);
-				}
-				else
-				{
+                    FileWrapper.Instance.Move(fileNames[i], destFileName);
+                }
+                else
+                {
                     fileName = fileName.Substring(0, fileName.LastIndexOf(ProtectedExtension, StringComparison.InvariantCultureIgnoreCase));
-				}
+                }
 
                 fileNames[i] = fileName;
             }

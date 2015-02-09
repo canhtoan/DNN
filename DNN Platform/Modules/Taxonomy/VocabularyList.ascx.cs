@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI.WebControls;
 
@@ -35,14 +35,11 @@ using Telerik.Web.UI;
 using WebFormsMvp;
 
 #endregion
-
 namespace DotNetNuke.Modules.Taxonomy.Views
 {
-
-    [PresenterBinding(typeof (VocabularyListPresenter))]
+    [PresenterBinding(typeof(VocabularyListPresenter))]
     public partial class VocabularyList : ModuleView<VocabularyListModel>, IVocabularyListView
     {
-
         #region Public Events
 
         public event GridNeedDataSourceEventHandler GridsNeedDataSource;
@@ -85,6 +82,5 @@ namespace DotNetNuke.Modules.Taxonomy.Views
         }
 
         #endregion
-
     }
 }

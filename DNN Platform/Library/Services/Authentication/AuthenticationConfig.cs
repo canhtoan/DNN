@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Common.Utilities;
@@ -27,7 +27,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Authentication
 {
     /// -----------------------------------------------------------------------------
@@ -39,7 +38,7 @@ namespace DotNetNuke.Services.Authentication
     [Serializable]
     public class AuthenticationConfig : AuthenticationConfigBase
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (AuthenticationConfig));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(AuthenticationConfig));
         private const string CACHEKEY = "Authentication.DNN";
 
         protected AuthenticationConfig(int portalID) : base(portalID)
@@ -59,10 +58,10 @@ namespace DotNetNuke.Services.Authentication
                     UseCaptcha = bool.Parse(setting);
                 }
             }
-			catch (Exception ex)
-			{
-				Logger.Error(ex);
-			}
+            catch (Exception ex)
+            {
+                s_logger.Error(ex);
+            }
         }
 
         public bool Enabled { get; set; }
@@ -78,7 +77,7 @@ namespace DotNetNuke.Services.Authentication
         public static AuthenticationConfig GetConfig(int portalId)
         {
             string key = CACHEKEY + "_" + portalId;
-            var config = (AuthenticationConfig) DataCache.GetCache(key);
+            var config = (AuthenticationConfig)DataCache.GetCache(key);
             if (config == null)
             {
                 config = new AuthenticationConfig(portalId);

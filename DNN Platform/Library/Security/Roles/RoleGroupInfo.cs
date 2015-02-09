@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,7 +33,6 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Security.Roles.Internal;
 
 #endregion
-
 namespace DotNetNuke.Security.Roles
 {
     /// -----------------------------------------------------------------------------
@@ -51,17 +50,17 @@ namespace DotNetNuke.Security.Roles
     [Serializable]
     public class RoleGroupInfo : BaseEntityInfo, IHydratable, IXmlSerializable
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         private string _Description;
         private int _PortalID = Null.NullInteger;
         private int _RoleGroupID = Null.NullInteger;
         private string _RoleGroupName;
         private Dictionary<string, RoleInfo> _Roles;
-		
-		#endregion
-		
-		#region "Constructors"
+
+        #endregion
+
+        #region "Constructors"
 
         public RoleGroupInfo()
         {
@@ -76,10 +75,10 @@ namespace DotNetNuke.Security.Roles
                 GetRoles();
             }
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -173,8 +172,8 @@ namespace DotNetNuke.Security.Roles
                 return _Roles;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IHydratable Members
 
@@ -276,7 +275,7 @@ namespace DotNetNuke.Security.Roles
                             Description = reader.ReadElementContentAsString();
                             break;
                         default:
-                            if(reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
+                            if (reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
                             {
                                 reader.ReadElementContentAsString();
                             }
@@ -306,8 +305,8 @@ namespace DotNetNuke.Security.Roles
 
             //Write start of roles
             writer.WriteStartElement("roles");
-			
-			//Iterate through roles
+
+            //Iterate through roles
             if (Roles != null)
             {
                 foreach (RoleInfo role in Roles.Values)
@@ -315,7 +314,7 @@ namespace DotNetNuke.Security.Roles
                     role.WriteXml(writer);
                 }
             }
-			
+
             //Write end of Roles
             writer.WriteEndElement();
 

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Data;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
 #endregion
-
 namespace DotNetNuke.Services.Vendors
 {
     public class VendorController
@@ -127,7 +126,7 @@ namespace DotNetNuke.Services.Vendors
                     TotalRecords = Convert.ToInt32(dr["TotalRecords"]);
                 }
                 dr.NextResult();
-                retValue = CBO.FillCollection(dr, typeof (VendorInfo));
+                retValue = CBO.FillCollection(dr, typeof(VendorInfo));
             }
             finally
             {
@@ -146,7 +145,7 @@ namespace DotNetNuke.Services.Vendors
                     TotalRecords = Convert.ToInt32(dr["TotalRecords"]);
                 }
                 dr.NextResult();
-                return CBO.FillCollection(dr, typeof (VendorInfo));
+                return CBO.FillCollection(dr, typeof(VendorInfo));
             }
             finally
             {
@@ -164,7 +163,7 @@ namespace DotNetNuke.Services.Vendors
                     TotalRecords = Convert.ToInt32(dr["TotalRecords"]);
                 }
                 dr.NextResult();
-                return CBO.FillCollection(dr, typeof (VendorInfo));
+                return CBO.FillCollection(dr, typeof(VendorInfo));
             }
             finally
             {

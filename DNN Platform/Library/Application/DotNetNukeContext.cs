@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 
 using DotNetNuke.Collections.Internal;
@@ -27,7 +27,6 @@ using DotNetNuke.UI.Containers.EventListeners;
 using DotNetNuke.UI.Skins.EventListeners;
 
 #endregion
-
 namespace DotNetNuke.Application
 {
     /// <summary>
@@ -35,7 +34,7 @@ namespace DotNetNuke.Application
     /// </summary>
     public class DotNetNukeContext
     {
-        private static DotNetNukeContext _current;
+        private static DotNetNukeContext s_current;
         private readonly Application _application;
         private readonly IList<ContainerEventListener> _containerEventListeners;
         private readonly IList<SkinEventListener> _skinEventListeners;
@@ -58,9 +57,9 @@ namespace DotNetNuke.Application
             _skinEventListeners = new NaiveLockingList<SkinEventListener>();
         }
 
-		/// <summary>
-		/// Get the application.
-		/// </summary>
+        /// <summary>
+        /// Get the application.
+        /// </summary>
         public Application Application
         {
             get
@@ -69,14 +68,14 @@ namespace DotNetNuke.Application
             }
         }
 
-		/// <summary>
-		/// Gets the container event listeners. The listeners will be called in each life cycle of load container.
-		/// </summary>
-		/// <see cref="ContainerEventListener"/>
-		/// <seealso cref="DotNetNuke.UI.Containers.Container.OnInit"/>
-		/// <seealso cref="DotNetNuke.UI.Containers.Container.OnLoad"/>
-		/// <seealso cref="DotNetNuke.UI.Containers.Container.OnPreRender"/>
-		/// <seealso cref="DotNetNuke.UI.Containers.Container.OnUnload"/>
+        /// <summary>
+        /// Gets the container event listeners. The listeners will be called in each life cycle of load container.
+        /// </summary>
+        /// <see cref="ContainerEventListener"/>
+        /// <seealso cref="DotNetNuke.UI.Containers.Container.OnInit"/>
+        /// <seealso cref="DotNetNuke.UI.Containers.Container.OnLoad"/>
+        /// <seealso cref="DotNetNuke.UI.Containers.Container.OnPreRender"/>
+        /// <seealso cref="DotNetNuke.UI.Containers.Container.OnUnload"/>
         public IList<ContainerEventListener> ContainerEventListeners
         {
             get
@@ -85,14 +84,14 @@ namespace DotNetNuke.Application
             }
         }
 
-		/// <summary>
-		/// Gets the skin event listeners. The listeners will be called in each life cycle of load skin.
-		/// </summary>
-		/// <see cref="SkinEventListener"/>
-		/// <seealso cref="DotNetNuke.UI.Skins.Skin.OnInit"/>
-		/// <seealso cref="DotNetNuke.UI.Skins.Skin.OnLoad"/>
-		/// <seealso cref="DotNetNuke.UI.Skins.Skin.OnPreRender"/>
-		/// <seealso cref="DotNetNuke.UI.Skins.Skin.OnUnload"/>
+        /// <summary>
+        /// Gets the skin event listeners. The listeners will be called in each life cycle of load skin.
+        /// </summary>
+        /// <see cref="SkinEventListener"/>
+        /// <seealso cref="DotNetNuke.UI.Skins.Skin.OnInit"/>
+        /// <seealso cref="DotNetNuke.UI.Skins.Skin.OnLoad"/>
+        /// <seealso cref="DotNetNuke.UI.Skins.Skin.OnPreRender"/>
+        /// <seealso cref="DotNetNuke.UI.Skins.Skin.OnUnload"/>
         public IList<SkinEventListener> SkinEventListeners
         {
             get
@@ -101,22 +100,22 @@ namespace DotNetNuke.Application
             }
         }
 
-		/// <summary>
-		/// Gets or sets the current app context.
-		/// </summary>
+        /// <summary>
+        /// Gets or sets the current app context.
+        /// </summary>
         public static DotNetNukeContext Current
         {
             get
             {
-                if (_current == null)
+                if (s_current == null)
                 {
-                    _current = new DotNetNukeContext();
+                    s_current = new DotNetNukeContext();
                 }
-                return _current;
+                return s_current;
             }
             set
             {
-                _current = value;
+                s_current = value;
             }
         }
     }

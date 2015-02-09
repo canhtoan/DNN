@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
@@ -29,7 +29,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Scheduling;
 
 #endregion
-
 namespace DotNetNuke.Services.FileSystem
 {
     public class SynchronizeFileSystem : SchedulerClient
@@ -43,7 +42,7 @@ namespace DotNetNuke.Services.FileSystem
         {
             try
             {
-				//notification that the event is progressing
+                //notification that the event is progressing
                 Progressing(); //OPTIONAL
 
                 Synchronize();
@@ -60,8 +59,8 @@ namespace DotNetNuke.Services.FileSystem
 
                 //notification that we have errored
                 Errored(ref exc);
-				
-				//log the exception
+
+                //log the exception
                 Exceptions.Exceptions.LogException(exc); //OPTIONAL
             }
         }
@@ -69,14 +68,14 @@ namespace DotNetNuke.Services.FileSystem
         private void Synchronize()
         {
             var folderManager = FolderManager.Instance;
-            
+
             folderManager.Synchronize(Null.NullInteger);
 
             var portals = PortalController.Instance.GetPortals();
             //Sync Portals
-			for (var intIndex = 0; intIndex <= portals.Count - 1; intIndex++)
+            for (var intIndex = 0; intIndex <= portals.Count - 1; intIndex++)
             {
-                var portal = (PortalInfo) portals[intIndex];
+                var portal = (PortalInfo)portals[intIndex];
                 folderManager.Synchronize(portal.PortalID);
             }
         }

@@ -26,7 +26,6 @@
 
 
 #endregion
-
 namespace DotNetNuke.Entities.Tabs
 {
     public enum PortalAliasUsageType

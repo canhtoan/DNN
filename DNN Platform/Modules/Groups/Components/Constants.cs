@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DotNetNuke.Modules.Groups.Components {
-    public class Constants {
-
-
+namespace DotNetNuke.Modules.Groups.Components
+{
+    public class Constants
+    {
         internal const string DefaultRoleGroupSetting = "DefaultRoleGroup_Setting";
         internal const string DefautlGroupViewMode = "DefaultGroupViewMode_Setting";
         internal const string GroupViewPage = "GroupViewPage_Setting";
@@ -18,7 +18,7 @@ namespace DotNetNuke.Modules.Groups.Components {
         internal const string GroupListSearchEnabled = "GroupListSearchEnabled_Setting";
         internal const string GroupListSortField = "GroupListSortField_Setting";
         internal const string GroupListSortDirection = "GroupListSortDirection_Setting";
- 
+
         internal const string GroupViewTemplate = "GroupViewTemplate_Setting";
         internal const string GroupListTemplate = "GroupListTemplate_Setting";
         internal const string GroupModerationEnabled = "GroupModerationEnabled_Setting";
@@ -37,6 +37,6 @@ namespace DotNetNuke.Modules.Groups.Components {
         internal const string SharedResourcesPath = "~/DesktopModules/SocialGroups/App_LocalResources/SharedResources.resx";
         internal const string ModulePath = "~/DesktopModules/SocialGroups/";
 
-		internal const string DefaultGroupName = "Social Groups";
+        internal const string DefaultGroupName = "Social Groups";
     }
 }

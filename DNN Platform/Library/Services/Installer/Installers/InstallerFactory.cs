@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Xml.XPath;
 
@@ -29,7 +29,6 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -45,7 +44,7 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class InstallerFactory
     {
-		#region Public Shared Methods
+        #region Public Shared Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -126,8 +125,8 @@ namespace DotNetNuke.Services.Installer.Installers
 
                     if (entry != null && !string.IsNullOrEmpty(entry.Text))
                     {
-						//The class for the Installer is specified in the Text property
-                        installer = (ComponentInstallerBase) Reflection.CreateObject(entry.Text, "Installer_" + entry.Value);
+                        //The class for the Installer is specified in the Text property
+                        installer = (ComponentInstallerBase)Reflection.CreateObject(entry.Text, "Installer_" + entry.Value);
                     }
                     break;
             }
@@ -166,7 +165,7 @@ namespace DotNetNuke.Services.Installer.Installers
                 {
                     installer.Version = package.Version;
                 }
-				
+
                 //Read Manifest
                 if (package.InstallerInfo.InstallMode != InstallMode.ManifestOnly || installer.SupportsManifestOnlyInstall)
                 {
@@ -175,7 +174,7 @@ namespace DotNetNuke.Services.Installer.Installers
             }
             return installer;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

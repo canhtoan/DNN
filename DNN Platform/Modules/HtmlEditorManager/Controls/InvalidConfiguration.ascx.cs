@@ -3,12 +3,13 @@
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
+
 #endregion
+using DotNetNuke.Entities.Modules;
+
 
 namespace DotNetNuke.Modules.HtmlEditorManager.Views
 {
-    using DotNetNuke.Entities.Modules;
-
     /// <summary>
     /// Control to display information about provider not being supported.
     /// </summary>

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -34,7 +34,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     internal class BasicFriendlyUrlProvider : FriendlyUrlProviderBase
@@ -353,15 +352,15 @@ namespace DotNetNuke.Entities.Urls
                     {
                         if (!tab.IsNeutralCulture)
                         {
-                            friendlyPath = GetFriendlyAlias("~/" + tab.CultureCode + "/" + tab.TabPath.Replace("//", "/").TrimStart('/') + ".aspx", 
-                                                portalAlias, 
+                            friendlyPath = GetFriendlyAlias("~/" + tab.CultureCode + "/" + tab.TabPath.Replace("//", "/").TrimStart('/') + ".aspx",
+                                                portalAlias,
                                                 true)
                                                 .ToLower();
                         }
                         else
                         {
-                            friendlyPath = GetFriendlyAlias("~/" + queryStringDic["language"] + "/" + tab.TabPath.Replace("//", "/").TrimStart('/') + ".aspx", 
-                                                portalAlias, 
+                            friendlyPath = GetFriendlyAlias("~/" + queryStringDic["language"] + "/" + tab.TabPath.Replace("//", "/").TrimStart('/') + ".aspx",
+                                                portalAlias,
                                                 true)
                                             .ToLower();
                         }
@@ -379,13 +378,13 @@ namespace DotNetNuke.Entities.Urls
                                     friendlyPath = GetFriendlyAlias("~/privacy.aspx", portalAlias, true);
                                     break;
                                 case "login":
-                                    friendlyPath = (queryStringDic.ContainsKey("returnurl")) 
-                                                    ? GetFriendlyAlias("~/login.aspx?ReturnUrl=" + queryStringDic["returnurl"], portalAlias, true) 
+                                    friendlyPath = (queryStringDic.ContainsKey("returnurl"))
+                                                    ? GetFriendlyAlias("~/login.aspx?ReturnUrl=" + queryStringDic["returnurl"], portalAlias, true)
                                                     : GetFriendlyAlias("~/login.aspx", portalAlias, true);
                                     break;
                                 case "register":
-                                    friendlyPath = (queryStringDic.ContainsKey("returnurl")) 
-                                                    ? GetFriendlyAlias("~/register.aspx?returnurl=" + queryStringDic["returnurl"], portalAlias, true) 
+                                    friendlyPath = (queryStringDic.ContainsKey("returnurl"))
+                                                    ? GetFriendlyAlias("~/register.aspx?returnurl=" + queryStringDic["returnurl"], portalAlias, true)
                                                     : GetFriendlyAlias("~/register.aspx", portalAlias, true);
                                     break;
                                 default:

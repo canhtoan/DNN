@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Data;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Security.Roles;
-
 
 namespace DotNetNuke.Entities.Users
 {
@@ -60,7 +59,7 @@ namespace DotNetNuke.Entities.Users
         public DateTime ExpiryDate { get; set; }
 
         public bool IsOwner { get; set; }
-        
+
         public bool IsTrialUsed { get; set; }
 
         public bool Subscribed { get; set; }
@@ -69,10 +68,10 @@ namespace DotNetNuke.Entities.Users
 
         public override void Fill(IDataReader dr)
         {
-			//Fill base class properties
+            //Fill base class properties
             base.Fill(dr);
 
-			//Fill this class properties
+            //Fill this class properties
             UserRoleID = Null.SetNullInteger(dr["UserRoleID"]);
             UserID = Null.SetNullInteger(dr["UserID"]);
             FullName = Null.SetNullString(dr["DisplayName"]);

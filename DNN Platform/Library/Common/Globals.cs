@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -76,7 +76,6 @@ using DataCache = DotNetNuke.UI.Utilities.DataCache;
 using FileInfo = DotNetNuke.Services.FileSystem.FileInfo;
 
 #endregion
-
 namespace DotNetNuke.Common
 {
     /// <summary>
@@ -85,7 +84,7 @@ namespace DotNetNuke.Common
     [StandardModule]
     public sealed class Globals
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Globals));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Globals));
         #region PerformanceSettings enum
 
         /// <summary>
@@ -331,17 +330,17 @@ namespace DotNetNuke.Common
         public const string glbScriptFormat = "<script type=\"text/javascript\" src=\"{0}\" ></script>";
 
         // global constants for the life of the application ( set in Application_Start )
-        private static string _applicationPath;
-        private static string _applicationMapPath;
-        private static string _desktopModulePath;
-        private static string _imagePath;
-        private static string _hostMapPath;
-        private static string _hostPath;
-        private static string _installMapPath;
-        private static string _installPath;
-        private static Version _dataBaseVersion;
-        private static UpgradeStatus _status = UpgradeStatus.Unknown;
-        private static string _tabPathInvalidCharsEx = "[&\\? \\./'#:\\*]"; //this value should keep same with the value used in sp BuildTabLevelAndPath to remove invalid chars.
+        private static string s_applicationPath;
+        private static string s_applicationMapPath;
+        private static string s_desktopModulePath;
+        private static string s_imagePath;
+        private static string s_hostMapPath;
+        private static string s_hostPath;
+        private static string s_installMapPath;
+        private static string s_installPath;
+        private static Version s_dataBaseVersion;
+        private static UpgradeStatus s_status = UpgradeStatus.Unknown;
+        private static string s_tabPathInvalidCharsEx = "[&\\? \\./'#:\\*]"; //this value should keep same with the value used in sp BuildTabLevelAndPath to remove invalid chars.
 
         /// <summary>
         /// Gets the application path.
@@ -350,19 +349,19 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_applicationPath == null && (HttpContext.Current != null))
+                if (s_applicationPath == null && (HttpContext.Current != null))
                 {
                     if (HttpContext.Current.Request.ApplicationPath == "/")
                     {
-                        _applicationPath = string.IsNullOrEmpty(Config.GetSetting("InstallationSubfolder")) ? "" : (Config.GetSetting("InstallationSubfolder") + "/").ToLowerInvariant();
+                        s_applicationPath = string.IsNullOrEmpty(Config.GetSetting("InstallationSubfolder")) ? "" : (Config.GetSetting("InstallationSubfolder") + "/").ToLowerInvariant();
                     }
                     else
                     {
-                        _applicationPath = HttpContext.Current.Request.ApplicationPath.ToLowerInvariant();
+                        s_applicationPath = HttpContext.Current.Request.ApplicationPath.ToLowerInvariant();
                     }
                 }
 
-                return _applicationPath;
+                return s_applicationPath;
             }
         }
 
@@ -376,14 +375,14 @@ namespace DotNetNuke.Common
         {
             get
             {
-                return _applicationMapPath ?? (_applicationMapPath = GetCurrentDomainDirectory());
+                return s_applicationMapPath ?? (s_applicationMapPath = GetCurrentDomainDirectory());
             }
         }
 
         private static string GetCurrentDomainDirectory()
         {
             var dir = AppDomain.CurrentDomain.BaseDirectory.Replace("/", "\\");
-            if (dir.Length > 3 &&  dir.EndsWith("\\"))
+            if (dir.Length > 3 && dir.EndsWith("\\"))
             {
                 dir = dir.Substring(0, dir.Length - 1);
             }
@@ -398,11 +397,11 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_desktopModulePath == null)
+                if (s_desktopModulePath == null)
                 {
-                    _desktopModulePath = ApplicationPath + "/DesktopModules/";
+                    s_desktopModulePath = ApplicationPath + "/DesktopModules/";
                 }
-                return _desktopModulePath;
+                return s_desktopModulePath;
             }
         }
 
@@ -414,11 +413,11 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_imagePath == null)
+                if (s_imagePath == null)
                 {
-                    _imagePath = ApplicationPath + "/Images/";
+                    s_imagePath = ApplicationPath + "/Images/";
                 }
-                return _imagePath;
+                return s_imagePath;
             }
         }
 
@@ -429,7 +428,7 @@ namespace DotNetNuke.Common
         {
             get
             {
-                return _dataBaseVersion;
+                return s_dataBaseVersion;
             }
         }
 
@@ -441,11 +440,11 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_hostMapPath == null)
+                if (s_hostMapPath == null)
                 {
-                    _hostMapPath = Path.Combine(ApplicationMapPath, @"Portals\_default\");
+                    s_hostMapPath = Path.Combine(ApplicationMapPath, @"Portals\_default\");
                 }
-                return _hostMapPath;
+                return s_hostMapPath;
             }
         }
 
@@ -457,11 +456,11 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_hostPath == null)
+                if (s_hostPath == null)
                 {
-                    _hostPath = ApplicationPath + "/Portals/_default/";
+                    s_hostPath = ApplicationPath + "/Portals/_default/";
                 }
-                return _hostPath;
+                return s_hostPath;
             }
         }
 
@@ -473,11 +472,11 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_installMapPath == null)
+                if (s_installMapPath == null)
                 {
-                    _installMapPath = HttpContext.Current.Server.MapPath(InstallPath);
+                    s_installMapPath = HttpContext.Current.Server.MapPath(InstallPath);
                 }
-                return _installMapPath;
+                return s_installMapPath;
             }
         }
 
@@ -489,11 +488,11 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_installPath == null)
+                if (s_installPath == null)
                 {
-                    _installPath = ApplicationPath + "/Install/";
+                    s_installPath = ApplicationPath + "/Install/";
                 }
-                return _installPath;
+                return s_installPath;
             }
         }
 
@@ -555,7 +554,7 @@ namespace DotNetNuke.Common
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
         }
 
@@ -567,11 +566,11 @@ namespace DotNetNuke.Common
         {
             get
             {
-                if (_status == UpgradeStatus.Unknown)
+                if (s_status == UpgradeStatus.Unknown)
                 {
                     var tempStatus = UpgradeStatus.Unknown;
 
-                    Logger.Trace("Getting application status");
+                    s_logger.Trace("Getting application status");
                     tempStatus = UpgradeStatus.None;
                     //first call GetProviderPath - this insures that the Database is Initialised correctly
                     //and also generates the appropriate error message if it cannot be initialised correctly
@@ -581,11 +580,11 @@ namespace DotNetNuke.Common
                     {
                         try
                         {
-                            _dataBaseVersion = DataProvider.Instance().GetVersion();
+                            s_dataBaseVersion = DataProvider.Instance().GetVersion();
                         }
                         catch (Exception ex)
                         {
-                            Logger.Error(ex);
+                            s_logger.Error(ex);
                             strMessage = "ERROR:" + ex.Message;
                         }
                     }
@@ -599,7 +598,7 @@ namespace DotNetNuke.Common
                         else
                         {
                             //An error that occurs before the database has been installed should be treated as a new install				
-                           tempStatus = UpgradeStatus.Install;
+                            tempStatus = UpgradeStatus.Install;
                         }
                     }
                     else if (DataBaseVersion == null)
@@ -628,14 +627,13 @@ namespace DotNetNuke.Common
                         }
                     }
 
-                    _status = tempStatus;
+                    s_status = tempStatus;
 
-                    Logger.Trace(string.Format("result of getting providerpath: {0}",strMessage));
-                    Logger.Trace("Application status is " + _status);
+                    s_logger.Trace(string.Format("result of getting providerpath: {0}", strMessage));
+                    s_logger.Trace("Application status is " + s_status);
                 }
-                return _status;
+                return s_status;
             }
-
         }
 
 
@@ -661,7 +659,7 @@ namespace DotNetNuke.Common
             //While it is possible that you might not have an installation date or that you have deleted log files
             //it is unlikely that you have removed every trace of an installation and yet still have a working install
 
-            bool isInstalled =  (!IsInstallationURL()) && ((installationdatefactor + dataproviderfactor + htmlmodulefactor + portaldirectoryfactor + localexecutionfactor) >= c_PassingScore);
+            bool isInstalled = (!IsInstallationURL()) && ((installationdatefactor + dataproviderfactor + htmlmodulefactor + portaldirectoryfactor + localexecutionfactor) >= c_PassingScore);
 
             // we need to tighten this check. We now are enforcing the existence of the InstallVersion value in web.config. If 
             // this value exists, then DNN was previously installed, and we should never try to re-install it
@@ -974,13 +972,13 @@ namespace DotNetNuke.Common
         {
             // add datatable to dataset
             var objDataSet = new DataSet();
-	        
-			do
-	        {
-		        objDataSet.Tables.Add(ConvertDataReaderToDataTable(reader, false));
-	        } while (reader.NextResult());
-            
-			reader.Close();
+
+            do
+            {
+                objDataSet.Tables.Add(ConvertDataReaderToDataTable(reader, false));
+            } while (reader.NextResult());
+
+            reader.Close();
 
             return objDataSet;
         }
@@ -992,15 +990,15 @@ namespace DotNetNuke.Common
         /// <returns>the datatable instance</returns>
 		public static DataTable ConvertDataReaderToDataTable(IDataReader reader)
         {
-	        return ConvertDataReaderToDataTable(reader, true);
+            return ConvertDataReaderToDataTable(reader, true);
         }
 
-		/// <summary>
-		/// Converts the datareader to datatable.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		/// <param name="closeReader">Whether close reader.</param>
-		/// <returns>the datatable instance</returns>
+        /// <summary>
+        /// Converts the datareader to datatable.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="closeReader">Whether close reader.</param>
+        /// <returns>the datatable instance</returns>
         public static DataTable ConvertDataReaderToDataTable(IDataReader reader, bool closeReader)
         {
             // create datatable from datareader
@@ -1020,11 +1018,11 @@ namespace DotNetNuke.Common
                 objDataTable.LoadDataRow(objValues, true);
             }
 
-	        if (closeReader)
-	        {
-		        reader.Close();
-	        }
-	        objDataTable.EndLoadData();
+            if (closeReader)
+            {
+                reader.Close();
+            }
+            objDataTable.EndLoadData();
             return objDataTable;
         }
 
@@ -1146,7 +1144,7 @@ namespace DotNetNuke.Common
         {
             //update the version
             DataProvider.Instance().UpdateDatabaseVersion(version.Major, version.Minor, version.Build, DotNetNukeContext.Current.Application.Name);
-            _dataBaseVersion = version;
+            s_dataBaseVersion = version;
         }
 
         /// <summary>
@@ -1472,7 +1470,7 @@ namespace DotNetNuke.Common
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
                     total = -1;
                 }
             }
@@ -1502,7 +1500,7 @@ namespace DotNetNuke.Common
         /// <param name="status">The status.</param>
         public static void SetStatus(UpgradeStatus status)
         {
-            _status = status;
+            s_status = status;
         }
 
         /// -----------------------------------------------------------------------------
@@ -2249,7 +2247,7 @@ namespace DotNetNuke.Common
                         }
                         catch (Exception ex)
                         {
-                            Logger.Error(ex);
+                            s_logger.Error(ex);
                         }
                     }
                     try
@@ -2258,7 +2256,7 @@ namespace DotNetNuke.Common
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(ex);
+                        s_logger.Error(ex);
                     }
                 }
             }
@@ -2291,7 +2289,7 @@ namespace DotNetNuke.Common
                         }
                         catch (Exception ex)
                         {
-                            Logger.Error(ex);
+                            s_logger.Error(ex);
                         }
                     }
                 }
@@ -2574,7 +2572,7 @@ namespace DotNetNuke.Common
             {
                 return (ApplicationURL(_portalSettings.ActiveTab.TabID));
             }
-            return (ApplicationURL(-1));            
+            return (ApplicationURL(-1));
         }
 
         /// -----------------------------------------------------------------------------
@@ -3274,7 +3272,7 @@ namespace DotNetNuke.Common
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
 
                 return Null.NullString;
             }
@@ -3387,7 +3385,7 @@ namespace DotNetNuke.Common
                     strLink = ApplicationPath + "/LinkClick.aspx?fileticket=" + UrlUtils.EncryptParameter(UrlUtils.GetParameterValue(Link), portalGuid);
                     if (PortalId == Null.NullInteger) //To track Host files
                     {
-                        strLink += "&hf=1";                        
+                        strLink += "&hf=1";
                     }
                 }
                 if (String.IsNullOrEmpty(strLink))
@@ -3400,7 +3398,7 @@ namespace DotNetNuke.Common
                     strLink += "&tabid=" + TabID;
                 }
                 //append portal id to query string to identity portal the click originated.
-                if(PortalId != Null.NullInteger)
+                if (PortalId != Null.NullInteger)
                 {
                     strLink += "&portalid=" + PortalId;
                 }
@@ -3516,7 +3514,7 @@ namespace DotNetNuke.Common
                 var objTab = TabController.Instance.GetTab(parentId, Null.NullInteger, false);
                 while (objTab != null)
                 {
-                    strTabName = Regex.Replace(objTab.TabName, _tabPathInvalidCharsEx, string.Empty);
+                    strTabName = Regex.Replace(objTab.TabName, s_tabPathInvalidCharsEx, string.Empty);
                     strTabPath = "//" + strTabName + strTabPath;
                     if (Null.IsNull(objTab.ParentId))
                     {
@@ -3529,7 +3527,7 @@ namespace DotNetNuke.Common
                 }
             }
 
-            strTabPath = strTabPath + "//" + Regex.Replace(tabName, _tabPathInvalidCharsEx, string.Empty); ;
+            strTabPath = strTabPath + "//" + Regex.Replace(tabName, s_tabPathInvalidCharsEx, string.Empty); ;
             return strTabPath;
         }
 
@@ -3588,32 +3586,32 @@ namespace DotNetNuke.Common
         /// <returns><c>true</c> if the tab contains "Account Login" module, otherwise, <c>false</c>.</returns>
         public static bool ValidateLoginTabID(int tabId)
         {
-	        return ValidateModuleInTab(tabId, "Account Login");
+            return ValidateModuleInTab(tabId, "Account Login");
         }
 
-		/// <summary>
-		/// Check whether the tab contains specific module.
-		/// </summary>
-		/// <param name="tabId">The tab id.</param>
-		/// <param name="moduleName">The module need to check.</param>
-		/// <returns><c>true</c> if the tab contains the module, otherwise, <c>false</c>.</returns>
-		public static bool ValidateModuleInTab(int tabId, string moduleName)
-		{
-			bool hasModule = Null.NullBoolean;
+        /// <summary>
+        /// Check whether the tab contains specific module.
+        /// </summary>
+        /// <param name="tabId">The tab id.</param>
+        /// <param name="moduleName">The module need to check.</param>
+        /// <returns><c>true</c> if the tab contains the module, otherwise, <c>false</c>.</returns>
+        public static bool ValidateModuleInTab(int tabId, string moduleName)
+        {
+            bool hasModule = Null.NullBoolean;
             foreach (ModuleInfo objModule in ModuleController.Instance.GetTabModules(tabId).Values)
             {
-				if (objModule.ModuleDefinition.FriendlyName == moduleName)
+                if (objModule.ModuleDefinition.FriendlyName == moduleName)
                 {
                     //We need to ensure that Anonymous Users or All Users have View permissions to the login page
                     TabInfo tab = TabController.Instance.GetTab(tabId, objModule.PortalID, false);
                     if (TabPermissionController.CanViewPage(tab))
                     {
-						hasModule = true;
+                        hasModule = true;
                         break;
                     }
                 }
             }
-			return hasModule;
+            return hasModule;
         }
 
         /// <summary>
@@ -3624,7 +3622,7 @@ namespace DotNetNuke.Common
         /// <returns><c>true</c> if the Filename matches extensions, otherwise, <c>false</c>.</returns>
         private static bool FilenameMatchesExtensions(string filename, string strExtensions)
         {
-			bool result = string.IsNullOrEmpty(strExtensions);
+            bool result = string.IsNullOrEmpty(strExtensions);
             if (!result)
             {
                 filename = filename.ToUpper();
@@ -3674,7 +3672,7 @@ namespace DotNetNuke.Common
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
 
                     objHashTable = new Hashtable();
                 }
@@ -3733,7 +3731,7 @@ namespace DotNetNuke.Common
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
 
                     strString = "";
                 }
@@ -3807,7 +3805,7 @@ namespace DotNetNuke.Common
                                       avatarUrl,
                                       !HttpContext.Current.Request.Url.IsDefaultPort && !avatarUrl.Contains(":") ? ":" + HttpContext.Current.Request.Url.Port : string.Empty);
 
-            avatarUrl += "/profilepic.ashx?userId={0}&h={1}&w={2}";            
+            avatarUrl += "/profilepic.ashx?userId={0}&h={1}&w={2}";
 
             return avatarUrl;
         }
@@ -3852,7 +3850,6 @@ namespace DotNetNuke.Common
                 return childPortalAlias + query + cdv;
 
             return Globals.ApplicationPath + childPortalAlias + query + cdv;
-
         }
 
         #region "Obsolete - retained for Binary Compatability"
@@ -3949,10 +3946,10 @@ namespace DotNetNuke.Common
             int portalId = IsHostTab(portalSettings.ActiveTab.TabID) ? Null.NullInteger : portalSettings.PortalId;
             var objFiles = new FileController();
             var objFolders = new FolderController();
-			FolderInfo objFolder = objFolders.GetFolder(portalId, FolderPath, false);
+            FolderInfo objFolder = objFolders.GetFolder(portalId, FolderPath, false);
             if ((objFolder != null))
             {
-				var objFile = new FileInfo(portalId, strFileName, strExtension, Length, imageWidth, imageHeight, strContentType, FolderPath, objFolder.FolderID, objFolder.StorageLocation, true);
+                var objFile = new FileInfo(portalId, strFileName, strExtension, Length, imageWidth, imageHeight, strContentType, FolderPath, objFolder.FolderID, objFolder.StorageLocation, true);
                 objFiles.AddFile(objFile);
             }
         }
@@ -4031,7 +4028,7 @@ namespace DotNetNuke.Common
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
 
                 strDatabaseVersion = "ERROR:" + ex.Message;
             }
@@ -4050,7 +4047,7 @@ namespace DotNetNuke.Common
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 strDatabaseVersion = "ERROR:" + ex.Message;
             }
 
@@ -4283,13 +4280,13 @@ namespace DotNetNuke.Common
 
         #endregion
 
-        private static readonly Stopwatch AppStopwatch = Stopwatch.StartNew();
+        private static readonly Stopwatch s_appStopwatch = Stopwatch.StartNew();
 
         public static TimeSpan ElapsedSinceAppStart
         {
             get
             {
-                return AppStopwatch.Elapsed;
+                return s_appStopwatch.Elapsed;
             }
         }
     }

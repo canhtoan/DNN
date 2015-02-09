@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.ComponentModel;
 using System.Text;
 using System.Web;
@@ -32,7 +32,7 @@ namespace DotNetNuke.ExtensionPoints
     [ToolboxData("<{0}:ToolBarButtonExtensionControl runat=server></{0}:ToolBarButtonExtensionControl>")]
     public class ToolBarButtonExtensionControl : DefaultExtensionControl
     {
-        private IExtensionControlRenderer btnRenderer;
+        private IExtensionControlRenderer _btnRenderer;
 
         [Bindable(true)]
         [DefaultValue(false)]
@@ -52,17 +52,17 @@ namespace DotNetNuke.ExtensionPoints
             {
                 if (extension is IToolBarMenuButtonExtensionPoint)
                 {
-                    btnRenderer = new ToolBarMenuButtonRenderer();
-                    str.AppendFormat(btnRenderer.GetOutput(extension));
+                    _btnRenderer = new ToolBarMenuButtonRenderer();
+                    str.AppendFormat(_btnRenderer.GetOutput(extension));
                 }
                 else
                 {
                     extension.ModuleContext = ModuleContext;
-                    btnRenderer = new ToolBarButtonRenderer();
-                    str.AppendFormat(btnRenderer.GetOutput(extension));
+                    _btnRenderer = new ToolBarButtonRenderer();
+                    str.AppendFormat(_btnRenderer.GetOutput(extension));
                 }
             }
-            
+
             output.Write(str.ToString());
         }
 

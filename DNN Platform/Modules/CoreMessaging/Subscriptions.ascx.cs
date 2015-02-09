@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -125,22 +125,22 @@ namespace DotNetNuke.Modules.CoreMessaging
             var portalSettings = PortalSettings.Current;
             var userPreferenceController = UserPreferencesController.Instance;
             var user = UserController.GetUserById(portalSettings.PortalId, portalSettings.UserId);
-            UserPreference userPreference=null;
+            UserPreference userPreference = null;
             if (user != null)
             {
                 userPreference = userPreferenceController.GetUserPreference(user);
             }
-           
+
 
             const int notifyFrequency = 2;
             const int messageFrequency = 0;
-            
+
             return new Hashtable
                    {
                        { "moduleScope", string.Format("#{0}", ScopeWrapper.ClientID) },
                        { "pageSize", 25 },
                        { "notifyFrequency", userPreference != null ? (int)userPreference.NotificationsEmailFrequency : notifyFrequency },
-                       { "msgFrequency", userPreference != null ? (int)userPreference.MessagesEmailFrequency : messageFrequency }                
+                       { "msgFrequency", userPreference != null ? (int)userPreference.MessagesEmailFrequency : messageFrequency }
                    };
         }
 

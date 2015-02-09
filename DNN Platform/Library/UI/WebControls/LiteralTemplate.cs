@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,41 +17,40 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     public class LiteralTemplate : ITemplate
     {
-        private readonly Control m_objControl;
-        private readonly string m_strHTML = "";
+        private readonly Control _objControl;
+        private readonly string _strHTML = "";
 
         public LiteralTemplate(string html)
         {
-            m_strHTML = html;
+            _strHTML = html;
         }
 
         public LiteralTemplate(Control ctl)
         {
-            m_objControl = ctl;
+            _objControl = ctl;
         }
 
         #region ITemplate Members
 
         public void InstantiateIn(Control container)
         {
-            if (m_objControl == null)
+            if (_objControl == null)
             {
-                container.Controls.Add(new LiteralControl(m_strHTML));
+                container.Controls.Add(new LiteralControl(_strHTML));
             }
             else
             {
-                container.Controls.Add(m_objControl);
+                container.Controls.Add(_objControl);
             }
         }
 

@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.Collections.Generic;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Tabs;

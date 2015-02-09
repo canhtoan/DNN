@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,8 +36,8 @@ namespace DotNetNuke.Web.InternalServices
     [DnnAuthorize]
     public class NotificationsServiceController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (NotificationsServiceController));
-        
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(NotificationsServiceController));
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public HttpResponseMessage Dismiss(NotificationDTO postData)
@@ -49,31 +48,30 @@ namespace DotNetNuke.Web.InternalServices
                 if (recipient != null)
                 {
                     NotificationsController.Instance.DeleteNotificationRecipient(postData.NotificationId, UserInfo.UserID);
-                    return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                    return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
                 }
 
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Unable to dismiss notification");
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
 
 
-		[HttpGet]
-		public HttpResponseMessage GetToasts()
-		{
-			var toasts = NotificationsController.Instance.GetToasts(this.UserInfo);
-			IList<object> convertedObjects = toasts.Select(ToExpandoObject).ToList();
-			return Request.CreateResponse(HttpStatusCode.OK, new { Success = true, Toasts = convertedObjects.Take(3) });
-		}
+        [HttpGet]
+        public HttpResponseMessage GetToasts()
+        {
+            var toasts = NotificationsController.Instance.GetToasts(this.UserInfo);
+            IList<object> convertedObjects = toasts.Select(ToExpandoObject).ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, new { Success = true, Toasts = convertedObjects.Take(3) });
+        }
 
-		private object ToExpandoObject(Notification notification)
-		{
-			return new {Subject = notification.Subject, Body = notification.Body};
-		}
-
+        private object ToExpandoObject(Notification notification)
+        {
+            return new { Subject = notification.Subject, Body = notification.Body };
+        }
     }
 }

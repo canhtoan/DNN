@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     public class PropertyCategoryComparer : IComparer
@@ -37,23 +36,23 @@ namespace DotNetNuke.UI.WebControls
         {
             if (x is PropertyInfo && y is PropertyInfo)
             {
-                var xProp = (PropertyInfo) x;
-                var yProp = (PropertyInfo) y;
-                object[] xCategory = xProp.GetCustomAttributes(typeof (CategoryAttribute), true);
+                var xProp = (PropertyInfo)x;
+                var yProp = (PropertyInfo)y;
+                object[] xCategory = xProp.GetCustomAttributes(typeof(CategoryAttribute), true);
                 string xCategoryName = string.Empty;
                 if (xCategory.Length > 0)
                 {
-                    xCategoryName = ((CategoryAttribute) xCategory[0]).Category;
+                    xCategoryName = ((CategoryAttribute)xCategory[0]).Category;
                 }
                 else
                 {
                     xCategoryName = CategoryAttribute.Default.Category;
                 }
-                object[] yCategory = yProp.GetCustomAttributes(typeof (CategoryAttribute), true);
+                object[] yCategory = yProp.GetCustomAttributes(typeof(CategoryAttribute), true);
                 string yCategoryName = string.Empty;
                 if (yCategory.Length > 0)
                 {
-                    yCategoryName = ((CategoryAttribute) yCategory[0]).Category;
+                    yCategoryName = ((CategoryAttribute)yCategory[0]).Category;
                 }
                 else
                 {

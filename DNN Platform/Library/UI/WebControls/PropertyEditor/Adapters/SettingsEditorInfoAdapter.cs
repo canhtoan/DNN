@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Web.UI.WebControls;
@@ -27,7 +27,6 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -47,29 +46,28 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class SettingsEditorInfoAdapter : IEditorInfoAdapter
     {
-        private readonly object DataMember;
-        private readonly object DataSource;
-        private string FieldName;
+        private readonly object _dataMember;
+        private readonly object _dataSource;
+        private string _fieldName;
 
         public SettingsEditorInfoAdapter(object dataSource, object dataMember, string fieldName)
         {
-            DataMember = dataMember;
-            DataSource = dataSource;
-            FieldName = fieldName;
+            _dataMember = dataMember;
+            _dataSource = dataSource;
+            _fieldName = fieldName;
         }
 
         #region IEditorInfoAdapter Members
 
         public EditorInfo CreateEditControl()
         {
-
-            var info = (SettingInfo) DataMember;
+            var info = (SettingInfo)_dataMember;
             var editInfo = new EditorInfo();
 
             //Get the Name of the property
             editInfo.Name = info.Name;
 
-			editInfo.Category = string.Empty;
+            editInfo.Category = string.Empty;
 
             //Get Value Field
             editInfo.Value = info.Value;
@@ -108,7 +106,7 @@ namespace DotNetNuke.UI.WebControls
             object stringValue = e.StringValue;
             bool _IsDirty = Null.NullBoolean;
 
-            var settings = (Hashtable) DataSource;
+            var settings = (Hashtable)_dataSource;
             IDictionaryEnumerator settingsEnumerator = settings.GetEnumerator();
             while (settingsEnumerator.MoveNext())
             {
@@ -116,7 +114,7 @@ namespace DotNetNuke.UI.WebControls
                 //Do we have the item in the Hashtable being changed
                 if (key == name)
                 {
-					//Set the Value property to the new value
+                    //Set the Value property to the new value
                     if ((!(ReferenceEquals(newValue, oldValue))) || changed)
                     {
                         settings[key] = newValue;

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,7 +58,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
     public class DigitalAssetsController : IDigitalAssetsController, IUpgradeable
     {
         protected static readonly DigitalAssetsSettingsRepository SettingsRepository = new DigitalAssetsSettingsRepository();
-        private static readonly Hashtable MappedPathsSupported = new Hashtable();
+        private static readonly Hashtable s_mappedPathsSupported = new Hashtable();
         #region Static Private Methods
         private static bool IsHostMenu
         {
@@ -132,18 +132,18 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             var field = string.IsNullOrEmpty(orderingField) ? "FolderName" : orderingField;
 
             return ApplyOrder(folders.AsQueryable(), field, asc);
-        } 
+        }
 
         private IEnumerable<IFileInfo> GetFiles(IFolderInfo folder, SortProperties sortProperties, int startIndex, bool recursive)
         {
             Requires.NotNull("folder", folder);
 
-            if (Host.EnableFileAutoSync && startIndex==0)
+            if (Host.EnableFileAutoSync && startIndex == 0)
             {
                 FolderManager.Instance.Synchronize(folder.PortalID, folder.FolderPath, false, true);
             }
 
-            return SortFiles(FolderManager.Instance.GetFiles(folder, recursive, true), sortProperties);            
+            return SortFiles(FolderManager.Instance.GetFiles(folder, recursive, true), sortProperties);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             {
                 return false;
             }
-            
+
             foreach (var notDeletedSubfolder in notDeletedSubfolders)
             {
                 notDeletedItems.Add(GetItemPathViewModel(notDeletedSubfolder));
@@ -263,8 +263,8 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
         private List<Field> GetFolderPreviewFields(IFolderInfo folder)
         {
             var fields = new List<Field>
-                             {                                 
-                                 GetFolderSizeField(folder), 
+                             {
+                                 GetFolderSizeField(folder),
                                  GetTotalFilesField(folder)
                              };
             fields.AddRange(GetAuditFields((FolderInfo)folder, folder.PortalID));
@@ -287,32 +287,32 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             var createdByUser = item.CreatedByUser(portalId);
             var lastModifiedByUser = item.LastModifiedByUser(portalId);
             return new List<Field>
-                {                    
+                {
                     new Field(DefaultMetadataNames.Created)
                     {
-                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.Created + ".DisplayName"), 
-                        Type = typeof(DateTime), 
+                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.Created + ".DisplayName"),
+                        Type = typeof(DateTime),
                         Value = item.CreatedOnDate,
                         StringValue = item.CreatedOnDate.ToString(CultureInfo.CurrentCulture)
                     },
                 new Field(DefaultMetadataNames.CreatedBy)
                     {
-                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.CreatedBy + ".DisplayName"), 
-                        Type = typeof(int), 
+                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.CreatedBy + ".DisplayName"),
+                        Type = typeof(int),
                         Value = item.CreatedByUserID,
                         StringValue = createdByUser != null ? createdByUser.DisplayName : ""
                     },
                 new Field(DefaultMetadataNames.Modified)
                     {
-                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.Modified + ".DisplayName"), 
-                        Type = typeof(DateTime), 
+                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.Modified + ".DisplayName"),
+                        Type = typeof(DateTime),
                         Value = item.LastModifiedOnDate,
                         StringValue = item.LastModifiedOnDate.ToString(CultureInfo.CurrentCulture)
                     },
                 new Field(DefaultMetadataNames.ModifiedBy)
                     {
-                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.ModifiedBy + ".DisplayName"), 
-                        Type = typeof(int), 
+                        DisplayName = LocalizationHelper.GetString("Field" + DefaultMetadataNames.ModifiedBy + ".DisplayName"),
+                        Type = typeof(int),
                         Value = item.LastModifiedByUserID,
                         StringValue = lastModifiedByUser != null ? lastModifiedByUser.DisplayName : ""
                     }
@@ -338,12 +338,12 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
 
         private bool AreMappedPathsSupported(int folderMappingId)
         {
-            if (MappedPathsSupported.ContainsKey(folderMappingId))
+            if (s_mappedPathsSupported.ContainsKey(folderMappingId))
             {
-                return (bool)MappedPathsSupported[folderMappingId];
+                return (bool)s_mappedPathsSupported[folderMappingId];
             }
             var result = FolderProvider.Instance(FolderMappingController.Instance.GetFolderMapping(folderMappingId).FolderProviderType).SupportsMappedPaths;
-            MappedPathsSupported.Add(folderMappingId, result);
+            s_mappedPathsSupported.Add(folderMappingId, result);
             return result;
         }
 
@@ -358,7 +358,6 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
                 return "true";
             }
             return "false";
-
         }
         #endregion
 
@@ -369,7 +368,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             var portalId = GetCurrentPortalId(moduleId);
 
             return new List<FolderMappingInfo>
-                {                        
+                {
                     FolderMappingController.Instance.GetFolderMapping(portalId, "Standard"),
                     FolderMappingController.Instance.GetFolderMapping(portalId, "Secure"),
                     FolderMappingController.Instance.GetFolderMapping(portalId, "Database")
@@ -402,7 +401,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
                 }
             }
 
-            return IsHostMenu ? Null.NullInteger : PortalSettings.Current.PortalId;            
+            return IsHostMenu ? Null.NullInteger : PortalSettings.Current.PortalId;
         }
 
         public IEnumerable<FolderMappingViewModel> GetFolderMappings(int moduleId)
@@ -437,16 +436,16 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             {
                 //The user cannot access the content               
                 return new PageViewModel
-                                {
-                                    Folder = GetFolderViewModel(folder),
-                                    Items = new List<ItemViewModel>(),
-                                    TotalCount = 0
-                                };
+                {
+                    Folder = GetFolderViewModel(folder),
+                    Items = new List<ItemViewModel>(),
+                    TotalCount = 0
+                };
             }
 
             var sortProperties = SortProperties.Parse(sortExpression);
 
-            List<IFolderInfo> folders;      
+            List<IFolderInfo> folders;
 
             var subfolderFilter = SettingsRepository.GetSubfolderFilter(moduleId);
             if (subfolderFilter != SubfolderFilter.IncludeSubfoldersFolderStructure)
@@ -454,7 +453,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
                 folders = new List<IFolderInfo>();
             }
             else
-            { 
+            {
                 folders = GetFolders(folder, sortProperties.Column == "ItemName" ? "FolderName" : sortProperties.Column, sortProperties.Ascending).ToList();
             }
 
@@ -465,7 +464,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             if (startIndex + numItems <= folders.Count())
             {
                 content = folders.Skip(startIndex).Take(numItems).Select(GetItemViewModel);
-            } 
+            }
             else if (startIndex >= folders.Count())
             {
                 content = files.Skip(startIndex - folders.Count).Take(numItems).Select(GetItemViewModel);
@@ -477,11 +476,11 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             }
 
             return new PageViewModel
-                {
-                    Folder = GetFolderViewModel(folder),
-                    Items = content.ToList(),
-                    TotalCount = folders.Count() + files.Count()
-                };
+            {
+                Folder = GetFolderViewModel(folder),
+                Items = content.ToList(),
+                TotalCount = folders.Count() + files.Count()
+            };
         }
 
         public void SyncFolderContent(int folderId, bool recursive)
@@ -505,13 +504,13 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             var files = FolderManager.Instance.SearchFiles(folder, pattern, recursive);
             var sortProperties = SortProperties.Parse(sortExpression);
             var sortedFiles = SortFiles(files, sortProperties).ToList();
-            
+
             return new PageViewModel
-                {
-                    Folder = GetFolderViewModel(folder),
-                    Items = sortedFiles.Skip(startIndex).Take(numItems).Select(GetItemViewModel).ToList(),
-                    TotalCount = sortedFiles.Count()
-                };
+            {
+                Folder = GetFolderViewModel(folder),
+                Items = sortedFiles.Skip(startIndex).Take(numItems).Select(GetItemViewModel).ToList(),
+                TotalCount = sortedFiles.Count()
+            };
         }
 
         private static IEnumerable<IFileInfo> SortFiles(IEnumerable<IFileInfo> files, SortProperties sortProperties)
@@ -560,7 +559,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             }
 
             var portalId = this.GetCurrentPortalId(moduleId);
-            return this.GetFolderViewModel(FolderManager.Instance.GetFolder(portalId, ""));            
+            return this.GetFolderViewModel(FolderManager.Instance.GetFolder(portalId, ""));
         }
 
         public FolderViewModel GetGroupFolder(int groupId, PortalSettings portalSettings)
@@ -591,7 +590,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             {
                 var pc = new PermissionController();
                 var browsePermission = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "BROWSE").Cast<PermissionInfo>().FirstOrDefault();
-                var readPermission = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "READ").Cast<PermissionInfo>().FirstOrDefault(); 
+                var readPermission = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "READ").Cast<PermissionInfo>().FirstOrDefault();
                 var writePermission = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "WRITE").Cast<PermissionInfo>().FirstOrDefault();
 
                 if (!FolderManager.Instance.FolderExists(portalSettings.PortalId, "Groups"))
@@ -615,7 +614,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
                 return groupFolder;
             }
 
-            return FolderManager.Instance.GetFolder(portalSettings.PortalId, groupFolderPath);        
+            return FolderManager.Instance.GetFolder(portalSettings.PortalId, groupFolderPath);
         }
 
         public FolderViewModel GetUserFolder(UserInfo userInfo)
@@ -991,14 +990,14 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
             };
             return result;
         }
-        
+
         public ZipExtractViewModel UnzipFile(int fileId, bool overwrite)
         {
             var file = FileManager.Instance.GetFile(fileId, true);
             var destinationFolder = FolderManager.Instance.GetFolder(file.FolderId);
             var invalidFiles = new List<string>();
             var filesCount = FileManager.Instance.UnzipFile(file, destinationFolder, invalidFiles);
-            return new ZipExtractViewModel() { Ok = true, InvalidFiles = invalidFiles, TotalCount = filesCount};
+            return new ZipExtractViewModel() { Ok = true, InvalidFiles = invalidFiles, TotalCount = filesCount };
         }
 
         public virtual int GetInitialTab(NameValueCollection requestParams, NameValueCollection damState)
@@ -1041,7 +1040,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
                 IconUrl = GetFileIconUrl(file.Extension)
             };
         }
-        
+
         protected virtual FolderViewModel GetFolderViewModel(IFolderInfo folder)
         {
             var folderName = string.IsNullOrEmpty(folder.FolderName)
@@ -1091,7 +1090,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
                 UnlinkAllowedStatus = GetUnlinkAllowedStatus(folder)
             };
         }
-        
+
         protected virtual ItemViewModel GetItemViewModel(IFileInfo file)
         {
             var folder = FolderManager.Instance.GetFolder(file.FolderId);
@@ -1125,7 +1124,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers
         }
 
         #endregion
-        
+
         public string UpgradeModule(string version)
         {
             try

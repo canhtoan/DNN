@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,7 +37,6 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Services.OutputCache;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     public enum CoreCacheType
@@ -61,7 +60,7 @@ namespace DotNetNuke.Common.Utilities
     /// -----------------------------------------------------------------------------
     public class DataCache
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (DataCache));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(DataCache));
         //Host keys
         public const string SecureHostSettingsCacheKey = "SecureHostSettings";
         public const string UnSecureHostSettingsCacheKey = "UnsecureHostSettings";
@@ -86,9 +85,9 @@ namespace DotNetNuke.Common.Utilities
         public const CacheItemPriority PortalCachePriority = CacheItemPriority.High;
         public const int PortalCacheTimeOut = 20;
 
-		public const string AllPortalsCacheKey = "AllPortals";
-		public const CacheItemPriority AllPortalsCachePriority = CacheItemPriority.High;
-		public const int AllPortalsCacheTimeOut = 20;
+        public const string AllPortalsCacheKey = "AllPortals";
+        public const CacheItemPriority AllPortalsCachePriority = CacheItemPriority.High;
+        public const int AllPortalsCacheTimeOut = 20;
 
         public const string PortalUserCountCacheKey = "PortalUserCount{0}";
         public const CacheItemPriority PortalUserCountCachePriority = CacheItemPriority.High;
@@ -124,7 +123,7 @@ namespace DotNetNuke.Common.Utilities
         public const string TabVersionDetailsCacheKey = "Tab_TabVersionDetails{0}";
         public const CacheItemPriority TabVersionDetailsCachePriority = CacheItemPriority.High;
         public const int TabVersionDetailsCacheTimeOut = 20;
-        
+
         public const string AuthenticationServicesCacheKey = "AuthenticationServices";
         public const CacheItemPriority AuthenticationServicesCachePriority = CacheItemPriority.NotRemovable;
         public const int AuthenticationServicesCacheTimeOut = 20;
@@ -220,13 +219,13 @@ namespace DotNetNuke.Common.Utilities
         public const CacheItemPriority BannersCachePriority = CacheItemPriority.Normal;
         public const int BannersCacheTimeOut = 20;
 
-		public const string RedirectionsCacheKey = "Redirections:{0}";
-		public const CacheItemPriority RedirectionsCachePriority = CacheItemPriority.Default;
-		public const int RedirectionsCacheTimeOut = 20;
+        public const string RedirectionsCacheKey = "Redirections:{0}";
+        public const CacheItemPriority RedirectionsCachePriority = CacheItemPriority.Default;
+        public const int RedirectionsCacheTimeOut = 20;
 
-		public const string PreviewProfilesCacheKey = "PreviewProfiles:{0}";
-		public const CacheItemPriority PreviewProfilesCachePriority = CacheItemPriority.Default;
-		public const int PreviewProfilesCacheTimeOut = 20;
+        public const string PreviewProfilesCacheKey = "PreviewProfiles:{0}";
+        public const CacheItemPriority PreviewProfilesCachePriority = CacheItemPriority.Default;
+        public const int PreviewProfilesCacheTimeOut = 20;
 
         public const string RelationshipTypesCacheKey = "RelationshipTypes";
         public const CacheItemPriority RelationshipTypesCachePriority = CacheItemPriority.Default;
@@ -261,10 +260,10 @@ namespace DotNetNuke.Common.Utilities
         public const CacheItemPriority SubscriptionTypesCachePriority = CacheItemPriority.Default;
         public const int SubscriptionTypesTimeOut = 20;
 
-		public const string PackagesCacheKey = "Packages_{0}";
+        public const string PackagesCacheKey = "Packages_{0}";
         public const string PackageDependenciesCacheKey = "Packages_Dependencies";
         public const CacheItemPriority PackagesCachePriority = CacheItemPriority.Default;
-		public const int PackagesCacheTimeout = 20;
+        public const int PackagesCacheTimeout = 20;
 
         public const string ContentTypesCacheKey = "ContentTypes";
         public const CacheItemPriority ContentTypesCachePriority = CacheItemPriority.AboveNormal;
@@ -278,30 +277,30 @@ namespace DotNetNuke.Common.Utilities
         public const CacheItemPriority PackageTypesCachePriority = CacheItemPriority.AboveNormal;
         public const int PackageTypesCacheTimeout = 20;
 
-	    public const string JavaScriptLibrariesCacheKey = "JavaScriptLibraries";
-	    public const CacheItemPriority JavaScriptLibrariesCachePriority = CacheItemPriority.AboveNormal;
-	    public const int JavaScriptLibrariesCacheTimeout = 20;
+        public const string JavaScriptLibrariesCacheKey = "JavaScriptLibraries";
+        public const CacheItemPriority JavaScriptLibrariesCachePriority = CacheItemPriority.AboveNormal;
+        public const int JavaScriptLibrariesCacheTimeout = 20;
 
         public const string CaptchaCacheKey = "Captcha_{0}";
         public const CacheItemPriority CaptchaCachePriority = CacheItemPriority.NotRemovable;
         public const int CaptchaCacheTimeout = 2;
 
-        private static string _CachePersistenceEnabled = "";
+        private static string s_cachePersistenceEnabled = "";
 
-        private static readonly ReaderWriterLock dictionaryLock = new ReaderWriterLock();
-        private static readonly Dictionary<string, object> lockDictionary = new Dictionary<string, object>();
+        private static readonly ReaderWriterLock s_dictionaryLock = new ReaderWriterLock();
+        private static readonly Dictionary<string, object> s_lockDictionary = new Dictionary<string, object>();
 
-        private static readonly SharedDictionary<string, Object> dictionaryCache = new SharedDictionary<string, Object>();
+        private static readonly SharedDictionary<string, Object> s_dictionaryCache = new SharedDictionary<string, Object>();
 
         public static bool CachePersistenceEnabled
         {
             get
             {
-                if (string.IsNullOrEmpty(_CachePersistenceEnabled))
+                if (string.IsNullOrEmpty(s_cachePersistenceEnabled))
                 {
-                    _CachePersistenceEnabled = Config.GetSetting("EnableCachePersistence") ?? "false";
+                    s_cachePersistenceEnabled = Config.GetSetting("EnableCachePersistence") ?? "false";
                 }
-                return bool.Parse(_CachePersistenceEnabled);
+                return bool.Parse(s_cachePersistenceEnabled);
             }
         }
 
@@ -345,20 +344,20 @@ namespace DotNetNuke.Common.Utilities
             catch (Exception exc)
             {
                 //Swallow exception            
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
         }
 
         public static void ClearCache()
         {
             CachingProvider.Instance().Clear("Prefix", "DNN_");
-            using (ISharedCollectionLock writeLock = dictionaryCache.GetWriteLock())
+            using (ISharedCollectionLock writeLock = s_dictionaryCache.GetWriteLock())
             {
-                dictionaryCache.Clear();
+                s_dictionaryCache.Clear();
             }
 
             //log the cache clear event
-            var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.CACHE_REFRESH.ToString()};
+            var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.CACHE_REFRESH.ToString() };
             log.LogProperties.Add(new LogDetailInfo("*", "Refresh"));
             LogController.Instance.AddLog(log);
         }
@@ -454,10 +453,10 @@ namespace DotNetNuke.Common.Utilities
         }
 
 
-		public static void ClearPackagesCache(int portalId)
-		{
-			RemoveCache(string.Format(PackagesCacheKey, portalId));
-		}
+        public static void ClearPackagesCache(int portalId)
+        {
+            RemoveCache(string.Format(PackagesCacheKey, portalId));
+        }
 
         private static object GetCachedDataFromRuntimeCache(CacheItemArgs cacheItemArgs, CacheItemExpiredCallback cacheItemExpired)
         {
@@ -510,7 +509,7 @@ namespace DotNetNuke.Common.Utilities
                             if (GetCache(cacheItemArgs.CacheKey) == null)
                             {
                                 // log the event if the item was not saved in the cache ( likely because we are out of memory )
-                                var log = new LogInfo{ LogTypeKey = EventLogController.EventLogType.CACHE_OVERFLOW.ToString() };
+                                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.CACHE_OVERFLOW.ToString() };
                                 log.LogProperties.Add(new LogDetailInfo(cacheItemArgs.CacheKey, "Overflow - Item Not Cached"));
                                 LogController.Instance.AddLog(log);
                             }
@@ -530,9 +529,9 @@ namespace DotNetNuke.Common.Utilities
             object cachedObject;
 
             bool isFound;
-            using (ISharedCollectionLock readLock = dictionaryCache.GetReadLock())
+            using (ISharedCollectionLock readLock = s_dictionaryCache.GetReadLock())
             {
-                isFound = dictionaryCache.TryGetValue(cacheItemArgs.CacheKey, out cachedObject);
+                isFound = s_dictionaryCache.TryGetValue(cacheItemArgs.CacheKey, out cachedObject);
             }
 
             if (!isFound)
@@ -548,13 +547,13 @@ namespace DotNetNuke.Common.Utilities
                     Exceptions.LogException(ex);
                 }
 
-                using (ISharedCollectionLock writeLock = dictionaryCache.GetWriteLock())
+                using (ISharedCollectionLock writeLock = s_dictionaryCache.GetWriteLock())
                 {
-                    if (!dictionaryCache.ContainsKey(cacheItemArgs.CacheKey))
+                    if (!s_dictionaryCache.ContainsKey(cacheItemArgs.CacheKey))
                     {
                         if (cachedObject != null)
                         {
-                            dictionaryCache[cacheItemArgs.CacheKey] = cachedObject;
+                            s_dictionaryCache[cacheItemArgs.CacheKey] = cachedObject;
                         }
                     }
                 }
@@ -571,8 +570,8 @@ namespace DotNetNuke.Common.Utilities
 
         internal static TObject GetCachedData<TObject>(CacheItemArgs cacheItemArgs, CacheItemExpiredCallback cacheItemExpired, bool storeInDictionary)
         {
-            object objObject = storeInDictionary 
-                                   ? GetCachedDataFromDictionary(cacheItemArgs, cacheItemExpired) 
+            object objObject = storeInDictionary
+                                   ? GetCachedDataFromDictionary(cacheItemArgs, cacheItemExpired)
                                    : GetCachedDataFromRuntimeCache(cacheItemArgs, cacheItemExpired);
 
             // return the object
@@ -586,36 +585,36 @@ namespace DotNetNuke.Common.Utilities
         private static object GetUniqueLockObject(string key)
         {
             object @lock = null;
-            dictionaryLock.AcquireReaderLock(new TimeSpan(0, 0, 5));
+            s_dictionaryLock.AcquireReaderLock(new TimeSpan(0, 0, 5));
             try
             {
                 //Try to get lock Object (for key) from Dictionary
-                if (lockDictionary.ContainsKey(key))
+                if (s_lockDictionary.ContainsKey(key))
                 {
-                    @lock = lockDictionary[key];
+                    @lock = s_lockDictionary[key];
                 }
             }
             finally
             {
-                dictionaryLock.ReleaseReaderLock();
+                s_dictionaryLock.ReleaseReaderLock();
             }
             if (@lock == null)
             {
-                dictionaryLock.AcquireWriterLock(new TimeSpan(0, 0, 5));
+                s_dictionaryLock.AcquireWriterLock(new TimeSpan(0, 0, 5));
                 try
                 {
                     //Double check dictionary
-                    if (!lockDictionary.ContainsKey(key))
+                    if (!s_lockDictionary.ContainsKey(key))
                     {
                         //Create new lock
-                        lockDictionary[key] = new object();
+                        s_lockDictionary[key] = new object();
                     }
                     //Retrieve lock
-                    @lock = lockDictionary[key];
+                    @lock = s_lockDictionary[key];
                 }
                 finally
                 {
-                    dictionaryLock.ReleaseWriterLock();
+                    s_dictionaryLock.ReleaseWriterLock();
                 }
             }
             return @lock;
@@ -623,19 +622,19 @@ namespace DotNetNuke.Common.Utilities
 
         private static void RemoveUniqueLockObject(string key)
         {
-            dictionaryLock.AcquireWriterLock(new TimeSpan(0, 0, 5));
+            s_dictionaryLock.AcquireWriterLock(new TimeSpan(0, 0, 5));
             try
             {
                 //check dictionary
-                if (lockDictionary.ContainsKey(key))
+                if (s_lockDictionary.ContainsKey(key))
                 {
                     //Remove lock
-                    lockDictionary.Remove(key);
+                    s_lockDictionary.Remove(key);
                 }
             }
             finally
             {
-                dictionaryLock.ReleaseWriterLock();
+                s_dictionaryLock.ReleaseWriterLock();
             }
         }
 
@@ -661,9 +660,9 @@ namespace DotNetNuke.Common.Utilities
 
         public static void RemoveFromPrivateDictionary(string DnnCacheKey)
         {
-            using (ISharedCollectionLock writeLock = dictionaryCache.GetWriteLock())
+            using (ISharedCollectionLock writeLock = s_dictionaryCache.GetWriteLock())
             {
-                dictionaryCache.Remove(CleanCacheKey(DnnCacheKey));
+                s_dictionaryCache.Remove(CleanCacheKey(DnnCacheKey));
             }
         }
 

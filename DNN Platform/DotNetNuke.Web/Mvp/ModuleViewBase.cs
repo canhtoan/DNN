@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Globalization;
 
@@ -31,7 +31,6 @@ using WebFormsMvp.Web;
 
 
 #endregion
-
 namespace DotNetNuke.Web.Mvp
 {
     public abstract class ModuleViewBase : ModuleUserControlBase, IModuleViewBase
@@ -55,7 +54,7 @@ namespace DotNetNuke.Web.Mvp
 
         protected T DataValue<T>()
         {
-            return (T) Page.GetDataItem();
+            return (T)Page.GetDataItem();
         }
 
         protected string DataValue<T>(string format)

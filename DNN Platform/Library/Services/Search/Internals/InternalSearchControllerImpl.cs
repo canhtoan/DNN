@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -46,7 +46,6 @@ using Lucene.Net.Index;
 using Lucene.Net.Search;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Internals
 {
     /// -----------------------------------------------------------------------------
@@ -56,12 +55,12 @@ namespace DotNetNuke.Services.Search.Internals
     /// -----------------------------------------------------------------------------
     internal class InternalSearchControllerImpl : IInternalSearchController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(LuceneControllerImpl));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(LuceneControllerImpl));
         private const string SearchableModuleDefsKey = "{0}-{1}";
         private const string SearchableModuleDefsCacheKey = "SearchableModuleDefs";
         private const string LocalizedResxFile = "~/DesktopModules/Admin/SearchResults/App_LocalResources/SearchableModules.resx";
 
-        private static readonly string[] HtmlAttributesToRetain = { "alt", "title" };
+        private static readonly string[] s_htmlAttributesToRetain = { "alt", "title" };
         private readonly int _titleBoost;
         private readonly int _tagBoost;
         private readonly int _contentBoost;
@@ -69,7 +68,7 @@ namespace DotNetNuke.Services.Search.Internals
         private readonly int _authorBoost;
         private readonly int _moduleSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("module").SearchTypeId;
 
-        private static readonly DataProvider DataProvider = DataProvider.Instance();
+        private static readonly DataProvider s_dataProvider = DataProvider.Instance();
 
         #region constructor
         public InternalSearchControllerImpl()
@@ -85,7 +84,7 @@ namespace DotNetNuke.Services.Search.Internals
 
         internal virtual object SearchContentSourceCallback(CacheItemArgs cacheItem)
         {
-            var searchTypes = CBO.FillCollection<SearchType>(DataProvider.GetAllSearchTypes());
+            var searchTypes = CBO.FillCollection<SearchType>(s_dataProvider.GetAllSearchTypes());
 
             var results = new List<SearchContentSource>();
 
@@ -104,7 +103,7 @@ namespace DotNetNuke.Services.Search.Internals
                         {
                             if (!modDefIds.Contains(module.ModuleDefID)) modDefIds.Add(module.ModuleDefID);
                         }
-                        
+
                         var list = modDefIds.Select(ModuleDefinitionController.GetModuleDefinitionByID).ToList();
 
                         foreach (var def in list)
@@ -119,7 +118,7 @@ namespace DotNetNuke.Services.Search.Internals
                                 SearchTypeId = crawler.SearchTypeId,
                                 SearchTypeName = crawler.SearchTypeName,
                                 IsPrivate = crawler.IsPrivate,
-                                ModuleDefinitionId =  def.ModuleDefID,
+                                ModuleDefinitionId = def.ModuleDefID,
                                 LocalizedName = text
                             };
 
@@ -149,7 +148,6 @@ namespace DotNetNuke.Services.Search.Internals
             }
 
             return results;
-
         }
 
         public IEnumerable<SearchContentSource> GetSearchContentSourceList(int portalId)
@@ -173,7 +171,7 @@ namespace DotNetNuke.Services.Search.Internals
                 foreach (var searchContentSource in searchContentSources)
                 {
                     var key = string.Format("{0}-{1}", searchContentSource.SearchTypeId, searchContentSource.ModuleDefinitionId);
-                    if(!data.ContainsKey(key))
+                    if (!data.ContainsKey(key))
                         data.Add(key, searchContentSource.LocalizedName);
                 }
             }
@@ -205,22 +203,22 @@ namespace DotNetNuke.Services.Search.Internals
             Requires.NotNegative("SearchTypeId", searchDocument.SearchTypeId);
             Requires.PropertyNotEqualTo("searchDocument", "SearchTypeId", searchDocument.SearchTypeId, 0);
             Requires.PropertyNotEqualTo("searchDocument", "ModifiedTimeUtc", searchDocument.ModifiedTimeUtc.ToString(CultureInfo.InvariantCulture), DateTime.MinValue.ToString(CultureInfo.InvariantCulture));
-            
+
             if (searchDocument.SearchTypeId == _moduleSearchTypeId)
             {
-                if(searchDocument.ModuleDefId <= 0)
-                    throw new ArgumentException( Localization.Localization.GetExceptionMessage("ModuleDefIdMustBeGreaterThanZero","ModuleDefId must be greater than zero when SearchTypeId is for a module"));
+                if (searchDocument.ModuleDefId <= 0)
+                    throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleDefIdMustBeGreaterThanZero", "ModuleDefId must be greater than zero when SearchTypeId is for a module"));
 
                 if (searchDocument.ModuleId <= 0)
-                    throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleIdMustBeGreaterThanZero","ModuleId must be greater than zero when SearchTypeId is for a module"));
+                    throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleIdMustBeGreaterThanZero", "ModuleId must be greater than zero when SearchTypeId is for a module"));
             }
             else
             {
                 if (searchDocument.ModuleDefId > 0)
-                    throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleDefIdWhenSearchTypeForModule","ModuleDefId is needed only when SearchTypeId is for a module"));
+                    throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleDefIdWhenSearchTypeForModule", "ModuleDefId is needed only when SearchTypeId is for a module"));
 
                 if (searchDocument.ModuleId > 0)
-                    throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleIdWhenSearchTypeForModule","ModuleId is needed only when SearchTypeId is for a module"));
+                    throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleIdWhenSearchTypeForModule", "ModuleId is needed only when SearchTypeId is for a module"));
             }
 
             var doc = new Document();
@@ -278,12 +276,12 @@ namespace DotNetNuke.Services.Search.Internals
                 {
                     try
                     {
-                        AddSearchDocumentInternal(searchDoc, (++idx%commitBatchSize) == 0);
+                        AddSearchDocumentInternal(searchDoc, (++idx % commitBatchSize) == 0);
                         //added = true;
                     }
                     catch (Exception ex)
                     {
-                        Logger.ErrorFormat("Search Document error: {0}{1}{2}", searchDoc, Environment.NewLine, ex);
+                        s_logger.ErrorFormat("Search Document error: {0}{1}{2}", searchDoc, Environment.NewLine, ex);
                     }
                 }
 
@@ -334,7 +332,7 @@ namespace DotNetNuke.Services.Search.Internals
 
             if (!string.IsNullOrEmpty(searchDocument.CultureCode))
                 query.Add(NumericValueQuery(Constants.LocaleTag, Localization.Localization.GetCultureLanguageID(searchDocument.CultureCode)), Occur.MUST);
-            
+
             LuceneController.Instance.Delete(query);
 
             if (autoCommit)
@@ -404,21 +402,21 @@ namespace DotNetNuke.Services.Search.Internals
 
             if (!string.IsNullOrEmpty(searchDocument.Title))
             {
-                var field = new Field(Constants.TitleTag, StripTagsRetainAttributes(searchDocument.Title, HtmlAttributesToRetain, false, true), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-                if (_titleBoost >0 && _titleBoost != Constants.StandardLuceneBoost) field.Boost = _titleBoost / 10f;
+                var field = new Field(Constants.TitleTag, StripTagsRetainAttributes(searchDocument.Title, s_htmlAttributesToRetain, false, true), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+                if (_titleBoost > 0 && _titleBoost != Constants.StandardLuceneBoost) field.Boost = _titleBoost / 10f;
                 doc.Add(field);
             }
 
             if (!string.IsNullOrEmpty(searchDocument.Description))
             {
-                var field = new Field(Constants.DescriptionTag, StripTagsRetainAttributes(searchDocument.Description, HtmlAttributesToRetain, false, true), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+                var field = new Field(Constants.DescriptionTag, StripTagsRetainAttributes(searchDocument.Description, s_htmlAttributesToRetain, false, true), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
                 if (_descriptionBoost > 0 && _descriptionBoost != Constants.StandardLuceneBoost) field.Boost = _descriptionBoost / 10f;
                 doc.Add(field);
             }
 
             if (!string.IsNullOrEmpty(searchDocument.Body))
             {
-                doc.Add(new Field(Constants.BodyTag, StripTagsRetainAttributes(searchDocument.Body, HtmlAttributesToRetain, false, true), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS));
+                doc.Add(new Field(Constants.BodyTag, StripTagsRetainAttributes(searchDocument.Body, s_htmlAttributesToRetain, false, true), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS));
             }
 
             if (!string.IsNullOrEmpty(searchDocument.Url))
@@ -508,9 +506,8 @@ namespace DotNetNuke.Services.Search.Internals
             {
                 var field = new Field(Constants.ContentTag, SearchHelper.Instance.StripTagsNoAttributes(sb.ToString(), true), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
                 doc.Add(field);
-                if (_contentBoost > 0 && _contentBoost != Constants.StandardLuceneBoost) field.Boost = _contentBoost/10f;
+                if (_contentBoost > 0 && _contentBoost != Constants.StandardLuceneBoost) field.Boost = _contentBoost / 10f;
             }
-
         }
 
         /// <summary>
@@ -523,10 +520,10 @@ namespace DotNetNuke.Services.Search.Internals
         }
 
         private const string HtmlTagsWithAttrs = "<[A-Za-z_:][\\w:.-]*(\\s+(?<attr>\\w+\\s*?=\\s*?[\"'].*?[\"']))+\\s*/?>";
-        private static readonly Regex HtmlTagsRegex = new Regex(HtmlTagsWithAttrs, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex s_htmlTagsRegex = new Regex(HtmlTagsWithAttrs, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private const string AttrText = "[\"'](?<text>.*?)[\"']";
-        private static readonly Regex AttrTextRegex = new Regex(AttrText, RegexOptions.Compiled);
+        private static readonly Regex s_attrTextRegex = new Regex(AttrText, RegexOptions.Compiled);
 
         private static string StripTagsRetainAttributes(string html, IEnumerable<string> attributes, bool decoded, bool retainSpace)
         {
@@ -546,7 +543,7 @@ namespace DotNetNuke.Services.Search.Internals
             {
                 var list = new List<string>();
 
-                foreach (var match in HtmlTagsRegex.Matches(strippedString).Cast<Match>())
+                foreach (var match in s_htmlTagsRegex.Matches(strippedString).Cast<Match>())
                 {
                     var captures = match.Groups["attr"].Captures;
                     foreach (var capture in captures.Cast<Capture>())
@@ -558,7 +555,7 @@ namespace DotNetNuke.Services.Search.Internals
                             var attr = val.Substring(0, pos).Trim();
                             if (attributesList.Contains(attr))
                             {
-                                var text = AttrTextRegex.Match(val).Groups["text"].Value.Trim();
+                                var text = s_attrTextRegex.Match(val).Groups["text"].Value.Trim();
                                 if (text.Length > 0 && !list.Contains(text))
                                 {
                                     list.Add(text);

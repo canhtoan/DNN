@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -117,7 +116,7 @@ namespace DotNetNuke.Entities.Portals
         {
             var breadCrumbs = new List<TabInfo>();
             GetBreadCrumbsRecursively(ref breadCrumbs, tabId, portalId);
-            return breadCrumbs;            
+            return breadCrumbs;
         }
 
         private void GetBreadCrumbsRecursively(ref List<TabInfo> breadCrumbs, int tabId, int portalId)
@@ -206,7 +205,7 @@ namespace DotNetNuke.Entities.Portals
         }
 
         public virtual void LoadPortal(PortalInfo portal, PortalSettings portalSettings)
-		{
+        {
             portalSettings.PortalName = portal.PortalName;
             portalSettings.LogoFile = portal.LogoFile;
             portalSettings.FooterText = portal.FooterText;
@@ -335,7 +334,7 @@ namespace DotNetNuke.Entities.Portals
             }
 
             activeTab.ContainerSrc = SkinController.FormatSkinSrc(activeTab.ContainerSrc, portalSettings);
-            activeTab.ContainerPath = SkinController.FormatSkinPath(activeTab.ContainerSrc);            
+            activeTab.ContainerPath = SkinController.FormatSkinPath(activeTab.ContainerSrc);
         }
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Web;
 
 using DotNetNuke.Common.Utilities;
@@ -28,24 +28,23 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Security;
 
 #endregion
-
 namespace DotNetNuke.Services.Personalization
 {
     public class Personalization
     {
-		#region Private Methods
+        #region Private Methods
 
         private static PersonalizationInfo LoadProfile()
         {
             HttpContext context = HttpContext.Current;
 
             //First try and load Personalization object from the Context
-            var personalization = (PersonalizationInfo) context.Items["Personalization"];
+            var personalization = (PersonalizationInfo)context.Items["Personalization"];
 
             //If the Personalization object is nothing load it and store it in the context for future calls
             if (personalization == null)
             {
-                var _portalSettings = (PortalSettings) context.Items["PortalSettings"];
+                var _portalSettings = (PortalSettings)context.Items["PortalSettings"];
 
                 //load the user info object
                 UserInfo UserInfo = UserController.Instance.GetCurrentUserInfo();
@@ -59,10 +58,10 @@ namespace DotNetNuke.Services.Personalization
             }
             return personalization;
         }
-		
-		#endregion
 
-		#region Public Shared Methods
+        #endregion
+
+        #region Public Shared Methods
 
         /// <summary>
         /// load users profile and extract value base on naming container and key
@@ -89,10 +88,10 @@ namespace DotNetNuke.Services.Personalization
 
         /// <summary>
         /// load users profile and extract secure value base on naming container and key
-       /// </summary>
+        /// </summary>
         /// <param name="namingContainer">Container for related set of values</param>
         /// <param name="key">Individual profile key</param>
-       /// <returns></returns>
+        /// <returns></returns>
         public static object GetSecureProfile(string namingContainer, string key)
         {
             return GetSecureProfile(LoadProfile(), namingContainer, key);
@@ -199,6 +198,6 @@ namespace DotNetNuke.Services.Personalization
                 personalization.IsModified = true;
             }
         }
-		#endregion
+        #endregion
     }
 }

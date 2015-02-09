@@ -21,13 +21,12 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Globalization;
 
 #endregion
-
 namespace DotNetNuke.Common
 {
     /// <summary>Specifies that a certain condition is an error</summary>

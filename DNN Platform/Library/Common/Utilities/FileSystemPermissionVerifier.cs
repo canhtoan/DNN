@@ -1,4 +1,4 @@
-#region Copyright
+﻿#region Copyright
 // 
 // DotNetNuke? - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities.Internal;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     /// <summary>
@@ -38,10 +37,10 @@ namespace DotNetNuke.Common.Utilities
     /// </remarks>
     public class FileSystemPermissionVerifier
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (FileSystemPermissionVerifier));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FileSystemPermissionVerifier));
         private readonly string _basePath;
 
-	    private int _retryTimes = 30;
+        private int _retryTimes = 30;
 
         /// <summary>
         /// Base path need to verify permission.
@@ -56,14 +55,13 @@ namespace DotNetNuke.Common.Utilities
 
         public FileSystemPermissionVerifier(string basePath)
         {
-			_basePath = basePath;
+            _basePath = basePath;
         }
 
-		public FileSystemPermissionVerifier(string basePath, int retryTimes) : this(basePath)
-		{
-
-			_retryTimes = retryTimes;
-		}
+        public FileSystemPermissionVerifier(string basePath, int retryTimes) : this(basePath)
+        {
+            _retryTimes = retryTimes;
+        }
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -80,11 +78,11 @@ namespace DotNetNuke.Common.Utilities
                 //Attempt to create the File
                 try
                 {
-					Try(() => FileCreateAction(verifyPath), "Creating verification file");
+                    Try(() => FileCreateAction(verifyPath), "Creating verification file");
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
                     verified = false;
                 }
             }
@@ -99,7 +97,7 @@ namespace DotNetNuke.Common.Utilities
                 File.Delete(verifyPath);
             }
 
-            using(File.Create(verifyPath))
+            using (File.Create(verifyPath))
             {
                 //do nothing just let it close
             }
@@ -120,11 +118,11 @@ namespace DotNetNuke.Common.Utilities
                 //Attempt to delete the File
                 try
                 {
-					Try(() => File.Delete(verifyPath), "Deleting verification file");
+                    Try(() => File.Delete(verifyPath), "Deleting verification file");
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
                     verified = false;
                 }
             }
@@ -145,11 +143,11 @@ namespace DotNetNuke.Common.Utilities
             //Attempt to create the Directory
             try
             {
-				Try(() => FolderCreateAction(verifyPath), "Creating verification folder");
+                Try(() => FolderCreateAction(verifyPath), "Creating verification folder");
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 verified = false;
             }
 
@@ -181,11 +179,11 @@ namespace DotNetNuke.Common.Utilities
                 //Attempt to delete the Directory
                 try
                 {
-					Try(() => Directory.Delete(verifyPath), "Deleting verification folder");
+                    Try(() => Directory.Delete(verifyPath), "Deleting verification folder");
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
                     verified = false;
                 }
             }
@@ -198,9 +196,9 @@ namespace DotNetNuke.Common.Utilities
             return VerifyFileDelete() && VerifyFolderDelete();
         }
 
-		private void Try(Action action, string description)
-		{
-			new RetryableAction(action, description, _retryTimes, TimeSpan.FromSeconds(1)).TryIt();
-		}
+        private void Try(Action action, string description)
+        {
+            new RetryableAction(action, description, _retryTimes, TimeSpan.FromSeconds(1)).TryIt();
+        }
     }
 }

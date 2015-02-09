@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
@@ -28,9 +28,9 @@ using DotNetNuke.Instrumentation;
 
 namespace DotNetNuke.Services.FileSystem.Internal
 {
-    public class FileDeletionController : ServiceLocator< IFileDeletionController, FileDeletionController>, IFileDeletionController
+    public class FileDeletionController : ServiceLocator<IFileDeletionController, FileDeletionController>, IFileDeletionController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(FileDeletionController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FileDeletionController));
         public void DeleteFile(IFileInfo file)
         {
             string lockReason;
@@ -47,7 +47,7 @@ namespace DotNetNuke.Services.FileSystem.Internal
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 throw new FolderProviderException(Localization.Localization.GetExceptionMessage("DeleteFileUnderlyingSystemError", "The underlying system threw an exception. The file has not been deleted."), ex);
             }
 
@@ -63,7 +63,7 @@ namespace DotNetNuke.Services.FileSystem.Internal
             }
 
             FileVersionController.Instance.DeleteAllUnpublishedVersions(file, false);
-            
+
             DeleteFileData(file);
         }
 

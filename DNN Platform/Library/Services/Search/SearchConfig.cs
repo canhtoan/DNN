@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +29,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -44,17 +43,17 @@ namespace DotNetNuke.Services.Search
     [Serializable]
     public class SearchConfig
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SearchConfig));
-		#region "Private Members"
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SearchConfig));
+        #region "Private Members"
 
         private readonly bool _SearchIncludeCommon;
         private readonly bool _SearchIncludeNumeric;
         private readonly int _SearchMaxWordlLength;
         private readonly int _SearchMinWordlLength;
-		
-		#endregion
 
-		#region "Constructor(s)"
+        #endregion
+
+        #region "Constructor(s)"
 
         public SearchConfig(int portalID)
             : this(PortalController.Instance.GetPortalSettings(portalID))
@@ -68,10 +67,10 @@ namespace DotNetNuke.Services.Search
             _SearchMaxWordlLength = GetSettingAsInteger("MaxSearchWordLength", settings, Host.SearchMaxWordlLength);
             _SearchMinWordlLength = GetSettingAsInteger("MinSearchWordLength", settings, Host.SearchMinWordlLength);
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -140,10 +139,10 @@ namespace DotNetNuke.Services.Search
                 return _SearchMinWordlLength;
             }
         }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
 
         private bool GetSettingAsBoolean(string key, Dictionary<string, string> settings, bool defaultValue)
@@ -165,8 +164,7 @@ namespace DotNetNuke.Services.Search
             catch (Exception exc)
             {
                 //we just want to trap the error as we may not be installed so there will be no Settings
-                Logger.Error(exc);
-
+                s_logger.Error(exc);
             }
             return retValue;
         }
@@ -190,12 +188,11 @@ namespace DotNetNuke.Services.Search
             catch (Exception exc)
             {
                 //we just want to trap the error as we may not be installed so there will be no Settings
-                Logger.Error(exc);
-
+                s_logger.Error(exc);
             }
             return retValue;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

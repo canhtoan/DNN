@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +42,6 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     /// -----------------------------------------------------------------------------
@@ -59,10 +58,10 @@ namespace DotNetNuke.Entities.Modules
     /// -----------------------------------------------------------------------------
     public class DesktopModuleController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (DesktopModuleController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(DesktopModuleController));
         #region Private Methods
 
-        private static readonly DataProvider DataProvider = DataProvider.Instance();
+        private static readonly DataProvider s_dataProvider = DataProvider.Instance();
 
         private static Dictionary<int, DesktopModuleInfo> GetDesktopModulesInternal(int portalID)
         {
@@ -76,7 +75,7 @@ namespace DotNetNuke.Entities.Modules
 
         private static object GetDesktopModulesCallBack(CacheItemArgs cacheItemArgs)
         {
-            return CBO.FillDictionary("DesktopModuleID", DataProvider.GetDesktopModules(), new Dictionary<int, DesktopModuleInfo>());
+            return CBO.FillDictionary("DesktopModuleID", s_dataProvider.GetDesktopModules(), new Dictionary<int, DesktopModuleInfo>());
         }
 
         /// -----------------------------------------------------------------------------
@@ -93,7 +92,7 @@ namespace DotNetNuke.Entities.Modules
         private static object GetDesktopModulesByPortalCallBack(CacheItemArgs cacheItemArgs)
         {
             var portalId = (int)cacheItemArgs.ParamList[0];
-            return CBO.FillDictionary("DesktopModuleID", DataProvider.GetDesktopModulesByPortal(portalId), new Dictionary<int, DesktopModuleInfo>());
+            return CBO.FillDictionary("DesktopModuleID", s_dataProvider.GetDesktopModulesByPortal(portalId), new Dictionary<int, DesktopModuleInfo>());
         }
 
         private static object GetPortalDesktopModulesByPortalIDCallBack(CacheItemArgs cacheItemArgs)
@@ -176,7 +175,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public void DeleteDesktopModule(int desktopModuleID)
         {
-            DataProvider.DeleteDesktopModule(desktopModuleID);
+            s_dataProvider.DeleteDesktopModule(desktopModuleID);
             EventLogController.Instance.AddLog("DesktopModuleID",
                                desktopModuleID.ToString(),
                                PortalController.Instance.GetCurrentPortalSettings(),
@@ -235,7 +234,7 @@ namespace DotNetNuke.Entities.Modules
             }
 
             if (module == null)
-                Logger.WarnFormat("Unable to find module by module ID. ID:{0} PortalID:{1}", desktopModuleID, portalID);
+                s_logger.WarnFormat("Unable to find module by module ID. ID:{0} PortalID:{1}", desktopModuleID, portalID);
 
             return module;
         }
@@ -257,7 +256,7 @@ namespace DotNetNuke.Entities.Modules
                 .FirstOrDefault();
 
             if (desktopModuleByPackageID == null)
-                Logger.WarnFormat("Unable to find module by package ID. ID:{0}", packageID);
+                s_logger.WarnFormat("Unable to find module by package ID. ID:{0}", packageID);
 
             return desktopModuleByPackageID;
         }
@@ -282,7 +281,7 @@ namespace DotNetNuke.Entities.Modules
                                                            select kvp.Value).FirstOrDefault();
 
             if (desktopModuleByModuleName == null)
-                Logger.WarnFormat("Unable to find module by name. Name:{0} portalId:{1}", moduleName, portalID);
+                s_logger.WarnFormat("Unable to find module by name. Name:{0} portalId:{1}", moduleName, portalID);
 
             return desktopModuleByModuleName;
         }
@@ -306,8 +305,8 @@ namespace DotNetNuke.Entities.Modules
         {
             var module = (from kvp in GetDesktopModulesInternal(Null.NullInteger) where kvp.Value.FriendlyName == friendlyName select kvp.Value).FirstOrDefault();
 
-            if (module== null)
-                Logger.WarnFormat("Unable to find module by friendly name. Name:{0}", friendlyName);
+            if (module == null)
+                s_logger.WarnFormat("Unable to find module by friendly name. Name:{0}", friendlyName);
 
             return module;
         }
@@ -334,7 +333,7 @@ namespace DotNetNuke.Entities.Modules
             if (desktopModuleID == Null.NullInteger)
             {
                 CreateContentItem(desktopModule);
-                desktopModuleID = DataProvider.AddDesktopModule(desktopModule.PackageID,
+                desktopModuleID = s_dataProvider.AddDesktopModule(desktopModule.PackageID,
                                                                 desktopModule.ModuleName,
                                                                 desktopModule.FolderName,
                                                                 desktopModule.FriendlyName,
@@ -360,7 +359,7 @@ namespace DotNetNuke.Entities.Modules
                     CreateContentItem(desktopModule);
                 }
 
-                DataProvider.UpdateDesktopModule(desktopModule.DesktopModuleID,
+                s_dataProvider.UpdateDesktopModule(desktopModule.DesktopModuleID,
                                                  desktopModule.PackageID,
                                                  desktopModule.ModuleName,
                                                  desktopModule.FolderName,
@@ -436,15 +435,14 @@ namespace DotNetNuke.Entities.Modules
             {
                 Config.Touch();
             }
-            
         }
 
         private void CheckInterfacesImplementation(ref DesktopModuleInfo desktopModuleInfo)
         {
             var businessController = Reflection.CreateType(desktopModuleInfo.BusinessControllerClass);
-            var controller = Reflection.CreateObject(desktopModuleInfo.BusinessControllerClass, desktopModuleInfo.BusinessControllerClass);   
+            var controller = Reflection.CreateObject(desktopModuleInfo.BusinessControllerClass, desktopModuleInfo.BusinessControllerClass);
 
-            desktopModuleInfo.IsPortable = businessController.GetInterfaces().Contains(typeof (IPortable));
+            desktopModuleInfo.IsPortable = businessController.GetInterfaces().Contains(typeof(IPortable));
 #pragma warning disable 0618
             desktopModuleInfo.IsSearchable = (controller is ModuleSearchBase) || businessController.GetInterfaces().Contains(typeof(ISearchable));
 #pragma warning restore 0618
@@ -690,7 +688,7 @@ namespace DotNetNuke.Entities.Modules
         [Obsolete("This method replaced in DotNetNuke 5.0 by Shared method GetDesktopModules(Integer)")]
         public ArrayList GetDesktopModulesByPortal(int portalID)
         {
-            return CBO.FillCollection(DataProvider.GetDesktopModulesByPortal(portalID), typeof(DesktopModuleInfo));
+            return CBO.FillCollection(s_dataProvider.GetDesktopModulesByPortal(portalID), typeof(DesktopModuleInfo));
         }
 
         [Obsolete("This method replaced in DotNetNuke 5.0 by Shared method GetPortalDesktopModulesByPortalID(Integer) and GetPortalDesktopModulesByDesktopModuleID(Integer) And GetPortalDesktopModule(Integer, Integer)")]

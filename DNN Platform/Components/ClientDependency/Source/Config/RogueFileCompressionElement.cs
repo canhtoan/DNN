@@ -6,7 +6,7 @@ using System.Configuration;
 
 namespace ClientDependency.Core.Config
 {
-    class RogueFileCompressionElement : ConfigurationElement
+    internal class RogueFileCompressionElement : ConfigurationElement
     {
         [ConfigurationProperty("compressJs", DefaultValue = true)]
         public bool CompressJs
@@ -68,12 +68,11 @@ namespace ClientDependency.Core.Config
             {
                 return (RogueFileCompressionExcludeCollection)base["exclusions"];
             }
-        }       
+        }
 
         public override int GetHashCode()
         {
             return this.FilePath.GetHashCode();
         }
-
     }
 }

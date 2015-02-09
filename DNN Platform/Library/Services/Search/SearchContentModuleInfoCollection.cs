@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -40,11 +39,11 @@ namespace DotNetNuke.Services.Search
     ///		[cnurse]	11/15/2004	documented
     /// </history>
     /// -----------------------------------------------------------------------------
-    #pragma warning disable 0618
+#pragma warning disable 0618
     public class SearchContentModuleInfoCollection : CollectionBase
     {
-		#region "Constructors"
-		
+        #region "Constructors"
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchContentModuleInfoCollection">SearchContentModuleInfoCollection</see> class.
         /// </summary>
@@ -69,10 +68,10 @@ namespace DotNetNuke.Services.Search
         {
             AddRange(value);
         }
-		
-		#endregion
-		
-		#region "Properties"
+
+        #endregion
+
+        #region "Properties"
 
         /// <summary>
         /// Gets the <see cref="SearchContentModuleInfoCollection">SearchContentModuleInfoCollection</see> at the specified index in the collection.
@@ -84,17 +83,17 @@ namespace DotNetNuke.Services.Search
         {
             get
             {
-                return (SearchContentModuleInfo) List[index];
+                return (SearchContentModuleInfo)List[index];
             }
             set
             {
                 List[index] = value;
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         /// <summary>
         /// Add an element of the specified <see cref="SearchContentModuleInfo">SearchContentModuleInfo</see> to the end of the collection.
@@ -141,7 +140,7 @@ namespace DotNetNuke.Services.Search
         /// <returns><b>true</b> if the collection contains the specified object; otherwise, <b>false</b>.</returns>
         public bool Contains(SearchContentModuleInfo value)
         {
-			//If value is not of type SearchContentModuleInfo, this will return false.
+            //If value is not of type SearchContentModuleInfo, this will return false.
             return List.Contains(value);
         }
 
@@ -165,7 +164,7 @@ namespace DotNetNuke.Services.Search
         {
             for (int i = 0; i <= value.Count - 1; i++)
             {
-                Add((SearchContentModuleInfo) value.List[i]);
+                Add((SearchContentModuleInfo)value.List[i]);
             }
         }
 
@@ -189,8 +188,8 @@ namespace DotNetNuke.Services.Search
             CopyTo(arr, 0);
             return arr;
         }
-		
-		#endregion
+
+        #endregion
     }
-    #pragma warning restore 0618
+#pragma warning restore 0618
 }

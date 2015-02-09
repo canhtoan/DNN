@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using DotNetNuke.ComponentModel.DataAnnotations;
 using DotNetNuke.Tests.Utilities;
 

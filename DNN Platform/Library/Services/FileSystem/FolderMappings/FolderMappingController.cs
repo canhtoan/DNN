@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -45,7 +46,7 @@ namespace DotNetNuke.Services.FileSystem
 
         #region Private Variables
 
-        private static readonly DataProvider dataProvider = DataProvider.Instance();
+        private static readonly DataProvider s_dataProvider = DataProvider.Instance();
         private const string CacheKeyPrefix = "GetFolderMappingSettings";
 
         #endregion
@@ -62,7 +63,7 @@ namespace DotNetNuke.Services.FileSystem
 
         public int AddFolderMapping(FolderMappingInfo objFolderMapping)
         {
-            objFolderMapping.FolderMappingID = dataProvider.AddFolderMapping(objFolderMapping.PortalID,
+            objFolderMapping.FolderMappingID = s_dataProvider.AddFolderMapping(objFolderMapping.PortalID,
                                                                              objFolderMapping.MappingName,
                                                                              objFolderMapping.FolderProviderType,
                                                                              UserController.Instance.GetCurrentUserInfo().UserID);
@@ -86,7 +87,7 @@ namespace DotNetNuke.Services.FileSystem
                 // Delete files in folders with the provided mapping (only in the database)
                 foreach (var file in folderMappingFolders.Select<IFolderInfo, IEnumerable<IFileInfo>>(folderManager.GetFiles).SelectMany(files => files))
                 {
-                    dataProvider.DeleteFile(portalID, file.FileName, file.FolderId);
+                    s_dataProvider.DeleteFile(portalID, file.FileName, file.FolderId);
                 }
 
                 // Remove the folders with the provided mapping that doesn't have child folders with other mapping (only in the database and filesystem)
@@ -99,7 +100,7 @@ namespace DotNetNuke.Services.FileSystem
                     foreach (var removableFolder in removableFolders.OrderByDescending(rf => rf.FolderPath))
                     {
                         DirectoryWrapper.Instance.Delete(removableFolder.PhysicalPath, false);
-                        dataProvider.DeleteFolder(portalID, removableFolder.FolderPath);
+                        s_dataProvider.DeleteFolder(portalID, removableFolder.FolderPath);
                     }
                 }
 
@@ -120,14 +121,14 @@ namespace DotNetNuke.Services.FileSystem
                 }
             }
 
-            dataProvider.DeleteFolderMapping(folderMappingID);
+            s_dataProvider.DeleteFolderMapping(folderMappingID);
             ClearFolderMappingCache(portalID);
             ClearFolderMappingSettingsCache(folderMappingID);
         }
 
         public void UpdateFolderMapping(FolderMappingInfo objFolderMapping)
         {
-            dataProvider.UpdateFolderMapping(objFolderMapping.FolderMappingID,
+            s_dataProvider.UpdateFolderMapping(objFolderMapping.FolderMappingID,
                                              objFolderMapping.MappingName,
                                              objFolderMapping.Priority,
                                              UserController.Instance.GetCurrentUserInfo().UserID);
@@ -138,7 +139,7 @@ namespace DotNetNuke.Services.FileSystem
 
         public FolderMappingInfo GetFolderMapping(int folderMappingID)
         {
-            return CBO.FillObject<FolderMappingInfo>(dataProvider.GetFolderMapping(folderMappingID));
+            return CBO.FillObject<FolderMappingInfo>(s_dataProvider.GetFolderMapping(folderMappingID));
         }
 
         public FolderMappingInfo GetFolderMapping(int portalId, int folderMappingID)
@@ -157,12 +158,12 @@ namespace DotNetNuke.Services.FileSystem
             return CBO.GetCachedObject<List<FolderMappingInfo>>(new CacheItemArgs(cacheKey,
                                                                     DataCache.FolderMappingCacheTimeOut,
                                                                     DataCache.FolderMappingCachePriority),
-                                                                (c) => CBO.FillCollection<FolderMappingInfo>(dataProvider.GetFolderMappings(portalId)));
+                                                                (c) => CBO.FillCollection<FolderMappingInfo>(s_dataProvider.GetFolderMappings(portalId)));
         }
 
         public void AddDefaultFolderTypes(int portalID)
         {
-            dataProvider.AddDefaultFolderTypes(portalID);
+            s_dataProvider.AddDefaultFolderTypes(portalID);
         }
 
         public Hashtable GetFolderMappingSettings(int folderMappingID)
@@ -175,7 +176,7 @@ namespace DotNetNuke.Services.FileSystem
                 IDataReader dr = null;
                 try
                 {
-                    dr = dataProvider.GetFolderMappingSettings(folderMappingID);
+                    dr = s_dataProvider.GetFolderMappingSettings(folderMappingID);
                     while (dr.Read())
                     {
                         if (!dr.IsDBNull(1))
@@ -221,14 +222,14 @@ namespace DotNetNuke.Services.FileSystem
             IDataReader dr = null;
             try
             {
-                dr = dataProvider.GetFolderMappingSetting(folderMappingID, settingName);
+                dr = s_dataProvider.GetFolderMappingSetting(folderMappingID, settingName);
                 if (dr.Read())
                 {
-                    dataProvider.UpdateFolderMappingSetting(folderMappingID, settingName, settingValue, UserController.Instance.GetCurrentUserInfo().UserID);
+                    s_dataProvider.UpdateFolderMappingSetting(folderMappingID, settingName, settingValue, UserController.Instance.GetCurrentUserInfo().UserID);
                 }
                 else
                 {
-                    dataProvider.AddFolderMappingSetting(folderMappingID, settingName, settingValue, UserController.Instance.GetCurrentUserInfo().UserID);
+                    s_dataProvider.AddFolderMappingSetting(folderMappingID, settingName, settingValue, UserController.Instance.GetCurrentUserInfo().UserID);
                 }
             }
             catch (Exception ex)

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Reflection;
 using System.Xml.XPath;
@@ -27,7 +27,6 @@ using System.Xml.XPath;
 using DotNetNuke.Application;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Dependencies
 {
     /// -----------------------------------------------------------------------------
@@ -42,13 +41,13 @@ namespace DotNetNuke.Services.Installer.Dependencies
     /// -----------------------------------------------------------------------------
     public class CoreVersionDependency : DependencyBase
     {
-        private Version minVersion;
+        private Version _minVersion;
 
         public override string ErrorMessage
         {
             get
             {
-                return string.Format(Util.INSTALL_Compatibility,minVersion);
+                return string.Format(Util.INSTALL_Compatibility, _minVersion);
             }
         }
 
@@ -57,7 +56,7 @@ namespace DotNetNuke.Services.Installer.Dependencies
             get
             {
                 bool _IsValid = true;
-                if (Assembly.GetExecutingAssembly().GetName().Version < minVersion)
+                if (Assembly.GetExecutingAssembly().GetName().Version < _minVersion)
                 {
                     _IsValid = false;
                 }
@@ -67,7 +66,7 @@ namespace DotNetNuke.Services.Installer.Dependencies
 
         public override void ReadManifest(XPathNavigator dependencyNav)
         {
-            minVersion = new Version(dependencyNav.Value);
+            _minVersion = new Version(dependencyNav.Value);
         }
     }
 }

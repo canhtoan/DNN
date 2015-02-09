@@ -9,7 +9,6 @@ namespace DotNetNuke.Web.UI.WebControls
     /// <remarks></remarks>
     public sealed class TypedControlCollection<T> : ControlCollection where T : Control
     {
-
         public TypedControlCollection(Control owner) : base(owner)
         {
         }
@@ -31,7 +30,5 @@ namespace DotNetNuke.Web.UI.WebControls
             }
             base.AddAt(index, child);
         }
-
     }
-
 }

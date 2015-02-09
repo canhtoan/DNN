@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -61,11 +61,11 @@ namespace DotNetNuke.ExtensionPoints
                 ViewState["PanelControlId"] = value;
             }
         }
-        
+
         protected override void OnInit(EventArgs e)
         {
             var extensionPointManager = new ExtensionPointManager();
-            
+
             var tabs = (HtmlGenericControl)Parent.FindControl(TabControlId);
             var panel = Parent.FindControl(PanelControlId);
 
@@ -151,7 +151,6 @@ namespace DotNetNuke.ExtensionPoints
                 }
             }
         }
-
     }
 
     public class PanelTabExtensionControl : WebControl
@@ -166,13 +165,13 @@ namespace DotNetNuke.ExtensionPoints
         public override void RenderEndTag(HtmlTextWriter writer)
         {
             writer.Write("");
-        } 
+        }
 
         protected override void RenderContents(HtmlTextWriter op)
         {
             op.Write("<div class=\"ehccContent dnnClear\" id=\"" + PanelId + "\">");
             base.RenderContents(op);
             op.Write("</div>");
-        } 
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace ClientDependency.Core.Config
             get
             {
                 return (string)this["type"];
-            }            
+            }
         }
 
         [ConfigurationProperty("path", DefaultValue = "*")]
@@ -23,7 +23,7 @@ namespace ClientDependency.Core.Config
             get
             {
                 return (string)this["path"];
-            }            
+            }
         }
 
         public override int GetHashCode()
@@ -40,6 +40,5 @@ namespace ClientDependency.Core.Config
             }
             return false;
         }
-
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -44,7 +43,7 @@ namespace DotNetNuke.Services.Search
     [Obsolete("Deprecated in DNN 7.1.  No longer used in the Search infrastructure.")]
     public class SearchCriteriaCollection : CollectionBase
     {
-		#region Constructors
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchCriteriaCollection">SearchCriteriaCollection</see> class.
@@ -117,10 +116,10 @@ namespace DotNetNuke.Services.Search
                 }
             }
         }
-		
-		#endregion
 
-		#region Properties
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets the <see cref="SearchCriteriaCollection">SearchCriteriaCollection</see> at the specified index in the collection.
@@ -132,17 +131,17 @@ namespace DotNetNuke.Services.Search
         {
             get
             {
-                return (SearchCriteria) List[index];
+                return (SearchCriteria)List[index];
             }
             set
             {
                 List[index] = value;
             }
         }
-		
-		#endregion
 
-		#region Public Methods
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Add an element of the specified <see cref="SearchCriteria">SearchCriteria</see> to the end of the collection.
@@ -212,7 +211,7 @@ namespace DotNetNuke.Services.Search
         {
             for (int i = 0; i <= value.Count - 1; i++)
             {
-                Add((SearchCriteria) value.List[i]);
+                Add((SearchCriteria)value.List[i]);
             }
         }
 
@@ -236,7 +235,7 @@ namespace DotNetNuke.Services.Search
             CopyTo(arr, 0);
             return arr;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

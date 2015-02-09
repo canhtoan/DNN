@@ -1,4 +1,4 @@
-#region Copyright
+﻿#region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,7 +37,6 @@ using DotNetNuke.Services.ClientCapability;
 using FiftyOne.Foundation.UI;
 
 #endregion
-
 namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
 {
     /// <summary>
@@ -47,31 +46,31 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
     {
         #region Static Methods
 
-        static readonly object _allCapabilitiesLock = new object();
-        static IQueryable<IClientCapability> _allCapabilities;
+        private static readonly object s_allCapabilitiesLock = new object();
+        private static IQueryable<IClientCapability> s_allCapabilities;
 
-        static readonly object _allClientCapabilityValuesLock = new object();
-        static Dictionary<string, List<string>> _allClientCapabilityValues;
+        private static readonly object s_allClientCapabilityValuesLock = new object();
+        private static Dictionary<string, List<string>> s_allClientCapabilityValues;
 
-        private static IDictionary<string, int> _highPiorityCapabilityValues;
+        private static IDictionary<string, int> s_highPiorityCapabilityValues;
 
         private static IQueryable<IClientCapability> AllCapabilities
         {
             get
             {
-                if (_allCapabilities == null)
+                if (s_allCapabilities == null)
                 {
-                    lock (_allCapabilitiesLock)
+                    lock (s_allCapabilitiesLock)
                     {
-                        if (_allCapabilities == null)
+                        if (s_allCapabilities == null)
                         {
                             var capabilities = DataProvider.Devices.Select(device => new FiftyOneClientCapability(device)).Cast<IClientCapability>().ToList();
 
-                            _allCapabilities = capabilities.AsQueryable();
+                            s_allCapabilities = capabilities.AsQueryable();
                         }
                     }
                 }
-                return _allCapabilities;
+                return s_allCapabilities;
             }
         }
 
@@ -79,23 +78,23 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
         {
             get
             {
-                if (_allClientCapabilityValues == null)
+                if (s_allClientCapabilityValues == null)
                 {
-                    lock (_allClientCapabilityValuesLock)
+                    lock (s_allClientCapabilityValuesLock)
                     {
-                        if (_allClientCapabilityValues == null)
+                        if (s_allClientCapabilityValues == null)
                         {
-                            _allClientCapabilityValues = new Dictionary<string, List<string>>();
+                            s_allClientCapabilityValues = new Dictionary<string, List<string>>();
 
                             foreach (var property in DataProvider.Properties)
                             {
                                 var values = property.Values.Select(value => value.Name).ToList();
-                                _allClientCapabilityValues.Add(property.Name, values);
+                                s_allClientCapabilityValues.Add(property.Name, values);
                             }
                         }
                     }
 
-                    _allClientCapabilityValues = _allClientCapabilityValues.OrderByDescending(kvp =>
+                    s_allClientCapabilityValues = s_allClientCapabilityValues.OrderByDescending(kvp =>
                                                                 {
                                                                     if (HighPiorityCapabilityValues.ContainsKey(kvp.Key))
                                                                     {
@@ -105,7 +104,7 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
                                                                 }).ThenBy(kvp => kvp.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
                 }
 
-                return _allClientCapabilityValues;
+                return s_allClientCapabilityValues;
             }
         }
 
@@ -113,24 +112,24 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
         {
             get
             {
-                if (_highPiorityCapabilityValues == null)
+                if (s_highPiorityCapabilityValues == null)
                 {
                     //add some common capability as high piority capability values, it will appear at the top of capability values list.
-                    _highPiorityCapabilityValues = new Dictionary<string, int>();
+                    s_highPiorityCapabilityValues = new Dictionary<string, int>();
 
-                    _highPiorityCapabilityValues.Add("IsMobile", 100);
-                    _highPiorityCapabilityValues.Add("IsTablet", 95);
-                    _highPiorityCapabilityValues.Add("PlatformName", 90);
-                    _highPiorityCapabilityValues.Add("BrowserName", 85);
-                    _highPiorityCapabilityValues.Add("BrowserVersion", 80);
-                    _highPiorityCapabilityValues.Add("HasTouchScreen", 75);
-                    _highPiorityCapabilityValues.Add("PlatformVersion", 70);
-                    _highPiorityCapabilityValues.Add("ScreenPixelsWidth", 65);
-                    _highPiorityCapabilityValues.Add("ScreenPixelsHeight", 60);
-                    _highPiorityCapabilityValues.Add("HardwareVendor", 55);
+                    s_highPiorityCapabilityValues.Add("IsMobile", 100);
+                    s_highPiorityCapabilityValues.Add("IsTablet", 95);
+                    s_highPiorityCapabilityValues.Add("PlatformName", 90);
+                    s_highPiorityCapabilityValues.Add("BrowserName", 85);
+                    s_highPiorityCapabilityValues.Add("BrowserVersion", 80);
+                    s_highPiorityCapabilityValues.Add("HasTouchScreen", 75);
+                    s_highPiorityCapabilityValues.Add("PlatformVersion", 70);
+                    s_highPiorityCapabilityValues.Add("ScreenPixelsWidth", 65);
+                    s_highPiorityCapabilityValues.Add("ScreenPixelsHeight", 60);
+                    s_highPiorityCapabilityValues.Add("HardwareVendor", 55);
                 }
 
-                return _highPiorityCapabilityValues;
+                return s_highPiorityCapabilityValues;
             }
         }
 
@@ -149,7 +148,7 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
             {
                 // The useragent has already been processed by 51Degrees.mobi when the request
                 // was processed by the detector module. Uses the values obtained then.
-                var clientCapability = new FiftyOneClientCapability(request.Browser) {UserAgent = request.UserAgent};
+                var clientCapability = new FiftyOneClientCapability(request.Browser) { UserAgent = request.UserAgent };
                 return clientCapability;
             }
             // The useragent has not already been processed. Therefore process it now
@@ -170,11 +169,11 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
             Requires.NotNullOrEmpty("deviceId", deviceId);
 
             var device = DataProvider.GetDeviceFromDeviceID(deviceId);
-            
-			if(device == null)
-			{
+
+            if (device == null)
+            {
                 throw new MobileException(string.Format("Can't get device capability for the id '{0}'", deviceId));
-			}
+            }
 
             return new FiftyOneClientCapability(device);
         }

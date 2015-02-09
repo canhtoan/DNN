@@ -1,3 +1,4 @@
+﻿
 namespace DotNetNuke.Web.Api.Internal
 {
     internal class AntiForgeryImpl : IAntiForgery

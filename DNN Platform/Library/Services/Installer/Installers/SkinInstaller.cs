@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.IO;
@@ -31,7 +31,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.UI.Skins;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -46,17 +45,17 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class SkinInstaller : FileInstaller
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private readonly ArrayList _SkinFiles = new ArrayList();
 
-        private SkinPackageInfo SkinPackage;
-        private SkinPackageInfo TempSkinPackage;
+        private SkinPackageInfo _skinPackage;
+        private SkinPackageInfo _tempSkinPackage;
         private string _SkinName = Null.NullString;
-		
-		#endregion
 
-		#region "Protected Properties"
+        #endregion
+
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -105,7 +104,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             get
             {
-                string _PhysicalBasePath = RootPath + SkinRoot + "\\" + SkinPackage.SkinName;
+                string _PhysicalBasePath = RootPath + SkinRoot + "\\" + _skinPackage.SkinName;
                 if (!_PhysicalBasePath.EndsWith("\\"))
                 {
                     _PhysicalBasePath += "\\";
@@ -207,10 +206,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "Skin";
             }
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -228,10 +227,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "ascx, html, htm, css, xml, js, resx, jpg, jpeg, gif, png";
             }
         }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -246,7 +245,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             try
             {
-				//Attempt to get the Authentication Service
+                //Attempt to get the Authentication Service
                 SkinPackageInfo skinPackage = SkinController.GetSkinByPackageID(Package.PackageID);
                 if (skinPackage != null)
                 {
@@ -259,10 +258,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 Log.AddFailure(ex);
             }
         }
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -288,9 +287,9 @@ namespace DotNetNuke.Services.Installer.Installers
                     }
                     break;
             }
-            
-			//Call base method to set up for file processing
-			base.ProcessFile(file, nav);
+
+            //Call base method to set up for file processing
+            base.ProcessFile(file, nav);
         }
 
         /// -----------------------------------------------------------------------------
@@ -304,11 +303,11 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         protected override void ReadCustomManifest(XPathNavigator nav)
         {
-            SkinPackage = new SkinPackageInfo();
-            SkinPackage.PortalID = Package.PortalID;
+            _skinPackage = new SkinPackageInfo();
+            _skinPackage.PortalID = Package.PortalID;
 
             //Get the Skin name
-            SkinPackage.SkinName = Util.ReadElement(nav, SkinNameNodeName);
+            _skinPackage.SkinName = Util.ReadElement(nav, SkinNameNodeName);
 
             //Call base class
             base.ReadCustomManifest(nav);
@@ -325,21 +324,21 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         protected override void UnInstallFile(InstallFile unInstallFile)
         {
-			//Uninstall file
+            //Uninstall file
             base.UnInstallFile(unInstallFile);
 
             if (unInstallFile.Extension == "htm" || unInstallFile.Extension == "html")
             {
-				//Try to remove "processed file"
+                //Try to remove "processed file"
                 string fileName = unInstallFile.FullName;
                 fileName = fileName.Replace(Path.GetExtension(fileName), ".ascx");
                 Util.DeleteFile(fileName, PhysicalBasePath, Log);
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -353,17 +352,17 @@ namespace DotNetNuke.Services.Installer.Installers
             bool bAdd = Null.NullBoolean;
             try
             {
-				//Attempt to get the Skin Package
-                TempSkinPackage = SkinController.GetSkinPackage(SkinPackage.PortalID, SkinPackage.SkinName, SkinType);
-                if (TempSkinPackage == null)
+                //Attempt to get the Skin Package
+                _tempSkinPackage = SkinController.GetSkinPackage(_skinPackage.PortalID, _skinPackage.SkinName, SkinType);
+                if (_tempSkinPackage == null)
                 {
                     bAdd = true;
-                    SkinPackage.PackageID = Package.PackageID;
+                    _skinPackage.PackageID = Package.PackageID;
                 }
                 else
                 {
-                    SkinPackage.SkinPackageID = TempSkinPackage.SkinPackageID;
-                    if (TempSkinPackage.PackageID != Package.PackageID)
+                    _skinPackage.SkinPackageID = _tempSkinPackage.SkinPackageID;
+                    if (_tempSkinPackage.PackageID != Package.PackageID)
                     {
                         Completed = false;
                         Log.AddFailure(Util.SKIN_Installed);
@@ -371,21 +370,21 @@ namespace DotNetNuke.Services.Installer.Installers
                     }
                     else
                     {
-                        SkinPackage.PackageID = TempSkinPackage.PackageID;
+                        _skinPackage.PackageID = _tempSkinPackage.PackageID;
                     }
                 }
-                SkinPackage.SkinType = SkinType;
+                _skinPackage.SkinType = SkinType;
                 if (bAdd)
                 {
-					//Add new skin package
-                    SkinPackage.SkinPackageID = SkinController.AddSkinPackage(SkinPackage);
+                    //Add new skin package
+                    _skinPackage.SkinPackageID = SkinController.AddSkinPackage(_skinPackage);
                 }
                 else
                 {
-					//Update skin package
-                    SkinController.UpdateSkinPackage(SkinPackage);
+                    //Update skin package
+                    SkinController.UpdateSkinPackage(_skinPackage);
                 }
-                Log.AddInfo(string.Format(Util.SKIN_Registered, SkinPackage.SkinName));
+                Log.AddInfo(string.Format(Util.SKIN_Registered, _skinPackage.SkinName));
 
                 //install (copy the files) by calling the base class
                 base.Install();
@@ -395,7 +394,7 @@ namespace DotNetNuke.Services.Installer.Installers
                 {
                     Log.StartJob(Util.SKIN_BeginProcessing);
                     string strMessage = Null.NullString;
-                    var NewSkin = new SkinFileProcessor(RootPath, SkinRoot, SkinPackage.SkinName);
+                    var NewSkin = new SkinFileProcessor(RootPath, SkinRoot, _skinPackage.SkinName);
                     foreach (string skinFile in SkinFiles)
                     {
                         strMessage += NewSkin.ProcessFile(skinFile, SkinParser.Portable);
@@ -403,17 +402,17 @@ namespace DotNetNuke.Services.Installer.Installers
                         switch (Path.GetExtension(skinFile))
                         {
                             case ".htm":
-                                SkinController.AddSkin(SkinPackage.SkinPackageID, skinFile.Replace("htm", "ascx"));
+                                SkinController.AddSkin(_skinPackage.SkinPackageID, skinFile.Replace("htm", "ascx"));
                                 break;
                             case ".html":
-                                SkinController.AddSkin(SkinPackage.SkinPackageID, skinFile.Replace("html", "ascx"));
+                                SkinController.AddSkin(_skinPackage.SkinPackageID, skinFile.Replace("html", "ascx"));
                                 break;
                             case ".ascx":
-                                SkinController.AddSkin(SkinPackage.SkinPackageID, skinFile);
+                                SkinController.AddSkin(_skinPackage.SkinPackageID, skinFile);
                                 break;
                         }
                     }
-                    Array arrMessage = strMessage.Split(new[] {"<br />"}, StringSplitOptions.None);
+                    Array arrMessage = strMessage.Split(new[] { "<br />" }, StringSplitOptions.None);
                     foreach (string strRow in arrMessage)
                     {
                         Log.AddInfo(HtmlUtils.StripTags(strRow, true));
@@ -439,20 +438,20 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void Rollback()
         {
-			//If Temp Skin exists then we need to update the DataStore with this 
-            if (TempSkinPackage == null)
+            //If Temp Skin exists then we need to update the DataStore with this 
+            if (_tempSkinPackage == null)
             {
-				//No Temp Skin - Delete newly added Skin
+                //No Temp Skin - Delete newly added Skin
                 DeleteSkinPackage();
             }
             else
             {
-				//Temp Skin - Rollback to Temp
-                SkinController.UpdateSkinPackage(TempSkinPackage);
+                //Temp Skin - Rollback to Temp
+                SkinController.UpdateSkinPackage(_tempSkinPackage);
             }
-            
-			//Call base class to prcoess files
-			base.Rollback();
+
+            //Call base class to prcoess files
+            base.Rollback();
         }
 
         /// -----------------------------------------------------------------------------
@@ -470,7 +469,7 @@ namespace DotNetNuke.Services.Installer.Installers
             //Call base class to prcoess files
             base.UnInstall();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,25 +17,24 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     public class NavDataPageHierarchyData : IHierarchyData, INavigateUIData
     {
-        private readonly DNNNode m_objNode;
+        private readonly DNNNode _objNode;
 
         public NavDataPageHierarchyData(DNNNode obj)
         {
-            m_objNode = obj;
+            _objNode = obj;
         }
 
         /// <summary>
@@ -48,13 +47,13 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                if (String.IsNullOrEmpty(m_objNode.Image) || m_objNode.Image.StartsWith("/"))
+                if (String.IsNullOrEmpty(_objNode.Image) || _objNode.Image.StartsWith("/"))
                 {
-                    return m_objNode.Image;
+                    return _objNode.Image;
                 }
                 else
                 {
-                    return PortalController.Instance.GetCurrentPortalSettings().HomeDirectory + m_objNode.Image;
+                    return PortalController.Instance.GetCurrentPortalSettings().HomeDirectory + _objNode.Image;
                 }
             }
         }
@@ -71,7 +70,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return m_objNode.HasNodes;
+                return _objNode.HasNodes;
             }
         }
 
@@ -85,7 +84,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return GetValuePath(m_objNode);
+                return GetValuePath(_objNode);
             }
         }
 
@@ -99,7 +98,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return m_objNode;
+                return _objNode;
             }
         }
 
@@ -125,9 +124,9 @@ namespace DotNetNuke.UI.WebControls
         public virtual IHierarchicalEnumerable GetChildren()
         {
             var objNodes = new NavDataPageHierarchicalEnumerable();
-            if (m_objNode != null)
+            if (_objNode != null)
             {
-                foreach (DNNNode objNode in m_objNode.DNNNodes)
+                foreach (DNNNode objNode in _objNode.DNNNodes)
                 {
                     objNodes.Add(new NavDataPageHierarchyData(objNode));
                 }
@@ -142,9 +141,9 @@ namespace DotNetNuke.UI.WebControls
         /// <remarks></remarks>
         public virtual IHierarchyData GetParent()
         {
-            if (m_objNode != null)
+            if (_objNode != null)
             {
-                return new NavDataPageHierarchyData(m_objNode.ParentNode);
+                return new NavDataPageHierarchyData(_objNode.ParentNode);
             }
             else
             {
@@ -166,7 +165,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return GetSafeValue(m_objNode.Text, "");
+                return GetSafeValue(_objNode.Text, "");
             }
         }
 
@@ -180,7 +179,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return GetValuePath(m_objNode);
+                return GetValuePath(_objNode);
             }
         }
 
@@ -194,7 +193,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return GetSafeValue(m_objNode.NavigateURL, "");
+                return GetSafeValue(_objNode.NavigateURL, "");
             }
         }
 
@@ -208,7 +207,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return GetSafeValue(m_objNode.ToolTip, "");
+                return GetSafeValue(_objNode.ToolTip, "");
             }
         }
 
@@ -216,7 +215,7 @@ namespace DotNetNuke.UI.WebControls
 
         public override string ToString()
         {
-            return m_objNode.Text;
+            return _objNode.Text;
         }
 
         /// <summary>

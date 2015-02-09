@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Data.SqlTypes;
@@ -38,7 +38,6 @@ using Telerik.Web.UI;
 using Calendar = DotNetNuke.Common.Utilities.Calendar;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls.PropertyEditorControls
 {
     /// -----------------------------------------------------------------------------
@@ -52,10 +51,10 @@ namespace DotNetNuke.Web.UI.WebControls.PropertyEditorControls
     [ToolboxData("<{0}:DateEditControl runat=server></{0}:DateEditControl>")]
     public class DateEditControl : EditControl
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (DateEditControl));
-		private DnnDatePicker _dateControl;
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(DateEditControl));
+        private DnnDatePicker _dateControl;
 
-		#region Protected Properties
+        #region Protected Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -78,8 +77,7 @@ namespace DotNetNuke.Web.UI.WebControls.PropertyEditorControls
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return dteValue;
             }
@@ -125,7 +123,7 @@ namespace DotNetNuke.Web.UI.WebControls.PropertyEditorControls
                     {
                         if (attribute is FormatAttribute)
                         {
-                            var formatAtt = (FormatAttribute) attribute;
+                            var formatAtt = (FormatAttribute)attribute;
                             _Format = formatAtt.Format;
                             break;
                         }
@@ -151,14 +149,13 @@ namespace DotNetNuke.Web.UI.WebControls.PropertyEditorControls
                 DateTime dteValue = Null.NullDate;
                 try
                 {
-					//Try and cast the value to an DateTime
+                    //Try and cast the value to an DateTime
                     var dteString = OldValue as string;
                     dteValue = DateTime.Parse(dteString, CultureInfo.InvariantCulture);
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return dteValue;
             }
@@ -184,57 +181,57 @@ namespace DotNetNuke.Web.UI.WebControls.PropertyEditorControls
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Override Properties
-		
-		public override string ID
-		{
-			get
-			{
-				return base.ID + "_control";
-			}
-			set
-			{
-				base.ID = value;
-			}
-		}
-		
-		#endregion
+        #region Override Properties
 
-		#region Private Properties
+        public override string ID
+        {
+            get
+            {
+                return base.ID + "_control";
+            }
+            set
+            {
+                base.ID = value;
+            }
+        }
 
-	    private DnnDatePicker DateControl
-	    {
-		    get
-		    {
-			    if (_dateControl == null)
-			    {
-				    _dateControl = new DnnDatePicker();
-			    }
+        #endregion
 
-			    return _dateControl;
-		    }
-	    }
+        #region Private Properties
 
-		#endregion
+        private DnnDatePicker DateControl
+        {
+            get
+            {
+                if (_dateControl == null)
+                {
+                    _dateControl = new DnnDatePicker();
+                }
+
+                return _dateControl;
+            }
+        }
+
+        #endregion
 
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
 
 
-			DateControl.ControlStyle.CopyFrom(ControlStyle);
-			DateControl.ID = base.ID + "_control";
+            DateControl.ControlStyle.CopyFrom(ControlStyle);
+            DateControl.ID = base.ID + "_control";
 
-			Controls.Add(DateControl);
+            Controls.Add(DateControl);
         }
 
         protected virtual void LoadDateControls()
         {
             if (DateValue != Null.NullDate)
             {
-				DateControl.SelectedDate = DateValue.Date;
+                DateControl.SelectedDate = DateValue.Date;
             }
         }
 
@@ -243,7 +240,7 @@ namespace DotNetNuke.Web.UI.WebControls.PropertyEditorControls
             EnsureChildControls();
             bool dataChanged = false;
             string presentValue = StringValue;
-			string postedValue = postCollection[postDataKey + "_control"];
+            string postedValue = postCollection[postDataKey + "_control"];
             if (!presentValue.Equals(postedValue))
             {
                 Value = DateTime.Parse(postedValue).ToString(CultureInfo.InvariantCulture);

@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Web.UI;
@@ -24,9 +25,8 @@ using System.Web.UI.WebControls;
 
 namespace DotNetNuke.Web.UI.WebControls
 {
-    public class DnnFormTabStrip : ListControl 
+    public class DnnFormTabStrip : ListControl
     {
-
         protected override void Render(HtmlTextWriter writer)
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Class, CssClass);
@@ -35,7 +35,7 @@ namespace DotNetNuke.Web.UI.WebControls
             foreach (ListItem item in Items)
             {
                 writer.RenderBeginTag(HtmlTextWriterTag.Li);
-                
+
                 writer.AddAttribute(HtmlTextWriterAttribute.Href, item.Value);
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
                 writer.Write(item.Text);

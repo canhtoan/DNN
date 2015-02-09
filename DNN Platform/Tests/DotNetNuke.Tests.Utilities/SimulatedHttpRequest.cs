@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Web.Hosting;
@@ -29,7 +30,7 @@ namespace DotNetNuke.Tests.Instance.Utilities
     /// </summary>
     public class SimulatedHttpRequest : SimpleWorkerRequest
     {
-        readonly string _host;
+        private readonly string _host;
 
         /// <summary>
         /// Creates a new <see cref="SimulatedHttpRequest"/> instance.
@@ -40,7 +41,7 @@ namespace DotNetNuke.Tests.Instance.Utilities
         /// <param name="query">Query.</param>
         /// <param name="output">Output.</param>
         /// <param name="host">Host.</param>
-        public SimulatedHttpRequest(string appVirtualDir, string appPhysicalDir, string page, string query, TextWriter output, string host): base(appVirtualDir, appPhysicalDir, page, query, output)
+        public SimulatedHttpRequest(string appVirtualDir, string appPhysicalDir, string page, string query, TextWriter output, string host) : base(appVirtualDir, appPhysicalDir, page, query, output)
         {
             if (string.IsNullOrEmpty(host))
                 throw new ArgumentNullException("host", "Host cannot be null nor empty.");

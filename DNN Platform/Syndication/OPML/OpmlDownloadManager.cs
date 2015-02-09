@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +30,6 @@ using System.Xml;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Syndication
 {
     /// <summary>
@@ -38,9 +37,9 @@ namespace DotNetNuke.Services.Syndication
     /// </summary>
     internal class OpmlDownloadManager
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (OpmlDownloadManager));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(OpmlDownloadManager));
         private const string OPML_Dir = "/OPML/";
-        private static readonly OpmlDownloadManager _theManager = new OpmlDownloadManager();
+        private static readonly OpmlDownloadManager s_theManager = new OpmlDownloadManager();
 
         private readonly Dictionary<string, Opml> _cache;
         private readonly int _defaultTtlMinutes;
@@ -59,7 +58,7 @@ namespace DotNetNuke.Services.Syndication
 
         public static Opml GetOpmlFeed(Uri uri)
         {
-            return _theManager.GetFeed(uri);
+            return s_theManager.GetFeed(uri);
         }
 
         internal Opml GetFeed(Uri uri)
@@ -178,10 +177,10 @@ namespace DotNetNuke.Services.Syndication
                     {
                         File.Delete(opmlFilename);
                     }
-					catch (Exception ex)
-					{
-						Logger.Error(ex);
-					}
+                    catch (Exception ex)
+                    {
+                        s_logger.Error(ex);
+                    }
 
                     // try next file
                     continue;

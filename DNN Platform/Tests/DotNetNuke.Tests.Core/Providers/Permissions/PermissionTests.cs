@@ -145,7 +145,7 @@ namespace DotNetNuke.Tests.Core.Providers.Permissions
             //Arrange
             var user = new UserInfo { IsSuperUser = false, UserID = Constants.USER_TenId };
             var relatedUser = new UserInfo { IsSuperUser = false, UserID = Constants.USER_ValidId };
-            string roles = "FRIEND:"+relatedUser.UserID;
+            string roles = "FRIEND:" + relatedUser.UserID;
 
             var mockUserController = new Mock<IUserController>();
             mockUserController.Setup(uc => uc.GetUserById(It.IsAny<int>(), Constants.USER_ValidId)).Returns(relatedUser);
@@ -155,9 +155,9 @@ namespace DotNetNuke.Tests.Core.Providers.Permissions
             mockRelationShipController.Setup(
                 rsc =>
                     rsc.GetFriendRelationship(It.Is<UserInfo>(u => u.UserID == Constants.USER_TenId), It.Is<UserInfo>(u => u.UserID == Constants.USER_ValidId)))
-                        .Returns(new UserRelationship() {Status = RelationshipStatus.Accepted});
+                        .Returns(new UserRelationship() { Status = RelationshipStatus.Accepted });
             RelationshipController.SetTestableInstance(mockRelationShipController.Object);
-            
+
             var portalSettings = SetupPortalSettings();
 
             //Act and Assert
@@ -221,7 +221,7 @@ namespace DotNetNuke.Tests.Core.Providers.Permissions
         {
             //Arrange
             var user = new UserInfo { IsSuperUser = false, UserID = UserId };
-            string roles = "OWNER:"+UserId;
+            string roles = "OWNER:" + UserId;
 
             var portalSettings = SetupPortalSettings();
 
@@ -235,7 +235,7 @@ namespace DotNetNuke.Tests.Core.Providers.Permissions
         {
             //Arrange
             var user = new UserInfo { IsSuperUser = false, UserID = UserId };
-            string roles = "OWNER:" + UserId+1;
+            string roles = "OWNER:" + UserId + 1;
 
             var portalSettings = SetupPortalSettings();
 
@@ -330,6 +330,5 @@ namespace DotNetNuke.Tests.Core.Providers.Permissions
             var modulePermission = new ModulePermissionInfo { PermissionID = permission.PermissionID, RoleID = roleId, AllowAccess = true };
             permissions.Add(modulePermission);
         }
-
     }
 }

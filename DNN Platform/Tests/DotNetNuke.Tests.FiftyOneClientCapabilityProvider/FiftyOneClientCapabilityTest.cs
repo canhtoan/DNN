@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 
@@ -66,17 +67,16 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         {
             _clientCapabilityProvider = new FiftyOneClientCapabilityProvider();
 
-			ComponentFactory.Container = new SimpleContainer();
-			var dataProvider = MockComponentProvider.CreateDataProvider();
-			dataProvider.Setup(d => d.GetProviderPath()).Returns("");
-			MockComponentProvider.CreateDataCacheProvider();
-			MockComponentProvider.CreateEventLogController();
+            ComponentFactory.Container = new SimpleContainer();
+            var dataProvider = MockComponentProvider.CreateDataProvider();
+            dataProvider.Setup(d => d.GetProviderPath()).Returns("");
+            MockComponentProvider.CreateDataCacheProvider();
+            MockComponentProvider.CreateEventLogController();
         }
 
         [TearDown]
         public void TearDown()
         {
-
         }
 
         #endregion
@@ -101,7 +101,7 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         public void FiftyOneClientCapability_IsMobile_Returns_True_For_IPhone()
         {
             // Arrange
-            var FiftyOneClientCapability = _clientCapabilityProvider.GetClientCapability(iphoneUserAgent);             
+            var FiftyOneClientCapability = _clientCapabilityProvider.GetClientCapability(iphoneUserAgent);
 
             // Act
             var bIsMobile = FiftyOneClientCapability.IsMobile;
@@ -260,7 +260,7 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
             var actual = FiftyOneClientCapability.ScreenResolutionWidthInPixels;
 
             //Assert
-            Assert.AreEqual(width,actual);
+            Assert.AreEqual(width, actual);
         }
 
         #endregion
@@ -345,7 +345,5 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         }
 
         #endregion
-
     }
-
 }

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +28,13 @@ using DotNetNuke.Data;
 
 namespace DotNetNuke.Framework.JavaScriptLibraries
 {
-    public class JavaScriptLibraryController 
+    public class JavaScriptLibraryController
                         : ServiceLocator<IJavaScriptLibraryController, JavaScriptLibraryController>
                         , IJavaScriptLibraryController
     {
         private void ClearCache()
         {
-	        DataCache.RemoveCache(DataCache.JavaScriptLibrariesCacheKey);
+            DataCache.RemoveCache(DataCache.JavaScriptLibrariesCacheKey);
         }
 
         protected override Func<IJavaScriptLibraryController> GetFactory()
@@ -80,10 +80,10 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
         /// <returns>collection of library references</returns>
         public IEnumerable<JavaScriptLibrary> GetLibraries()
         {
-	    return CBO.GetCachedObject<IEnumerable<JavaScriptLibrary>>(new CacheItemArgs(DataCache.JavaScriptLibrariesCacheKey,
-											DataCache.JavaScriptLibrariesCacheTimeout,
-											DataCache.JavaScriptLibrariesCachePriority),
-                                 c => CBO.FillCollection<JavaScriptLibrary>(DataProvider.Instance().ExecuteReader("GetJavaScriptLibraries")));
+            return CBO.GetCachedObject<IEnumerable<JavaScriptLibrary>>(new CacheItemArgs(DataCache.JavaScriptLibrariesCacheKey,
+                                                DataCache.JavaScriptLibrariesCacheTimeout,
+                                                DataCache.JavaScriptLibrariesCachePriority),
+                                     c => CBO.FillCollection<JavaScriptLibrary>(DataProvider.Instance().ExecuteReader("GetJavaScriptLibraries")));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
         /// <param name="library">library to be saved</param>
         public void SaveLibrary(JavaScriptLibrary library)
         {
-            library.JavaScriptLibraryID = DataProvider.Instance().ExecuteScalar<int>("SaveJavaScriptLibrary", 
+            library.JavaScriptLibraryID = DataProvider.Instance().ExecuteScalar<int>("SaveJavaScriptLibrary",
                                                         library.JavaScriptLibraryID,
                                                         library.PackageID,
                                                         library.LibraryName,

@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using Microsoft.VisualBasic.CompilerServices;
 
 #endregion
-
 namespace DotNetNuke.Common
 {
     [Obsolete("Deprecated in DNN 5.1. Use DotNetNukeContext.Current.Application properties.")]
@@ -59,7 +58,7 @@ namespace DotNetNuke.Common
         public const string glbUpgradeUrl = "http://update.dotnetnuke.com";
 
         [Obsolete("Deprecated in DNN 5.1. Use DotNetNukeContext.Current.Application properties.")]
-        public const string glbLegalCopyright = "DotNetNuke® is copyright 2002-YYYY by DotNetNuke Corporation";
+        public const string glbLegalCopyright = "DotNetNuke\u00AE is copyright 2002-YYYY by DotNetNuke Corporation";
 
         [Obsolete("Deprecated in DNN 5.1. Use DotNetNukeContext.Current.Application properties.")]
         public const string glbTrademark = "DotNetNuke,DNN";

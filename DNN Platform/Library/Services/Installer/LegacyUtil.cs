@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Text;
@@ -38,7 +38,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer
 {
     /// -----------------------------------------------------------------------------
@@ -54,21 +53,21 @@ namespace DotNetNuke.Services.Installer
     /// -----------------------------------------------------------------------------
     public class LegacyUtil
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (LegacyUtil));
-        private static string AdminModules =
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(LegacyUtil));
+        private static string s_adminModules =
             "Adsense, MarketShare, Authentication, Banners, FeedExplorer, FileManager, HostSettings, Lists, LogViewer, Newsletters, PortalAliases, Portals, RecycleBin, Scheduler, SearchAdmin, SearchInput, SearchResults, Security, SiteLog, SiteWizard, SkinDesigner, Solutions, SQL, Tabs, Vendors,";
 
-        private static string CoreModules =
+        private static string s_coreModules =
             "DNN_Announcements, Blog, DNN_Documents, DNN_Events, DNN_FAQs, DNN_Feedback, DNN_Forum, Help, DNN_HTML, DNN_IFrame, DNN_Links, DNN_Media, DNN_NewsFeeds, DNN_Reports, Repository, Repository Dashboard, Store Admin, Store Account, Store Catalog, Store Mini Cart, Store Menu, DNN_Survey, DNN_UserDefinedTable, DNN_UsersOnline, Wiki, DNN_XML,";
 
-        private static string KnownSkinObjects =
+        private static string s_knownSkinObjects =
             "ACTIONBUTTON, ACTIONS, BANNER, BREADCRUMB, COPYRIGHT, CURRENTDATE, DOTNETNUKE, DROPDOWNACTIONS, HELP, HOSTNAME, ICON, LANGUAGE, LINKACTIONS, LINKS, LOGIN, LOGO, MENU, NAV, PRINTMODULE, PRIVACY, SEARCH, SIGNIN, SOLPARTACTIONS, SOLPARTMENU, STYLES, TERMS, TEXT, TITLE, TREEVIEW, USER, VISIBILITY,";
 
-        private static string KnownSkins = "DNN-Blue, DNN-Gray, MinimalExtropy,";
+        private static string s_knownSkins = "DNN-Blue, DNN-Gray, MinimalExtropy,";
 
         private static PackageInfo CreateSkinPackage(SkinPackageInfo skin)
         {
-			//Create a Package
+            //Create a Package
             var package = new PackageInfo(new InstallerInfo());
             package.Name = skin.SkinName;
             package.FriendlyName = skin.SkinName;
@@ -151,7 +150,7 @@ namespace DotNetNuke.Services.Installer
 
         private static void ParsePackageName(PackageInfo package, string separator)
         {
-			//See if the Module is using a "Namespace" for its name
+            //See if the Module is using a "Namespace" for its name
             int ownerIndex = package.Name.IndexOf(separator);
             if (ownerIndex > 0)
             {
@@ -172,7 +171,7 @@ namespace DotNetNuke.Services.Installer
                     isCombi = true;
                 }
             }
-			
+
             //Create a writer to create the processed manifest
             var sb = new StringBuilder();
             XmlWriter writer = XmlWriter.Create(sb, XmlUtils.GetXmlWriterSettings(ConformanceLevel.Fragment));
@@ -181,18 +180,18 @@ namespace DotNetNuke.Services.Installer
             {
                 if (Directory.Exists(Path.Combine(tempInstallFolder, "Skins")))
                 {
-					//Add Skin Package Fragment
+                    //Add Skin Package Fragment
                     CreateSkinManifest(writer, skinFolder, "Skin", tempInstallFolder.Replace(Globals.ApplicationMapPath + "\\", ""), "Skins");
                 }
                 if (Directory.Exists(Path.Combine(tempInstallFolder, "Containers")))
                 {
-					//Add Container PAckage Fragment
+                    //Add Container PAckage Fragment
                     CreateSkinManifest(writer, skinFolder, "Container", tempInstallFolder.Replace(Globals.ApplicationMapPath + "\\", ""), "Containers");
                 }
             }
             else
             {
-				//Add Package Fragment
+                //Add Package Fragment
                 CreateSkinManifest(writer, skinFolder, skinType, tempInstallFolder.Replace(Globals.ApplicationMapPath + "\\", ""), "");
             }
             PackageWriterBase.WriteManifestEndElement(writer);
@@ -215,9 +214,9 @@ namespace DotNetNuke.Services.Installer
             {
                 ParsePackageName(package, "_");
             }
-            if (package.PackageType == "Module" && AdminModules.Contains(package.Name + ",") || package.PackageType == "Module" && CoreModules.Contains(package.Name + ",") ||
-                (package.PackageType == "Container" || package.PackageType == "Skin") && KnownSkins.Contains(package.Name + ",") ||
-                package.PackageType == "SkinObject" && KnownSkinObjects.Contains(package.Name + ","))
+            if (package.PackageType == "Module" && s_adminModules.Contains(package.Name + ",") || package.PackageType == "Module" && s_coreModules.Contains(package.Name + ",") ||
+                (package.PackageType == "Container" || package.PackageType == "Skin") && s_knownSkins.Contains(package.Name + ",") ||
+                package.PackageType == "SkinObject" && s_knownSkinObjects.Contains(package.Name + ","))
             {
                 if (string.IsNullOrEmpty(package.Owner))
                 {
@@ -275,7 +274,7 @@ namespace DotNetNuke.Services.Installer
                 {
                     HostController.Instance.Update("EnableUrlLanguage", Util.ReadAttribute(urlNav, "enabled", false, null, Null.NullString, "true"));
                 }
-				
+
                 //Process each language
                 foreach (XPathNavigator nav in doc.CreateNavigator().Select("root/language"))
                 {
@@ -291,14 +290,14 @@ namespace DotNetNuke.Services.Installer
                         {
                             //Create a Package
                             var package = new PackageInfo(new InstallerInfo())
-                                {
-                                    Name = language.Text,
-                                    FriendlyName = language.Text,
-                                    Description = Null.NullString,
-                                    Version = new Version(1, 0, 0),
-                                    PackageType = "CoreLanguagePack",
-                                    License = Util.PACKAGE_NoLicense
-                                };
+                            {
+                                Name = language.Text,
+                                FriendlyName = language.Text,
+                                Description = Null.NullString,
+                                Version = new Version(1, 0, 0),
+                                PackageType = "CoreLanguagePack",
+                                License = Util.PACKAGE_NoLicense
+                            };
 
                             //Create a LanguagePackWriter
                             var packageWriter = new LanguagePackWriter(language, package);
@@ -310,17 +309,17 @@ namespace DotNetNuke.Services.Installer
                             PackageController.Instance.SaveExtensionPackage(package);
 
                             var languagePack = new LanguagePackInfo
-                                {
-                                    LanguageID = language.LanguageId,
-                                    PackageID = package.PackageID,
-                                    DependentPackageID = -2
-                                };
+                            {
+                                LanguageID = language.LanguageId,
+                                PackageID = package.PackageID,
+                                DependentPackageID = -2
+                            };
                             LanguagePackController.SaveLanguagePack(languagePack);
                         }
                     }
                 }
             }
-			
+
             //Process Portal Locales files
             foreach (PortalInfo portal in PortalController.Instance.GetPortals())
             {
@@ -358,7 +357,7 @@ namespace DotNetNuke.Services.Installer
                         }
                         if (!bFound)
                         {
-							//Language is enabled - add to portal
+                            //Language is enabled - add to portal
                             Localization.Localization.AddLanguageToPortal(portalID, installedLanguage.LanguageId, false);
                         }
                     }
@@ -367,7 +366,7 @@ namespace DotNetNuke.Services.Installer
                 {
                     foreach (Locale installedLanguage in LocaleController.Instance.GetLocales(Null.NullInteger).Values)
                     {
-						//Language is enabled - add to portal
+                        //Language is enabled - add to portal
                         Localization.Localization.AddLanguageToPortal(portalID, installedLanguage.LanguageId, false);
                     }
                 }
@@ -443,9 +442,8 @@ namespace DotNetNuke.Services.Installer
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
-
-            }            
+                s_logger.Error(exc);
+            }
         }
 
         public static void ProcessLegacyModules()
@@ -470,7 +468,7 @@ namespace DotNetNuke.Services.Installer
                 {
                     try
                     {
-						//SkinControl is not affiliated with a Package
+                        //SkinControl is not affiliated with a Package
                         var package = new PackageInfo(new InstallerInfo());
                         package.Name = skinControl.ControlKey;
 
@@ -496,8 +494,7 @@ namespace DotNetNuke.Services.Installer
                     }
                     catch (Exception exc)
                     {
-                        Logger.Error(exc);
-
+                        s_logger.Error(exc);
                     }
                 }
             }
@@ -505,13 +502,13 @@ namespace DotNetNuke.Services.Installer
 
         public static void ProcessLegacySkins()
         {
-			//Process Legacy Skins
+            //Process Legacy Skins
             string skinRootPath = Path.Combine(Globals.HostMapPath, SkinController.RootSkin);
             foreach (string skinFolder in Directory.GetDirectories(skinRootPath))
             {
                 ProcessLegacySkin(skinFolder, "Skin");
             }
-			
+
             //Process Legacy Containers
             skinRootPath = Path.Combine(Globals.HostMapPath, SkinController.RootContainer);
             foreach (string skinFolder in Directory.GetDirectories(skinRootPath))

@@ -20,10 +20,8 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 
 namespace DotNetNuke.Web.Client.ClientResourceManagement
 {
@@ -32,7 +30,6 @@ namespace DotNetNuke.Web.Client.ClientResourceManagement
     /// </summary>
     public class DnnJsIncludeFallback : WebControl
     {
-
         public DnnJsIncludeFallback(string objectName, string fileName)
         {
             ObjectName = objectName;

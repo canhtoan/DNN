@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +39,7 @@ namespace DotNetNuke.Services.Localization
 {
     public class LocalizationProvider : ComponentBase<ILocalizationProvider, LocalizationProvider>, ILocalizationProvider
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(LocalizationProvider));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(LocalizationProvider));
         #region Nested type: CustomizedLocale
 
         public enum CustomizedLocale
@@ -93,7 +93,7 @@ namespace DotNetNuke.Services.Localization
 
             if (!keyFound)
             {
-                Logger.WarnFormat("Missing localization key. key:{0} resFileRoot:{1} threadCulture:{2} userlan:{3}", key, resourceFileRoot, Thread.CurrentThread.CurrentUICulture, language);
+                s_logger.WarnFormat("Missing localization key. key:{0} resFileRoot:{1} threadCulture:{2} userlan:{3}", key, resourceFileRoot, Thread.CurrentThread.CurrentUICulture, language);
             }
 
             return resourceValue;
@@ -427,7 +427,7 @@ namespace DotNetNuke.Services.Localization
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
 
             if (userLocale != null && !String.IsNullOrEmpty(userLocale.Fallback))

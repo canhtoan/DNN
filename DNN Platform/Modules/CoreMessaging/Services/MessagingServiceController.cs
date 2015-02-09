@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -46,7 +46,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
     [DnnAuthorize]
     public class MessagingServiceController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (MessagingServiceController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(MessagingServiceController));
         #region Public Methods
 
         [HttpGet]
@@ -64,7 +64,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -83,7 +83,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -102,7 +102,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -123,7 +123,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -136,7 +136,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             {
                 postData.Body = HttpUtility.UrlDecode(postData.Body);
                 var messageId = InternalMessagingController.Instance.ReplyMessage(postData.ConversationId, postData.Body, postData.FileIds);
-				var message = ToExpandoObject(InternalMessagingController.Instance.GetMessage(messageId));
+                var message = ToExpandoObject(InternalMessagingController.Instance.GetMessage(messageId));
                 var portalId = PortalController.GetEffectivePortalId(UserController.Instance.GetCurrentUserInfo().PortalID);
 
                 var totalNewThreads = InternalMessagingController.Instance.CountUnreadMessages(UserInfo.UserID, portalId);
@@ -147,7 +147,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -159,11 +159,11 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             try
             {
                 InternalMessagingController.Instance.MarkArchived(postData.ConversationId, UserInfo.UserID);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -175,11 +175,11 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             try
             {
                 InternalMessagingController.Instance.MarkUnArchived(postData.ConversationId, UserInfo.UserID);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -191,11 +191,11 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             try
             {
                 InternalMessagingController.Instance.MarkRead(postData.ConversationId, UserInfo.UserID);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -207,11 +207,11 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             try
             {
                 InternalMessagingController.Instance.MarkUnRead(postData.ConversationId, UserInfo.UserID);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -227,7 +227,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -294,7 +294,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -309,7 +309,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -325,7 +325,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -341,7 +341,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -362,7 +362,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -378,7 +378,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -426,28 +426,28 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             return string.IsNullOrEmpty(actionString) ? key : actionString;
         }
 
-		private dynamic ToExpandoObject(Message message)
-		{
-			dynamic messageObj = new ExpandoObject();
-			messageObj.PortalID = message.PortalID;
-			messageObj.KeyID = message.KeyID;
-			messageObj.MessageID = message.MessageID;
-			messageObj.ConversationId = message.ConversationId;
-			messageObj.SenderUserID = message.SenderUserID;
-			messageObj.From = message.From;
-			messageObj.To = message.To;
-			messageObj.Subject = message.Subject;
-			messageObj.Body = message.Body;
-			messageObj.DisplayDate = message.DisplayDate;
-			messageObj.ReplyAllAllowed = message.ReplyAllAllowed;
-			//base entity properties
-			messageObj.CreatedByUserID = message.CreatedByUserID;
-			messageObj.CreatedOnDate = message.CreatedOnDate;
-			messageObj.LastModifiedByUserID = message.LastModifiedByUserID;
-			messageObj.LastModifiedOnDate = message.LastModifiedOnDate;
-			
-			return messageObj;
-		}
+        private dynamic ToExpandoObject(Message message)
+        {
+            dynamic messageObj = new ExpandoObject();
+            messageObj.PortalID = message.PortalID;
+            messageObj.KeyID = message.KeyID;
+            messageObj.MessageID = message.MessageID;
+            messageObj.ConversationId = message.ConversationId;
+            messageObj.SenderUserID = message.SenderUserID;
+            messageObj.From = message.From;
+            messageObj.To = message.To;
+            messageObj.Subject = message.Subject;
+            messageObj.Body = message.Body;
+            messageObj.DisplayDate = message.DisplayDate;
+            messageObj.ReplyAllAllowed = message.ReplyAllAllowed;
+            //base entity properties
+            messageObj.CreatedByUserID = message.CreatedByUserID;
+            messageObj.CreatedOnDate = message.CreatedOnDate;
+            messageObj.LastModifiedByUserID = message.LastModifiedByUserID;
+            messageObj.LastModifiedOnDate = message.LastModifiedOnDate;
+
+            return messageObj;
+        }
 
         #endregion
     }

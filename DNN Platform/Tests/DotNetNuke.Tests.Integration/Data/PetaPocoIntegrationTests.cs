@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -39,7 +39,6 @@ using DotNetNuke.Tests.Utilities;
 using NUnit.Framework;
 
 #endregion
-
 namespace DotNetNuke.Tests.Data
 {
     [TestFixture]
@@ -80,10 +79,10 @@ namespace DotNetNuke.Tests.Data
             DataUtil.SetUpDatabase(Constants.PETAPOCO_RecordCount);
 
             var dog = new Dog
-                          {
-                              Age = Constants.PETAPOCO_InsertDogAge,
-                              Name = Constants.PETAPOCO_InsertDogName
-                          };
+            {
+                Age = Constants.PETAPOCO_InsertDogAge,
+                Name = Constants.PETAPOCO_InsertDogName
+            };
 
             using (var dataContext = new PetaPocoDataContext(ConnectionStringName))
             {
@@ -106,11 +105,11 @@ namespace DotNetNuke.Tests.Data
             DataUtil.SetUpDatabase(Constants.PETAPOCO_RecordCount);
 
             var dog = new Dog
-                          {
-                              ID = Constants.PETAPOCO_DeleteDogId,
-                              Age = Constants.PETAPOCO_DeleteDogAge,
-                              Name = Constants.PETAPOCO_DeleteDogName
-                          };
+            {
+                ID = Constants.PETAPOCO_DeleteDogId,
+                Age = Constants.PETAPOCO_DeleteDogAge,
+                Name = Constants.PETAPOCO_DeleteDogName
+            };
 
             using (var dataContext = new PetaPocoDataContext(ConnectionStringName))
             {
@@ -242,11 +241,11 @@ namespace DotNetNuke.Tests.Data
             DataUtil.SetUpDatabase(Constants.PETAPOCO_RecordCount);
 
             var dog = new Dog
-                          {
-                              ID = Constants.PETAPOCO_UpdateDogId,
-                              Age = Constants.PETAPOCO_UpdateDogAge,
-                              Name = Constants.PETAPOCO_UpdateDogName
-                          };
+            {
+                ID = Constants.PETAPOCO_UpdateDogId,
+                Age = Constants.PETAPOCO_UpdateDogAge,
+                Name = Constants.PETAPOCO_UpdateDogName
+            };
 
             //Act
             using (var dataContext = new PetaPocoDataContext(ConnectionStringName))
@@ -264,7 +263,7 @@ namespace DotNetNuke.Tests.Data
 
             foreach (DataRow row in table.Rows)
             {
-                if ((int) row["ID"] == Constants.PETAPOCO_UpdateDogId)
+                if ((int)row["ID"] == Constants.PETAPOCO_UpdateDogId)
                 {
                     Assert.AreEqual(row["Age"], Constants.PETAPOCO_UpdateDogAge);
                     Assert.AreEqual(row["Name"], Constants.PETAPOCO_UpdateDogName);

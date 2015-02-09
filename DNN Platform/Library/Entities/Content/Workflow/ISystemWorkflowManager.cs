@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Entities.Content.Workflow.Entities;
 
 namespace DotNetNuke.Entities.Content.Workflow
@@ -41,7 +41,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         /// <param name="portalId">Portal Id</param>
         /// <returns>The 'Direct Publish' workflow</returns>
         Entities.Workflow GetDirectPublishWorkflow(int portalId);
-        
+
         /// <summary>
         /// Get the 'Save Draft' system workflow of a specific portal
         /// </summary>
@@ -55,14 +55,14 @@ namespace DotNetNuke.Entities.Content.Workflow
         /// <param name="portalId">Portal Id</param>
         /// <returns>The 'Content Approval' workflow</returns>
         Entities.Workflow GetContentApprovalWorkflow(int portalId);
-        
+
         /// <summary>
         /// Gets a default definition of the 'Draft' system state
         /// </summary>
         /// <param name="order">Order number to be included in the state definition</param>
         /// <returns>A 'Draft' state definition</returns>
         WorkflowState GetDraftStateDefinition(int order);
-        
+
         /// <summary>
         /// Gets a default definition of the 'Published' system state
         /// </summary>

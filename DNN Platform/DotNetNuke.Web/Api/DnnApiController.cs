@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Web.Http;
 using DotNetNuke.Entities.Modules;
@@ -61,8 +61,9 @@ namespace DotNetNuke.Web.Api
         /// ModuleInfo for the current module
         /// <remarks>Will be null unless a valid pair of module and tab ids were provided in the request</remarks>
         /// </summary>
-        public ModuleInfo ActiveModule { 
-            get { return _activeModule.Value; } 
+        public ModuleInfo ActiveModule
+        {
+            get { return _activeModule.Value; }
         }
     }
 }

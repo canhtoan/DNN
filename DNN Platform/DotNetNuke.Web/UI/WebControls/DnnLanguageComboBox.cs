@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,7 +35,6 @@ using Telerik.Web.UI;
 
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnLanguageComboBox : WebControl
@@ -70,7 +69,7 @@ namespace DotNetNuke.Web.UI.WebControls
             AutoPostBack = Null.NullBoolean;
             CausesValidation = Null.NullBoolean;
             ShowFlag = true;
-        	ShowModeButtons = true;
+            ShowModeButtons = true;
             HideLanguagesList = new Dictionary<string, Locale>();
             FlagImageUrlFormatString = "~/images/Flags/{0}.gif";
             _viewTypePersonalizationKey = "ViewType" + PortalId;

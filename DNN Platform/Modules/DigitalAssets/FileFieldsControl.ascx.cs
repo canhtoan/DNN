@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -77,19 +77,19 @@ namespace DotNetNuke.Modules.DigitalAssets
         {
             base.OnLoad(e);
             if (!Page.IsPostBack)
-            {                
+            {
                 PrepareProperties();
                 FileAttributesContainer.Visible = File.SupportsFileAttributes;
                 if (File.SupportsFileAttributes)
                 {
                     PrepareFileAttributes();
-                }                
+                }
             }
         }
 
         public void SetController(IDigitalAssetsController damController)
         {
-            this.Controller = damController;            
+            this.Controller = damController;
         }
 
         public void SetModuleConfiguration(ModuleInfo moduleConfiguration)
@@ -101,7 +101,7 @@ namespace DotNetNuke.Modules.DigitalAssets
         {
             this.Item = itemViewModel;
         }
-        
+
         public virtual void SetPropertiesAvailability(bool availability)
         {
             FileNameInput.Enabled = availability;

@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -509,7 +510,7 @@ namespace DotNetNuke.Tests.Core.Providers.Folder
         public void UpdateFile_Throws_On_Null_Folder()
         {
             var stream = new Mock<Stream>();
-            
+
             _dfp.UpdateFile(null, Constants.FOLDER_ValidFileName, stream.Object);
         }
 

@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web;
@@ -30,7 +30,6 @@ using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.UI.Modules;
 
 #endregion
-
 namespace DotNetNuke.Web.Razor
 {
     public class RazorHostControl : ModuleControlBase, IActionable
@@ -47,19 +46,19 @@ namespace DotNetNuke.Web.Razor
             get { return _razorScriptFile; }
         }
 
-	    private RazorEngine _engine;
-	    private  RazorEngine Engine
-	    {
-		    get
-		    {
-				if (_engine == null)
-			    {
-					_engine = new RazorEngine(RazorScriptFile, ModuleContext, LocalResourceFile);
-			    }
+        private RazorEngine _engine;
+        private RazorEngine Engine
+        {
+            get
+            {
+                if (_engine == null)
+                {
+                    _engine = new RazorEngine(RazorScriptFile, ModuleContext, LocalResourceFile);
+                }
 
-			    return _engine;
-		    }
-	    }
+                return _engine;
+            }
+        }
 
         protected override void OnPreRender(EventArgs e)
         {
@@ -68,22 +67,22 @@ namespace DotNetNuke.Web.Razor
             if (!(string.IsNullOrEmpty(RazorScriptFile)))
             {
                 var writer = new StringWriter();
-				Engine.Render(writer);
+                Engine.Render(writer);
                 Controls.Add(new LiteralControl(HttpUtility.HtmlDecode(writer.ToString())));
             }
         }
 
-		public Entities.Modules.Actions.ModuleActionCollection ModuleActions
-		{
-			get
-			{
-				if (Engine.Webpage is IActionable)
-				{
-					return (Engine.Webpage as IActionable).ModuleActions;
-				}
+        public Entities.Modules.Actions.ModuleActionCollection ModuleActions
+        {
+            get
+            {
+                if (Engine.Webpage is IActionable)
+                {
+                    return (Engine.Webpage as IActionable).ModuleActions;
+                }
 
-				return new ModuleActionCollection();
-			}
-		}
-	}
+                return new ModuleActionCollection();
+            }
+        }
+    }
 }

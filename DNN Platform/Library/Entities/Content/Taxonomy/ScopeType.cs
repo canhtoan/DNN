@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content.Taxonomy
 {
     /// <summary>
@@ -41,14 +40,14 @@ namespace DotNetNuke.Entities.Content.Taxonomy
         public string ScopeType { get; set; }
     }
 
-	/// <summary>
-	/// Class of ScopeType.
-	/// </summary>
-	/// <seealso cref="TermController"/>
+    /// <summary>
+    /// Class of ScopeType.
+    /// </summary>
+    /// <seealso cref="TermController"/>
     [Serializable]
     public class ScopeType : ScopeTypeMemberNameFixer, IHydratable
     {
-	    public ScopeType() : this(Null.NullString)
+        public ScopeType() : this(Null.NullString)
         {
         }
 
@@ -60,7 +59,7 @@ namespace DotNetNuke.Entities.Content.Taxonomy
 
         public int ScopeTypeId { get; set; }
 
-	    public void Fill(IDataReader dr)
+        public void Fill(IDataReader dr)
         {
             ScopeTypeId = Null.SetNullInteger(dr["ScopeTypeID"]);
             ScopeType = Null.SetNullString(dr["ScopeType"]);

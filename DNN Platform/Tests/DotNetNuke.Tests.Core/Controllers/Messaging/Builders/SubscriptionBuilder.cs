@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Social.Subscriptions.Entities;
@@ -28,93 +28,92 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging.Builders
 {
     public class SubscriptionBuilder
     {
-        private int subscriptionId;
-        private int userId;
-        private int portalId;
-        private int subscriptionTypeId;
-        private string objectKey;
-        private string description;
-        private int moduleId;
-        private int tabId;
-        private string objectData;
+        private int _subscriptionId;
+        private int _userId;
+        private int _portalId;
+        private int _subscriptionTypeId;
+        private string _objectKey;
+        private string _description;
+        private int _moduleId;
+        private int _tabId;
+        private string _objectData;
 
         internal SubscriptionBuilder()
         {
-            subscriptionId = 1;
-            userId = Constants.USER_InValidId;
-            subscriptionTypeId = 1;
-            portalId = Constants.PORTAL_ValidPortalId;
-            moduleId = Null.NullInteger;
-            tabId = Null.NullInteger;
-            objectKey = "content";
-            description = "my content description";
-            objectData = "";
+            _subscriptionId = 1;
+            _userId = Constants.USER_InValidId;
+            _subscriptionTypeId = 1;
+            _portalId = Constants.PORTAL_ValidPortalId;
+            _moduleId = Null.NullInteger;
+            _tabId = Null.NullInteger;
+            _objectKey = "content";
+            _description = "my content description";
+            _objectData = "";
         }
 
         internal SubscriptionBuilder WithSubscriptionId(int subscriptionId)
         {
-            this.subscriptionId = subscriptionId;
+            _subscriptionId = subscriptionId;
             return this;
         }
 
         internal SubscriptionBuilder WithUserId(int userId)
         {
-            this.userId = userId;
+            _userId = userId;
             return this;
         }
 
         internal SubscriptionBuilder WithPortalId(int portalId)
         {
-            this.portalId = portalId;
+            _portalId = portalId;
             return this;
         }
 
         internal SubscriptionBuilder WithSubscriptionTypeId(int subscriptionTypeId)
         {
-            this.subscriptionTypeId = subscriptionTypeId;
+            _subscriptionTypeId = subscriptionTypeId;
             return this;
         }
 
         internal SubscriptionBuilder WithObjectKey(string objectKey)
         {
-            this.objectKey = objectKey;
+            _objectKey = objectKey;
             return this;
         }
 
         internal SubscriptionBuilder WithDescription(string description)
         {
-            this.description = description;
+            _description = description;
             return this;
         }
-        
+
         internal SubscriptionBuilder WithModuleId(int moduleId)
         {
-            this.moduleId = moduleId;
+            _moduleId = moduleId;
             return this;
         }
 
         internal SubscriptionBuilder WithTabId(int tabId)
         {
-            this.tabId = tabId;
+            _tabId = tabId;
             return this;
-        } 
+        }
 
         internal Subscription Build()
         {
             return new Subscription
-                       {
-                           SubscriptionTypeId = subscriptionTypeId,
-                           SubscriptionId = subscriptionId,
-                           CreatedOnDate = DateTime.UtcNow,
-                           ModuleId = moduleId,
-                           ObjectKey = objectKey,
-                           Description = description,
-                           PortalId = portalId,
-                           TabId = tabId,
-                           UserId = userId,
-                           ObjectData = objectData
-                       };
-
+            {
+                SubscriptionTypeId = _subscriptionTypeId,
+                SubscriptionId = _subscriptionId,
+                CreatedOnDate = DateTime.UtcNow,
+                ModuleId = _moduleId,
+                ObjectKey = _objectKey,
+                Description = _description,
+                PortalId = _portalId,
+                TabId = _tabId,
+                UserId = _userId,
+                ObjectData = _objectData
+            };
         }
     }
 }

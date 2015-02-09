@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.IO;
@@ -31,7 +31,6 @@ using DotNetNuke.Entities.Host;
 using DotNetNuke.Services.Cache;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.Compression
 {
     /// <summary>
@@ -76,14 +75,14 @@ namespace DotNetNuke.HttpModules.Compression
         /// </summary>
         public static Settings GetSettings()
         {
-            var settings = (Settings) DataCache.GetCache("CompressionConfig");
+            var settings = (Settings)DataCache.GetCache("CompressionConfig");
             if (settings == null)
             {
                 settings = Default;
                 //Place this in a try/catch as during install the host settings will not exist
                 try
                 {
-                    settings._preferredAlgorithm = (Algorithms) Host.HttpCompressionAlgorithm;
+                    settings._preferredAlgorithm = (Algorithms)Host.HttpCompressionAlgorithm;
                 }
                 catch (Exception e)
                 {

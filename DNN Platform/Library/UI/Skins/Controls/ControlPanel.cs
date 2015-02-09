@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Web.UI.HtmlControls;
@@ -30,20 +31,20 @@ using DotNetNuke.Web.Client.ClientResourceManagement;
 
 namespace DotNetNuke.UI.Skins.Controls
 {
-	public class ControlPanel : SkinObjectBase
-	{
-		public bool IsDockable { get; set; }
+    public class ControlPanel : SkinObjectBase
+    {
+        public bool IsDockable { get; set; }
 
-		protected override void  OnInit(EventArgs e)
-		{
-			base.OnInit(e);
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
 
             if (Request.QueryString["dnnprintmode"] != "true" && !UrlUtils.InPopUp())
-			{
-				var objControlPanel = ControlUtilities.LoadControl<ControlPanelBase>(this, Host.ControlPanel);
+            {
+                var objControlPanel = ControlUtilities.LoadControl<ControlPanelBase>(this, Host.ControlPanel);
                 var objForm = (HtmlForm)Page.FindControl("Form");
 
-                if(objControlPanel.IncludeInControlHierarchy)
+                if (objControlPanel.IncludeInControlHierarchy)
                 {
                     objControlPanel.IsDockable = IsDockable;
                     if (!Host.ControlPanel.ToLowerInvariant().EndsWith("controlbar.ascx"))
@@ -63,7 +64,7 @@ namespace DotNetNuke.UI.Skins.Controls
                     //register admin.css
                     ClientResourceManager.RegisterAdminStylesheet(Page, Globals.HostPath + "admin.css");
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 }

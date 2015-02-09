@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -108,6 +107,5 @@ namespace DotNetNuke.Entities.Urls
             RedirectAllUrls = Null.SetNullBoolean(dr["RedirectAllUrls"]);
             ReplaceAllUrls = Null.SetNullBoolean(dr["ReplaceAllUrls"]);
         }
-
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,12 +43,11 @@ using DotNetNuke.Services.Localization;
 
 
 #endregion
-
 namespace DotNetNuke.Web.UI
 {
     public class RibbonBarManager
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (RibbonBarManager));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(RibbonBarManager));
         public static TabInfo InitTabInfoObject()
         {
             return InitTabInfoObject(null, TabRelativeLocation.AFTER);
@@ -214,17 +213,17 @@ namespace DotNetNuke.Web.UI
             //Validation:
             //Tab name is required
             //Tab name is invalid
-			string invalidType;
-			if (!TabController.IsValidTabName(tab.TabName, out invalidType))
-			{
-				switch (invalidType)
-				{
-					case "EmptyTabName":
-						throw new DotNetNukeException("Page name is required.", DotNetNukeErrorCode.PageNameRequired);
-					case "InvalidTabName":
-						throw new DotNetNukeException("Page name is invalid.", DotNetNukeErrorCode.PageNameInvalid);
-				}
-			}
+            string invalidType;
+            if (!TabController.IsValidTabName(tab.TabName, out invalidType))
+            {
+                switch (invalidType)
+                {
+                    case "EmptyTabName":
+                        throw new DotNetNukeException("Page name is required.", DotNetNukeErrorCode.PageNameRequired);
+                    case "InvalidTabName":
+                        throw new DotNetNukeException("Page name is invalid.", DotNetNukeErrorCode.PageNameInvalid);
+                }
+            }
             else if ((Validate_IsCircularReference(tab.PortalID, tab.TabID)))
             {
                 throw new DotNetNukeException("Cannot move page to that location.", DotNetNukeErrorCode.PageCircularReference);
@@ -306,7 +305,7 @@ namespace DotNetNuke.Web.UI
 
             tab.TabPath = Globals.GenerateTabPath(tab.ParentId, tab.TabName);
             //check whether have conflict between tab path and portal alias.
-            if(TabController.IsDuplicateWithPortalAlias(PortalSettings.Current.PortalId, tab.TabPath))
+            if (TabController.IsDuplicateWithPortalAlias(PortalSettings.Current.PortalId, tab.TabPath))
             {
                 throw new DotNetNukeException("The page path is duplicate with a site alias", DotNetNukeErrorCode.DuplicateWithAlias);
             }
@@ -385,7 +384,7 @@ namespace DotNetNuke.Web.UI
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
 
                 if (ex.Message.StartsWith("Page Exists"))
                 {
@@ -401,7 +400,7 @@ namespace DotNetNuke.Web.UI
                 {
                     xmlDoc.Load(templateMapPath);
                     TabController.DeserializePanes(xmlDoc.SelectSingleNode("//portal/tabs/tab/panes"), tab.PortalID, tab.TabID, PortalTemplateModuleAction.Ignore, new Hashtable());
-                    
+
                     //save tab permissions
                     DeserializeTabPermissions(xmlDoc.SelectNodes("//portal/tabs/tab/tabpermissions/permission"), tab);
                 }

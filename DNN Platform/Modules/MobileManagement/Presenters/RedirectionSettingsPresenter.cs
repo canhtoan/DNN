@@ -3,6 +3,7 @@
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
+
 #endregion
 using System;
 using DotNetNuke.Modules.MobileManagement.Views;
@@ -30,8 +31,6 @@ namespace DotNetNuke.Modules.MobileManagement.Presenters
 
         protected override void OnLoad()
         {
-            
         }
-
     }
 }

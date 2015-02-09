@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -59,22 +60,22 @@ namespace DotNetNuke.Tests.Core.Collections
                 }
             }
 
-            CollectionAssert.AreEqual(new List<string> {value}, sharedList.BackingList);
+            CollectionAssert.AreEqual(new List<string> { value }, sharedList.BackingList);
         }
 
-        [Test, ExpectedException(typeof (WriteLockRequiredException)), TestCaseSource("GetWriteMethods")]
+        [Test, ExpectedException(typeof(WriteLockRequiredException)), TestCaseSource("GetWriteMethods")]
         public void WriteRequiresLock(Action<SharedList<string>> writeAction)
         {
             writeAction.Invoke(InitSharedList("value"));
         }
 
-        [Test, ExpectedException(typeof (ReadLockRequiredException)), TestCaseSource("GetReadMethods")]
+        [Test, ExpectedException(typeof(ReadLockRequiredException)), TestCaseSource("GetReadMethods")]
         public void ReadRequiresLock(Action<SharedList<string>> readAction)
         {
             readAction.Invoke(InitSharedList("value"));
         }
 
-        [Test, ExpectedException(typeof (ReadLockRequiredException))]
+        [Test, ExpectedException(typeof(ReadLockRequiredException))]
         public void DisposedReadLockDeniesRead()
         {
             var d = new SharedList<string>(LockingStrategy);
@@ -85,7 +86,7 @@ namespace DotNetNuke.Tests.Core.Collections
             d.Contains("foo");
         }
 
-        [Test, ExpectedException(typeof (ReadLockRequiredException))]
+        [Test, ExpectedException(typeof(ReadLockRequiredException))]
         public void DisposedWriteLockDeniesRead()
         {
             var d = new SharedList<string>(LockingStrategy);
@@ -96,7 +97,7 @@ namespace DotNetNuke.Tests.Core.Collections
             d.Contains("foo");
         }
 
-        [Test, ExpectedException(typeof (WriteLockRequiredException))]
+        [Test, ExpectedException(typeof(WriteLockRequiredException))]
         public void DisposedWriteLockDeniesWrite()
         {
             var sharedList = new SharedList<string>(LockingStrategy);
@@ -141,7 +142,7 @@ namespace DotNetNuke.Tests.Core.Collections
             d.Dispose();
         }
 
-        [Test, ExpectedException(typeof (ObjectDisposedException))]
+        [Test, ExpectedException(typeof(ObjectDisposedException))]
         [TestCaseSource("GetObjectDisposedExceptionMethods")]
         public void MethodsThrowAfterDisposed(Action<SharedList<string>> methodCall)
         {
@@ -151,7 +152,7 @@ namespace DotNetNuke.Tests.Core.Collections
             methodCall.Invoke(d);
         }
 
-        [Test, ExpectedException(typeof (LockRecursionException))]
+        [Test, ExpectedException(typeof(LockRecursionException))]
         public void TwoDictsShareALockWriteTest()
         {
             ILockStrategy ls = new ReaderWriterLockStrategy();
@@ -169,7 +170,7 @@ namespace DotNetNuke.Tests.Core.Collections
 
         protected IEnumerable<Action<SharedList<string>>> GetObjectDisposedExceptionMethods()
         {
-            var list = new List<Action<SharedList<string>>> {(SharedList<string> l) => l.GetReadLock(), (SharedList<string> l) => l.GetWriteLock()};
+            var list = new List<Action<SharedList<string>>> { (SharedList<string> l) => l.GetReadLock(), (SharedList<string> l) => l.GetWriteLock() };
 
             list.AddRange(GetReadMethods());
             list.AddRange(GetWriteMethods());
@@ -199,7 +200,7 @@ namespace DotNetNuke.Tests.Core.Collections
 
         protected IEnumerable<Action<SharedList<string>>> GetWriteMethods()
         {
-            var list = new List<Action<SharedList<string>>> {l => l.Add("more"), l => l.Clear(), l => l.Remove("value"), l => l.Insert(0, "more"), l => l[0] = "more", l => l.RemoveAt(0)};
+            var list = new List<Action<SharedList<string>>> { l => l.Add("more"), l => l.Clear(), l => l.Remove("value"), l => l.Insert(0, "more"), l => l[0] = "more", l => l.RemoveAt(0) };
 
             return list;
         }

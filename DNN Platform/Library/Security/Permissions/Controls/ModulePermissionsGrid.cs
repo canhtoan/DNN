@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +36,6 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions.Controls
 {
     public class ModulePermissionsGrid : PermissionsGrid
@@ -260,20 +259,20 @@ namespace DotNetNuke.Security.Permissions.Controls
                 {
                     AddPermission(objPermission, role.RoleID, role.RoleName, Null.NullInteger, Null.NullString, true);
                 }
-            }            
+            }
         }
 
         protected override void AddPermission(PermissionInfo permission, int roleId, string roleName, int userId, string displayName, bool allowAccess)
         {
             var objPermission = new ModulePermissionInfo(permission)
-                {
-                    ModuleID = ModuleID,
-                    RoleID = roleId,
-                    RoleName = roleName,
-                    AllowAccess = allowAccess,
-                    UserID = userId,
-                    DisplayName = displayName
-                };
+            {
+                ModuleID = ModuleID,
+                RoleID = roleId,
+                RoleName = roleName,
+                AllowAccess = allowAccess,
+                UserID = userId,
+                DisplayName = displayName
+            };
             _ModulePermissions.Add(objPermission, true);
 
             //Clear Permission List
@@ -361,8 +360,8 @@ namespace DotNetNuke.Security.Permissions.Controls
             }
             else
             {
-                permission = role.RoleID == AdministratorRoleId 
-                                ? PermissionTypeGrant 
+                permission = role.RoleID == AdministratorRoleId
+                                ? PermissionTypeGrant
                                 : base.GetPermission(objPerm, role, column, defaultState);
             }
             return permission;

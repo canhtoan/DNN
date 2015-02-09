@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -61,22 +62,22 @@ namespace DotNetNuke.Tests.Core.Collections
                 }
             }
 
-            CollectionAssert.AreEqual(new Dictionary<string, string> {{KEY, VALUE}}, sharedDictionary.BackingDictionary);
+            CollectionAssert.AreEqual(new Dictionary<string, string> { { KEY, VALUE } }, sharedDictionary.BackingDictionary);
         }
 
-        [Test, ExpectedException(typeof (WriteLockRequiredException)), TestCaseSource("GetWriteMethods")]
+        [Test, ExpectedException(typeof(WriteLockRequiredException)), TestCaseSource("GetWriteMethods")]
         public void WriteRequiresLock(Action<SharedDictionary<string, string>> writeAction)
         {
             writeAction.Invoke(InitSharedDictionary("key", "value"));
         }
 
-        [Test, ExpectedException(typeof (ReadLockRequiredException)), TestCaseSource("GetReadMethods")]
+        [Test, ExpectedException(typeof(ReadLockRequiredException)), TestCaseSource("GetReadMethods")]
         public void ReadRequiresLock(Action<SharedDictionary<string, string>> readAction)
         {
             readAction.Invoke(InitSharedDictionary("key", "value"));
         }
 
-        [Test, ExpectedException(typeof (ReadLockRequiredException))]
+        [Test, ExpectedException(typeof(ReadLockRequiredException))]
         public void DisposedReadLockDeniesRead()
         {
             var d = new SharedDictionary<string, string>(LockingStrategy);
@@ -87,7 +88,7 @@ namespace DotNetNuke.Tests.Core.Collections
             d.ContainsKey("foo");
         }
 
-        [Test, ExpectedException(typeof (ReadLockRequiredException))]
+        [Test, ExpectedException(typeof(ReadLockRequiredException))]
         public void DisposedWriteLockDeniesRead()
         {
             var d = new SharedDictionary<string, string>(LockingStrategy);
@@ -98,7 +99,7 @@ namespace DotNetNuke.Tests.Core.Collections
             d.ContainsKey("foo");
         }
 
-        [Test, ExpectedException(typeof (WriteLockRequiredException))]
+        [Test, ExpectedException(typeof(WriteLockRequiredException))]
         public void DisposedWriteLockDeniesWrite()
         {
             var d = new SharedDictionary<string, string>(LockingStrategy);
@@ -143,7 +144,7 @@ namespace DotNetNuke.Tests.Core.Collections
             d.Dispose();
         }
 
-        [Test, ExpectedException(typeof (ObjectDisposedException))]
+        [Test, ExpectedException(typeof(ObjectDisposedException))]
         [TestCaseSource("GetObjectDisposedExceptionMethods")]
         public void MethodsThrowAfterDisposed(Action<SharedDictionary<string, string>> methodCall)
         {
@@ -153,7 +154,7 @@ namespace DotNetNuke.Tests.Core.Collections
             methodCall.Invoke(d);
         }
 
-        [Test, ExpectedException(typeof (LockRecursionException))]
+        [Test, ExpectedException(typeof(LockRecursionException))]
         public void TwoDictsShareALockWriteTest()
         {
             ILockStrategy ls = new ReaderWriterLockStrategy();
@@ -171,7 +172,7 @@ namespace DotNetNuke.Tests.Core.Collections
 
         protected IEnumerable<Action<SharedDictionary<string, string>>> GetObjectDisposedExceptionMethods()
         {
-            var l = new List<Action<SharedDictionary<string, string>>> {(SharedDictionary<string, string> d) => d.GetReadLock(), (SharedDictionary<string, string> d) => d.GetWriteLock()};
+            var l = new List<Action<SharedDictionary<string, string>>> { (SharedDictionary<string, string> d) => d.GetReadLock(), (SharedDictionary<string, string> d) => d.GetWriteLock() };
 
             l.AddRange(GetReadMethods());
             l.AddRange(GetWriteMethods());
@@ -187,7 +188,7 @@ namespace DotNetNuke.Tests.Core.Collections
             l.Add(d => d.Contains(new KeyValuePair<string, string>("key", "value")));
             l.Add(d => Console.WriteLine(d.Count));
             l.Add(d => d.GetEnumerator());
-            l.Add(d => ((IEnumerable) d).GetEnumerator());
+            l.Add(d => ((IEnumerable)d).GetEnumerator());
             l.Add(d => Console.WriteLine(d.IsReadOnly));
             l.Add(d => Console.WriteLine(d["key"]));
             l.Add(d => Console.WriteLine(d.Keys));

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Globalization;
 using System.IO;
@@ -33,7 +33,6 @@ using DotNetNuke.Security;
 using DotNetNuke.Services.Exceptions;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     /// -----------------------------------------------------------------------------
@@ -48,7 +47,7 @@ namespace DotNetNuke.Common.Utilities
     /// -----------------------------------------------------------------------------
     public class Config
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(Config));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Config));
         #region ConfigFileType enum
 
         public enum ConfigFileType
@@ -69,13 +68,13 @@ namespace DotNetNuke.Common.Utilities
         {
             Default,
             Disabled,
-            NotSet, 
+            NotSet,
             Single
         }
 
         #endregion
-        
-            /// <summary>
+
+        /// <summary>
         /// Adds a new AppSetting to Web.Config. The update parameter allows you to define if,
         /// when the key already exists, this need to be updated or not
         /// </summary>
@@ -274,7 +273,7 @@ namespace DotNetNuke.Common.Utilities
         {
             var configNav = Load();
 
-            var httpNode = configNav.SelectSingleNode("configuration//system.web//httpRuntime") ?? 
+            var httpNode = configNav.SelectSingleNode("configuration//system.web//httpRuntime") ??
                            configNav.SelectSingleNode("configuration//location//system.web//httpRuntime");
             long maxRequestLength = 0;
             if (httpNode != null)
@@ -309,7 +308,7 @@ namespace DotNetNuke.Common.Utilities
         public static long GetRequestFilterSize()
         {
             var configNav = Load();
-            const int defaultRequestFilter = 30000000/1024/1024;
+            const int defaultRequestFilter = 30000000 / 1024 / 1024;
             var httpNode = configNav.SelectSingleNode("configuration//system.webServer//security//requestFiltering//requestLimits") ??
                        configNav.SelectSingleNode("configuration//location//system.webServer//security//requestFiltering//requestLimits");
             if (httpNode == null && Iis7AndAbove())
@@ -473,7 +472,6 @@ namespace DotNetNuke.Common.Utilities
                 formsNav = configNav.SelectSingleNode("configuration/location/system.web/authentication/forms");
             }
             return (formsNav != null) ? XmlUtils.GetAttributeValueAsInteger(formsNav, "timeout", 30) : 30; ;
-
         }
 
         /// <summary>
@@ -535,7 +533,6 @@ namespace DotNetNuke.Common.Utilities
 
         public static string GetCustomErrorMode()
         {
-
             XPathNavigator configNav = Load().CreateNavigator();
             //Select the location node
             var customErrorsNav = configNav.SelectSingleNode("//configuration/system.web/customErrors|//configuration/location/system.web/customErrors");
@@ -546,7 +543,6 @@ namespace DotNetNuke.Common.Utilities
                 customErrorMode = "RemoteOnly";
             }
             return (customErrorsNav != null) ? customErrorMode : "RemoteOnly"; ;
-
         }
 
         public static XmlDocument Load(string filename)
@@ -642,7 +638,7 @@ namespace DotNetNuke.Common.Utilities
                     {
                         if (retry == 0)
                         {
-                            Logger.Error(exc);
+                            s_logger.Error(exc);
                             retMsg = exc.Message;
                         }
 
@@ -657,7 +653,7 @@ namespace DotNetNuke.Common.Utilities
             catch (Exception exc)
             {
                 // the file permissions may not be set properly
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 retMsg = exc.Message;
             }
 
@@ -673,7 +669,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return false;
             }
         }
@@ -741,11 +737,10 @@ namespace DotNetNuke.Common.Utilities
 
                 //create random keys for the Membership machine keys
                 xmlConfig = UpdateMachineKey(xmlConfig);
-
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 strError += ex.Message;
             }
 
@@ -791,7 +786,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 strError += ex.Message;
             }
 
@@ -865,7 +860,7 @@ namespace DotNetNuke.Common.Utilities
                     return file + ".config";
             }
         }
-        
+
         /// <summary>
         /// UpdateInstallVersion, but only if the setting does not already exist
         /// </summary>
@@ -890,11 +885,10 @@ namespace DotNetNuke.Common.Utilities
 
                     //Update the InstallVersion
                     xmlConfig = UpdateInstallVersion(xmlConfig, version);
-
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex);
+                    s_logger.Error(ex);
                     strError += ex.Message;
                 }
 
@@ -903,7 +897,6 @@ namespace DotNetNuke.Common.Utilities
 
                 //save the web.config
                 strError += Save(xmlConfig);
-
             }
 
             return strError;
@@ -943,17 +936,14 @@ namespace DotNetNuke.Common.Utilities
             catch (Exception ex)
             {
                 //in case of error installation shouldn't be stopped, log into log4net
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 //strError += ex.Message;
             }
 
             //save the web.config
             Save(xmlConfig);
 
-            return strError;  
-
+            return strError;
         }
-
-
     }
 }

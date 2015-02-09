@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.Internals.InstallConfiguration
 {
     /// -----------------------------------------------------------------------------
@@ -33,7 +32,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.InstallConfiguration
     /// TODO This class may not capture all the details from the config file
     /// </summary>
     /// -----------------------------------------------------------------------------    
-        
+
     public class InstallConfig
     {
         public IList<string> Scripts { get; set; }
@@ -45,7 +44,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.InstallConfiguration
         public IList<PortalConfig> Portals { get; set; }
         public IList<HostSettingConfig> Settings { get; set; }
 
-        public string FolderMappingsSettings { get; set; } 
+        public string FolderMappingsSettings { get; set; }
         public InstallConfig()
         {
             Portals = new List<PortalConfig>();
@@ -53,6 +52,4 @@ namespace DotNetNuke.Services.Upgrade.Internals.InstallConfiguration
             Settings = new List<HostSettingConfig>();
         }
     }
-
-
 }

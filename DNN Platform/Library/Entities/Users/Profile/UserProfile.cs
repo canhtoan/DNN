@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
-
-
 using DotNetNuke.Common.Internal;
 
 #region Usings
@@ -41,6 +40,7 @@ using DotNetNuke.Common.Lists;
 #endregion
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Entities.Users
 // ReSharper restore CheckNamespace
 {
@@ -159,16 +159,16 @@ namespace DotNetNuke.Entities.Users
             {
                 string _country = GetPropertyValue(USERPROFILE_Country);
                 ListController lc = new ListController();
-				int entryId;
-				if (int.TryParse(_country, out entryId))
-				{
-					ListEntryInfo item = lc.GetListEntryInfo(entryId);
-					if (item != null)
-					{
-						return item.Text;
-					}
-				}
-				return _country;
+                int entryId;
+                if (int.TryParse(_country, out entryId))
+                {
+                    ListEntryInfo item = lc.GetListEntryInfo(entryId);
+                    if (item != null)
+                    {
+                        return item.Text;
+                    }
+                }
+                return _country;
             }
             set
             {
@@ -504,16 +504,16 @@ namespace DotNetNuke.Entities.Users
             {
                 string _region = GetPropertyValue(USERPROFILE_Region);
                 ListController lc = new ListController();
-				int entryId;
-				if (int.TryParse(_region, out entryId))
-				{
-					ListEntryInfo item = lc.GetListEntryInfo(entryId);
-					if (item != null)
-					{
-						return item.Text;
-					}
-				}
-				return _region;
+                int entryId;
+                if (int.TryParse(_region, out entryId))
+                {
+                    ListEntryInfo item = lc.GetListEntryInfo(entryId);
+                    if (item != null)
+                    {
+                        return item.Text;
+                    }
+                }
+                return _region;
             }
             set
             {

@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     internal static class UrlEnums

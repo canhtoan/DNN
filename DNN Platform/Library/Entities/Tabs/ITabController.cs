@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections;
 using System.Collections.Generic;
 
@@ -86,7 +86,7 @@ namespace DotNetNuke.Entities.Tabs
         /// <param name="cultureCode"></param>
         /// <param name="clearCache"></param>
         void ConvertTabToNeutralLanguage(int portalId, int tabId, string cultureCode, bool clearCache);
-            
+
         /// <summary>
         /// Creates content item for the tab..
         /// </summary>
@@ -238,7 +238,7 @@ namespace DotNetNuke.Entities.Tabs
         /// <param name="forHost">if set to <c>true</c> [for host].</param>
         /// <returns>tab collection</returns>
         IDictionary<int, TabInfo> GetTabsByPackageID(int portalID, int packageID, bool forHost);
-        
+
         /// <summary>
         /// Gets the tabs by portal.
         /// </summary>
@@ -252,7 +252,7 @@ namespace DotNetNuke.Entities.Tabs
         /// <param name="tabModuleId">The tabmodule ID.</param>
         /// <returns>tab collection</returns>
         IDictionary<int, TabInfo> GetTabsByTabModuleID(int tabModuleId);
-        
+
         /// <summary>
         /// read all settings for a tab from TabSettings table
         /// </summary>
@@ -276,7 +276,7 @@ namespace DotNetNuke.Entities.Tabs
         /// <param name="localizedTab">The localized tab.</param>
         /// <param name="users">The users.</param>
         void GiveTranslatorRoleEditRights(TabInfo localizedTab, Dictionary<int, UserInfo> users);
-        
+
         /// <summary>
         /// Returns True if a page is missing a translated version in at least one other language
         /// </summary>
@@ -298,7 +298,7 @@ namespace DotNetNuke.Entities.Tabs
         /// <param name="tab">The tab info.</param>
         /// <returns></returns>
         bool IsHostOrAdminPage(TabInfo tab);
-        
+
         /// <summary>
         /// Localizes the tab.
         /// </summary>
@@ -366,7 +366,7 @@ namespace DotNetNuke.Entities.Tabs
         /// </summary>
         /// <param name="tab">The Tab to be marked</param>
         void MarkAsPublished(TabInfo tab);
-        
+
         /// <summary>
         /// Restores the tab.
         /// </summary>

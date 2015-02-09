@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -45,7 +45,6 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Cryptography;
 
 #endregion
-
 namespace DotNetNuke.Security
 {
     public class PortalSecurity
@@ -72,7 +71,7 @@ namespace DotNetNuke.Security
             NoScripting = 4,
             NoSQL = 8,
             NoAngleBrackets = 16,
-            NoProfanity =32
+            NoProfanity = 32
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace DotNetNuke.Security
         #endregion
 
         #region private enum
-        enum RoleType
+        private enum RoleType
         {
             Security,
             Friend,
@@ -198,7 +197,7 @@ namespace DotNetNuke.Security
                         roleAllowed = true;
                     }
                 }
-            }            
+            }
         }
 
         private static RoleType GetRoleType(string roleName)
@@ -246,7 +245,7 @@ namespace DotNetNuke.Security
         ///-----------------------------------------------------------------------------
         private string FilterStrings(string strInput)
         {
-			//setup up list of search terms as items may be used twice
+            //setup up list of search terms as items may be used twice
             var tempInput = strInput;
             var listStrings = new List<string>
                                   {
@@ -281,7 +280,7 @@ namespace DotNetNuke.Security
             //check if text contains encoded angle brackets, if it does it we decode it to check the plain text
             if (tempInput.Contains("&gt;") && tempInput.Contains("&lt;"))
             {
-				//text is encoded, so decode and try again
+                //text is encoded, so decode and try again
                 tempInput = HttpUtility.HtmlDecode(tempInput);
                 tempInput = listStrings.Aggregate(tempInput, (current, s) => Regex.Replace(current, s, replacement, options));
 
@@ -310,11 +309,11 @@ namespace DotNetNuke.Security
         private string FormatDisableScripting(string strInput)
         {
             var tempInput = strInput;
-            if (strInput==" " || String.IsNullOrEmpty(strInput))
+            if (strInput == " " || String.IsNullOrEmpty(strInput))
             {
-                return tempInput; 
+                return tempInput;
             }
-            tempInput = FilterStrings(tempInput); 
+            tempInput = FilterStrings(tempInput);
             return tempInput;
         }
 
@@ -387,10 +386,10 @@ namespace DotNetNuke.Security
             const string pattern = "<[^<>]*>";
             return Regex.IsMatch(strInput, pattern, options);
         }
-		
-		#endregion
-		
-		#region Public Methods
+
+        #endregion
+
+        #region Public Methods
 
         ///-----------------------------------------------------------------------------
         /// <summary>
@@ -566,14 +565,14 @@ namespace DotNetNuke.Security
                 case ConfigType.ListController:
                     const RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
                     const string listName = "ProfanityFilter";
-            
+
                     var listController = new ListController();
-                
+
                     PortalSettings settings;
 
                     IEnumerable<ListEntryInfo> listEntryHostInfos;
                     IEnumerable<ListEntryInfo> listEntryPortalInfos;
-            
+
                     switch (filterScope)
                     {
                         case FilterScope.SystemList:
@@ -590,7 +589,7 @@ namespace DotNetNuke.Security
                         case FilterScope.PortalList:
                             settings = PortalController.Instance.GetCurrentPortalSettings();
                             listEntryPortalInfos = listController.GetListEntryInfoItems(listName + "-" + settings.PortalId, "", settings.PortalId);
-                            inputString = listEntryPortalInfos.Aggregate(inputString, (current, removeItem) => Regex.Replace(current, @"\b" + removeItem.Text + @"\b", string.Empty, options));        
+                            inputString = listEntryPortalInfos.Aggregate(inputString, (current, removeItem) => Regex.Replace(current, @"\b" + removeItem.Text + @"\b", string.Empty, options));
                             break;
                     }
 
@@ -620,12 +619,12 @@ namespace DotNetNuke.Security
 
                 //Create a new Cookie
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedAuthTicket)
-                                        {
-                                            Expires = authenticationTicket.Expiration,
-                                            Domain = GetCookieDomain(user.PortalID),
-                                            Path = FormsAuthentication.FormsCookiePath,
-                                            Secure = FormsAuthentication.RequireSSL
-                                        };
+                {
+                    Expires = authenticationTicket.Expiration,
+                    Domain = GetCookieDomain(user.PortalID),
+                    Path = FormsAuthentication.FormsCookiePath,
+                    Secure = FormsAuthentication.RequireSSL
+                };
 
                 HttpContext.Current.Response.Cookies.Set(authCookie);
 
@@ -684,7 +683,6 @@ namespace DotNetNuke.Security
                     Domain = domain,
                     Path = FormsAuthentication.FormsCookiePath,
                     Secure = FormsAuthentication.RequireSSL
-
                 };
 
                 HttpContext.Current.Response.Cookies.Set(authCookie);
@@ -701,7 +699,7 @@ namespace DotNetNuke.Security
             }
 
             //Remove current userinfo from context items
-			HttpContext.Current.Items.Remove("UserInfo");
+            HttpContext.Current.Items.Remove("UserInfo");
 
             //remove language cookie
             var httpCookie = HttpContext.Current.Response.Cookies["language"];
@@ -749,7 +747,6 @@ namespace DotNetNuke.Security
                     }
                 }
             }
-           
         }
 
         ///-----------------------------------------------------------------------------
@@ -767,19 +764,19 @@ namespace DotNetNuke.Security
 
             return (userInput == filteredInput);
         }
-		
-		#endregion
-		
-		#region Public Shared/Static Methods
+
+        #endregion
+
+        #region Public Shared/Static Methods
 
         public static void ForceSecureConnection()
         {
-			//get current url
+            //get current url
             var url = HttpContext.Current.Request.Url.ToString();
-			//if unsecure connection
+            //if unsecure connection
             if (url.StartsWith("http://"))
             {
-				//switch to secure connection
+                //switch to secure connection
                 url = url.Replace("http://", "https://");
                 //append ssl parameter to querystring to indicate secure connection processing has already occurred
                 if (url.IndexOf("?", StringComparison.Ordinal) == -1)
@@ -804,9 +801,9 @@ namespace DotNetNuke.Security
                 var groupController = new PortalGroupController();
                 var group = groupController.GetPortalGroups().SingleOrDefault(p => p.MasterPortalId == PortalController.GetEffectivePortalId(portalId));
 
-				if (@group != null 
-						&& !string.IsNullOrEmpty(@group.AuthenticationDomain)
-						&& PortalSettings.Current.PortalAlias.HTTPAlias.Contains(@group.AuthenticationDomain))
+                if (@group != null
+                        && !string.IsNullOrEmpty(@group.AuthenticationDomain)
+                        && PortalSettings.Current.PortalAlias.HTTPAlias.Contains(@group.AuthenticationDomain))
                 {
                     cookieDomain = @group.AuthenticationDomain;
                 }
@@ -886,7 +883,7 @@ namespace DotNetNuke.Security
         {
             UserInfo objUserInfo = UserController.Instance.GetCurrentUserInfo();
             PortalSettings settings = PortalController.Instance.GetCurrentPortalSettings();
-            return IsInRoles(objUserInfo, settings, roles);            
+            return IsInRoles(objUserInfo, settings, roles);
         }
 
         public static bool IsInRoles(UserInfo objUserInfo, PortalSettings settings, string roles)
@@ -897,7 +894,7 @@ namespace DotNetNuke.Security
             if (!isInRoles)
             {
                 if (roles != null)
-                {                    
+                {
                     foreach (string role in roles.Split(new[] { ';' }))
                     {
                         bool? roleAllowed;
@@ -910,7 +907,7 @@ namespace DotNetNuke.Security
                     }
                 }
             }
-            return isInRoles; 
+            return isInRoles;
         }
 
         public static bool IsFriend(int userId)
@@ -933,9 +930,9 @@ namespace DotNetNuke.Security
             PortalSettings settings = PortalController.Instance.GetCurrentPortalSettings();
             return IsInRoles(objUserInfo, settings, RoleOwnerPrefix + userId);
         }
-		#endregion
-		
-		#region Obsoleted Methods, retained for Binary Compatability
+        #endregion
+
+        #region Obsoleted Methods, retained for Binary Compatability
 
         [Obsolete("Deprecated in DNN 6.2 - roles cookie is no longer used)")]
         public static void ClearRoles()
@@ -954,7 +951,7 @@ namespace DotNetNuke.Security
         {
             return
                 ModulePermissionController.HasModulePermission(
-                    new ModulePermissionCollection(CBO.FillCollection(DataProvider.Instance().GetModulePermissionsByModuleID(ModuleId, -1), typeof (ModulePermissionInfo))), "EDIT");
+                    new ModulePermissionCollection(CBO.FillCollection(DataProvider.Instance().GetModulePermissionsByModuleID(ModuleId, -1), typeof(ModulePermissionInfo))), "EDIT");
         }
 
         [Obsolete("Deprecated in DNN 5.0.  Please use HasModuleAccess(SecurityAccessLevel.Edit, PortalSettings, ModuleInfo)")]
@@ -1005,7 +1002,7 @@ namespace DotNetNuke.Security
             }
             return UserId;
         }
-		
-		#endregion
-    }    
+
+        #endregion
+    }
 }

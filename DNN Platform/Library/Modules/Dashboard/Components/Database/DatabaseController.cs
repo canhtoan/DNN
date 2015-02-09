@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Xml;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Modules.Dashboard.Data;
 
 #endregion
-
 namespace DotNetNuke.Modules.Dashboard.Components.Database
 {
     public class DatabaseController : IDashboardData
@@ -60,7 +59,7 @@ namespace DotNetNuke.Modules.Dashboard.Components.Database
                 writer.WriteElementString("finishDate", backup.FinishDate.ToString());
                 writer.WriteEndElement();
             }
-			
+
             //Write end of Backups 
             writer.WriteEndElement();
 
@@ -79,7 +78,7 @@ namespace DotNetNuke.Modules.Dashboard.Components.Database
                 writer.WriteElementString("megabytes", dbFile.Megabytes.ToString());
                 writer.WriteEndElement();
             }
-			
+
             //Write end of Files 
             writer.WriteEndElement();
 

@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Data.SqlTypes;
@@ -39,7 +39,6 @@ using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -67,7 +66,7 @@ namespace DotNetNuke.Services.Search
         private const int BatchSize = 250;
         private const int ClauseMaxCount = 1024;
 
-        private static readonly int UserSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("user").SearchTypeId;
+        private static readonly int s_userSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("user").SearchTypeId;
 
         #endregion
 
@@ -117,7 +116,7 @@ namespace DotNetNuke.Services.Search
                     {
                         var userSearch = GetUserSearch(reader);
                         AddBasicInformation(searchDocuments, indexedUsers, userSearch, portalId);
-                        
+
                         //log the userid so that it can get the correct user collection next time.
                         if (userSearch.UserId > startUserId)
                         {
@@ -143,7 +142,7 @@ namespace DotNetNuke.Services.Search
                             var splitValues = Regex.Split(propertyValue, Regex.Escape(ValueSplitFlag));
 
                             propertyValue = splitValues[0];
-                            var visibilityMode = ((UserVisibilityMode) Convert.ToInt32(splitValues[1]));
+                            var visibilityMode = ((UserVisibilityMode)Convert.ToInt32(splitValues[1]));
                             var extendedVisibility = splitValues[2];
                             var modifiedTime = Convert.ToDateTime(splitValues[3]).ToUniversalTime();
 
@@ -180,7 +179,7 @@ namespace DotNetNuke.Services.Search
                                 {
                                     var searchDoc = new SearchDocument
                                     {
-                                        SearchTypeId = UserSearchTypeId,
+                                        SearchTypeId = s_userSearchTypeId,
                                         UniqueKey = uniqueKey,
                                         PortalId = portalId,
                                         ModifiedTimeUtc = modifiedTime,
@@ -236,7 +235,7 @@ namespace DotNetNuke.Services.Search
                 //so that can make sure DisplayName will be indexed
                 var searchDoc = new SearchDocument
                 {
-                    SearchTypeId = UserSearchTypeId,
+                    SearchTypeId = s_userSearchTypeId,
                     UniqueKey =
                         string.Format("{0}_{1}", userSearch.UserId,
                             UserVisibilityMode.AllUsers).ToLowerInvariant(),
@@ -262,7 +261,7 @@ namespace DotNetNuke.Services.Search
                 //so that can make sure DisplayName will be indexed
                 var searchDoc = new SearchDocument
                 {
-                    SearchTypeId = UserSearchTypeId,
+                    SearchTypeId = s_userSearchTypeId,
                     UniqueKey =
                         string.Format("{0}_{1}", userSearch.UserId,
                             UserVisibilityMode.AdminOnly).ToLowerInvariant(),
@@ -287,7 +286,7 @@ namespace DotNetNuke.Services.Search
             {
                 UserId = Convert.ToInt32(reader["UserId"]),
                 DisplayName = reader["DisplayName"].ToString(),
-                
+
                 Email = reader["Email"].ToString(),
                 UserName = reader["Username"].ToString(),
                 SuperUser = Convert.ToBoolean(reader["IsSuperUser"]),
@@ -313,7 +312,7 @@ namespace DotNetNuke.Services.Search
                 return;
             }
 
-            Array values = Enum.GetValues(typeof (UserVisibilityMode));
+            Array values = Enum.GetValues(typeof(UserVisibilityMode));
 
             var clauseCount = 0;
             foreach (var item in values)
@@ -321,12 +320,12 @@ namespace DotNetNuke.Services.Search
                 var keyword = new StringBuilder("(");
                 foreach (var userId in usersList)
                 {
-                    var mode = Enum.GetName(typeof (UserVisibilityMode), item);
+                    var mode = Enum.GetName(typeof(UserVisibilityMode), item);
                     keyword.AppendFormat("{2} {0}_{1} OR {0}_{1}* ", userId, mode,
                         keyword.Length > 1 ? "OR " : string.Empty);
                     clauseCount += 2;
                     if (clauseCount >= ClauseMaxCount)
-                        //max cluaseCount is 1024, if reach the max value, perform a delete action. 
+                    //max cluaseCount is 1024, if reach the max value, perform a delete action. 
                     {
                         keyword.Append(")");
                         PerformDelete(portalId, keyword.ToString().ToLowerInvariant());
@@ -349,7 +348,7 @@ namespace DotNetNuke.Services.Search
             {
                 {NumericRangeQuery.NewIntRange(Constants.PortalIdTag, portalId, portalId, true, true), Occur.MUST},
                 {
-                    NumericRangeQuery.NewIntRange(Constants.SearchTypeTag, UserSearchTypeId, UserSearchTypeId, true, true),
+                    NumericRangeQuery.NewIntRange(Constants.SearchTypeTag, s_userSearchTypeId, s_userSearchTypeId, true, true),
                     Occur.MUST
                 }
             };
@@ -379,7 +378,6 @@ namespace DotNetNuke.Services.Search
         }
 
         #endregion
-
     }
 
     internal class UserSearch

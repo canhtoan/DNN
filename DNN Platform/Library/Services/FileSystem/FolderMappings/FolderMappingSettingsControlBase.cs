@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System.Collections;
 
@@ -40,7 +41,7 @@ namespace DotNetNuke.Services.FileSystem
         /// }
         /// </example>
         public abstract void LoadSettings(Hashtable folderMappingSettings);
-        
+
         /// <summary>
         /// Use this method to update the provider's concrete settings for the specified folder mapping.
         /// </summary>

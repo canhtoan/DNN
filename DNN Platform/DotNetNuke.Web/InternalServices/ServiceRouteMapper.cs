@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using DotNetNuke.Web.Api;
 
 namespace DotNetNuke.Web.InternalServices
@@ -29,9 +28,9 @@ namespace DotNetNuke.Web.InternalServices
     {
         public void RegisterRoutes(IMapRoute mapRouteManager)
         {
-            mapRouteManager.MapHttpRoute("InternalServices", 
-                                            "default", 
-                                            "{controller}/{action}", 
+            mapRouteManager.MapHttpRoute("InternalServices",
+                                            "default",
+                                            "{controller}/{action}",
                                             new[] { "DotNetNuke.Web.InternalServices" });
         }
     }

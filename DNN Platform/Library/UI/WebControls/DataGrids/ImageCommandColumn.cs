@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,15 +21,14 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Web;
 using System.Web.UI.WebControls;
 using DotNetNuke.Entities.Icons;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// <summary>
@@ -136,7 +135,7 @@ namespace DotNetNuke.UI.WebControls
         /// <value>A String</value>
 // ReSharper disable InconsistentNaming
         public string OnClickJS { get; set; }
-// ReSharper restore InconsistentNaming
+        // ReSharper restore InconsistentNaming
 
 
         /// <summary>
@@ -213,7 +212,7 @@ namespace DotNetNuke.UI.WebControls
 
             if (HttpContext.Current == null)
             {
-                HeaderStyle.Font.Names = new[] {"Tahoma, Verdana, Arial"};
+                HeaderStyle.Font.Names = new[] { "Tahoma, Verdana, Arial" };
                 HeaderStyle.Font.Size = new FontUnit("10pt");
                 HeaderStyle.Font.Bold = true;
             }

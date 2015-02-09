@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,18 +33,17 @@ using DotNetNuke.Data;
 using DotNetNuke.Entities.Tabs;
 
 #endregion
-
 namespace DotNetNuke.Services.Vendors
 {
     public class BannerController
     {
-		#region "Private Members"
+        #region "Private Members"
 
-        private string BannerClickThroughPage = "/DesktopModules/Admin/Banners/BannerClickThrough.aspx";
+        private string _bannerClickThroughPage = "/DesktopModules/Admin/Banners/BannerClickThrough.aspx";
 
-		#endregion
+        #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
         private string FormatImage(string File, int Width, int Height, string BannerName, string Description)
         {
@@ -87,11 +86,11 @@ namespace DotNetNuke.Services.Vendors
             return Flash;
         }
 
-		#endregion
+        #endregion
 
-		#region "Public Methods"
+        #region "Public Methods"
 
-		public bool IsBannerActive(BannerInfo objBanner)
+        public bool IsBannerActive(BannerInfo objBanner)
         {
             bool blnValid = true;
 
@@ -122,9 +121,9 @@ namespace DotNetNuke.Services.Vendors
 
         private object LoadBannersCallback(CacheItemArgs cacheItemArgs)
         {
-            var PortalId = (int) cacheItemArgs.ParamList[0];
-            var BannerTypeId = (int) cacheItemArgs.ParamList[1];
-            var GroupName = (string) cacheItemArgs.ParamList[2];
+            var PortalId = (int)cacheItemArgs.ParamList[0];
+            var BannerTypeId = (int)cacheItemArgs.ParamList[1];
+            var GroupName = (string)cacheItemArgs.ParamList[2];
 
             //get list of all banners
             List<BannerInfo> FullBannerList = CBO.FillCollection<BannerInfo>(DataProvider.Instance().FindBanners(PortalId, BannerTypeId, GroupName));
@@ -163,7 +162,7 @@ namespace DotNetNuke.Services.Vendors
 
         public void ClearBannerCache()
         {
-			//Clear all cached Banners collections
+            //Clear all cached Banners collections
             DataCache.ClearCache("Banners:");
         }
 
@@ -187,7 +186,7 @@ namespace DotNetNuke.Services.Vendors
             {
                 if (string.IsNullOrEmpty(BannerClickthroughUrl))
                 {
-                    strURL = Globals.ApplicationPath + BannerClickThroughPage + "?BannerId=" + BannerId + "&VendorId=" + VendorId + "&PortalId=" + Globals.GetPortalSettings().PortalId;
+                    strURL = Globals.ApplicationPath + _bannerClickThroughPage + "?BannerId=" + BannerId + "&VendorId=" + VendorId + "&PortalId=" + Globals.GetPortalSettings().PortalId;
                 }
                 else
                 {
@@ -202,7 +201,7 @@ namespace DotNetNuke.Services.Vendors
 
             switch (BannerTypeId)
             {
-                case (int) BannerType.Text:
+                case (int)BannerType.Text:
                     strBanner += "<a href=\"" + strURL + "\" class=\"NormalBold\" target=\"" + strWindow + "\" rel=\"nofollow\"><u>" + BannerName + "</u></a><br />";
                     strBanner += "<span class=\"Normal\">" + Description + "</span><br />";
                     if (!String.IsNullOrEmpty(ImageFile))
@@ -215,7 +214,7 @@ namespace DotNetNuke.Services.Vendors
                     }
                     strBanner += "<a href=\"" + strURL + "\" class=\"NormalRed\" target=\"" + strWindow + "\" rel=\"nofollow\">" + URL + "</a>";
                     break;
-                case (int) BannerType.Script:
+                case (int)BannerType.Script:
                     strBanner += Description;
                     break;
                 default:
@@ -284,7 +283,7 @@ namespace DotNetNuke.Services.Vendors
 
         public ArrayList GetBanners(int VendorId)
         {
-            return CBO.FillCollection(DataProvider.Instance().GetBanners(VendorId), typeof (BannerInfo));
+            return CBO.FillCollection(DataProvider.Instance().GetBanners(VendorId), typeof(BannerInfo));
         }
 
         public ArrayList LoadBanners(int PortalId, int ModuleId, int BannerTypeId, string GroupName, int Banners)
@@ -293,14 +292,14 @@ namespace DotNetNuke.Services.Vendors
             {
                 GroupName = Null.NullString;
             }
-			
+
             //set cache key
             string cacheKey = string.Format(DataCache.BannersCacheKey, PortalId, BannerTypeId, GroupName);
 
             //get list of active banners
             var bannersList = CBO.GetCachedObject<List<BannerInfo>>(new CacheItemArgs(cacheKey, DataCache.BannersCacheTimeOut, DataCache.BannersCachePriority, PortalId, BannerTypeId, GroupName),
                                                                     LoadBannersCallback);
-																	
+
             //create return collection
             var arReturnBanners = new ArrayList(Banners);
 
@@ -310,7 +309,7 @@ namespace DotNetNuke.Services.Vendors
                 {
                     Banners = bannersList.Count;
                 }
-				
+
                 //set Random start index based on the list of banners
                 int intIndex = new Random().Next(0, bannersList.Count);
                 //set counter
@@ -318,13 +317,13 @@ namespace DotNetNuke.Services.Vendors
 
                 while (intCounter <= bannersList.Count && arReturnBanners.Count != Banners)
                 {
-					//manage the rotation for the circular collection
+                    //manage the rotation for the circular collection
                     intIndex += 1;
                     if (intIndex > (bannersList.Count - 1))
                     {
                         intIndex = 0;
                     }
-					
+
                     //get the banner object
                     BannerInfo objBanner = bannersList[intIndex];
 
@@ -379,11 +378,11 @@ namespace DotNetNuke.Services.Vendors
             DataProvider.Instance().UpdateBannerClickThrough(BannerId, VendorId);
         }
 
-		#endregion
+        #endregion
 
-		#region "Obsolete methods"
+        #region "Obsolete methods"
 
-		[Obsolete("Deprecated in DNN 5.6.2. Use BannerController.GetBanner(Int32)")]
+        [Obsolete("Deprecated in DNN 5.6.2. Use BannerController.GetBanner(Int32)")]
         public BannerInfo GetBanner(int BannerId, int VendorId, int PortalId)
         {
             return GetBanner(BannerId);

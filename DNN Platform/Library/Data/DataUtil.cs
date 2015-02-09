@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Linq;
 using System.Reflection;
@@ -151,6 +150,5 @@ namespace DotNetNuke.Data
         }
 
         #endregion
-
     }
 }

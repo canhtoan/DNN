@@ -14,7 +14,7 @@ namespace DotNetNuke.Tests.Web.Api
         public void SetsWwwAuthenticateHeaderOn401()
         {
             //Arrange
-            var response = new HttpResponseMessage(HttpStatusCode.Unauthorized) {RequestMessage = new HttpRequestMessage()};
+            var response = new HttpResponseMessage(HttpStatusCode.Unauthorized) { RequestMessage = new HttpRequestMessage() };
 
             //Act
             var handler = new BasicAuthMessageHandler();
@@ -30,7 +30,7 @@ namespace DotNetNuke.Tests.Web.Api
         {
             //Arrange
             var response = new HttpResponseMessage(HttpStatusCode.Unauthorized)
-                {RequestMessage = new HttpRequestMessage()};
+            { RequestMessage = new HttpRequestMessage() };
             response.RequestMessage.Headers.Add("X-REQUESTED-WITH", "XmlHttpRequest");
 
             //Act

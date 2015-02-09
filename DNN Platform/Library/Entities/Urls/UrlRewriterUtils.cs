@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Reflection;
 using System.Web;
@@ -33,12 +33,11 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     public class UrlRewriterUtils
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(UrlRewriterUtils));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(UrlRewriterUtils));
 
         /// <summary>
         /// Return a FriendlyUrlOptions object from the provider settings
@@ -48,22 +47,22 @@ namespace DotNetNuke.Entities.Urls
         public static FriendlyUrlOptions GetOptionsFromSettings(FriendlyUrlSettings settings)
         {
             var options = new FriendlyUrlOptions
-                {
-                    PunctuationReplacement = (settings.ReplaceSpaceWith != FriendlyUrlSettings.ReplaceSpaceWithNothing) 
-                                                    ? settings.ReplaceSpaceWith 
+            {
+                PunctuationReplacement = (settings.ReplaceSpaceWith != FriendlyUrlSettings.ReplaceSpaceWithNothing)
+                                                    ? settings.ReplaceSpaceWith
                                                     : String.Empty,
-                    SpaceEncoding = settings.SpaceEncodingValue,
-                    MaxUrlPathLength = 200,
-                    ConvertDiacriticChars = settings.AutoAsciiConvert,
-                    RegexMatch = settings.RegexMatch,
-                    IllegalChars = settings.IllegalChars,
-                    ReplaceChars = settings.ReplaceChars,
-                    ReplaceDoubleChars = settings.ReplaceDoubleChars,
-                    ReplaceCharWithChar = settings.ReplaceCharacterDictionary,
-                    PageExtension = (settings.PageExtensionUsageType == PageExtensionUsageType.Never) 
-                                            ? "" 
+                SpaceEncoding = settings.SpaceEncodingValue,
+                MaxUrlPathLength = 200,
+                ConvertDiacriticChars = settings.AutoAsciiConvert,
+                RegexMatch = settings.RegexMatch,
+                IllegalChars = settings.IllegalChars,
+                ReplaceChars = settings.ReplaceChars,
+                ReplaceDoubleChars = settings.ReplaceDoubleChars,
+                ReplaceCharWithChar = settings.ReplaceCharacterDictionary,
+                PageExtension = (settings.PageExtensionUsageType == PageExtensionUsageType.Never)
+                                            ? ""
                                             : settings.PageExtension
-                };
+            };
             return options;
         }
 
@@ -99,13 +98,13 @@ namespace DotNetNuke.Entities.Urls
         public static void Log404(HttpRequest request, FriendlyUrlSettings settings, UrlAction result)
         {
             var log = new LogInfo
-                {
-                    LogTypeKey = EventLogController.EventLogType.PAGE_NOT_FOUND_404.ToString(),
-                    LogPortalID = (result.PortalAlias != null) ? result.PortalId : -1
-                };
+            {
+                LogTypeKey = EventLogController.EventLogType.PAGE_NOT_FOUND_404.ToString(),
+                LogPortalID = (result.PortalAlias != null) ? result.PortalId : -1
+            };
             log.LogProperties.Add(new LogDetailInfo("TabId", (result.TabId > 0) ? result.TabId.ToString() : String.Empty));
-            log.LogProperties.Add(new LogDetailInfo("PortalAlias",  (result.PortalAlias != null) ? result.PortalAlias.HTTPAlias : String.Empty));
-            log.LogProperties.Add(new LogDetailInfo("OriginalUrl",  result.RawUrl));
+            log.LogProperties.Add(new LogDetailInfo("PortalAlias", (result.PortalAlias != null) ? result.PortalAlias.HTTPAlias : String.Empty));
+            log.LogProperties.Add(new LogDetailInfo("OriginalUrl", result.RawUrl));
 
             if (request != null)
             {
@@ -195,10 +194,9 @@ namespace DotNetNuke.Entities.Urls
                     LogController.Instance.AddLog(log);
 
                     //Log this error in lig4net
-                    Logger.Error(ex);
+                    s_logger.Error(ex);
                 }
             }
         }
-
     }
 }

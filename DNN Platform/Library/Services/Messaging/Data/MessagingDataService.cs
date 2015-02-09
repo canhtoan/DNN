@@ -17,47 +17,46 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 
 using DotNetNuke.Data;
 
 #endregion
-
 namespace DotNetNuke.Services.Messaging.Data
 {
     public class MessagingDataService : IMessagingDataService
     {
-        private readonly DataProvider provider = DataProvider.Instance();
+        private readonly DataProvider _provider = DataProvider.Instance();
 
         #region IMessagingDataService Members
 
         public IDataReader GetMessageByID(int messageId)
         {
-            return provider.ExecuteReader("Messaging_GetMessage", messageId);
+            return _provider.ExecuteReader("Messaging_GetMessage", messageId);
         }
 
         public IDataReader GetUserInbox(int PortalID, int UserID, int PageNumber, int PageSize)
         {
-            return provider.ExecuteReader("Messaging_GetInbox", PortalID, UserID, PageNumber, PageSize);
+            return _provider.ExecuteReader("Messaging_GetInbox", PortalID, UserID, PageNumber, PageSize);
         }
 
         public int GetInboxCount(int PortalID, int UserID)
         {
-            return provider.ExecuteScalar<int>("Messaging_GetInboxCount", PortalID, UserID);
+            return _provider.ExecuteScalar<int>("Messaging_GetInboxCount", PortalID, UserID);
         }
 
         public long SaveMessage(Message objMessaging)
         {
-            return provider.ExecuteScalar<long>("Messaging_Save_Message",
+            return _provider.ExecuteScalar<long>("Messaging_Save_Message",
                                                       objMessaging.PortalID,
                                                       objMessaging.FromUserID,
                                                       objMessaging.ToUserID,
                                                       objMessaging.ToRoleID,
-                                                      (int) objMessaging.Status,
+                                                      (int)objMessaging.Status,
                                                       objMessaging.Subject,
                                                       objMessaging.Body,
                                                       objMessaging.MessageDate,
@@ -69,26 +68,26 @@ namespace DotNetNuke.Services.Messaging.Data
 
         public int GetNewMessageCount(int PortalID, int UserID)
         {
-            return provider.ExecuteScalar<int>("Messaging_GetNewMessageCount", PortalID, UserID);
+            return _provider.ExecuteScalar<int>("Messaging_GetNewMessageCount", PortalID, UserID);
         }
 
         public IDataReader GetNextMessageForDispatch(Guid SchedulerInstance)
         {
-            return provider.ExecuteReader("Messaging_GetNextMessageForDispatch", SchedulerInstance);
+            return _provider.ExecuteReader("Messaging_GetNextMessageForDispatch", SchedulerInstance);
         }
 
         public void MarkMessageAsDispatched(int MessageID)
         {
-            provider.ExecuteNonQuery("Messaging_MarkMessageAsDispatched", MessageID);
+            _provider.ExecuteNonQuery("Messaging_MarkMessageAsDispatched", MessageID);
         }
 
         public void UpdateMessage(Message message)
         {
-            provider.ExecuteNonQuery("Messaging_UpdateMessage",
+            _provider.ExecuteNonQuery("Messaging_UpdateMessage",
                                      message.MessageID,
                                      message.ToUserID,
                                      message.ToRoleID,
-                                     (int) message.Status,
+                                     (int)message.Status,
                                      message.Subject,
                                      message.Body,
                                      message.MessageDate,

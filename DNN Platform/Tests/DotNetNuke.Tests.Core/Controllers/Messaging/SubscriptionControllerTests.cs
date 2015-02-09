@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Social.Subscriptions;
@@ -35,27 +35,27 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
     [TestFixture]
     public class SubscriptionControllerTests
     {
-        private Mock<IDataService> mockDataService;
-        private Mock<ISubscriptionSecurityController> subscriptionSecurityController;
-        private Mock<CachingProvider> mockCacheProvider;
+        private Mock<IDataService> _mockDataService;
+        private Mock<ISubscriptionSecurityController> _subscriptionSecurityController;
+        private Mock<CachingProvider> _mockCacheProvider;
 
-        private SubscriptionController subscriptionController;
+        private SubscriptionController _subscriptionController;
 
         [SetUp]
         public void SetUp()
         {
             // Setup Mocks and Stub
-            mockDataService = new Mock<IDataService>();
-            mockCacheProvider = MockComponentProvider.CreateDataCacheProvider();
-            subscriptionSecurityController = new Mock<ISubscriptionSecurityController>();
+            _mockDataService = new Mock<IDataService>();
+            _mockCacheProvider = MockComponentProvider.CreateDataCacheProvider();
+            _subscriptionSecurityController = new Mock<ISubscriptionSecurityController>();
 
-            DataService.SetTestableInstance(mockDataService.Object);
-            SubscriptionSecurityController.SetTestableInstance(subscriptionSecurityController.Object);
+            DataService.SetTestableInstance(_mockDataService.Object);
+            SubscriptionSecurityController.SetTestableInstance(_subscriptionSecurityController.Object);
 
             // Setup SUT
-            subscriptionController = new SubscriptionController();
+            _subscriptionController = new SubscriptionController();
         }
-        
+
         [TearDown]
         public void TearDown()
         {
@@ -72,16 +72,16 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             var subscription = new SubscriptionBuilder()
                 .Build();
 
-            mockDataService.Setup(ds => ds.IsSubscribed(
+            _mockDataService.Setup(ds => ds.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
                 subscription.ObjectKey,
                 It.IsAny<int>(),
                 It.IsAny<int>())).Returns(SubscriptionDataReaderMockHelper.CreateEmptySubscriptionReader());
-            
+
             //Act
-            var isSubscribed = subscriptionController.IsSubscribed(subscription);
+            var isSubscribed = _subscriptionController.IsSubscribed(subscription);
 
             // Assert
             Assert.AreEqual(false, isSubscribed);
@@ -94,9 +94,9 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             var subscription = new SubscriptionBuilder()
                 .Build();
 
-            var subscriptionCollection = new[] {subscription};
+            var subscriptionCollection = new[] { subscription };
 
-            mockDataService.Setup(ds => ds.IsSubscribed(
+            _mockDataService.Setup(ds => ds.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
@@ -104,11 +104,11 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 It.IsAny<int>(),
                 It.IsAny<int>())).Returns(SubscriptionDataReaderMockHelper.CreateSubscriptionReader(subscriptionCollection));
 
-            subscriptionSecurityController
+            _subscriptionSecurityController
                 .Setup(ssc => ssc.HasPermission(It.IsAny<Subscription>())).Returns(false);
 
             //Act
-            var isSubscribed = subscriptionController.IsSubscribed(subscription);
+            var isSubscribed = _subscriptionController.IsSubscribed(subscription);
 
             // Assert
             Assert.AreEqual(false, isSubscribed);
@@ -123,7 +123,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
 
             var subscriptionCollection = new[] { subscription };
 
-            mockDataService.Setup(ds => ds.IsSubscribed(
+            _mockDataService.Setup(ds => ds.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
@@ -131,11 +131,11 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 It.IsAny<int>(),
                 It.IsAny<int>())).Returns(SubscriptionDataReaderMockHelper.CreateSubscriptionReader(subscriptionCollection));
 
-            subscriptionSecurityController
+            _subscriptionSecurityController
                 .Setup(ssc => ssc.HasPermission(It.IsAny<Subscription>())).Returns(true);
 
             //Act
-            var isSubscribed = subscriptionController.IsSubscribed(subscription);
+            var isSubscribed = _subscriptionController.IsSubscribed(subscription);
 
             // Assert
             Assert.AreEqual(true, isSubscribed);
@@ -148,7 +148,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             var subscription = new SubscriptionBuilder()
                 .Build();
 
-            mockDataService.Setup(ds => ds.IsSubscribed(
+            _mockDataService.Setup(ds => ds.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
@@ -157,10 +157,10 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 subscription.TabId)).Returns(SubscriptionDataReaderMockHelper.CreateEmptySubscriptionReader()).Verifiable();
 
             //Act
-            subscriptionController.IsSubscribed(subscription);
+            _subscriptionController.IsSubscribed(subscription);
 
             // Assert
-            mockDataService.Verify(ds => ds.IsSubscribed(
+            _mockDataService.Verify(ds => ds.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
@@ -175,7 +175,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
         public void AddSubscription_ShouldThrowArgumentNullException_WhenSubscriptionIsNull()
         {
             //Act, Arrange
-            Assert.Throws<ArgumentNullException>(() => subscriptionController.AddSubscription(null));
+            Assert.Throws<ArgumentNullException>(() => _subscriptionController.AddSubscription(null));
         }
 
         [Test]
@@ -187,7 +187,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 .Build();
 
             //Act, Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => subscriptionController.AddSubscription(subscription));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _subscriptionController.AddSubscription(subscription));
         }
 
         [Test]
@@ -199,7 +199,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 .Build();
 
             //Act, Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => subscriptionController.AddSubscription(subscription));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _subscriptionController.AddSubscription(subscription));
         }
 
         [Test]
@@ -211,31 +211,31 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 .Build();
 
             //Act, Assert
-            Assert.Throws<ArgumentNullException>(() => subscriptionController.AddSubscription(subscription));
+            Assert.Throws<ArgumentNullException>(() => _subscriptionController.AddSubscription(subscription));
         }
-        
+
         [Test]
         public void AddSubscription_ShouldCallDataService_WhenNoError()
         {
             // Arrange
             var subscription = new SubscriptionBuilder()
                 .Build();
-            
-            mockDataService.Setup(ds => ds.AddSubscription(
-                subscription.UserId, 
-                subscription.PortalId, 
-                subscription.SubscriptionTypeId, 
-                subscription.ObjectKey, 
-                subscription.Description, 
-                subscription.ModuleId, 
+
+            _mockDataService.Setup(ds => ds.AddSubscription(
+                subscription.UserId,
+                subscription.PortalId,
+                subscription.SubscriptionTypeId,
+                subscription.ObjectKey,
+                subscription.Description,
+                subscription.ModuleId,
                 subscription.TabId,
                 subscription.ObjectData)).Verifiable();
 
             //Act
-            subscriptionController.AddSubscription(subscription);
+            _subscriptionController.AddSubscription(subscription);
 
             // Assert
-            mockDataService.Verify(ds => ds.AddSubscription(
+            _mockDataService.Verify(ds => ds.AddSubscription(
                 subscription.UserId,
                 subscription.PortalId,
                 subscription.SubscriptionTypeId,
@@ -255,7 +255,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             var subscription = new SubscriptionBuilder()
                 .Build();
 
-            mockDataService.Setup(ds => ds.AddSubscription(
+            _mockDataService.Setup(ds => ds.AddSubscription(
                 subscription.UserId,
                 subscription.PortalId,
                 subscription.SubscriptionTypeId,
@@ -266,7 +266,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 subscription.ObjectData)).Returns(expectedSubscriptionId);
 
             //Act
-            subscriptionController.AddSubscription(subscription);
+            _subscriptionController.AddSubscription(subscription);
 
             // Assert
             Assert.AreEqual(expectedSubscriptionId, subscription.SubscriptionId);
@@ -278,7 +278,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
         public void DeleteSubscription_ShouldThrowArgumentNullException_WhenSubscriptionIsNull()
         {
             //Act, Assert
-            Assert.Throws<ArgumentNullException>(() => subscriptionController.DeleteSubscription(null));
+            Assert.Throws<ArgumentNullException>(() => _subscriptionController.DeleteSubscription(null));
         }
 
         [Test]
@@ -288,21 +288,21 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             var subscription = new SubscriptionBuilder()
                 .Build();
 
-            mockDataService.Setup(ds => ds.IsSubscribed(
+            _mockDataService.Setup(ds => ds.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
                 subscription.ObjectKey,
                 It.IsAny<int>(),
-                It.IsAny<int>())).Returns(SubscriptionDataReaderMockHelper.CreateSubscriptionReader(new [] { subscription }));
+                It.IsAny<int>())).Returns(SubscriptionDataReaderMockHelper.CreateSubscriptionReader(new[] { subscription }));
 
-            mockDataService.Setup(ds => ds.DeleteSubscription(It.IsAny<int>())).Verifiable();
-            
+            _mockDataService.Setup(ds => ds.DeleteSubscription(It.IsAny<int>())).Verifiable();
+
             //Act
-            subscriptionController.DeleteSubscription(subscription);
+            _subscriptionController.DeleteSubscription(subscription);
 
             //Assert
-            mockDataService.Verify(ds => ds.DeleteSubscription(It.IsAny<int>()), Times.Once);
+            _mockDataService.Verify(ds => ds.DeleteSubscription(It.IsAny<int>()), Times.Once);
         }
 
         [Test]
@@ -312,7 +312,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             var subscription = new SubscriptionBuilder()
                 .Build();
 
-            mockDataService.Setup(ds => ds.IsSubscribed(
+            _mockDataService.Setup(ds => ds.IsSubscribed(
                 subscription.PortalId,
                 subscription.UserId,
                 subscription.SubscriptionTypeId,
@@ -321,10 +321,10 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 It.IsAny<int>())).Returns(SubscriptionDataReaderMockHelper.CreateEmptySubscriptionReader());
 
             //Act
-            subscriptionController.DeleteSubscription(subscription);
+            _subscriptionController.DeleteSubscription(subscription);
 
             //Assert
-            mockDataService.Verify(ds => ds.DeleteSubscription(It.IsAny<int>()), Times.Never);
+            _mockDataService.Verify(ds => ds.DeleteSubscription(It.IsAny<int>()), Times.Never);
         }
         #endregion
     }

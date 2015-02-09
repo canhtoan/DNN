@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using DotNetNuke.Entities.Content.Workflow.Entities;
 
@@ -105,7 +105,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         /// <exception cref="DotNetNuke.Entities.Content.Workflow.Exceptions.WorkflowInvalidOperationException">Thrown when state cannot be moved (i.e.: is the first/last state, etc...)</exception>
         /// <exception cref="DotNetNuke.Entities.Content.Workflow.Exceptions.WorkflowInvalidOperationException">Thrown when index is not a valid value (index = 0 or index >= number of states - 2)</exception>
         void MoveState(int stateId, int index);
-        
+
         /// <summary>
         /// This method returns the list of State Permission of a specific state
         /// </summary>

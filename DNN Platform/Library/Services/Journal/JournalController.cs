@@ -21,14 +21,13 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.Services.Journal
 {
     public class JournalController : ServiceLocator<IJournalController, JournalController>

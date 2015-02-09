@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 
@@ -32,7 +32,6 @@ using DotNetNuke.Entities.Controllers;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     [Serializable]
@@ -111,7 +110,7 @@ namespace DotNetNuke.Entities.Urls
         public bool AllowDebugCode { get; set; }
 
         public bool AutoAsciiConvert { get; set; }
-        
+
         public TimeSpan CacheTime { get; set; }
 
         public bool CheckForDuplicateUrls { get; set; }
@@ -174,7 +173,7 @@ namespace DotNetNuke.Entities.Urls
         public List<InternalAlias> InternalAliasList { get; private set; }
 
         public bool IsDirty { get; set; }
-        
+
         public bool IsLoading { get; private set; }
 
         public bool LogCacheMessages { get; set; }
@@ -327,7 +326,7 @@ namespace DotNetNuke.Entities.Urls
             UrlFormat = GetStringSetting(UrlFormatSetting, "advanced");
 
             //541 moved doNotRedirect and doNotRedirectRegex from under 'redirectUnfriendly' code
-			DoNotRedirectRegex = GetStringSetting(DoNotRedirectUrlRegexSetting, @"(\.axd)|/Rss\.aspx|/SiteMap\.aspx|\.ashx|/LinkClick\.aspx|/Providers/|/DesktopModules/|ctl=MobilePreview|/ctl/MobilePreview");
+            DoNotRedirectRegex = GetStringSetting(DoNotRedirectUrlRegexSetting, @"(\.axd)|/Rss\.aspx|/SiteMap\.aspx|\.ashx|/LinkClick\.aspx|/Providers/|/DesktopModules/|ctl=MobilePreview|/ctl/MobilePreview");
             DoNotRedirectSecureRegex = GetStringSetting(DoNotRedirectHttpsUrlRegexSetting, String.Empty);
 
             DoNotRewriteRegex = GetStringSetting(DoNotRewriteRegExSetting, @"/DesktopModules/|/Providers/|/LinkClick\.aspx|/profilepic\.ashx");

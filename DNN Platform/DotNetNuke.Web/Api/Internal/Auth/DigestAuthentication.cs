@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Security.Cryptography;
@@ -29,7 +30,7 @@ namespace DotNetNuke.Web.Api.Internal.Auth
 {
     internal class DigestAuthentication
     {
-        private static readonly MD5 Md5 = new MD5CryptoServiceProvider();
+        private static readonly MD5 s_md5 = new MD5CryptoServiceProvider();
         private DigestAuthenticationRequest _request;
         private string _password;
         private readonly int _portalId;
@@ -63,11 +64,11 @@ namespace DotNetNuke.Web.Api.Internal.Auth
         private void AuthenticateRequest()
         {
             _password = GetPassword(Request);
-            if(_password != null)
+            if (_password != null)
             {
-                IsNonceStale = ! (IsNonceValid(_request.RequestParams["nonce"]));
+                IsNonceStale = !(IsNonceValid(_request.RequestParams["nonce"]));
                 //Services.Logging.LoggingController.SimpleLog(String.Format("Request hash: {0} - Response Hash: {1}", _request.RequestParams("response"), HashedDigest))
-                if ((! IsNonceStale) && _request.RequestParams["response"] == CalculateHashedDigest())
+                if ((!IsNonceStale) && _request.RequestParams["response"] == CalculateHashedDigest())
                 {
                     IsValid = true;
                     User = new GenericPrincipal(new GenericIdentity(_request.RawUsername, "digest"), null);
@@ -87,7 +88,7 @@ namespace DotNetNuke.Web.Api.Internal.Auth
                 return null;
             }
             var password = UserController.GetPassword(ref user, "");
-            
+
             //Try to validate user
             var loginStatus = UserLoginStatus.LOGIN_FAILURE;
             user = UserController.ValidateUser(_portalId, user.Username, password, "DNN", "", _ipAddress, ref loginStatus);
@@ -121,7 +122,7 @@ namespace DotNetNuke.Web.Api.Internal.Auth
         {
             //Services.Logging.LoggingController.SimpleLog(String.Format("Creating Hash for {0}", val))
             //Services.Logging.LoggingController.SimpleLog(String.Format("Back and forth: {0}", Encoding.Default.GetString(Encoding.Default.GetBytes(val))))
-            byte[] bha1 = Md5.ComputeHash(Encoding.Default.GetBytes(val));
+            byte[] bha1 = s_md5.ComputeHash(Encoding.Default.GetBytes(val));
             string ha1 = "";
             for (int i = 0; i <= 15; i++)
             {
@@ -135,7 +136,7 @@ namespace DotNetNuke.Web.Api.Internal.Auth
         {
             DateTime expireTime;
 
-            int numPadChars = nonce.Length%4;
+            int numPadChars = nonce.Length % 4;
             if (numPadChars > 0)
             {
                 numPadChars = 4 - numPadChars;

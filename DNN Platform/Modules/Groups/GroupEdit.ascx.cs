@@ -46,15 +46,15 @@ namespace DotNetNuke.Modules.Groups
                     txtGroupName.Visible = !roleInfo.IsSystemRole;
                     reqGroupName.Enabled = !roleInfo.IsSystemRole;
 
-                    if(!roleInfo.IsSystemRole)
+                    if (!roleInfo.IsSystemRole)
                         txtGroupName.Text = roleInfo.RoleName;
                     else
                         litGroupName.Text = roleInfo.RoleName;
-                    
+
                     txtDescription.Text = roleInfo.Description;
                     rdAccessTypePrivate.Checked = !roleInfo.IsPublic;
                     rdAccessTypePublic.Checked = roleInfo.IsPublic;
-                    
+
 
                     if (roleInfo.Settings.ContainsKey("ReviewMembers"))
                     {
@@ -87,7 +87,6 @@ namespace DotNetNuke.Modules.Groups
                 var roleInfo = RoleController.Instance.GetRoleById(PortalId, GroupId);
                 if (roleInfo != null)
                 {
-
                     if (txtGroupName.Visible) //if this is visible assume that we're editing the groupname
                     {
                         if (txtGroupName.Text != roleInfo.RoleName)
@@ -100,11 +99,11 @@ namespace DotNetNuke.Modules.Groups
                         }
                     }
 
-                    if(!roleInfo.IsSystemRole)
+                    if (!roleInfo.IsSystemRole)
                     {
                         roleInfo.RoleName = txtGroupName.Text;
                     }
-                    
+
                     roleInfo.Description = txtDescription.Text;
                     roleInfo.IsPublic = rdAccessTypePublic.Checked;
 
@@ -138,7 +137,6 @@ namespace DotNetNuke.Modules.Groups
 
                     //Clear Roles Cache
                     DataCache.RemoveCache("GetRoles");
-
                 }
 
                 Response.Redirect(Globals.NavigateURL(TabId, "", new String[] { "groupid=" + GroupId.ToString() }));

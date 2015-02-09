@@ -21,15 +21,14 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Entities.Users.Social.Internal;
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users.Social
 {
     public class FollowersController : ServiceLocator<IFollowersController, FollowersController>

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -44,13 +43,13 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class DNNDataGrid : DataGrid
     {
-		#region "Events"
+        #region "Events"
 
         public event DNNDataGridCheckedColumnEventHandler ItemCheckedChanged;
 
-		#endregion
+        #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -68,9 +67,9 @@ namespace DotNetNuke.UI.WebControls
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Protected Methods"
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -84,10 +83,10 @@ namespace DotNetNuke.UI.WebControls
         {
             foreach (DataGridColumn column in Columns)
             {
-                if (ReferenceEquals(column.GetType(), typeof (CheckBoxColumn)))
+                if (ReferenceEquals(column.GetType(), typeof(CheckBoxColumn)))
                 {
-					//Manage CheckBox column events
-                    var cbColumn = (CheckBoxColumn) column;
+                    //Manage CheckBox column events
+                    var cbColumn = (CheckBoxColumn)column;
                     cbColumn.CheckedChanged += OnItemCheckedChanged;
                 }
             }
@@ -102,7 +101,7 @@ namespace DotNetNuke.UI.WebControls
         {
             base.PrepareControlHierarchy();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

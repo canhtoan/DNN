@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -28,23 +28,22 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     [Serializable]
     public class FolderPermissionInfo : PermissionInfoBase, IHydratable
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         //local property declarations
         private int _folderID;
         private string _folderPath;
         private int _folderPermissionID;
         private int _portalID;
-		
-		#endregion
-		
-		#region "Constructors"
+
+        #endregion
+
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -79,10 +78,10 @@ namespace DotNetNuke.Security.Permissions
             PermissionKey = permission.PermissionKey;
             PermissionName = permission.PermissionName;
         }
-		
-		#endregion
-		
-		#region "Public Properties"
+
+        #endregion
+
+        #region "Public Properties"
 
         [XmlIgnore]
         public int FolderPermissionID
@@ -135,8 +134,8 @@ namespace DotNetNuke.Security.Permissions
                 _folderPath = value;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IHydratable Members
 

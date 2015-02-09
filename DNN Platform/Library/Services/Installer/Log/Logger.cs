@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +29,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Log
 {
     /// -----------------------------------------------------------------------------
@@ -44,7 +43,7 @@ namespace DotNetNuke.Services.Installer.Log
     /// -----------------------------------------------------------------------------
     public class Logger
     {
-    	private static readonly ILog DnnLogger = LoggerSource.Instance.GetLogger(typeof (Logger));
+        private static readonly ILog s_dnnLogger = LoggerSource.Instance.GetLogger(typeof(Logger));
         private readonly IList<LogEntry> _logs;
         private string _errorClass;
         private bool _hasWarnings;
@@ -55,7 +54,7 @@ namespace DotNetNuke.Services.Installer.Log
         public Logger()
         {
             _logs = new LoggedCollection();
-            
+
             _valid = true;
             _hasWarnings = Null.NullBoolean;
         }
@@ -209,9 +208,9 @@ namespace DotNetNuke.Services.Installer.Log
         /// </history>
         /// -----------------------------------------------------------------------------
         public void AddInfo(string info)
-        {            
+        {
             _logs.Add(new LogEntry(LogType.Info, info));
-			DnnLogger.Info(info);
+            s_dnnLogger.Info(info);
         }
 
         /// -----------------------------------------------------------------------------
@@ -226,7 +225,7 @@ namespace DotNetNuke.Services.Installer.Log
         public void AddWarning(string warning)
         {
             _logs.Add(new LogEntry(LogType.Warning, warning));
-			DnnLogger.Warn(warning);
+            s_dnnLogger.Warn(warning);
             _hasWarnings = true;
         }
 
@@ -285,7 +284,7 @@ namespace DotNetNuke.Services.Installer.Log
                 if (entry.Type == LogType.EndJob)
                 {
                     var spaceTR = new HtmlTableRow();
-                    spaceTR.Cells.Add(new HtmlTableCell {ColSpan = 2, InnerHtml = "&nbsp;"});
+                    spaceTR.Cells.Add(new HtmlTableCell { ColSpan = 2, InnerHtml = "&nbsp;" });
                     arrayTable.Rows.Add(spaceTR);
                 }
             }
@@ -311,17 +310,17 @@ namespace DotNetNuke.Services.Installer.Log
             _logs.Add(new LogEntry(LogType.StartJob, job));
         }
 
-        class LoggedCollection : Collection<LogEntry>
+        private class LoggedCollection : Collection<LogEntry>
         {
             protected override void InsertItem(int index, LogEntry item)
             {
-				DnnLogger.Debug(item.ToString());
+                s_dnnLogger.Debug(item.ToString());
                 base.InsertItem(index, item);
             }
 
             protected override void SetItem(int index, LogEntry item)
             {
-				DnnLogger.Debug(item.ToString());
+                s_dnnLogger.Debug(item.ToString());
                 base.InsertItem(index, item);
             }
         }

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +36,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     /// <summary>
@@ -127,11 +126,11 @@ namespace DotNetNuke.Entities.Urls
         /// <remarks>Note using 'useDnnPagePath' = true requires having a specific tab returned from the TransformFriendlyUrlToQueryString below.  Usage of the 'useDnnPagePath' implies the TransformFriendlyUrlToQueryString method returns a ?tabid=xx value in the querystring.  
         /// It also means the provider level property 'AlwaysUsesDnnPagePath' must return 'false'</remarks>
         /// <returns>Friendly Url for specified values.  Return friendlyUrlPath if no change is made.</returns>
-        public abstract string ChangeFriendlyUrl(TabInfo tab, 
-                                                    string friendlyUrlPath, 
+        public abstract string ChangeFriendlyUrl(TabInfo tab,
+                                                    string friendlyUrlPath,
                                                     FriendlyUrlOptions options,
-                                                    string cultureCode, 
-                                                    ref string endingPageName, 
+                                                    string cultureCode,
+                                                    ref string endingPageName,
                                                     out bool useDnnPagePath,
                                                     ref List<string> messages);
         /// <summary>
@@ -144,13 +143,13 @@ namespace DotNetNuke.Entities.Urls
         /// <param name="options"></param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        public abstract bool CheckForRedirect(int tabId, 
-                                                    int portalid, 
-                                                    string httpAlias, 
+        public abstract bool CheckForRedirect(int tabId,
+                                                    int portalid,
+                                                    string httpAlias,
                                                     Uri requestUri,
-                                                    NameValueCollection queryStringCol, 
+                                                    NameValueCollection queryStringCol,
                                                     FriendlyUrlOptions options,
-                                                    out string redirectLocation, 
+                                                    out string redirectLocation,
                                                     ref List<string> messages);
 
         /// <summary>
@@ -174,13 +173,13 @@ namespace DotNetNuke.Entities.Urls
         /// Warning: It's unwise to do a specific database lookup for each call of this method.  This method needs to be high-performance so should use a stateless method (ie, regex parse) or, if looking up database values, cached hashtables or thread-safe dictionaries.
         /// </example>
         /// <returns>Querystring value in key=value format, which will be used as an input to the rewriting function.</returns>
-        public abstract string TransformFriendlyUrlToQueryString(string[] urlParms, 
+        public abstract string TransformFriendlyUrlToQueryString(string[] urlParms,
                                                                     int tabId, int portalId,
-                                                                    FriendlyUrlOptions options, 
+                                                                    FriendlyUrlOptions options,
                                                                     string cultureCode,
-                                                                    PortalAliasInfo portalAlias, 
+                                                                    PortalAliasInfo portalAlias,
                                                                     ref List<string> messages,
-                                                                    out int status, 
+                                                                    out int status,
                                                                     out string location);
 
         #endregion

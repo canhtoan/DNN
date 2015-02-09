@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,31 +31,30 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Cache;
 
 #endregion
-
 namespace DotNetNuke.Services.EventQueue.Config
 {
     [Serializable]
     internal class EventQueueConfiguration
     {
-		#region "Constructors"
-		
+        #region "Constructors"
+
         internal EventQueueConfiguration()
         {
             PublishedEvents = new Dictionary<string, PublishedEvent>();
             EventQueueSubscribers = new Dictionary<string, SubscriberInfo>();
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         internal Dictionary<string, SubscriberInfo> EventQueueSubscribers { get; set; }
 
         internal Dictionary<string, PublishedEvent> PublishedEvents { get; set; }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         private void Deserialize(string configXml)
         {
@@ -105,7 +104,7 @@ namespace DotNetNuke.Services.EventQueue.Config
 
             var sb = new StringBuilder();
 
-			XmlWriter writer = XmlWriter.Create(sb, settings);
+            XmlWriter writer = XmlWriter.Create(sb, settings);
             writer.WriteStartElement("EventQueueConfig");
 
             writer.WriteStartElement("PublishedEvents");
@@ -141,10 +140,10 @@ namespace DotNetNuke.Services.EventQueue.Config
 
             return sb.ToString();
         }
-		#endregion
+        #endregion
         internal static EventQueueConfiguration GetConfig()
         {
-            var config = (EventQueueConfiguration) DataCache.GetCache("EventQueueConfig");
+            var config = (EventQueueConfiguration)DataCache.GetCache("EventQueueConfig");
             if ((config == null))
             {
                 string filePath = Globals.HostMapPath + "EventQueue\\EventQueue.config";
@@ -158,7 +157,7 @@ namespace DotNetNuke.Services.EventQueue.Config
                 }
                 else
                 {
-					//make a default config file
+                    //make a default config file
                     config = new EventQueueConfiguration();
                     config.PublishedEvents = new Dictionary<string, PublishedEvent>();
                     config.EventQueueSubscribers = new Dictionary<string, SubscriberInfo>();

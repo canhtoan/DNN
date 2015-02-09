@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 
 using DotNetNuke.Entities.Content.Taxonomy;
 using DotNetNuke.Web.Mvp;
 
 #endregion
-
 namespace DotNetNuke.Modules.Taxonomy.Views.Models
 {
     public class EditVocabularyModel
@@ -40,6 +39,5 @@ namespace DotNetNuke.Modules.Taxonomy.Views.Models
         public Vocabulary Vocabulary { get; set; }
 
         public string CancelUrl { get; set; }
-
     }
 }

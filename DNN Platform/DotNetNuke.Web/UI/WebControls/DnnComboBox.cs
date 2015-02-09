@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using DotNetNuke.Framework;
 using DotNetNuke.Framework.JavaScriptLibraries;
@@ -27,12 +27,10 @@ using DotNetNuke.Framework.JavaScriptLibraries;
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnComboBox : RadComboBox
     {
-
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
@@ -85,16 +83,16 @@ namespace DotNetNuke.Web.UI.WebControls
             {
                 if (FindItemByText(initial, true) != null)
                 {
-					FindItemByText(initial, true).Selected = true;
+                    FindItemByText(initial, true).Selected = true;
                 }
             }
             else
             {
-				if (FindItemByValue(initial, true) != null)
+                if (FindItemByValue(initial, true) != null)
                 {
-					FindItemByValue(initial, true).Selected = true;
+                    FindItemByValue(initial, true).Selected = true;
                 }
-            } 
+            }
         }
     }
 }

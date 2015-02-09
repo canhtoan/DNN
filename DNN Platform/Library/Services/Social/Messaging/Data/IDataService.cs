@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +27,6 @@ using System.Data;
 using DotNetNuke.Services.Social.Messaging.Internal.Views;
 
 #endregion
-
 namespace DotNetNuke.Services.Social.Messaging.Data
 {
     public interface IDataService
@@ -44,10 +43,10 @@ namespace DotNetNuke.Services.Social.Messaging.Data
         IDataReader GetInBoxView(int userId, int portalId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending, MessageReadStatus readStatus, MessageArchivedStatus archivedStatus, MessageSentStatus sentStatus);
         IDataReader GetSentBoxView(int userId, int portalId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending);
         IDataReader GetArchiveBoxView(int userId, int portalId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending);
-        IDataReader GetMessageThread(int conversationId, int userId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending, ref int totalRecords);        
+        IDataReader GetMessageThread(int conversationId, int userId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending, ref int totalRecords);
         void UpdateMessageReadStatus(int conversationId, int userId, bool read);
         void UpdateMessageArchivedStatus(int conversationId, int userId, bool archived);
-        int CreateMessageReply(int conversationId, int portalId,string body, int senderUserId, string from, int createUpdateUserId);
+        int CreateMessageReply(int conversationId, int portalId, string body, int senderUserId, string from, int createUpdateUserId);
         int CountNewThreads(int userId, int portalId);
         int CountTotalConversations(int userId, int portalId);
         int CountMessagesByConversation(int conversationId);
@@ -57,7 +56,7 @@ namespace DotNetNuke.Services.Social.Messaging.Data
         int CountSentConversations(int userId, int portalId);
         int CountArchivedConversations(int userId, int portalId);
         int CheckReplyHasRecipients(int conversationId, int userId);
-        
+
         #endregion
 
         #region Message_Recipients CRUD
@@ -83,10 +82,10 @@ namespace DotNetNuke.Services.Social.Messaging.Data
         #endregion
 
         #region Upgrade APIs
-        
+
         void ConvertLegacyMessages(int pageIndex, int pageSize);
 
-        IDataReader CountLegacyMessages();        
+        IDataReader CountLegacyMessages();
 
         #endregion
 
@@ -94,7 +93,7 @@ namespace DotNetNuke.Services.Social.Messaging.Data
 
         IDataReader GetNextMessagesForInstantDispatch(Guid schedulerInstance, int batchSize);
         IDataReader GetNextMessagesForDigestDispatch(int frequecy, Guid schedulerInstance, int batchSize);
-        void MarkMessageAsDispatched(int messageId,int recipientId);
+        void MarkMessageAsDispatched(int messageId, int recipientId);
         void MarkMessageAsSent(int messageId, int recipientId);
 
         #endregion

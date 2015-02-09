@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Web;
@@ -33,7 +33,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Personalization;
 
 #endregion
-
 namespace DotNetNuke.UI.Utilities
 {
     /// -----------------------------------------------------------------------------
@@ -74,7 +73,7 @@ namespace DotNetNuke.UI.Utilities
 
         #endregion
 
-        private static readonly Hashtable m_objEnabledClientPersonalizationKeys = new Hashtable();
+        private static readonly Hashtable s_objEnabledClientPersonalizationKeys = new Hashtable();
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -151,7 +150,7 @@ namespace DotNetNuke.UI.Utilities
                 ClientAPI.RegisterClientVariable(objTitle.Page, "__dnn_dragDrop", objContainer.ClientID + " " + objTitle.ClientID + " " + ModuleID + ";", false);
                 string strPanes = "";
                 string strPaneNames = "";
-                var objPortalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+                var objPortalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
 
                 Control objCtl;
                 foreach (string strPane in objPortalSettings.ActiveTab.Panes)
@@ -333,7 +332,7 @@ namespace DotNetNuke.UI.Utilities
         {
             if (objButton is LinkButton)
             {
-                var objLB = (LinkButton) objButton;
+                var objLB = (LinkButton)objButton;
                 objLB.ToolTip = strToolTip;
                 if (objLB.Controls.Count > 0)
                 {
@@ -354,21 +353,21 @@ namespace DotNetNuke.UI.Utilities
         {
             if (objControl is Image)
             {
-                var objImage = (Image) objControl;
+                var objImage = (Image)objControl;
                 objImage.ImageUrl = strImage;
                 objImage.AlternateText = strAltText;
                 objImage.ToolTip = strToolTip;
             }
             else if (objControl is ImageButton)
             {
-                var objImage = (ImageButton) objControl;
+                var objImage = (ImageButton)objControl;
                 objImage.ImageUrl = strImage;
                 objImage.AlternateText = strAltText;
                 objImage.ToolTip = strToolTip;
             }
             else if (objControl is HtmlImage)
             {
-                var objImage = (HtmlImage) objControl;
+                var objImage = (HtmlImage)objControl;
                 objImage.Src = strImage;
                 objImage.Alt = strAltText;
             }
@@ -462,11 +461,11 @@ namespace DotNetNuke.UI.Utilities
         {
             if (objControl is HtmlControl)
             {
-                ((HtmlControl) objControl).Attributes.Add(strName, strValue);
+                ((HtmlControl)objControl).Attributes.Add(strName, strValue);
             }
             else if (objControl is WebControl)
             {
-                ((WebControl) objControl).Attributes.Add(strName, strValue);
+                ((WebControl)objControl).Attributes.Add(strName, strValue);
             }
         }
 
@@ -476,22 +475,22 @@ namespace DotNetNuke.UI.Utilities
             {
                 if (!String.IsNullOrEmpty(strValue))
                 {
-                    ((HtmlControl) objControl).Style.Add(strName, strValue);
+                    ((HtmlControl)objControl).Style.Add(strName, strValue);
                 }
                 else
                 {
-                    ((HtmlControl) objControl).Style.Remove(strName);
+                    ((HtmlControl)objControl).Style.Remove(strName);
                 }
             }
             else if (objControl is WebControl)
             {
                 if (!String.IsNullOrEmpty(strValue))
                 {
-                    ((WebControl) objControl).Style.Add(strName, strValue);
+                    ((WebControl)objControl).Style.Add(strName, strValue);
                 }
                 else
                 {
-                    ((WebControl) objControl).Style.Remove(strName);
+                    ((WebControl)objControl).Style.Remove(strName);
                 }
             }
         }
@@ -502,7 +501,7 @@ namespace DotNetNuke.UI.Utilities
         {
             if (ClientAPI.BrowserSupportsFunctionality(ClientAPI.ClientFunctionality.XMLHTTP))
             {
-				//Instead of sending the callback js function down to the client, we are hardcoding
+                //Instead of sending the callback js function down to the client, we are hardcoding
                 //it on the client.  DNN owns the interface, so there is no worry about an outside
                 //entity changing it on us.  We are simply calling this here to register all the appropriate
                 //js libraries
@@ -510,11 +509,11 @@ namespace DotNetNuke.UI.Utilities
 
                 //in order to limit the keys that can be accessed and written we are storing the enabled keys
                 //in this shared hash table
-                lock (m_objEnabledClientPersonalizationKeys.SyncRoot)
+                lock (s_objEnabledClientPersonalizationKeys.SyncRoot)
                 {
                     if (IsPersonalizationKeyRegistered(strNamingContainer + ClientAPI.CUSTOM_COLUMN_DELIMITER + strKey) == false)
                     {
-                        m_objEnabledClientPersonalizationKeys.Add(strNamingContainer + ClientAPI.CUSTOM_COLUMN_DELIMITER + strKey, "");
+                        s_objEnabledClientPersonalizationKeys.Add(strNamingContainer + ClientAPI.CUSTOM_COLUMN_DELIMITER + strKey, "");
                     }
                 }
                 return true;
@@ -524,7 +523,7 @@ namespace DotNetNuke.UI.Utilities
 
         public static bool IsPersonalizationKeyRegistered(string strKey)
         {
-            return m_objEnabledClientPersonalizationKeys.ContainsKey(strKey);
+            return s_objEnabledClientPersonalizationKeys.ContainsKey(strKey);
         }
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Text;
@@ -52,7 +53,7 @@ namespace DotNetNuke.Common.Internal
 
         public string LinkClick(string link, int tabID, int moduleID, bool trackClicks, bool forceDownload, int portalId, bool enableUrlLanguage, string portalGuid)
         {
-            return Globals.LinkClick(link, tabID, moduleID, trackClicks, forceDownload, portalId, enableUrlLanguage,portalGuid);
+            return Globals.LinkClick(link, tabID, moduleID, trackClicks, forceDownload, portalId, enableUrlLanguage, portalGuid);
         }
 
         public string ResolveUrl(string url)
@@ -83,7 +84,7 @@ namespace DotNetNuke.Common.Internal
         public string GetDomainName(Uri requestedUri, bool parsePortNumber)
         {
             var domainName = new StringBuilder();
-            
+
             // split both URL separater, and parameter separator
             // We trim right of '?' so test for filename extensions can occur at END of URL-componenet.
             // Test:   'www.aspxforum.net'  should be returned as a valid domain name.

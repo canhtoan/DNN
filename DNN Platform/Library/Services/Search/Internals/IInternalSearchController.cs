@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,23 +17,22 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 
 using DotNetNuke.Services.Search.Entities;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Internals
 {
     /// <summary>
     /// Internal Search Controller Interface.
     /// <remarks>This is an Internal interface and should not be used outside of Core.</remarks>
     /// </summary>
-    public interface IInternalSearchController 
+    public interface IInternalSearchController
     {
         /// <summary>
         /// Get a List of Search Content Source that participate in Search

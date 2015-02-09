@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -33,7 +33,7 @@ namespace DotNetNuke.Tests.Utilities
     {
         public static ContentItem CreateValidContentItem()
         {
-            ContentItem content = new ContentItem {Content = Constants.CONTENT_ValidContent, ContentKey = Constants.CONTENT_ValidContentKey, Indexed = Constants.CONTENT_IndexedFalse};
+            ContentItem content = new ContentItem { Content = Constants.CONTENT_ValidContent, ContentKey = Constants.CONTENT_ValidContentKey, Indexed = Constants.CONTENT_IndexedFalse };
             return content;
         }
 
@@ -45,7 +45,7 @@ namespace DotNetNuke.Tests.Utilities
 
         public static Term CreateValidHeirarchicalTerm(int vocabularyId, int parentId)
         {
-            Term term = new Term(vocabularyId) {Name = Constants.TERM_ValidName, Description = Constants.TERM_ValidName, Weight = Constants.TERM_ValidWeight, ParentTermId = parentId};
+            Term term = new Term(vocabularyId) { Name = Constants.TERM_ValidName, Description = Constants.TERM_ValidName, Weight = Constants.TERM_ValidWeight, ParentTermId = parentId };
             return term;
         }
 
@@ -57,20 +57,20 @@ namespace DotNetNuke.Tests.Utilities
 
         public static Term CreateValidSimpleTerm(int vocabularyId)
         {
-            Term term = new Term(vocabularyId) {Name = Constants.TERM_ValidName, Description = Constants.TERM_ValidName, Weight = Constants.TERM_ValidWeight};
+            Term term = new Term(vocabularyId) { Name = Constants.TERM_ValidName, Description = Constants.TERM_ValidName, Weight = Constants.TERM_ValidWeight };
             return term;
         }
 
         public static Vocabulary CreateValidVocabulary()
         {
             Vocabulary vocabulary = new Vocabulary
-                                        {
-                                            Name = Constants.VOCABULARY_ValidName,
-                                            Type = Constants.VOCABULARY_ValidType,
-                                            ScopeTypeId = Constants.VOCABULARY_ValidScopeTypeId,
-                                            ScopeId = Constants.VOCABULARY_ValidScopeId,
-                                            Weight = Constants.VOCABULARY_ValidWeight
-                                        };
+            {
+                Name = Constants.VOCABULARY_ValidName,
+                Type = Constants.VOCABULARY_ValidType,
+                ScopeTypeId = Constants.VOCABULARY_ValidScopeTypeId,
+                ScopeId = Constants.VOCABULARY_ValidScopeId,
+                Weight = Constants.VOCABULARY_ValidWeight
+            };
 
             return vocabulary;
         }
@@ -85,25 +85,25 @@ namespace DotNetNuke.Tests.Utilities
             }
 
             return new FileInfo
-                {
-                    ContentType = "text/plain",
-                    Extension = ".txt",
-                    FileId = fileId,
-                    FileName = new Random().Next().ToString("x").ToLowerInvariant(),
-                    Folder = @"C:\",
-                    FolderId = 0,
-                    FolderMappingID = 0,
-                    Height = 0,
-                    IsCached = false,
-                    LastModificationTime = DateTime.UtcNow,
-                    PortalId = 0,
-                    SHA1Hash = sb.ToString(),
-                    Size = 256,
-                    StorageLocation = 0,
-                    UniqueId = Guid.NewGuid(),
-                    VersionGuid = Guid.NewGuid(),
-                    Width = 0
-                };
+            {
+                ContentType = "text/plain",
+                Extension = ".txt",
+                FileId = fileId,
+                FileName = new Random().Next().ToString("x").ToLowerInvariant(),
+                Folder = @"C:\",
+                FolderId = 0,
+                FolderMappingID = 0,
+                Height = 0,
+                IsCached = false,
+                LastModificationTime = DateTime.UtcNow,
+                PortalId = 0,
+                SHA1Hash = sb.ToString(),
+                Size = 256,
+                StorageLocation = 0,
+                UniqueId = Guid.NewGuid(),
+                VersionGuid = Guid.NewGuid(),
+                Width = 0
+            };
         }
 
         public static string GetContent(int i)

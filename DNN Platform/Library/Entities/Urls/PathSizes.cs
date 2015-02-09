@@ -21,19 +21,18 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     [Serializable]
     public class PathSizes
     {
         public int MaxAliasDepth { get; set; }
-        public int MaxTabPathDepth{ get; set; }
+        public int MaxTabPathDepth { get; set; }
         public int MinAliasDepth { get; set; }
         public int MinTabPathDepth { get; set; }
 

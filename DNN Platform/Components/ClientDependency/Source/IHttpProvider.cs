@@ -12,8 +12,6 @@ namespace ClientDependency.Core
     /// </summary>
     public interface IHttpProvider
     {
-
         void Initialize(HttpContextBase http);
-
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Services.Scheduling;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.EventLog
 {
     public class PurgeLogBuffer : SchedulerClient
@@ -39,7 +38,7 @@ namespace DotNetNuke.Services.Log.EventLog
         {
             try
             {
-				//notification that the event is progressing
+                //notification that the event is progressing
                 Progressing(); //OPTIONAL
                 LoggingProvider.Instance().PurgeLogBuffer();
                 ScheduleHistoryItem.Succeeded = true; //REQUIRED

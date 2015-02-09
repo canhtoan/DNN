@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -33,20 +33,20 @@ namespace DotNetNuke.Modules.DigitalAssets.Services
     {
 #pragma warning disable 649
         [ImportMany]
-        private IEnumerable<Lazy<IDigitalAssetsController, IDigitalAssetsControllerData>> controllers;
+        private IEnumerable<Lazy<IDigitalAssetsController, IDigitalAssetsControllerData>> _controllers;
 #pragma warning restore 649
 
         public Factory()
         {
-            ExtensionPointManager.ComposeParts(this);   
+            ExtensionPointManager.ComposeParts(this);
         }
 
         public IDigitalAssetsController DigitalAssetsController
         {
             get
             {
-                var dac = controllers.SingleOrDefault(c => c.Metadata.Edition == "PE");
-                return dac != null ? dac.Value : controllers.Single(c => c.Metadata.Edition == "CE").Value;
+                var dac = _controllers.SingleOrDefault(c => c.Metadata.Edition == "PE");
+                return dac != null ? dac.Value : _controllers.Single(c => c.Metadata.Edition == "CE").Value;
             }
         }
     }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -29,14 +29,13 @@ using System.Xml.Serialization;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Exceptions
 {
     public class SecurityException : BasePortalException
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SecurityException));
-        private string m_IP;
-        private string m_Querystring;
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SecurityException));
+        private string _IP;
+        private string _querystring;
 
         //default constructor
         public SecurityException()
@@ -58,8 +57,8 @@ namespace DotNetNuke.Services.Exceptions
         protected SecurityException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             InitilizePrivateVariables();
-            m_IP = info.GetString("m_IP");
-            m_Querystring = info.GetString("m_Querystring");
+            _IP = info.GetString("m_IP");
+            _querystring = info.GetString("m_Querystring");
         }
 
         [XmlElement("IP")]
@@ -67,7 +66,7 @@ namespace DotNetNuke.Services.Exceptions
         {
             get
             {
-                return m_IP;
+                return _IP;
             }
         }
 
@@ -76,27 +75,26 @@ namespace DotNetNuke.Services.Exceptions
         {
             get
             {
-                return m_Querystring;
+                return _querystring;
             }
         }
 
         private void InitilizePrivateVariables()
         {
-			//Try and get the Portal settings from httpcontext
+            //Try and get the Portal settings from httpcontext
             try
             {
                 if (HttpContext.Current.Request.UserHostAddress != null)
                 {
-                    m_IP = HttpContext.Current.Request.UserHostAddress;
+                    _IP = HttpContext.Current.Request.UserHostAddress;
                 }
-                m_Querystring = HttpContext.Current.Request.MapPath(Querystring, HttpContext.Current.Request.ApplicationPath, false);
+                _querystring = HttpContext.Current.Request.MapPath(Querystring, HttpContext.Current.Request.ApplicationPath, false);
             }
             catch (Exception exc)
             {
-                m_IP = "";
-                m_Querystring = "";
-                Logger.Error(exc);
-
+                _IP = "";
+                _querystring = "";
+                s_logger.Error(exc);
             }
         }
 

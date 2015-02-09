@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -54,8 +55,8 @@ namespace DotNetNuke.Web.Api
         public string DenyRoles
         {
             get { return _denyRoles; }
-            set 
-            { 
+            set
+            {
                 _denyRoles = value;
                 _denyRolesSplit = SplitString(_denyRoles);
             }
@@ -66,12 +67,12 @@ namespace DotNetNuke.Web.Api
             Requires.NotNull("context", context);
 
             var principal = Thread.CurrentPrincipal;
-            if(!principal.Identity.IsAuthenticated)
+            if (!principal.Identity.IsAuthenticated)
             {
                 return false;
             }
 
-            if(_denyRolesSplit.Any())
+            if (_denyRolesSplit.Any())
             {
                 var currentUser = PortalController.Instance.GetCurrentPortalSettings().UserInfo;
                 if (!currentUser.IsSuperUser && _denyRolesSplit.Any(currentUser.IsInRole))

@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 
@@ -29,13 +29,12 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Modules;
 
 #endregion
-
 namespace DotNetNuke.Modules.RazorHost
 {
     public partial class AddScript : ModuleUserControlBase
     {
-        private string razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
-        
+        private string _razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
+
         private void DisplayExtension()
         {
             fileExtension.Text = "." + scriptFileType.SelectedValue.ToLowerInvariant();
@@ -44,7 +43,7 @@ namespace DotNetNuke.Modules.RazorHost
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
- 
+
             cmdCancel.Click += cmdCancel_Click;
             cmdAdd.Click += cmdAdd_Click;
             scriptFileType.SelectedIndexChanged += scriptFileType_SelectedIndexChanged;
@@ -53,7 +52,7 @@ namespace DotNetNuke.Modules.RazorHost
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
- 
+
             DisplayExtension();
         }
 
@@ -82,7 +81,7 @@ namespace DotNetNuke.Modules.RazorHost
                 {
                     string scriptFileName = "_" + Path.GetFileNameWithoutExtension(fileName.Text) + "." + scriptFileType.SelectedValue.ToLowerInvariant();
 
-                    string srcFile = Server.MapPath(string.Format(razorScriptFileFormatString, scriptFileName));
+                    string srcFile = Server.MapPath(string.Format(_razorScriptFileFormatString, scriptFileName));
 
                     // write file
                     StreamWriter objStream = null;

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Drawing;
@@ -35,7 +35,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.FileSystem
 {
     /// -----------------------------------------------------------------------------
@@ -55,7 +54,7 @@ namespace DotNetNuke.Services.FileSystem
     [Serializable]
     public class FileInfo : BaseEntityInfo, IHydratable, IFileInfo
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(FileInfo));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FileInfo));
         private string _folder;
         private bool? _supportsFileAttributes;
         private DateTime? _lastModificationTime;
@@ -305,7 +304,7 @@ namespace DotNetNuke.Services.FileSystem
         {
             get
             {
-                if(!_lastModificationTime.HasValue)
+                if (!_lastModificationTime.HasValue)
                 {
                     var folderMapping = FolderMappingController.Instance.GetFolderMapping(PortalId, FolderMappingID);
 
@@ -427,7 +426,7 @@ namespace DotNetNuke.Services.FileSystem
             FolderId = Null.SetNullInteger(dr["FolderId"]);
             Height = Null.SetNullInteger(dr["Height"]);
             IsCached = Null.SetNullBoolean(dr["IsCached"]);
-            PortalId  = Null.SetNullInteger(dr["PortalId"]);
+            PortalId = Null.SetNullInteger(dr["PortalId"]);
             SHA1Hash = Null.SetNullString(dr["SHA1Hash"]);
             Size = Null.SetNullInteger(dr["Size"]);
             StorageLocation = Null.SetNullInteger(dr["StorageLocation"]);
@@ -439,7 +438,7 @@ namespace DotNetNuke.Services.FileSystem
             Title = Null.SetNullString(dr["Title"]);
             EnablePublishPeriod = Null.SetNullBoolean(dr["EnablePublishPeriod"]);
             StartDate = Null.SetNullDateTime(dr["StartDate"]);
-            EndDate  = Null.SetNullDateTime(dr["EndDate"]);
+            EndDate = Null.SetNullDateTime(dr["EndDate"]);
             ContentItemID = Null.SetNullInteger(dr["ContentItemID"]);
             PublishedVersion = Null.SetNullInteger(dr["PublishedVersion"]);
             FillBaseProperties(dr);
@@ -463,7 +462,7 @@ namespace DotNetNuke.Services.FileSystem
         #region Private methods
 
         private void LoadImageProperties()
-        {            
+        {
             var fileManager = (FileManager)FileManager.Instance;
             if (!fileManager.IsImageFile(this))
             {
@@ -506,20 +505,19 @@ namespace DotNetNuke.Services.FileSystem
                     image.Dispose();
                 }
                 fileContent.Position = 0;
-            }    
+            }
             fileContent.Close();
         }
 
         private void LoadHashProperty()
         {
             var fileManager = (FileManager)FileManager.Instance;
-            var currentHashCode = FolderProvider.Instance( FolderMappingController.Instance.GetFolderMapping(FolderMappingID).FolderProviderType).GetHashCode(this);
+            var currentHashCode = FolderProvider.Instance(FolderMappingController.Instance.GetFolderMapping(FolderMappingID).FolderProviderType).GetHashCode(this);
             if (currentHashCode != _sha1Hash)
             {
                 _sha1Hash = currentHashCode;
                 fileManager.UpdateFile(this);
             }
-            
         }
 
         #endregion

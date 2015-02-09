@@ -8,7 +8,7 @@ using ClientDependency.Core.Logging;
 namespace ClientDependency.Core.Config
 {
     public class ClientDependencySection : ConfigurationSection
-	{
+    {
         /// <summary>
         /// Set the version for the files, this will reset all composite file caching, and if
         /// composite files are disabled will add a query string to each request so that 
@@ -20,24 +20,24 @@ namespace ClientDependency.Core.Config
             get { return (int)base["version"]; }
             set { base["version"] = value; }
         }
-       
-		[ConfigurationProperty("compositeFiles")]
-		public CompositeFileSection CompositeFileElement
-		{
-		    get
-		    {
-				return (CompositeFileSection)this["compositeFiles"];
-		    }
-		}
 
-		[ConfigurationProperty("fileRegistration")]
-		public FileRegistrationSection FileRegistrationElement
-		{
-			get
-			{
-				return (FileRegistrationSection)this["fileRegistration"];
-			}
-		}
+        [ConfigurationProperty("compositeFiles")]
+        public CompositeFileSection CompositeFileElement
+        {
+            get
+            {
+                return (CompositeFileSection)this["compositeFiles"];
+            }
+        }
+
+        [ConfigurationProperty("fileRegistration")]
+        public FileRegistrationSection FileRegistrationElement
+        {
+            get
+            {
+                return (FileRegistrationSection)this["fileRegistration"];
+            }
+        }
 
         [ConfigurationProperty("mvc")]
         public MvcSection MvcElement
@@ -72,7 +72,7 @@ namespace ClientDependency.Core.Config
                 {
                     var col = new ProviderSettingsCollection();
                     col.Add(new ProviderSettings("MvcFilter", "ClientDependency.Core.Mvc.MvcFilter, ClientDependency.Core.Mvc"));
-                    col.Add(new ProviderSettings("RogueFileFilter", "ClientDependency.Core.Module.RogueFileFilter, ClientDependency.Core"));                    
+                    col.Add(new ProviderSettings("RogueFileFilter", "ClientDependency.Core.Module.RogueFileFilter, ClientDependency.Core"));
                     return col;
                 }
                 else
@@ -115,6 +115,5 @@ namespace ClientDependency.Core.Config
                     .Select(x => x.Trim().ToUpper());
             }
         }
-	}
-
+    }
 }

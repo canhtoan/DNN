@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,7 +34,6 @@ using DotNetNuke.Services.Installer.Packages;
 using ICSharpCode.SharpZipLib.Zip;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer
 {
     /// -----------------------------------------------------------------------------
@@ -48,11 +47,11 @@ namespace DotNetNuke.Services.Installer
     [Serializable]
     public class InstallerInfo
     {
-		#region Private Members
+        #region Private Members
 
         #endregion
 
-		#region Constructors
+        #region Constructors
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -136,10 +135,10 @@ namespace DotNetNuke.Services.Installer
             ManifestFile = new InstallFile(Path.Combine(TempInstallFolder, package.Name + ".dnn"));
             package.AttachInstallerInfo(this);
         }
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -319,7 +318,7 @@ namespace DotNetNuke.Services.Installer
 
         #endregion
 
-		#region Private Methods
+        #region Private Methods
 
         private void Initialize()
         {
@@ -345,11 +344,11 @@ namespace DotNetNuke.Services.Installer
             {
                 if (!entry.IsDirectory)
                 {
-					//Add file to list
+                    //Add file to list
                     var file = new InstallFile(unzip, entry, this);
                     if (file.Type == InstallFileType.Resources && (file.Name.ToLowerInvariant() == "containers.zip" || file.Name.ToLowerInvariant() == "skins.zip"))
                     {
-						//Temporarily save the TempInstallFolder
+                        //Temporarily save the TempInstallFolder
                         string tmpInstallFolder = TempInstallFolder;
 
                         //Create Zip Stream from File
@@ -385,7 +384,7 @@ namespace DotNetNuke.Services.Installer
                                 }
                                 else if (file.Extension == "dnn6" && (ManifestFile.Extension == "dnn" || ManifestFile.Extension == "dnn5"))
                                 {
-                                   ManifestFile = file; 
+                                    ManifestFile = file;
                                 }
                                 else if (file.Extension == "dnn5" && ManifestFile.Extension == "dnn")
                                 {
@@ -415,11 +414,11 @@ namespace DotNetNuke.Services.Installer
                 Log.AddFailure(new Exception(Util.EXCEPTION_FileLoad));
                 Log.EndJob(Util.FILES_ReadingEnd);
             }
-			
+
             //Close the Zip Input Stream as we have finished with it
             inputStream.Close();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

@@ -17,25 +17,27 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+using System;
+using System.Web;
+using ClientDependency.Core;
+using ClientDependency.Core.CompositeFiles;
+using ClientDependency.Core.CompositeFiles.Providers;
+
+
 namespace DotNetNuke.Web.Client.Providers
 {
-    using System;
-    using System.Web;
-    using ClientDependency.Core;
-    using ClientDependency.Core.CompositeFiles;
-    using ClientDependency.Core.CompositeFiles.Providers;
-
     /// <summary>
     /// A provider for combining, minifying, compressing and saving composite scripts/css files
     /// </summary>
     public class DnnCompositeFileProcessingProvider : CompositeFileProcessingProvider
     {
-        private readonly ClientResourceSettings clientResourceSettings = new ClientResourceSettings();
+        private readonly ClientResourceSettings _clientResourceSettings = new ClientResourceSettings();
 
         public override int GetVersion()
         {
-            var settingsVersion = clientResourceSettings.GetVersion();
+            var settingsVersion = _clientResourceSettings.GetVersion();
             return settingsVersion.HasValue ? settingsVersion.Value : base.GetVersion();
         }
 
@@ -56,7 +58,7 @@ namespace DotNetNuke.Web.Client.Providers
         {
             get
             {
-                var enableCssMinification = clientResourceSettings.EnableCssMinification();
+                var enableCssMinification = _clientResourceSettings.EnableCssMinification();
                 return enableCssMinification.HasValue ? enableCssMinification.Value : EnableCssMinify;
             }
         }
@@ -65,7 +67,7 @@ namespace DotNetNuke.Web.Client.Providers
         {
             get
             {
-                var enableJsMinification = clientResourceSettings.EnableJsMinification();
+                var enableJsMinification = _clientResourceSettings.EnableJsMinification();
                 return enableJsMinification.HasValue ? enableJsMinification.Value : EnableJsMinify;
             }
         }

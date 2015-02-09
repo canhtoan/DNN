@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,15 +19,14 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Xml.XPath;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Dependencies
 {
     /// -----------------------------------------------------------------------------
@@ -39,13 +38,13 @@ namespace DotNetNuke.Services.Installer.Dependencies
     /// -----------------------------------------------------------------------------
     public class PackageDependency : DependencyBase
     {
-        private string PackageName;
+        private string _packageName;
 
         public override string ErrorMessage
         {
             get
             {
-                return Util.INSTALL_Package + " - " + PackageName;
+                return Util.INSTALL_Package + " - " + _packageName;
             }
         }
 
@@ -56,7 +55,7 @@ namespace DotNetNuke.Services.Installer.Dependencies
                 bool _IsValid = true;
 
                 //Get Package from DataStore
-                PackageInfo package = PackageController.Instance.GetExtensionPackage(Null.NullInteger, (p) => p.Name == PackageName);
+                PackageInfo package = PackageController.Instance.GetExtensionPackage(Null.NullInteger, (p) => p.Name == _packageName);
                 if (package == null)
                 {
                     _IsValid = false;
@@ -67,7 +66,7 @@ namespace DotNetNuke.Services.Installer.Dependencies
 
         public override void ReadManifest(XPathNavigator dependencyNav)
         {
-            PackageName = dependencyNav.Value;
+            _packageName = dependencyNav.Value;
         }
     }
 }

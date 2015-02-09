@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,43 +45,43 @@ using Directory = System.IO.Directory;
 
 namespace DotNetNuke.Tests.Core.Controllers.Search
 {
-	/// <summary>
+    /// <summary>
     ///  Testing various aspects of LuceneController
-	/// </summary>
-	[TestFixture]
-	public class LuceneControllerTests
-	{
-		#region Private Properties & Constants
+    /// </summary>
+    [TestFixture]
+    public class LuceneControllerTests
+    {
+        #region Private Properties & Constants
 
-	    private readonly double _readerStaleTimeSpan = TimeSpan.FromMilliseconds(100).TotalSeconds;
-	    private const string SearchIndexFolder = @"App_Data\LuceneTests";
-	    private const string WriteLockFile = "write.lock";
-	    private const string Line1 = "the quick brown fox jumps over the lazy dog";
-	    private const string Line2 = "the quick gold fox jumped over the lazy black dog";
-	    private const string Line3 = "the quick fox jumps over the black dog";
-	    private const string Line4 = "the red fox jumped over the lazy dark gray dog";
-        private const string Line_Chinese = "这里是中文的内容";
+        private readonly double _readerStaleTimeSpan = TimeSpan.FromMilliseconds(100).TotalSeconds;
+        private const string SearchIndexFolder = @"App_Data\LuceneTests";
+        private const string WriteLockFile = "write.lock";
+        private const string Line1 = "the quick brown fox jumps over the lazy dog";
+        private const string Line2 = "the quick gold fox jumped over the lazy black dog";
+        private const string Line3 = "the quick fox jumps over the black dog";
+        private const string Line4 = "the red fox jumped over the lazy dark gray dog";
+        private const string Line_Chinese = "\u8FD9\u91CC\u662F\u4E2D\u6587\u7684\u5185\u5BB9";
 
         private const string SearchKeyword_Line1 = "fox";
-        private const string SearchKeyword_Chinese = "中文";
+        private const string SearchKeyword_Chinese = "\u4E2D\u6587";
 
-	    private const string EmptyCustomAnalyzer = "";
-	    private const string InvalidCustomAnalyzer = "Lucene.Net.Analysis.Cn.ChineseInvalidAnalyzer";
+        private const string EmptyCustomAnalyzer = "";
+        private const string InvalidCustomAnalyzer = "Lucene.Net.Analysis.Cn.ChineseInvalidAnalyzer";
         private const string ValidCustomAnalyzer = "Lucene.Net.Analysis.Cn.ChineseAnalyzer, Lucene.Net.Contrib.Analyzers";
 
         private Mock<IHostController> _mockHostController;
         private LuceneControllerImpl _luceneController;
         private Mock<CachingProvider> _cachingProvider;
         private Mock<ISearchHelper> _mockSearchHelper;
-	    private Mock<SearchQuery> _mockSearchQuery;
+        private Mock<SearchQuery> _mockSearchQuery;
 
-		#endregion
+        #endregion
 
-		#region Set Up
+        #region Set Up
 
-		[SetUp]
-		public void SetUp()
-		{
+        [SetUp]
+        public void SetUp()
+        {
             ComponentFactory.Container = new SimpleContainer();
             _cachingProvider = MockComponentProvider.CreateDataCacheProvider();
 
@@ -102,10 +102,10 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             _mockSearchQuery = new Mock<SearchQuery>();
 
             DeleteIndexFolder();
-		    CreateNewLuceneControllerInstance();
-		}
+            CreateNewLuceneControllerInstance();
+        }
 
-	    [TearDown]
+        [TearDown]
         public void TearDown()
         {
             _luceneController.Dispose();
@@ -114,7 +114,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
         }
 
 
-		#endregion
+        #endregion
 
         #region Private Methods
 
@@ -145,7 +145,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
                 if (Directory.Exists(SearchIndexFolder))
                     Directory.Delete(SearchIndexFolder, true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
@@ -157,24 +157,24 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
         private void AddStandardDocs()
         {
             string[] lines = {
-                Line1, Line2, Line3, Line4 
+                Line1, Line2, Line3, Line4
                 };
 
             AddLinesAsSearchDocs(lines);
         }
 
         private void AddLinesAsSearchDocs(IEnumerable<string> lines)
-         {
-             foreach (var line in lines)
-             {
-                 var field = new Field(Constants.ContentTag, line, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
-                 var doc = new Document();
-                 doc.Add(field);
-                 _luceneController.Add(doc);
-             }
+        {
+            foreach (var line in lines)
+            {
+                var field = new Field(Constants.ContentTag, line, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS);
+                var doc = new Document();
+                doc.Add(field);
+                _luceneController.Add(doc);
+            }
 
-             _luceneController.Commit();
-         }
+            _luceneController.Commit();
+        }
 
         #endregion
 
@@ -209,7 +209,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
         public void LuceneController_Add_Empty_FiledsCollection_DoesNot_Create_Index()
         {
             //Arrange     
-            
+
             //Act
             _luceneController.Add(new Document());
             _luceneController.Commit();
@@ -235,7 +235,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             _luceneController.Add(doc);
             _luceneController.Commit();
 
-            var hits = _luceneController.Search(CreateSearchContext(new LuceneQuery {Query = new TermQuery(new Term(fieldName, "fox"))}));
+            var hits = _luceneController.Search(CreateSearchContext(new LuceneQuery { Query = new TermQuery(new Term(fieldName, "fox")) }));
 
             //Assert
             Assert.AreEqual(1, hits.Results.Count());
@@ -259,7 +259,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             _luceneController.Add(doc);
             _luceneController.Commit();
 
-            var hits = _luceneController.Search( CreateSearchContext(new LuceneQuery {Query = new TermQuery(new Term(fieldName, "fox"))}));
+            var hits = _luceneController.Search(CreateSearchContext(new LuceneQuery { Query = new TermQuery(new Term(fieldName, "fox")) }));
 
             //Assert
             Assert.AreEqual(1, hits.Results.Count());
@@ -297,7 +297,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             //Arrange
             AddStandardDocs();
 
-            var hits = _luceneController.Search(CreateSearchContext(new LuceneQuery {Query = new TermQuery(new Term(Constants.ContentTag, "fox"))}));
+            var hits = _luceneController.Search(CreateSearchContext(new LuceneQuery { Query = new TermQuery(new Term(Constants.ContentTag, "fox")) }));
 
             //Assert
             Assert.AreEqual(4, hits.TotalHits);
@@ -337,7 +337,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             AddStandardDocs();
 
             var hits = _luceneController.Search(CreateSearchContext(new LuceneQuery { Query = new TermQuery(new Term(Constants.ContentTag, "fox")), PageIndex = 1, PageSize = 4 }));
-            
+
             //Assert
             Assert.AreEqual(4, hits.TotalHits);
             Assert.AreEqual(4, hits.Results.Count());
@@ -350,11 +350,12 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             AddStandardDocs();
 
             var hits = _luceneController.Search(CreateSearchContext(
-                new LuceneQuery{
-                        Query = new TermQuery(new Term(Constants.ContentTag, "fox")),
-                        PageIndex = 5,
-                        PageSize = 10
-                    }));
+                new LuceneQuery
+                {
+                    Query = new TermQuery(new Term(Constants.ContentTag, "fox")),
+                    PageIndex = 5,
+                    PageSize = 10
+                }));
 
             //Assert
             Assert.AreEqual(4, hits.TotalHits);
@@ -369,9 +370,11 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             AddStandardDocs();
 
             var query = new LuceneQuery
-                {
-                    Query = new TermQuery(new Term(Constants.ContentTag, "quick")), PageIndex = 2, PageSize = 1
-                };
+            {
+                Query = new TermQuery(new Term(Constants.ContentTag, "quick")),
+                PageIndex = 2,
+                PageSize = 1
+            };
 
             var hits = _luceneController.Search(CreateSearchContext(query));
 
@@ -449,7 +452,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             Assert.AreEqual(1, hits.Results.Count());
 
             query = NumericRangeQuery.NewLongRange(fieldName, long.Parse(DateTime.Now.AddDays(-368).ToString(Constants.DateTimeFormat)), long.Parse(DateTime.Now.ToString(Constants.DateTimeFormat)), true, true);
-            hits = _luceneController.Search(CreateSearchContext(new LuceneQuery {Query = query}));
+            hits = _luceneController.Search(CreateSearchContext(new LuceneQuery { Query = query }));
             Assert.AreEqual(2, hits.Results.Count());
         }
 
@@ -546,7 +549,6 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             //Assert
             Assert.AreEqual(1, hits.Results.Count());
             Assert.AreEqual("brown <b>fox</b> jumps over the lazy dog", hits.Results.ElementAt(0).ContentSnippet);
-
         }
 
         #endregion
@@ -613,8 +615,8 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
         }
 
         [Test]
-	    public void LuceneController_ReaderNotChangedBeforeTimeSpanElapsed()
-	    {
+        public void LuceneController_ReaderNotChangedBeforeTimeSpanElapsed()
+        {
             //Arrange
             const string fieldName = "content";
 
@@ -683,28 +685,28 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
 
         #region Locking Tests
 
-	    [Test]
-	    public void LuceneController_LockFileWhenExistsDoesNotCauseProblemForFirstIController()
-	    {
-	        //Arrange
-	        const string fieldName = "content";
-	        var lockFile = Path.Combine(SearchIndexFolder, WriteLockFile);
-	        if (!Directory.Exists(SearchIndexFolder)) Directory.CreateDirectory(SearchIndexFolder);
-	        if (!File.Exists(lockFile))
-	        {
-	            File.Create(lockFile).Close();
-	        }
+        [Test]
+        public void LuceneController_LockFileWhenExistsDoesNotCauseProblemForFirstIController()
+        {
+            //Arrange
+            const string fieldName = "content";
+            var lockFile = Path.Combine(SearchIndexFolder, WriteLockFile);
+            if (!Directory.Exists(SearchIndexFolder)) Directory.CreateDirectory(SearchIndexFolder);
+            if (!File.Exists(lockFile))
+            {
+                File.Create(lockFile).Close();
+            }
 
-	        //Act 
-	        var doc1 = new Document();
-	        doc1.Add(new NumericField(fieldName, Field.Store.YES, true).SetIntValue(1));
+            //Act 
+            var doc1 = new Document();
+            doc1.Add(new NumericField(fieldName, Field.Store.YES, true).SetIntValue(1));
 
-	        //Assert
+            //Assert
             Assert.True(File.Exists(lockFile));
             Assert.DoesNotThrow(() => _luceneController.Add(doc1));
-	    }
+        }
 
-	    [Test]
+        [Test]
         public void LuceneController_LockFileCanBeObtainedByOnlySingleController()
         {
             //Arrange
@@ -729,8 +731,8 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
         #region Added/Deleted documents count and ptimization tests
 
         //Arrange
-        const int TotalTestDocs2Create = 5;
-        const string ContentFieldName = "content";
+        private const int TotalTestDocs2Create = 5;
+        private const string ContentFieldName = "content";
 
         private int AddTestDocs()
         {
@@ -777,10 +779,10 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
         public void LuceneController_TestDeleteBeforeOptimize()
         {
             //Arrange
-	        AddTestDocs();
+            AddTestDocs();
             var delCount = DeleteTestDocs();
 
-	        Assert.IsTrue(_luceneController.HasDeletions());
+            Assert.IsTrue(_luceneController.HasDeletions());
             Assert.AreEqual(TotalTestDocs2Create, _luceneController.MaxDocsCount());
             Assert.AreEqual(TotalTestDocs2Create - delCount, _luceneController.SearchbleDocsCount());
         }
@@ -829,7 +831,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
 
         private LuceneSearchContext CreateSearchContext(LuceneQuery luceneQuery)
         {
-            return new LuceneSearchContext {LuceneQuery = luceneQuery, SearchQuery = _mockSearchQuery.Object };
+            return new LuceneSearchContext { LuceneQuery = luceneQuery, SearchQuery = _mockSearchQuery.Object };
         }
     }
 }

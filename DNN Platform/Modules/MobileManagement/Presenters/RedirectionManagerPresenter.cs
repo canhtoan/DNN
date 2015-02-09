@@ -3,6 +3,7 @@
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
+
 #endregion
 using System;
 using System.Linq;
@@ -22,14 +23,13 @@ namespace DotNetNuke.Modules.MobileManagement.Presenters
     {
         private readonly IRedirectionController _redirectionController;
 
-		/// <summary>
-		/// presenter constructor with view
-		/// </summary>
-		/// <param name="view">the view.</param>
-		public RedirectionManagerPresenter(IRedirectionManagerView view) : this(view, new RedirectionController())
-		{
-			
-		}
+        /// <summary>
+        /// presenter constructor with view
+        /// </summary>
+        /// <param name="view">the view.</param>
+        public RedirectionManagerPresenter(IRedirectionManagerView view) : this(view, new RedirectionController())
+        {
+        }
         /// <summary>
 		/// presenter constructor with view and the business controller.
         /// </summary>
@@ -37,13 +37,13 @@ namespace DotNetNuke.Modules.MobileManagement.Presenters
         /// <param name="controller">the redirection business controller.</param>
         public RedirectionManagerPresenter(IRedirectionManagerView view, IRedirectionController controller) : base(view)
         {
-			_redirectionController = controller;
+            _redirectionController = controller;
             View.RedirectionItemAction += RedirectionItemAction;
         }
 
         protected override void OnLoad()
         {
-			base.OnLoad();
+            base.OnLoad();
 
             // Generate the Add redirect URL
             var editUrl = ModuleContext.EditUrl("{0}");
@@ -61,7 +61,7 @@ namespace DotNetNuke.Modules.MobileManagement.Presenters
             switch (e.CommandName)
             {
                 case "delete":
-                    _redirectionController.Delete(ModuleContext.PortalId, id);                    
+                    _redirectionController.Delete(ModuleContext.PortalId, id);
                     break;
                 case "enable":
                     var redirection = _redirectionController.GetRedirectionById(ModuleContext.PortalId, id);

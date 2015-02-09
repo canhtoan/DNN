@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     public class SettingNameComparer : IComparer
@@ -35,7 +34,7 @@ namespace DotNetNuke.UI.WebControls
         {
             if (x is SettingInfo && y is SettingInfo)
             {
-                return string.Compare(((SettingInfo) x).Name, ((SettingInfo) y).Name);
+                return string.Compare(((SettingInfo)x).Name, ((SettingInfo)y).Name);
             }
             else
             {

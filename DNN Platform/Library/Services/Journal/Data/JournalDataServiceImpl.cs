@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,15 +21,14 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Data;
 
 using DotNetNuke.Data;
 
 #endregion
-
 namespace DotNetNuke.Services.Journal
 {
     internal class JournalDataServiceImpl : IJournalDataService
@@ -78,17 +77,17 @@ namespace DotNetNuke.Services.Journal
         {
             _provider.ExecuteNonQuery("Journal_Delete", journalId, true);
         }
-        
+
         public void Journal_SoftDeleteByKey(int portalId, string objectKey)
         {
             _provider.ExecuteNonQuery("Journal_DeleteByKey", portalId, objectKey, true);
         }
-        
+
         public void Journal_SoftDeleteByGroupId(int portalId, int groupId)
         {
             _provider.ExecuteNonQuery("Journal_DeleteByGroupId", portalId, groupId, true);
         }
-        
+
         public void Journal_Like(int journalId, int userId, string displayName)
         {
             _provider.ExecuteNonQuery("Journal_Like", journalId, userId, displayName);
@@ -103,7 +102,7 @@ namespace DotNetNuke.Services.Journal
         {
             _provider.ExecuteNonQuery("Journal_UpdateContentItemId", journalId, contentItemId);
         }
-        public IDataReader Journal_Get(int portalId, int currentUserId, int journalId) 
+        public IDataReader Journal_Get(int portalId, int currentUserId, int journalId)
         {
             return Journal_Get(portalId, currentUserId, journalId, false, false, false);
         }
@@ -111,7 +110,8 @@ namespace DotNetNuke.Services.Journal
         {
             return _provider.ExecuteReader("Journal_Get", portalId, currentUserId, journalId, includeAllItems, isDeleted, securityCheck);
         }
-        public IDataReader Journal_GetByKey(int portalId, string objectKey) {
+        public IDataReader Journal_GetByKey(int portalId, string objectKey)
+        {
             return Journal_GetByKey(portalId, objectKey, false, false);
         }
         public IDataReader Journal_GetByKey(int portalId, string objectKey, bool includeAllItems, bool isDeleted)
@@ -119,12 +119,12 @@ namespace DotNetNuke.Services.Journal
             return _provider.ExecuteReader("Journal_GetByKey", portalId, objectKey, includeAllItems, isDeleted);
         }
         public int Journal_Save(int portalId, int currentUserId, int profileId, int groupId, int journalId, int journalTypeId, string title,
-                                string summary, string body, string itemData, string xml, string objectKey, Guid accessKey, string securitySet) 
-        {  
-            journalId = _provider.ExecuteScalar<int>("Journal_Save", portalId, journalId, journalTypeId, currentUserId, profileId, 
+                                string summary, string body, string itemData, string xml, string objectKey, Guid accessKey, string securitySet)
+        {
+            journalId = _provider.ExecuteScalar<int>("Journal_Save", portalId, journalId, journalTypeId, currentUserId, profileId,
                                                     groupId, title, summary, itemData, xml, objectKey, accessKey, securitySet, false, false);
             return journalId;
-         }
+        }
         public int Journal_Save(int portalId, int currentUserId, int profileId, int groupId, int journalId, int journalTypeId, string title,
                         string summary, string body, string itemData, string xml, string objectKey, Guid accessKey, string securitySet, bool commentsDisabled, bool commentsHidden)
         {
@@ -147,7 +147,8 @@ namespace DotNetNuke.Services.Journal
                                                     groupId, title, summary, itemData, xml, objectKey, accessKey, securitySet, commentsDisabled, commentsHidden);
             return journalId;
         }
-        public void Journal_Comment_Delete(int journalId, int commentId) {
+        public void Journal_Comment_Delete(int journalId, int commentId)
+        {
             _provider.ExecuteNonQuery("Journal_Comment_Delete", journalId, commentId);
         }
 
@@ -156,7 +157,7 @@ namespace DotNetNuke.Services.Journal
             commentId = _provider.ExecuteScalar<int>("Journal_Comment_Save", journalId, commentId, userId, comment, xml, DataProvider.Instance().GetNull(dateUpdated));
             return commentId;
         }
-       
+
         public IDataReader Journal_Comment_List(int journalId)
         {
             return _provider.ExecuteReader("Journal_Comment_List", journalId);
@@ -176,7 +177,8 @@ namespace DotNetNuke.Services.Journal
         {
             _provider.ExecuteNonQuery("Journal_Comment_Like", journalId, commentId, userId, displayName);
         }
-        public IDataReader Journal_Comment_LikeList(int portalId, int journalId, int commentId) {
+        public IDataReader Journal_Comment_LikeList(int portalId, int journalId, int commentId)
+        {
             return _provider.ExecuteReader("Journal_Comment_LikeList", portalId, journalId, commentId);
         }
         public void Journal_Comments_ToggleDisable(int portalId, int journalId, bool disable)
@@ -188,7 +190,8 @@ namespace DotNetNuke.Services.Journal
         {
             _provider.ExecuteNonQuery("Journal_Comments_ToggleHidden", portalId, journalId, hidden);
         }
-        public IDataReader Journal_Types_List(int portalId) {
+        public IDataReader Journal_Types_List(int portalId)
+        {
             return _provider.ExecuteReader("Journal_Types_List", portalId);
         }
 

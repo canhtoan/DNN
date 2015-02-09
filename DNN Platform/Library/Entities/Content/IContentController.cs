@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -28,7 +28,6 @@ using DotNetNuke.Entities.Content.Common;
 using DotNetNuke.Entities.Content.Taxonomy;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content
 {
     /// <summary>
@@ -65,7 +64,7 @@ namespace DotNetNuke.Entities.Content
         /// <summary>Delete a ContentItem object by ID.</summary>
         /// <param name="contentItemId">The ID of the ContentItem object (ContentItemId)</param>
 	    void DeleteContentItem(int contentItemId);
-        
+
         /// <summary>
         /// Gets the content item.
         /// </summary>

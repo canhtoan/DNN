@@ -1,4 +1,4 @@
-using DotNetNuke.Entities.Portals;
+﻿using DotNetNuke.Entities.Portals;
 
 namespace DotNetNuke.Services.Log.EventLog
 {

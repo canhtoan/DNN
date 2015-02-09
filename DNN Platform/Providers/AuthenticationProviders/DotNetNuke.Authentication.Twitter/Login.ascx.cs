@@ -20,8 +20,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Authentication.Twitter.Components;
@@ -31,7 +31,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 
 #endregion
-
 namespace DotNetNuke.Authentication.Twitter
 {
     public partial class Login : OAuthLoginBase
@@ -78,7 +77,6 @@ namespace DotNetNuke.Authentication.Twitter
             if (result == AuthorisationResult.Denied)
             {
                 UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("PrivateConfirmationMessage", Localization.SharedResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
-
             }
         }
     }

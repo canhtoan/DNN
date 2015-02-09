@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Net;
 using System.Security;
@@ -27,7 +27,6 @@ using System.Security.Permissions;
 using System.Web;
 
 #endregion
-
 namespace DotNetNuke.Framework
 {
     public class SecurityPolicy
@@ -36,11 +35,11 @@ namespace DotNetNuke.Framework
         public const string WebPermission = "WebPermission";
         public const string AspNetHostingPermission = "AspNetHostingPermission";
         public const string UnManagedCodePermission = "UnManagedCodePermission";
-        private static bool m_Initialized;
-        private static bool m_ReflectionPermission;
-        private static bool m_WebPermission;
-        private static bool m_AspNetHostingPermission;
-        private static bool m_UnManagedCodePermission;
+        private static bool s_initialized;
+        private static bool s_reflectionPermission;
+        private static bool s_webPermission;
+        private static bool s_aspNetHostingPermission;
+        private static bool s_unManagedCodePermission;
 
         public static string Permissions
         {
@@ -69,7 +68,7 @@ namespace DotNetNuke.Framework
 
         private static void GetPermissions()
         {
-            if (!m_Initialized)
+            if (!s_initialized)
             {
                 //test RelectionPermission
                 CodeAccessPermission securityTest;
@@ -77,51 +76,51 @@ namespace DotNetNuke.Framework
                 {
                     securityTest = new ReflectionPermission(PermissionState.Unrestricted);
                     securityTest.Demand();
-                    m_ReflectionPermission = true;
+                    s_reflectionPermission = true;
                 }
                 catch
                 {
                     //code access security error
-                    m_ReflectionPermission = false;
+                    s_reflectionPermission = false;
                 }
-				
+
                 //test WebPermission
                 try
                 {
                     securityTest = new WebPermission(PermissionState.Unrestricted);
                     securityTest.Demand();
-                    m_WebPermission = true;
+                    s_webPermission = true;
                 }
                 catch
                 {
                     //code access security error
-                    m_WebPermission = false;
+                    s_webPermission = false;
                 }
-				
+
                 //test WebHosting Permission (Full Trust)
                 try
                 {
                     securityTest = new AspNetHostingPermission(AspNetHostingPermissionLevel.Unrestricted);
                     securityTest.Demand();
-                    m_AspNetHostingPermission = true;
+                    s_aspNetHostingPermission = true;
                 }
                 catch
                 {
                     //code access security error
-                    m_AspNetHostingPermission = false;
+                    s_aspNetHostingPermission = false;
                 }
-                m_Initialized = true;
+                s_initialized = true;
 
                 //Test for Unmanaged Code permission
                 try
                 {
                     securityTest = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
                     securityTest.Demand();
-                    m_UnManagedCodePermission = true;
+                    s_unManagedCodePermission = true;
                 }
                 catch (Exception e)
                 {
-                    m_UnManagedCodePermission = false;
+                    s_unManagedCodePermission = false;
                 }
             }
         }
@@ -129,25 +128,25 @@ namespace DotNetNuke.Framework
         public static bool HasAspNetHostingPermission()
         {
             GetPermissions();
-            return m_AspNetHostingPermission;
+            return s_aspNetHostingPermission;
         }
 
         public static bool HasReflectionPermission()
         {
             GetPermissions();
-            return m_ReflectionPermission;
+            return s_reflectionPermission;
         }
 
         public static bool HasWebPermission()
         {
             GetPermissions();
-            return m_WebPermission;
+            return s_webPermission;
         }
 
         public static bool HasUnManagedCodePermission()
         {
             GetPermissions();
-            return m_UnManagedCodePermission;
+            return s_unManagedCodePermission;
         }
 
         public static bool HasPermissions(string permissions, ref string permission)
@@ -197,7 +196,7 @@ namespace DotNetNuke.Framework
         public static bool HasRelectionPermission()
         {
             GetPermissions();
-            return m_ReflectionPermission;
+            return s_reflectionPermission;
         }
     }
 }

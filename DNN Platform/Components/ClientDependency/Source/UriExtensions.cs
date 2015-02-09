@@ -40,7 +40,7 @@ namespace ClientDependency.Core
         public static bool IsLocalUri(this Uri uri, HttpContextBase http)
         {
             var isLocal = false;
-            
+
             try
             {
                 if (!uri.IsAbsoluteUri)
@@ -84,13 +84,12 @@ namespace ClientDependency.Core
             }
             catch (Exception)
             {
-                
                 //suppress error - triggered if user has no internet connection or environment permission
                 //we assume local files as we cannot support non local files without an internet connection
                 AddUriCacheitem(http, uri.ToString(), true);
                 return true;
             }
-            
+
             return isLocal;
         }
 
@@ -100,13 +99,12 @@ namespace ClientDependency.Core
         /// <param name="http">the current httpcontext</param>
         /// <param name="url">the url being examined</param>
         /// <param name="islocal">whether it is a local file</param>
-   
-        private static void AddUriCacheitem(HttpContextBase http,string url, bool islocal)
-        {
-              IDictionary<string, string> testDict = new Dictionary<string, string>();
-                testDict.Add(url, islocal.ToString());
-                http.Cache.Insert("IsLocalUri", testDict);
 
+        private static void AddUriCacheitem(HttpContextBase http, string url, bool islocal)
+        {
+            IDictionary<string, string> testDict = new Dictionary<string, string>();
+            testDict.Add(url, islocal.ToString());
+            http.Cache.Insert("IsLocalUri", testDict);
         }
     }
 }

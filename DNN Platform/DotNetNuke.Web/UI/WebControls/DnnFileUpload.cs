@@ -14,11 +14,9 @@ using DotNetNuke.Web.Common;
 
 namespace DotNetNuke.Web.UI.WebControls
 {
-
     [ToolboxData("<{0}:DnnFileUpload runat='server'></{0}:DnnFileUpload>")]
     public class DnnFileUpload : Control, INamingContainer
     {
-
         private readonly Lazy<DnnFileUploadOptions> _options = new Lazy<DnnFileUploadOptions>(() => new DnnFileUploadOptions());
 
         public DnnFileUploadOptions Options
@@ -153,8 +151,6 @@ namespace DotNetNuke.Web.UI.WebControls
             {
                 Page.ClientScript.RegisterStartupScript(GetType(), ClientID + "DnnFileUpload", script, true);
             }
-
         }
-
     }
 }

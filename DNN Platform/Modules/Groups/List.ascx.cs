@@ -42,12 +42,11 @@ namespace DotNetNuke.Modules.Groups
             {
                 txtFilter.Text = GroupListFilter;
             }
-
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            if(!Page.IsValid) return;
+            if (!Page.IsValid) return;
 
             Response.Redirect(Globals.NavigateURL(TabId, "", "filter=" + txtFilter.Text.Trim()));
         }

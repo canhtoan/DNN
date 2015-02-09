@@ -1,6 +1,6 @@
-#region Copyright
+ï»¿#region Copyright
 // 
-// DotNetNuke® - http://www.dotnetnuke.com
+// DotNetNukeÂ® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     /// -----------------------------------------------------------------------------
@@ -46,16 +45,16 @@ namespace DotNetNuke.Security.Permissions
     [Serializable]
     public class ModulePermissionInfo : PermissionInfoBase, IHydratable
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         private int _moduleID;
 
         //local property declarations
         private int _modulePermissionID;
-		
-		#endregion
-		
-		#region "Constructors"
+
+        #endregion
+
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -88,10 +87,10 @@ namespace DotNetNuke.Security.Permissions
             PermissionKey = permission.PermissionKey;
             PermissionName = permission.PermissionName;
         }
-		
-		#endregion
-		
-		#region "Public Properties"
+
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -136,8 +135,8 @@ namespace DotNetNuke.Security.Permissions
                 _moduleID = value;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IHydratable Members
 
@@ -180,8 +179,8 @@ namespace DotNetNuke.Security.Permissions
         }
 
         #endregion
-		
-		#region "Public Methods"
+
+        #region "Public Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -197,7 +196,7 @@ namespace DotNetNuke.Security.Permissions
         /// is already included in the collection.
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	09/01/2005	Created
+        /// 	[VicenÃ§]	09/01/2005	Created
         /// </history>
         /// -----------------------------------------------------------------------------
         public bool Equals(ModulePermissionInfo other)
@@ -227,7 +226,7 @@ namespace DotNetNuke.Security.Permissions
         /// is already included in the collection.
         /// </remarks>
         /// <history>
-        /// 	[Vicenç]	09/01/2005	Created
+        /// 	[VicenÃ§]	09/01/2005	Created
         /// </history>
         /// -----------------------------------------------------------------------------
         public override bool Equals(object obj)
@@ -240,21 +239,21 @@ namespace DotNetNuke.Security.Permissions
             {
                 return true;
             }
-            if (obj.GetType() != typeof (ModulePermissionInfo))
+            if (obj.GetType() != typeof(ModulePermissionInfo))
             {
                 return false;
             }
-            return Equals((ModulePermissionInfo) obj);
+            return Equals((ModulePermissionInfo)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (_moduleID*397) ^ _modulePermissionID;
+                return (_moduleID * 397) ^ _modulePermissionID;
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

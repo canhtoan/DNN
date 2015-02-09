@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,9 +33,9 @@ using DotNetNuke.Services.Localization;
 
 namespace DotNetNuke.Entities.Tabs
 {
-    public class TabPublishingController: ServiceLocator<ITabPublishingController,TabPublishingController>, ITabPublishingController
+    public class TabPublishingController : ServiceLocator<ITabPublishingController, TabPublishingController>, ITabPublishingController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(TabPublishingController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(TabPublishingController));
 
         public bool IsTabPublished(int tabID, int portalID)
         {
@@ -53,7 +53,7 @@ namespace DotNetNuke.Entities.Tabs
             {
                 var errorMessage = Localization.GetExceptionMessage("PublishPagePermissionsNotMet", "Permissions are not met. The page has not been published.");
                 var permissionsNotMetExc = new PermissionsNotMetException(tabID, errorMessage);
-                Logger.Error(errorMessage, permissionsNotMetExc);
+                s_logger.Error(errorMessage, permissionsNotMetExc);
                 throw permissionsNotMetExc;
             }
 
@@ -74,7 +74,7 @@ namespace DotNetNuke.Entities.Tabs
             {
                 return false; //User has no permission
             }
-            
+
             Hashtable settings = TabController.Instance.GetTabSettings(tabID);
             if (settings["WorkflowID"] != null)
             {
@@ -86,7 +86,6 @@ namespace DotNetNuke.Entities.Tabs
             var workflowID = Convert.ToInt32(PortalController.GetPortalSetting("WorkflowID", portalID, "-1"));
 
             return (workflowID == 1) || (workflowID == -1);
-
         }
 
         #region private Methods
@@ -102,9 +101,9 @@ namespace DotNetNuke.Entities.Tabs
 
             tab.TabPermissions.Add(GetTabPermissionByRole(tab.TabID, "VIEW", allUsersRoleId));
             TabPermissionController.SaveTabPermissions(tab);
-            ClearTabCache(tab);   
+            ClearTabCache(tab);
         }
-        
+
         private void UnpublishTabInternal(TabInfo tab)
         {
             var administratorsRoleID = PortalController.Instance.GetPortal(tab.PortalID).AdministratorRoleId;
@@ -138,15 +137,15 @@ namespace DotNetNuke.Entities.Tabs
         {
             var permission = PermissionController.GetPermissionsByTab().Cast<PermissionInfo>().SingleOrDefault<PermissionInfo>(p => p.PermissionKey == permissionKey);
             var tabPermission = new TabPermissionInfo
-                        {
-                            TabID = tabID,
-                            PermissionID = permission.PermissionID,
-                            PermissionKey = permission.PermissionKey,
-                            PermissionName = permission.PermissionName,
-                            RoleID = roleID,
-                            UserID = Null.NullInteger,
-                            AllowAccess = true
-                        };
+            {
+                TabID = tabID,
+                PermissionID = permission.PermissionID,
+                PermissionKey = permission.PermissionKey,
+                PermissionName = permission.PermissionName,
+                RoleID = roleID,
+                UserID = Null.NullInteger,
+                AllowAccess = true
+            };
             return tabPermission;
         }
         #endregion

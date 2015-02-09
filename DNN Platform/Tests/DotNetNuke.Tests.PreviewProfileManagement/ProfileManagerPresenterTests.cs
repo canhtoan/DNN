@@ -4,9 +4,9 @@
 // by DotNetNuke Corporation
 // All Rights Reserved
 // 
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,120 +27,117 @@ using Moq;
 using NUnit.Framework;
 
 #endregion
-
 namespace DotNetNuke.Tests.PreviewProfileManagement
 {
-	// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
-	[TestFixture]
-	public class ProfileManagerPresenterTests : DnnUnitTest
-	{
-		#region Private Properties
+    [TestFixture]
+    public class ProfileManagerPresenterTests : DnnUnitTest
+    {
+        #region Private Properties
 
-		private Mock<IProfileManagerView> _mockView;
-		private Mock<IPreviewProfileController> _mockController;
-		private ProfileManagerPresenter _presenter;
+        private Mock<IProfileManagerView> _mockView;
+        private Mock<IPreviewProfileController> _mockController;
+        private ProfileManagerPresenter _presenter;
 
-		#endregion
+        #endregion
 
         #region Set Up
 
         [SetUp]
-		public void Setup()
-		{
-			_mockView = MockHelper.CreateNew<IProfileManagerView>();
-			_mockView.Setup(v => v.Model).Returns(new ProfileManagerViewModel());
+        public void Setup()
+        {
+            _mockView = MockHelper.CreateNew<IProfileManagerView>();
+            _mockView.Setup(v => v.Model).Returns(new ProfileManagerViewModel());
 
-			_mockController = MockHelper.CreateNew<IPreviewProfileController>();
-			_mockController.Setup(c => c.GetProfileById(It.IsAny<int>(), It.IsAny<int>())).Returns<int, int>(GetProfileByIdCallback);
-			_mockController.Setup(c => c.GetProfilesByPortal(It.IsAny<int>())).Returns<int>(GetProfilesByPortalCallback);
-			_mockController.Setup(c => c.Save(It.IsAny<IPreviewProfile>())).Callback<IPreviewProfile>(SaveCallback);
-			_mockController.Setup(c => c.Delete(It.IsAny<int>(), It.IsAny<int>())).Callback<int, int>(DeleteCallback);
+            _mockController = MockHelper.CreateNew<IPreviewProfileController>();
+            _mockController.Setup(c => c.GetProfileById(It.IsAny<int>(), It.IsAny<int>())).Returns<int, int>(GetProfileByIdCallback);
+            _mockController.Setup(c => c.GetProfilesByPortal(It.IsAny<int>())).Returns<int>(GetProfilesByPortalCallback);
+            _mockController.Setup(c => c.Save(It.IsAny<IPreviewProfile>())).Callback<IPreviewProfile>(SaveCallback);
+            _mockController.Setup(c => c.Delete(It.IsAny<int>(), It.IsAny<int>())).Callback<int, int>(DeleteCallback);
 
-			CreatePresenter();
-		}
+            CreatePresenter();
+        }
 
-		#endregion
+        #endregion
 
-		#region Test Methods
+        #region Test Methods
 
-		[Test]
-		public void ProfileManagerPresenter_GetEditProfile()
-		{
-			_mockView.Raise(v => v.GetEditProfile += null, new PrimaryKeyEventArgs(1));
+        [Test]
+        public void ProfileManagerPresenter_GetEditProfile()
+        {
+            _mockView.Raise(v => v.GetEditProfile += null, new PrimaryKeyEventArgs(1));
 
-			Assert.AreEqual(1, _mockView.Object.Model.EditProfile.Id);
-		}
+            Assert.AreEqual(1, _mockView.Object.Model.EditProfile.Id);
+        }
 
-		[Test]
-		public void ProfileManagerPresenter_GetProfiles()
-		{
-			_mockView.Raise(v => v.GetProfiles += null, EventArgs.Empty);
+        [Test]
+        public void ProfileManagerPresenter_GetProfiles()
+        {
+            _mockView.Raise(v => v.GetProfiles += null, EventArgs.Empty);
 
-			Assert.AreEqual(1, _mockView.Object.Model.PreviewProfiles.Count);
-		}
+            Assert.AreEqual(1, _mockView.Object.Model.PreviewProfiles.Count);
+        }
 
-		[Test]
-		public void ProfileManagerPresenter_GetHighlightProfiles()
-		{
-			_mockView.Raise(v => v.GetHighlightProfiles += null, EventArgs.Empty);
+        [Test]
+        public void ProfileManagerPresenter_GetHighlightProfiles()
+        {
+            _mockView.Raise(v => v.GetHighlightProfiles += null, EventArgs.Empty);
 
-			Assert.AreEqual(10, _mockView.Object.Model.HighlightProfiles.Count);
-		}
+            Assert.AreEqual(10, _mockView.Object.Model.HighlightProfiles.Count);
+        }
 
-		[Test]
-		public void ProfileManagerPresenter_SaveProfile()
-		{
-			_mockView.Raise(v => v.SaveProfile += null, new ProfileEventArgs(new PreviewProfile()));
-		}
+        [Test]
+        public void ProfileManagerPresenter_SaveProfile()
+        {
+            _mockView.Raise(v => v.SaveProfile += null, new ProfileEventArgs(new PreviewProfile()));
+        }
 
-		[Test]
-		public void ProfileManagerPresenter_DeleteProfile()
-		{
-			_mockView.Raise(v => v.DeleteProfile += null, new PrimaryKeyEventArgs(1));
-		}
+        [Test]
+        public void ProfileManagerPresenter_DeleteProfile()
+        {
+            _mockView.Raise(v => v.DeleteProfile += null, new PrimaryKeyEventArgs(1));
+        }
 
-		#endregion
+        #endregion
 
-		#region Private Methods
+        #region Private Methods
 
-		private IPreviewProfile GetProfileByIdCallback(int portalId, int id)
-		{
-			return new PreviewProfile { Id = id, PortalId = portalId };
-		}
+        private IPreviewProfile GetProfileByIdCallback(int portalId, int id)
+        {
+            return new PreviewProfile { Id = id, PortalId = portalId };
+        }
 
-		private IList<IPreviewProfile> GetProfilesByPortalCallback(int portalId)
-		{
-			var profiles = new List<IPreviewProfile>();
-			profiles.Add(new PreviewProfile());
+        private IList<IPreviewProfile> GetProfilesByPortalCallback(int portalId)
+        {
+            var profiles = new List<IPreviewProfile>();
+            profiles.Add(new PreviewProfile());
 
-			return profiles;
-		}
+            return profiles;
+        }
 
-		private void SaveCallback(IPreviewProfile profile)
-		{
-			
-		}
+        private void SaveCallback(IPreviewProfile profile)
+        {
+        }
 
-		private void DeleteCallback(int portalId, int id)
-		{
-			
-		}
+        private void DeleteCallback(int portalId, int id)
+        {
+        }
 
-		private void CreatePresenter()
-		{
+        private void CreatePresenter()
+        {
             var simulator = new Instance.Utilities.HttpSimulator.HttpSimulator("/", "c:\\");
             simulator.SimulateRequest(new Uri("http://localhost/dnn/Default.aspx"));
 
-			HttpContext.Current.Items.Add("PortalSettings", new PortalSettings());
+            HttpContext.Current.Items.Add("PortalSettings", new PortalSettings());
 
-			_presenter = new ProfileManagerPresenter(_mockView.Object, _mockController.Object)
-			             	{
-								ModuleContext = new ModuleInstanceContext(),
-                                HighlightDataPath = HighlightDataPath
-			             	};
-		}
+            _presenter = new ProfileManagerPresenter(_mockView.Object, _mockController.Object)
+            {
+                ModuleContext = new ModuleInstanceContext(),
+                HighlightDataPath = HighlightDataPath
+            };
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

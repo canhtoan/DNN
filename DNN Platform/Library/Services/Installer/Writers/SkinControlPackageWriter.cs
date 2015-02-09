@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Xml;
@@ -30,7 +30,6 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -45,8 +44,8 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class SkinControlPackageWriter : PackageWriterBase
     {
-		#region "Constructors"
-		
+        #region "Constructors"
+
         public SkinControlPackageWriter(PackageInfo package) : base(package)
         {
             SkinControl = SkinControlController.GetSkinControlByPackageID(package.PackageID);
@@ -78,23 +77,23 @@ namespace DotNetNuke.Services.Installer.Writers
             BasePath = Path.Combine("DesktopModules", Package.Name.ToLower()).Replace("/", "\\");
             AppCodePath = Path.Combine("App_Code", Package.Name.ToLower()).Replace("/", "\\");
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets the associated SkinControl
-		/// </summary>
-		/// <value>A SkinControlInfo object</value>
-		/// <history>
-		/// 	[cnurse]	03/28/2008	created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        #region "Public Properties"
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets the associated SkinControl
+        /// </summary>
+        /// <value>A SkinControlInfo object</value>
+        /// <history>
+        /// 	[cnurse]	03/28/2008	created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public SkinControlInfo SkinControl { get; set; }
-		
-		#endregion
+
+        #endregion
 
         private void ReadLegacyManifest(XPathNavigator legacyManifest, bool processModule)
         {
@@ -117,7 +116,7 @@ namespace DotNetNuke.Services.Installer.Writers
                     }
                 }
             }
-			
+
             //Process legacy files Node
             foreach (XPathNavigator fileNav in folderNav.Select("files/file"))
             {
@@ -126,7 +125,7 @@ namespace DotNetNuke.Services.Installer.Writers
 
                 AddFile(Path.Combine(filePath, fileName), fileName);
             }
-			
+
             //Process resource file Node
             if (!string.IsNullOrEmpty(Util.ReadElement(folderNav, "resourcefile")))
             {
@@ -134,11 +133,11 @@ namespace DotNetNuke.Services.Installer.Writers
             }
         }
 
-		#region "Protected Methods"
-		
+        #region "Protected Methods"
+
         protected override void WriteManifestComponent(XmlWriter writer)
         {
-			//Start component Element
+            //Start component Element
             writer.WriteStartElement("component");
             writer.WriteAttributeString("type", "SkinObject");
 
@@ -148,7 +147,7 @@ namespace DotNetNuke.Services.Installer.Writers
             //End component Element
             writer.WriteEndElement();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

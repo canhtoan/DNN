@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.ComponentModel;
 using System.Web.UI;
@@ -29,19 +29,18 @@ using DotNetNuke.Common;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     public abstract class WebControlBase : WebControl
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private string _styleSheetUrl = "";
         private string _theme = "";
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public string Theme
         {
@@ -86,7 +85,7 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-            	return Globals.IsHostTab(PortalSettings.ActiveTab.TabID);
+                return Globals.IsHostTab(PortalSettings.ActiveTab.TabID);
             }
         }
 
@@ -98,8 +97,8 @@ namespace DotNetNuke.UI.WebControls
                 return PortalController.Instance.GetCurrentPortalSettings();
             }
         }
-		
-		#endregion
+
+        #endregion
 
         public abstract string HtmlOutput { get; }
 

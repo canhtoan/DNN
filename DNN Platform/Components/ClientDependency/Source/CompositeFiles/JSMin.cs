@@ -37,15 +37,15 @@ namespace ClientDependency.Core.CompositeFiles
 {
     public class JSMin
     {
-        const int EOF = -1;
+        private const int EOF = -1;
 
-        StringReader sr;
-        StringWriter sw;
-        int theA;
-        int theB;
-        int theLookahead = EOF;
-        static int theX = EOF;
-        static int theY = EOF;
+        private StringReader _sr;
+        private StringWriter _sw;
+        private int _theA;
+        private int _theB;
+        private int _theLookahead = EOF;
+        private static int s_theX = EOF;
+        private static int s_theY = EOF;
 
         public static string CompressJS(string body)
         {
@@ -55,9 +55,9 @@ namespace ClientDependency.Core.CompositeFiles
         public string Minify(string src)
         {
             StringBuilder sb = new StringBuilder();
-            using (sr = new StringReader(src))
+            using (_sr = new StringReader(src))
             {
-                using (sw = new StringWriter(sb))
+                using (_sw = new StringWriter(sb))
                 {
                     jsmin();
                 }
@@ -70,7 +70,7 @@ namespace ClientDependency.Core.CompositeFiles
                 replaced with spaces. Carriage returns will be replaced with linefeeds.
                 Most spaces and linefeeds will be removed.
         */
-        void jsmin()
+        private void jsmin()
         {
             if (peek() == 0xEF)
             {
@@ -78,17 +78,17 @@ namespace ClientDependency.Core.CompositeFiles
                 get();
                 get();
             }
-            theA = '\n';
+            _theA = '\n';
             action(3);
-            while (theA != EOF)
+            while (_theA != EOF)
             {
-                switch (theA)
+                switch (_theA)
                 {
                     case ' ':
-                        action(isAlphanum(theB) ? 1 : 2);
+                        action(isAlphanum(_theB) ? 1 : 2);
                         break;
                     case '\n':
-                        switch (theB)
+                        switch (_theB)
                         {
                             case '{':
                             case '[':
@@ -103,18 +103,18 @@ namespace ClientDependency.Core.CompositeFiles
                                 action(3);
                                 break;
                             default:
-                                action(isAlphanum(theB) ? 1 : 2);
+                                action(isAlphanum(_theB) ? 1 : 2);
                                 break;
                         }
                         break;
                     default:
-                        switch (theB)
+                        switch (_theB)
                         {
                             case ' ':
-                                action(isAlphanum(theA) ? 1 : 3);
+                                action(isAlphanum(_theA) ? 1 : 3);
                                 break;
                             case '\n':
-                                switch (theA)
+                                switch (_theA)
                                 {
                                     case '}':
                                     case ']':
@@ -127,7 +127,7 @@ namespace ClientDependency.Core.CompositeFiles
                                         action(1);
                                         break;
                                     default:
-                                        action(isAlphanum(theA) ? 1 : 3);
+                                        action(isAlphanum(_theA) ? 1 : 3);
                                         break;
                                 }
                                 break;
@@ -146,106 +146,106 @@ namespace ClientDependency.Core.CompositeFiles
            action treats a string as a single character. Wow!
            action recognizes a regular expression if it is preceded by ( or , or =.
         */
-        void action(int d)
+        private void action(int d)
         {
             switch (d)
             {
                 case 1:
-                    put(theA);
+                    put(_theA);
                     if (
-                        (theY == '\n' || theY == ' ') &&
-                        (theA == '+' || theA == '-' || theA == '*' || theA == '/') &&
-                        (theB == '+' || theB == '-' || theB == '*' || theB == '/')
+                        (s_theY == '\n' || s_theY == ' ') &&
+                        (_theA == '+' || _theA == '-' || _theA == '*' || _theA == '/') &&
+                        (_theB == '+' || _theB == '-' || _theB == '*' || _theB == '/')
                         )
                     {
-                        put(theY);
+                        put(s_theY);
                     }
                     goto case 2;
                 case 2:
-                    theA = theB;
-                    if (theA == '\'' || theA == '"' || theA == '`')
+                    _theA = _theB;
+                    if (_theA == '\'' || _theA == '"' || _theA == '`')
                     {
-                        for (; ; )
+                        for (; ;)
                         {
-                            put(theA);
-                            theA = get();
-                            if (theA == theB)
+                            put(_theA);
+                            _theA = get();
+                            if (_theA == _theB)
                             {
                                 break;
                             }
-                            if (theA == '\\')
+                            if (_theA == '\\')
                             {
-                                put(theA);
-                                theA = get();
+                                put(_theA);
+                                _theA = get();
                             }
-                            if (theA == EOF)
+                            if (_theA == EOF)
                             {
-                                throw new Exception(string.Format("Error: JSMIN unterminated string literal: {0}\n", theA));
+                                throw new Exception(string.Format("Error: JSMIN unterminated string literal: {0}\n", _theA));
                             }
                         }
                     }
                     goto case 3;
                 case 3:
-                    theB = next();
-                    if (theB == '/' && (
-                                           theA == '(' || theA == ',' || theA == '=' || theA == ':' ||
-                                           theA == '[' || theA == '!' || theA == '&' || theA == '|' ||
-                                           theA == '?' || theA == '+' || theA == '-' || theA == '~' ||
-                                           theA == '*' || theA == '/' || theA == '{' || theA == '\n'
+                    _theB = next();
+                    if (_theB == '/' && (
+                                           _theA == '(' || _theA == ',' || _theA == '=' || _theA == ':' ||
+                                           _theA == '[' || _theA == '!' || _theA == '&' || _theA == '|' ||
+                                           _theA == '?' || _theA == '+' || _theA == '-' || _theA == '~' ||
+                                           _theA == '*' || _theA == '/' || _theA == '{' || _theA == '\n'
                                        ))
                     {
-                        put(theA);
-                        if (theA == '/' || theA == '*')
+                        put(_theA);
+                        if (_theA == '/' || _theA == '*')
                         {
                             put(' ');
                         }
-                        put(theB);
-                        for (; ; )
+                        put(_theB);
+                        for (; ;)
                         {
-                            theA = get();
-                            if (theA == '[')
+                            _theA = get();
+                            if (_theA == '[')
                             {
-                                for (; ; )
+                                for (; ;)
                                 {
-                                    put(theA);
-                                    theA = get();
-                                    if (theA == ']')
+                                    put(_theA);
+                                    _theA = get();
+                                    if (_theA == ']')
                                     {
                                         break;
                                     }
-                                    if (theA == '\\')
+                                    if (_theA == '\\')
                                     {
-                                        put(theA);
-                                        theA = get();
+                                        put(_theA);
+                                        _theA = get();
                                     }
-                                    if (theA == EOF)
+                                    if (_theA == EOF)
                                     {
-                                        throw new Exception(string.Format("Error: JSMIN Unterminated set in Regular Expression literal: {0}\n", theA));
+                                        throw new Exception(string.Format("Error: JSMIN Unterminated set in Regular Expression literal: {0}\n", _theA));
                                     }
                                 }
                             }
-                            else if (theA == '/')
+                            else if (_theA == '/')
                             {
                                 switch (peek())
                                 {
                                     case '/':
                                     case '*':
-                                        throw new Exception(string.Format("Error: JSMIN Unterminated set in Regular Expression literal: {0}\n", theA));
+                                        throw new Exception(string.Format("Error: JSMIN Unterminated set in Regular Expression literal: {0}\n", _theA));
                                 }
                                 break;
                             }
-                            else if (theA == '\\')
+                            else if (_theA == '\\')
                             {
-                                put(theA);
-                                theA = get();
+                                put(_theA);
+                                _theA = get();
                             }
-                            if (theA == EOF)
+                            if (_theA == EOF)
                             {
-                                throw new Exception(string.Format("Error: JSMIN Unterminated Regular Expression literal: {0}\n", theA));
+                                throw new Exception(string.Format("Error: JSMIN Unterminated Regular Expression literal: {0}\n", _theA));
                             }
-                            put(theA);
+                            put(_theA);
                         }
-                        theB = next();
+                        _theB = next();
                     }
                     goto default;
                 default:
@@ -264,7 +264,7 @@ namespace ClientDependency.Core.CompositeFiles
                 switch (peek())
                 {
                     case '/':
-                        for (; ; )
+                        for (; ;)
                         {
                             c = get();
                             if (c <= '\n')
@@ -294,29 +294,29 @@ namespace ClientDependency.Core.CompositeFiles
                 }
             }
             //return c;
-            theY = theX;
-            theX = c;
+            s_theY = s_theX;
+            s_theX = c;
             return c;
         }
 
         /* peek -- get the next character without getting it.
         */
-        int peek()
+        private int peek()
         {
-            theLookahead = get();
-            return theLookahead;
+            _theLookahead = get();
+            return _theLookahead;
         }
         /* get -- return the next character from stdin. Watch out for lookahead. If
                 the character is a control character, translate it to a space or
                 linefeed.
         */
-        int get()
+        private int get()
         {
-            int c = theLookahead;
-            theLookahead = EOF;
+            int c = _theLookahead;
+            _theLookahead = EOF;
             if (c == EOF)
             {
-                c = sr.Read();
+                c = _sr.Read();
             }
             if (c >= ' ' || c == '\n' || c == EOF)
             {
@@ -328,14 +328,14 @@ namespace ClientDependency.Core.CompositeFiles
             }
             return ' ';
         }
-        void put(int c)
+        private void put(int c)
         {
-            sw.Write((char)c);
+            _sw.Write((char)c);
         }
         /* isAlphanum -- return true if the character is a letter, digit, underscore,
                 dollar sign, or non-ASCII character.
         */
-        bool isAlphanum(int c)
+        private bool isAlphanum(int c)
         {
             return ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') ||
                     (c >= 'A' && c <= 'Z') || c == '_' || c == '$' || c == '\\' ||

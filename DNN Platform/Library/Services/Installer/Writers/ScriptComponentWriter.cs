@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +29,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -45,15 +44,15 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class ScriptComponentWriter : FileComponentWriter
     {
-		#region "Constructors"
+        #region "Constructors"
 
         public ScriptComponentWriter(string basePath, Dictionary<string, InstallFile> scripts, PackageInfo package) : base(basePath, scripts, package)
         {
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
 
         /// -----------------------------------------------------------------------------
@@ -133,7 +132,7 @@ namespace DotNetNuke.Services.Installer.Writers
                 type = "Install";
                 version = fileName;
             }
-			
+
             //Start file Element
             writer.WriteStartElement(ItemNodeName);
             writer.WriteAttributeString("type", type);
@@ -143,7 +142,7 @@ namespace DotNetNuke.Services.Installer.Writers
             {
                 writer.WriteElementString("path", file.Path);
             }
-			
+
             //Write name
             writer.WriteElementString("name", file.Name);
 
@@ -152,14 +151,14 @@ namespace DotNetNuke.Services.Installer.Writers
             {
                 writer.WriteElementString("sourceFileName", file.SourceFileName);
             }
-			
+
             //Write Version
             writer.WriteElementString("version", version);
 
             //Close file Element
             writer.WriteEndElement();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

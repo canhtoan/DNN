@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -39,7 +39,6 @@ using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.Search.Internals;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content
 {
     public class ContentController : IContentController
@@ -61,7 +60,7 @@ namespace DotNetNuke.Entities.Content
 
         #region Public Methods
 
-	    public int AddContentItem(ContentItem contentItem)
+        public int AddContentItem(ContentItem contentItem)
         {
             //Argument Contract
             Requires.NotNull("contentItem", contentItem);
@@ -96,7 +95,7 @@ namespace DotNetNuke.Entities.Content
             var contentItem = GetContentItem(contentItemId);
             DeleteContentItem(contentItem);
         }
-        
+
         public ContentItem GetContentItem(int contentItemId)
         {
             //Argument Contract
@@ -119,14 +118,14 @@ namespace DotNetNuke.Entities.Content
         }
 
         public IQueryable<ContentItem> GetContentItemsByTerm(Term term)
-	    {
-	        return GetContentItemsByTerm(term.Name);
-	    }
+        {
+            return GetContentItemsByTerm(term.Name);
+        }
 
-	    public IQueryable<ContentItem> GetContentItemsByContentType(int contentTypeId)
-	    {
+        public IQueryable<ContentItem> GetContentItemsByContentType(int contentTypeId)
+        {
             return CBO.FillQueryable<ContentItem>(_dataService.GetContentItemsByContentType(contentTypeId));
-	    }
+        }
 
         /// <summary>Get a list of content items by ContentType.</summary>
         public IQueryable<ContentItem> GetContentItemsByContentType(ContentType contentType)
@@ -134,12 +133,12 @@ namespace DotNetNuke.Entities.Content
             return CBO.FillQueryable<ContentItem>(_dataService.GetContentItemsByContentType(contentType.ContentTypeId));
         }
 
-	    public IQueryable<ContentItem> GetContentItemsByTerms(IList<Term> terms)
+        public IQueryable<ContentItem> GetContentItemsByTerms(IList<Term> terms)
         {
             return GetContentItemsByTerms(terms.Select(t => t.Name).ToArray());
         }
 
-	    public IQueryable<ContentItem> GetContentItemsByTerms(string[] terms)
+        public IQueryable<ContentItem> GetContentItemsByTerms(string[] terms)
         {
             var union = new List<ContentItem>();
 
@@ -157,7 +156,7 @@ namespace DotNetNuke.Entities.Content
             return CBO.FillQueryable<ContentItem>(_dataService.GetContentItemsByTabId(tabId));
         }
 
-	    public IQueryable<ContentItem> GetContentItemsByVocabularyId(int vocabularyId)
+        public IQueryable<ContentItem> GetContentItemsByVocabularyId(int vocabularyId)
         {
             return CBO.FillQueryable<ContentItem>(_dataService.GetContentItemsByVocabularyId(vocabularyId));
         }
@@ -177,11 +176,11 @@ namespace DotNetNuke.Entities.Content
             //Argument Contract
             Requires.NotNull("contentItem", contentItem);
             Requires.PropertyNotNegative("contentItem", "ContentItemId", contentItem.ContentItemId);
-            
+
             AttachmentController.SerializeAttachmentMetadata(contentItem);
 
             SaveMetadataDelta(contentItem);
-            
+
             _dataService.UpdateContentItem(contentItem, UserController.Instance.GetCurrentUserInfo().UserID);
         }
 
@@ -231,9 +230,9 @@ namespace DotNetNuke.Entities.Content
                 }
             }
 
-		    return metadata;
+            return metadata;
         }
-        
+
         private void SaveMetadataDelta(ContentItem contentItem)
         {
             var persisted = GetMetaData(contentItem.ContentItemId);

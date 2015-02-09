@@ -17,22 +17,22 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 namespace DotNetNuke.ExtensionPoints.Filters
 {
     public class FilterByHostMenu : IExtensionPointFilter
     {
-        private readonly bool isHostMenu;
+        private readonly bool _isHostMenu;
 
         public FilterByHostMenu(bool isHostMenu)
         {
-            this.isHostMenu = isHostMenu;
+            _isHostMenu = isHostMenu;
         }
 
         public bool Condition(IExtensionPointData m)
         {
-            return !isHostMenu || !m.DisableOnHost;
+            return !_isHostMenu || !m.DisableOnHost;
         }
     }
 }

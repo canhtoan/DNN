@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
@@ -235,12 +234,12 @@ namespace DotNetNuke.Entities.Urls
         /// <param name="newUrl">Url to used for rewrite process</param>
         /// <returns>the new Url, with any replacements done.  Replacements occur when a reason token
         /// was stored in the tab dictionary entry just to indicate a redirect reason.</returns>
-        internal static void DetermineRedirectReasonAndAction(string rewrittenUrl, 
-                                                                UrlAction result, 
+        internal static void DetermineRedirectReasonAndAction(string rewrittenUrl,
+                                                                UrlAction result,
                                                                 bool wasParms,
-                                                                FriendlyUrlSettings settings, 
+                                                                FriendlyUrlSettings settings,
                                                                 out string newUrl,
-                                                                out RedirectReason reason, 
+                                                                out RedirectReason reason,
                                                                 out ActionType action)
         {
             //init parms

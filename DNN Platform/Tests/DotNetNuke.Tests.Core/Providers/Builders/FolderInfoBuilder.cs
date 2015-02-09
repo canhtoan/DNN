@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.FileSystem;
@@ -29,42 +29,42 @@ namespace DotNetNuke.Tests.Core.Providers.Builders
 {
     internal class FolderInfoBuilder
     {
-        private int portalId;
-        private int folderId;
-        private string folderPath;
-        private string physicalPath;
-        private int folderMappingID;
-        
+        private int _portalId;
+        private int _folderId;
+        private string _folderPath;
+        private string _physicalPath;
+        private int _folderMappingID;
+
         internal FolderInfoBuilder()
         {
-            portalId = Constants.CONTENT_ValidPortalId;
-            folderPath = Constants.FOLDER_ValidFolderRelativePath;
-            physicalPath = Constants.FOLDER_ValidFolderPath;
-            folderMappingID = Constants.FOLDER_ValidFolderMappingID;
-            folderId = Constants.FOLDER_ValidFolderId;
-            physicalPath = "";
+            _portalId = Constants.CONTENT_ValidPortalId;
+            _folderPath = Constants.FOLDER_ValidFolderRelativePath;
+            _physicalPath = Constants.FOLDER_ValidFolderPath;
+            _folderMappingID = Constants.FOLDER_ValidFolderMappingID;
+            _folderId = Constants.FOLDER_ValidFolderId;
+            _physicalPath = "";
         }
         internal FolderInfoBuilder WithPhysicalPath(string phisicalPath)
         {
-            this.physicalPath = phisicalPath;
+            _physicalPath = phisicalPath;
             return this;
         }
 
         internal FolderInfoBuilder WithFolderId(int folderId)
         {
-            this.folderId = folderId;
+            _folderId = folderId;
             return this;
         }
 
         internal IFolderInfo Build()
         {
-            var mock = new Mock<IFolderInfo>();            
-            mock.Setup(f => f.FolderID).Returns(folderId);
-            mock.Setup(f => f.PortalID).Returns(portalId);
-            mock.Setup(f => f.FolderPath).Returns(folderPath);
-            mock.Setup(f => f.PhysicalPath).Returns(physicalPath);
-            mock.Setup(f => f.FolderMappingID).Returns(folderMappingID);
-            
+            var mock = new Mock<IFolderInfo>();
+            mock.Setup(f => f.FolderID).Returns(_folderId);
+            mock.Setup(f => f.PortalID).Returns(_portalId);
+            mock.Setup(f => f.FolderPath).Returns(_folderPath);
+            mock.Setup(f => f.PhysicalPath).Returns(_physicalPath);
+            mock.Setup(f => f.FolderMappingID).Returns(_folderMappingID);
+
             return mock.Object;
         }
     }

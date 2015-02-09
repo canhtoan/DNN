@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using DotNetNuke.Common.Lists;
 using DotNetNuke.Framework;
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -41,8 +40,8 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class PackageWriterFactory
     {
-		#region "Public Shared Methods"
-		
+        #region "Public Shared Methods"
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// The GetWriter method instantiates the relevant PackageWriter Installer
@@ -92,14 +91,14 @@ namespace DotNetNuke.Services.Installer.Writers
 
                     if (entry != null && !string.IsNullOrEmpty(entry.Text))
                     {
-						//The class for the Installer is specified in the Text property
-                        writer = (PackageWriterBase) Reflection.CreateObject(entry.Text, "PackageWriter_" + entry.Value);
+                        //The class for the Installer is specified in the Text property
+                        writer = (PackageWriterBase)Reflection.CreateObject(entry.Text, "PackageWriter_" + entry.Value);
                     }
                     break;
             }
             return writer;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

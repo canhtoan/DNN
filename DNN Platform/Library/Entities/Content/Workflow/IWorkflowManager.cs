@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Entities.Content.Workflow.Entities;
 using System.Collections.Generic;
 
@@ -45,14 +45,14 @@ namespace DotNetNuke.Entities.Content.Workflow
         /// <param name="workflowId">Workflow Id</param>
         /// <returns>Total count of Content Items that are using the specified workflow</returns>
         int GetWorkflowUsageCount(int workflowId);
-        
+
         /// <summary>
         /// This method return the list of the Workflows defined for the portal
         /// </summary>
         /// <param name="portalId">Portal Id</param>
         /// <returns>List of the Workflows for the portal</returns>
         IEnumerable<Entities.Workflow> GetWorkflows(int portalId);
-        
+
         /// <summary>
         /// This method adds a new workflow. It automatically add two system states: "Draft" and "Published"
         /// </summary>
@@ -87,6 +87,5 @@ namespace DotNetNuke.Entities.Content.Workflow
         /// <param name="contentItem">Content Item</param>
         /// <returns>Workflow Entity</returns>
         Entities.Workflow GetWorkflow(ContentItem contentItem);
-
     }
 }

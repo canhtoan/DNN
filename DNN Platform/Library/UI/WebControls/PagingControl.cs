@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -32,10 +32,8 @@ using DotNetNuke.Common.Internal;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
-
     [ToolboxData("<{0}:PagingControl runat=server></{0}:PagingControl>")]
     public class PagingControl : WebControl, IPostBackEventHandler
     {
@@ -135,7 +133,7 @@ namespace DotNetNuke.UI.WebControls
                 _totalPages = 1;
                 return;
             }
-            _totalPages = TotalRecords/RecordsPerPage >= 1 ? Convert.ToInt32(Math.Ceiling(Convert.ToDouble(TotalRecords)/RecordsPerPage)) : 0;
+            _totalPages = TotalRecords / RecordsPerPage >= 1 ? Convert.ToInt32(Math.Ceiling(Convert.ToDouble(TotalRecords) / RecordsPerPage)) : 0;
             if (_totalPages > 0)
             {
                 var ht = new DataTable();
@@ -144,12 +142,12 @@ namespace DotNetNuke.UI.WebControls
                 var LowNum = 1;
                 var HighNum = Convert.ToInt32(_totalPages);
                 double tmpNum;
-                tmpNum = CurrentPage - pageLinksPerPage/2;
+                tmpNum = CurrentPage - pageLinksPerPage / 2;
                 if (tmpNum < 1)
                 {
                     tmpNum = 1;
                 }
-                if (CurrentPage > (pageLinksPerPage/2))
+                if (CurrentPage > (pageLinksPerPage / 2))
                 {
                     LowNum = Convert.ToInt32(Math.Floor(tmpNum));
                 }
@@ -383,9 +381,9 @@ namespace DotNetNuke.UI.WebControls
             private void BindData(object sender, EventArgs e)
             {
                 Literal lc;
-                lc = (Literal) sender;
+                lc = (Literal)sender;
                 RepeaterItem container;
-                container = (RepeaterItem) lc.NamingContainer;
+                container = (RepeaterItem)lc.NamingContainer;
                 lc.Text = _PagingControl.GetLink(Convert.ToInt32(DataBinder.Eval(container.DataItem, "PageNum"))) + "&nbsp;&nbsp;";
             }
         }

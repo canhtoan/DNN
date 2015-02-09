@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
 #endregion
-
 namespace DotNetNuke.ComponentModel
 {
     public abstract class AbstractContainer : IContainer
@@ -41,19 +40,19 @@ namespace DotNetNuke.ComponentModel
 
         public virtual TContract GetComponent<TContract>()
         {
-            return (TContract) GetComponent(typeof (TContract));
+            return (TContract)GetComponent(typeof(TContract));
         }
 
         public virtual TContract GetComponent<TContract>(string name)
         {
-            return (TContract) GetComponent(name, typeof (TContract));
+            return (TContract)GetComponent(name, typeof(TContract));
         }
 
         public abstract string[] GetComponentList(Type contractType);
 
         public virtual string[] GetComponentList<TContract>()
         {
-            return GetComponentList(typeof (TContract));
+            return GetComponentList(typeof(TContract));
         }
 
         public abstract IDictionary GetComponentSettings(string name);
@@ -65,7 +64,7 @@ namespace DotNetNuke.ComponentModel
 
         public IDictionary GetComponentSettings<TComponent>()
         {
-            return GetComponentSettings(typeof (TComponent).FullName);
+            return GetComponentSettings(typeof(TComponent).FullName);
         }
 
         public abstract void RegisterComponent(string name, Type contractType, Type componentType, ComponentLifeStyleType lifestyle);
@@ -97,32 +96,32 @@ namespace DotNetNuke.ComponentModel
 
         public virtual void RegisterComponent<TComponent>() where TComponent : class
         {
-            RegisterComponent(typeof (TComponent));
+            RegisterComponent(typeof(TComponent));
         }
 
         public virtual void RegisterComponent<TComponent>(string name) where TComponent : class
         {
-            RegisterComponent(name, typeof (TComponent), typeof (TComponent), ComponentLifeStyleType.Singleton);
+            RegisterComponent(name, typeof(TComponent), typeof(TComponent), ComponentLifeStyleType.Singleton);
         }
 
         public virtual void RegisterComponent<TComponent>(string name, ComponentLifeStyleType lifestyle) where TComponent : class
         {
-            RegisterComponent(name, typeof (TComponent), typeof (TComponent), lifestyle);
+            RegisterComponent(name, typeof(TComponent), typeof(TComponent), lifestyle);
         }
 
         public virtual void RegisterComponent<TContract, TComponent>() where TComponent : class
         {
-            RegisterComponent(typeof (TContract), typeof (TComponent));
+            RegisterComponent(typeof(TContract), typeof(TComponent));
         }
 
         public virtual void RegisterComponent<TContract, TComponent>(string name) where TComponent : class
         {
-            RegisterComponent(name, typeof (TContract), typeof (TComponent), ComponentLifeStyleType.Singleton);
+            RegisterComponent(name, typeof(TContract), typeof(TComponent), ComponentLifeStyleType.Singleton);
         }
 
         public virtual void RegisterComponent<TContract, TComponent>(string name, ComponentLifeStyleType lifestyle) where TComponent : class
         {
-            RegisterComponent(name, typeof (TContract), typeof (TComponent), lifestyle);
+            RegisterComponent(name, typeof(TContract), typeof(TComponent), lifestyle);
         }
 
         public abstract void RegisterComponentSettings(string name, IDictionary dependencies);
@@ -134,7 +133,7 @@ namespace DotNetNuke.ComponentModel
 
         public virtual void RegisterComponentSettings<TComponent>(IDictionary dependencies)
         {
-            RegisterComponentSettings(typeof (TComponent).FullName, dependencies);
+            RegisterComponentSettings(typeof(TComponent).FullName, dependencies);
         }
 
         public abstract void RegisterComponentInstance(string name, Type contractType, object instance);
@@ -146,19 +145,19 @@ namespace DotNetNuke.ComponentModel
 
         public void RegisterComponentInstance<TContract>(object instance)
         {
-            RegisterComponentInstance(instance.GetType().FullName, typeof (TContract), instance);
+            RegisterComponentInstance(instance.GetType().FullName, typeof(TContract), instance);
         }
 
         public void RegisterComponentInstance<TContract>(string name, object instance)
         {
-            RegisterComponentInstance(name, typeof (TContract), instance);
+            RegisterComponentInstance(name, typeof(TContract), instance);
         }
 
         #endregion
 
         public virtual IDictionary GetCustomDependencies<TComponent>()
         {
-            return GetComponentSettings(typeof (TComponent).FullName);
+            return GetComponentSettings(typeof(TComponent).FullName);
         }
     }
 }

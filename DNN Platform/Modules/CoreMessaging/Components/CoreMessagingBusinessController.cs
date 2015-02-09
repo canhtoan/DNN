@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 
@@ -36,7 +35,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Components
 {
     public class CoreMessagingBusinessController : IUpgradeable
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (CoreMessagingBusinessController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(CoreMessagingBusinessController));
         #region Implementation of IUpgradeable
 
         public string UpgradeModule(string Version)
@@ -81,7 +80,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Components
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
 
                 return "Failed";
             }

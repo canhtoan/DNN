@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,18 +43,17 @@ using DotNetNuke.Services.EventQueue;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.UrlRewrite
 {
     internal class BasicUrlRewriter : UrlRewriterBase
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(BasicUrlRewriter));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(BasicUrlRewriter));
 
         #region overridden methods
 
         internal override void RewriteUrl(object sender, EventArgs e)
         {
-            var app = (HttpApplication) sender;
+            var app = (HttpApplication)sender;
             HttpServerUtility server = app.Server;
             HttpRequest request = app.Request;
             HttpResponse response = app.Response;
@@ -79,9 +78,9 @@ namespace DotNetNuke.HttpModules.UrlRewrite
             string strURL = request.Url.AbsolutePath;
             string strDoubleDecodeURL = server.UrlDecode(server.UrlDecode(request.RawUrl));
             if (Regex.Match(strURL, "[\\\\/]\\.\\.[\\\\/]").Success ||
-// ReSharper disable AssignNullToNotNullAttribute
+                // ReSharper disable AssignNullToNotNullAttribute
                 Regex.Match(strDoubleDecodeURL, "[\\\\/]\\.\\.[\\\\/]").Success)
-// ReSharper restore AssignNullToNotNullAttribute
+            // ReSharper restore AssignNullToNotNullAttribute
             {
                 DotNetNuke.Services.Exceptions.Exceptions.ProcessHttpException(request);
             }
@@ -98,7 +97,7 @@ namespace DotNetNuke.HttpModules.UrlRewrite
                 //DNN 5479
                 //request.physicalPath throws an exception when the path of the request exceeds 248 chars.
                 //example to test: http://localhost/dotnetnuke_2/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/default.aspx
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
 
 
@@ -249,12 +248,12 @@ namespace DotNetNuke.HttpModules.UrlRewrite
             catch (ThreadAbortException exc)
             {
                 //Do nothing if Thread is being aborted - there are two response.redirect calls in the Try block
-                Logger.Debug(exc);
+                s_logger.Debug(exc);
             }
             catch (Exception ex)
             {
                 //500 Error - Redirect to ErrorPage
-                Logger.Error(ex);
+                s_logger.Error(ex);
 
                 strURL = "~/ErrorPage.aspx?status=500&error=" + server.UrlEncode(ex.Message);
                 HttpContext.Current.Response.Clear();
@@ -349,7 +348,7 @@ namespace DotNetNuke.HttpModules.UrlRewrite
                             response.RedirectPermanent(strURL);
                         }
                         else
-                            //when switching to an unsecure page, use a clientside redirector to avoid the browser security warning
+                        //when switching to an unsecure page, use a clientside redirector to avoid the browser security warning
                         {
                             response.Clear();
                             //add a refresh header to the response 

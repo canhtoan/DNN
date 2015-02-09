@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,19 +28,18 @@ using DotNetNuke.Modules.NavigationProvider;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.NavigationControl
 {
     public class DNNDropDownNavigationProvider : NavigationProvider
     {
-        private DropDownList m_objDropDown;
-        private string m_strControlID;
+        private DropDownList _objDropDown;
+        private string _strControlID;
 
         public DropDownList DropDown
         {
             get
             {
-                return m_objDropDown;
+                return _objDropDown;
             }
         }
 
@@ -56,11 +55,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strControlID;
+                return _strControlID;
             }
             set
             {
-                m_strControlID = value;
+                _strControlID = value;
             }
         }
 
@@ -86,8 +85,8 @@ namespace DotNetNuke.NavigationControl
 
         public override void Initialize()
         {
-            m_objDropDown = new DropDownList();
-            DropDown.ID = m_strControlID;
+            _objDropDown = new DropDownList();
+            DropDown.ID = _strControlID;
             DropDown.SelectedIndexChanged += DropDown_SelectedIndexChanged;
         }
 

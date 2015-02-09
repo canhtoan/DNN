@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Linq;
 
@@ -42,7 +42,6 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
     [TestFixture]
     public class SearchHelperTests
     {
-
         #region constants
 
         private const int OtherSearchTypeId = 2;
@@ -117,9 +116,9 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             var table = new DataTable("PortalSettings");
 
             var cols = new string[]
-			           	{
-							"SettingName","SettingValue","CreatedByUserID","CreatedOnDate","LastModifiedByUserID","LastModifiedOnDate","CultureCode"
-			           	};
+                           {
+                            "SettingName","SettingValue","CreatedByUserID","CreatedOnDate","LastModifiedByUserID","LastModifiedOnDate","CultureCode"
+                           };
 
             foreach (var col in cols)
             {
@@ -141,12 +140,12 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             DataTable table = new DataTable("Portal");
 
             var cols = new string[]
-			           	{
-			           		"PortalID", "PortalGroupID", "PortalName", "LogoFile", "FooterText", "ExpiryDate", "UserRegistration", "BannerAdvertising", "AdministratorId", "Currency", "HostFee",
-			           		"HostSpace", "PageQuota", "UserQuota", "AdministratorRoleId", "RegisteredRoleId", "Description", "KeyWords", "BackgroundFile", "GUID", "PaymentProcessor", "ProcessorUserId",
-			           		"ProcessorPassword", "SiteLogHistory", "Email", "DefaultLanguage", "TimezoneOffset", "AdminTabId", "HomeDirectory", "SplashTabId", "HomeTabId", "LoginTabId", "RegisterTabId",
-			           		"UserTabId", "SearchTabId", "Custom404TabId", "Custom500TabId", "SuperTabId", "CreatedByUserID", "CreatedOnDate", "LastModifiedByUserID", "LastModifiedOnDate", "CultureCode"
-			           	};
+                           {
+                               "PortalID", "PortalGroupID", "PortalName", "LogoFile", "FooterText", "ExpiryDate", "UserRegistration", "BannerAdvertising", "AdministratorId", "Currency", "HostFee",
+                               "HostSpace", "PageQuota", "UserQuota", "AdministratorRoleId", "RegisteredRoleId", "Description", "KeyWords", "BackgroundFile", "GUID", "PaymentProcessor", "ProcessorUserId",
+                               "ProcessorPassword", "SiteLogHistory", "Email", "DefaultLanguage", "TimezoneOffset", "AdminTabId", "HomeDirectory", "SplashTabId", "HomeTabId", "LoginTabId", "RegisterTabId",
+                               "UserTabId", "SearchTabId", "Custom404TabId", "Custom500TabId", "SuperTabId", "CreatedByUserID", "CreatedOnDate", "LastModifiedByUserID", "LastModifiedOnDate", "CultureCode"
+                           };
 
             foreach (var col in cols)
             {
@@ -169,7 +168,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Search
             //Arrange            
 
             //Act
-            var synonyms = _searchHelper.GetSynonyms(PortalId0, CultureEnUs,TermDNN).ToArray();
+            var synonyms = _searchHelper.GetSynonyms(PortalId0, CultureEnUs, TermDNN).ToArray();
 
             //Assert
             Assert.AreEqual(1, synonyms.Count());

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -32,14 +32,13 @@ using DotNetNuke.Services.Authentication;
 using DotNetNuke.Services.Authentication.OAuth;
 
 #endregion
-
 namespace DotNetNuke.Authentication.Google.Components
 {
     public class GoogleClient : OAuthClientBase
     {
         #region Constructors
 
-        public GoogleClient(int portalId, AuthMode mode) 
+        public GoogleClient(int portalId, AuthMode mode)
             : base(portalId, mode, "Google")
         {
             TokenEndpoint = new Uri("https://accounts.google.com/o/oauth2/token");

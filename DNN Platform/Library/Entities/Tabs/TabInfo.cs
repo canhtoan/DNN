@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,7 +50,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Tokens;
 
 #endregion
-
 namespace DotNetNuke.Entities.Tabs
 {
     [XmlRoot("tab", IsNullable = false)]
@@ -86,7 +85,6 @@ namespace DotNetNuke.Entities.Tabs
         public TabInfo()
             : this(new SharedDictionary<string, string>(), new SharedDictionary<string, string>())
         {
-
         }
 
 
@@ -185,10 +183,11 @@ namespace DotNetNuke.Entities.Tabs
         public bool HasBeenPublished { get; set; }
 
         [XmlIgnore]
-        public bool HasAVisibleVersion {
+        public bool HasAVisibleVersion
+        {
             get
             {
-			    return HasBeenPublished || TabVersionUtils.CanSeeVersionedPages(this);
+                return HasBeenPublished || TabVersionUtils.CanSeeVersionedPages(this);
             }
         }
 
@@ -202,7 +201,7 @@ namespace DotNetNuke.Entities.Tabs
         public Guid LocalizedVersionGuid { get; set; }
 
         [XmlIgnore]
-        public ArrayList Modules 
+        public ArrayList Modules
         {
             get
             {
@@ -211,7 +210,7 @@ namespace DotNetNuke.Entities.Tabs
             set
             {
                 _modules = value;
-            } 
+            }
         }
 
         [XmlElement("pageheadtext")]
@@ -788,7 +787,7 @@ namespace DotNetNuke.Entities.Tabs
         #endregion
 
         #region Private Methods
-        
+
         /// <summary>
         /// Look for skin level doctype configuration file, and inject the value into the top of default.aspx
         /// when no configuration if found, the doctype for versions prior to 4.4 is used to maintain backwards compatibility with existing skins.

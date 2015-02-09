@@ -16,20 +16,26 @@ using System.Text.RegularExpressions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Modules.Journal.Components;
 
-namespace DotNetNuke.Modules.Journal.Controls {
+namespace DotNetNuke.Modules.Journal.Controls
+{
     [DefaultProperty("Text")]
     [ToolboxData("<{0}:JournalListControl runat=server></{0}:JournalListControl>")]
-    public class JournalListControl : WebControl {
+    public class JournalListControl : WebControl
+    {
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public PortalSettings portalSettings {
-            get {
+        public PortalSettings portalSettings
+        {
+            get
+            {
                 return PortalController.Instance.GetCurrentPortalSettings();
             }
         }
 
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public UserInfo userInfo {
-            get {
+        public UserInfo userInfo
+        {
+            get
+            {
                 return UserController.Instance.GetCurrentUserInfo();
             }
         }
@@ -58,16 +64,17 @@ namespace DotNetNuke.Modules.Journal.Controls {
 
         public int CurrentIndex { get; set; }
 
-        protected override void Render(HtmlTextWriter output) 
+        protected override void Render(HtmlTextWriter output)
         {
-            if (Enabled) {
-                if (CurrentIndex < 0) {
+            if (Enabled)
+            {
+                if (CurrentIndex < 0)
+                {
                     CurrentIndex = 0;
                 }
-                JournalParser jp = new JournalParser(portalSettings, ModuleId, ProfileId, SocialGroupId, userInfo){JournalId = JournalId};
+                JournalParser jp = new JournalParser(portalSettings, ModuleId, ProfileId, SocialGroupId, userInfo) { JournalId = JournalId };
                 output.Write(jp.GetList(CurrentIndex, PageSize));
             }
-            
         }
     }
 }

@@ -1,17 +1,18 @@
-﻿namespace DotNetNuke.Instrumentation
+﻿
+namespace DotNetNuke.Instrumentation
 {
-    public static class LoggerSource 
+    public static class LoggerSource
     {
-        static ILoggerSource _instance = new LoggerSourceImpl();
+        private static ILoggerSource s_instance = new LoggerSourceImpl();
 
         public static ILoggerSource Instance
         {
-            get { return _instance; }
+            get { return s_instance; }
         }
 
         public static void SetTestableInstance(ILoggerSource loggerSource)
         {
-            _instance = loggerSource;
+            s_instance = loggerSource;
         }
     }
 }

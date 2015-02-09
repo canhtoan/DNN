@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Data;
 using DotNetNuke.Services.Social.Messaging;
 
@@ -56,10 +56,10 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging.Mocks
         private static void AddUserPreferenceToTable(DataTable table, UserPreference userPreference)
         {
             table.Rows.Add(new object[] {
-                1, 
+                1,
                 userPreference.PortalId,
-                userPreference.UserId, 
-                userPreference.MessagesEmailFrequency, 
+                userPreference.UserId,
+                userPreference.MessagesEmailFrequency,
                 userPreference.NotificationsEmailFrequency,
             });
         }

@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Web.UI.WebControls;
 
@@ -31,7 +31,6 @@ using DotNetNuke.Security;
 using DotNetNuke.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -134,8 +133,8 @@ namespace DotNetNuke.UI.WebControls
             if (Visible && IsVisible((SecurityAccessLevel)Enum.Parse(typeof(SecurityAccessLevel), Security)))
             {
                 Text = Title;
-                NavigateUrl = ControlKey != "" 
-                                ? ModuleControl.ModuleContext.EditUrl(KeyName, KeyValue, ControlKey) 
+                NavigateUrl = ControlKey != ""
+                                ? ModuleControl.ModuleContext.EditUrl(KeyName, KeyValue, ControlKey)
                                 : ModuleControl.ModuleContext.EditUrl(Title);
 
                 if (CssClass == "")

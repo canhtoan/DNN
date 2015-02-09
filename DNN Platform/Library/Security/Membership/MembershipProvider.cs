@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,14 +28,13 @@ using DotNetNuke.ComponentModel;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Security.Membership
 {
     public abstract class MembershipProvider
     {
         #region Abstract Properties
-		
-		public abstract bool CanEditProviderProperties { get; }
+
+        public abstract bool CanEditProviderProperties { get; }
         public abstract int MaxInvalidPasswordAttempts { get; set; }
         public abstract int MinPasswordLength { get; set; }
         public abstract int MinNonAlphanumericCharacters { get; set; }
@@ -46,20 +45,20 @@ namespace DotNetNuke.Security.Membership
         public abstract string PasswordStrengthRegularExpression { get; set; }
         public abstract bool RequiresQuestionAndAnswer { get; set; }
         public abstract bool RequiresUniqueEmail { get; set; }
-		
-		#endregion
-		
-		#region Shared/Static Methods
+
+        #endregion
+
+        #region Shared/Static Methods
 
         //return the provider
-		public static MembershipProvider Instance()
+        public static MembershipProvider Instance()
         {
             return ComponentFactory.GetComponent<MembershipProvider>();
         }
-		
-		#endregion
-		
-		#region Abstract Methods
+
+        #endregion
+
+        #region Abstract Methods
 
         // Users
         public abstract bool ChangePassword(UserInfo user, string oldPassword, string newPassword);
@@ -95,13 +94,13 @@ namespace DotNetNuke.Security.Membership
         public abstract UserInfo GetUserByUserName(int portalId, string username);
         public abstract ArrayList GetUnAuthorizedUsers(int portalId);
         public abstract ArrayList GetDeletedUsers(int portalId);
-        public abstract ArrayList GetUsers(int portalId, int pageIndex, int pageSize, ref int totalRecords);                     
+        public abstract ArrayList GetUsers(int portalId, int pageIndex, int pageSize, ref int totalRecords);
         public abstract ArrayList GetUsersByEmail(int portalId, string emailToMatch, int pageIndex, int pageSize, ref int totalRecords);
-        public abstract ArrayList GetUsersByUserName(int portalId, string userNameToMatch, int pageIndex, int pageSize, ref int totalRecords);       
+        public abstract ArrayList GetUsersByUserName(int portalId, string userNameToMatch, int pageIndex, int pageSize, ref int totalRecords);
         public abstract ArrayList GetUsersByProfileProperty(int portalId, string propertyName, string propertyValue, int pageIndex, int pageSize, ref int totalRecords);
-        
-		#endregion
-		
+
+        #endregion
+
         #region Virtual Methods
 
         public virtual UserInfo GetUserByDisplayName(int portalId, string displayName)
@@ -129,10 +128,10 @@ namespace DotNetNuke.Security.Membership
             throw new NotImplementedException();
         }
 
-		public virtual ArrayList GetUsersByDisplayName(int portalId, string nameToMatch, int pageIndex, int pageSize, ref int totalRecords, bool includeDeleted, bool superUsersOnly)
-		{
-			throw new NotImplementedException();
-		}
+        public virtual ArrayList GetUsersByDisplayName(int portalId, string nameToMatch, int pageIndex, int pageSize, ref int totalRecords, bool includeDeleted, bool superUsersOnly)
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual ArrayList GetUsersByProfileProperty(int portalId, string propertyName, string propertyValue, int pageIndex, int pageSize, ref int totalRecords, bool includeDeleted, bool superUsersOnly)
         {
@@ -148,7 +147,7 @@ namespace DotNetNuke.Security.Membership
                                                     bool isAdmin, int pageIndex, int pageSize, string sortColumn,
                                                     bool sortAscending, string propertyNames, string propertyValues)
         {
-            throw new NotImplementedException();            
+            throw new NotImplementedException();
         }
 
         public virtual IList<UserInfo> GetUsersBasicSearch(int portalId, int pageIndex, int pageSize, string sortColumn,
@@ -180,25 +179,25 @@ namespace DotNetNuke.Security.Membership
 
         [Obsolete("Deprecated in 5.1 as Ishydrated is no longer supported")]
         public abstract ArrayList GetUnAuthorizedUsers(int portalId, bool isHydrated);
-        
+
         [Obsolete("Deprecated in 5.1 as Ishydrated is no longer supported")]
         public abstract UserInfo GetUser(int portalId, int userId, bool isHydrated);
-        
+
         [Obsolete("Deprecated in 5.1 as Ishydrated is no longer supported")]
         public abstract UserInfo GetUserByUserName(int portalId, string username, bool isHydrated);
-        
+
         [Obsolete("Deprecated in 5.1 as Ishydrated is no longer supported")]
         public abstract ArrayList GetUsers(int portalId, bool isHydrated, int pageIndex, int pageSize, ref int totalRecords);
-        
+
         [Obsolete("Deprecated in 5.1 as Ishydrated is no longer supported")]
         public abstract ArrayList GetUsersByEmail(int portalId, bool isHydrated, string emailToMatch, int pageIndex, int pageSize, ref int totalRecords);
-        
+
         [Obsolete("Deprecated in 5.1 as Ishydrated is no longer supported")]
         public abstract ArrayList GetUsersByUserName(int portalId, bool isHydrated, string userNameToMatch, int pageIndex, int pageSize, ref int totalRecords);
-        
+
         [Obsolete("Deprecated in 5.1 as Ishydrated is no longer supported")]
         public abstract ArrayList GetUsersByProfileProperty(int portalId, bool isHydrated, string propertyName, string propertyValue, int pageIndex, int pageSize, ref int totalRecords);
-        
+
         #endregion
     }
 }

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,12 +39,11 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     internal static class TabIndexController
     {
-        private static readonly object tabPathDictBuildLock = new object();
+        private static readonly object s_tabPathDictBuildLock = new object();
 
         #region Private Methods
 
@@ -377,7 +376,7 @@ namespace DotNetNuke.Entities.Urls
                 cultureRewritePath += "&language=" + cultureCode;
             }
             //hard coded page paths - using 'tabDeleted' in case there is a clash with an existing page (ie, someone has created a page that takes place of the standard page, created page has preference)
-            
+
             //need check custom login/register page set in portal and redirect to the specific page.
             var portal = PortalController.Instance.GetPortal(portalId);
             var loginRewritePath = portalRewritePath + "&ctl=Login" + cultureRewritePath;
@@ -915,7 +914,7 @@ namespace DotNetNuke.Entities.Urls
 
         private static OrderedDictionary BuildPortalAliasesRegexDictionary()
         {
-           var aliases = PortalAliasController.Instance.GetPortalAliases();
+            var aliases = PortalAliasController.Instance.GetPortalAliases();
             //create a new OrderedDictionary.  We use this because we
             //want to key by the correct regex pattern and return the
             //portalAlias that matches, and we want to preserve the
@@ -1280,7 +1279,7 @@ namespace DotNetNuke.Entities.Urls
         private static SharedDictionary<string, string> FetchTabPathDictionary(int portalId)
         {
             SharedDictionary<string, string> tabPathDict;
-            lock (tabPathDictBuildLock)
+            lock (s_tabPathDictBuildLock)
             {
                 tabPathDict = CacheController.GetTabPathsFromCache(portalId);
             }
@@ -1684,6 +1683,5 @@ namespace DotNetNuke.Entities.Urls
         }
 
         #endregion
-
     }
 }

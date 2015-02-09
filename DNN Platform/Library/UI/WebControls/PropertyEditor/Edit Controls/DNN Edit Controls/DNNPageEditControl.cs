@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
@@ -31,7 +31,6 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:DNNPageEditControl runat=server></{0}:DNNPageEditControl>")]
     public class DNNPageEditControl : IntegerEditControl
     {
-	#region "Protected Methods"
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -82,16 +81,16 @@ namespace DotNetNuke.UI.WebControls
 
                 if (tab.TabID == IntegerValue)
                 {
-					//Add the Selected Attribute
+                    //Add the Selected Attribute
                     writer.AddAttribute(HtmlTextWriterAttribute.Selected, "selected");
                 }
-				
+
                 //Render Option Tag
                 writer.RenderBeginTag(HtmlTextWriterTag.Option);
                 writer.Write(tab.IndentedTabName);
                 writer.RenderEndTag();
             }
-			
+
             //Close Select Tag
             writer.RenderEndTag();
         }
@@ -127,7 +126,7 @@ namespace DotNetNuke.UI.WebControls
                 writer.RenderEndTag();
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

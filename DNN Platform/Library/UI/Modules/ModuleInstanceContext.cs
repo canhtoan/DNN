@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Linq;
@@ -38,13 +38,11 @@ using DotNetNuke.UI.Utilities;
 
 using Globals = DotNetNuke.Common.Globals;
 using System.Web.UI;
+using DotNetNuke.Common.Internal;
 
 #endregion
-
 namespace DotNetNuke.UI.Modules
 {
-    using DotNetNuke.Common.Internal;
-
     /// <summary>
     /// Provides context data for a particular instance of a module
     /// </summary>
@@ -354,57 +352,57 @@ namespace DotNetNuke.UI.Modules
             }
 
             var helpAction = new ModuleAction(GetNextActionID())
-                                 {
-                                     Title = Localization.GetString(ModuleActionType.ModuleHelp, Localization.GlobalResourceFile),
-                                     CommandName = ModuleActionType.ModuleHelp,
-                                     CommandArgument = "",
-                                     Icon = "action_help.gif",
-                                     Url = url,
-                                     Secure = SecurityAccessLevel.Edit,
-                                     Visible = true,
-                                     NewWindow = false,
-                                     UseActionEvent = true
-                                 };
+            {
+                Title = Localization.GetString(ModuleActionType.ModuleHelp, Localization.GlobalResourceFile),
+                CommandName = ModuleActionType.ModuleHelp,
+                CommandArgument = "",
+                Icon = "action_help.gif",
+                Url = url,
+                Secure = SecurityAccessLevel.Edit,
+                Visible = true,
+                NewWindow = false,
+                UseActionEvent = true
+            };
             _moduleGenericActions.Actions.Add(helpAction);
         }
 
         private void AddPrintAction()
         {
             var action = new ModuleAction(GetNextActionID())
-                             {
-                                 Title = Localization.GetString(ModuleActionType.PrintModule, Localization.GlobalResourceFile),
-                                 CommandName = ModuleActionType.PrintModule,
-                                 CommandArgument = "",
-                                 Icon = "action_print.gif",
-                                 Url = NavigateUrl(TabId,
+            {
+                Title = Localization.GetString(ModuleActionType.PrintModule, Localization.GlobalResourceFile),
+                CommandName = ModuleActionType.PrintModule,
+                CommandArgument = "",
+                Icon = "action_print.gif",
+                Url = NavigateUrl(TabId,
                                                  "",
                                                  false,
                                                  "mid=" + ModuleId,
                                                  "SkinSrc=" + Globals.QueryStringEncode("[G]" + SkinController.RootSkin + "/" + Globals.glbHostSkinFolder + "/" + "No Skin"),
                                                  "ContainerSrc=" + Globals.QueryStringEncode("[G]" + SkinController.RootContainer + "/" + Globals.glbHostSkinFolder + "/" + "No Container"),
                                                  "dnnprintmode=true"),
-                                 Secure = SecurityAccessLevel.Anonymous,
-                                 UseActionEvent = true,
-                                 Visible = true,
-                                 NewWindow = true
-                             };
+                Secure = SecurityAccessLevel.Anonymous,
+                UseActionEvent = true,
+                Visible = true,
+                NewWindow = true
+            };
             _moduleGenericActions.Actions.Add(action);
         }
 
         private void AddSyndicateAction()
         {
             var action = new ModuleAction(GetNextActionID())
-                             {
-                                 Title = Localization.GetString(ModuleActionType.SyndicateModule, Localization.GlobalResourceFile),
-                                 CommandName = ModuleActionType.SyndicateModule,
-                                 CommandArgument = "",
-                                 Icon = "action_rss.gif",
-                                 Url = NavigateUrl(PortalSettings.ActiveTab.TabID, "", "RSS.aspx", false, "moduleid=" + ModuleId),
-                                 Secure = SecurityAccessLevel.Anonymous,
-                                 UseActionEvent = true,
-                                 Visible = true,
-                                 NewWindow = true
-                             };
+            {
+                Title = Localization.GetString(ModuleActionType.SyndicateModule, Localization.GlobalResourceFile),
+                CommandName = ModuleActionType.SyndicateModule,
+                CommandArgument = "",
+                Icon = "action_rss.gif",
+                Url = NavigateUrl(PortalSettings.ActiveTab.TabID, "", "RSS.aspx", false, "moduleid=" + ModuleId),
+                Secure = SecurityAccessLevel.Anonymous,
+                UseActionEvent = true,
+                Visible = true,
+                NewWindow = true
+            };
             _moduleGenericActions.Actions.Add(action);
         }
 
@@ -492,7 +490,6 @@ namespace DotNetNuke.UI.Modules
                                                false);
                 }
             }
-
         }
 
         private static string FilterUrl(HttpRequest request)
@@ -664,7 +661,7 @@ namespace DotNetNuke.UI.Modules
 
             //help module actions available to content editors and administrators
             const string permisisonList = "CONTENT,DELETE,EDIT,EXPORT,IMPORT,MANAGE";
-            if (ModulePermissionController.HasModulePermission(Configuration.ModulePermissions, permisisonList) 
+            if (ModulePermissionController.HasModulePermission(Configuration.ModulePermissions, permisisonList)
                     && request.QueryString["ctl"] != "Help"
                     && !Globals.IsAdminControl())
             {

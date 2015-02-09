@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -32,7 +32,6 @@ using DotNetNuke.UI.Utilities;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins.Controls
 {
     /// -----------------------------------------------------------------------------
@@ -54,8 +53,8 @@ namespace DotNetNuke.UI.Skins.Controls
     public class SkinsEditControl : EditControl, IPostBackEventHandler
     {
         private string _AddedItem = Null.NullString;
-		
-		#region "Constructors"
+
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -82,10 +81,10 @@ namespace DotNetNuke.UI.Skins.Controls
         {
             SystemType = type;
         }
-		
-		#endregion
 
-		#region "Protected Properties"
+        #endregion
+
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -221,10 +220,10 @@ namespace DotNetNuke.UI.Skins.Controls
         }
 
         #endregion
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -279,7 +278,7 @@ namespace DotNetNuke.UI.Skins.Controls
                 {
                     if (attribute is MaxLengthAttribute)
                     {
-                        var lengthAtt = (MaxLengthAttribute) attribute;
+                        var lengthAtt = (MaxLengthAttribute)attribute;
                         length = lengthAtt.Length;
                         break;
                     }
@@ -289,7 +288,7 @@ namespace DotNetNuke.UI.Skins.Controls
             {
                 foreach (KeyValuePair<int, string> kvp in DictionaryValue)
                 {
-					//Render Hyperlink
+                    //Render Hyperlink
                     writer.AddAttribute(HtmlTextWriterAttribute.Href, Page.ClientScript.GetPostBackClientHyperlink(this, "Delete_" + kvp.Key, false));
                     writer.AddAttribute(HtmlTextWriterAttribute.Onclick, "javascript:return confirm('" + ClientAPI.GetSafeJSString(Localization.GetString("DeleteItem")) + "');");
                     writer.AddAttribute(HtmlTextWriterAttribute.Title, Localization.GetString("cmdDelete", LocalResourceFile));
@@ -375,8 +374,8 @@ namespace DotNetNuke.UI.Skins.Controls
                 }
             }
         }
-		
-		#endregion
+
+        #endregion
 
         public override bool LoadPostData(string postDataKey, NameValueCollection postCollection)
         {

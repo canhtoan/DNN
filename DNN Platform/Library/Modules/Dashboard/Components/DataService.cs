@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 
@@ -27,23 +27,22 @@ using DotNetNuke.Data;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Modules.Dashboard.Data
 {
     public class DataService
     {
-        private static readonly DataProvider provider = DataProvider.Instance();
-        private static string moduleQualifier = "Dashboard_";
+        private static readonly DataProvider s_provider = DataProvider.Instance();
+        private static string s_moduleQualifier = "Dashboard_";
 
         private static string GetFullyQualifiedName(string name)
         {
-            return String.Concat(moduleQualifier, name);
+            return String.Concat(s_moduleQualifier, name);
         }
 
         public static int AddDashboardControl(int packageId, string dashboardControlKey, bool isEnabled, string dashboardControlSrc, string dashboardControlLocalResources, string controllerClass,
                                               int viewOrder)
         {
-            return provider.ExecuteScalar<int>(GetFullyQualifiedName("AddControl"),
+            return s_provider.ExecuteScalar<int>(GetFullyQualifiedName("AddControl"),
                                                packageId,
                                                dashboardControlKey,
                                                isEnabled,
@@ -55,59 +54,59 @@ namespace DotNetNuke.Modules.Dashboard.Data
 
         public static void DeleteDashboardControl(int dashboardControlId)
         {
-            provider.ExecuteNonQuery(GetFullyQualifiedName("DeleteControl"), dashboardControlId);
+            s_provider.ExecuteNonQuery(GetFullyQualifiedName("DeleteControl"), dashboardControlId);
         }
 
         public static IDataReader GetDashboardControlByKey(string dashboardControlKey)
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetDashboardControlByKey"), dashboardControlKey);
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetDashboardControlByKey"), dashboardControlKey);
         }
 
         public static IDataReader GetDashboardControlByPackageId(int packageId)
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetDashboardControlByPackageId"), packageId);
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetDashboardControlByPackageId"), packageId);
         }
 
         public static IDataReader GetDashboardControls(bool isEnabled)
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetControls"), isEnabled);
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetControls"), isEnabled);
         }
 
         public static IDataReader GetDbInfo()
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetDbInfo"));
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetDbInfo"));
         }
 
         public static IDataReader GetDbFileInfo()
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetDbFileInfo"));
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetDbFileInfo"));
         }
 
         public static IDataReader GetDbBackups()
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetDbBackups"));
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetDbBackups"));
         }
 
         public static IDataReader GetInstalledModules()
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetInstalledModules"));
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetInstalledModules"));
         }
 
         public static IDataReader GetPortals()
         {
             string cultureCode = Localization.SystemLocale;
-            return provider.GetPortals(cultureCode);
+            return s_provider.GetPortals(cultureCode);
         }
 
         public static IDataReader GetServerErrors()
         {
-            return provider.ExecuteReader(GetFullyQualifiedName("GetServerErrors"));
+            return s_provider.ExecuteReader(GetFullyQualifiedName("GetServerErrors"));
         }
 
         public static void UpdateDashboardControl(int dashboardControlId, string dashboardControlKey, bool isEnabled, string dashboardControlSrc, string dashboardControlLocalResources,
                                                   string controllerClass, int viewOrder)
         {
-            provider.ExecuteNonQuery(GetFullyQualifiedName("UpdateControl"),
+            s_provider.ExecuteNonQuery(GetFullyQualifiedName("UpdateControl"),
                                      dashboardControlId,
                                      dashboardControlKey,
                                      isEnabled,

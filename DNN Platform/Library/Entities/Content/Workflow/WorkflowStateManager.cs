@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +72,7 @@ namespace DotNetNuke.Entities.Content.Workflow
             }
 
             var lastState = workflow.LastState;
-            
+
             // New States always goes before the last state
             state.Order = lastState.Order;
 
@@ -98,9 +98,9 @@ namespace DotNetNuke.Entities.Content.Workflow
             {
                 throw new WorkflowInvalidOperationException(Localization.GetString("WorkflowStateInUsageException", Localization.ExceptionsResourceFile));
             }
-            
+
             _workflowStateRepository.DeleteWorkflowState(stateToDelete);
-            
+
             // Reorder states order
             using (var context = DataContext.Instance())
             {
@@ -133,7 +133,7 @@ namespace DotNetNuke.Entities.Content.Workflow
             {
                 throw new WorkflowInvalidOperationException(Localization.GetString("WorkflowStateCannotBeMoved", Localization.ExceptionsResourceFile));
             }
-            
+
             WorkflowState stateToMoveUp = null;
             WorkflowState stateToMoveDown = null;
 
@@ -174,7 +174,7 @@ namespace DotNetNuke.Entities.Content.Workflow
             }
 
             var states = _workflowStateRepository.GetWorkflowStates(state.WorkflowID).ToArray();
-            
+
             if (states.Length == 3)
             {
                 throw new WorkflowInvalidOperationException(Localization.GetString("WorkflowStateCannotBeMoved", Localization.ExceptionsResourceFile));
@@ -227,7 +227,7 @@ namespace DotNetNuke.Entities.Content.Workflow
 
             var currentIndex = GetStateIndex(states, state);
 
-            if (currentIndex == 0 
+            if (currentIndex == 0
                 || currentIndex == states.Length - 1)
             {
                 throw new WorkflowInvalidOperationException(Localization.GetString("WorkflowStateCannotBeMoved", Localization.ExceptionsResourceFile));

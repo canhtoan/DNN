@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.UsersOnline
 {
     public class UsersOnlineModule : IHttpModule
@@ -55,7 +54,7 @@ namespace DotNetNuke.HttpModules.UsersOnline
         public void OnAuthorizeRequest(object s, EventArgs e)
         {
             //First check if we are upgrading/installing
-            var app = (HttpApplication) s;
+            var app = (HttpApplication)s;
             HttpRequest request = app.Request;
 
             //check if we are upgrading/installing or if this is a captcha request

@@ -5,7 +5,6 @@ namespace DotNetNuke.Common.Utilities
 {
     public static class StringExtensions
     {
-
         public static string Append(this string stringValue, string stringToLink, string delimiter)
         {
             if (string.IsNullOrEmpty(stringValue))
@@ -24,12 +23,10 @@ namespace DotNetNuke.Common.Utilities
             return stringValue ?? string.Empty;
         }
 
-		public static string NormalizeString(this string input)
-		{
-			Encoding enc = Encoding.GetEncoding("iso-8859-8");
-			return enc.GetString(Encoding.Convert(Encoding.UTF8, enc, Encoding.UTF8.GetBytes(input))).ToLower();
-		}
-
+        public static string NormalizeString(this string input)
+        {
+            Encoding enc = Encoding.GetEncoding("iso-8859-8");
+            return enc.GetString(Encoding.Convert(Encoding.UTF8, enc, Encoding.UTF8.GetBytes(input))).ToLower();
+        }
     }
-
 }

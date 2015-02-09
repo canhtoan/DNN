@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Data;
@@ -29,7 +29,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
 #endregion
-
 namespace DotNetNuke.Services.Personalization
 {
     public class PersonalizationController
@@ -51,7 +50,7 @@ namespace DotNetNuke.Services.Personalization
         //override allows for manipulation of PersonalizationInfo outside of HTTPContext
         public PersonalizationInfo LoadProfile(int userId, int portalId)
         {
-            var personalization = new PersonalizationInfo {UserId = userId, PortalId = portalId, IsModified = false};
+            var personalization = new PersonalizationInfo { UserId = userId, PortalId = portalId, IsModified = false };
             string profileData = Null.NullString;
             if (userId > Null.NullInteger)
             {
@@ -79,7 +78,7 @@ namespace DotNetNuke.Services.Personalization
             }
             else
             {
-				//Anon User - so try and use cookie.
+                //Anon User - so try and use cookie.
                 HttpContext context = HttpContext.Current;
                 if (context != null && context.Request.Cookies["DNNPersonalization"] != null)
                 {
@@ -99,7 +98,7 @@ namespace DotNetNuke.Services.Personalization
         //default implementation relies on HTTPContext
         public void SaveProfile(HttpContext httpContext, int userId, int portalId)
         {
-            var objPersonalization = (PersonalizationInfo) httpContext.Items["Personalization"];
+            var objPersonalization = (PersonalizationInfo)httpContext.Items["Personalization"];
             SaveProfile(objPersonalization, userId, portalId);
         }
 
@@ -117,7 +116,7 @@ namespace DotNetNuke.Services.Personalization
                     }
                     else
                     {
-						//Anon User - so try and use cookie.
+                        //Anon User - so try and use cookie.
                         var context = HttpContext.Current;
                         if (context != null)
                         {

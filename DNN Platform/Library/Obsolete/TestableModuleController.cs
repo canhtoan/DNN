@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.ComponentModel;
@@ -35,19 +36,19 @@ namespace DotNetNuke.Entities.Modules.Internal
             return () => new TestableModuleController();
         }
 
-         public ModuleInfo GetModule(int moduleId, int tabId)
-         {
-             return ModuleController.Instance.GetModule(moduleId, tabId, false);
-         }
+        public ModuleInfo GetModule(int moduleId, int tabId)
+        {
+            return ModuleController.Instance.GetModule(moduleId, tabId, false);
+        }
 
-         public void UpdateModuleSetting(int moduleId, string settingName, string settingValue)
-         {
-             ModuleController.Instance.UpdateModuleSetting(moduleId, settingName, settingValue);
-         }
+        public void UpdateModuleSetting(int moduleId, string settingName, string settingValue)
+        {
+            ModuleController.Instance.UpdateModuleSetting(moduleId, settingName, settingValue);
+        }
 
-         public void UpdateTabModuleSetting(int tabModuleId, string settingName, string settingValue)
-         {
-             ModuleController.Instance.UpdateTabModuleSetting(tabModuleId, settingName, settingValue);
-         }
+        public void UpdateTabModuleSetting(int tabModuleId, string settingName, string settingValue)
+        {
+            ModuleController.Instance.UpdateTabModuleSetting(tabModuleId, settingName, settingValue);
+        }
     }
 }

@@ -5,9 +5,11 @@ using System.Text;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Common.Utilities;
 
-namespace DotNetNuke.Services.Journal {
+namespace DotNetNuke.Services.Journal
+{
     [Serializable]
-    public class JournalTypeInfo : IHydratable {
+    public class JournalTypeInfo : IHydratable
+    {
         public int JournalTypeId { get; set; }
         public int PortalId { get; set; }
         public string JournalType { get; set; }
@@ -19,16 +21,20 @@ namespace DotNetNuke.Services.Journal {
         public string Options { get; set; }
         public bool IsEnabled { get; set; }
         public bool EnableComments { get; set; }
-        public int KeyID {
-            get {
+        public int KeyID
+        {
+            get
+            {
                 return JournalTypeId;
             }
-            set {
+            set
+            {
                 JournalTypeId = value;
             }
         }
 
-        public void Fill(System.Data.IDataReader dr) {
+        public void Fill(System.Data.IDataReader dr)
+        {
             JournalTypeId = Null.SetNullInteger(dr["JournalTypeId"]);
             PortalId = Null.SetNullInteger(dr["PortalId"]);
             JournalType = Null.SetNullString(dr["JournalType"]);

@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -30,7 +30,6 @@ using DotNetNuke.Services.Personalization;
 
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnLanguageLabel : CompositeControl, ILocalizable
@@ -56,7 +55,7 @@ namespace DotNetNuke.Web.UI.WebControls
         {
             get
             {
-                return (string) ViewState["Language"];
+                return (string)ViewState["Language"];
             }
             set
             {
@@ -85,7 +84,7 @@ namespace DotNetNuke.Web.UI.WebControls
             //First clear the controls collection
             Controls.Clear();
 
-            _Flag = new Image {ViewStateMode = ViewStateMode.Disabled};
+            _Flag = new Image { ViewStateMode = ViewStateMode.Disabled };
             Controls.Add(_Flag);
 
             Controls.Add(new LiteralControl("&nbsp;"));

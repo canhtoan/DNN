@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.UI.Skins;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnFormSkinsItem : DnnFormItemBase
@@ -90,7 +89,7 @@ namespace DotNetNuke.Web.UI.WebControls
 
             //_skinCombo = new DropDownList { ID = ID + "_SkinComboBox" };
             _skinCombo = new DnnComboBox { ID = ID + "_SkinComboBox" };
-            _skinCombo.CssClass += "dnnFormSkinInput"; 
+            _skinCombo.CssClass += "dnnFormSkinInput";
             _skinCombo.SelectedIndexChanged += SkinIndexChanged;
             panel.Controls.Add(_skinCombo);
 
@@ -117,7 +116,7 @@ namespace DotNetNuke.Web.UI.WebControls
 
             DataBindInternal(ContainerDataField, ref _containerValue);
 
-            Value = new Pair {First = _skinValue, Second = _containerValue};
+            Value = new Pair { First = _skinValue, Second = _containerValue };
         }
 
         protected override void LoadControlState(object state)

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Data;
 using System.Xml;
@@ -32,13 +32,12 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Urls;
 
 #endregion
-
 namespace DotNetNuke.Entities.Portals
 {
     [Serializable]
     public class PortalAliasInfo : BaseEntityInfo, IHydratable, IXmlSerializable
     {
-        public PortalAliasInfo() {}
+        public PortalAliasInfo() { }
 
         public PortalAliasInfo(PortalAliasInfo alias)
         {
@@ -138,7 +137,7 @@ namespace DotNetNuke.Entities.Portals
                         IsPrimary = reader.ReadElementContentAsBoolean();
                         break;
                     default:
-                        if(reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
+                        if (reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
                         {
                             reader.ReadElementContentAsString();
                         }
@@ -166,6 +165,5 @@ namespace DotNetNuke.Entities.Portals
         }
 
         #endregion
-
     }
 }

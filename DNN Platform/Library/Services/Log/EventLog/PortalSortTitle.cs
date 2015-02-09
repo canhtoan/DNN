@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -27,7 +27,6 @@ using System.ComponentModel;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.EventLog
 {
     [Obsolete("Deprecated in 6.0. No longer neccessary becuase of LINQ.")]
@@ -38,7 +37,7 @@ namespace DotNetNuke.Services.Log.EventLog
 
         public int Compare(object x, object y)
         {
-            return ((PortalInfo) x).PortalName.CompareTo(((PortalInfo) y).PortalName);
+            return ((PortalInfo)x).PortalName.CompareTo(((PortalInfo)y).PortalName);
         }
 
         #endregion

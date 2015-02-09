@@ -13,5 +13,4 @@ namespace DotNetNuke.Entities.Urls
         public int SiteAliasUsage { get; set; }
         public bool IsSystem { get; set; }
     }
-
 }

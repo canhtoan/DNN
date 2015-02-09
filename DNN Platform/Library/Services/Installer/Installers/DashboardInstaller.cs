@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Xml.XPath;
 
@@ -27,24 +27,23 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Modules.Dashboard.Components;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     public class DashboardInstaller : ComponentInstallerBase
     {
-		#region "Private Properties"
+        #region "Private Properties"
 
-        private string ControllerClass;
-        private bool IsEnabled;
-        private string Key;
-        private string LocalResources;
-        private string Src;
-        private DashboardControl TempDashboardControl;
-        private int ViewOrder;
-		
-		#endregion
+        private string _controllerClass;
+        private bool _isEnabled;
+        private string _key;
+        private string _localResources;
+        private string _src;
+        private DashboardControl _tempDashboardControl;
+        private int _viewOrder;
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -62,16 +61,16 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "ashx, aspx, ascx, vb, cs, resx, css, js, resources, config, vbproj, csproj, sln, htm, html";
             }
         }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         private void DeleteDashboard()
         {
             try
             {
-				//Attempt to get the Dashboard
+                //Attempt to get the Dashboard
                 DashboardControl dashboardControl = DashboardController.GetDashboardControlByPackageId(Package.PackageID);
                 if (dashboardControl != null)
                 {
@@ -95,25 +94,25 @@ namespace DotNetNuke.Services.Installer.Installers
             try
             {
                 //Attempt to get the Dashboard
-                TempDashboardControl = DashboardController.GetDashboardControlByKey(Key);
+                _tempDashboardControl = DashboardController.GetDashboardControlByKey(_key);
                 var dashboardControl = new DashboardControl();
 
-                if (TempDashboardControl == null)
+                if (_tempDashboardControl == null)
                 {
                     dashboardControl.IsEnabled = true;
                     bAdd = true;
                 }
                 else
                 {
-                    dashboardControl.DashboardControlID = TempDashboardControl.DashboardControlID;
-                    dashboardControl.IsEnabled = TempDashboardControl.IsEnabled;
+                    dashboardControl.DashboardControlID = _tempDashboardControl.DashboardControlID;
+                    dashboardControl.IsEnabled = _tempDashboardControl.IsEnabled;
                 }
-                dashboardControl.DashboardControlKey = Key;
+                dashboardControl.DashboardControlKey = _key;
                 dashboardControl.PackageID = Package.PackageID;
-                dashboardControl.DashboardControlSrc = Src;
-                dashboardControl.DashboardControlLocalResources = LocalResources;
-                dashboardControl.ControllerClass = ControllerClass;
-                dashboardControl.ViewOrder = ViewOrder;
+                dashboardControl.DashboardControlSrc = _src;
+                dashboardControl.DashboardControlLocalResources = _localResources;
+                dashboardControl.ControllerClass = _controllerClass;
+                dashboardControl.ViewOrder = _viewOrder;
                 if (bAdd)
                 {
                     //Add new Dashboard
@@ -121,7 +120,7 @@ namespace DotNetNuke.Services.Installer.Installers
                 }
                 else
                 {
-					//Update Dashboard
+                    //Update Dashboard
                     DashboardController.UpdateDashboardControl(dashboardControl);
                 }
                 Completed = true;
@@ -143,23 +142,23 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void ReadManifest(XPathNavigator manifestNav)
         {
-			//Get the Key
-            Key = Util.ReadElement(manifestNav, "dashboardControl/key", Log, Util.DASHBOARD_KeyMissing);
+            //Get the Key
+            _key = Util.ReadElement(manifestNav, "dashboardControl/key", Log, Util.DASHBOARD_KeyMissing);
 
             //Get the Src
-            Src = Util.ReadElement(manifestNav, "dashboardControl/src", Log, Util.DASHBOARD_SrcMissing);
+            _src = Util.ReadElement(manifestNav, "dashboardControl/src", Log, Util.DASHBOARD_SrcMissing);
 
             //Get the LocalResources
-            LocalResources = Util.ReadElement(manifestNav, "dashboardControl/localResources", Log, Util.DASHBOARD_LocalResourcesMissing);
+            _localResources = Util.ReadElement(manifestNav, "dashboardControl/localResources", Log, Util.DASHBOARD_LocalResourcesMissing);
 
             //Get the ControllerClass
-            ControllerClass = Util.ReadElement(manifestNav, "dashboardControl/controllerClass");
+            _controllerClass = Util.ReadElement(manifestNav, "dashboardControl/controllerClass");
 
             //Get the IsEnabled Flag
-            IsEnabled = bool.Parse(Util.ReadElement(manifestNav, "dashboardControl/isEnabled", "true"));
+            _isEnabled = bool.Parse(Util.ReadElement(manifestNav, "dashboardControl/isEnabled", "true"));
 
             //Get the ViewOrder
-            ViewOrder = int.Parse(Util.ReadElement(manifestNav, "dashboardControl/viewOrder", "-1"));
+            _viewOrder = int.Parse(Util.ReadElement(manifestNav, "dashboardControl/viewOrder", "-1"));
 
             if (Log.Valid)
             {
@@ -169,16 +168,16 @@ namespace DotNetNuke.Services.Installer.Installers
 
         public override void Rollback()
         {
-			//If Temp Dashboard exists then we need to update the DataStore with this 
-            if (TempDashboardControl == null)
+            //If Temp Dashboard exists then we need to update the DataStore with this 
+            if (_tempDashboardControl == null)
             {
-				//No Temp Dashboard - Delete newly added system
+                //No Temp Dashboard - Delete newly added system
                 DeleteDashboard();
             }
             else
             {
-				//Temp Dashboard - Rollback to Temp
-                DashboardController.UpdateDashboardControl(TempDashboardControl);
+                //Temp Dashboard - Rollback to Temp
+                DashboardController.UpdateDashboardControl(_tempDashboardControl);
             }
         }
 
@@ -186,7 +185,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             try
             {
-				//Attempt to get the DashboardControl
+                //Attempt to get the DashboardControl
                 DashboardControl dashboardControl = DashboardController.GetDashboardControlByPackageId(Package.PackageID);
                 if (dashboardControl != null)
                 {
@@ -199,7 +198,7 @@ namespace DotNetNuke.Services.Installer.Installers
                 Log.AddFailure(ex);
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

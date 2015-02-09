@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Cache;
@@ -27,7 +27,7 @@ namespace DotNetNuke.Common.Internal
 {
     public static class ServicesRoutingManager
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ServicesRoutingManager));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ServicesRoutingManager));
 
         public static void RegisterServiceRoutes()
         {
@@ -44,7 +44,7 @@ namespace DotNetNuke.Common.Internal
             }
             catch (Exception e)
             {
-                Logger.Error(unableToRegisterServiceRoutes, e);
+                s_logger.Error(unableToRegisterServiceRoutes, e);
             }
         }
 

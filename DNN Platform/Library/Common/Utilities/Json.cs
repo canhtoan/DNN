@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
@@ -30,7 +30,6 @@ using System.Text;
 using Newtonsoft.Json;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     /// <summary>
@@ -45,7 +44,7 @@ namespace DotNetNuke.Common.Utilities
 
         public static string Serialize<T>(T obj)
         {
-            return JsonConvert.SerializeObject(obj);  
+            return JsonConvert.SerializeObject(obj);
         }
     }
 }

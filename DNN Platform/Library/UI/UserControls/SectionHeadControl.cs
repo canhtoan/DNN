@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -29,7 +29,6 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.UI.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     /// -----------------------------------------------------------------------------
@@ -47,7 +46,7 @@ namespace DotNetNuke.UI.UserControls
     /// -----------------------------------------------------------------------------
     public class SectionHeadControl : UserControl
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private bool _includeRule;
         private bool _isExpanded = true;
@@ -57,10 +56,10 @@ namespace DotNetNuke.UI.UserControls
         protected ImageButton imgIcon;
         protected Label lblTitle;
         protected Panel pnlRule;
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
 
         /// -----------------------------------------------------------------------------
@@ -207,32 +206,32 @@ namespace DotNetNuke.UI.UserControls
             }
         }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// The ResourceKey is the key used to identify the Localization Resource for the
- /// title text.
- /// </summary>
- /// <value>A string representing the ResourceKey.</value>
- /// <remarks>
- /// </remarks>
- /// <history>
- /// 	[cnurse]	9/7/2004	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The ResourceKey is the key used to identify the Localization Resource for the
+        /// title text.
+        /// </summary>
+        /// <value>A string representing the ResourceKey.</value>
+        /// <remarks>
+        /// </remarks>
+        /// <history>
+        /// 	[cnurse]	9/7/2004	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string ResourceKey { get; set; }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// The Section is the Id of the DHTML object  that contains the xection content
- /// title text.
- /// </summary>
- /// <value>A string representing the Section.</value>
- /// <remarks>
- /// </remarks>
- /// <history>
- /// 	[cnurse]	9/7/2004	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The Section is the Id of the DHTML object  that contains the xection content
+        /// title text.
+        /// </summary>
+        /// <value>A string representing the Section.</value>
+        /// <remarks>
+        /// </remarks>
+        /// <history>
+        /// 	[cnurse]	9/7/2004	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string Section { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -258,10 +257,10 @@ namespace DotNetNuke.UI.UserControls
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Event Handlers"
-		
+        #region "Event Handlers"
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Assign resource key to label for localization
@@ -279,7 +278,7 @@ namespace DotNetNuke.UI.UserControls
 
             try
             {
-				//set the resourcekey attribute to the label
+                //set the resourcekey attribute to the label
                 if (!String.IsNullOrEmpty(ResourceKey))
                 {
                     lblTitle.Attributes["resourcekey"] = ResourceKey;
@@ -310,14 +309,14 @@ namespace DotNetNuke.UI.UserControls
 
             try
             {
-                var ctl = (HtmlControl) Parent.FindControl(Section);
+                var ctl = (HtmlControl)Parent.FindControl(Section);
                 if (ctl != null)
                 {
                     lblTitle.Attributes.Add("onclick", imgIcon.ClientID + ".click();");
                     lblTitle.Attributes.Add("style", "cursor: pointer");
                     DNNClientAPI.EnableMinMax(imgIcon, ctl, !IsExpanded, Page.ResolveUrl(MinImageUrl), Page.ResolveUrl(MaxImageUrl), DNNClientAPI.MinMaxPersistanceType.Page);
                 }
-				
+
                 //optionlly show hr
                 pnlRule.Visible = _includeRule;
             }
@@ -329,13 +328,13 @@ namespace DotNetNuke.UI.UserControls
 
         protected void imgIcon_Click(object sender, ImageClickEventArgs e)
         {
-            var ctl = (HtmlControl) Parent.FindControl(Section);
+            var ctl = (HtmlControl)Parent.FindControl(Section);
             if (ctl != null)
             {
                 IsExpanded = !IsExpanded;
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

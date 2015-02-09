@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web;
@@ -35,7 +35,6 @@ using DotNetNuke.Services.Upgrade.Internals.InstallConfiguration;
 using DotNetNuke.Services.Upgrade.Internals.Steps;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 {
     /// -----------------------------------------------------------------------------
@@ -82,7 +81,6 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 
         private void CreateSite(PortalConfig portal, InstallConfig installConfig)
         {
-
             var domain = "";
             if ((HttpContext.Current != null))
             {
@@ -102,7 +100,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                 Details = string.Format(description, portalAlias);
                 return;
             }
-            
+
             //Create default email
             var email = portal.AdminEmail;
             if (string.IsNullOrEmpty(email))
@@ -125,7 +123,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 
             var template = Upgrade.FindBestTemplate(portal.TemplateFileName);
             UserInfo userInfo;
-            
+
             if (!String.IsNullOrEmpty(portal.AdminUserName))
                 userInfo = Upgrade.CreateUserInfo(portal.AdminFirstName, portal.AdminLastName, portal.AdminUserName, portal.AdminPassword, email);
             else
@@ -134,7 +132,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
             var childPath = string.Empty;
             if (portal.IsChild)
                 childPath = portalAlias.Substring(portalAlias.LastIndexOf("/") + 1);
-            
+
             //Create Folder Mappings config
             if (!String.IsNullOrEmpty(installConfig.FolderMappingsSettings))
             {
@@ -167,9 +165,9 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
             }
 
             //remove en-US from portal if installing in a different language
-			if (!culture.Equals("en-us", StringComparison.InvariantCultureIgnoreCase))
+            if (!culture.Equals("en-us", StringComparison.InvariantCultureIgnoreCase))
             {
-                var locale = LocaleController.Instance.GetLocale("en-US");              
+                var locale = LocaleController.Instance.GetLocale("en-US");
                 Localization.Localization.RemoveLanguageFromPortal(portalId, locale.LanguageId);
             }
 
@@ -190,6 +188,5 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
         //}
 
         #endregion
-
     }
 }

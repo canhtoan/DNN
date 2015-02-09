@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web.UI.WebControls;
@@ -32,13 +32,12 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Modules;
 
 #endregion
-
 namespace DotNetNuke.Modules.RazorHost
 {
     public partial class EditScript : ModuleUserControlBase
     {
-        private string razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
-        private string razorScriptFolder = "~/DesktopModules/RazorModules/RazorHost/Scripts/";
+        private string _razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
+        private string _razorScriptFolder = "~/DesktopModules/RazorModules/RazorHost/Scripts/";
 
 
         protected string RazorScriptFile
@@ -49,7 +48,7 @@ namespace DotNetNuke.Modules.RazorHost
                 var scriptFileSetting = ModuleContext.Settings["ScriptFile"] as string;
                 if (!(string.IsNullOrEmpty(scriptFileSetting)))
                 {
-                    m_RazorScriptFile = string.Format(razorScriptFileFormatString, scriptFileSetting);
+                    m_RazorScriptFile = string.Format(_razorScriptFileFormatString, scriptFileSetting);
                 }
                 return m_RazorScriptFile;
             }
@@ -57,10 +56,10 @@ namespace DotNetNuke.Modules.RazorHost
 
         private void LoadScripts()
         {
-            string basePath = Server.MapPath(razorScriptFolder);
+            string basePath = Server.MapPath(_razorScriptFolder);
             var scriptFileSetting = ModuleContext.Settings["ScriptFile"] as string;
 
-            foreach (string script in Directory.GetFiles(Server.MapPath(razorScriptFolder), "*.??html"))
+            foreach (string script in Directory.GetFiles(Server.MapPath(_razorScriptFolder), "*.??html"))
             {
                 string scriptPath = script.Replace(basePath, "");
                 var item = new ListItem(scriptPath, scriptPath);
@@ -75,7 +74,7 @@ namespace DotNetNuke.Modules.RazorHost
         private void DisplayFile()
         {
             var scriptFileSetting = ModuleContext.Settings["ScriptFile"] as string;
-            string scriptFile = string.Format(razorScriptFileFormatString, scriptList.SelectedValue);
+            string scriptFile = string.Format(_razorScriptFileFormatString, scriptList.SelectedValue);
             string srcFile = Server.MapPath(scriptFile);
 
             lblSourceFile.Text = string.Format(Localization.GetString("SourceFile", LocalResourceFile), scriptFile);
@@ -93,7 +92,7 @@ namespace DotNetNuke.Modules.RazorHost
 
         private void SaveScript()
         {
-            string srcFile = Server.MapPath(string.Format(razorScriptFileFormatString, scriptList.SelectedValue));
+            string srcFile = Server.MapPath(string.Format(_razorScriptFileFormatString, scriptList.SelectedValue));
 
             // write file
             StreamWriter objStream = null;
@@ -166,7 +165,7 @@ namespace DotNetNuke.Modules.RazorHost
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
         }
-       
+
         private void cmdAdd_Click(object sender, EventArgs e)
         {
             try
@@ -183,7 +182,5 @@ namespace DotNetNuke.Modules.RazorHost
         {
             DisplayFile();
         }
-
-
     }
 }

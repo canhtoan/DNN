@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -41,22 +41,22 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
     [TestFixture]
     public class UserPreferencesControllerTests
     {
-        private UserPreferencesController userPrefencesController;
-        private Mock<IDataService> mockDataService;
-        private Mock<CachingProvider> mockCacheProvider;
+        private UserPreferencesController _userPrefencesController;
+        private Mock<IDataService> _mockDataService;
+        private Mock<CachingProvider> _mockCacheProvider;
 
         [SetUp]
         public void SetUp()
         {
             // Setup Mocks and Stub
-            mockDataService = new Mock<IDataService>();
-            mockCacheProvider = MockComponentProvider.CreateDataCacheProvider();
+            _mockDataService = new Mock<IDataService>();
+            _mockCacheProvider = MockComponentProvider.CreateDataCacheProvider();
 
-            DataService.RegisterInstance(mockDataService.Object);
-            SetupCachingProviderHelper.SetupCachingProvider(mockCacheProvider);
+            DataService.RegisterInstance(_mockDataService.Object);
+            SetupCachingProviderHelper.SetupCachingProvider(_mockCacheProvider);
 
             // Setup SUT
-            userPrefencesController = new UserPreferencesController();
+            _userPrefencesController = new UserPreferencesController();
         }
 
         [TearDown]
@@ -81,17 +81,17 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             // Arrange
             var userPreference = new UserPreferenceBuilder().Build();
 
-            mockDataService.Setup(ds => ds.SetUserPreference(
-                userPreference.PortalId, 
-                userPreference.UserId, 
-                (int) userPreference.MessagesEmailFrequency,
+            _mockDataService.Setup(ds => ds.SetUserPreference(
+                userPreference.PortalId,
+                userPreference.UserId,
+                (int)userPreference.MessagesEmailFrequency,
                 (int)userPreference.NotificationsEmailFrequency)).Verifiable();
 
             //Act
-            userPrefencesController.SetUserPreference(userPreference);
+            _userPrefencesController.SetUserPreference(userPreference);
 
             // Assert
-            mockDataService.Verify(ds => ds.SetUserPreference(
+            _mockDataService.Verify(ds => ds.SetUserPreference(
                 userPreference.PortalId,
                 userPreference.UserId,
                 (int)userPreference.MessagesEmailFrequency,
@@ -105,12 +105,12 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
         {
             // Arrange
             var user = GetValidUser();
-            mockDataService.Setup(ds => ds.GetUserPreference(
+            _mockDataService.Setup(ds => ds.GetUserPreference(
                 Constants.PORTAL_ValidPortalId,
                 Constants.UserID_User12)).Returns(UserPreferenceDataReaderMockHelper.CreateEmptyUserPreferenceReader);
 
             //Act
-            var userPreference = userPrefencesController.GetUserPreference(user);
+            var userPreference = _userPrefencesController.GetUserPreference(user);
 
             // Assert
             Assert.IsNull(userPreference);
@@ -126,11 +126,11 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
                 .Build();
 
             var user = GetValidUser();
-            mockDataService.Setup(ds => ds.GetUserPreference(Constants.PORTAL_ValidPortalId,Constants.UserID_User12))
+            _mockDataService.Setup(ds => ds.GetUserPreference(Constants.PORTAL_ValidPortalId, Constants.UserID_User12))
                 .Returns(UserPreferenceDataReaderMockHelper.CreateUserPreferenceReader(expectedUserPreference));
 
             //Act
-            var userPreference = userPrefencesController.GetUserPreference(user);
+            var userPreference = _userPrefencesController.GetUserPreference(user);
 
             // Assert
             Assert.IsNotNull(userPreference);

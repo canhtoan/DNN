@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Xml;
 
@@ -28,7 +28,6 @@ using DotNetNuke.Services.Installer.Log;
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -43,7 +42,7 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class FileComponentWriter
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private readonly string _BasePath;
         private readonly Dictionary<string, InstallFile> _Files;
@@ -51,9 +50,9 @@ namespace DotNetNuke.Services.Installer.Writers
         private int _InstallOrder = Null.NullInteger;
         private int _UnInstallOrder = Null.NullInteger;
 
-		#endregion
+        #endregion
 
-		#region "Constructors"
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -72,10 +71,10 @@ namespace DotNetNuke.Services.Installer.Writers
             _BasePath = basePath;
             _Package = package;
         }
-		
-		#endregion
 
-		#region "Protected Properties"
+        #endregion
+
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -161,10 +160,10 @@ namespace DotNetNuke.Services.Installer.Writers
                 return _Package;
             }
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public int InstallOrder
         {
@@ -189,10 +188,10 @@ namespace DotNetNuke.Services.Installer.Writers
                 _UnInstallOrder = value;
             }
         }
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
 
         /// -----------------------------------------------------------------------------
@@ -229,7 +228,7 @@ namespace DotNetNuke.Services.Installer.Writers
                 }
                 writer.WriteElementString("path", path);
             }
-			
+
             //Write name
             writer.WriteElementString("name", file.Name);
 
@@ -238,18 +237,18 @@ namespace DotNetNuke.Services.Installer.Writers
             {
                 writer.WriteElementString("sourceFileName", file.SourceFileName);
             }
-			
+
             //Close file Element
             writer.WriteEndElement();
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         public virtual void WriteManifest(XmlWriter writer)
         {
-			//Start component Element
+            //Start component Element
             writer.WriteStartElement("component");
             writer.WriteAttributeString("type", ComponentType);
             if (InstallOrder > Null.NullInteger)
@@ -260,7 +259,7 @@ namespace DotNetNuke.Services.Installer.Writers
             {
                 writer.WriteAttributeString("unInstallOrder", UnInstallOrder.ToString());
             }
-			
+
             //Start files element
             writer.WriteStartElement(CollectionNodeName);
 
@@ -276,14 +275,14 @@ namespace DotNetNuke.Services.Installer.Writers
             {
                 WriteFileElement(writer, file);
             }
-			
+
             //End files Element
             writer.WriteEndElement();
 
             //End component Element
             writer.WriteEndElement();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

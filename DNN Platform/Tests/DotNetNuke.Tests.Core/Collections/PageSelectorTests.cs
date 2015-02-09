@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 
@@ -32,7 +32,6 @@ using DotNetNuke.Tests.Utilities;
 using NUnit.Framework;
 
 #endregion
-
 namespace DotNetNuke.Tests.Core.Collections
 {
     [TestFixture]
@@ -43,12 +42,12 @@ namespace DotNetNuke.Tests.Core.Collections
         [SetUp]
         public void SetUp()
         {
-            list = Util.CreateIntegerList(Constants.PAGE_TotalCount);
+            _list = Util.CreateIntegerList(Constants.PAGE_TotalCount);
         }
 
         #endregion
 
-        private IEnumerable<int> list;
+        private IEnumerable<int> _list;
 
         [Test]
         [TestCase(0)]
@@ -57,7 +56,7 @@ namespace DotNetNuke.Tests.Core.Collections
         public void PageSelector_Returns_CorrectPage_When_Given_Valid_Index(int index)
         {
             //Arrange
-            var selector = new PageSelector<int>(list, Constants.PAGE_RecordCount);
+            var selector = new PageSelector<int>(_list, Constants.PAGE_RecordCount);
 
             //Act
             IPagedList<int> pagedList = selector.GetPage(index);
@@ -72,7 +71,7 @@ namespace DotNetNuke.Tests.Core.Collections
         public void PageSelector_Returns_Correct_RecordCount_When_Given_Valid_Index(int pageSize)
         {
             //Arrange
-            var selector = new PageSelector<int>(list, pageSize);
+            var selector = new PageSelector<int>(_list, pageSize);
 
             //Act
             IPagedList<int> pagedList = selector.GetPage(Constants.PAGE_First);
@@ -89,7 +88,7 @@ namespace DotNetNuke.Tests.Core.Collections
         public void PageSelector_Returns_Correct_Values_When_Given_Valid_Index_And_PageSize(int index, int pageSize)
         {
             //Arrange
-            var selector = new PageSelector<int>(list, pageSize);
+            var selector = new PageSelector<int>(_list, pageSize);
 
             //Act
             IPagedList<int> pagedList = selector.GetPage(index);
@@ -97,7 +96,7 @@ namespace DotNetNuke.Tests.Core.Collections
             //Assert
             for (int i = 0; i < pageSize; i++)
             {
-                Assert.AreEqual(index*pageSize + i, pagedList[i]);
+                Assert.AreEqual(index * pageSize + i, pagedList[i]);
             }
         }
 
@@ -105,7 +104,7 @@ namespace DotNetNuke.Tests.Core.Collections
         public void PageSelector_Throws_When_Given_InValid_Index()
         {
             //Arrange
-            var selector = new PageSelector<int>(list, Constants.PAGE_RecordCount);
+            var selector = new PageSelector<int>(_list, Constants.PAGE_RecordCount);
 
             //Assert
             Assert.Throws<IndexOutOfRangeException>(() => selector.GetPage(Constants.PAGE_OutOfRange));
@@ -115,7 +114,7 @@ namespace DotNetNuke.Tests.Core.Collections
         public void PageSelector_Throws_When_Given_Negative_Index()
         {
             //Arrange
-            var selector = new PageSelector<int>(list, Constants.PAGE_RecordCount);
+            var selector = new PageSelector<int>(_list, Constants.PAGE_RecordCount);
 
             //Assert
             Assert.Throws<IndexOutOfRangeException>(() => selector.GetPage(Constants.PAGE_NegativeIndex));

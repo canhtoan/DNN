@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -34,14 +34,11 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Security.Roles.Internal;
 
 #endregion
-
 namespace DotNetNuke.Entities.Host
 {
-
     [Serializable]
     public class IPFilterInfo : BaseEntityInfo, IHydratable
     {
-
         #region Constructors
 
         /// <summary>
@@ -77,7 +74,7 @@ namespace DotNetNuke.Entities.Host
 
         #endregion
 
-        
+
         #region IHydratable Members
 
         /// <summary>
@@ -96,14 +93,13 @@ namespace DotNetNuke.Entities.Host
             }
             catch (IndexOutOfRangeException)
             {
-            
                 //else swallow the error
             }
 
             IPAddress = Null.SetNullString(dr["IPAddress"]);
             SubnetMask = Null.SetNullString(dr["SubnetMask"]);
             RuleType = Null.SetNullInteger(dr["RuleType"]);
-            
+
             FillInternal(dr);
         }
 

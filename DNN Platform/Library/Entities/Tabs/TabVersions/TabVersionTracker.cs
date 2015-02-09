@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Linq;
 using DotNetNuke.Common;
@@ -28,7 +28,7 @@ using DotNetNuke.Framework;
 
 namespace DotNetNuke.Entities.Tabs.TabVersions
 {
-    class TabVersionTracker : ServiceLocator<ITabChangeTracker, TabVersionTracker>, ITabChangeTracker
+    internal class TabVersionTracker : ServiceLocator<ITabChangeTracker, TabVersionTracker>, ITabChangeTracker
     {
         #region Public Methods
 
@@ -94,7 +94,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             }
             catch (InvalidOperationException)
             {
-                throw; 
+                throw;
             }
             catch (Exception ex)
             {
@@ -186,7 +186,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             {
                 return;
             }
-            
+
             //Module could be restored in the same version
             var existingTabDetails =
                 TabVersionDetailController.Instance.GetTabVersionDetails(targetVersion.TabVersionId)
@@ -216,7 +216,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             {
                 TabVersionDetailController.Instance.DeleteTabVersionDetail(existingTabDetail.TabVersionId,
                     existingTabDetail.TabVersionDetailId);
-                
+
                 //When a module is added in the same version, then we should do nothing with it
                 if (existingTabDetail.Action == TabVersionDetailAction.Added)
                 {
@@ -225,9 +225,8 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
             }
 
             var tabVersionDetail = CreateNewTabVersionDetailObjectFromModule(targetVersion.TabVersionId, module,
-                moduleVersion, TabVersionDetailAction.Deleted);            
+                moduleVersion, TabVersionDetailAction.Deleted);
             TabVersionDetailController.Instance.SaveTabVersionDetail(tabVersionDetail, userId);
-
         }
 
         private static bool IsHostModule(ModuleInfo module)
@@ -253,7 +252,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
                 ModuleVersion = moduleVersion,
                 ModuleOrder = module.ModuleOrder,
                 PaneName = module.PaneName,
-                Action = action              
+                Action = action
             };
         }
 

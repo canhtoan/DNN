@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +29,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Entities
 {
     /// -----------------------------------------------------------------------------
@@ -158,13 +157,13 @@ namespace DotNetNuke.Entities
             LastModifiedOnDate = Null.SetNullDateTime(dr["LastModifiedOnDate"]);
         }
 
-		protected void CloneBaseProperties(BaseEntityInfo clonedItem, BaseEntityInfo originalItem)
-		{
-			clonedItem.CreatedByUserID = originalItem.CreatedByUserID;
-			clonedItem.CreatedOnDate = originalItem.CreatedOnDate;
-			clonedItem.LastModifiedByUserID = originalItem.LastModifiedByUserID;
-			clonedItem.LastModifiedOnDate = originalItem.LastModifiedOnDate;
-		}
+        protected void CloneBaseProperties(BaseEntityInfo clonedItem, BaseEntityInfo originalItem)
+        {
+            clonedItem.CreatedByUserID = originalItem.CreatedByUserID;
+            clonedItem.CreatedOnDate = originalItem.CreatedOnDate;
+            clonedItem.LastModifiedByUserID = originalItem.LastModifiedByUserID;
+            clonedItem.LastModifiedOnDate = originalItem.LastModifiedOnDate;
+        }
 
         /// <summary>
         /// method used by cbo to fill readonly properties ignored by HydrateObject reflection

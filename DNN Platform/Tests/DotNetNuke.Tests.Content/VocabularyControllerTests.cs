@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Linq;
 
@@ -42,7 +42,7 @@ namespace DotNetNuke.Tests.Content
     [TestFixture]
     public class VocabularyControllerTests
     {
-        private Mock<CachingProvider> mockCache;
+        private Mock<CachingProvider> _mockCache;
 
         #region Test Initialize
 
@@ -50,7 +50,7 @@ namespace DotNetNuke.Tests.Content
         public void SetUp()
         {
             //Register MockCachingProvider
-            mockCache = MockComponentProvider.CreateNew<CachingProvider>();
+            _mockCache = MockComponentProvider.CreateNew<CachingProvider>();
             MockComponentProvider.CreateDataProvider().Setup(c => c.GetProviderPath()).Returns(String.Empty);
         }
 
@@ -166,7 +166,7 @@ namespace DotNetNuke.Tests.Content
             vocabularyController.AddVocabulary(vocabulary);
 
             //Assert
-            mockCache.Verify(cache => cache.Remove(Constants.VOCABULARY_CacheKey));
+            _mockCache.Verify(cache => cache.Remove(Constants.VOCABULARY_CacheKey));
         }
 
         #endregion
@@ -229,7 +229,7 @@ namespace DotNetNuke.Tests.Content
             vocabularyController.DeleteVocabulary(vocabulary);
 
             //Assert
-            mockCache.Verify(cache => cache.Remove(Constants.VOCABULARY_CacheKey));
+            _mockCache.Verify(cache => cache.Remove(Constants.VOCABULARY_CacheKey));
         }
 
         #endregion
@@ -354,7 +354,7 @@ namespace DotNetNuke.Tests.Content
             vocabularyController.UpdateVocabulary(vocabulary);
 
             //Assert
-            mockCache.Verify(cache => cache.Remove(Constants.VOCABULARY_CacheKey));
+            _mockCache.Verify(cache => cache.Remove(Constants.VOCABULARY_CacheKey));
         }
 
         #endregion

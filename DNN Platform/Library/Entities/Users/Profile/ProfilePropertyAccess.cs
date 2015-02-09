@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -44,17 +44,18 @@ using DotNetNuke.Services.Tokens;
 #endregion
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Entities.Users
 // ReSharper restore CheckNamespace
 {
     public class ProfilePropertyAccess : IPropertyAccess
     {
-        private readonly UserInfo user;
-        private string administratorRoleName;
+        private readonly UserInfo _user;
+        private string _administratorRoleName;
 
         public ProfilePropertyAccess(UserInfo user)
         {
-            this.user = user;
+            _user = user;
         }
 
         #region Private Members
@@ -85,15 +86,15 @@ namespace DotNetNuke.Entities.Users
                 {
                     case UserVisibilityMode.FriendsAndGroups:
                         isVisible = IsUser(accessingUser);
-                        if(!isVisible)
+                        if (!isVisible)
                         {
                             //Relationships
                             foreach (Relationship relationship in property.ProfileVisibility.RelationshipVisibilities)
                             {
-                                if (user.Social.UserRelationships.Any(userRelationship =>
+                                if (_user.Social.UserRelationships.Any(userRelationship =>
                                                                           (userRelationship.RelationshipId == relationship.RelationshipId
                                                                               && userRelationship.Status == RelationshipStatus.Accepted
-                                                                              && (accessingUser.UserID == userRelationship.RelatedUserId || user.UserID==userRelationship.RelatedUserId))
+                                                                              && (accessingUser.UserID == userRelationship.RelatedUserId || _user.UserID == userRelationship.RelatedUserId))
                                                                       ))
                                 {
                                     isVisible = true;
@@ -118,7 +119,7 @@ namespace DotNetNuke.Entities.Users
                         //accessing user not admin user so property is hidden (unless it is the user him/herself)
                         isVisible = IsUser(accessingUser);
                         break;
-                }               
+                }
             }
 
             return isVisible;
@@ -133,16 +134,16 @@ namespace DotNetNuke.Entities.Users
                 //Is Super User?
                 isAdmin = accessingUser.IsSuperUser;
 
-                if (!isAdmin && user.PortalID != -1)
+                if (!isAdmin && _user.PortalID != -1)
                 {
                     //Is Administrator
-                    if (String.IsNullOrEmpty(administratorRoleName))
+                    if (String.IsNullOrEmpty(_administratorRoleName))
                     {
-                        PortalInfo ps = PortalController.Instance.GetPortal(user.PortalID);
-                        administratorRoleName = ps.AdministratorRoleName;
+                        PortalInfo ps = PortalController.Instance.GetPortal(_user.PortalID);
+                        _administratorRoleName = ps.AdministratorRoleName;
                     }
 
-                    isAdmin = accessingUser.IsInRole(administratorRoleName);
+                    isAdmin = accessingUser.IsInRole(_administratorRoleName);
                 }
             }
 
@@ -156,7 +157,7 @@ namespace DotNetNuke.Entities.Users
 
         private bool IsUser(UserInfo accessingUser)
         {
-            return (accessingUser != null && accessingUser.UserID == user.UserID);
+            return (accessingUser != null && accessingUser.UserID == _user.UserID);
         }
 
         #endregion
@@ -165,24 +166,24 @@ namespace DotNetNuke.Entities.Users
 
         public string GetProperty(string propertyName, string format, CultureInfo formatProvider, UserInfo accessingUser, Scope currentScope, ref bool propertyNotFound)
         {
-            if (currentScope >= Scope.DefaultSettings && user != null && user.Profile != null)
+            if (currentScope >= Scope.DefaultSettings && _user != null && _user.Profile != null)
             {
-                var profile = user.Profile;
+                var profile = _user.Profile;
                 var property = profile.ProfileProperties.Cast<ProfilePropertyDefinition>()
                                                         .SingleOrDefault(p => p.PropertyName.ToLower() == propertyName.ToLower());
 
-                if(property != null)
+                if (property != null)
                 {
                     if (CheckAccessLevel(property, accessingUser))
                     {
                         switch (property.PropertyName.ToLower())
                         {
                             case "photo":
-                                return user.Profile.PhotoURL;
+                                return _user.Profile.PhotoURL;
                             case "country":
-                                return user.Profile.Country;
+                                return _user.Profile.Country;
                             case "region":
-                                return user.Profile.Region;
+                                return _user.Profile.Region;
                             default:
                                 return GetRichValue(property, format, formatProvider);
                         }
@@ -251,7 +252,7 @@ namespace DotNetNuke.Entities.Users
                         }
                         else
                         {
-                            result = IconController.IconURL("Spacer","1X1");
+                            result = IconController.IconURL("Spacer", "1X1");
                         }
                         break;
                     case "richtext":
@@ -265,6 +266,5 @@ namespace DotNetNuke.Entities.Users
             }
             return result;
         }
-
     }
 }

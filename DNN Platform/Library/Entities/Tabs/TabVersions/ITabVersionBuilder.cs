@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using DotNetNuke.Entities.Modules;
 
@@ -58,7 +58,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <param name="tabId">Tab Id whose version will be discarded </param>
         /// <param name="createdByUserId">User Id which discards the version</param>
         void Discard(int tabId, int createdByUserId);
-        
+
         /// <summary>
         /// Get all Modules Info associated with an specific version
         /// </summary>        
@@ -75,7 +75,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <returns>TabVersion filled with the current version data</returns>
         /// <remarks>If Tab has not a published version yet, it will return null</remarks>
         TabVersion GetCurrentVersion(int tabId, bool ignoreCache = false);
-        
+
         /// <summary>
         /// Get the unpublished version or Null if Tab has not any unpublished version
         /// </summary>
@@ -83,7 +83,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <returns>TabVersion filled with the unpublished version data</returns>
         /// <remarks>If Tab has not an unpublished version yet, it will return null</remarks>
         TabVersion GetUnPublishedVersion(int tabId);
-        
+
         /// <summary>
         /// Get all ModuleInfo objects associated with the unpublished version of a page.
         /// </summary>        
@@ -97,7 +97,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <param name="tabId">Tab Id w</param>
         /// <returns>List of ModuleInfo objects</returns>
         IEnumerable<ModuleInfo> GetCurrentModules(int tabId);
-        
+
         /// <summary>
         /// Rolls back an existing version
         /// </summary>
@@ -127,6 +127,5 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <param name="module">The ModuleInfo to be queried</param>  
         /// <returns>The latest version of the module</returns>
         int GetModuleContentLatestVersion(ModuleInfo module);
-
     }
 }

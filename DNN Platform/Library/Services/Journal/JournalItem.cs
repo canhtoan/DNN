@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Data;
 
@@ -38,9 +38,10 @@ using System.Runtime.Serialization.Json;
 using System.Web.Script.Serialization;
 
 #endregion
-
-namespace DotNetNuke.Services.Journal {
-   public class JournalItem : IHydratable, IPropertyAccess {
+namespace DotNetNuke.Services.Journal
+{
+    public class JournalItem : IHydratable, IPropertyAccess
+    {
         public int JournalId { get; set; }
         public int JournalTypeId { get; set; }
         public int PortalId { get; set; }
@@ -68,7 +69,7 @@ namespace DotNetNuke.Services.Journal {
         public bool CommentsHidden { get; set; }
         public int SimilarCount { get; set; }
 
-       /// <summary>
+        /// <summary>
         /// Gets or sets the key ID.
         /// </summary>
         /// <value>
@@ -78,28 +79,34 @@ namespace DotNetNuke.Services.Journal {
         /// If you derive class has its own key id, please override this property and set the value to your own key id.
         /// </remarks>
         [XmlIgnore]
-        public virtual int KeyID {
-            get {
+        public virtual int KeyID
+        {
+            get
+            {
                 return JournalId;
             }
-            set {
+            set
+            {
                 JournalId = value;
             }
         }
 
-        public void Fill(IDataReader dr) {
+        public void Fill(IDataReader dr)
+        {
             JournalId = Null.SetNullInteger(dr["JournalId"]);
             JournalTypeId = Null.SetNullInteger(dr["JournalTypeId"]);
             PortalId = Null.SetNullInteger(dr["PortalId"]);
             UserId = Null.SetNullInteger(dr["UserId"]);
             ProfileId = Null.SetNullInteger(dr["ProfileId"]);
             SocialGroupId = Null.SetNullInteger(dr["GroupId"]);
-            if (!String.IsNullOrEmpty(Null.SetNullString(dr["JournalXML"]))) {
+            if (!String.IsNullOrEmpty(Null.SetNullString(dr["JournalXML"])))
+            {
                 JournalXML = new XmlDocument();
                 JournalXML.LoadXml(dr["JournalXML"].ToString());
                 XmlNode xRoot = JournalXML.DocumentElement;
                 XmlNode xNode = xRoot.SelectSingleNode("//items/item/body");
-                if (xNode != null) {
+                if (xNode != null)
+                {
                     Body = xNode.InnerText;
                 }
             }
@@ -111,7 +118,8 @@ namespace DotNetNuke.Services.Journal {
             Summary = Null.SetNullString(dr["Summary"]);
             string itemd = Null.SetNullString(dr["ItemData"]);
             ItemData = new ItemData();
-            if (!string.IsNullOrEmpty(itemd)) {
+            if (!string.IsNullOrEmpty(itemd))
+            {
                 ItemData = itemd.FromJson<ItemData>();
             }
             ContentItemId = Null.SetNullInteger(dr["ContentItemId"]);
@@ -124,21 +132,28 @@ namespace DotNetNuke.Services.Journal {
             CommentsHidden = Null.SetNullBoolean(dr["CommentsHidden"]);
             SimilarCount = Null.SetNullInteger(dr["SimilarCount"]);
         }
-        public CacheLevel Cacheability {
-            get {
+        public CacheLevel Cacheability
+        {
+            get
+            {
                 return CacheLevel.fullyCacheable;
             }
         }
 
-        public string GetProperty(string propertyName, string format, System.Globalization.CultureInfo formatProvider, Entities.Users.UserInfo accessingUser, Scope accessLevel, ref bool propertyNotFound) {
+        public string GetProperty(string propertyName, string format, System.Globalization.CultureInfo formatProvider, Entities.Users.UserInfo accessingUser, Scope accessLevel, ref bool propertyNotFound)
+        {
             string OutputFormat = string.Empty;
-            if (format == string.Empty) {
+            if (format == string.Empty)
+            {
                 OutputFormat = "g";
-            } else {
+            }
+            else
+            {
                 OutputFormat = format;
             }
             propertyName = propertyName.ToLowerInvariant();
-            switch (propertyName) {
+            switch (propertyName)
+            {
                 case "journalid":
                     return PropertyAccess.FormatString(JournalId.ToString(), format);
                 case "journaltypeid":
@@ -163,7 +178,6 @@ namespace DotNetNuke.Services.Journal {
 
             propertyNotFound = true;
             return string.Empty;
-
         }
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -34,7 +34,6 @@ using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.Search.Internals;
 
 #endregion
-
 namespace DotNetNuke.Services.Syndication
 {
     public class RssHandler : SyndicationHandlerBase
@@ -65,7 +64,7 @@ namespace DotNetNuke.Services.Syndication
             Channel["language"] = Settings.DefaultLanguage;
             Channel["copyright"] = !string.IsNullOrEmpty(Settings.FooterText) ? Settings.FooterText.Replace("[year]", DateTime.Now.Year.ToString()) : string.Empty;
             Channel["webMaster"] = Settings.Email;
-            
+
             IList<SearchResult> searchResults = null;
             var query = new SearchQuery();
             query.PortalIds = new[] { Settings.PortalId };
@@ -127,7 +126,7 @@ namespace DotNetNuke.Services.Syndication
             }
 
             item["title"] = searchResult.Title;
-            item["description"] = searchResult.Description;           
+            item["description"] = searchResult.Description;
             item["pubDate"] = searchResult.ModifiedTimeUtc.ToUniversalTime().ToString("r");
             item["link"] = url;
             item["guid"] = url;

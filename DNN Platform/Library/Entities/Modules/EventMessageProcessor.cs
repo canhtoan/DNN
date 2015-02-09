@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 
@@ -32,12 +32,11 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     public class EventMessageProcessor : EventMessageProcessorBase
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (EventMessageProcessor));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(EventMessageProcessor));
         private static void ImportModule(EventMessage message)
         {
             try
@@ -51,7 +50,7 @@ namespace DotNetNuke.Entities.Modules
                     string Version = message.Attributes["Version"];
                     int UserID = Convert.ToInt32(message.Attributes["UserId"]);
                     //call the IPortable interface for the module/version
-                    ((IPortable) controller).ImportModule(ModuleId, Content, Version, UserID);
+                    ((IPortable)controller).ImportModule(ModuleId, Content, Version, UserID);
                     //Synchronize Module Cache
                     ModuleController.SynchronizeModule(ModuleId);
                 }
@@ -73,14 +72,14 @@ namespace DotNetNuke.Entities.Modules
                 object controller = Reflection.CreateObject(BusinessControllerClass, "");
                 if (controller is IUpgradeable)
                 {
-					//get the list of applicable versions
+                    //get the list of applicable versions
                     string[] UpgradeVersions = message.Attributes["UpgradeVersionsList"].Split(',');
                     foreach (string Version in UpgradeVersions)
                     {
-						//call the IUpgradeable interface for the module/version
-                        string Results = ((IUpgradeable) controller).UpgradeModule(Version);
+                        //call the IUpgradeable interface for the module/version
+                        string Results = ((IUpgradeable)controller).UpgradeModule(Version);
                         //log the upgrade results
-                        var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.MODULE_UPDATED.ToString()};
+                        var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.MODULE_UPDATED.ToString() };
                         log.AddProperty("Module Upgraded", BusinessControllerClass);
                         log.AddProperty("Version", Version);
                         if (!string.IsNullOrEmpty(Results))
@@ -139,14 +138,14 @@ namespace DotNetNuke.Entities.Modules
         public static void CreateImportModuleMessage(ModuleInfo objModule, string content, string version, int userID)
         {
             var appStartMessage = new EventMessage
-                                       {
-                                           Priority = MessagePriority.High,
-                                           ExpirationDate = DateTime.Now.AddYears(-1),
-                                           SentDate = DateTime.Now,
-                                           Body = "",
-                                           ProcessorType = "DotNetNuke.Entities.Modules.EventMessageProcessor, DotNetNuke",
-                                           ProcessorCommand = "ImportModule"
-                                       };
+            {
+                Priority = MessagePriority.High,
+                ExpirationDate = DateTime.Now.AddYears(-1),
+                SentDate = DateTime.Now,
+                Body = "",
+                ProcessorType = "DotNetNuke.Entities.Modules.EventMessageProcessor, DotNetNuke",
+                ProcessorCommand = "ImportModule"
+            };
 
             //Add custom Attributes for this message
             appStartMessage.Attributes.Add("BusinessControllerClass", objModule.DesktopModule.BusinessControllerClass);
@@ -175,13 +174,13 @@ namespace DotNetNuke.Entities.Modules
                         ImportModule(message);
                         break;
                     default:
-						//other events can be added here
+                        //other events can be added here
                         break;
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 message.ExceptionMessage = ex.Message;
                 return false;
             }

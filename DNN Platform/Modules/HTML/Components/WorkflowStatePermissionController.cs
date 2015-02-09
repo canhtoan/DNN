@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Modules.Html;
 using DotNetNuke.Modules.Html.Components;
 using DotNetNuke.Services.Exceptions;
-
-
 
 namespace DotNetNuke.Security.Permissions
 {
@@ -49,7 +48,7 @@ namespace DotNetNuke.Security.Permissions
         public const CacheItemPriority WorkflowStatePermissionCachePriority = CacheItemPriority.Normal;
 
         public const int WorkflowStatePermissionCacheTimeOut = 20;
-        private static readonly DataProvider provider = DataProvider.Instance();
+        private static readonly DataProvider s_provider = DataProvider.Instance();
 
         #region Private Shared Methods
 
@@ -78,7 +77,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         private static object GetWorkflowStatePermissionsCallBack(CacheItemArgs cacheItemArgs)
         {
-            return FillWorkflowStatePermissionDictionary(provider.GetWorkflowStatePermissions());
+            return FillWorkflowStatePermissionDictionary(s_provider.GetWorkflowStatePermissions());
         }
 
         /// -----------------------------------------------------------------------------
@@ -161,7 +160,7 @@ namespace DotNetNuke.Security.Permissions
             if (!bFound)
             {
                 //try the database
-                WorkflowStatePermissions = new WorkflowStatePermissionCollection(CBO.FillCollection(provider.GetWorkflowStatePermissionsByStateID(StateID), typeof (WorkflowStatePermissionInfo)),
+                WorkflowStatePermissions = new WorkflowStatePermissionCollection(CBO.FillCollection(s_provider.GetWorkflowStatePermissionsByStateID(StateID), typeof(WorkflowStatePermissionInfo)),
                                                                                  StateID);
             }
 

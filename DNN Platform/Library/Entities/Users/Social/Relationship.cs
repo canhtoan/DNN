@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -30,7 +30,6 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Users.Social;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users.Social
 {
     /// -----------------------------------------------------------------------------
@@ -100,8 +99,8 @@ namespace DotNetNuke.Entities.Users.Social
         /// Is this a Portal-Level Relationship
         /// </summary>
         [XmlIgnore]
-        public bool IsPortalList 
-        { 
+        public bool IsPortalList
+        {
             get
             {
                 return UserId == Null.NullInteger && PortalId >= 0;

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
@@ -36,7 +36,6 @@ namespace DotNetNuke.Web.Api.Internal
             Requires.NotNull("context", context);
 
             return PagePermissionsAttributesHelper.HasTabPermission("EDIT,CONTENT,MANAGE") || IsModuleAdmin(((DnnApiController)context.ActionContext.ControllerContext.Controller).PortalSettings);
-            
         }
 
         private bool IsModuleAdmin(PortalSettings portalSettings)

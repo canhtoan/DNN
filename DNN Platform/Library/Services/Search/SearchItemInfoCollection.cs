@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -45,7 +44,7 @@ namespace DotNetNuke.Services.Search
     [Serializable]
     public class SearchItemInfoCollection : CollectionBase
     {
-		#region "Constructors"
+        #region "Constructors"
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchItemInfoCollection">SearchItemInfoCollection</see> class.
@@ -81,9 +80,9 @@ namespace DotNetNuke.Services.Search
             AddRange(value);
         }
 
-		#endregion
+        #endregion
 
-		#region "Properties"
+        #region "Properties"
 
         /// <summary>
         /// Gets the <see cref="SearchItemInfoCollection">SearchItemInfoCollection</see> at the specified index in the collection.
@@ -95,7 +94,7 @@ namespace DotNetNuke.Services.Search
         {
             get
             {
-                return (SearchItemInfo) List[index];
+                return (SearchItemInfo)List[index];
             }
             set
             {
@@ -103,9 +102,9 @@ namespace DotNetNuke.Services.Search
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Public Methods"
+        #region "Public Methods"
 
         /// <summary>
         /// Add an element of the specified <see cref="SearchItemInfo">SearchItemInfo</see> to the end of the collection.
@@ -177,7 +176,7 @@ namespace DotNetNuke.Services.Search
             {
                 if (obj is SearchItemInfo)
                 {
-                    Add((SearchItemInfo) obj);
+                    Add((SearchItemInfo)obj);
                 }
             }
         }
@@ -190,7 +189,7 @@ namespace DotNetNuke.Services.Search
         {
             for (int i = 0; i <= value.Count - 1; i++)
             {
-                Add((SearchItemInfo) value.List[i]);
+                Add((SearchItemInfo)value.List[i]);
             }
         }
 
@@ -228,7 +227,7 @@ namespace DotNetNuke.Services.Search
             }
             return retValue;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

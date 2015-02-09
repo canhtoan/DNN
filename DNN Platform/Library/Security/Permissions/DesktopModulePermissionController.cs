@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,7 +33,6 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     /// -----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ namespace DotNetNuke.Security.Permissions
     [Serializable]
     public class DesktopModulePermissionController
     {
-        private static readonly PermissionProvider _provider = PermissionProvider.Instance();
+        private static readonly PermissionProvider s_provider = PermissionProvider.Instance();
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -66,7 +65,7 @@ namespace DotNetNuke.Security.Permissions
             DataCache.ClearDesktopModulePermissionsCache();
         }
 
-		#region Public Shared Methods
+        #region Public Shared Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -166,7 +165,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public static DesktopModulePermissionInfo GetDesktopModulePermission(int DesktopModulePermissionID)
         {
-            return _provider.GetDesktopModulePermission(DesktopModulePermissionID);
+            return s_provider.GetDesktopModulePermission(DesktopModulePermissionID);
         }
 
         /// -----------------------------------------------------------------------------
@@ -180,7 +179,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public static DesktopModulePermissionCollection GetDesktopModulePermissions(int portalDesktopModuleID)
         {
-            return _provider.GetDesktopModulePermissions(portalDesktopModuleID);
+            return s_provider.GetDesktopModulePermissions(portalDesktopModuleID);
         }
 
         /// -----------------------------------------------------------------------------
@@ -195,7 +194,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public static bool HasDesktopModulePermission(DesktopModulePermissionCollection objDesktopModulePermissions, string permissionKey)
         {
-            return _provider.HasDesktopModulePermission(objDesktopModulePermissions, permissionKey);
+            return s_provider.HasDesktopModulePermission(objDesktopModulePermissions, permissionKey);
         }
 
         /// -----------------------------------------------------------------------------
@@ -223,7 +222,7 @@ namespace DotNetNuke.Security.Permissions
                                EventLogController.EventLogType.DESKTOPMODULEPERMISSION_UPDATED);
             ClearPermissionCache();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

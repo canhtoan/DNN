@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -39,52 +39,51 @@ using DotNetNuke.Services.Upgrade;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
+    public class UpgradeController : IUpgradeable
+    {
+        private const string ModuleFolder = "~/DesktopModules/Admin/RadEditorProvider";
+        private const string ResourceFile = ModuleFolder + "/App_LocalResources/ProviderConfig.ascx.resx";
 
-	public class UpgradeController : IUpgradeable
-	{
-		private const string ModuleFolder = "~/DesktopModules/Admin/RadEditorProvider";
-		private const string ResourceFile = ModuleFolder + "/App_LocalResources/ProviderConfig.ascx.resx";
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="Version"></param>
-		/// <returns></returns>
-		/// <remarks>This is not localizing Page Name or description.</remarks>
-		public string UpgradeModule(string Version)
-		{
-			try
-			{
-				var pageName = Localization.GetString("HTMLEditorPageName", ResourceFile);
-				var pageDescription = Localization.GetString("HTMLEditorPageDescription", ResourceFile);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Version"></param>
+        /// <returns></returns>
+        /// <remarks>This is not localizing Page Name or description.</remarks>
+        public string UpgradeModule(string Version)
+        {
+            try
+            {
+                var pageName = Localization.GetString("HTMLEditorPageName", ResourceFile);
+                var pageDescription = Localization.GetString("HTMLEditorPageDescription", ResourceFile);
 
                 switch (Version)
-				{
-					case "06.00.00":
+                {
+                    case "06.00.00":
 
-						//Create Rad Editor Config Page (or get existing one)
-						TabInfo newPage = Upgrade.AddHostPage(pageName, pageDescription, ModuleFolder + "/images/radeditor_config_small.png",ModuleFolder + "/images/radeditor_config_large.png", true);
+                        //Create Rad Editor Config Page (or get existing one)
+                        TabInfo newPage = Upgrade.AddHostPage(pageName, pageDescription, ModuleFolder + "/images/radeditor_config_small.png", ModuleFolder + "/images/radeditor_config_large.png", true);
 
-						//Add Module To Page
-						int moduleDefId = GetModuleDefinitionID();
-						Upgrade.AddModuleToPage(newPage, moduleDefId, pageName, ModuleFolder + "/images/radeditor_config_large.png", true);
+                        //Add Module To Page
+                        int moduleDefId = GetModuleDefinitionID();
+                        Upgrade.AddModuleToPage(newPage, moduleDefId, pageName, ModuleFolder + "/images/radeditor_config_large.png", true);
 
-						foreach (var item in DesktopModuleController.GetDesktopModules(Null.NullInteger))
-						{
-							DesktopModuleInfo moduleInfo = item.Value;
+                        foreach (var item in DesktopModuleController.GetDesktopModules(Null.NullInteger))
+                        {
+                            DesktopModuleInfo moduleInfo = item.Value;
 
-							if (moduleInfo.ModuleName == "DotNetNuke.RadEditorProvider")
-							{
-								moduleInfo.Category = "Host";
-								DesktopModuleController.SaveDesktopModule(moduleInfo, false, false);
-							}
-						}
-						break;
-					case "07.00.06":
-						UpdateConfigOfLinksType();
-						break;
+                            if (moduleInfo.ModuleName == "DotNetNuke.RadEditorProvider")
+                            {
+                                moduleInfo.Category = "Host";
+                                DesktopModuleController.SaveDesktopModule(moduleInfo, false, false);
+                            }
+                        }
+                        break;
+                    case "07.00.06":
+                        UpdateConfigOfLinksType();
+                        break;
                     case "07.03.00":
-				        UpdateConfigFilesName();
+                        UpdateConfigFilesName();
                         UpdateToolsFilesName();
                         break;
                     case "07.04.00":
@@ -99,75 +98,75 @@ namespace DotNetNuke.Providers.RadEditorProvider
                         }
                         break;
                 }
-			}
-			catch (Exception ex)
-			{
-				ExceptionLogController xlc = new ExceptionLogController();
-				xlc.AddLog(ex);
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogController xlc = new ExceptionLogController();
+                xlc.AddLog(ex);
 
-				return "Failed";
-			}
+                return "Failed";
+            }
 
-			return "Success";
-		}
+            return "Success";
+        }
 
-		private int GetModuleDefinitionID()
-		{
-			// get desktop module
-			DesktopModuleInfo desktopModule = DesktopModuleController.GetDesktopModuleByModuleName("DotNetNuke.RadEditorProvider", Null.NullInteger);
-			if (desktopModule == null)
-			{
-				return -1;
-			}
+        private int GetModuleDefinitionID()
+        {
+            // get desktop module
+            DesktopModuleInfo desktopModule = DesktopModuleController.GetDesktopModuleByModuleName("DotNetNuke.RadEditorProvider", Null.NullInteger);
+            if (desktopModule == null)
+            {
+                return -1;
+            }
 
-			//get module definition
-			ModuleDefinitionInfo moduleDefinition = ModuleDefinitionController.GetModuleDefinitionByFriendlyName("RadEditor Manager", desktopModule.DesktopModuleID);
-			if (moduleDefinition == null)
-			{
-				return -1;
-			}
+            //get module definition
+            ModuleDefinitionInfo moduleDefinition = ModuleDefinitionController.GetModuleDefinitionByFriendlyName("RadEditor Manager", desktopModule.DesktopModuleID);
+            if (moduleDefinition == null)
+            {
+                return -1;
+            }
 
-			return moduleDefinition.ModuleDefID;
-		}
+            return moduleDefinition.ModuleDefID;
+        }
 
-		private void UpdateConfigOfLinksType()
-		{
-			foreach (string file in Directory.GetFiles(HttpContext.Current.Server.MapPath(ModuleFolder + "/ConfigFile")))
-			{
-				var filename = Path.GetFileName(file).ToLowerInvariant();
-				if (filename.StartsWith("configfile") && filename.EndsWith(".xml"))
-				{
-					UpdateConfigOfLinksTypeInFile(file);
-				}
-			}
-		}
+        private void UpdateConfigOfLinksType()
+        {
+            foreach (string file in Directory.GetFiles(HttpContext.Current.Server.MapPath(ModuleFolder + "/ConfigFile")))
+            {
+                var filename = Path.GetFileName(file).ToLowerInvariant();
+                if (filename.StartsWith("configfile") && filename.EndsWith(".xml"))
+                {
+                    UpdateConfigOfLinksTypeInFile(file);
+                }
+            }
+        }
 
-		private void UpdateConfigOfLinksTypeInFile(string file)
-		{
-			try
-			{
-				var config = new XmlDocument();
-				config.Load(file);
-				var node = config.SelectSingleNode("/configuration/property[@name='LinksUseTabNames']");
-				if (node != null)
-				{
-					var value = bool.Parse(node.InnerText);
-					config.DocumentElement.RemoveChild(node);
-					var newNode = config.CreateElement("property");
-					newNode.SetAttribute("name", "LinksType");
-					newNode.InnerText = value ? "UseTabName" : "Normal";
-					config.DocumentElement.AppendChild(newNode);
-					config.Save(file);
-				}
-			}
-			catch
-			{
-				//ignore error here.
-			}
-		}
+        private void UpdateConfigOfLinksTypeInFile(string file)
+        {
+            try
+            {
+                var config = new XmlDocument();
+                config.Load(file);
+                var node = config.SelectSingleNode("/configuration/property[@name='LinksUseTabNames']");
+                if (node != null)
+                {
+                    var value = bool.Parse(node.InnerText);
+                    config.DocumentElement.RemoveChild(node);
+                    var newNode = config.CreateElement("property");
+                    newNode.SetAttribute("name", "LinksType");
+                    newNode.InnerText = value ? "UseTabName" : "Normal";
+                    config.DocumentElement.AppendChild(newNode);
+                    config.Save(file);
+                }
+            }
+            catch
+            {
+                //ignore error here.
+            }
+        }
 
-	    private void UpdateConfigFilesName()
-	    {
+        private void UpdateConfigFilesName()
+        {
             foreach (string file in Directory.GetFiles(HttpContext.Current.Server.MapPath(ModuleFolder + "/ConfigFile")))
             {
                 var filename = Path.GetFileName(file).ToLowerInvariant();
@@ -176,7 +175,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
                     UpdateFileNameWithRoleId(file);
                 }
             }
-	    }
+        }
 
         private void UpdateToolsFilesName()
         {
@@ -190,10 +189,10 @@ namespace DotNetNuke.Providers.RadEditorProvider
             }
         }
 
-	    private void UpdateFileNameWithRoleId(string file)
-	    {
-	        var newPath = file;
-            if(file.ToLowerInvariant().Contains(".host"))
+        private void UpdateFileNameWithRoleId(string file)
+        {
+            var newPath = file;
+            if (file.ToLowerInvariant().Contains(".host"))
             {
                 var rolePart = ".RoleId." + Globals.glbRoleSuperUser;
                 newPath = Regex.Replace(file, "\\.host", rolePart, RegexOptions.IgnoreCase);
@@ -211,11 +210,10 @@ namespace DotNetNuke.Providers.RadEditorProvider
                 newPath = Regex.Replace(file, "\\.registered", rolePart, RegexOptions.IgnoreCase);
             }
 
-	        if (newPath != file)
-	        {
-	            File.Move(file, newPath);
-	        }
-	    }
-	}
-
+            if (newPath != file)
+            {
+                File.Move(file, newPath);
+            }
+        }
+    }
 }

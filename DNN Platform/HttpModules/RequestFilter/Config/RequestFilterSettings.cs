@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +33,6 @@ using DotNetNuke.Entities.Host;
 using DotNetNuke.Services.Cache;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.RequestFilter
 {
     [Serializable, XmlRoot("RewriterConfig")]
@@ -68,7 +67,7 @@ namespace DotNetNuke.HttpModules.RequestFilter
         /// </summary>
         public static RequestFilterSettings GetSettings()
         {
-            var settings = (RequestFilterSettings) DataCache.GetCache(RequestFilterConfig);
+            var settings = (RequestFilterSettings)DataCache.GetCache(RequestFilterConfig);
             if (settings == null)
             {
                 settings = new RequestFilterSettings();
@@ -84,8 +83,8 @@ namespace DotNetNuke.HttpModules.RequestFilter
                     {
                         string serverVar = ruleList.Current.GetAttribute("servervar", string.Empty);
                         string values = ruleList.Current.GetAttribute("values", string.Empty);
-                        var ac = (RequestFilterRuleType) Enum.Parse(typeof (RequestFilterRuleType), ruleList.Current.GetAttribute("action", string.Empty));
-                        var op = (RequestFilterOperatorType) Enum.Parse(typeof (RequestFilterOperatorType), ruleList.Current.GetAttribute("operator", string.Empty));
+                        var ac = (RequestFilterRuleType)Enum.Parse(typeof(RequestFilterRuleType), ruleList.Current.GetAttribute("action", string.Empty));
+                        var op = (RequestFilterOperatorType)Enum.Parse(typeof(RequestFilterOperatorType), ruleList.Current.GetAttribute("operator", string.Empty));
                         string location = ruleList.Current.GetAttribute("location", string.Empty);
                         var rule = new RequestFilterRule(serverVar, values, op, ac, location);
                         settings.Rules.Add(rule);

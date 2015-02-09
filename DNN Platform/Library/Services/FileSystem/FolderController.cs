@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +30,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Services.FileSystem
 {
     /// -----------------------------------------------------------------------------
@@ -120,7 +119,7 @@ namespace DotNetNuke.Services.FileSystem
         public SortedList<string, FolderInfo> GetFoldersByPermissionsSorted(int PortalID, string Permissions, int UserID)
         {
             var sortedFoldersToReturn = new SortedList<string, FolderInfo>();
-            
+
             var sortedFolders = FolderManager.Instance.GetFolders(PortalID, Permissions, UserID);
 
             foreach (var folder in sortedFolders)
@@ -206,7 +205,6 @@ namespace DotNetNuke.Services.FileSystem
             {
                 string virtualDirectory = Common.Globals.ApplicationPath + "/" + portalInfo.HomeDirectory + "/";
                 SetMappedDirectory(virtualDirectory, context);
-
             }
             catch (Exception exc)
             {
@@ -270,7 +268,7 @@ namespace DotNetNuke.Services.FileSystem
             objFolder.VersionGuid = Guid.NewGuid();
             objFolder.PortalID = PortalID;
             objFolder.FolderPath = FolderPath;
-            objFolder.StorageLocation = (int) StorageLocationTypes.InsecureFileSystem;
+            objFolder.StorageLocation = (int)StorageLocationTypes.InsecureFileSystem;
             objFolder.IsProtected = false;
             objFolder.IsCached = false;
 

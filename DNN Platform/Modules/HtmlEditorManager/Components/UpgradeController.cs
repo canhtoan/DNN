@@ -16,21 +16,22 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+using System;
+
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Modules.Definitions;
+using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.Localization;
+using DotNetNuke.Services.Log.EventLog;
+using DotNetNuke.Services.Upgrade;
+
 
 namespace DotNetNuke.Modules.HtmlEditorManager.Components
 {
-    using System;
-
-    using DotNetNuke.Common.Utilities;
-    using DotNetNuke.Entities.Modules;
-    using DotNetNuke.Entities.Modules.Definitions;
-    using DotNetNuke.Entities.Tabs;
-    using DotNetNuke.Services.Exceptions;
-    using DotNetNuke.Services.Localization;
-    using DotNetNuke.Services.Log.EventLog;
-    using DotNetNuke.Services.Upgrade;
-
     /// <summary>
     /// Class that contains upgrade procedures
     /// </summary>
@@ -112,5 +113,5 @@ namespace DotNetNuke.Modules.HtmlEditorManager.Components
 
             return moduleDefinition.ModuleDefID;
         }
-    } 
+    }
 }

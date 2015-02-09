@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -99,7 +100,7 @@ namespace DotNetNuke.Tests.Core
         }
     }
 
-    class SleepMonitor
+    internal class SleepMonitor
     {
         private readonly List<int> _periods = new List<int>();
 
@@ -117,12 +118,12 @@ namespace DotNetNuke.Tests.Core
         }
     }
 
-    class ActionMonitor
+    internal class ActionMonitor
     {
         private int _failuresRemaining;
         private readonly List<DateTime> _callTimes = new List<DateTime>();
 
-        public ActionMonitor() : this(0) {}
+        public ActionMonitor() : this(0) { }
 
         public ActionMonitor(int failureCount)
         {
@@ -144,13 +145,13 @@ namespace DotNetNuke.Tests.Core
             _callTimes.Add(DateTime.Now);
             TimesCalled++;
 
-            if(_failuresRemaining != 0)
+            if (_failuresRemaining != 0)
             {
                 if (_failuresRemaining > 0)
                 {
                     _failuresRemaining--;
                 }
-                
+
                 throw new Exception("it failed");
             }
         }

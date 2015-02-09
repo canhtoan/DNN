@@ -1,4 +1,4 @@
-﻿﻿#region Copyright
+﻿#region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using DotNetNuke.Entities.Content.Workflow.Entities;
 
@@ -49,7 +49,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         /// <param name="comment">Comment to be added</param>
         /// <param name="userId">User Id who adds the log</param>
         void AddWorkflowLog(int contentItemId, int workflowId, string action, string comment, int userId);
-        
+
         /// <summary>
         /// Gets all logs regarding a specific workflow
         /// </summary>

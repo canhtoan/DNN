@@ -6,7 +6,6 @@ using System.Configuration;
 
 namespace ClientDependency.Core.Config
 {
-    
     public class RogueFileCompressionExcludeElement : ConfigurationElement
     {
         [ConfigurationProperty("path", IsRequired = true)]
@@ -22,6 +21,5 @@ namespace ClientDependency.Core.Config
         {
             return this.FilePath.GetHashCode();
         }
-
     }
 }

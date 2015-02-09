@@ -1,4 +1,5 @@
-﻿namespace DotNetNuke.Services.Search.Entities
+﻿
+namespace DotNetNuke.Services.Search.Entities
 {
     /// <summary>
     /// Sorting criteria to be used for Querying
@@ -14,7 +15,7 @@
         /// Sort by DateTime Modified. Latest come first
         /// </summary>
         LastModified = 1,
-        
+
         /// <summary>
         /// Sort by Title.
         /// </summary>

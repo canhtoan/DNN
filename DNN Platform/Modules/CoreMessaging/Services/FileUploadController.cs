@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +40,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
 {
     public class FileUploadController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (FileUploadController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FileUploadController));
         private readonly IFileManager _fileManager = FileManager.Instance;
         private readonly IFolderManager _folderManager = FolderManager.Instance;
 
@@ -57,7 +57,7 @@ namespace DotNetNuke.Modules.CoreMessaging.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
 
             return IframeSafeJson(statuses);

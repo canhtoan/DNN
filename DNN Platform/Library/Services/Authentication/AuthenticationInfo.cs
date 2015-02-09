@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Data;
 
@@ -29,7 +29,6 @@ using DotNetNuke.Entities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Authentication
 {
     /// -----------------------------------------------------------------------------
@@ -41,7 +40,7 @@ namespace DotNetNuke.Services.Authentication
     [Serializable]
     public class AuthenticationInfo : BaseEntityInfo, IHydratable
     {
-		#region Private Members
+        #region Private Members
 
         public AuthenticationInfo()
         {
@@ -54,7 +53,7 @@ namespace DotNetNuke.Services.Authentication
 
         #endregion
 
-		#region Public Properties
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>

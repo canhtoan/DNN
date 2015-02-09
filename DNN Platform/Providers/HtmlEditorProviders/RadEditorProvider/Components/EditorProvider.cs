@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,7 +50,6 @@ using Telerik.Web.UI;
 using DotNetNuke.UI.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Providers.RadEditorProvider
 {
     public class EditorProvider : HtmlEditorProvider
@@ -84,7 +83,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
             }
             set
             {
-                if (! value.IsEmpty)
+                if (!value.IsEmpty)
                 {
                     _editor.Height = value;
                 }
@@ -121,7 +120,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
             }
             set
             {
-                if (! value.IsEmpty)
+                if (!value.IsEmpty)
                 {
                     _editor.Width = value;
                 }
@@ -400,13 +399,13 @@ namespace DotNetNuke.Providers.RadEditorProvider
                 ReadPaths.Add(RootImageDirectory);
                 WritePaths.Add(RootImageDirectory);
             }
-			else if (folderPath.ToUpperInvariant() == "[USERFOLDER]")
-			{
-				var userFolderPath = FolderManager.Instance.GetUserFolder(UserController.Instance.GetCurrentUserInfo()).FolderPath;
-				var path = RemoveEndSlash(RootImageDirectory) + AddSlash(userFolderPath);
-				WritePaths.Add(path);
-				ReadPaths.Add(path);
-			}
+            else if (folderPath.ToUpperInvariant() == "[USERFOLDER]")
+            {
+                var userFolderPath = FolderManager.Instance.GetUserFolder(UserController.Instance.GetCurrentUserInfo()).FolderPath;
+                var path = RemoveEndSlash(RootImageDirectory) + AddSlash(userFolderPath);
+                WritePaths.Add(path);
+                ReadPaths.Add(path);
+            }
             else if (folderPath.Length > 0)
             {
                 string path = RemoveEndSlash(RootImageDirectory) + AddSlash(folderPath);
@@ -414,8 +413,8 @@ namespace DotNetNuke.Providers.RadEditorProvider
                 ReadPaths.Add(path);
             }
 
-            var _readPaths = (string[]) (ReadPaths.ToArray(typeof (string)));
-            var _writePaths = (string[]) (WritePaths.ToArray(typeof (string)));
+            var _readPaths = (string[])(ReadPaths.ToArray(typeof(string)));
+            var _writePaths = (string[])(WritePaths.ToArray(typeof(string)));
 
             switch (toolname)
             {
@@ -469,22 +468,22 @@ namespace DotNetNuke.Providers.RadEditorProvider
         private EditorLink AddLink(TabInfo objTab, ref EditorLink parent)
         {
             string linkUrl = string.Empty;
-            if (! objTab.DisableLink)
+            if (!objTab.DisableLink)
             {
-	            switch (_linksType.ToUpperInvariant())
-	            {
-					case "USETABNAME":
-						var nameLinkFormat = "http://{0}/Default.aspx?TabName={1}";
-						linkUrl = string.Format(nameLinkFormat, PortalSettings.PortalAlias.HTTPAlias, HttpUtility.UrlEncode(objTab.TabName));
-						break;
-					case "USETABID":
-						var idLinkFormat = "http://{0}/Default.aspx?TabId={1}";
-						linkUrl = string.Format(idLinkFormat, PortalSettings.PortalAlias.HTTPAlias, objTab.TabID);
-						break;
-					default:
-						linkUrl = objTab.FullUrl;
-						break;
-	            }
+                switch (_linksType.ToUpperInvariant())
+                {
+                    case "USETABNAME":
+                        var nameLinkFormat = "http://{0}/Default.aspx?TabName={1}";
+                        linkUrl = string.Format(nameLinkFormat, PortalSettings.PortalAlias.HTTPAlias, HttpUtility.UrlEncode(objTab.TabName));
+                        break;
+                    case "USETABID":
+                        var idLinkFormat = "http://{0}/Default.aspx?TabId={1}";
+                        linkUrl = string.Format(idLinkFormat, PortalSettings.PortalAlias.HTTPAlias, objTab.TabID);
+                        break;
+                    default:
+                        linkUrl = objTab.FullUrl;
+                        break;
+                }
                 if (_linksUseRelativeUrls && (linkUrl.StartsWith("http://") || linkUrl.StartsWith("https://")))
                 {
                     int linkIndex = linkUrl.IndexOf("/", 8);
@@ -554,13 +553,13 @@ namespace DotNetNuke.Providers.RadEditorProvider
         public override void Initialize()
         {
             _editor.ToolsFile = ToolsFile;
-            _editor.EnableViewState = false;   
+            _editor.EnableViewState = false;
 
             _editor.ExternalDialogsPath = moduleFolderPath + "Dialogs/";
             _editor.OnClientCommandExecuting = "OnClientCommandExecuting";
 
 
-            if (! string.IsNullOrEmpty(ConfigFile))
+            if (!string.IsNullOrEmpty(ConfigFile))
             {
                 XmlDocument xmlDoc = GetValidConfigFile();
                 var colorConverter = new WebColorConverter();
@@ -602,13 +601,13 @@ namespace DotNetNuke.Providers.RadEditorProvider
                             case "NewLineBr":
                                 {
                                     //use NewLineMode as NewLineBR has been obsoleted
-                                    if (bool.Parse(node.InnerText)==true)
+                                    if (bool.Parse(node.InnerText) == true)
                                     {
                                         _editor.NewLineMode = EditorNewLineModes.Br;
-                                        }
+                                    }
                                     else
                                     {
-                                        _editor.NewLineMode = EditorNewLineModes.P; 
+                                        _editor.NewLineMode = EditorNewLineModes.P;
                                     }
                                     break;
                                 }
@@ -633,22 +632,22 @@ namespace DotNetNuke.Providers.RadEditorProvider
                                 }
                             case "ContentFilters":
                                 {
-                                    _editor.ContentFilters = (EditorFilters) (Enum.Parse(typeof (EditorFilters), node.InnerText));
+                                    _editor.ContentFilters = (EditorFilters)(Enum.Parse(typeof(EditorFilters), node.InnerText));
                                     break;
                                 }
                             case "ToolbarMode":
                                 {
-                                    _editor.ToolbarMode = (EditorToolbarMode) (Enum.Parse(typeof (EditorToolbarMode), node.InnerText, true));
+                                    _editor.ToolbarMode = (EditorToolbarMode)(Enum.Parse(typeof(EditorToolbarMode), node.InnerText, true));
                                     break;
                                 }
                             case "EditModes":
                                 {
-                                    _editor.EditModes = (EditModes) (Enum.Parse(typeof (EditModes), node.InnerText, true));
+                                    _editor.EditModes = (EditModes)(Enum.Parse(typeof(EditModes), node.InnerText, true));
                                     break;
                                 }
                             case "StripFormattingOptions":
                                 {
-                                    _editor.StripFormattingOptions = (EditorStripFormattingOptions) (Enum.Parse(typeof (EditorStripFormattingOptions), node.InnerText, true));
+                                    _editor.StripFormattingOptions = (EditorStripFormattingOptions)(Enum.Parse(typeof(EditorStripFormattingOptions), node.InnerText, true));
                                     break;
                                 }
                             case "MaxImageSize":
@@ -729,12 +728,12 @@ namespace DotNetNuke.Providers.RadEditorProvider
                                 }
                             case "SpellCheckProvider":
                                 {
-                                    _editor.SpellCheckSettings.SpellCheckProvider = (SpellCheckProvider) (Enum.Parse(typeof (SpellCheckProvider), node.InnerText, true));
+                                    _editor.SpellCheckSettings.SpellCheckProvider = (SpellCheckProvider)(Enum.Parse(typeof(SpellCheckProvider), node.InnerText, true));
                                     break;
                                 }
                             case "SpellWordIgnoreOptions":
                                 {
-                                    _editor.SpellCheckSettings.WordIgnoreOptions = (WordIgnoreOptions) (Enum.Parse(typeof (WordIgnoreOptions), node.InnerText, true));
+                                    _editor.SpellCheckSettings.WordIgnoreOptions = (WordIgnoreOptions)(Enum.Parse(typeof(WordIgnoreOptions), node.InnerText, true));
                                     break;
                                 }
                             case "ImagesPath":
@@ -854,7 +853,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
                                             }
                                         }
 
-                                        var itemsArray = (string[]) (items.ToArray(typeof (string)));
+                                        var itemsArray = (string[])(items.ToArray(typeof(string)));
                                         switch (propertyName)
                                         {
                                             case "ImagesFilters":
@@ -936,12 +935,12 @@ namespace DotNetNuke.Providers.RadEditorProvider
             {
             }
             PortalPath = PortalPath.Replace(PortalSettings.HomeDirectory, "").Replace("//", "/");
-			var parentModule = ControlUtilities.FindParentControl<PortalModuleBase>(HtmlEditorControl);
-			int moduleId = Convert.ToInt32(((parentModule == null) ? Null.NullInteger : parentModule.ModuleId));
+            var parentModule = ControlUtilities.FindParentControl<PortalModuleBase>(HtmlEditorControl);
+            int moduleId = Convert.ToInt32(((parentModule == null) ? Null.NullInteger : parentModule.ModuleId));
             string strSaveTemplateDialogPath = _panel.Page.ResolveUrl(moduleFolderPath + "Dialogs/SaveTemplate.aspx?Path=" + PortalPath + "&TabId=" + PortalSettings.ActiveTab.TabID + "&ModuleId=" + moduleId);
 
-			AJAX.AddScriptManager(_panel.Page);
-        	ClientResourceManager.EnableAsyncPostBackHandler();
+            AJAX.AddScriptManager(_panel.Page);
+            ClientResourceManager.EnableAsyncPostBackHandler();
             ClientResourceManager.RegisterScript(_panel.Page, moduleFolderPath + "js/ClientScripts.js");
             ClientResourceManager.RegisterScript(_panel.Page, moduleFolderPath + "js/RegisterDialogs.js");
 
@@ -955,7 +954,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
 
                 ClientResourceManager.RegisterScript(_panel.Page, moduleFolderPath + "js/overrideCSS.js");
                 //_editor.Skin = "Black";
-	            _editor.PreventDefaultStylesheet = true;
+                _editor.PreventDefaultStylesheet = true;
             }
             else
             {
@@ -969,9 +968,9 @@ namespace DotNetNuke.Providers.RadEditorProvider
             }
 
             //add save template dialog var
-        	var saveTemplateDialogJs = 
-				"<script type=\"text/javascript\">var __textEditorSaveTemplateDialog = \"" + strSaveTemplateDialogPath + "\";</script>";
-			_panel.Page.ClientScript.RegisterClientScriptBlock(GetType(), "SaveTemplateDialog", saveTemplateDialogJs);
+            var saveTemplateDialogJs =
+                "<script type=\"text/javascript\">var __textEditorSaveTemplateDialog = \"" + strSaveTemplateDialogPath + "\";</script>";
+            _panel.Page.ClientScript.RegisterClientScriptBlock(GetType(), "SaveTemplateDialog", saveTemplateDialogJs);
 
             //add css classes for save template tool
             /*
@@ -1051,7 +1050,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
             }
 
             //set language
-            if (! _languageSet) //language might have been set by config file
+            if (!_languageSet) //language might have been set by config file
             {
                 string localizationLang = "en-US"; //use teleriks internal fallback language
 
@@ -1074,7 +1073,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
                 }
 
                 //set new value
-                if (! string.IsNullOrEmpty(localizationLang))
+                if (!string.IsNullOrEmpty(localizationLang))
                 {
                     _editor.Language = localizationLang;
                 }
@@ -1093,7 +1092,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
             _editor.DialogHandlerUrl = _panel.Page.ResolveUrl(moduleFolderPath + "DialogHandler.aspx?tabid=" + PortalSettings.ActiveTab.TabID);
             //_editor.SpellCheckSettings.AjaxUrl = moduleFolderPath.Replace("~", "") & "SpellCheckHandler.ashx?tabid=" & PortalSettings.ActiveTab.TabID.ToString()
             _editor.SpellCheckSettings.AjaxUrl = _panel.Page.ResolveUrl(moduleFolderPath + "SpellCheckHandler.ashx?tabid=" + PortalSettings.ActiveTab.TabID);
-	        _editor.DialogOpener.AdditionalQueryString = "&linkstype=" + _linksType + "&nuru=" + HttpContext.Current.Request.QueryString["nuru"];
+            _editor.DialogOpener.AdditionalQueryString = "&linkstype=" + _linksType + "&nuru=" + HttpContext.Current.Request.QueryString["nuru"];
         }
 
         private bool IsLocaleAvailable(string Locale)
@@ -1160,19 +1159,19 @@ namespace DotNetNuke.Providers.RadEditorProvider
             PropertyInfo pi = _editor.GetType().GetProperty(propertyName);
             if (pi != null)
             {
-                if (pi.PropertyType.Equals(typeof (string)))
+                if (pi.PropertyType.Equals(typeof(string)))
                 {
                     pi.SetValue(_editor, propValue, null);
                 }
-                else if (pi.PropertyType.Equals(typeof (bool)))
+                else if (pi.PropertyType.Equals(typeof(bool)))
                 {
                     pi.SetValue(_editor, bool.Parse(propValue), null);
                 }
-                else if (pi.PropertyType.Equals(typeof (Unit)))
+                else if (pi.PropertyType.Equals(typeof(Unit)))
                 {
                     pi.SetValue(_editor, Unit.Parse(propValue), null);
                 }
-                else if (pi.PropertyType.Equals(typeof (int)))
+                else if (pi.PropertyType.Equals(typeof(int)))
                 {
                     pi.SetValue(_editor, int.Parse(propValue), null);
                 }
@@ -1185,13 +1184,13 @@ namespace DotNetNuke.Providers.RadEditorProvider
 
         #endregion
 
-		private readonly DnnEditor _editor = new DnnEditor();
+        private readonly DnnEditor _editor = new DnnEditor();
         private readonly Panel _panel = new Panel();
         private bool _ShowPortalLinks = true;
 
         //must override properties
         private const string ConfigFileName = moduleFolderPath + "/ConfigFile/ConfigFile.xml";
-            
+
         //other provider specific properties
 
         private bool _languageSet;

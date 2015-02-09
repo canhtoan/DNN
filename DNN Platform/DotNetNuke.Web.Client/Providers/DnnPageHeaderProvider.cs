@@ -17,25 +17,26 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Web.UI;
+using System.Linq;
+using ClientDependency.Core;
+using ClientDependency.Core.Config;
+using System.Web;
+using ClientDependency.Core.FileRegistration.Providers;
+
+
 namespace DotNetNuke.Web.Client.Providers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Web.UI;
-    using System.Linq;
-    using ClientDependency.Core;
-    using ClientDependency.Core.Config;
-    using System.Web;
-    using ClientDependency.Core.FileRegistration.Providers;
-
     /// <summary>
     /// Registers resources at the top of the body on default.aspx
     /// </summary>
     public class DnnPageHeaderProvider : DnnFileRegistrationProvider
     {
-
         /// <summary>
         /// The default name of the provider
         /// </summary>

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 
@@ -32,7 +32,6 @@ using DotNetNuke.Common;
 using PetaPoco;
 
 #endregion
-
 namespace DotNetNuke.Data.PetaPoco
 {
     public class PetaPocoRepository<T> : RepositoryBase<T> where T : class
@@ -69,7 +68,7 @@ namespace DotNetNuke.Data.PetaPoco
         public override IPagedList<T> Find(int pageIndex, int pageSize, string sqlCondition, params object[] args)
         {
             //Make sure that the sql Condition contains an ORDER BY Clause
-            if(!sqlCondition.ToUpperInvariant().Contains("ORDER BY"))
+            if (!sqlCondition.ToUpperInvariant().Contains("ORDER BY"))
             {
                 sqlCondition = String.Format("{0} ORDER BY {1}", sqlCondition, _mapper.GetTableInfo(typeof(T)).PrimaryKey);
             }
@@ -127,7 +126,7 @@ namespace DotNetNuke.Data.PetaPoco
 
         private string GetScopeSql()
         {
-            return String.Format("WHERE {0} = @0", DataUtil.GetColumnName(typeof (T), Scope));
+            return String.Format("WHERE {0} = @0", DataUtil.GetColumnName(typeof(T), Scope));
         }
     }
 }

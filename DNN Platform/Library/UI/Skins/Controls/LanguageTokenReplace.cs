@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -38,7 +38,6 @@ using DotNetNuke.Services.Tokens;
 using DotNetNuke.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins.Controls
 {
     public class LanguageTokenReplace : TokenReplace
@@ -56,12 +55,12 @@ namespace DotNetNuke.UI.Skins.Controls
 
     public class LanguagePropertyAccess : IPropertyAccess
     {
-        private readonly PortalSettings objPortal;
+        private readonly PortalSettings _objPortal;
         public LanguageTokenReplace objParent;
 
         public LanguagePropertyAccess(LanguageTokenReplace parent, PortalSettings settings)
         {
-            objPortal = settings;
+            _objPortal = settings;
             objParent = parent;
         }
 
@@ -82,9 +81,9 @@ namespace DotNetNuke.UI.Skins.Controls
                 case "i":
                     return Globals.ResolveUrl("~/images/Flags");
                 case "p":
-                    return Globals.ResolveUrl(PathUtils.Instance.RemoveTrailingSlash(objPortal.HomeDirectory));
+                    return Globals.ResolveUrl(PathUtils.Instance.RemoveTrailingSlash(_objPortal.HomeDirectory));
                 case "s":
-                    return Globals.ResolveUrl(PathUtils.Instance.RemoveTrailingSlash(objPortal.ActiveTab.SkinPath));
+                    return Globals.ResolveUrl(PathUtils.Instance.RemoveTrailingSlash(_objPortal.ActiveTab.SkinPath));
                 case "g":
                     return Globals.ResolveUrl("~/portals/" + Globals.glbHostSkinFolder);
                 default:
@@ -158,7 +157,7 @@ namespace DotNetNuke.UI.Skins.Controls
                             }
                             break;
                         default:
-                            if ((arrKeys[i].ToLowerInvariant() == "portalid") && objPortal.ActiveTab.IsSuperTab)
+                            if ((arrKeys[i].ToLowerInvariant() == "portalid") && _objPortal.ActiveTab.IsSuperTab)
                             {
                                 //skip parameter
                                 //navigateURL adds portalid to querystring if tab is superTab
@@ -179,8 +178,6 @@ namespace DotNetNuke.UI.Skins.Controls
                                         }
                                         returnValue += arrKeys[i] + "=" + HttpUtility.UrlEncode(rawQueryStringCollection.Get(arrKeys[i]));
                                     }
-
-
                                 }
                                 // on localised pages most of the module parameters have no sense and generate duplicate urls for the same content
                                 // because we are on a other tab with other modules (example : /en-US/news/articleid/1)
@@ -236,16 +233,16 @@ namespace DotNetNuke.UI.Skins.Controls
             Locale newLocale = LocaleController.Instance.GetLocale(newLanguage);
 
             //Ensure that the current ActiveTab is the culture of the new language
-            int tabId = objPortal.ActiveTab.TabID;
+            int tabId = _objPortal.ActiveTab.TabID;
             bool islocalized = false;
 
-            TabInfo localizedTab = TabController.Instance.GetTabByCulture(tabId, objPortal.PortalId, newLocale);
+            TabInfo localizedTab = TabController.Instance.GetTabByCulture(tabId, _objPortal.PortalId, newLocale);
             if (localizedTab != null)
             {
                 islocalized = true;
                 if (localizedTab.IsDeleted || !TabPermissionController.CanViewPage(localizedTab))
                 {
-                    PortalInfo localizedPortal = PortalController.Instance.GetPortal(objPortal.PortalId, newLocale.Code);
+                    PortalInfo localizedPortal = PortalController.Instance.GetPortal(_objPortal.PortalId, newLocale.Code);
                     tabId = localizedPortal.HomeTabId;
                 }
                 else
@@ -280,19 +277,18 @@ namespace DotNetNuke.UI.Skins.Controls
             // on localised pages most of the querystring parameters have no sense and generate duplicate urls for the same content
             // because we are on a other tab with other modules (example : ?returntab=/en-US/about)
             string rawQueryString = "";
-            if (DotNetNuke.Entities.Host.Host.UseFriendlyUrls && !islocalized )
+            if (DotNetNuke.Entities.Host.Host.UseFriendlyUrls && !islocalized)
             {
                 rawQueryString = new Uri(HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.RawUrl).Query;
             }
 
             return
                 objSecurity.InputFilter(
-                    TestableGlobals.Instance.NavigateURL(tabId, objPortal.ActiveTab.IsSuperTab, objPortal, HttpContext.Current.Request.QueryString["ctl"], newLanguage, GetQsParams(newLocale.Code, islocalized)) +
+                    TestableGlobals.Instance.NavigateURL(tabId, _objPortal.ActiveTab.IsSuperTab, _objPortal, HttpContext.Current.Request.QueryString["ctl"], newLanguage, GetQsParams(newLocale.Code, islocalized)) +
                     rawQueryString,
                     PortalSecurity.FilterFlag.NoScripting);
         }
 
         #endregion
-
     }
 }

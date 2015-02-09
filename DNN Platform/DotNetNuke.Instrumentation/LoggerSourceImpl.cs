@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -25,22 +25,22 @@ namespace DotNetNuke.Instrumentation
             return new Logger(LogManager.GetLogger(name).Logger, null);
         }
 
-        class Logger : LoggerWrapperImpl, ILog
+        private class Logger : LoggerWrapperImpl, ILog
         {
-            private static Level _levelTrace;
-            private static Level _levelDebug;
-            private static Level _levelInfo;
-            private static Level _levelWarn;
-            private static Level _levelError;
-            private static Level _levelFatal;
+            private static Level s_levelTrace;
+            private static Level s_levelDebug;
+            private static Level s_levelInfo;
+            private static Level s_levelWarn;
+            private static Level s_levelError;
+            private static Level s_levelFatal;
             //add custom logging levels (below trace value of 20000)
-//            internal static Level LevelLogInfo = new Level(10001, "LogInfo");
-//            internal static Level LevelLogError = new Level(10002, "LogError");
+            //            internal static Level LevelLogInfo = new Level(10001, "LogInfo");
+            //            internal static Level LevelLogError = new Level(10002, "LogError");
 
             private readonly Type _stackBoundary = typeof(DnnLogger);
             private const string ConfigFile = "DotNetNuke.log4net.config";
-            private static bool _configured;
-            private static readonly object ConfigLock = new object();
+            private static bool s_configured;
+            private static readonly object s_configLock = new object();
 
             internal Logger(ILogger logger, Type type) : base(logger)
             {
@@ -51,11 +51,11 @@ namespace DotNetNuke.Instrumentation
 
             private static void EnsureConfig()
             {
-                if (!_configured)
+                if (!s_configured)
                 {
-                    lock (ConfigLock)
+                    lock (s_configLock)
                     {
-                        if (!_configured)
+                        if (!s_configured)
                         {
                             var configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigFile);
                             var originalPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config\\" + ConfigFile);
@@ -69,9 +69,8 @@ namespace DotNetNuke.Instrumentation
                                 AddGlobalContext();
                                 XmlConfigurator.ConfigureAndWatch(new FileInfo(configPath));
                             }
-                            _configured = true;
+                            s_configured = true;
                         }
-
                     }
                 }
             }
@@ -80,18 +79,18 @@ namespace DotNetNuke.Instrumentation
             {
                 LevelMap levelMap = repository.LevelMap;
 
-                _levelTrace = levelMap.LookupWithDefault(Level.Trace);
-                _levelDebug = levelMap.LookupWithDefault(Level.Debug);
-                _levelInfo = levelMap.LookupWithDefault(Level.Info);
-                _levelWarn = levelMap.LookupWithDefault(Level.Warn);
-                _levelError = levelMap.LookupWithDefault(Level.Error);
-                _levelFatal = levelMap.LookupWithDefault(Level.Fatal);
-//                LevelLogError = levelMap.LookupWithDefault(LevelLogError);
-//                LevelLogInfo = levelMap.LookupWithDefault(LevelLogInfo);
+                s_levelTrace = levelMap.LookupWithDefault(Level.Trace);
+                s_levelDebug = levelMap.LookupWithDefault(Level.Debug);
+                s_levelInfo = levelMap.LookupWithDefault(Level.Info);
+                s_levelWarn = levelMap.LookupWithDefault(Level.Warn);
+                s_levelError = levelMap.LookupWithDefault(Level.Error);
+                s_levelFatal = levelMap.LookupWithDefault(Level.Fatal);
+                //                LevelLogError = levelMap.LookupWithDefault(LevelLogError);
+                //                LevelLogInfo = levelMap.LookupWithDefault(LevelLogInfo);
 
                 //// Register custom logging levels with the default LoggerRepository
-//                LogManager.GetRepository().LevelMap.Add(LevelLogInfo);
-//                LogManager.GetRepository().LevelMap.Add(LevelLogError);
+                //                LogManager.GetRepository().LevelMap.Add(LevelLogInfo);
+                //                LogManager.GetRepository().LevelMap.Add(LevelLogError);
 
             }
 
@@ -117,20 +116,20 @@ namespace DotNetNuke.Instrumentation
                     //    GlobalContext.Properties["processid"] = Process.GetCurrentProcess().Id.ToString("D");
                     //}
                 }
-// ReSharper disable EmptyGeneralCatchClause
+                // ReSharper disable EmptyGeneralCatchClause
                 catch
-// ReSharper restore EmptyGeneralCatchClause
+                // ReSharper restore EmptyGeneralCatchClause
                 {
                     //do nothing but just make sure no exception here.
                 }
             }
 
-            public bool IsDebugEnabled { get { return Logger.IsEnabledFor(_levelDebug); } }
-            public bool IsInfoEnabled { get { return Logger.IsEnabledFor(_levelInfo); } }
-            public bool IsTraceEnabled { get { return Logger.IsEnabledFor(_levelTrace); } }
-            public bool IsWarnEnabled { get { return Logger.IsEnabledFor(_levelWarn); } }
-            public bool IsErrorEnabled { get { return Logger.IsEnabledFor(_levelError); } }
-            public bool IsFatalEnabled { get { return Logger.IsEnabledFor(_levelFatal); } }
+            public bool IsDebugEnabled { get { return Logger.IsEnabledFor(s_levelDebug); } }
+            public bool IsInfoEnabled { get { return Logger.IsEnabledFor(s_levelInfo); } }
+            public bool IsTraceEnabled { get { return Logger.IsEnabledFor(s_levelTrace); } }
+            public bool IsWarnEnabled { get { return Logger.IsEnabledFor(s_levelWarn); } }
+            public bool IsErrorEnabled { get { return Logger.IsEnabledFor(s_levelError); } }
+            public bool IsFatalEnabled { get { return Logger.IsEnabledFor(s_levelFatal); } }
 
             public void Debug(object message)
             {
@@ -139,7 +138,7 @@ namespace DotNetNuke.Instrumentation
 
             public void Debug(object message, Exception exception)
             {
-                Logger.Log(_stackBoundary, _levelDebug, message, exception);
+                Logger.Log(_stackBoundary, s_levelDebug, message, exception);
             }
 
             public void DebugFormat(string format, params object[] args)
@@ -149,7 +148,7 @@ namespace DotNetNuke.Instrumentation
 
             public void DebugFormat(IFormatProvider provider, string format, params object[] args)
             {
-                Logger.Log(_stackBoundary, _levelDebug, new SystemStringFormat(provider, format, args), null);
+                Logger.Log(_stackBoundary, s_levelDebug, new SystemStringFormat(provider, format, args), null);
             }
 
             public void Info(object message)
@@ -159,7 +158,7 @@ namespace DotNetNuke.Instrumentation
 
             public void Info(object message, Exception exception)
             {
-                Logger.Log(_stackBoundary, _levelInfo, message, exception);
+                Logger.Log(_stackBoundary, s_levelInfo, message, exception);
             }
 
             public void InfoFormat(string format, params object[] args)
@@ -169,7 +168,7 @@ namespace DotNetNuke.Instrumentation
 
             public void InfoFormat(IFormatProvider provider, string format, params object[] args)
             {
-                Logger.Log(_stackBoundary, _levelInfo, new SystemStringFormat(provider, format, args), null);
+                Logger.Log(_stackBoundary, s_levelInfo, new SystemStringFormat(provider, format, args), null);
             }
 
             public void Trace(object message)
@@ -179,7 +178,7 @@ namespace DotNetNuke.Instrumentation
 
             public void Trace(object message, Exception exception)
             {
-                Logger.Log(_stackBoundary, _levelTrace, message, exception);
+                Logger.Log(_stackBoundary, s_levelTrace, message, exception);
             }
 
             public void TraceFormat(string format, params object[] args)
@@ -189,7 +188,7 @@ namespace DotNetNuke.Instrumentation
 
             public void TraceFormat(IFormatProvider provider, string format, params object[] args)
             {
-                Logger.Log(_stackBoundary, _levelTrace, new SystemStringFormat(provider, format, args), null);
+                Logger.Log(_stackBoundary, s_levelTrace, new SystemStringFormat(provider, format, args), null);
             }
 
             public void Warn(object message)
@@ -199,7 +198,7 @@ namespace DotNetNuke.Instrumentation
 
             public void Warn(object message, Exception exception)
             {
-                Logger.Log(_stackBoundary, _levelWarn, message, exception);
+                Logger.Log(_stackBoundary, s_levelWarn, message, exception);
             }
 
             public void WarnFormat(string format, params object[] args)
@@ -209,7 +208,7 @@ namespace DotNetNuke.Instrumentation
 
             public void WarnFormat(IFormatProvider provider, string format, params object[] args)
             {
-                Logger.Log(_stackBoundary, _levelWarn, new SystemStringFormat(provider, format, args), null);
+                Logger.Log(_stackBoundary, s_levelWarn, new SystemStringFormat(provider, format, args), null);
             }
 
             public void Error(object message)
@@ -219,7 +218,7 @@ namespace DotNetNuke.Instrumentation
 
             public void Error(object message, Exception exception)
             {
-                Logger.Log(_stackBoundary, _levelError, message, exception);
+                Logger.Log(_stackBoundary, s_levelError, message, exception);
             }
 
             public void ErrorFormat(string format, params object[] args)
@@ -229,7 +228,7 @@ namespace DotNetNuke.Instrumentation
 
             public void ErrorFormat(IFormatProvider provider, string format, params object[] args)
             {
-                Logger.Log(_stackBoundary, _levelError, new SystemStringFormat(provider, format, args), null);
+                Logger.Log(_stackBoundary, s_levelError, new SystemStringFormat(provider, format, args), null);
             }
 
             public void Fatal(object message)
@@ -239,7 +238,7 @@ namespace DotNetNuke.Instrumentation
 
             public void Fatal(object message, Exception exception)
             {
-                Logger.Log(_stackBoundary, _levelFatal, message, exception);
+                Logger.Log(_stackBoundary, s_levelFatal, message, exception);
             }
 
             public void FatalFormat(string format, params object[] args)
@@ -249,7 +248,7 @@ namespace DotNetNuke.Instrumentation
 
             public void FatalFormat(IFormatProvider provider, string format, params object[] args)
             {
-                Logger.Log(_stackBoundary, _levelFatal, new SystemStringFormat(provider, format, args), null);
+                Logger.Log(_stackBoundary, s_levelFatal, new SystemStringFormat(provider, format, args), null);
             }
         }
     }

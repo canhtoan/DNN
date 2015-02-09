@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.IO;
 using System.Text;
 using System.Web.UI;
@@ -28,7 +28,6 @@ using DotNetNuke.Common;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Framework
 {
     /// -----------------------------------------------------------------------------
@@ -112,7 +111,7 @@ namespace DotNetNuke.Framework
         public override void Load()
         {
             StreamReader reader = null;
-			//Read the state string, using the StateFormatter.
+            //Read the state string, using the StateFormatter.
             try
             {
                 reader = new StreamReader(StateFileName);
@@ -121,9 +120,9 @@ namespace DotNetNuke.Framework
 
                 IStateFormatter formatter = StateFormatter;
 
-            	//Deserialize returns the Pair object that is serialized in
+                //Deserialize returns the Pair object that is serialized in
                 //the Save method.      
-                var statePair = (Pair) formatter.Deserialize(serializedStatePair);
+                var statePair = (Pair)formatter.Deserialize(serializedStatePair);
                 ViewState = statePair.First;
                 ControlState = statePair.Second;
             }
@@ -146,7 +145,7 @@ namespace DotNetNuke.Framework
         /// -----------------------------------------------------------------------------
         public override void Save()
         {
-			//No processing needed if no states available
+            //No processing needed if no states available
             if (ViewState == null && ControlState == null)
             {
                 return;
@@ -157,7 +156,7 @@ namespace DotNetNuke.Framework
                 {
                     Directory.CreateDirectory(CacheDirectory);
                 }
-				
+
                 //Write a state string, using the StateFormatter.
                 var writer = new StreamWriter(StateFileName, false);
                 IStateFormatter formatter = StateFormatter;

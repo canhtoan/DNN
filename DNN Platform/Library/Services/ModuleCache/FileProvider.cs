@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -34,7 +34,6 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Services.ModuleCache
 {
     public class FileProvider : ModuleCachingProvider
@@ -43,7 +42,7 @@ namespace DotNetNuke.Services.ModuleCache
 
         private const string DataFileExtension = ".data.resources";
         private const string AttribFileExtension = ".attrib.resources";
-        private static readonly SharedDictionary<int, string> CacheFolderPath = new SharedDictionary<int, string>(LockingStrategy.ReaderWriter);
+        private static readonly SharedDictionary<int, string> s_cacheFolderPath = new SharedDictionary<int, string>(LockingStrategy.ReaderWriter);
 
         #endregion
 
@@ -83,9 +82,9 @@ namespace DotNetNuke.Services.ModuleCache
         {
             string cacheFolder;
 
-            using (var readerLock = CacheFolderPath.GetReadLock())
+            using (var readerLock = s_cacheFolderPath.GetReadLock())
             {
-                if (CacheFolderPath.TryGetValue(portalId, out cacheFolder))
+                if (s_cacheFolderPath.TryGetValue(portalId, out cacheFolder))
                 {
                     return cacheFolder;
                 }
@@ -105,10 +104,10 @@ namespace DotNetNuke.Services.ModuleCache
                 }
             }
 
-            using (var writerLock = CacheFolderPath.GetWriteLock())
+            using (var writerLock = s_cacheFolderPath.GetWriteLock())
             {
-                if (!CacheFolderPath.ContainsKey(portalId))
-                    CacheFolderPath.Add(portalId, cacheFolder);
+                if (!s_cacheFolderPath.ContainsKey(portalId))
+                    s_cacheFolderPath.Add(portalId, cacheFolder);
             }
 
             return cacheFolder;
@@ -136,11 +135,11 @@ namespace DotNetNuke.Services.ModuleCache
                     return false;
                 }
             }
-			catch
-			{
-				//if check expire time failed, then force to expire the cache.
-				return true;
-			}
+            catch
+            {
+                //if check expire time failed, then force to expire the cache.
+                return true;
+            }
             finally
             {
                 if (oRead != null)
@@ -270,9 +269,8 @@ namespace DotNetNuke.Services.ModuleCache
         {
             try
             {
-            
                 string cachedOutputFile = GetCachedOutputFileName(tabModuleId, cacheKey);
-                
+
                 if (File.Exists(cachedOutputFile))
                 {
                     FileSystemUtils.DeleteFileWithWait(cachedOutputFile, 100, 200);

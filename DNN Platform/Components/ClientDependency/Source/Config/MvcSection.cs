@@ -8,7 +8,6 @@ namespace ClientDependency.Core.Config
 {
     public class MvcSection : ConfigurationElement
     {
-
         [ConfigurationProperty("renderers")]
         public ProviderSettingsCollection Renderers
         {
@@ -22,6 +21,5 @@ namespace ClientDependency.Core.Config
             get { return (string)base["defaultRenderer"]; }
             set { base["defaultRenderer"] = value; }
         }
-
     }
 }

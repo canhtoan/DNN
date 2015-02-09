@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Xml.XPath;
 
@@ -28,7 +28,7 @@ namespace DotNetNuke.Services.Installer.Installers
 {
     public class JavaScriptFileInstaller : FileInstaller
     {
- 		#region Protected Properties
+        #region Protected Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -58,8 +58,8 @@ namespace DotNetNuke.Services.Installer.Installers
             }
         }
 
-		#endregion  
- 
+        #endregion
+
         #region Public Properties
 
         /// -----------------------------------------------------------------------------
@@ -97,8 +97,6 @@ namespace DotNetNuke.Services.Installer.Installers
             }
         }
 
-
         #endregion
-
     }
 }

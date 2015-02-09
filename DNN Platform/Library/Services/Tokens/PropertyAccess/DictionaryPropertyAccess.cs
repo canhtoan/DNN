@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Globalization;
@@ -27,27 +27,26 @@ using System.Globalization;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Services.Tokens
 {
     public class DictionaryPropertyAccess : IPropertyAccess
     {
-        private readonly IDictionary NameValueCollection;
+        private readonly IDictionary _nameValueCollection;
 
         public DictionaryPropertyAccess(IDictionary list)
         {
-            NameValueCollection = list;
+            _nameValueCollection = list;
         }
 
         #region IPropertyAccess Members
 
         public virtual string GetProperty(string propertyName, string format, CultureInfo formatProvider, UserInfo AccessingUser, Scope AccessLevel, ref bool PropertyNotFound)
         {
-            if (NameValueCollection == null)
+            if (_nameValueCollection == null)
             {
                 return string.Empty;
             }
-            object valueObject = NameValueCollection[propertyName];
+            object valueObject = _nameValueCollection[propertyName];
             string OutputFormat = format;
             if (string.IsNullOrEmpty(format))
             {
@@ -66,7 +65,7 @@ namespace DotNetNuke.Services.Tokens
                     case "Single":
                     case "Int32":
                     case "Int64":
-                        return (((IFormattable) valueObject).ToString(OutputFormat, formatProvider));
+                        return (((IFormattable)valueObject).ToString(OutputFormat, formatProvider));
                     default:
                         return PropertyAccess.FormatString(valueObject.ToString(), format);
                 }

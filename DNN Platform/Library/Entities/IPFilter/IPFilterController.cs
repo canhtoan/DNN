@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,19 +38,18 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Host
 {
     public class IPFilterController : ComponentBase<IIPFilterController, IPFilterController>, IIPFilterController
     {
         #region Private
 
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (IPFilterController));
-        
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(IPFilterController));
+
         private enum FilterType
         {
-            Allow=1,
-            Deny=2
+            Allow = 1,
+            Deny = 2
         }
         #endregion
 
@@ -99,9 +98,9 @@ namespace DotNetNuke.Entities.Host
         /// <returns>the selected IP filter</returns>
         public IPFilterInfo GetIPFilter(int ipFilter)
         {
-            return CBO.FillObject<IPFilterInfo>(DataProvider.Instance().GetIPFilter(ipFilter));       
+            return CBO.FillObject<IPFilterInfo>(DataProvider.Instance().GetIPFilter(ipFilter));
         }
-    
+
         /// <summary>
         /// get the list of IP filters
         /// </summary>
@@ -116,7 +115,7 @@ namespace DotNetNuke.Entities.Host
         {
             if (CheckIfBannedIPAddress(ipAddress))
             {//should throw 403.6
-            throw new HttpException(403, "");
+                throw new HttpException(403, "");
             }
         }
 
@@ -127,7 +126,6 @@ namespace DotNetNuke.Entities.Host
         /// <returns>true if banned</returns>
         public bool IsIPBanned(string ipAddress)
         {
-
             return CheckIfBannedIPAddress(ipAddress);
         }
 
@@ -145,23 +143,21 @@ namespace DotNetNuke.Entities.Host
                         //log
                         LogBannedIPAttempt(ipAddress);
                         return true;
-
                     }
                 }
                 //check any allows - if one exists set flag but let processing continue to verify no deny overrides
                 if (ipFilterInfo.RuleType == (int)FilterType.Allow)
                 {
-                    if (ipFilterInfo.IPAddress=="*" || NetworkUtils.IsIPInRange(ipAddress, ipFilterInfo.IPAddress, ipFilterInfo.SubnetMask))
+                    if (ipFilterInfo.IPAddress == "*" || NetworkUtils.IsIPInRange(ipAddress, ipFilterInfo.IPAddress, ipFilterInfo.SubnetMask))
                     {
                         ipAllowed = false;
-
                     }
                 }
             }
             return ipAllowed;
         }
 
-        
+
 
         private void LogBannedIPAttempt(string ipAddress)
         {
@@ -180,7 +176,7 @@ namespace DotNetNuke.Entities.Host
         /// <param name="myip">IP address</param>
         /// <param name="filterList">list of IP filters</param>
         /// <returns>true if IP can access, false otherwise</returns>
-        public bool CanIPStillAccess(string myip,IList<IPFilterInfo> filterList)
+        public bool CanIPStillAccess(string myip, IList<IPFilterInfo> filterList)
         {
             var allowAllIPs = false;
             var globalAllow = (from p in filterList
@@ -200,13 +196,13 @@ namespace DotNetNuke.Entities.Host
                              where p.RuleType == (int)FilterType.Deny
                              select p).ToList();
             //if global allow and no deny
-            if (allowAllIPs & denyRules.Count==0)
+            if (allowAllIPs & denyRules.Count == 0)
             {
                 return true;
             }
 
             //if global allow, check if a deny rule would override
-            if (allowAllIPs & denyRules.Count>0)
+            if (allowAllIPs & denyRules.Count > 0)
             {
                 if (denyRules.Any(ipf => NetworkUtils.IsIPInRange(myip, ipf.IPAddress, ipf.SubnetMask)))
                 {
@@ -215,7 +211,7 @@ namespace DotNetNuke.Entities.Host
             }
 
             //if no global allow, check if a deny rule would apply
-            if (allowAllIPs==false & denyRules.Count > 0)
+            if (allowAllIPs == false & denyRules.Count > 0)
             {
                 if (denyRules.Any(ipf => NetworkUtils.IsIPInRange(myip, ipf.IPAddress, ipf.SubnetMask)))
                 {
@@ -243,7 +239,7 @@ namespace DotNetNuke.Entities.Host
         /// <returns>true if rule would not block current IP, false otherwise</returns>
         public bool IsAllowableDeny(string currentIP, IPFilterInfo ipFilter)
         {
-            if (ipFilter.RuleType==(int)FilterType.Allow)
+            if (ipFilter.RuleType == (int)FilterType.Allow)
             {
                 return true;
             }

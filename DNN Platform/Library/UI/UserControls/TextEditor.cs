@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Text.RegularExpressions;
 using System.Web.UI;
@@ -35,7 +35,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Personalization;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     /// -----------------------------------------------------------------------------
@@ -54,7 +53,7 @@ namespace DotNetNuke.UI.UserControls
     [ValidationPropertyAttribute("Text")]
     public class TextEditor : UserControl
     {
-		#region Private Members
+        #region Private Members
 
         private const string MyFileName = "TextEditor.ascx";
         private HtmlEditorProvider _richTextEditor;
@@ -77,7 +76,7 @@ namespace DotNetNuke.UI.UserControls
 
         #endregion
 
-		#region Properties
+        #region Properties
 
         ///<summary>Enables/Disables the option to allow the user to select between Rich/Basic Mode, Default is true.</summary>
         public bool ChooseMode { get; set; }
@@ -127,8 +126,8 @@ namespace DotNetNuke.UI.UserControls
                         strMode = Convert.ToString(Personalization.GetProfile("DotNetNuke.TextEditor", "PreferredTextEditor"));
                     }
                 }
-				
-				//If no Preference Check if Viewstate has been saved
+
+                //If no Preference Check if Viewstate has been saved
                 if (String.IsNullOrEmpty(strMode))
                 {
                     if (ViewState["DesktopMode"] != null && !String.IsNullOrEmpty(ViewState["DesktopMode"].ToString()))
@@ -136,8 +135,8 @@ namespace DotNetNuke.UI.UserControls
                         strMode = Convert.ToString(ViewState["DesktopMode"]);
                     }
                 }
-				
-				//Finally if still no value Use default
+
+                //Finally if still no value Use default
                 if (String.IsNullOrEmpty(strMode))
                 {
                     strMode = DefaultMode;
@@ -181,10 +180,10 @@ namespace DotNetNuke.UI.UserControls
                         {
                             case "T":
                                 return Encode(HtmlUtils.ConvertToHtml(RemoveBaseTags(TxtDesktopHTML.Text)));
-                                //break;
+                            //break;
                             case "R":
                                 return RemoveBaseTags(TxtDesktopHTML.Text);
-                                //break;
+                            //break;
                             default:
                                 return Encode(RemoveBaseTags(TxtDesktopHTML.Text));
                                 //break;
@@ -195,8 +194,8 @@ namespace DotNetNuke.UI.UserControls
             }
             set
             {
-				TxtDesktopHTML.Text = HtmlUtils.ConvertToText(Decode(value));
-				_richTextEditor.Text = Decode(value);
+                TxtDesktopHTML.Text = HtmlUtils.ConvertToText(Decode(value));
+                _richTextEditor.Text = Decode(value);
             }
         }
 
@@ -253,10 +252,10 @@ namespace DotNetNuke.UI.UserControls
                 return TemplateSourceDirectory + "/" + Localization.LocalResourceDirectory + "/" + MyFileName;
             }
         }
-		
-		#endregion
 
-		#region Private Methods
+        #endregion
+
+        #region Private Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -341,8 +340,8 @@ namespace DotNetNuke.UI.UserControls
             {
                 OptView.SelectedIndex = 0;
             }
-			
-			//Set the text render mode for basic mode
+
+            //Set the text render mode for basic mode
             if (OptRender.SelectedIndex != -1)
             {
                 TextRenderMode = OptRender.SelectedItem.Value;
@@ -370,12 +369,12 @@ namespace DotNetNuke.UI.UserControls
         }
 
         private string RemoveBaseTags(String strInput)
-		{
-			//const RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
-			const string pattern = "<base[^>]*>";
+        {
+            //const RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
+            const string pattern = "<base[^>]*>";
             return Regex.Replace(strInput, pattern, " ", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-		}
-		#endregion
+        }
+        #endregion
 
         #region Public Methods
 
@@ -419,10 +418,10 @@ namespace DotNetNuke.UI.UserControls
 
             OptRender.SelectedIndexChanged += OptRenderSelectedIndexChanged;
             OptView.SelectedIndexChanged += OptViewSelectedIndexChanged;
-            
+
             try
             {
-				//Populate Radio Button Lists
+                //Populate Radio Button Lists
                 PopulateLists();
 
                 //Get the current user
@@ -445,7 +444,7 @@ namespace DotNetNuke.UI.UserControls
                 {
                     DivBasicRender.Visible = false;
                 }
-				
+
                 //Load the editor
                 PlcEditor.Controls.Add(_richTextEditor.HtmlEditorControl);
                 SetPanels();
@@ -521,8 +520,7 @@ namespace DotNetNuke.UI.UserControls
             }
             SetPanels();
         }
-		
-		#endregion
 
+        #endregion
     }
 }

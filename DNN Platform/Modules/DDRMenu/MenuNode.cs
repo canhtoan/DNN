@@ -133,7 +133,6 @@ namespace DotNetNuke.Web.DDRMenu
 
         public List<MenuNode> FlattenChildren(MenuNode root)
         {
-
             var flattened = new List<MenuNode>();
             if (root.TabId != 0)
             {
@@ -256,8 +255,8 @@ namespace DotNetNuke.Web.DDRMenu
                         case "target":
                             Target = reader.Value;
                             break;
-                        //default:
-                        //    throw new XmlException(String.Format("Unexpected attribute '{0}'", reader.Name));
+                            //default:
+                            //    throw new XmlException(String.Format("Unexpected attribute '{0}'", reader.Name));
                     }
                 }
                 while (reader.MoveToNextAttribute());

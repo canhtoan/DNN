@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using DotNetNuke.Framework;
 
@@ -31,12 +31,10 @@ using DotNetNuke.Framework.JavaScriptLibraries;
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnGrid : RadGrid
     {
-
         #region public properties
 
         public int ScreenRowNumber { get; set; }
@@ -58,7 +56,7 @@ namespace DotNetNuke.Web.UI.WebControls
             this.PreRender += new EventHandler(DnnGrid_PreRender);
         }
 
-        void DnnGrid_PreRender(object sender, EventArgs e)
+        private void DnnGrid_PreRender(object sender, EventArgs e)
         {
             var items = this.MasterTableView.Items;
             if (ScreenRowNumber == 0)
@@ -70,16 +68,15 @@ namespace DotNetNuke.Web.UI.WebControls
                 this.ClientSettings.Scrolling.AllowScroll = true;
                 this.ClientSettings.Scrolling.UseStaticHeaders = true;
 
-                if(RowHeight == 0)
+                if (RowHeight == 0)
                     RowHeight = 25;
 
                 this.ClientSettings.Scrolling.ScrollHeight = RowHeight * ScreenRowNumber;
             }
             else
             {
-                this.ClientSettings.Scrolling.AllowScroll = false;                
+                this.ClientSettings.Scrolling.AllowScroll = false;
             }
-
         }
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,23 +19,22 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnTimePicker : RadTimePicker
     {
-		protected override void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
-			base.EnableEmbeddedBaseStylesheet = true;
-			Utilities.ApplySkin(this, string.Empty, "DatePicker");
-		}
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            base.EnableEmbeddedBaseStylesheet = true;
+            Utilities.ApplySkin(this, string.Empty, "DatePicker");
+        }
     }
 }

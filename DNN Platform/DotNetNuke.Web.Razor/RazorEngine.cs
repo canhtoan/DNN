@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Using
-
 using System;
 using System.Globalization;
 using System.IO;
@@ -33,7 +33,6 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.Web.Razor.Helpers;
 
 #endregion
-
 namespace DotNetNuke.Web.Razor
 {
     public class RazorEngine
@@ -91,7 +90,7 @@ namespace DotNetNuke.Web.Razor
             {
                 if ((Webpage) is DotNetNukeWebPage<T>)
                 {
-                    var mv = (DotNetNukeWebPage<T>) Webpage;
+                    var mv = (DotNetNukeWebPage<T>)Webpage;
                     mv.Model = model;
                 }
                 Webpage.ExecutePageHierarchy(new WebPageContext(HttpContext, Webpage, null), writer, Webpage);
@@ -139,12 +138,12 @@ namespace DotNetNuke.Web.Razor
                 var objectValue = RuntimeHelpers.GetObjectValue(CreateWebPageInstance());
                 if ((objectValue == null))
                 {
-                    throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "The webpage found at '{0}' was not created.", new object[] {RazorScriptFile}));
+                    throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "The webpage found at '{0}' was not created.", new object[] { RazorScriptFile }));
                 }
                 Webpage = objectValue as DotNetNukeWebPage;
                 if ((Webpage == null))
                 {
-                    throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "The webpage at '{0}' must derive from DotNetNukeWebPage.", new object[] {RazorScriptFile}));
+                    throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "The webpage at '{0}' must derive from DotNetNukeWebPage.", new object[] { RazorScriptFile }));
                 }
                 Webpage.Context = HttpContext;
                 Webpage.VirtualPath = VirtualPathUtility.GetDirectory(RazorScriptFile);

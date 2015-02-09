@@ -6,7 +6,6 @@ namespace DotNetNuke.Web.UI.WebControls
     [DataContract]
     public class DnnDropDownListOptions
     {
-
         [DataMember(Name = "selectedItemCss")]
         public string SelectedItemCss;
 
@@ -46,6 +45,5 @@ namespace DotNetNuke.Web.UI.WebControls
             Services = new ItemListServicesOptions();
             ItemList = new ItemListOptions();
         }
-
     }
 }

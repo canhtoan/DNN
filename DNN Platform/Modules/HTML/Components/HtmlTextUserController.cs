@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,12 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System.Collections;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Modules.Html.Components;
-
 
 namespace DotNetNuke.Modules.Html
 {
@@ -55,7 +55,7 @@ namespace DotNetNuke.Modules.Html
         /// -----------------------------------------------------------------------------
         public ArrayList GetHtmlTextUser(int UserID)
         {
-            return CBO.FillCollection(DataProvider.Instance().GetHtmlTextUser(UserID), typeof (HtmlTextUserInfo));
+            return CBO.FillCollection(DataProvider.Instance().GetHtmlTextUser(UserID), typeof(HtmlTextUserInfo));
         }
 
         /// -----------------------------------------------------------------------------

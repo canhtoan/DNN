@@ -21,14 +21,13 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Runtime.Serialization;
 
 using DotNetNuke.Services.Authentication.OAuth;
 
 #endregion
-
 namespace DotNetNuke.Authentication.Google.Components
 {
     [DataContract]

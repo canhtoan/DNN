@@ -20,36 +20,34 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Xml;
 
+using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Portals;
+using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Entities.Users;
+using DotNetNuke.Security.Roles;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Services.Localization;
+using DotNetNuke.UI.WebControls;
+using DotNetNuke.Web.UI.WebControls;
+
+using Telerik.Web.UI;
 
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Text.RegularExpressions;
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-    using System.Xml;
-
-    using DotNetNuke.Common;
-    using DotNetNuke.Common.Utilities;
-    using DotNetNuke.Entities.Portals;
-    using DotNetNuke.Entities.Tabs;
-    using DotNetNuke.Entities.Users;
-    using DotNetNuke.Security.Roles;
-    using DotNetNuke.Services.Exceptions;
-    using DotNetNuke.Services.FileSystem;
-    using DotNetNuke.Services.Localization;
-    using DotNetNuke.UI.WebControls;
-    using DotNetNuke.Web.UI.WebControls;
-
-    using Telerik.Web.UI;
-
     public partial class ProviderConfig : Entities.Modules.PortalModuleBase, Entities.Modules.IActionable
     {
         #region Private Members
@@ -72,16 +70,16 @@ namespace DotNetNuke.Providers.RadEditorProvider
             {
                 if (DataCache.GetCache("RAD_DEFAULT_CONFIG") != null)
                 {
-                    this._defaultconfig = (List<ConfigInfo>)DataCache.GetCache("RAD_DEFAULT_CONFIG");
+                    _defaultconfig = (List<ConfigInfo>)DataCache.GetCache("RAD_DEFAULT_CONFIG");
                 }
 
-                if (this._defaultconfig == null)
+                if (_defaultconfig == null)
                 {
-                    this._defaultconfig = this.InitializeDefaultConfig();
-                    DataCache.SetCache("RAD_DEFAULT_CONFIG", this._defaultconfig);
+                    _defaultconfig = this.InitializeDefaultConfig();
+                    DataCache.SetCache("RAD_DEFAULT_CONFIG", _defaultconfig);
                 }
 
-                return this._defaultconfig;
+                return _defaultconfig;
             }
         }
 
@@ -91,16 +89,16 @@ namespace DotNetNuke.Providers.RadEditorProvider
         {
             get
             {
-                if (this._dnnConfig == null)
+                if (_dnnConfig == null)
                 {
                     UserInfo currentUser = UserController.Instance.GetCurrentUserInfo();
                     if (currentUser != null && currentUser.IsSuperUser)
                     {
-                        this._dnnConfig = Config.Load();
+                        _dnnConfig = Config.Load();
                     }
                 }
 
-                return this._dnnConfig;
+                return _dnnConfig;
             }
         }
 
@@ -966,7 +964,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
                                             ctl.BindData(true);
                                             ctl.SetLanguage(objConfig.Value);
                                         }
-                                        catch 
+                                        catch
                                         {
                                         }
                                     }
@@ -1277,12 +1275,12 @@ namespace DotNetNuke.Providers.RadEditorProvider
                         case "language":
                             {
                                 var ctl = new DnnLanguageComboBox
-                                              {
-                                                  ID = "ctl_rc_" + key,
-                                                  LanguagesListType = LanguagesListType.All,
-                                                  IncludeNoneSpecified = true,
-                                                  CssClass = "languageComboBox"
-                                              };
+                                {
+                                    ID = "ctl_rc_" + key,
+                                    LanguagesListType = LanguagesListType.All,
+                                    IncludeNoneSpecified = true,
+                                    CssClass = "languageComboBox"
+                                };
                                 pnlRow.Controls.Add(ctl);
                                 break;
                             }
@@ -1331,7 +1329,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
                 this.treePages.FindNodeByValue(configpath).ExpandParentNodes();
                 this.treePages.FindNodeByValue(configpath).Selected = true;
             }
-            catch 
+            catch
             {
             }
 
@@ -1343,7 +1341,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
                 this.cmdUpdate.Enabled = (!(configpath.ToLower().EndsWith("configfile.xml.original.xml")));
                 this.cmdCreate.Enabled = true;
                 this.cmdDelete.Enabled = (!(configpath.ToLower().EndsWith("configfile.xml.original.xml"))
-                                     && ! (configpath.ToLower().EndsWith("configfile.xml")));
+                                     && !(configpath.ToLower().EndsWith("configfile.xml")));
 
                 if (File.Exists(toolspath))
                 {

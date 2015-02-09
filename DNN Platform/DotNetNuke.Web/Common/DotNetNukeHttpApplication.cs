@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Linq;
 using System.Net;
@@ -49,7 +49,6 @@ using DotNetNuke.Services.Url.FriendlyUrl;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Web.Common.Internal
 {
     /// <summary>
@@ -57,23 +56,23 @@ namespace DotNetNuke.Web.Common.Internal
     /// </summary>
     public class DotNetNukeHttpApplication : HttpApplication
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (DotNetNukeHttpApplication));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(DotNetNukeHttpApplication));
 
-        void Application_Error(object sender, EventArgs eventArgs)
+        private void Application_Error(object sender, EventArgs eventArgs)
         {
             // Code that runs when an unhandled error occurs
             if (HttpContext.Current != null)
             {
                 // Get the exception object.
-                Logger.Trace("Dumping all Application Errors");
-                foreach (Exception exc in HttpContext.Current.AllErrors) Logger.Fatal(exc);
-                Logger.Trace("End Dumping all Application Errors");
+                s_logger.Trace("Dumping all Application Errors");
+                foreach (Exception exc in HttpContext.Current.AllErrors) s_logger.Fatal(exc);
+                s_logger.Trace("End Dumping all Application Errors");
             }
         }
 
         private void Application_Start(object sender, EventArgs eventArgs)
         {
-            Logger.InfoFormat("Application Starting ({0})", Globals.ElapsedSinceAppStart); // just to start the timer
+            s_logger.InfoFormat("Application Starting ({0})", Globals.ElapsedSinceAppStart); // just to start the timer
 
             var name = Config.GetSetting("ServerName");
             Globals.ServerName = String.IsNullOrEmpty(name) ? Dns.GetHostName() : name;
@@ -85,9 +84,9 @@ namespace DotNetNuke.Web.Common.Internal
             ComponentFactory.InstallComponents(new ProviderInstaller("logging", typeof(LoggingProvider), typeof(DBLoggingProvider)));
             ComponentFactory.InstallComponents(new ProviderInstaller("scheduling", typeof(SchedulingProvider), typeof(DNNScheduler)));
             ComponentFactory.InstallComponents(new ProviderInstaller("searchIndex", typeof(IndexingProvider), typeof(ModuleIndexer)));
-            #pragma warning disable 0618
+#pragma warning disable 0618
             ComponentFactory.InstallComponents(new ProviderInstaller("searchDataStore", typeof(SearchDataStoreProvider), typeof(SearchDataStore)));
-            #pragma warning restore 0618
+#pragma warning restore 0618
             ComponentFactory.InstallComponents(new ProviderInstaller("members", typeof(MembershipProvider), typeof(AspNetMembershipProvider)));
             ComponentFactory.InstallComponents(new ProviderInstaller("roles", typeof(RoleProvider), typeof(DNNRoleProvider)));
             ComponentFactory.InstallComponents(new ProviderInstaller("profiles", typeof(ProfileProvider), typeof(DNNProfileProvider)));
@@ -105,11 +104,11 @@ namespace DotNetNuke.Web.Common.Internal
             ComponentFactory.InstallComponents(new ProviderInstaller("htmlEditor", typeof(HtmlEditorProvider), ComponentLifeStyleType.Transient));
             ComponentFactory.InstallComponents(new ProviderInstaller("navigationControl", typeof(NavigationProvider), ComponentLifeStyleType.Transient));
             ComponentFactory.InstallComponents(new ProviderInstaller("clientcapability", typeof(ClientCapabilityProvider)));
-            ComponentFactory.InstallComponents(new ProviderInstaller("cryptography", typeof(CryptographyProvider),typeof(CoreCryptographyProvider)));
+            ComponentFactory.InstallComponents(new ProviderInstaller("cryptography", typeof(CryptographyProvider), typeof(CoreCryptographyProvider)));
 
-            Logger.InfoFormat("Application Started ({0})", Globals.ElapsedSinceAppStart); // just to start the timer
+            s_logger.InfoFormat("Application Started ({0})", Globals.ElapsedSinceAppStart); // just to start the timer
         }
-        
+
         private static void RegisterIfNotAlreadyRegistered<TConcrete>() where TConcrete : class, new()
         {
             RegisterIfNotAlreadyRegistered<TConcrete, TConcrete>("");
@@ -135,30 +134,30 @@ namespace DotNetNuke.Web.Common.Internal
 
         private void Application_End(object sender, EventArgs eventArgs)
         {
-            Logger.Info("Application Ending");
+            s_logger.Info("Application Ending");
             Initialize.LogEnd();
             Initialize.StopScheduler();
 
             //Shutdown Lucene, but not when we are installing
             if (Globals.Status != Globals.UpgradeStatus.Install)
             {
-                Logger.Trace("Disposing Lucene");
+                s_logger.Trace("Disposing Lucene");
                 var lucene = LuceneController.Instance as IDisposable;
                 if (lucene != null) lucene.Dispose();
             }
-            Logger.Trace("Dumping all Application Errors");
+            s_logger.Trace("Dumping all Application Errors");
             if (HttpContext.Current != null)
             {
                 if (HttpContext.Current.AllErrors != null)
                 {
-                    foreach (Exception exc in HttpContext.Current.AllErrors) Logger.Fatal(exc);
+                    foreach (Exception exc in HttpContext.Current.AllErrors) s_logger.Fatal(exc);
                 }
             }
-            Logger.Trace("End Dumping all Application Errors");
-            Logger.Info("Application Ended");
+            s_logger.Trace("End Dumping all Application Errors");
+            s_logger.Info("Application Ended");
         }
 
-        private static readonly string[] Endings =
+        private static readonly string[] s_endings =
             {
                 ".css", ".gif", ".jpeg", ".jpg", ".js", ".png", "scriptresource.axd", "webresource.axd"
             };
@@ -167,7 +166,7 @@ namespace DotNetNuke.Web.Common.Internal
         {
             var app = (HttpApplication)sender;
             var requestUrl = app.Request.Url.LocalPath.ToLower();
-            if (!requestUrl.EndsWith(".aspx") && !requestUrl.EndsWith("/") &&  Endings.Any(requestUrl.EndsWith))
+            if (!requestUrl.EndsWith(".aspx") && !requestUrl.EndsWith("/") && s_endings.Any(requestUrl.EndsWith))
             {
                 return;
             }

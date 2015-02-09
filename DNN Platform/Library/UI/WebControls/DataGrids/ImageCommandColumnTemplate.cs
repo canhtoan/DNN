@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.UI.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -45,16 +44,16 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class ImageCommandColumnTemplate : ITemplate
     {
-		#region "Private Members"
+        #region "Private Members"
 
-        private ImageCommandColumnEditMode mEditMode = ImageCommandColumnEditMode.Command;
-        private ListItemType mItemType = ListItemType.Item;
-        private bool mShowImage = true;
-        private bool mVisible = true;
-		
-		#endregion
+        private ImageCommandColumnEditMode _mEditMode = ImageCommandColumnEditMode.Command;
+        private ListItemType _mItemType = ListItemType.Item;
+        private bool _mShowImage = true;
+        private bool _mVisible = true;
 
-		#region "Constructors"
+        #endregion
+
+        #region "Constructors"
 
         public ImageCommandColumnTemplate() : this(ListItemType.Item)
         {
@@ -64,31 +63,31 @@ namespace DotNetNuke.UI.WebControls
         {
             ItemType = itemType;
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the CommandName for the Column
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/17/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        #region "Public Properties"
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the CommandName for the Column
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/17/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string CommandName { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the Design Mode of the Column
-		/// </summary>
-		/// <value>A Boolean</value>
-		/// <history>
-		/// 	[cnurse]	02/24/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Design Mode of the Column
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/24/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool DesignMode { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -104,23 +103,23 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEditMode;
+                return _mEditMode;
             }
             set
             {
-                mEditMode = value;
+                _mEditMode = value;
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the URL of the Image
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/17/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the URL of the Image
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/17/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string ImageURL { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -136,56 +135,56 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mItemType;
+                return _mItemType;
             }
             set
             {
-                mItemType = value;
+                _mItemType = value;
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// The Key Field that provides a Unique key to the data Item
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/16/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The Key Field that provides a Unique key to the data Item
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/16/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string KeyField { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the URL of the Link (unless DataBinding through KeyField)
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/17/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the URL of the Link (unless DataBinding through KeyField)
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/17/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string NavigateURL { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the URL Formatting string
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	01/06/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the URL Formatting string
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	01/06/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string NavigateURLFormatString { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Javascript text to attach to the OnClick Event
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/16/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Javascript text to attach to the OnClick Event
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/16/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string OnClickJS { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -202,23 +201,23 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mShowImage;
+                return _mShowImage;
             }
             set
             {
-                mShowImage = value;
+                _mShowImage = value;
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the Text (for Header/Footer Templates)
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/16/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Text (for Header/Footer Templates)
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/16/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string Text { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -236,23 +235,23 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mVisible;
+                return _mVisible;
             }
             set
             {
-                mVisible = value;
+                _mVisible = value;
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// An flag that indicates whether the buttons are visible.
-		/// </summary>
-		/// <value>A Boolean</value>
-		/// <history>
-		/// 	[cnurse]	02/20/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// An flag that indicates whether the buttons are visible.
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/20/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string VisibleField { get; set; }
 
         #region ITemplate Members
@@ -346,10 +345,10 @@ namespace DotNetNuke.UI.WebControls
         }
 
         #endregion
-		
-		#endregion
-		
-		#region "Private Methods"
+
+        #endregion
+
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -411,8 +410,8 @@ namespace DotNetNuke.UI.WebControls
             int keyValue = Null.NullInteger;
             if (EditMode == ImageCommandColumnEditMode.URL)
             {
-                var hypLink = (HyperLink) sender;
-                container = (DataGridItem) hypLink.NamingContainer;
+                var hypLink = (HyperLink)sender;
+                container = (DataGridItem)hypLink.NamingContainer;
                 keyValue = GetValue(container);
                 if (!String.IsNullOrEmpty(NavigateURLFormatString))
                 {
@@ -425,27 +424,27 @@ namespace DotNetNuke.UI.WebControls
             }
             else
             {
-				//Bind Image Button
+                //Bind Image Button
                 if (!String.IsNullOrEmpty(ImageURL) && ShowImage)
                 {
-                    var colIcon = (ImageButton) sender;
-                    container = (DataGridItem) colIcon.NamingContainer;
+                    var colIcon = (ImageButton)sender;
+                    container = (DataGridItem)colIcon.NamingContainer;
                     keyValue = GetValue(container);
                     colIcon.CommandArgument = keyValue.ToString();
                     colIcon.Visible = GetIsVisible(container);
                 }
                 if (!String.IsNullOrEmpty(Text) && !ShowImage)
                 {
-					//Bind Link Button
-                    var colLink = (LinkButton) sender;
-                    container = (DataGridItem) colLink.NamingContainer;
+                    //Bind Link Button
+                    var colLink = (LinkButton)sender;
+                    container = (DataGridItem)colLink.NamingContainer;
                     keyValue = GetValue(container);
                     colLink.CommandArgument = keyValue.ToString();
                     colLink.Visible = GetIsVisible(container);
                 }
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

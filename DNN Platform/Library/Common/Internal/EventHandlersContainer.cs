@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -29,12 +29,12 @@ using DotNetNuke.Instrumentation;
 
 namespace DotNetNuke.Common.Internal
 {
-    internal class EventHandlersContainer<T> : ComponentBase<IEventHandlersContainer<T>, EventHandlersContainer<T>>, IEventHandlersContainer<T>        
+    internal class EventHandlersContainer<T> : ComponentBase<IEventHandlersContainer<T>, EventHandlersContainer<T>>, IEventHandlersContainer<T>
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(EventHandlersContainer<T>));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(EventHandlersContainer<T>));
 
         [ImportMany]
-        private IEnumerable<Lazy<T>> eventsHandlers = new List<Lazy<T>>();
+        private IEnumerable<Lazy<T>> _eventsHandlers = new List<Lazy<T>>();
 
         public EventHandlersContainer()
         {
@@ -44,11 +44,11 @@ namespace DotNetNuke.Common.Internal
                 {
                     return;
                 }
-                ExtensionPointManager.ComposeParts(this);             
+                ExtensionPointManager.ComposeParts(this);
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.Message, ex);
+                s_logger.Error(ex.Message, ex);
             }
         }
 
@@ -56,7 +56,7 @@ namespace DotNetNuke.Common.Internal
         {
             get
             {
-                return eventsHandlers;
+                return _eventsHandlers;
             }
         }
 

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using DotNetNuke.Common;
@@ -29,7 +29,6 @@ using DotNetNuke.Services.Upgrade.Internals;
 using DotNetNuke.Services.Upgrade.Internals.Steps;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 {
     /// -----------------------------------------------------------------------------
@@ -71,9 +70,9 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                     var exception = Upgrade.ExecuteScript(scriptFile, false);
                     if (!string.IsNullOrEmpty(exception))
                     {
-	                    Errors.Add(exception);
-						Status = StepStatus.Retry;
-						return;
+                        Errors.Add(exception);
+                        Status = StepStatus.Retry;
+                        return;
                     }
                     Percentage += percentForMiniStep;
                 }
@@ -84,12 +83,12 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                 Details = Localization.Localization.GetString("InstallingMembershipDatabaseScriptStep", LocalInstallResourceFile);
                 //Optionally Install the memberRoleProvider
                 var exceptions = Upgrade.InstallMemberRoleProvider(providerPath, false);
-				if (!string.IsNullOrEmpty(exceptions))
-				{
-					Errors.Add(exceptions);
-					Status = StepStatus.Retry;
-					return;
-				}
+                if (!string.IsNullOrEmpty(exceptions))
+                {
+                    Errors.Add(exceptions);
+                    Status = StepStatus.Retry;
+                    return;
+                }
             }
             Percentage = percentForEachStep * counter++;
 
@@ -98,20 +97,20 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
             var scripts = Upgrade.GetUpgradeScripts(providerPath, DataProvider.Instance().GetVersion());
             if (scripts.Count > 0)
             {
-                percentForMiniStep = percentForEachStep/(scripts.Count);
+                percentForMiniStep = percentForEachStep / (scripts.Count);
                 foreach (string scriptFile in scripts)
                 {
                     var fileName = Upgrade.GetFileNameWithoutExtension(scriptFile);
                     versions.Add(new Version(fileName));
                     string description = Localization.Localization.GetString("ProcessingUpgradeScript", LocalInstallResourceFile);
                     Details = description + fileName;
-					var exceptions = Upgrade.UpgradeVersion(scriptFile, false);
-					if (!string.IsNullOrEmpty(exceptions))
-					{
-						Errors.Add(exceptions);
-						Status = StepStatus.Retry;
-						return;
-					}
+                    var exceptions = Upgrade.UpgradeVersion(scriptFile, false);
+                    if (!string.IsNullOrEmpty(exceptions))
+                    {
+                        Errors.Add(exceptions);
+                        Status = StepStatus.Retry;
+                        return;
+                    }
                     Percentage += percentForMiniStep;
                 }
             }
@@ -123,32 +122,32 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                 string description = Localization.Localization.GetString("UpgradingVersionApplication", LocalInstallResourceFile);
                 Details = description + ver;
                 var exceptions = Upgrade.UpgradeApplication(providerPath, ver, false);
-				if (!string.IsNullOrEmpty(exceptions))
-				{
-					Errors.Add(exceptions);
-					Status = StepStatus.Retry;
-					return;
-				}
+                if (!string.IsNullOrEmpty(exceptions))
+                {
+                    Errors.Add(exceptions);
+                    Status = StepStatus.Retry;
+                    return;
+                }
                 Percentage += percentForMiniStep;
             }
             Percentage = percentForEachStep * counter++;
 
 
-			//Step 4 - Execute config file updates
-			foreach (Version ver in versions)
-			{
-				string description = Localization.Localization.GetString("UpdatingConfigFile", LocalInstallResourceFile);
-				Details = description + ver;
-				var exceptions = Upgrade.UpdateConfig(providerPath, ver, false);
-				if (!string.IsNullOrEmpty(exceptions))
-				{
-					Errors.Add(exceptions);
-					Status = StepStatus.Retry;
-					return;
-				}
-				Percentage += percentForMiniStep;
-			}
-			Percentage = percentForEachStep * counter++;
+            //Step 4 - Execute config file updates
+            foreach (Version ver in versions)
+            {
+                string description = Localization.Localization.GetString("UpdatingConfigFile", LocalInstallResourceFile);
+                Details = description + ver;
+                var exceptions = Upgrade.UpdateConfig(providerPath, ver, false);
+                if (!string.IsNullOrEmpty(exceptions))
+                {
+                    Errors.Add(exceptions);
+                    Status = StepStatus.Retry;
+                    return;
+                }
+                Percentage += percentForMiniStep;
+            }
+            Percentage = percentForEachStep * counter++;
 
             //Step 5 - Delete files which are no longer used
             foreach (Version ver in versions)
@@ -156,12 +155,12 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                 string description = Localization.Localization.GetString("DeletingOldFiles", LocalInstallResourceFile);
                 Details = description + ver;
                 var exceptions = Upgrade.DeleteFiles(providerPath, ver, false);
-				if (!string.IsNullOrEmpty(exceptions))
-				{
-					Errors.Add(exceptions);
-					Status = StepStatus.Retry;
-					return;
-				}
+                if (!string.IsNullOrEmpty(exceptions))
+                {
+                    Errors.Add(exceptions);
+                    Status = StepStatus.Retry;
+                    return;
+                }
                 Percentage += percentForMiniStep;
             }
             Percentage = percentForEachStep * counter++;
@@ -172,11 +171,10 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 
             DataCache.ClearHostCache(true);
             Percentage = percentForEachStep * counter++;
-            
+
             Status = Errors.Count > 0 ? StepStatus.Retry : StepStatus.Done;
         }
 
         #endregion
-
     }
 }

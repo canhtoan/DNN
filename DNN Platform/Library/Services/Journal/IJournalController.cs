@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -121,7 +122,7 @@ namespace DotNetNuke.Services.Journal
         /// <returns>Journal Object.</returns>
         /// 
         JournalItem GetJournalItem(int portalId, int userId, int journalId, bool includeAllItems, bool isDeleted, bool securityCheck);
-        
+
         /// <summary>
         /// Get all journal types in portal.
         /// </summary>
@@ -205,7 +206,7 @@ namespace DotNetNuke.Services.Journal
         /// <param name="objectKey">Object key.</param>
         /// 
         void SoftDeleteJournalItemByKey(int portalId, string objectKey);
-        
+
         /// <summary>
         /// Disable comment on a journal item.
         /// </summary>
@@ -244,7 +245,7 @@ namespace DotNetNuke.Services.Journal
         /// <param name="journalIdList">Id list of journal items.</param>
         /// <returns>CommentInfo object list.</returns>
         /// 
-        IList<CommentInfo> GetCommentsByJournalIds(List <int> journalIdList);
+        IList<CommentInfo> GetCommentsByJournalIds(List<int> journalIdList);
 
         /// <summary>
         /// Save a like on journal item.

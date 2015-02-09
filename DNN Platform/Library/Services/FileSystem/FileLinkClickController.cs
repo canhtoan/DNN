@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Specialized;
 using DotNetNuke.Common;
@@ -37,17 +37,17 @@ namespace DotNetNuke.Services.FileSystem
             if (portalId == Null.NullInteger)
             {
                 return new LinkClickPortalSettings
-                    {
-                        PortalGUID = Host.GUID,
-                        EnableUrlLanguage = Host.EnableUrlLanguage
-                    };            
+                {
+                    PortalGUID = Host.GUID,
+                    EnableUrlLanguage = Host.EnableUrlLanguage
+                };
             }
             var portalSettings = new PortalSettings(portalId);
             return new LinkClickPortalSettings
-                {
-                    PortalGUID = portalSettings.GUID.ToString(),
-                    EnableUrlLanguage = portalSettings.EnableUrlLanguage
-                };
+            {
+                PortalGUID = portalSettings.GUID.ToString(),
+                EnableUrlLanguage = portalSettings.EnableUrlLanguage
+            };
         }
 
         private int GetPortalIdFromLinkClick(NameValueCollection queryParams)
@@ -68,7 +68,7 @@ namespace DotNetNuke.Services.FileSystem
             Requires.NotNull("file", file);
             var portalId = file.PortalId;
             var linkClickPortalSettigns = GetPortalSettingsForLinkClick(portalId);
-            
+
             return TestableGlobals.Instance.LinkClick(String.Format("fileid={0}", file.FileId), Null.NullInteger, Null.NullInteger, true, false, portalId, linkClickPortalSettigns.EnableUrlLanguage, linkClickPortalSettigns.PortalGUID);
         }
 
@@ -85,7 +85,7 @@ namespace DotNetNuke.Services.FileSystem
         }
     }
 
-    class LinkClickPortalSettings
+    internal class LinkClickPortalSettings
     {
         public string PortalGUID;
         public bool EnableUrlLanguage;

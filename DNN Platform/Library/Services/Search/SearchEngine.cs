@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -33,7 +33,6 @@ using DotNetNuke.Services.Scheduling;
 using Newtonsoft.Json;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -56,7 +55,7 @@ namespace DotNetNuke.Services.Search
         #region Properties
 
         public int IndexedSearchDocumentCount { get; private set; }
-        
+
         public Dictionary<string, int> Results { get; private set; }
 
         public int DeletedCount { get; private set; }
@@ -100,12 +99,12 @@ namespace DotNetNuke.Services.Search
             searchDocuments = searchDocs as IList<SearchDocument> ?? searchDocs.ToList();
             StoreSearchDocuments(searchDocuments);
             IndexedSearchDocumentCount += searchDocuments.Count();
-            
-            #pragma warning disable 0618
+
+#pragma warning disable 0618
             //Index all Defunct ISearchable module content
             var searchItems = GetContent(moduleIndexer);
             SearchDataStoreProvider.Instance().StoreSearchItems(searchItems);
-            #pragma warning restore 0618
+#pragma warning restore 0618
             IndexedSearchDocumentCount += searchItems.Count;
 
             //Both ModuleSearchBase and ISearchable module content count
@@ -215,7 +214,7 @@ namespace DotNetNuke.Services.Search
             // Include Host Level Items
             indexSince = FixedIndexingStartDate(-1, startDateLocal);
             searchDocs.AddRange(indexer.GetSearchDocuments(-1, indexSince));
-            
+
             return searchDocs;
         }
 
@@ -311,7 +310,7 @@ namespace DotNetNuke.Services.Search
             var portals = PortalController.Instance.GetPortals();
             for (var index = 0; index <= portals.Count - 1; index++)
             {
-                var portal = (PortalInfo) portals[index];
+                var portal = (PortalInfo)portals[index];
                 searchItems.AddRange(indexer.GetSearchIndexItems(portal.PortalID));
             }
             return searchItems;
@@ -341,6 +340,5 @@ namespace DotNetNuke.Services.Search
         }
 
         #endregion
-        
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
@@ -28,10 +28,8 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Modules.HTMLEditorProvider;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
-
     /// <summary>
     /// The DNNRichTextEditControl control provides a standard UI component for editing
     /// RichText
@@ -44,38 +42,37 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:DNNRichTextEditControl runat=server></{0}:DNNRichTextEditControl>")]
     public class DNNRichTextEditControl : TextEditControl
     {
-
-        private HtmlEditorProvider RichTextEditor;
+        private HtmlEditorProvider _richTextEditor;
 
         protected override void CreateChildControls()
         {
             if (EditMode == PropertyEditorMode.Edit)
             {
                 var pnlEditor = new Panel();
-                if(string.IsNullOrEmpty(CssClass))
+                if (string.IsNullOrEmpty(CssClass))
                 {
-                    pnlEditor.CssClass ="dnnLeft";
+                    pnlEditor.CssClass = "dnnLeft";
                 }
                 else
                 {
                     pnlEditor.CssClass = string.Format("{0} dnnLeft", CssClass);
                 }
-                
 
-                RichTextEditor = HtmlEditorProvider.Instance();
-                RichTextEditor.ControlID = ID + "edit";
-                RichTextEditor.Initialize();
-                RichTextEditor.Height = ControlStyle.Height;
-                RichTextEditor.Width = ControlStyle.Width;
-                if (RichTextEditor.Height.IsEmpty)
+
+                _richTextEditor = HtmlEditorProvider.Instance();
+                _richTextEditor.ControlID = ID + "edit";
+                _richTextEditor.Initialize();
+                _richTextEditor.Height = ControlStyle.Height;
+                _richTextEditor.Width = ControlStyle.Width;
+                if (_richTextEditor.Height.IsEmpty)
                 {
-                    RichTextEditor.Height = new Unit(250);
+                    _richTextEditor.Height = new Unit(250);
                 }
 
-                RichTextEditor.Width = new Unit(400);
+                _richTextEditor.Width = new Unit(400);
 
                 Controls.Clear();
-                pnlEditor.Controls.Add(RichTextEditor.HtmlEditorControl);
+                pnlEditor.Controls.Add(_richTextEditor.HtmlEditorControl);
                 Controls.Add(pnlEditor);
             }
             base.CreateChildControls();
@@ -85,7 +82,7 @@ namespace DotNetNuke.UI.WebControls
         {
             var dataChanged = false;
             var presentValue = StringValue;
-            var postedValue = RichTextEditor.Text;
+            var postedValue = _richTextEditor.Text;
             if (!presentValue.Equals(postedValue))
             {
                 Value = postedValue;
@@ -120,7 +117,7 @@ namespace DotNetNuke.UI.WebControls
             base.OnPreRender(e);
             if (EditMode == PropertyEditorMode.Edit)
             {
-                RichTextEditor.Text = Page.Server.HtmlDecode(Convert.ToString(Value));
+                _richTextEditor.Text = Page.Server.HtmlDecode(Convert.ToString(Value));
             }
             if (Page != null && EditMode == PropertyEditorMode.Edit)
             {
@@ -141,6 +138,5 @@ namespace DotNetNuke.UI.WebControls
             writer.Write(propValue);
             writer.RenderEndTag();
         }
-
     }
 }

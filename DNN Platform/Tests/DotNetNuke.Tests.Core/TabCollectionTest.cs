@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 
@@ -47,7 +48,7 @@ namespace DotNetNuke.Tests.Core.Providers.Caching
         {
             //Setup
             var tabCollection = new TabCollection();
-            tabCollection.Add(new TabInfo {PortalID = 1, TabID = 1});
+            tabCollection.Add(new TabInfo { PortalID = 1, TabID = 1 });
 
             //Act
             var tab = tabCollection.WithTabName("TestName");
@@ -60,9 +61,9 @@ namespace DotNetNuke.Tests.Core.Providers.Caching
         {
             //Setup
             var tabCollection = new TabCollection();
-            tabCollection.Add(new TabInfo {TabName = "TestName1", PortalID = 1, TabID = 1});
-            tabCollection.Add(new TabInfo {TabName = "TestName2", PortalID = 1, TabID = 2});
-            tabCollection.Add(new TabInfo {TabName = "TestName3", PortalID = 1, TabID = 3});
+            tabCollection.Add(new TabInfo { TabName = "TestName1", PortalID = 1, TabID = 1 });
+            tabCollection.Add(new TabInfo { TabName = "TestName2", PortalID = 1, TabID = 2 });
+            tabCollection.Add(new TabInfo { TabName = "TestName3", PortalID = 1, TabID = 3 });
 
             //Act
             var tab = tabCollection.WithTabName("TestName2");
@@ -76,9 +77,9 @@ namespace DotNetNuke.Tests.Core.Providers.Caching
         {
             //Setup
             var tabCollection = new TabCollection();
-            tabCollection.Add(new TabInfo {TabName = "TestName1", PortalID = 1, TabID = 1});
-            tabCollection.Add(new TabInfo {TabName = "TestName2", PortalID = 1, TabID = 2});
-            tabCollection.Add(new TabInfo {TabName = "TestName3", PortalID = 1, TabID = 3});
+            tabCollection.Add(new TabInfo { TabName = "TestName1", PortalID = 1, TabID = 1 });
+            tabCollection.Add(new TabInfo { TabName = "TestName2", PortalID = 1, TabID = 2 });
+            tabCollection.Add(new TabInfo { TabName = "TestName3", PortalID = 1, TabID = 3 });
 
             //Act
             var tab = tabCollection.WithTabName("NO_MATCH");
@@ -92,9 +93,9 @@ namespace DotNetNuke.Tests.Core.Providers.Caching
         {
             //Setup
             var tabCollection = new TabCollection();
-            tabCollection.Add(new TabInfo {TabName = "TestName1", PortalID = 1, TabID = 1});
-            tabCollection.Add(new TabInfo {TabName = "TestName2", PortalID = 1, TabID = 2});
-            tabCollection.Add(new TabInfo {TabName = "TestName3", PortalID = 1, TabID = 3});
+            tabCollection.Add(new TabInfo { TabName = "TestName1", PortalID = 1, TabID = 1 });
+            tabCollection.Add(new TabInfo { TabName = "TestName2", PortalID = 1, TabID = 2 });
+            tabCollection.Add(new TabInfo { TabName = "TestName3", PortalID = 1, TabID = 3 });
 
             //Act
             var tab = tabCollection.WithTabName(String.Empty);

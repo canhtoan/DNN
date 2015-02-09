@@ -1,4 +1,4 @@
-/*
+﻿/*
 ' Copyright (c) 2010 DotNetNuke Corporation
 '  All rights reserved.
 ' 
@@ -13,23 +13,25 @@
 using System;
 using DotNetNuke.Services.Exceptions;
 
-namespace DotNetNuke.Modules.Journal {
-
+namespace DotNetNuke.Modules.Journal
+{
     /// -----------------------------------------------------------------------------
     /// <summary>
     /// The EditJournal class is used to manage content
     /// </summary>
     /// -----------------------------------------------------------------------------
-    public partial class Edit : JournalModuleBase {
-
+    public partial class Edit : JournalModuleBase
+    {
         #region Event Handlers
 
-        override protected void OnInit(EventArgs e) {
+        override protected void OnInit(EventArgs e)
+        {
             InitializeComponent();
             base.OnInit(e);
         }
 
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.Load += new System.EventHandler(this.Page_Load);
         }
 
@@ -38,18 +40,19 @@ namespace DotNetNuke.Modules.Journal {
         /// Page_Load runs when the control is loaded
         /// </summary>
         /// -----------------------------------------------------------------------------
-        private void Page_Load(object sender, System.EventArgs e) {
-            try {
+        private void Page_Load(object sender, System.EventArgs e)
+        {
+            try
+            {
                 //Implement your edit logic for your module
 
-            } catch (Exception exc) //Module failed to load
+            }
+            catch (Exception exc) //Module failed to load
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
         }
 
         #endregion
-
     }
-
 }

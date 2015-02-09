@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -41,7 +42,7 @@ namespace DotNetNuke.Tests.Core
         [Test]
         public void CombinesWithSpecifiedSeperator()
         {
-            string result = EscapedString.Combine(new[] {"first", "second"}, ';');
+            string result = EscapedString.Combine(new[] { "first", "second" }, ';');
 
             Assert.AreEqual("first;second", result);
         }
@@ -51,7 +52,7 @@ namespace DotNetNuke.Tests.Core
         {
             IEnumerable<string> result = EscapedString.Seperate("first]second", ']');
 
-            CollectionAssert.AreEqual(new[] {"first", "second"}, result);
+            CollectionAssert.AreEqual(new[] { "first", "second" }, result);
         }
 
         [Test]
@@ -99,37 +100,37 @@ namespace DotNetNuke.Tests.Core
         [Test]
         public void MultipleEmptyElements()
         {
-            DoTest(new[] {"", "", ""}, ",,");
+            DoTest(new[] { "", "", "" }, ",,");
         }
 
         [Test]
         public void EmptyEnumerable()
         {
-            DoTest(new object[] {}, "");
+            DoTest(new object[] { }, "");
         }
 
         [Test]
         public void SingleElement()
         {
-            DoTest(new [] {"only item here"}, "only item here");
+            DoTest(new[] { "only item here" }, "only item here");
         }
 
         [Test]
         public void AllEscapeChars()
         {
-            DoTest(new [] {@"\", @"\\", @"\\\"}, @"\\,\\\\,\\\\\\");
+            DoTest(new[] { @"\", @"\\", @"\\\" }, @"\\,\\\\,\\\\\\");
         }
 
         [Test]
         public void AllSeperatorChars()
         {
-            DoTest(new [] {",", ",,", ",,,"}, @"\,,\,\,,\,\,\,");
+            DoTest(new[] { ",", ",,", ",,," }, @"\,,\,\,,\,\,\,");
         }
 
         [Test]
         public void AllEscapedSeperators()
         {
-            DoTest(new [] {@"\,", @"\,\,", @"\,\,\,"}, @"\\\,,\\\,\\\,,\\\,\\\,\\\,");
+            DoTest(new[] { @"\,", @"\,\,", @"\,\,\," }, @"\\\,,\\\,\\\,,\\\,\\\,\\\,");
         }
 
         private void DoTest(IEnumerable enumerable, string s)

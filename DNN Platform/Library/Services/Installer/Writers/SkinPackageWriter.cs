@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.IO;
 using System.Xml;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.UI.Skins;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -42,14 +41,14 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class SkinPackageWriter : PackageWriterBase
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private readonly SkinPackageInfo _SkinPackage;
         private readonly string _SubFolder;
-		
-		#endregion
 
-		#region "Constructors"
+        #endregion
+
+        #region "Constructors"
 
         public SkinPackageWriter(PackageInfo package) : base(package)
         {
@@ -75,10 +74,10 @@ namespace DotNetNuke.Services.Installer.Writers
             _SubFolder = subFolder;
             BasePath = Path.Combine(basePath, subFolder);
         }
-		
-		#endregion
 
-		#region "Protected Properties"
+        #endregion
+
+        #region "Protected Properties"
         public override bool IncludeAssemblies
         {
             get
@@ -94,8 +93,8 @@ namespace DotNetNuke.Services.Installer.Writers
                 return _SkinPackage;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         public void SetBasePath()
         {
@@ -111,13 +110,13 @@ namespace DotNetNuke.Services.Installer.Writers
 
         protected override void GetFiles(bool includeSource, bool includeAppCode)
         {
-			//Call base class method with includeAppCode = false
+            //Call base class method with includeAppCode = false
             base.GetFiles(includeSource, false);
         }
 
         protected override void ParseFiles(DirectoryInfo folder, string rootPath)
         {
-			//Add the Files in the Folder
+            //Add the Files in the Folder
             FileInfo[] files = folder.GetFiles();
             foreach (FileInfo file in files)
             {

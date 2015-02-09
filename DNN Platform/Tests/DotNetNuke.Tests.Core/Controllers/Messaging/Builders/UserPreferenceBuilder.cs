@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Services.Social.Messaging;
 using DotNetNuke.Tests.Utilities;
 
@@ -26,39 +26,39 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging.Builders
 {
     internal class UserPreferenceBuilder
     {
-        private int userId;
-        private int portalId;
-        private Frequency messagesEmailFrequency;
-        private Frequency notificationsEmailFrequency;
+        private int _userId;
+        private int _portalId;
+        private Frequency _messagesEmailFrequency;
+        private Frequency _notificationsEmailFrequency;
 
         internal UserPreferenceBuilder()
         {
-            userId = Constants.USER_InValidId;
-            portalId = Constants.PORTAL_ValidPortalId;
-            messagesEmailFrequency = Frequency.Instant;
-            notificationsEmailFrequency = Frequency.Hourly;
+            _userId = Constants.USER_InValidId;
+            _portalId = Constants.PORTAL_ValidPortalId;
+            _messagesEmailFrequency = Frequency.Instant;
+            _notificationsEmailFrequency = Frequency.Hourly;
         }
 
         internal UserPreference Build()
         {
             return new UserPreference
             {
-                UserId = userId,
-                PortalId = portalId,
-                MessagesEmailFrequency = messagesEmailFrequency,
-                NotificationsEmailFrequency = notificationsEmailFrequency
+                UserId = _userId,
+                PortalId = _portalId,
+                MessagesEmailFrequency = _messagesEmailFrequency,
+                NotificationsEmailFrequency = _notificationsEmailFrequency
             };
         }
 
         internal UserPreferenceBuilder WithUserId(int userId)
         {
-            this.userId = userId;
+            _userId = userId;
             return this;
         }
 
         internal UserPreferenceBuilder WithPortalId(int portalId)
         {
-            this.portalId = portalId;
+            _portalId = portalId;
             return this;
         }
     }

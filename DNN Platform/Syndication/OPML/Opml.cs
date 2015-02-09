@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Xml;
 
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Syndication
 {
     /// <summary>
@@ -37,7 +36,7 @@ namespace DotNetNuke.Services.Syndication
     /// </summary>
     public class Opml
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Opml));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Opml));
         private DateTime _dateCreated = DateTime.MinValue;
         private DateTime _dateModified = DateTime.MinValue;
         private string _docs = string.Empty;
@@ -53,7 +52,7 @@ namespace DotNetNuke.Services.Syndication
         private string _windowLeft = string.Empty;
         private string _windowRight = string.Empty;
         private string _windowTop = string.Empty;
-        private XmlDocument opmlDoc;
+        private XmlDocument _opmlDoc;
 
         public Opml()
         {
@@ -263,87 +262,87 @@ namespace DotNetNuke.Services.Syndication
 
         public string GetXml()
         {
-            return opmlDoc.OuterXml;
+            return _opmlDoc.OuterXml;
         }
 
         public void Save(string fileName)
         {
-            opmlDoc = new XmlDocument();
-            XmlElement opml = opmlDoc.CreateElement("opml");
+            _opmlDoc = new XmlDocument();
+            XmlElement opml = _opmlDoc.CreateElement("opml");
             opml.SetAttribute("version", "2.0");
-            opmlDoc.AppendChild(opml);
+            _opmlDoc.AppendChild(opml);
 
             // create head    
-            XmlElement head = opmlDoc.CreateElement("head");
+            XmlElement head = _opmlDoc.CreateElement("head");
             opml.AppendChild(head);
 
             // set Title
-            XmlElement title = opmlDoc.CreateElement("title");
+            XmlElement title = _opmlDoc.CreateElement("title");
             title.InnerText = Title;
             head.AppendChild(title);
 
             // set date created
-            XmlElement dateCreated = opmlDoc.CreateElement("dateCreated");
+            XmlElement dateCreated = _opmlDoc.CreateElement("dateCreated");
             dateCreated.InnerText = DateCreated != DateTime.MinValue ? DateCreated.ToString("r", null) : DateTime.Now.ToString("r", null);
             head.AppendChild(dateCreated);
 
             // set date modified
-            XmlElement dateModified = opmlDoc.CreateElement("dateModified");
+            XmlElement dateModified = _opmlDoc.CreateElement("dateModified");
             dateCreated.InnerText = DateModified != DateTime.MinValue ? DateModified.ToString("r", null) : DateTime.Now.ToString("r", null);
             head.AppendChild(dateModified);
 
             // set owner email
-            XmlElement ownerEmail = opmlDoc.CreateElement("ownerEmail");
+            XmlElement ownerEmail = _opmlDoc.CreateElement("ownerEmail");
             ownerEmail.InnerText = OwnerEmail;
             head.AppendChild(ownerEmail);
 
             // set owner name
-            XmlElement ownerName = opmlDoc.CreateElement("ownerName");
+            XmlElement ownerName = _opmlDoc.CreateElement("ownerName");
             ownerName.InnerText = OwnerName;
             head.AppendChild(ownerName);
 
             // set owner id
-            XmlElement ownerId = opmlDoc.CreateElement("ownerId");
+            XmlElement ownerId = _opmlDoc.CreateElement("ownerId");
             ownerId.InnerText = OwnerId;
             head.AppendChild(ownerId);
 
             // set docs
-            XmlElement docs = opmlDoc.CreateElement("docs");
+            XmlElement docs = _opmlDoc.CreateElement("docs");
             docs.InnerText = Docs;
             head.AppendChild(docs);
 
             // set expansionState
-            XmlElement expansionState = opmlDoc.CreateElement("expansionState");
+            XmlElement expansionState = _opmlDoc.CreateElement("expansionState");
             expansionState.InnerText = ExpansionState;
             head.AppendChild(expansionState);
 
             // set vertScrollState
-            XmlElement vertScrollState = opmlDoc.CreateElement("vertScrollState");
+            XmlElement vertScrollState = _opmlDoc.CreateElement("vertScrollState");
             vertScrollState.InnerText = VertScrollState;
             head.AppendChild(vertScrollState);
 
             // set windowTop
-            XmlElement windowTop = opmlDoc.CreateElement("windowTop");
+            XmlElement windowTop = _opmlDoc.CreateElement("windowTop");
             windowTop.InnerText = WindowTop;
             head.AppendChild(windowTop);
 
             // set windowLeft
-            XmlElement windowLeft = opmlDoc.CreateElement("windowLeft");
+            XmlElement windowLeft = _opmlDoc.CreateElement("windowLeft");
             windowLeft.InnerText = WindowLeft;
             head.AppendChild(windowLeft);
 
             // set windowBottom
-            XmlElement windowBottom = opmlDoc.CreateElement("windowBottom");
+            XmlElement windowBottom = _opmlDoc.CreateElement("windowBottom");
             windowBottom.InnerText = WindowBottom;
             head.AppendChild(windowBottom);
 
             // set windowRight
-            XmlElement windowRight = opmlDoc.CreateElement("windowRight");
+            XmlElement windowRight = _opmlDoc.CreateElement("windowRight");
             windowRight.InnerText = WindowRight;
             head.AppendChild(windowRight);
 
             // create body
-            XmlElement opmlBody = opmlDoc.CreateElement("body");
+            XmlElement opmlBody = _opmlDoc.CreateElement("body");
             opml.AppendChild(opmlBody);
 
             foreach (OpmlOutline outline in _outlines)
@@ -351,7 +350,7 @@ namespace DotNetNuke.Services.Syndication
                 opmlBody.AppendChild(outline.ToXml);
             }
 
-            opmlDoc.Save(fileName);
+            _opmlDoc.Save(fileName);
         }
 
         public static Opml LoadFromUrl(Uri uri)
@@ -488,29 +487,29 @@ namespace DotNetNuke.Services.Syndication
             {
                 newOutline.Created = DateTime.Parse(ParseElement(node, "created"));
             }
-			catch (Exception ex)
-			{
-				Logger.Error(ex);
-			}
+            catch (Exception ex)
+            {
+                s_logger.Error(ex);
+            }
 
             newOutline.Category = ParseElement(node, "category");
             try
             {
                 newOutline.XmlUrl = new Uri(ParseElement(node, "xmlUrl"));
             }
-			catch (Exception ex)
-			{
-				Logger.Error(ex);
-			}
+            catch (Exception ex)
+            {
+                s_logger.Error(ex);
+            }
 
             try
             {
                 newOutline.HtmlUrl = new Uri(ParseElement(node, "htmlUrl"));
             }
-			catch (Exception ex)
-			{
-				Logger.Error(ex);
-			}
+            catch (Exception ex)
+            {
+                s_logger.Error(ex);
+            }
 
             newOutline.Language = ParseElement(node, "language");
             newOutline.Title = ParseElement(node, "title");
@@ -519,10 +518,10 @@ namespace DotNetNuke.Services.Syndication
             {
                 newOutline.Url = new Uri(ParseElement(node, "url"));
             }
-			catch (Exception ex)
-			{
-				Logger.Error(ex);
-			}
+            catch (Exception ex)
+            {
+                s_logger.Error(ex);
+            }
 
             newOutline.Description = ParseElement(node, "description");
 

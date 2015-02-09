@@ -6,7 +6,6 @@ namespace ClientDependency.Core
 {
     public static class DictionaryExtensions
     {
-
         /// <summary>
         /// Returns the dictionary as formatted html attributes for use in an html tag
         /// </summary>
@@ -28,7 +27,7 @@ namespace ClientDependency.Core
             if (d.Count != compareTo.Count)
                 return false;
 
-            foreach(var i in d)
+            foreach (var i in d)
             {
                 if (!compareTo.ContainsKey(i.Key))
                     return false;
@@ -38,6 +37,5 @@ namespace ClientDependency.Core
 
             return true;
         }
-
     }
 }

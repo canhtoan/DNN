@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Configuration;
 using System.Net;
@@ -56,7 +56,7 @@ namespace DotNetNuke.Tests.Utilities
     {
         public int PortalId { get; private set; }
 
-        private static bool alreadyLoaded = false;
+        private static bool s_alreadyLoaded = false;
 
         public DnnWebTest(int portalId)
         {
@@ -126,7 +126,6 @@ namespace DotNetNuke.Tests.Utilities
             ComponentFactory.InstallComponents(new ProviderInstaller("htmlEditor", typeof(HtmlEditorProvider), ComponentLifeStyleType.Transient));
             ComponentFactory.InstallComponents(new ProviderInstaller("navigationControl", typeof(NavigationProvider), ComponentLifeStyleType.Transient));
             ComponentFactory.InstallComponents(new ProviderInstaller("clientcapability", typeof(ClientCapabilityProvider)));
-
         }
 
         private static void RegisterIfNotAlreadyRegistered<TConcrete>() where TConcrete : class, new()
@@ -158,11 +157,11 @@ namespace DotNetNuke.Tests.Utilities
         /// </summary>
         private static void LoadDnnProviders(string providerList)
         {
-            if (alreadyLoaded)
+            if (s_alreadyLoaded)
             {
                 return;
             }
-            alreadyLoaded = true;
+            s_alreadyLoaded = true;
             if (providerList != null)
             {
                 var providers = providerList.Split(';');

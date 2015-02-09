@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 
@@ -32,7 +32,6 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.Containers
 {
     /// -----------------------------------------------------------------------------
@@ -53,8 +52,8 @@ namespace DotNetNuke.UI.Containers
     /// -----------------------------------------------------------------------------
     public abstract class ActionBase : UserControl, IActionControl
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         private ActionManager _ActionManager;
         private ModuleAction _ActionRoot;
 
@@ -74,10 +73,10 @@ namespace DotNetNuke.UI.Containers
 
         [Obsolete("Obsoleted in DotNetNuke 5.1.2. No longer neccessary as there is no concept of an Admin Page")]
         protected bool m_tabPreview;
-		
-		#endregion
 
-		#region Protected Properties
+        #endregion
+
+        #region Protected Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -150,10 +149,10 @@ namespace DotNetNuke.UI.Containers
                 return ModuleControl.ModuleContext.PortalSettings;
             }
         }
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         public bool EditMode
         {
@@ -201,8 +200,8 @@ namespace DotNetNuke.UI.Containers
                 return Actions;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IActionControl Members
 
@@ -241,8 +240,8 @@ namespace DotNetNuke.UI.Containers
         public IModuleControl ModuleControl { get; set; }
 
         #endregion
-		
-		#region Protected Methods
+
+        #region Protected Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -323,10 +322,9 @@ namespace DotNetNuke.UI.Containers
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
 
-			base.OnLoad(e);
+            base.OnLoad(e);
         }
-		
-		
-		#endregion
+
+        #endregion
     }
 }

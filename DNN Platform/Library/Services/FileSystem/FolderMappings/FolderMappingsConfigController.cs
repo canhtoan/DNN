@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -29,16 +30,16 @@ using DotNetNuke.Services.FileSystem.FolderMappings;
 
 namespace DotNetNuke.Services.FileSystem
 {
-    public class FolderMappingsConfigController: ServiceLocator<IFolderMappingsConfigController, FolderMappingsConfigController>, IFolderMappingsConfigController
+    public class FolderMappingsConfigController : ServiceLocator<IFolderMappingsConfigController, FolderMappingsConfigController>, IFolderMappingsConfigController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(FolderMappingsConfigController));
-        private static readonly string defaultConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DotNetNuke.folderMappings.config");
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FolderMappingsConfigController));
+        private static readonly string s_defaultConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DotNetNuke.folderMappings.config");
         #region Constructor
         public FolderMappingsConfigController()
         {
             FolderMappings = new Dictionary<string, string>();
-            FolderTypes = new List<FolderTypeConfig>();    
-            LoadConfig();     
+            FolderTypes = new List<FolderTypeConfig>();
+            LoadConfig();
         }
         #endregion
 
@@ -47,7 +48,7 @@ namespace DotNetNuke.Services.FileSystem
 
         private void FillFolderMappings(XmlDocument configDocument)
         {
-            var folderMappingsNode = configDocument.SelectSingleNode(ConfigNode+"/folderMappings");            
+            var folderMappingsNode = configDocument.SelectSingleNode(ConfigNode + "/folderMappings");
             if (folderMappingsNode == null)
             {
                 return;
@@ -61,7 +62,7 @@ namespace DotNetNuke.Services.FileSystem
 
         private void FillFolderTypes(XmlDocument configDocument)
         {
-            var folderTypesNode = configDocument.SelectSingleNode(ConfigNode+"/folderTypes");
+            var folderTypesNode = configDocument.SelectSingleNode(ConfigNode + "/folderTypes");
             if (folderTypesNode == null)
             {
                 return;
@@ -79,7 +80,7 @@ namespace DotNetNuke.Services.FileSystem
             var folderType = new FolderTypeConfig()
             {
                 Name = XmlUtils.GetAttributeValue(nodeNavigator, "name"),
-                Provider = XmlUtils.GetNodeValue(nodeNavigator, "provider"),                
+                Provider = XmlUtils.GetNodeValue(nodeNavigator, "provider"),
             };
             XmlNodeList settingsNode = node.SelectNodes("settings/setting");
             if (settingsNode != null)
@@ -103,8 +104,8 @@ namespace DotNetNuke.Services.FileSystem
         #endregion
 
         #region public Properties
-        public IList<FolderTypeConfig> FolderTypes { get; internal set; } 
-        
+        public IList<FolderTypeConfig> FolderTypes { get; internal set; }
+
         private const string configNode = "folderMappingsSettings";
         public string ConfigNode
         {
@@ -116,27 +117,27 @@ namespace DotNetNuke.Services.FileSystem
         public void LoadConfig()
         {
             try
-            {                
-                if (File.Exists(defaultConfigFilePath))
+            {
+                if (File.Exists(s_defaultConfigFilePath))
                 {
                     var configDocument = new XmlDocument();
-                    configDocument.Load(defaultConfigFilePath);
+                    configDocument.Load(s_defaultConfigFilePath);
                     FillFolderMappings(configDocument);
                     FillFolderTypes(configDocument);
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
         }
 
         public void SaveConfig(string folderMappinsSettings)
-        {            
-            if (!File.Exists(defaultConfigFilePath))
+        {
+            if (!File.Exists(s_defaultConfigFilePath))
             {
-                var folderMappingsConfigContent = "<" + ConfigNode + ">" + folderMappinsSettings + "</" + ConfigNode +">";
-                File.AppendAllText(defaultConfigFilePath, folderMappingsConfigContent);
+                var folderMappingsConfigContent = "<" + ConfigNode + ">" + folderMappinsSettings + "</" + ConfigNode + ">";
+                File.AppendAllText(s_defaultConfigFilePath, folderMappingsConfigContent);
                 var configDocument = new XmlDocument();
                 configDocument.LoadXml(folderMappingsConfigContent);
                 FillFolderMappings(configDocument);

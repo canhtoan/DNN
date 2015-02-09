@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Xml.XPath;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Authentication;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -42,14 +41,14 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class AuthenticationInstaller : ComponentInstallerBase
     {
-		#region "Private Properties"
+        #region "Private Properties"
 
-        private AuthenticationInfo AuthSystem;
-        private AuthenticationInfo TempAuthSystem;
+        private AuthenticationInfo _authSystem;
+        private AuthenticationInfo _tempAuthSystem;
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -67,10 +66,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "ashx, aspx, ascx, vb, cs, resx, css, js, resources, config, vbproj, csproj, sln, htm, html";
             }
         }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
 
         /// -----------------------------------------------------------------------------
@@ -98,10 +97,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 Log.AddFailure(ex);
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
 
         /// -----------------------------------------------------------------------------
@@ -130,37 +129,36 @@ namespace DotNetNuke.Services.Installer.Installers
             bool bAdd = Null.NullBoolean;
             try
             {
-				//Attempt to get the Authentication Service
-                TempAuthSystem = AuthenticationController.GetAuthenticationServiceByType(AuthSystem.AuthenticationType);
+                //Attempt to get the Authentication Service
+                _tempAuthSystem = AuthenticationController.GetAuthenticationServiceByType(_authSystem.AuthenticationType);
 
-                if (TempAuthSystem == null)
+                if (_tempAuthSystem == null)
                 {
-					//Enable by default
-                    AuthSystem.IsEnabled = true;
+                    //Enable by default
+                    _authSystem.IsEnabled = true;
                     bAdd = true;
                 }
                 else
                 {
-                    AuthSystem.AuthenticationID = TempAuthSystem.AuthenticationID;
-                    AuthSystem.IsEnabled = TempAuthSystem.IsEnabled;
+                    _authSystem.AuthenticationID = _tempAuthSystem.AuthenticationID;
+                    _authSystem.IsEnabled = _tempAuthSystem.IsEnabled;
                 }
-                AuthSystem.PackageID = Package.PackageID;
+                _authSystem.PackageID = Package.PackageID;
                 if (bAdd)
                 {
                     //Add new service
-                    AuthenticationController.AddAuthentication(AuthSystem);
+                    AuthenticationController.AddAuthentication(_authSystem);
                 }
                 else
                 {
-					//Update service
-                    AuthenticationController.UpdateAuthentication(AuthSystem);
+                    //Update service
+                    AuthenticationController.UpdateAuthentication(_authSystem);
                 }
                 Completed = true;
-                Log.AddInfo(string.Format(Util.AUTHENTICATION_Registered, AuthSystem.AuthenticationType));
+                Log.AddInfo(string.Format(Util.AUTHENTICATION_Registered, _authSystem.AuthenticationType));
             }
             catch (Exception ex)
             {
-            
                 Log.AddFailure(ex);
             }
         }
@@ -175,19 +173,19 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void ReadManifest(XPathNavigator manifestNav)
         {
-            AuthSystem = new AuthenticationInfo();
+            _authSystem = new AuthenticationInfo();
 
             //Get the type
-            AuthSystem.AuthenticationType = Util.ReadElement(manifestNav, "authenticationService/type", Log, Util.AUTHENTICATION_TypeMissing);
+            _authSystem.AuthenticationType = Util.ReadElement(manifestNav, "authenticationService/type", Log, Util.AUTHENTICATION_TypeMissing);
 
             //Get the SettingsSrc
-            AuthSystem.SettingsControlSrc = Util.ReadElement(manifestNav, "authenticationService/settingsControlSrc", Log, Util.AUTHENTICATION_SettingsSrcMissing);
+            _authSystem.SettingsControlSrc = Util.ReadElement(manifestNav, "authenticationService/settingsControlSrc", Log, Util.AUTHENTICATION_SettingsSrcMissing);
 
             //Get the LoginSrc
-            AuthSystem.LoginControlSrc = Util.ReadElement(manifestNav, "authenticationService/loginControlSrc", Log, Util.AUTHENTICATION_LoginSrcMissing);
+            _authSystem.LoginControlSrc = Util.ReadElement(manifestNav, "authenticationService/loginControlSrc", Log, Util.AUTHENTICATION_LoginSrcMissing);
 
             //Get the LogoffSrc
-            AuthSystem.LogoffControlSrc = Util.ReadElement(manifestNav, "authenticationService/logoffControlSrc");
+            _authSystem.LogoffControlSrc = Util.ReadElement(manifestNav, "authenticationService/logoffControlSrc");
 
             if (Log.Valid)
             {
@@ -206,16 +204,16 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void Rollback()
         {
-			//If Temp Auth System exists then we need to update the DataStore with this 
-            if (TempAuthSystem == null)
+            //If Temp Auth System exists then we need to update the DataStore with this 
+            if (_tempAuthSystem == null)
             {
-				//No Temp Auth System - Delete newly added system
+                //No Temp Auth System - Delete newly added system
                 DeleteAuthentiation();
             }
             else
             {
-				//Temp Auth System - Rollback to Temp
-                AuthenticationController.UpdateAuthentication(TempAuthSystem);
+                //Temp Auth System - Rollback to Temp
+                AuthenticationController.UpdateAuthentication(_tempAuthSystem);
             }
         }
 
@@ -231,7 +229,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             DeleteAuthentiation();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

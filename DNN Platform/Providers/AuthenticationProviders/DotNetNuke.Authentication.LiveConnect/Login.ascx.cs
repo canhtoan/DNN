@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Authentication.LiveConnect.Components;
@@ -32,7 +32,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 
 #endregion
-
 namespace DotNetNuke.Authentication.LiveConnect
 {
     public partial class Login : OAuthLoginBase
@@ -71,7 +70,6 @@ namespace DotNetNuke.Authentication.LiveConnect
             if (result == AuthorisationResult.Denied)
             {
                 UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("PrivateConfirmationMessage", Localization.SharedResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
-
             }
         }
     }

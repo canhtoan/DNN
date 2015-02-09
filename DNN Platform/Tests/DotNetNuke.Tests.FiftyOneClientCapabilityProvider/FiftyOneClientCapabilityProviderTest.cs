@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.IO;
@@ -29,7 +30,6 @@ using DotNetNuke.Tests.Utilities.Mocks;
 using FiftyOne.Foundation.Mobile;
 
 using NUnit.Framework;
-
 
 namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
 {
@@ -54,11 +54,11 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         {
             _clientCapabilityProvider = new FiftyOneClientCapabilityProvider();
 
-			ComponentFactory.Container = new SimpleContainer();
-			var dataProvider = MockComponentProvider.CreateDataProvider();
-			dataProvider.Setup(d => d.GetProviderPath()).Returns("");
-			MockComponentProvider.CreateDataCacheProvider();
-			MockComponentProvider.CreateEventLogController();
+            ComponentFactory.Container = new SimpleContainer();
+            var dataProvider = MockComponentProvider.CreateDataProvider();
+            dataProvider.Setup(d => d.GetProviderPath()).Returns("");
+            MockComponentProvider.CreateDataCacheProvider();
+            MockComponentProvider.CreateEventLogController();
 
             //create the bin folder
             var folderPath = HostingEnvironment.ApplicationPhysicalPath + "bin";
@@ -71,7 +71,6 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         [TearDown]
         public void TearDown()
         {
-
         }
 
         #endregion
@@ -84,7 +83,7 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         {
             //Arrange
             var clientCapability = _clientCapabilityProvider.GetClientCapability(iphoneUserAgent);
-            var actual = clientCapability.Capabilities;            
+            var actual = clientCapability.Capabilities;
 
             //Act
             var clientCapabilitiesById = _clientCapabilityProvider.GetClientCapabilityById(clientCapability.ID);
@@ -92,8 +91,8 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
 
             //Assert
             Assert.AreEqual(clientCapability.ID, clientCapabilitiesById.ID);
-            Assert.IsTrue( actual.OrderBy(kvp => kvp.Key).SequenceEqual( expected.OrderBy(kvp=>kvp.Key)) );
-            Assert.IsTrue( actual.OrderBy(kvp => kvp.Value).SequenceEqual( expected.OrderBy(kvp=>kvp.Value)) );
+            Assert.IsTrue(actual.OrderBy(kvp => kvp.Key).SequenceEqual(expected.OrderBy(kvp => kvp.Key)));
+            Assert.IsTrue(actual.OrderBy(kvp => kvp.Value).SequenceEqual(expected.OrderBy(kvp => kvp.Value)));
         }
 
         [Test]
@@ -101,7 +100,7 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         public void FiftyOneClientCapabilityProvider_GetClientCapabilityById_ThrowsException_For_Empty_ClientCapabilityId()
         {
             //Act
-            string nullClientCapabilityId = String.Empty;         
+            string nullClientCapabilityId = String.Empty;
             var clientCapabilitiesByNullId = _clientCapabilityProvider.GetClientCapabilityById(nullClientCapabilityId);
         }
 
@@ -133,10 +132,10 @@ namespace DotNetNuke.Tests.FiftyOneClientCapabilityProviderTest
         public void FiftyOneClientCapabilityProvider_GetAllClientCapabilities_Returns_MoreThanZero_Records()
         {
             //Arrange
-            var allCapabilities = _clientCapabilityProvider.GetAllClientCapabilities();            
+            var allCapabilities = _clientCapabilityProvider.GetAllClientCapabilities();
 
             //Assert            
-            Assert.IsTrue(allCapabilities.Count() > 0);            
+            Assert.IsTrue(allCapabilities.Count() > 0);
         }
         #endregion
     }

@@ -46,7 +46,6 @@ namespace DotNetNuke.UI.WebControls
     [DataContract]
     public class DnnGettingStartedOptions
     {
-
         [DataMember(Name = "showOnStartup")]
         public bool ShowOnStartup;
 
@@ -72,6 +71,5 @@ namespace DotNetNuke.UI.WebControls
                 SignUpMessage = Localization.GetString("GettingStarted.SignUpMessage", Localization.SharedResourceFile)
             };
         }
-
     }
 }

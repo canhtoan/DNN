@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Net;
 using System.Net.Http;
@@ -37,7 +36,7 @@ namespace DotNetNuke.Web.InternalServices
     [DnnAuthorize]
     public class RelationshipServiceController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (RelationshipServiceController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(RelationshipServiceController));
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -66,12 +65,12 @@ namespace DotNetNuke.Web.InternalServices
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
-            
-            if(success)
+
+            if (success)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "unable to process notification");
@@ -104,7 +103,7 @@ namespace DotNetNuke.Web.InternalServices
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
 
             if (success)

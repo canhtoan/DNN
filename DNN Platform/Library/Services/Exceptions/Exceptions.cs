@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -41,42 +41,41 @@ using DotNetNuke.UI.Modules;
 using Microsoft.VisualBasic.CompilerServices;
 
 #endregion
-
 namespace DotNetNuke.Services.Exceptions
 {
-	/// <summary>
-	/// Exceptions class provides operation to log most of the exceptions occured in system.
-	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// For most developers, there is a hard problem need to face to is that our product will run on many and many servers with
-	/// much different environment, such as hardware, network, system version, framework version and so on, so there is many of reasons
-	/// will make our application throw lof of exceptions,even will stop our app to working. so when some error occured, we need a way
-	/// to find out the reason, we know we need to log all the exception, but the point is how to log useful information, you should log
-	/// the information what you need to location the code caught the error, but DONOT just log 'ERROR'. so we provide a full support of
-	/// exception log system. when error occured, we can found the detail information in event log and can locationt the error quickly.
-	/// </para>
-	/// <para>
-	/// Current we immplement lot of custom exception to use in different levels:
-	/// <list type="bullet">
-	/// <item><see cref="ModuleLoadException"/></item>
-	/// <item><see cref="ObjectHydrationException"/></item>
-	/// <item><see cref="PageLoadException"/></item>
-	/// <item><see cref="SchedulerException"/></item>
-	/// <item><see cref="SearchException"/></item>
-	/// <item><see cref="SecurityException"/></item>
-	/// </list>
-	/// </para>
-	/// </remarks>
+    /// <summary>
+    /// Exceptions class provides operation to log most of the exceptions occured in system.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// For most developers, there is a hard problem need to face to is that our product will run on many and many servers with
+    /// much different environment, such as hardware, network, system version, framework version and so on, so there is many of reasons
+    /// will make our application throw lof of exceptions,even will stop our app to working. so when some error occured, we need a way
+    /// to find out the reason, we know we need to log all the exception, but the point is how to log useful information, you should log
+    /// the information what you need to location the code caught the error, but DONOT just log 'ERROR'. so we provide a full support of
+    /// exception log system. when error occured, we can found the detail information in event log and can locationt the error quickly.
+    /// </para>
+    /// <para>
+    /// Current we immplement lot of custom exception to use in different levels:
+    /// <list type="bullet">
+    /// <item><see cref="ModuleLoadException"/></item>
+    /// <item><see cref="ObjectHydrationException"/></item>
+    /// <item><see cref="PageLoadException"/></item>
+    /// <item><see cref="SchedulerException"/></item>
+    /// <item><see cref="SearchException"/></item>
+    /// <item><see cref="SecurityException"/></item>
+    /// </list>
+    /// </para>
+    /// </remarks>
     [StandardModule]
     public sealed class Exceptions
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Exceptions));
-		/// <summary>
-		/// Gets the exception info.
-		/// </summary>
-		/// <param name="e">The exception.</param>
-		/// <returns>Exception info.</returns>
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Exceptions));
+        /// <summary>
+        /// Gets the exception info.
+        /// </summary>
+        /// <param name="e">The exception.</param>
+        /// <returns>Exception info.</returns>
         public static ExceptionInfo GetExceptionInfo(Exception e)
         {
             var objExceptionInfo = new ExceptionInfo(e);
@@ -103,7 +102,7 @@ namespace DotNetNuke.Services.Exceptions
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
 
                     objExceptionInfo.Method = "N/A - Reflection Permission required";
                 }
@@ -117,11 +116,11 @@ namespace DotNetNuke.Services.Exceptions
             return objExceptionInfo;
         }
 
-		/// <summary>
-		/// Threads the abort check if the exception is a ThreadAbortCheck.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
-		/// <returns></returns>
+        /// <summary>
+        /// Threads the abort check if the exception is a ThreadAbortCheck.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
+        /// <returns></returns>
         private static bool ThreadAbortCheck(Exception exc)
         {
             if (exc is ThreadAbortException)
@@ -161,10 +160,10 @@ namespace DotNetNuke.Services.Exceptions
             ProcessHttpException(exc, request.RawUrl);
         }
 
-	    private static void ProcessHttpException(HttpException exc, string URL)
+        private static void ProcessHttpException(HttpException exc, string URL)
         {
             var notFoundErrorString = Localization.Localization.GetString("ResourceNotFound", Localization.Localization.SharedResourceFile);
-            Logger.Error(notFoundErrorString + ": - " + URL, exc);
+            s_logger.Error(notFoundErrorString + ": - " + URL, exc);
 
             var log = new LogInfo
             {
@@ -183,47 +182,47 @@ namespace DotNetNuke.Services.Exceptions
             throw exc;
         }
 
-		/// <summary>
-		/// Processes the module load exception.
-		/// </summary>
-		/// <param name="objPortalModuleBase">The portal module base.</param>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Processes the module load exception.
+        /// </summary>
+        /// <param name="objPortalModuleBase">The portal module base.</param>
+        /// <param name="exc">The exc.</param>
         public static void ProcessModuleLoadException(PortalModuleBase objPortalModuleBase, Exception exc)
         {
-            ProcessModuleLoadException((Control) objPortalModuleBase, exc);
+            ProcessModuleLoadException((Control)objPortalModuleBase, exc);
         }
 
-		/// <summary>
-		/// Processes the module load exception.
-		/// </summary>
-		/// <param name="objPortalModuleBase">The portal module base.</param>
-		/// <param name="exc">The exc.</param>
-		/// <param name="DisplayErrorMessage">if set to <c>true</c> display error message.</param>
+        /// <summary>
+        /// Processes the module load exception.
+        /// </summary>
+        /// <param name="objPortalModuleBase">The portal module base.</param>
+        /// <param name="exc">The exc.</param>
+        /// <param name="DisplayErrorMessage">if set to <c>true</c> display error message.</param>
         public static void ProcessModuleLoadException(PortalModuleBase objPortalModuleBase, Exception exc, bool DisplayErrorMessage)
         {
-            ProcessModuleLoadException((Control) objPortalModuleBase, exc, DisplayErrorMessage);
+            ProcessModuleLoadException((Control)objPortalModuleBase, exc, DisplayErrorMessage);
         }
 
-		/// <summary>
-		/// Processes the module load exception.
-		/// </summary>
-		/// <param name="FriendlyMessage">The friendly message.</param>
-		/// <param name="objPortalModuleBase">The obj portal module base.</param>
-		/// <param name="exc">The exc.</param>
-		/// <param name="DisplayErrorMessage">if set to <c>true</c> display error message.</param>
+        /// <summary>
+        /// Processes the module load exception.
+        /// </summary>
+        /// <param name="FriendlyMessage">The friendly message.</param>
+        /// <param name="objPortalModuleBase">The obj portal module base.</param>
+        /// <param name="exc">The exc.</param>
+        /// <param name="DisplayErrorMessage">if set to <c>true</c> display error message.</param>
         public static void ProcessModuleLoadException(string FriendlyMessage, PortalModuleBase objPortalModuleBase, Exception exc, bool DisplayErrorMessage)
         {
-            ProcessModuleLoadException(FriendlyMessage, (Control) objPortalModuleBase, exc, DisplayErrorMessage);
+            ProcessModuleLoadException(FriendlyMessage, (Control)objPortalModuleBase, exc, DisplayErrorMessage);
         }
 
-		/// <summary>
-		/// Processes the module load exception.
-		/// </summary>
-		/// <param name="ctrl">The CTRL.</param>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Processes the module load exception.
+        /// </summary>
+        /// <param name="ctrl">The CTRL.</param>
+        /// <param name="exc">The exc.</param>
         public static void ProcessModuleLoadException(Control ctrl, Exception exc)
         {
-			//Exit Early if ThreadAbort Exception
+            //Exit Early if ThreadAbort Exception
             if (ThreadAbortCheck(exc))
             {
                 return;
@@ -231,15 +230,15 @@ namespace DotNetNuke.Services.Exceptions
             ProcessModuleLoadException(ctrl, exc, true);
         }
 
-		/// <summary>
-		/// Processes the module load exception.
-		/// </summary>
-		/// <param name="ctrl">The CTRL.</param>
-		/// <param name="exc">The exc.</param>
-		/// <param name="DisplayErrorMessage">if set to <c>true</c> [display error message].</param>
+        /// <summary>
+        /// Processes the module load exception.
+        /// </summary>
+        /// <param name="ctrl">The CTRL.</param>
+        /// <param name="exc">The exc.</param>
+        /// <param name="DisplayErrorMessage">if set to <c>true</c> [display error message].</param>
         public static void ProcessModuleLoadException(Control ctrl, Exception exc, bool DisplayErrorMessage)
         {
-			//Exit Early if ThreadAbort Exception
+            //Exit Early if ThreadAbort Exception
             if (ThreadAbortCheck(exc))
             {
                 return;
@@ -248,12 +247,12 @@ namespace DotNetNuke.Services.Exceptions
             var ctrlModule = ctrl as IModuleControl;
             if (ctrlModule == null)
             {
-				//Regular Control
+                //Regular Control
                 friendlyMessage = Localization.Localization.GetString("ErrorOccurred");
             }
             else
             {
-				//IModuleControl
+                //IModuleControl
                 string moduleTitle = Null.NullString;
                 if (ctrlModule != null && ctrlModule.ModuleContext.Configuration != null)
                 {
@@ -264,15 +263,15 @@ namespace DotNetNuke.Services.Exceptions
             ProcessModuleLoadException(friendlyMessage, ctrl, exc, DisplayErrorMessage);
         }
 
-		/// <summary>
-		/// Processes the module load exception.
-		/// </summary>
-		/// <param name="FriendlyMessage">The friendly message.</param>
-		/// <param name="ctrl">The CTRL.</param>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Processes the module load exception.
+        /// </summary>
+        /// <param name="FriendlyMessage">The friendly message.</param>
+        /// <param name="ctrl">The CTRL.</param>
+        /// <param name="exc">The exc.</param>
         public static void ProcessModuleLoadException(string FriendlyMessage, Control ctrl, Exception exc)
         {
-			//Exit Early if ThreadAbort Exception
+            //Exit Early if ThreadAbort Exception
             if (ThreadAbortCheck(exc))
             {
                 return;
@@ -280,16 +279,16 @@ namespace DotNetNuke.Services.Exceptions
             ProcessModuleLoadException(FriendlyMessage, ctrl, exc, true);
         }
 
-		/// <summary>
-		/// Processes the module load exception.
-		/// </summary>
-		/// <param name="FriendlyMessage">The friendly message.</param>
-		/// <param name="ctrl">The CTRL.</param>
-		/// <param name="exc">The exc.</param>
-		/// <param name="DisplayErrorMessage">if set to <c>true</c> display error message.</param>
+        /// <summary>
+        /// Processes the module load exception.
+        /// </summary>
+        /// <param name="FriendlyMessage">The friendly message.</param>
+        /// <param name="ctrl">The CTRL.</param>
+        /// <param name="exc">The exc.</param>
+        /// <param name="DisplayErrorMessage">if set to <c>true</c> display error message.</param>
         public static void ProcessModuleLoadException(string FriendlyMessage, Control ctrl, Exception exc, bool DisplayErrorMessage)
         {
-            			//Exit Early if ThreadAbort Exception
+            //Exit Early if ThreadAbort Exception
             if (ThreadAbortCheck(exc))
             {
                 return;
@@ -323,18 +322,18 @@ namespace DotNetNuke.Services.Exceptions
                         PlaceHolder ErrorPlaceholder = null;
                         if (ctrl.Parent != null)
                         {
-                            ErrorPlaceholder = (PlaceHolder) ctrl.Parent.FindControl("MessagePlaceHolder");
+                            ErrorPlaceholder = (PlaceHolder)ctrl.Parent.FindControl("MessagePlaceHolder");
                         }
                         if (ErrorPlaceholder != null)
                         {
-							//hide the module
+                            //hide the module
                             ctrl.Visible = false;
                             ErrorPlaceholder.Visible = true;
                             ErrorPlaceholder.Controls.Add(new ErrorContainer(_portalSettings, FriendlyMessage, lex).Container);
                         }
                         else
                         {
-							//there's no ErrorPlaceholder, add it to the module's control collection
+                            //there's no ErrorPlaceholder, add it to the module's control collection
                             ctrl.Controls.Add(new ErrorContainer(_portalSettings, FriendlyMessage, lex).Container);
                         }
                     }
@@ -342,17 +341,16 @@ namespace DotNetNuke.Services.Exceptions
             }
             catch (Exception exc2)
             {
-                Logger.Fatal(exc2);
+                s_logger.Fatal(exc2);
                 ProcessPageLoadException(exc2);
             }
-            Logger.ErrorFormat("FriendlyMessage=\"{0}\" ctrl=\"{1}\" exc=\"{2}\"", FriendlyMessage, ctrl, exc);
-
+            s_logger.ErrorFormat("FriendlyMessage=\"{0}\" ctrl=\"{1}\" exc=\"{2}\"", FriendlyMessage, ctrl, exc);
         }
 
-		/// <summary>
-		/// Processes the page load exception.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Processes the page load exception.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void ProcessPageLoadException(Exception exc)
         {
             PortalSettings _portalSettings = PortalController.Instance.GetCurrentPortalSettings();
@@ -368,14 +366,14 @@ namespace DotNetNuke.Services.Exceptions
             ProcessPageLoadException(exc, appURL);
         }
 
-		/// <summary>
-		/// Processes the page load exception.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
-		/// <param name="URL">The URL.</param>
+        /// <summary>
+        /// Processes the page load exception.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
+        /// <param name="URL">The URL.</param>
         public static void ProcessPageLoadException(Exception exc, string URL)
         {
-            Logger.Error(URL, exc);
+            s_logger.Error(URL, exc);
             if (ThreadAbortCheck(exc))
             {
                 return;
@@ -393,10 +391,9 @@ namespace DotNetNuke.Services.Exceptions
                 objExceptionLog.AddLog(lex);
                 if (!String.IsNullOrEmpty(URL))
                 {
-					//redirect
+                    //redirect
                     if (URL.IndexOf("error=terminate") != -1)
                     {
-                        
                         HttpContext.Current.Response.Clear();
                         HttpContext.Current.Server.Transfer("~/ErrorPage.aspx");
                     }
@@ -408,79 +405,79 @@ namespace DotNetNuke.Services.Exceptions
             }
         }
 
-		/// <summary>
-		/// Logs the ModuleLoadException.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Logs the ModuleLoadException.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void LogException(ModuleLoadException exc)
         {
-            Logger.Error(exc);
+            s_logger.Error(exc);
             var objExceptionLog = new ExceptionLogController();
             objExceptionLog.AddLog(exc, ExceptionLogController.ExceptionLogType.MODULE_LOAD_EXCEPTION);
         }
 
-		/// <summary>
-		/// Logs the PageLoadException.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Logs the PageLoadException.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void LogException(PageLoadException exc)
         {
-            Logger.Error(exc);
+            s_logger.Error(exc);
             var objExceptionLog = new ExceptionLogController();
             objExceptionLog.AddLog(exc, ExceptionLogController.ExceptionLogType.PAGE_LOAD_EXCEPTION);
         }
 
-		/// <summary>
-		/// Logs the SchedulerException.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Logs the SchedulerException.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void LogException(SchedulerException exc)
         {
-            Logger.Error(exc);
+            s_logger.Error(exc);
             var objExceptionLog = new ExceptionLogController();
             objExceptionLog.AddLog(exc, ExceptionLogController.ExceptionLogType.SCHEDULER_EXCEPTION);
         }
 
-		/// <summary>
-		/// Logs the SecurityException.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Logs the SecurityException.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void LogException(SecurityException exc)
         {
-            Logger.Error(exc);
+            s_logger.Error(exc);
             var objExceptionLog = new ExceptionLogController();
             objExceptionLog.AddLog(exc, ExceptionLogController.ExceptionLogType.SECURITY_EXCEPTION);
         }
 
-		/// <summary>
-		/// Logs all the basic exception.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Logs all the basic exception.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void LogException(Exception exc)
         {
-            Logger.Error(exc);
+            s_logger.Error(exc);
             var objExceptionLog = new ExceptionLogController();
             objExceptionLog.AddLog(exc, ExceptionLogController.ExceptionLogType.GENERAL_EXCEPTION);
         }
 
-		/// <summary>
-		/// Processes the scheduler exception.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Processes the scheduler exception.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void ProcessSchedulerException(Exception exc)
         {
-            Logger.Error(exc);
+            s_logger.Error(exc);
             var objExceptionLog = new ExceptionLogController();
             objExceptionLog.AddLog(exc, ExceptionLogController.ExceptionLogType.SCHEDULER_EXCEPTION);
         }
 
-		/// <summary>
-		/// Logs the search exception.
-		/// </summary>
-		/// <param name="exc">The exc.</param>
+        /// <summary>
+        /// Logs the search exception.
+        /// </summary>
+        /// <param name="exc">The exc.</param>
         public static void LogSearchException(SearchException exc)
         {
-            Logger.Error(exc);
+            s_logger.Error(exc);
             var objExceptionLog = new ExceptionLogController();
             objExceptionLog.AddLog(exc, ExceptionLogController.ExceptionLogType.SEARCH_INDEXER_EXCEPTION);
         }

@@ -36,7 +36,7 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
     {
         private const string ScriptPrefix = "JSL.";
 
-        private int libraryIdCounter = 20;
+        private int _libraryIdCounter = 20;
 
         private HttpContextBase _httpContext;
 
@@ -49,8 +49,8 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
 
             var httpContextMock = new Mock<HttpContextBase> { DefaultValue = DefaultValue.Mock, };
             httpContextMock.Setup(c => c.Items).Returns(new Dictionary<object, object>());
-            this._httpContext = httpContextMock.Object;
-            HttpContextSource.RegisterInstance(this._httpContext);
+            _httpContext = httpContextMock.Object;
+            HttpContextSource.RegisterInstance(_httpContext);
 
             MockComponentProvider.CreateLocalizationProvider();
             var dataProviderMock = MockComponentProvider.CreateDataProvider();
@@ -69,7 +69,7 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
         public void CanRegisterLibraryByName()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -81,14 +81,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test");
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameWithMismatchedCase()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -100,14 +100,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("test");
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameAndVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -119,14 +119,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 2, 2));
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameAndExactVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -138,14 +138,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 2, 2), SpecificVersion.Exact);
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameWithMismatchedCaseAndExactVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -157,14 +157,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("test", new Version(2, 2, 2), SpecificVersion.Exact);
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void FailToRegisterLibraryByNameAndMismatchedVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -176,14 +176,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 2, 0));
 
             //Assert
-            Assert.AreNotEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreNotEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void FailToRegisterLibraryByNameAndMismatchedExactVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -195,14 +195,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 2, 0), SpecificVersion.Exact);
 
             //Assert
-            Assert.AreNotEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreNotEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameAndSameMinorVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -214,14 +214,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 2, 0), SpecificVersion.LatestMinor);
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameWithMismatchedCaseAndSameMinorVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -233,15 +233,15 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("test", new Version(2, 2, 0), SpecificVersion.LatestMinor);
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void FallbackToHighestVersionLibraryWhenDifferentMinorVersion()
         {
             //Arrange
-            int lowerVersionJavaScriptLibraryId = libraryIdCounter++;
-            int higherVersionJavaScriptLibraryId = libraryIdCounter++;
+            int lowerVersionJavaScriptLibraryId = _libraryIdCounter++;
+            int higherVersionJavaScriptLibraryId = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = lowerVersionJavaScriptLibraryId,
@@ -258,16 +258,16 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 2, 2), SpecificVersion.LatestMinor);
 
             //Assert
-            Assert.AreNotEqual(true, this._httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
+            Assert.AreNotEqual(true, _httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
         }
 
         [Test]
         public void FallbackToHighestVersionLibraryWhenDifferentMinorVersionWithMismatchedCase()
         {
             //Arrange
-            int lowerVersionJavaScriptLibraryId = libraryIdCounter++;
-            int higherVersionJavaScriptLibraryId = libraryIdCounter++;
+            int lowerVersionJavaScriptLibraryId = _libraryIdCounter++;
+            int higherVersionJavaScriptLibraryId = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = lowerVersionJavaScriptLibraryId,
@@ -284,15 +284,15 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("test", new Version(2, 2, 2), SpecificVersion.LatestMinor);
 
             //Assert
-            Assert.AreNotEqual(true, this._httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
+            Assert.AreNotEqual(true, _httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameAndSameMajorVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -304,14 +304,14 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 1, 1), SpecificVersion.LatestMajor);
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void CanRegisterLibraryByNameWithMismatchedCaseAndSameMajorVersion()
         {
             //Arrange
-            int JavaScriptLibraryID = libraryIdCounter++;
+            int JavaScriptLibraryID = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = JavaScriptLibraryID,
@@ -323,15 +323,15 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("test", new Version(2, 1, 1), SpecificVersion.LatestMajor);
 
             //Assert
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + JavaScriptLibraryID]);
         }
 
         [Test]
         public void FallbackToHighestVersionLibraryWhenDifferentMajorVersion()
         {
             //Arrange
-            int lowerVersionJavaScriptLibraryId = libraryIdCounter++;
-            int higherVersionJavaScriptLibraryId = libraryIdCounter++;
+            int lowerVersionJavaScriptLibraryId = _libraryIdCounter++;
+            int higherVersionJavaScriptLibraryId = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = lowerVersionJavaScriptLibraryId,
@@ -348,16 +348,16 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("Test", new Version(2, 2, 2), SpecificVersion.LatestMajor);
 
             //Assert
-            Assert.AreNotEqual(true, this._httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
+            Assert.AreNotEqual(true, _httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
         }
 
         [Test]
         public void FallbackToHighestVersionLibraryWhenDifferentMajorVersionWithMismatchedCase()
         {
             //Arrange
-            int lowerVersionJavaScriptLibraryId = libraryIdCounter++;
-            int higherVersionJavaScriptLibraryId = libraryIdCounter++;
+            int lowerVersionJavaScriptLibraryId = _libraryIdCounter++;
+            int higherVersionJavaScriptLibraryId = _libraryIdCounter++;
             SetupJavaScriptLibraryController(new JavaScriptLibrary
             {
                 JavaScriptLibraryID = lowerVersionJavaScriptLibraryId,
@@ -374,8 +374,8 @@ namespace DotNetNuke.Tests.Core.Framework.JavaScriptLibraries
             JavaScript.RequestRegistration("test", new Version(2, 2, 2), SpecificVersion.LatestMajor);
 
             //Assert
-            Assert.AreNotEqual(true, this._httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
-            Assert.AreEqual(true, this._httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
+            Assert.AreNotEqual(true, _httpContext.Items[ScriptPrefix + lowerVersionJavaScriptLibraryId]);
+            Assert.AreEqual(true, _httpContext.Items[ScriptPrefix + higherVersionJavaScriptLibraryId]);
         }
 
         private void SetupJavaScriptLibraryController(params JavaScriptLibrary[] libraries)

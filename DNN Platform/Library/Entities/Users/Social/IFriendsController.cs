@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Entities.Users.Social
 {
     public interface IFriendsController
@@ -32,6 +31,5 @@ namespace DotNetNuke.Entities.Users.Social
 
         void DeleteFriend(UserInfo targetUser);
         void DeleteFriend(UserInfo initiatingUser, UserInfo targetUser);
-
     }
 }

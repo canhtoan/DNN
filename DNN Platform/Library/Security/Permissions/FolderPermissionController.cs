@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Users;
@@ -29,12 +29,11 @@ using DotNetNuke.Services.FileSystem;
 using System.Collections.Generic;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     public partial class FolderPermissionController : ServiceLocator<IFolderPermissionController, FolderPermissionController>, IFolderPermissionController
     {
-        private static readonly PermissionProvider provider = PermissionProvider.Instance();
+        private static readonly PermissionProvider s_provider = PermissionProvider.Instance();
 
         protected override Func<IFolderPermissionController> GetFactory()
         {
@@ -50,7 +49,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         bool IFolderPermissionController.CanAddFolder(IFolderInfo folder)
         {
-            return provider.CanAddFolder((FolderInfo)folder);
+            return s_provider.CanAddFolder((FolderInfo)folder);
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         bool IFolderPermissionController.CanAdminFolder(IFolderInfo folder)
         {
-            return provider.CanAdminFolder((FolderInfo)folder);
+            return s_provider.CanAdminFolder((FolderInfo)folder);
         }
 
         /// <summary>
@@ -70,7 +69,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         bool IFolderPermissionController.CanViewFolder(IFolderInfo folder)
         {
-            return provider.CanViewFolder((FolderInfo)folder);
+            return s_provider.CanViewFolder((FolderInfo)folder);
         }
 
         #endregion
@@ -89,7 +88,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A List with the implicit roles</returns>
         public static IEnumerable<RoleInfo> ImplicitRoles(int portalId)
         {
-            return provider.ImplicitRolesForPages(portalId);
+            return s_provider.ImplicitRolesForPages(portalId);
         }
 
         /// <summary>
@@ -99,7 +98,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanAddFolder(FolderInfo folder)
         {
-            return provider.CanAddFolder(folder);
+            return s_provider.CanAddFolder(folder);
         }
 
         /// <summary>
@@ -109,7 +108,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanAdminFolder(FolderInfo folder)
         {
-            return provider.CanAdminFolder(folder);
+            return s_provider.CanAdminFolder(folder);
         }
 
         /// <summary>
@@ -119,7 +118,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanBrowseFolder(FolderInfo folder)
         {
-            return provider.CanBrowseFolder(folder);
+            return s_provider.CanBrowseFolder(folder);
         }
 
         /// <summary>
@@ -129,7 +128,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanCopyFolder(FolderInfo folder)
         {
-            return provider.CanCopyFolder(folder);
+            return s_provider.CanCopyFolder(folder);
         }
 
         /// <summary>
@@ -139,7 +138,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanDeleteFolder(FolderInfo folder)
         {
-            return provider.CanDeleteFolder(folder);
+            return s_provider.CanDeleteFolder(folder);
         }
 
         /// <summary>
@@ -149,7 +148,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanManageFolder(FolderInfo folder)
         {
-            return provider.CanManageFolder(folder);
+            return s_provider.CanManageFolder(folder);
         }
 
         /// <summary>
@@ -159,18 +158,18 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanViewFolder(FolderInfo folder)
         {
-            return provider.CanViewFolder(folder);
+            return s_provider.CanViewFolder(folder);
         }
 
         public static void DeleteFolderPermissionsByUser(UserInfo objUser)
         {
-            provider.DeleteFolderPermissionsByUser(objUser);
+            s_provider.DeleteFolderPermissionsByUser(objUser);
             ClearPermissionCache(objUser.PortalID);
         }
 
         public static FolderPermissionCollection GetFolderPermissionsCollectionByFolder(int PortalID, string Folder)
         {
-            return provider.GetFolderPermissionsCollectionByFolder(PortalID, Folder);
+            return s_provider.GetFolderPermissionsCollectionByFolder(PortalID, Folder);
         }
 
         public static bool HasFolderPermission(int portalId, string folderPath, string permissionKey)
@@ -180,14 +179,14 @@ namespace DotNetNuke.Security.Permissions
 
         public static bool HasFolderPermission(FolderPermissionCollection objFolderPermissions, string PermissionKey)
         {
-            bool hasPermission = provider.HasFolderPermission(objFolderPermissions, "WRITE");
+            bool hasPermission = s_provider.HasFolderPermission(objFolderPermissions, "WRITE");
             if (!hasPermission)
             {
                 if (PermissionKey.Contains(","))
                 {
                     foreach (string permission in PermissionKey.Split(','))
                     {
-                        if (provider.HasFolderPermission(objFolderPermissions, permission))
+                        if (s_provider.HasFolderPermission(objFolderPermissions, permission))
                         {
                             hasPermission = true;
                             break;
@@ -196,7 +195,7 @@ namespace DotNetNuke.Security.Permissions
                 }
                 else
                 {
-                    hasPermission = provider.HasFolderPermission(objFolderPermissions, PermissionKey);
+                    hasPermission = s_provider.HasFolderPermission(objFolderPermissions, PermissionKey);
                 }
             }
             return hasPermission;
@@ -254,7 +253,7 @@ namespace DotNetNuke.Security.Permissions
         /// <param name="folder">The Folder to update</param>
         public static void SaveFolderPermissions(IFolderInfo folder)
         {
-            provider.SaveFolderPermissions(folder);
+            s_provider.SaveFolderPermissions(folder);
             ClearPermissionCache(folder.PortalID);
         }
     }

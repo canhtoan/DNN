@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Net;
 using System.Net.Http;
@@ -36,7 +35,7 @@ namespace DotNetNuke.Web.InternalServices
     [DnnAuthorize]
     public class ModuleServiceController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ModuleServiceController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ModuleServiceController));
         public class MoveModuleDTO
         {
             public int ModuleId { get; set; }
@@ -46,7 +45,7 @@ namespace DotNetNuke.Web.InternalServices
         }
 
         [HttpGet]
-        [DnnAuthorize(StaticRoles = "Registered Users" )]
+        [DnnAuthorize(StaticRoles = "Registered Users")]
         public HttpResponseMessage GetModuleShareable(int moduleId, int tabId, int portalId = -1)
         {
             var requiresWarning = false;
@@ -73,11 +72,11 @@ namespace DotNetNuke.Web.InternalServices
             if (desktopModule == null)
             {
                 var message = string.Format("Cannot find module ID {0} (tab ID {1}, portal ID {2})", moduleId, tabId, portalId);
-                Logger.Error(message);
+                s_logger.Error(message);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, new {Shareable = desktopModule.Shareable.ToString(), RequiresWarning = requiresWarning});
+            return Request.CreateResponse(HttpStatusCode.OK, new { Shareable = desktopModule.Shareable.ToString(), RequiresWarning = requiresWarning });
         }
 
         [HttpPost]

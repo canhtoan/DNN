@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 
 #endregion
-
 namespace DotNetNuke.Web.InternalServices.Views.Search
 {
     /// <summary>
@@ -45,12 +44,12 @@ namespace DotNetNuke.Web.InternalServices.Views.Search
         #region constructor
 
         public GroupedBasicView()
-        {}
+        { }
 
         public GroupedBasicView(BasicView basic)
         {
             DocumentTypeName = basic.DocumentTypeName;
-            Results = new List<BasicView> {new BasicView {Title = basic.Title, Snippet = basic.Snippet, DocumentUrl = basic.DocumentUrl, Attributes = basic.Attributes}};
+            Results = new List<BasicView> { new BasicView { Title = basic.Title, Snippet = basic.Snippet, DocumentUrl = basic.DocumentUrl, Attributes = basic.Attributes } };
         }
 
         #endregion

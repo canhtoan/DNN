@@ -30,6 +30,5 @@ namespace DotNetNuke.Entities.Tabs
         public string Url { get; set; }
 
         #endregion
-
     }
 }

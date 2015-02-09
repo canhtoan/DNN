@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -58,7 +58,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Host
             var nameCol = _hostSettingsTable.Columns.Add("SettingName");
             _hostSettingsTable.Columns.Add("SettingValue");
             _hostSettingsTable.Columns.Add("SettingIsSecure");
-            _hostSettingsTable.PrimaryKey = new[] {nameCol};
+            _hostSettingsTable.PrimaryKey = new[] { nameCol };
 
             _hostSettingsTable.Rows.Add("String_1_S", "String_1_S", true);
             _hostSettingsTable.Rows.Add("String_2_S", "String_1_S", true);

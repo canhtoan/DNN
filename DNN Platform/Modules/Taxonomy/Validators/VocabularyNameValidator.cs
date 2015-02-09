@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,6 @@ using DotNetNuke.Entities.Content.Taxonomy;
 using DotNetNuke.Web.Validators;
 
 #endregion
-
 namespace DotNetNuke.Modules.Taxonomy.Validators
 {
     public class VocabularyNameValidator : ObjectValidator
@@ -52,7 +51,7 @@ namespace DotNetNuke.Modules.Taxonomy.Validators
 
                 if (existVocabulary != null && (vocabulary.VocabularyId == Null.NullInteger || existVocabulary.VocabularyId != vocabulary.VocabularyId))
                 {
-                    return new ValidationResult(new[]{new ValidationError{ErrorMessage = "VocabularyExists.Error", PropertyName = "VocabularyName", Validator = this}});
+                    return new ValidationResult(new[] { new ValidationError { ErrorMessage = "VocabularyExists.Error", PropertyName = "VocabularyName", Validator = this } });
                 }
             }
 

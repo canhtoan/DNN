@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.Internals.InstallConfiguration
 {
     /// -----------------------------------------------------------------------------
@@ -31,7 +30,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.InstallConfiguration
     /// ConnectionConfig - A class that represents Install/DotNetNuke.Install.Config/Connection
     /// </summary>
     /// -----------------------------------------------------------------------------    
-        
+
     public class ConnectionConfig
     {
         public string Server { get; set; }

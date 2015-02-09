@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,7 +31,7 @@ namespace DotNetNuke.Web.Api
             moduleInfo = null;
 
             int tabId, moduleId;
-            if(TryFindTabId(request, out tabId) && TryFindModuleId(request, out moduleId))
+            if (TryFindTabId(request, out tabId) && TryFindModuleId(request, out moduleId))
             {
                 moduleInfo = ModuleController.Instance.GetModule(moduleId, tabId, false);
             }
@@ -62,6 +62,5 @@ namespace DotNetNuke.Web.Api
 
             return Null.NullInteger;
         }
-
     }
 }

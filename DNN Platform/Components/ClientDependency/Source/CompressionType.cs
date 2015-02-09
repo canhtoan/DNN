@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +10,8 @@ using System.IO.Compression;
 
 namespace ClientDependency.Core
 {
-	public enum CompressionType
-	{
-		deflate, gzip, none
-	}
+    public enum CompressionType
+    {
+        deflate, gzip, none
+    }
 }

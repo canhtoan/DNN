@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Globalization;
 using System.Web.UI;
@@ -30,7 +30,6 @@ using System.Web.UI;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -49,9 +48,9 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:EnumEditControl runat=server></{0}:EnumEditControl>")]
     public class EnumEditControl : EditControl
     {
-        private readonly Type EnumType;
+        private readonly Type _enumType;
 
-		#region Constructors
+        #region Constructors
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -76,12 +75,12 @@ namespace DotNetNuke.UI.WebControls
         public EnumEditControl(string type)
         {
             SystemType = type;
-            EnumType = Type.GetType(type);
+            _enumType = Type.GetType(type);
         }
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -106,9 +105,9 @@ namespace DotNetNuke.UI.WebControls
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Protected Methods
+        #region Protected Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -125,7 +124,7 @@ namespace DotNetNuke.UI.WebControls
             int intOldValue = Convert.ToInt32(OldValue);
 
             var args = new PropertyEditorEventArgs(Name)
-                           {Value = Enum.ToObject(EnumType, intValue), OldValue = Enum.ToObject(EnumType, intOldValue)};
+            { Value = Enum.ToObject(_enumType, intValue), OldValue = Enum.ToObject(_enumType, intOldValue) };
 
             base.OnValueChanged(args);
         }
@@ -142,7 +141,7 @@ namespace DotNetNuke.UI.WebControls
         protected override void RenderEditMode(HtmlTextWriter writer)
         {
             Int32 propValue = Convert.ToInt32(Value);
-            Array enumValues = Enum.GetValues(EnumType);
+            Array enumValues = Enum.GetValues(_enumType);
 
             //Render the Select Tag
             ControlStyle.AddAttributesToRender(writer);
@@ -154,7 +153,7 @@ namespace DotNetNuke.UI.WebControls
             for (int I = 0; I <= enumValues.Length - 1; I++)
             {
                 int enumValue = Convert.ToInt32(enumValues.GetValue(I));
-                string enumName = Enum.GetName(EnumType, enumValue);
+                string enumName = Enum.GetName(_enumType, enumValue);
                 enumName = Localization.GetString(enumName, LocalResourceFile);
 
                 //Add the Value Attribute
@@ -162,16 +161,16 @@ namespace DotNetNuke.UI.WebControls
 
                 if (enumValue == propValue)
                 {
-					//Add the Selected Attribute
+                    //Add the Selected Attribute
                     writer.AddAttribute(HtmlTextWriterAttribute.Selected, "selected");
                 }
-				
+
                 //Render Option Tag
                 writer.RenderBeginTag(HtmlTextWriterTag.Option);
                 writer.Write(enumName);
                 writer.RenderEndTag();
             }
-			
+
             //Close Select Tag
             writer.RenderEndTag();
         }
@@ -188,14 +187,14 @@ namespace DotNetNuke.UI.WebControls
         protected override void RenderViewMode(HtmlTextWriter writer)
         {
             Int32 propValue = Convert.ToInt32(Value);
-            string enumValue = Enum.Format(EnumType, propValue, "G");
+            string enumValue = Enum.Format(_enumType, propValue, "G");
 
             ControlStyle.AddAttributesToRender(writer);
             writer.RenderBeginTag(HtmlTextWriterTag.Span);
             writer.Write(enumValue);
             writer.RenderEndTag();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

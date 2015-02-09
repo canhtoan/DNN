@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,20 +31,19 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles.Internal;
 
 #endregion
-
 namespace DotNetNuke.Security.Roles
 {
     public abstract class RoleProvider
     {
-		#region Shared/Static Methods
+        #region Shared/Static Methods
 
         //return the provider
         public static RoleProvider Instance()
         {
             return ComponentFactory.GetComponent<RoleProvider>();
         }
-		
-		#endregion
+
+        #endregion
 
         #region Role Methods
 
@@ -55,7 +54,7 @@ namespace DotNetNuke.Security.Roles
 
         public virtual void DeleteRole(RoleInfo role)
         {
-			throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public abstract ArrayList GetRoles(int portalId);
@@ -64,14 +63,13 @@ namespace DotNetNuke.Security.Roles
 
         public virtual IDictionary<string, string> GetRoleSettings(int roleId)
         {
-           return new Dictionary<string, string>(); 
+            return new Dictionary<string, string>();
         }
 
         public abstract void UpdateRole(RoleInfo role);
 
         public virtual void UpdateRoleSettings(RoleInfo role)
         {
-            
         }
 
         #endregion
@@ -114,7 +112,7 @@ namespace DotNetNuke.Security.Roles
 
         public virtual IList<UserRoleInfo> GetUserRoles(UserInfo user, bool includePrivate)
         {
-			throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         #region Obsolete Methods
@@ -172,13 +170,13 @@ namespace DotNetNuke.Security.Roles
         public virtual ArrayList GetUserRoles(int portalId, int userId, bool includePrivate)
         {
             UserInfo user;
-            if(userId != -1)
+            if (userId != -1)
             {
                 user = UserController.Instance.GetUser(portalId, userId);
             }
             else
             {
-                user = new UserInfo() {UserID = -1, PortalID = portalId};
+                user = new UserInfo() { UserID = -1, PortalID = portalId };
             }
 
             return (user == null) ? new ArrayList() : new ArrayList(GetUserRoles(user, includePrivate).ToArray());

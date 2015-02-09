@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -65,10 +65,10 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging.Mocks
         private static void AddSubscriptionToTable(DataTable table, Subscription subscription)
         {
             table.Rows.Add(new object[] {
-                subscription.SubscriptionId, 
+                subscription.SubscriptionId,
                 subscription.UserId,
-                subscription.PortalId, 
-                subscription.SubscriptionTypeId, 
+                subscription.PortalId,
+                subscription.SubscriptionTypeId,
                 subscription.ObjectKey,
                 subscription.Description,
                 subscription.CreatedOnDate,

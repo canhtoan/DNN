@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -40,7 +40,6 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     [ParseChildren(true)]
@@ -60,7 +59,7 @@ namespace DotNetNuke.Web.UI.WebControls
                 {
                     ViewState.Add("ToolInfo", new RibbonBarToolInfo());
                 }
-                return (RibbonBarToolInfo) ViewState["ToolInfo"];
+                return (RibbonBarToolInfo)ViewState["ToolInfo"];
             }
             set
             {
@@ -123,7 +122,7 @@ namespace DotNetNuke.Web.UI.WebControls
                 if ((_dnnLinkButton == null))
                 {
                     // Appending _CPCommandBtn is also assumed in the RibbonBar.ascx. If changed, one would need to change in both places.
-                    _dnnLinkButton = new DnnTextButton {ID = ID + "_CPCommandBtn"};
+                    _dnnLinkButton = new DnnTextButton { ID = ID + "_CPCommandBtn" };
                 }
                 return _dnnLinkButton;
             }
@@ -149,8 +148,8 @@ namespace DotNetNuke.Web.UI.WebControls
                 {
                     _allTools = new Dictionary<string, RibbonBarToolInfo>
                                     {
-										//Framework
-                                        {"PageSettings", new RibbonBarToolInfo("PageSettings", false, false, "", "", "", true)},
+                        //Framework
+                        {"PageSettings", new RibbonBarToolInfo("PageSettings", false, false, "", "", "", true)},
                                         {"CopyPage", new RibbonBarToolInfo("CopyPage", false, false, "", "", "", true)},
                                         {"DeletePage", new RibbonBarToolInfo("DeletePage", false, true, "", "", "", true)},
                                         {"ImportPage", new RibbonBarToolInfo("ImportPage", false, false, "", "", "", true)},
@@ -159,8 +158,8 @@ namespace DotNetNuke.Web.UI.WebControls
                                         {"CopyPermissionsToChildren", new RibbonBarToolInfo("CopyPermissionsToChildren", false, true, "", "", "", false)},
                                         {"CopyDesignToChildren", new RibbonBarToolInfo("CopyDesignToChildren", false, true, "", "", "", false)},
                                         {"Help", new RibbonBarToolInfo("Help", false, false, "_Blank", "", "", false)},
-										//Modules On Tabs
-                                        {"Console", new RibbonBarToolInfo("Console", false, false, "", "Console", "", false)},
+                        //Modules On Tabs
+                        {"Console", new RibbonBarToolInfo("Console", false, false, "", "Console", "", false)},
                                         {"HostConsole", new RibbonBarToolInfo("HostConsole", true, false, "", "Console", "", false)},
                                         {"UploadFile", new RibbonBarToolInfo("UploadFile", false, false, "", "", "WebUpload", true)},
                                         {"NewRole", new RibbonBarToolInfo("NewRole", false, false, "", "Security Roles", "Edit", true)},
@@ -233,7 +232,7 @@ namespace DotNetNuke.Web.UI.WebControls
                     if ((HasToolPermissions("DeletePage")))
                     {
                         string url = TestableGlobals.Instance.NavigateURL(PortalSettings.ActiveTab.TabID, "Tab", "action=delete");
-                        Page.Response.Redirect(url, true);                        
+                        Page.Response.Redirect(url, true);
                     }
                     break;
                 case "CopyPermissionsToChildren":
@@ -254,7 +253,7 @@ namespace DotNetNuke.Web.UI.WebControls
                     if ((HasToolPermissions("ClearCache")))
                     {
                         ClearCache();
-						ClientResourceManager.ClearCache();
+                        ClientResourceManager.ClearCache();
                         Page.Response.Redirect(Page.Request.RawUrl);
                     }
                     break;
@@ -496,8 +495,8 @@ namespace DotNetNuke.Web.UI.WebControls
                         returnValue = TestableGlobals.Instance.FormatHelpUrl(Host.HelpURL, PortalSettings, "Home", version);
                     }
                     break;
-				case "UploadFile":
-				case "HostUploadFile":
+                case "UploadFile":
+                case "HostUploadFile":
                     returnValue = TestableGlobals.Instance.NavigateURL(PortalSettings.ActiveTab.TabID, "WebUpload");
                     break;
                 default:
@@ -587,7 +586,7 @@ namespace DotNetNuke.Web.UI.WebControls
 
             return true;
         }
-        
+
         protected virtual string GetString(string key)
         {
             return Utilities.GetLocalizedStringFromParent(key, this);

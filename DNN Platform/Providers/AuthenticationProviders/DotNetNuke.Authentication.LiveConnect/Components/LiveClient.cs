@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -32,7 +32,6 @@ using DotNetNuke.Services.Authentication;
 using DotNetNuke.Services.Authentication.OAuth;
 
 #endregion
-
 namespace DotNetNuke.Authentication.LiveConnect.Components
 {
     public class LiveClient : OAuthClientBase

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +30,6 @@ using System.ComponentModel;
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users.Internal
 {
     [EditorBrowsable(EditorBrowsableState.Never)]

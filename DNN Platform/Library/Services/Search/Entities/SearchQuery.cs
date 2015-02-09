@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Entities
 {
     /// <summary>
@@ -81,7 +80,7 @@ namespace DotNetNuke.Services.Search.Entities
         /// </summary>
         /// <remarks>E.g. A value en-US or nl-NL can specified to restrict search to a single locale .</remarks> 
         public string Locale { get; set; }
-        
+
         /// <summary>
         /// Begin Date of the time when Content was last modified (in Utc). This field is optional.
         /// </summary>

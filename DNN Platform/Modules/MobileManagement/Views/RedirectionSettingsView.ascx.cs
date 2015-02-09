@@ -1,8 +1,9 @@
-#region Copyright
-// DotNetNuke� - http://www.dotnetnuke.com
+﻿#region Copyright
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -65,16 +66,16 @@ namespace DotNetNuke.Modules.MobileManagement
             set
             {
                 ViewState["capabilities"] = value;
-            }            
+            }
         }
 
-	    private bool SupportsSmartPhoneDetection
-	    {
-		    get
-		    {
-			    return ClientCapabilityProvider.Instance().GetAllClientCapabilityValues().ContainsKey("IsSmartPhone");
-		    }
-	    }
+        private bool SupportsSmartPhoneDetection
+        {
+            get
+            {
+                return ClientCapabilityProvider.Instance().GetAllClientCapabilityValues().ContainsKey("IsSmartPhone");
+            }
+        }
 
         private string _capability = string.Empty;
         private string _capabilityValue = string.Empty;
@@ -106,7 +107,7 @@ namespace DotNetNuke.Modules.MobileManagement
             if (!IsPostBack)
             {
                 optRedirectType.Items[1].Enabled = optRedirectType.Items[2].Enabled = ClientCapabilityProvider.Instance().SupportsTabletDetection;
-				optRedirectType.Items[3].Enabled = SupportsSmartPhoneDetection;
+                optRedirectType.Items[3].Enabled = SupportsSmartPhoneDetection;
                 BindSettingControls();
                 BindRedirection(RedirectId);
             }
@@ -138,14 +139,14 @@ namespace DotNetNuke.Modules.MobileManagement
             {
                 case "delete":
                     var capability = Capabilities.Where(c => c.Capability == e.CommandArgument.ToString()).First();
-                        var capabilitylist = Capabilities;
-                        capabilitylist.Remove(capability);
-                        Capabilities = capabilitylist;                        
-                        BindRedirectionCapabilties();
-                        BindCapabilities();
-                        cboCapabilityName.SelectedIndex = 0;
-                        BindCapabilityValues(string.Empty);
-					break;
+                    var capabilitylist = Capabilities;
+                    capabilitylist.Remove(capability);
+                    Capabilities = capabilitylist;
+                    BindRedirectionCapabilties();
+                    BindCapabilities();
+                    cboCapabilityName.SelectedIndex = 0;
+                    BindCapabilityValues(string.Empty);
+                    break;
             }
         }
 
@@ -196,14 +197,14 @@ namespace DotNetNuke.Modules.MobileManagement
                     optRedirectSource.SelectedValue = "Portal";
                 }
 
-				if (IsSmartPhoneRedirect(redirect))
-				{
-					optRedirectType.SelectedValue = "SmartPhone";
-				}
-				else
-				{
-					optRedirectType.SelectedValue = redirect.Type.ToString();
-				}
+                if (IsSmartPhoneRedirect(redirect))
+                {
+                    optRedirectType.SelectedValue = "SmartPhone";
+                }
+                else
+                {
+                    optRedirectType.SelectedValue = redirect.Type.ToString();
+                }
 
                 optRedirectTarget.SelectedValue = redirect.TargetType.ToString();
 
@@ -222,7 +223,7 @@ namespace DotNetNuke.Modules.MobileManagement
                         break;
                     case TargetType.Tab:
                         int redirectTargetInt;
-                        if(int.TryParse(redirect.TargetValue.ToString(), out redirectTargetInt))
+                        if (int.TryParse(redirect.TargetValue.ToString(), out redirectTargetInt))
                             cboTargetPage.SelectedPage = tabInfos.SingleOrDefault(t => t.TabID == redirectTargetInt);
                         break;
                     case TargetType.Url:
@@ -232,10 +233,10 @@ namespace DotNetNuke.Modules.MobileManagement
             }
         }
 
-		private bool IsSmartPhoneRedirect(IRedirection redirect)
-		{
-			return SupportsSmartPhoneDetection && redirect.Type == RedirectionType.Other && redirect.MatchRules.Count == 1 && redirect.MatchRules[0].Capability == "IsSmartPhone";
-		}
+        private bool IsSmartPhoneRedirect(IRedirection redirect)
+        {
+            return SupportsSmartPhoneDetection && redirect.Type == RedirectionType.Other && redirect.MatchRules.Count == 1 && redirect.MatchRules[0].Capability == "IsSmartPhone";
+        }
 
         private void BindRedirectionCapabilties()
         {
@@ -256,11 +257,11 @@ namespace DotNetNuke.Modules.MobileManagement
             var portals = PortalController.Instance.GetPortals().Cast<PortalInfo>().Where(p => p.PortalID != ModuleContext.PortalId).ToList();
             if (portals.Count > 0)
             {
-				cboPortal.Items.Clear();
-	            foreach (var portalInfo in portals)
-	            {
-		            cboPortal.Items.Add(new DnnComboBoxItem(portalInfo.PortalName, portalInfo.PortalID.ToString()));
-	            }
+                cboPortal.Items.Clear();
+                foreach (var portalInfo in portals)
+                {
+                    cboPortal.Items.Add(new DnnComboBoxItem(portalInfo.PortalName, portalInfo.PortalID.ToString()));
+                }
             }
             else
             {
@@ -271,13 +272,12 @@ namespace DotNetNuke.Modules.MobileManagement
                     optRedirectTarget.Items[1].Selected = true;
                 }
             }
-
         }
-        
+
         private void BindCapabilities()
         {
             //Bind only capabilities that have not yet been added
-			var capabilities = new List<string>(ClientCapabilityProvider.Instance().GetAllClientCapabilityValues().Keys.Where(capability => Capabilities.Where( c => c.Capability == capability).Count() < 1));
+            var capabilities = new List<string>(ClientCapabilityProvider.Instance().GetAllClientCapabilityValues().Keys.Where(capability => Capabilities.Where(c => c.Capability == capability).Count() < 1));
             capabilities.Insert(0, LocalizeString("selectCapabilityName"));
             cboCapabilityName.DataSource = capabilities;
             cboCapabilityName.DataBind();
@@ -296,7 +296,7 @@ namespace DotNetNuke.Modules.MobileManagement
                 cboCapabilityValue.DataSource = string.Empty;
                 cboCapabilityValue.Text = string.Empty;
             }
-            cboCapabilityValue.DataBind();                 
+            cboCapabilityValue.DataBind();
         }
 
         private void SetCapabilityAndValue()
@@ -330,9 +330,9 @@ namespace DotNetNuke.Modules.MobileManagement
             }
 
             redirection.Type = (RedirectionType)Enum.Parse(typeof(RedirectionType), optRedirectType.SelectedValue);
-			if (redirection.Type == RedirectionType.SmartPhone && optRedirectType.SelectedValue != "")//save smart phone value to other type with capability match.
-			{
-				if (RedirectId > Null.NullInteger)
+            if (redirection.Type == RedirectionType.SmartPhone && optRedirectType.SelectedValue != "")//save smart phone value to other type with capability match.
+            {
+                if (RedirectId > Null.NullInteger)
                 {
                     // Delete capabilities that no longer exist in the grid
                     foreach (var rule in redirection.MatchRules)
@@ -341,10 +341,10 @@ namespace DotNetNuke.Modules.MobileManagement
                     }
                 }
 
-				redirection.Type = RedirectionType.Other;
-				redirection.MatchRules.Add(new MatchRule(){Capability = "IsSmartPhone", Expression = "True"});
-			}
-			else if (redirection.Type == RedirectionType.Other)//Other, save new capabilities
+                redirection.Type = RedirectionType.Other;
+                redirection.MatchRules.Add(new MatchRule() { Capability = "IsSmartPhone", Expression = "True" });
+            }
+            else if (redirection.Type == RedirectionType.Other)//Other, save new capabilities
             {
                 if (RedirectId > Null.NullInteger)
                 {
@@ -359,7 +359,7 @@ namespace DotNetNuke.Modules.MobileManagement
             }
             else if (RedirectId > Null.NullInteger && redirection.MatchRules.Count > 0)
             {
-                foreach(var rule in redirection.MatchRules)
+                foreach (var rule in redirection.MatchRules)
                 {
                     redirectionController.DeleteRule(ModuleContext.PortalId, redirection.Id, rule.Id);
                 }
@@ -380,17 +380,17 @@ namespace DotNetNuke.Modules.MobileManagement
             }
 
             // Save the redirect
-            redirectionController.Save(redirection);      
+            redirectionController.Save(redirection);
         }
 
-		private bool IsVisible(TabInfo tab)
-		{
+        private bool IsVisible(TabInfo tab)
+        {
             if (tab == null || tab.TabID == PortalSettings.Current.AdminTabId || tab.TabID == PortalSettings.Current.UserTabId)
             {
                 return false;
             }
-            
-            if(tab.ParentId != Null.NullInteger)
+
+            if (tab.ParentId != Null.NullInteger)
             {
                 do
                 {
@@ -403,8 +403,8 @@ namespace DotNetNuke.Modules.MobileManagement
                 } while (tab != null && tab.ParentId != Null.NullInteger);
             }
 
-			return true;
-		}
+            return true;
+        }
 
         #endregion
 
@@ -412,14 +412,13 @@ namespace DotNetNuke.Modules.MobileManagement
 
         private void lnkSave_OnClick(object sender, EventArgs e)
         {
-                     
             var redirectionController = new RedirectionController();
             var name = txtRedirectName.Text;
             int nameCount;
             // Checks for duplicate names   
             if (RedirectId > Null.NullInteger)
             {
-                nameCount = redirectionController.GetRedirectionsByPortal(ModuleContext.PortalId).Where(r =>( r.Id != RedirectId && r.Name.ToLower() == name.ToLower())).Count();
+                nameCount = redirectionController.GetRedirectionsByPortal(ModuleContext.PortalId).Where(r => (r.Id != RedirectId && r.Name.ToLower() == name.ToLower())).Count();
             }
             else
             {
@@ -433,8 +432,8 @@ namespace DotNetNuke.Modules.MobileManagement
             }
             else
             {
-                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("DuplicateNameError.Text", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);                
-            }            
+                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("DuplicateNameError.Text", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+            }
         }
 
         private void lnkCancel_OnClick(object sender, EventArgs e)

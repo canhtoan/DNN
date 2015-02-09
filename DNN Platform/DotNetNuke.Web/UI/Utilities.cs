@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Reflection;
@@ -40,7 +40,6 @@ using FileInfo = DotNetNuke.Services.FileSystem.FileInfo;
 
 
 #endregion
-
 namespace DotNetNuke.Web.UI
 {
     public class Utilities
@@ -106,9 +105,8 @@ namespace DotNetNuke.Web.UI
                 if (skinProperty != null)
                 {
                     var v = skinProperty.GetValue(telerikControl, null);
-                    if (v != null) 
+                    if (v != null)
                         webControlSkinName = v.ToString();
-
                 }
                 if (string.IsNullOrEmpty(webControlSkinName)) webControlSkinName = "default";
 
@@ -125,7 +123,7 @@ namespace DotNetNuke.Web.UI
                 string systemWebControlSkin = string.Empty;
                 if ((!string.IsNullOrEmpty(skinName) && !string.IsNullOrEmpty(skinVirtualFolder)))
                 {
-					systemWebControlSkin = HttpContext.Current.Server.MapPath(skinVirtualFolder);
+                    systemWebControlSkin = HttpContext.Current.Server.MapPath(skinVirtualFolder);
                     systemWebControlSkin = Path.Combine(systemWebControlSkin, "WebControlSkin");
                     systemWebControlSkin = Path.Combine(systemWebControlSkin, skinName);
                     systemWebControlSkin = Path.Combine(systemWebControlSkin, webControlSkinSubFolderName);
@@ -171,7 +169,7 @@ namespace DotNetNuke.Web.UI
                     filePath = Path.Combine(filePath, webControlSkinSubFolderName);
                     filePath = Path.Combine(filePath, string.Format("{0}.{1}.css", controlName, webControlSkinName));
                     filePath = filePath.Replace('\\', '/').Replace("//", "/").TrimEnd('/');
-                    
+
                     if (HttpContext.Current != null && HttpContext.Current.Handler is Page)
                     {
                         ClientResourceManager.RegisterStyleSheet(HttpContext.Current.Handler as Page, filePath);
@@ -211,7 +209,7 @@ namespace DotNetNuke.Web.UI
                 if (image.Width > maxWidth)
                 {
                     img.Width = maxWidth;
-                    img.Height = Convert.ToInt32((image.Height*maxWidth)/(float) image.Width);
+                    img.Height = Convert.ToInt32((image.Height * maxWidth) / (float)image.Width);
                 }
                 else
                 {
@@ -224,7 +222,7 @@ namespace DotNetNuke.Web.UI
                 // Portrait
                 if (image.Height > maxHeight)
                 {
-                    img.Width = Convert.ToInt32((image.Width*maxHeight)/(float) image.Height);
+                    img.Width = Convert.ToInt32((image.Width * maxHeight) / (float)image.Height);
                     img.Height = maxHeight;
                 }
                 else

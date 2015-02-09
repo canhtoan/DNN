@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.IO;
 using System.Web;
 using System.Xml;
@@ -37,47 +37,46 @@ using DotNetNuke.Services.Upgrade;
 
 namespace DotNetNuke.Modules.MemberDirectory.Components
 {
+    public class UpgradeController : IUpgradeable
+    {
+        public string UpgradeModule(string Version)
+        {
+            try
+            {
+                switch (Version)
+                {
+                    case "07.00.06":
+                        UpdateDisplaySearchSettings();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogController xlc = new ExceptionLogController();
+                xlc.AddLog(ex);
 
-	public class UpgradeController : IUpgradeable
-	{
-		public string UpgradeModule(string Version)
-		{
-			try
-			{
-				switch (Version)
-				{
-					case "07.00.06":
-						UpdateDisplaySearchSettings();
-						break;
-				}
-			}
-			catch (Exception ex)
-			{
-				ExceptionLogController xlc = new ExceptionLogController();
-				xlc.AddLog(ex);
+                return "Failed";
+            }
 
-				return "Failed";
-			}
+            return "Success";
+        }
 
-			return "Success";
-		}
-
-		private void UpdateDisplaySearchSettings()
-		{
+        private void UpdateDisplaySearchSettings()
+        {
             foreach (PortalInfo portal in PortalController.Instance.GetPortals())
             {
                 foreach (ModuleInfo module in ModuleController.Instance.GetModulesByDefinition(portal.PortalID, "Member Directory"))
-	            {
-					foreach (ModuleInfo tabModule in ModuleController.Instance.GetAllTabsModulesByModuleID(module.ModuleID))
-		            {
-			            if (tabModule.TabModuleSettings.ContainsKey("DisplaySearch"))
-			            {
-				            var oldValue = bool.Parse(tabModule.TabModuleSettings["DisplaySearch"].ToString());
+                {
+                    foreach (ModuleInfo tabModule in ModuleController.Instance.GetAllTabsModulesByModuleID(module.ModuleID))
+                    {
+                        if (tabModule.TabModuleSettings.ContainsKey("DisplaySearch"))
+                        {
+                            var oldValue = bool.Parse(tabModule.TabModuleSettings["DisplaySearch"].ToString());
                             ModuleController.Instance.UpdateTabModuleSetting(tabModule.TabModuleID, "DisplaySearch", oldValue ? "Both" : "None");
-			            }
-		            }
-	            }
+                        }
+                    }
+                }
             }
-		}
-	}
+        }
+    }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
@@ -30,7 +30,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Web.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Modules.UrlManagement
 {
     /// <summary>
@@ -38,13 +37,13 @@ namespace DotNetNuke.Modules.UrlManagement
     /// </summary>
     public partial class PortalAliases : PortAliasesModuleBase
     {
-		#region Private Members
+        #region Private Members
 
         private const string resourcefile = "~/DesktopModules/Admin/UrlManagement/App_LocalResources/SharedResources.resx";
-		
-		#endregion
 
-		#region Protected Properties
+        #endregion
+
+        #region Protected Properties
 
         protected override int ActionColumnIndex
         {
@@ -66,9 +65,9 @@ namespace DotNetNuke.Modules.UrlManagement
             get { return portalAiasesGrid; }
         }
 
-		#endregion
+        #endregion
 
-		#region Protected Methods
+        #region Protected Methods
 
         protected override void GetPortalAliasProperties(int index, PortalAliasInfo portalAlias)
         {
@@ -93,10 +92,8 @@ namespace DotNetNuke.Modules.UrlManagement
             }
 
             base.OnLoad(e);
-
         }
 
-		#endregion
-
+        #endregion
     }
 }

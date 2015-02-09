@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
@@ -36,7 +36,6 @@ using WebFormsMvp;
 
 
 #endregion
-
 namespace DotNetNuke.Web.Mvp
 {
     public abstract class ModulePresenterBase<TView> : Presenter<TView> where TView : class, IModuleViewBase
@@ -166,7 +165,7 @@ namespace DotNetNuke.Web.Mvp
                 Settings = new Dictionary<string, string>();
                 foreach (object key in ModuleContext.Settings.Keys)
                 {
-                    Settings[key.ToString()] = (string) ModuleContext.Settings[key];
+                    Settings[key.ToString()] = (string)ModuleContext.Settings[key];
                 }
                 TabId = ModuleContext.TabId;
                 UserId = ModuleContext.PortalSettings.UserInfo.UserID;

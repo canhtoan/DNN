@@ -7,7 +7,6 @@ namespace ClientDependency.Core
 {
     internal static class HtmlAttributesStringParser
     {
-
         internal static void ParseIntoDictionary(string attributes, IDictionary<string, string> destination)
         {
             if (string.IsNullOrEmpty(attributes))
@@ -15,7 +14,7 @@ namespace ClientDependency.Core
             if (destination == null)
                 return;
 
-            foreach (var parts in attributes.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(i => i.Split(new[] {':'}, StringSplitOptions.RemoveEmptyEntries)))
+            foreach (var parts in attributes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => i.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries)))
             {
                 if (parts.Length != 2)
                 {

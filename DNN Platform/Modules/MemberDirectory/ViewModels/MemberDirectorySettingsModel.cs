@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.Collections.Generic;
 
 using DotNetNuke.Entities.Profile;

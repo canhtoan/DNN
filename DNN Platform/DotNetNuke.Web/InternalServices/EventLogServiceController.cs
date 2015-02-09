@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Net;
 using System.Net.Http;
@@ -38,7 +37,7 @@ namespace DotNetNuke.Web.InternalServices
     [DnnAuthorize]
     public class EventLogServiceController : DnnApiController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(EventLogServiceController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(EventLogServiceController));
 
         [HttpGet]
         [ValidateAntiForgeryToken]
@@ -53,7 +52,7 @@ namespace DotNetNuke.Web.InternalServices
 
             try
             {
-                var logInfo = new LogInfo {LogGUID = guid};
+                var logInfo = new LogInfo { LogGUID = guid };
                 logInfo = EventLogController.Instance.GetSingleLog(logInfo, LoggingProvider.ReturnType.LogInfoObjects) as LogInfo;
                 if (logInfo == null)
                 {
@@ -61,14 +60,14 @@ namespace DotNetNuke.Web.InternalServices
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK, new
-                                                                     {
-                                                                         Title = Localization.GetSafeJSString("CriticalError.Error", Localization.SharedResourceFile),
-                                                                         Content = GetPropertiesText(logInfo)
-                                                                     });
+                {
+                    Title = Localization.GetSafeJSString("CriticalError.Error", Localization.SharedResourceFile),
+                    Content = GetPropertiesText(logInfo)
+                });
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }

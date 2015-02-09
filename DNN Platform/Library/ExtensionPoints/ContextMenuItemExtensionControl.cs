@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +35,7 @@ namespace DotNetNuke.ExtensionPoints
     [ToolboxData("<{0}:ContextMenuItemExtensionControl runat=server></{0}:ContextMenuItemExtensionControl>")]
     public class ContextMenuItemExtensionControl : DefaultExtensionControl
     {
-        private string content = "";
+        private string _content = "";
 
         protected override void OnInit(EventArgs e)
         {
@@ -55,17 +55,17 @@ namespace DotNetNuke.ExtensionPoints
                 str.Append(@"<li id=""" + extension.CtxMenuItemId + @""" class=""" + extension.CssClass + @""">
     <a id=""" + extension.CtxMenuItemId + @"_link"" href=""#"" onclick=""" + extension.Action + @""" >
         <img id=""" + extension.CtxMenuItemId + @"_icon"" alt=""" + extension.AltText + @""" src=""" + icon + @""" title=""" + extension.AltText + @""">
-        <span id=""" + extension.CtxMenuItemId + @"_text"">"+extension.Text+@"</span>
+        <span id=""" + extension.CtxMenuItemId + @"_text"">" + extension.Text + @"</span>
     </a>
 </li>");
             }
 
-            content = str.ToString();
+            _content = str.ToString();
         }
 
         protected override void RenderContents(HtmlTextWriter output)
         {
-            output.Write(content);
+            output.Write(_content);
         }
     }
 }

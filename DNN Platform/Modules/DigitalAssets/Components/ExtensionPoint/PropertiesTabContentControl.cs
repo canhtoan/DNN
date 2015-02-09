@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 
 using DotNetNuke.Entities.Modules;
@@ -40,7 +40,7 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.ExtensionPoint
         }
 
         public virtual void DataBindItem()
-        {            
-        }        
+        {
+        }
     }
 }

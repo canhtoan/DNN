@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Web;
@@ -30,7 +30,6 @@ using DotNetNuke.Instrumentation;
 using MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users
 {
     /// -----------------------------------------------------------------------------
@@ -49,10 +48,10 @@ namespace DotNetNuke.Entities.Users
     /// -----------------------------------------------------------------------------
     public class UserOnlineController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (UserOnlineController));
-        private static readonly MembershipProvider memberProvider = MembershipProvider.Instance();
-        private static readonly object Locker = new object();
-        private static readonly string CacheKey = "OnlineUserList";
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(UserOnlineController));
+        private static readonly MembershipProvider s_memberProvider = MembershipProvider.Instance();
+        private static readonly object s_locker = new object();
+        private static readonly string s_cacheKey = "OnlineUserList";
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -91,16 +90,16 @@ namespace DotNetNuke.Entities.Users
         /// -----------------------------------------------------------------------------
         public Hashtable GetUserList()
         {
-            var userList = (Hashtable)DataCache.GetCache(CacheKey);
+            var userList = (Hashtable)DataCache.GetCache(s_cacheKey);
             if (userList == null)
             {
-                lock (Locker)
+                lock (s_locker)
                 {
-                    userList = (Hashtable)DataCache.GetCache(CacheKey);
+                    userList = (Hashtable)DataCache.GetCache(s_cacheKey);
                     if (userList == null)
                     {
                         userList = Hashtable.Synchronized(new Hashtable());
-                        DataCache.SetCache(CacheKey, userList);
+                        DataCache.SetCache(s_cacheKey, userList);
                     }
                 }
             }
@@ -133,7 +132,7 @@ namespace DotNetNuke.Entities.Users
             bool isOnline = false;
             if (IsEnabled())
             {
-                isOnline = memberProvider.IsUserOnline(user);
+                isOnline = s_memberProvider.IsUserOnline(user);
             }
             return isOnline;
         }
@@ -148,7 +147,7 @@ namespace DotNetNuke.Entities.Users
         /// -----------------------------------------------------------------------------
         public void SetUserList(Hashtable userList)
         {
-            DataCache.SetCache(CacheKey, userList);
+            DataCache.SetCache(s_cacheKey, userList);
         }
 
         /// -----------------------------------------------------------------------------
@@ -163,7 +162,7 @@ namespace DotNetNuke.Entities.Users
         private void TrackAnonymousUser(HttpContext context)
         {
             string cookieName = "DotNetNukeAnonymous";
-            var portalSettings = (PortalSettings) context.Items["PortalSettings"];
+            var portalSettings = (PortalSettings)context.Items["PortalSettings"];
             if (portalSettings == null)
             {
                 return;
@@ -175,8 +174,8 @@ namespace DotNetNuke.Entities.Users
             //Check if the Tracking cookie exists
             HttpCookie cookie = context.Request.Cookies[cookieName];
             //Track Anonymous User
-			if ((cookie == null))
-            {  	
+            if ((cookie == null))
+            {
                 //Create a temporary userId
                 userID = Guid.NewGuid().ToString();
 
@@ -208,13 +207,13 @@ namespace DotNetNuke.Entities.Users
             {
                 if ((cookie.Value == null))
                 {
-					//Expire the cookie, there is something wrong with it
+                    //Expire the cookie, there is something wrong with it
                     context.Response.Cookies[cookieName].Expires = new DateTime(1999, 10, 12);
 
                     //No need to do anything else
                     return;
                 }
-				
+
                 //Get userID out of cookie
                 userID = cookie.Value;
 
@@ -222,10 +221,10 @@ namespace DotNetNuke.Entities.Users
                 if ((userList[userID] == null))
                 {
                     userList[userID] = new AnonymousUserInfo();
-                    ((AnonymousUserInfo) userList[userID]).CreationDate = DateTime.Now;
+                    ((AnonymousUserInfo)userList[userID]).CreationDate = DateTime.Now;
                 }
-				
-                user = (AnonymousUserInfo) userList[userID];
+
+                user = (AnonymousUserInfo)userList[userID];
                 user.UserID = userID;
                 user.PortalID = portalSettings.PortalId;
                 user.TabID = portalSettings.ActiveTab.TabID;
@@ -253,7 +252,7 @@ namespace DotNetNuke.Entities.Users
         private void TrackAuthenticatedUser(HttpContext context)
         {
             //Retrieve Portal Settings
-            var portalSettings = (PortalSettings) context.Items["PortalSettings"];
+            var portalSettings = (PortalSettings)context.Items["PortalSettings"];
 
             if (portalSettings == null)
             {
@@ -326,24 +325,23 @@ namespace DotNetNuke.Entities.Users
             Hashtable userList = GetUserList();
 
             //Create a shallow copy of the list to Process
-            var listToProcess = (Hashtable) userList.Clone();
+            var listToProcess = (Hashtable)userList.Clone();
 
             //Clear the list
             ClearUserList();
-			
-			//Persist the current User List
+
+            //Persist the current User List
             try
             {
-                memberProvider.UpdateUsersOnline(listToProcess);
+                s_memberProvider.UpdateUsersOnline(listToProcess);
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
-
+                s_logger.Error(exc);
             }
-			
+
             //Remove users that have expired
-            memberProvider.DeleteUsersOnline(GetOnlineTimeWindow());
+            s_memberProvider.DeleteUsersOnline(GetOnlineTimeWindow());
         }
     }
 }

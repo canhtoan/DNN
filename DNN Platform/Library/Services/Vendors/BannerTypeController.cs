@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections;
 
 #endregion
-
 namespace DotNetNuke.Services.Vendors
 {
     public class BannerTypeController
@@ -31,13 +30,13 @@ namespace DotNetNuke.Services.Vendors
         public ArrayList GetBannerTypes()
         {
             var arrBannerTypes = new ArrayList();
-            arrBannerTypes.Add(new BannerTypeInfo((int) BannerType.Banner, Localization.Localization.GetString("BannerType.Banner.String", Localization.Localization.GlobalResourceFile)));
-            arrBannerTypes.Add(new BannerTypeInfo((int) BannerType.MicroButton, Localization.Localization.GetString("BannerType.MicroButton.String", Localization.Localization.GlobalResourceFile)));
-            arrBannerTypes.Add(new BannerTypeInfo((int) BannerType.Button, Localization.Localization.GetString("BannerType.Button.String", Localization.Localization.GlobalResourceFile)));
-            arrBannerTypes.Add(new BannerTypeInfo((int) BannerType.Block, Localization.Localization.GetString("BannerType.Block.String", Localization.Localization.GlobalResourceFile)));
-            arrBannerTypes.Add(new BannerTypeInfo((int) BannerType.Skyscraper, Localization.Localization.GetString("BannerType.Skyscraper.String", Localization.Localization.GlobalResourceFile)));
-            arrBannerTypes.Add(new BannerTypeInfo((int) BannerType.Text, Localization.Localization.GetString("BannerType.Text.String", Localization.Localization.GlobalResourceFile)));
-            arrBannerTypes.Add(new BannerTypeInfo((int) BannerType.Script, Localization.Localization.GetString("BannerType.Script.String", Localization.Localization.GlobalResourceFile)));
+            arrBannerTypes.Add(new BannerTypeInfo((int)BannerType.Banner, Localization.Localization.GetString("BannerType.Banner.String", Localization.Localization.GlobalResourceFile)));
+            arrBannerTypes.Add(new BannerTypeInfo((int)BannerType.MicroButton, Localization.Localization.GetString("BannerType.MicroButton.String", Localization.Localization.GlobalResourceFile)));
+            arrBannerTypes.Add(new BannerTypeInfo((int)BannerType.Button, Localization.Localization.GetString("BannerType.Button.String", Localization.Localization.GlobalResourceFile)));
+            arrBannerTypes.Add(new BannerTypeInfo((int)BannerType.Block, Localization.Localization.GetString("BannerType.Block.String", Localization.Localization.GlobalResourceFile)));
+            arrBannerTypes.Add(new BannerTypeInfo((int)BannerType.Skyscraper, Localization.Localization.GetString("BannerType.Skyscraper.String", Localization.Localization.GlobalResourceFile)));
+            arrBannerTypes.Add(new BannerTypeInfo((int)BannerType.Text, Localization.Localization.GetString("BannerType.Text.String", Localization.Localization.GlobalResourceFile)));
+            arrBannerTypes.Add(new BannerTypeInfo((int)BannerType.Script, Localization.Localization.GetString("BannerType.Script.String", Localization.Localization.GlobalResourceFile)));
             return arrBannerTypes;
         }
     }

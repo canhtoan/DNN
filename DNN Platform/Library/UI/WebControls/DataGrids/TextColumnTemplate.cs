@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -27,7 +27,6 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -44,13 +43,13 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class TextColumnTemplate : ITemplate
     {
-		#region "Private Members"
+        #region "Private Members"
 
-        private ListItemType mItemType = ListItemType.Item;
-		
-		#endregion
+        private ListItemType _mItemType = ListItemType.Item;
 
-		#region "Constructors"
+        #endregion
+
+        #region "Constructors"
 
         public TextColumnTemplate() : this(ListItemType.Item)
         {
@@ -60,31 +59,31 @@ namespace DotNetNuke.UI.WebControls
         {
             ItemType = itemType;
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// The Data Field is the field that binds to the Text Column
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/20/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        #region "Public Properties"
+
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The Data Field is the field that binds to the Text Column
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/20/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string DataField { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the Design Mode of the Column
-		/// </summary>
-		/// <value>A Boolean</value>
-		/// <history>
-		/// 	[cnurse]	02/24/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Design Mode of the Column
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/24/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool DesignMode { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -100,37 +99,37 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mItemType;
+                return _mItemType;
             }
             set
             {
-                mItemType = value;
+                _mItemType = value;
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the Text (for Header/Footer Templates)
-		/// </summary>
-		/// <value>A String</value>
-		/// <history>
-		/// 	[cnurse]	02/20/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Text (for Header/Footer Templates)
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/20/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string Text { get; set; }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the Width of the Column
-		/// </summary>
-		/// <value>A Unit</value>
-		/// <history>
-		/// 	[cnurse]	02/20/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Width of the Column
+        /// </summary>
+        /// <value>A Unit</value>
+        /// <history>
+        /// 	[cnurse]	02/20/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public Unit Width { get; set; }
-		
-		#endregion
+
+        #endregion
 
         #region ITemplate Members
 
@@ -172,7 +171,7 @@ namespace DotNetNuke.UI.WebControls
 
         #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -228,18 +227,18 @@ namespace DotNetNuke.UI.WebControls
                 case ListItemType.Item:
                 case ListItemType.AlternatingItem:
                 case ListItemType.SelectedItem:
-                    var lblText = (Label) sender;
-                    container = (DataGridItem) lblText.NamingContainer;
+                    var lblText = (Label)sender;
+                    container = (DataGridItem)lblText.NamingContainer;
                     lblText.Text = GetValue(container);
                     break;
                 case ListItemType.EditItem:
-                    var txtText = (TextBox) sender;
-                    container = (DataGridItem) txtText.NamingContainer;
+                    var txtText = (TextBox)sender;
+                    container = (DataGridItem)txtText.NamingContainer;
                     txtText.Text = GetValue(container);
                     break;
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

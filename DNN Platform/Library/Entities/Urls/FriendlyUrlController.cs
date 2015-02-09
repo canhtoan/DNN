@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,7 +42,6 @@ using DotNetNuke.Services.ClientCapability;
 using DotNetNuke.Services.Exceptions;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     public class FriendlyUrlController
@@ -53,7 +52,7 @@ namespace DotNetNuke.Entities.Urls
         private const string DisableRedirectPresistCookieName = "disableredirectpresist"; //dnn cookies
 
         private const string DisableMobileRedirectQueryStringName = "nomo";
-                             //google uses the same name nomo=1 means do not redirect to mobile
+        //google uses the same name nomo=1 means do not redirect to mobile
 
         private const string MobileViewSiteCookieName = "dnn_IsMobile";
         private const string DisableMobileViewCookieName = "dnn_NoMobile";
@@ -637,7 +636,7 @@ namespace DotNetNuke.Entities.Urls
         }
         */
         #endregion
-  
+
         #region Database methods
 
         public static Dictionary<int, TabInfo> GetTabs(int portalId, bool includeStdUrls)
@@ -859,7 +858,7 @@ namespace DotNetNuke.Entities.Urls
             }
             bool convertDiacritics = options.ConvertDiacriticChars;
             Regex regexMatch = options.RegexMatchRegex;
-            string replaceWith = options.PunctuationReplacement;            
+            string replaceWith = options.PunctuationReplacement;
             bool replaceDoubleChars = options.ReplaceDoubleChars;
             Dictionary<string, string> replacementChars = options.ReplaceCharWithChar;
 
@@ -1019,8 +1018,8 @@ namespace DotNetNuke.Entities.Urls
                             // Store the result as a cookie.
                             if (viewMobileCookie == null)
                             {
-                                response.Cookies.Add(new HttpCookie(MobileViewSiteCookieName, isMobile.ToString()) 
-                                    { Path = (!string.IsNullOrEmpty(Globals.ApplicationPath) ? Globals.ApplicationPath : "/") });
+                                response.Cookies.Add(new HttpCookie(MobileViewSiteCookieName, isMobile.ToString())
+                                { Path = (!string.IsNullOrEmpty(Globals.ApplicationPath) ? Globals.ApplicationPath : "/") });
                             }
                             else
                             {
@@ -1110,7 +1109,6 @@ namespace DotNetNuke.Entities.Urls
             }
             return isUnique;
         }
-
 
         #endregion
     }

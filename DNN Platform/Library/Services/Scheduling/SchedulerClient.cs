@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Threading;
 
@@ -27,15 +27,14 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Scheduling
 {
-	/// <summary>
-	/// This class is inherited by any class that wants to run tasks in the scheduler.
-	/// </summary>
+    /// <summary>
+    /// This class is inherited by any class that wants to run tasks in the scheduler.
+    /// </summary>
     public abstract class SchedulerClient
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SchedulerClient));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SchedulerClient));
         public SchedulerClient()
         {
             SchedulerEventGUID = Null.NullString;
@@ -91,7 +90,7 @@ namespace DotNetNuke.Services.Scheduling
 
         public void Errored(ref Exception objException)
         {
-            Logger.Error(objException);
+            s_logger.Error(objException);
             if (ProcessErrored != null)
             {
                 ProcessErrored(this, objException);

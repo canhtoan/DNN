@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,7 +28,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     public class Calendar
@@ -51,7 +50,7 @@ namespace DotNetNuke.Common.Utilities
         public static string InvokePopupCal(TextBox Field)
         {
             //Define character array to trim from language strings
-            char[] TrimChars = {',', ' '};
+            char[] TrimChars = { ',', ' ' };
             //Get culture array of month names and convert to string for
             //passing to the popup calendar
             string MonthNameString = "";
@@ -78,7 +77,7 @@ namespace DotNetNuke.Common.Utilities
             string strClose = ClientAPI.GetSafeJSString(Localization.GetString("Close"));
             string strCalendar = ClientAPI.GetSafeJSString(Localization.GetString("Calendar"));
             return "javascript:popupCal('Cal','" + Field.ClientID + "','" + FormatString + "','" + MonthNameString + "','" + DayNameString + "','" + strToday + "','" + strClose + "','" + strCalendar +
-                   "'," + (int) DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek + ");";
+                   "'," + (int)DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek + ");";
         }
     }
 }

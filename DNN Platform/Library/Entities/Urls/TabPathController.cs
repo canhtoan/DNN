@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +36,6 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     /// <summary>
@@ -406,6 +405,5 @@ namespace DotNetNuke.Entities.Urls
         }
 
         #endregion
-
     }
 }

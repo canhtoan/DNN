@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 
@@ -29,7 +29,6 @@ using DotNetNuke.Entities.Urls;
 using DotNetNuke.HttpModules.UrlRewrite;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.RequestFilter
 {
     public class RequestFilterModule : IHttpModule
@@ -57,7 +56,7 @@ namespace DotNetNuke.HttpModules.RequestFilter
 
         private static void FilterRequest(object sender, EventArgs e)
         {
-            var app = (HttpApplication) sender;
+            var app = (HttpApplication)sender;
             if ((app == null) || (app.Context == null) || (app.Context.Items == null))
             {
                 return;
@@ -71,7 +70,7 @@ namespace DotNetNuke.HttpModules.RequestFilter
 
             //Carry out first time initialization tasks
             Initialize.Init(app);
-			
+
             //only do this if we havn't already attempted an install.  This prevents PreSendRequestHeaders from
             //trying to add this item way to late.  We only want the first run through to do anything.
             //also, we use the context to store whether or not we've attempted an add, as it's thread-safe and

@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,7 +50,6 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Services.Authentication;
 
 #endregion
-
 namespace DotNetNuke.Security.Membership
 {
     /// -----------------------------------------------------------------------------
@@ -70,12 +69,12 @@ namespace DotNetNuke.Security.Membership
     /// -----------------------------------------------------------------------------
     public class AspNetMembershipProvider : MembershipProvider
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (AspNetMembershipProvider));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(AspNetMembershipProvider));
 
         #region Private Members
 
         private readonly DataProvider _dataProvider = DataProvider.Instance();
-        private readonly IEnumerable<string> _socialAuthProviders = new  List<string>() {"Facebook", "Google", "Twitter", "LiveID"}; 
+        private readonly IEnumerable<string> _socialAuthProviders = new List<string>() { "Facebook", "Google", "Twitter", "LiveID" };
 
         #endregion
 
@@ -205,7 +204,7 @@ namespace DotNetNuke.Security.Membership
         {
             if (Host.AutoAccountUnlockDuration != 0)
             {
-                if (aspNetUser.LastLockoutDate < DateTime.Now.AddMinutes(-1*Host.AutoAccountUnlockDuration))
+                if (aspNetUser.LastLockoutDate < DateTime.Now.AddMinutes(-1 * Host.AutoAccountUnlockDuration))
                 {
                     //Unlock user in Data Store
                     if (aspNetUser.UnlockUser())
@@ -352,7 +351,7 @@ namespace DotNetNuke.Security.Membership
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
         }
 
@@ -423,16 +422,16 @@ namespace DotNetNuke.Security.Membership
             if (bContinue)
             {
                 user = new UserInfo
-                    {
-                        PortalID = Null.SetNullInteger(dr["PortalID"]),
-                        IsSuperUser = Null.SetNullBoolean(dr["IsSuperUser"]),
-                        IsDeleted = Null.SetNullBoolean(dr["IsDeleted"]),
-                        UserID = Null.SetNullInteger(dr["UserID"]),
-                        DisplayName = Null.SetNullString(dr["DisplayName"]),
-                        Username = Null.SetNullString(dr["Username"]),
-                        Email = Null.SetNullString(dr["Email"]),
-                        AffiliateID = Null.SetNullInteger(dr["AffiliateID"])
-                    };
+                {
+                    PortalID = Null.SetNullInteger(dr["PortalID"]),
+                    IsSuperUser = Null.SetNullBoolean(dr["IsSuperUser"]),
+                    IsDeleted = Null.SetNullBoolean(dr["IsDeleted"]),
+                    UserID = Null.SetNullInteger(dr["UserID"]),
+                    DisplayName = Null.SetNullString(dr["DisplayName"]),
+                    Username = Null.SetNullString(dr["Username"]),
+                    Email = Null.SetNullString(dr["Email"]),
+                    AffiliateID = Null.SetNullInteger(dr["AffiliateID"])
+                };
                 user.AffiliateID = Null.SetNullInteger(Null.SetNull(dr["AffiliateID"], user.AffiliateID));
 
                 UserController.GetUserMembership(user);
@@ -509,15 +508,15 @@ namespace DotNetNuke.Security.Membership
                 if (bContinue)
                 {
                     user = new UserInfo
-                        {
-                            PortalID = Null.SetNullInteger(dr["PortalID"]),
-                            IsSuperUser = Null.SetNullBoolean(dr["IsSuperUser"]),
-                            UserID = Null.SetNullInteger(dr["UserID"]),
-                            FirstName = Null.SetNullString(dr["FirstName"]),
-                            LastName = Null.SetNullString(dr["LastName"]),
-                            DisplayName = Null.SetNullString(dr["DisplayName"]),
-                            LastIPAddress = Null.SetNullString(dr["LastIPAddress"])
-                        };
+                    {
+                        PortalID = Null.SetNullInteger(dr["PortalID"]),
+                        IsSuperUser = Null.SetNullBoolean(dr["IsSuperUser"]),
+                        UserID = Null.SetNullInteger(dr["UserID"]),
+                        FirstName = Null.SetNullString(dr["FirstName"]),
+                        LastName = Null.SetNullString(dr["LastName"]),
+                        DisplayName = Null.SetNullString(dr["DisplayName"]),
+                        LastIPAddress = Null.SetNullString(dr["LastIPAddress"])
+                    };
 
                     var schema = dr.GetSchemaTable();
                     if (schema != null)
@@ -619,7 +618,7 @@ namespace DotNetNuke.Security.Membership
             return System.Web.Security.Membership.GetUser(userName);
         }
 
-       
+
         private UserInfo GetUserByAuthToken(int portalId, string userToken, string authType)
         {
             IDataReader dr = _dataProvider.GetUserByAuthToken(portalId, userToken, authType);
@@ -726,7 +725,7 @@ namespace DotNetNuke.Security.Membership
                                PortalController.Instance.GetCurrentPortalSettings(),
                                UserController.Instance.GetCurrentUserInfo().UserID,
                                EventLogController.EventLogType.USERNAME_UPDATED);
-            DataCache.ClearCache();          
+            DataCache.ClearCache();
         }
 
         /// -----------------------------------------------------------------------------
@@ -743,13 +742,13 @@ namespace DotNetNuke.Security.Membership
         public override bool ChangePassword(UserInfo user, string oldPassword, string newPassword)
         {
             MembershipUser aspnetUser = GetMembershipUser(user);
-           
+
             var m = new MembershipPasswordController();
             if (m.IsPasswordInHistory(user.UserID, user.PortalID, newPassword))
             {
                 return false;
             }
-            
+
             if (string.IsNullOrEmpty(oldPassword))
             {
                 aspnetUser.UnlockUser();
@@ -879,7 +878,6 @@ namespace DotNetNuke.Security.Membership
                     {
                         createStatus = UserCreateStatus.DuplicateEmail;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -1370,34 +1368,34 @@ namespace DotNetNuke.Security.Membership
                                                                        includeDeleted, superUsersOnly), ref totalRecords);
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// GetUsersByDisplayName gets all the users of the portal whose display name matches a provided
-		/// filter expression
-		/// </summary>
-		/// <remarks>If all records are required, (ie no paging) set pageSize = -1</remarks>
-		/// <param name="portalId">The Id of the Portal</param>
-		/// <param name="nameToMatch">The display name to use to find a match.</param>
-		/// <param name="pageIndex">The page of records to return.</param>
-		/// <param name="pageSize">The size of the page</param>
-		/// <param name="totalRecords">The total no of records that satisfy the criteria.</param>
-		/// <param name="includeDeleted">Include deleted users.</param>
-		/// <param name="superUsersOnly">Only select super users.</param>
-		/// <returns>An ArrayList of UserInfo objects.</returns>
-		/// -----------------------------------------------------------------------------
-		public override ArrayList GetUsersByDisplayName(int portalId, string nameToMatch, int pageIndex, int pageSize,
-													 ref int totalRecords, bool includeDeleted, bool superUsersOnly)
-		{
-			if (pageIndex == -1)
-			{
-				pageIndex = 0;
-				pageSize = int.MaxValue;
-			}
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// GetUsersByDisplayName gets all the users of the portal whose display name matches a provided
+        /// filter expression
+        /// </summary>
+        /// <remarks>If all records are required, (ie no paging) set pageSize = -1</remarks>
+        /// <param name="portalId">The Id of the Portal</param>
+        /// <param name="nameToMatch">The display name to use to find a match.</param>
+        /// <param name="pageIndex">The page of records to return.</param>
+        /// <param name="pageSize">The size of the page</param>
+        /// <param name="totalRecords">The total no of records that satisfy the criteria.</param>
+        /// <param name="includeDeleted">Include deleted users.</param>
+        /// <param name="superUsersOnly">Only select super users.</param>
+        /// <returns>An ArrayList of UserInfo objects.</returns>
+        /// -----------------------------------------------------------------------------
+        public override ArrayList GetUsersByDisplayName(int portalId, string nameToMatch, int pageIndex, int pageSize,
+                                                     ref int totalRecords, bool includeDeleted, bool superUsersOnly)
+        {
+            if (pageIndex == -1)
+            {
+                pageIndex = 0;
+                pageSize = int.MaxValue;
+            }
 
-			return FillUserCollection(portalId,
-									  _dataProvider.GetUsersByDisplayname(portalId, nameToMatch, pageIndex, pageSize,
-																	   includeDeleted, superUsersOnly), ref totalRecords);
-		}
+            return FillUserCollection(portalId,
+                                      _dataProvider.GetUsersByDisplayname(portalId, nameToMatch, pageIndex, pageSize,
+                                                                       includeDeleted, superUsersOnly), ref totalRecords);
+        }
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -1470,7 +1468,7 @@ namespace DotNetNuke.Security.Membership
             if (objUsersOnline.IsEnabled())
             {
                 Hashtable userList = objUsersOnline.GetUserList();
-                var onlineUser = (OnlineUserInfo) userList[user.UserID.ToString()];
+                var onlineUser = (OnlineUserInfo)userList[user.UserID.ToString()];
                 if (onlineUser != null)
                 {
                     isOnline = true;
@@ -1542,17 +1540,17 @@ namespace DotNetNuke.Security.Membership
         /// method does not support RequiresQuestionAndAnswer
         /// </summary>
         /// <param name="user"></param>
-        public override bool ResetAndChangePassword(UserInfo user,string newPassword)
+        public override bool ResetAndChangePassword(UserInfo user, string newPassword)
         {
             if (RequiresQuestionAndAnswer)
             {
-                return false;  
+                return false;
             }
 
             //Get AspNet MembershipUser
             MembershipUser aspnetUser = GetMembershipUser(user);
 
-            string resetPassword = ResetPassword(user,String.Empty);
+            string resetPassword = ResetPassword(user, String.Empty);
             return aspnetUser.ChangePassword(resetPassword, newPassword);
         }
 
@@ -1625,7 +1623,7 @@ namespace DotNetNuke.Security.Membership
             {
                 displayName = HttpUtility.HtmlEncode(displayName);
             }
-            
+
 
             bool updatePassword = user.Membership.UpdatePassword;
             bool isApproved = user.Membership.Approved;
@@ -1745,16 +1743,15 @@ namespace DotNetNuke.Security.Membership
                 //Check in a verified situation whether the user is Approved
                 if (user.Membership.Approved == false && user.IsSuperUser == false)
                 {
-                    
                     //Check Verification code (skip for FB, Google, Twitter, LiveID as it has no verification code)
-                        if (_socialAuthProviders.Contains(authType) && String.IsNullOrEmpty(verificationCode))
+                    if (_socialAuthProviders.Contains(authType) && String.IsNullOrEmpty(verificationCode))
                     {
                         if (PortalController.Instance.GetCurrentPortalSettings().UserRegistration ==
-                            (int) Globals.PortalRegistrationType.PublicRegistration)
+                            (int)Globals.PortalRegistrationType.PublicRegistration)
                         {
                             user.Membership.Approved = true;
                             UserController.UpdateUser(portalId, user);
-                            UserController.ApproveUser(user);    
+                            UserController.ApproveUser(user);
                         }
                         else
                         {
@@ -1773,7 +1770,6 @@ namespace DotNetNuke.Security.Membership
                             loginStatus = UserLoginStatus.LOGIN_USERNOTAPPROVED;
                         }
                     }
-
                 }
 
                 //Verify User Credentials

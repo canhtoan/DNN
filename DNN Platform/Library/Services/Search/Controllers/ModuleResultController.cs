@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Linq;
@@ -38,7 +38,6 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Search.Entities;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Controllers
 {
     /// <summary>
@@ -48,9 +47,9 @@ namespace DotNetNuke.Services.Search.Controllers
     [Serializable]
     public class ModuleResultController : BaseResultController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(ModuleResultController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ModuleResultController));
 
-        private static Hashtable _moduleSearchControllers = new Hashtable();
+        private static Hashtable s_moduleSearchControllers = new Hashtable();
 
         #region Abstract Class Implmentation
 
@@ -130,7 +129,7 @@ namespace DotNetNuke.Services.Search.Controllers
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(ex);
+                        s_logger.Error(ex);
                     }
 
                     break;
@@ -165,7 +164,7 @@ namespace DotNetNuke.Services.Search.Controllers
 
             return canView;
         }
-        
+
         private string GetModuleSearchUrl(ModuleInfo module, SearchResult searchResult)
         {
             var url = string.Empty;
@@ -185,13 +184,13 @@ namespace DotNetNuke.Services.Search.Controllers
                 return null;
             }
 
-            if (_moduleSearchControllers.ContainsKey(module.DesktopModule.BusinessControllerClass))
+            if (s_moduleSearchControllers.ContainsKey(module.DesktopModule.BusinessControllerClass))
             {
-                return _moduleSearchControllers[module.DesktopModule.BusinessControllerClass] as IModuleSearchResultController;
+                return s_moduleSearchControllers[module.DesktopModule.BusinessControllerClass] as IModuleSearchResultController;
             }
 
             var controller = Reflection.CreateObject(module.DesktopModule.BusinessControllerClass, module.DesktopModule.BusinessControllerClass) as IModuleSearchResultController;
-            _moduleSearchControllers.Add(module.DesktopModule.BusinessControllerClass, controller);
+            s_moduleSearchControllers.Add(module.DesktopModule.BusinessControllerClass, controller);
 
             return controller;
         }

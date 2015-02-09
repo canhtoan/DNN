@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +40,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     public class PermissionProvider
@@ -76,7 +75,7 @@ namespace DotNetNuke.Security.Permissions
         private const string ManagePagePermissionKey = "EDIT";
         private const string NavigatePagePermissionKey = "VIEW";
         private const string ViewPagePermissionKey = "VIEW";
-        private readonly DataProvider dataProvider = DataProvider.Instance();
+        private readonly DataProvider _dataProvider = DataProvider.Instance();
 
         #endregion
 
@@ -103,7 +102,7 @@ namespace DotNetNuke.Security.Permissions
         private object GetFolderPermissionsCallBack(CacheItemArgs cacheItemArgs)
         {
             var PortalID = (int)cacheItemArgs.ParamList[0];
-            IDataReader dr = dataProvider.GetFolderPermissionsByPortal(PortalID);
+            IDataReader dr = _dataProvider.GetFolderPermissionsByPortal(PortalID);
             var dic = new Dictionary<string, FolderPermissionCollection>();
             try
             {
@@ -126,7 +125,7 @@ namespace DotNetNuke.Security.Permissions
                     else
                     {
                         //Create new FolderPermission Collection for TabId
-                        var collection = new FolderPermissionCollection {folderPermissionInfo};
+                        var collection = new FolderPermissionCollection { folderPermissionInfo };
 
                         //Add Permission to Collection
 
@@ -185,7 +184,7 @@ namespace DotNetNuke.Security.Permissions
         private object GetModulePermissionsCallBack(CacheItemArgs cacheItemArgs)
         {
             var tabID = (int)cacheItemArgs.ParamList[0];
-            IDataReader dr = dataProvider.GetModulePermissionsByTabID(tabID);
+            IDataReader dr = _dataProvider.GetModulePermissionsByTabID(tabID);
             var dic = new Dictionary<int, ModulePermissionCollection>();
             try
             {
@@ -202,7 +201,7 @@ namespace DotNetNuke.Security.Permissions
                     else
                     {
                         //Create new ModulePermission Collection for ModuleId
-                        var collection = new ModulePermissionCollection {modulePermissionInfo};
+                        var collection = new ModulePermissionCollection { modulePermissionInfo };
 
                         //Add Permission to Collection
 
@@ -258,7 +257,7 @@ namespace DotNetNuke.Security.Permissions
 
             if (portalID > -1)
             {
-                IDataReader dr = dataProvider.GetTabPermissionsByPortal(portalID);
+                IDataReader dr = _dataProvider.GetTabPermissionsByPortal(portalID);
                 try
                 {
                     while (dr.Read())
@@ -442,7 +441,7 @@ namespace DotNetNuke.Security.Permissions
                 RoleController.Instance.GetRoleById(portalId,
                     PortalController.Instance.GetPortal(portalId).AdministratorRoleId)
             };
-        } 
+        }
 
         #endregion
 
@@ -556,7 +555,7 @@ namespace DotNetNuke.Security.Permissions
 
         public virtual void DeleteFolderPermissionsByUser(UserInfo objUser)
         {
-            dataProvider.DeleteFolderPermissionsByUserID(objUser.PortalID, objUser.UserID);
+            _dataProvider.DeleteFolderPermissionsByUserID(objUser.PortalID, objUser.UserID);
         }
 
         public virtual FolderPermissionCollection GetFolderPermissionsCollectionByFolder(int PortalID, string Folder)
@@ -630,23 +629,23 @@ namespace DotNetNuke.Security.Permissions
                     {
                         //Try to add Read permission
                         var newFolderPerm = new FolderPermissionInfo(readPerm)
-                                                {
-                                                    FolderID = folderPermission.FolderID, 
-                                                    RoleID = folderPermission.RoleID, 
-                                                    UserID = folderPermission.UserID, 
-                                                    AllowAccess = true
-                                                };
+                        {
+                            FolderID = folderPermission.FolderID,
+                            RoleID = folderPermission.RoleID,
+                            UserID = folderPermission.UserID,
+                            AllowAccess = true
+                        };
 
                         additionalPermissions.Add(newFolderPerm);
 
                         //Try to add Browse permission
                         newFolderPerm = new FolderPermissionInfo(browsePerm)
-                                            {
-                                                FolderID = folderPermission.FolderID, 
-                                                RoleID = folderPermission.RoleID, 
-                                                UserID = folderPermission.UserID, 
-                                                AllowAccess = true
-                                            };
+                        {
+                            FolderID = folderPermission.FolderID,
+                            RoleID = folderPermission.RoleID,
+                            UserID = folderPermission.UserID,
+                            AllowAccess = true
+                        };
 
                         additionalPermissions.Add(newFolderPerm);
                     }
@@ -657,16 +656,16 @@ namespace DotNetNuke.Security.Permissions
                     folder.FolderPermissions.Add(folderPermission, true);
                 }
 
-                dataProvider.DeleteFolderPermissionsByFolderPath(folder.PortalID, folder.FolderPath);
+                _dataProvider.DeleteFolderPermissionsByFolderPath(folder.PortalID, folder.FolderPath);
                 foreach (FolderPermissionInfo folderPermission in folder.FolderPermissions)
                 {
-                    dataProvider.AddFolderPermission(folder.FolderID,
+                    _dataProvider.AddFolderPermission(folder.FolderID,
                                                         folderPermission.PermissionID,
                                                         folderPermission.RoleID,
                                                         folderPermission.AllowAccess,
                                                         folderPermission.UserID,
                                                         UserController.Instance.GetCurrentUserInfo().UserID);
-                }                
+                }
             }
         }
 
@@ -766,7 +765,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public virtual void DeleteModulePermissionsByUser(UserInfo user)
         {
-            dataProvider.DeleteModulePermissionsByUserID(user.PortalID, user.UserID);
+            _dataProvider.DeleteModulePermissionsByUserID(user.PortalID, user.UserID);
             DataCache.ClearModulePermissionsCachesByPortal(user.PortalID);
         }
 
@@ -904,7 +903,7 @@ namespace DotNetNuke.Security.Permissions
             {
                 hasPermission = PortalSecurity.IsInRoles(modulePermissions.ToString(permissionKey));
             }
-            return hasPermission; 
+            return hasPermission;
         }
 
         /// -----------------------------------------------------------------------------
@@ -920,17 +919,17 @@ namespace DotNetNuke.Security.Permissions
                 ModulePermissionCollection modulePermissions = ModulePermissionController.GetModulePermissions(module.ModuleID, module.TabID);
                 if (!modulePermissions.CompareTo(module.ModulePermissions))
                 {
-                    dataProvider.DeleteModulePermissionsByModuleID(module.ModuleID, module.PortalID);
+                    _dataProvider.DeleteModulePermissionsByModuleID(module.ModuleID, module.PortalID);
 
                     foreach (ModulePermissionInfo modulePermission in module.ModulePermissions)
                     {
                         if (!module.IsShared && module.InheritViewPermissions && modulePermission.PermissionKey == "VIEW")
                         {
-                            dataProvider.DeleteModulePermission(modulePermission.ModulePermissionID);
+                            _dataProvider.DeleteModulePermission(modulePermission.ModulePermissionID);
                         }
                         else
                         {
-                            dataProvider.AddModulePermission(module.ModuleID,
+                            _dataProvider.AddModulePermission(module.ModuleID,
                                                              module.PortalID,
                                                              modulePermission.PermissionID,
                                                              modulePermission.RoleID,
@@ -965,7 +964,7 @@ namespace DotNetNuke.Security.Permissions
         public virtual IEnumerable<RoleInfo> ImplicitRolesForFolders(int portalId)
         {
             return DefaultImplicitRoles(portalId);
-        } 
+        }
 
         /// <summary>
         /// Returns a flag indicating whether the current user can add content to a page
@@ -1075,7 +1074,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public virtual void DeleteTabPermissionsByUser(UserInfo user)
         {
-            dataProvider.DeleteTabPermissionsByUserID(user.PortalID, user.UserID);
+            _dataProvider.DeleteTabPermissionsByUserID(user.PortalID, user.UserID);
             DataCache.ClearTabPermissionsCache(user.PortalID);
         }
 
@@ -1144,13 +1143,13 @@ namespace DotNetNuke.Security.Permissions
             TabPermissionCollection objCurrentTabPermissions = GetTabPermissions(tab.TabID, tab.PortalID);
             if (!objCurrentTabPermissions.CompareTo(tab.TabPermissions))
             {
-                dataProvider.DeleteTabPermissionsByTabID(tab.TabID);
+                _dataProvider.DeleteTabPermissionsByTabID(tab.TabID);
                 EventLogController.Instance.AddLog(tab, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", EventLogController.EventLogType.TABPERMISSION_DELETED);
                 if (tab.TabPermissions != null)
                 {
                     foreach (TabPermissionInfo objTabPermission in tab.TabPermissions)
                     {
-                        dataProvider.AddTabPermission(tab.TabID,
+                        _dataProvider.AddTabPermission(tab.TabID,
                                                       objTabPermission.PermissionID,
                                                       objTabPermission.RoleID,
                                                       objTabPermission.AllowAccess,

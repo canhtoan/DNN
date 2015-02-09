@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Web.UI;
 
@@ -28,7 +28,6 @@ using DotNetNuke.UI.Skins;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Modules.NavigationProvider
 {
     public abstract class NavigationProvider : UserControlBase
@@ -83,8 +82,8 @@ namespace DotNetNuke.Modules.NavigationProvider
         }
 
         #endregion
-		
-		#region "Properties"
+
+        #region "Properties"
 
         public abstract Control NavigationControl { get; }
         public abstract string ControlID { get; set; }
@@ -938,18 +937,18 @@ namespace DotNetNuke.Modules.NavigationProvider
             {
             }
         }
-		
-		
-		#endregion
-		
-		#region "Methods"
+
+
+        #endregion
+
+        #region "Methods"
 
         public event NodeClickEventHandler NodeClick;
         public event PopulateOnDemandEventHandler PopulateOnDemand;
 
         public static NavigationProvider Instance(string FriendlyName)
         {
-            return (NavigationProvider) Reflection.CreateObject("navigationControl", FriendlyName, "", "");
+            return (NavigationProvider)Reflection.CreateObject("navigationControl", FriendlyName, "", "");
         }
 
         public abstract void Initialize();
@@ -991,8 +990,8 @@ namespace DotNetNuke.Modules.NavigationProvider
                 PopulateOnDemand(new NavigationEventArgs(strID, null));
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 
     public class NavigationEventArgs

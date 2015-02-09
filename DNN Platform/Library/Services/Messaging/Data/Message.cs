@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 
@@ -28,7 +28,6 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Security;
 
 #endregion
-
 namespace DotNetNuke.Services.Messaging.Data
 {
     /// -----------------------------------------------------------------------------
@@ -339,7 +338,7 @@ namespace DotNetNuke.Services.Messaging.Data
             ToUserID = Null.SetNullInteger(dr["ToUserID"]);
             //'_ToUserName = Null.SetNullString(dr.Item("ToUserName"))
             ReplyTo = Null.SetNullInteger(dr["ReplyTo"]);
-            Status = (MessageStatusType) Enum.Parse(typeof (MessageStatusType), Null.SetNullString(dr["Status"]));
+            Status = (MessageStatusType)Enum.Parse(typeof(MessageStatusType), Null.SetNullString(dr["Status"]));
             Body = Null.SetNullString(dr["Body"]);
             Subject = Null.SetNullString(dr["Subject"]);
             MessageDate = Null.SetNullDateTime(dr["Date"]);
@@ -352,7 +351,6 @@ namespace DotNetNuke.Services.Messaging.Data
             EmailSentDate = Null.SetNullDateTime(dr["EmailSentDate"]);
             EmailSchedulerInstance = Null.SetNullGuid(dr["EmailSchedulerInstance"]);
             Conversation = Null.SetNullGuid(dr["Conversation"]);
-
 
             //'Conversation = New Guid(g)
         }

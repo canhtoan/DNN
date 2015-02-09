@@ -9,7 +9,6 @@ namespace DotNetNuke.Web.UI.WebControls
     [DataContract]
     public class ItemListOptions
     {
-
         [DataMember(Name = "sortAscendingButtonTitle")]
         public string SortAscendingButtonTitle;
 
@@ -64,6 +63,5 @@ namespace DotNetNuke.Web.UI.WebControls
             LoadingResultText = Localization.GetString("DropDownList.LoadingResultText", Localization.SharedResourceFile);
             ResultsText = Localization.GetString("DropDownList.Results", Localization.SharedResourceFile);
         }
-
     }
 }

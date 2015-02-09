@@ -1,4 +1,4 @@
-// DotNetNuke� - http://www.dotnetnuke.com
+﻿// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,9 +21,9 @@ using System.Net.Http;
 
 namespace DotNetNuke.Web.Api.Internal
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
     public class IFrameSupportedValidateAntiForgeryTokenAttribute : ValidateAntiForgeryTokenAttribute
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
     {
         public override bool IsAuthorized(AuthFilterContext context)
         {
@@ -34,16 +34,17 @@ namespace DotNetNuke.Web.Api.Internal
             {
                 var queryString = context.ActionContext.Request.GetQueryNameValuePairs();
                 var token = string.Empty;
-                foreach(var kvp in queryString)
+                foreach (var kvp in queryString)
                 {
-                    if (kvp.Key == "__RequestVerificationToken"){
+                    if (kvp.Key == "__RequestVerificationToken")
+                    {
                         token = kvp.Value;
                         break;
                     }
                 }
                 string cookieValue = GetAntiForgeryCookieValue(context);
 
-                AntiForgery.Instance.Validate(cookieValue, token );
+                AntiForgery.Instance.Validate(cookieValue, token);
             }
             catch (Exception e)
             {

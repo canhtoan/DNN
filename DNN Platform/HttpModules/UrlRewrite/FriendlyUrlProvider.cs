@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Entities.Portals;
@@ -34,6 +34,7 @@ using DotNetNuke.HttpModules.UrlRewrite;
 #endregion
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Services.Url.FriendlyUrl
 // ReSharper restore CheckNamespace
 {

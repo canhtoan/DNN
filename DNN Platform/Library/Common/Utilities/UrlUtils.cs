@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Text;
@@ -35,7 +35,6 @@ using DotNetNuke.UI;
 using DotNetNuke.UI.Skins;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     public class UrlUtils
@@ -163,7 +162,6 @@ namespace DotNetNuke.Common.Utilities
             }
             //return the new querystring as a string array
             return returnValue.Split('&');
-
         }
 
         /// <summary>
@@ -190,7 +188,6 @@ namespace DotNetNuke.Common.Utilities
                     {
                         return true;
                     }
-                    
                 }
             }
             return false;
@@ -204,7 +201,7 @@ namespace DotNetNuke.Common.Utilities
         public static string PopUpUrl(string url, Control control, PortalSettings portalSettings, bool onClickEvent, bool responseRedirect)
         {
             return PopUpUrl(url, control, portalSettings, onClickEvent, responseRedirect, 550, 950);
-        }       
+        }
 
         public static string PopUpUrl(string url, Control control, PortalSettings portalSettings, bool onClickEvent, bool responseRedirect, int windowHeight, int windowWidth)
         {
@@ -218,19 +215,18 @@ namespace DotNetNuke.Common.Utilities
 
         public static string PopUpUrl(string url, Control control, PortalSettings portalSettings, bool onClickEvent, bool responseRedirect, int windowHeight, int windowWidth, bool refresh, string closingUrl)
         {
-	        
             if (UrlUtils.IsSecureConnectionOrSslOffload(HttpContext.Current.Request))
             {
                 url = url.Replace("http://", "https://");
             }
             var popUpUrl = url;
             //ensure delimiters are not used
-	        if (!popUpUrl.Contains("dnnModal.show"))
-	        {
-				popUpUrl = Uri.EscapeUriString(url);
-		        popUpUrl = popUpUrl.Replace("\"", "");
-		        popUpUrl = popUpUrl.Replace("'", "");
-	        }
+            if (!popUpUrl.Contains("dnnModal.show"))
+            {
+                popUpUrl = Uri.EscapeUriString(url);
+                popUpUrl = popUpUrl.Replace("\"", "");
+                popUpUrl = popUpUrl.Replace("'", "");
+            }
 
             var delimiter = popUpUrl.Contains("?") ? "&" : "?";
             var popUpScriptFormat = String.Empty;

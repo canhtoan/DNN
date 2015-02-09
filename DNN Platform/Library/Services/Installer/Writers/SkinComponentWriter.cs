@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Xml;
 
 using DotNetNuke.Services.Installer.Packages;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Writers
 {
     /// -----------------------------------------------------------------------------
@@ -41,13 +40,13 @@ namespace DotNetNuke.Services.Installer.Writers
     /// -----------------------------------------------------------------------------
     public class SkinComponentWriter : FileComponentWriter
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private readonly string _SkinName;
 
-		#endregion
+        #endregion
 
-		#region "Constructors"
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -65,10 +64,10 @@ namespace DotNetNuke.Services.Installer.Writers
         {
             _SkinName = skinName;
         }
-		
-		#endregion
 
-		#region "Protected Properties"
+        #endregion
+
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -137,10 +136,10 @@ namespace DotNetNuke.Services.Installer.Writers
                 return "skinName";
             }
         }
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -156,7 +155,7 @@ namespace DotNetNuke.Services.Installer.Writers
         {
             writer.WriteElementString(SkinNameNodeName, _SkinName);
         }
-		
-		#endregion
+
+        #endregion
     }
 }

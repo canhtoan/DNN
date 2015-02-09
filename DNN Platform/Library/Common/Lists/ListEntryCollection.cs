@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -27,25 +27,24 @@ using System.ComponentModel;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Common.Lists
 {
     [Serializable]
     [Obsolete("Obsoleted in 6.0.1.  Replaced by using generic collections of ListEntryInfo objects"), EditorBrowsable(EditorBrowsableState.Never)]
     public class ListEntryInfoCollection : CollectionBase
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ListEntryInfoCollection));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ListEntryInfoCollection));
         private readonly Hashtable _keyIndexLookup = new Hashtable();
 
         public ListEntryInfo Item(int index)
         {
             try
             {
-                return (ListEntryInfo) base.List[index];
+                return (ListEntryInfo)base.List[index];
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return null;
             }
         }
@@ -63,11 +62,11 @@ namespace DotNetNuke.Common.Lists
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return null;
             }
             index = Convert.ToInt32(_keyIndexLookup[key.ToLower()]);
-            return (ListEntryInfo) base.List[index];
+            return (ListEntryInfo)base.List[index];
         }
 
         public ListEntryInfo GetChildren(string parentName)
@@ -91,7 +90,7 @@ namespace DotNetNuke.Common.Lists
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
         }
     }

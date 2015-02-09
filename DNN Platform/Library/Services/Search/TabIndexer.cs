@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -30,7 +30,6 @@ using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.Search.Internals;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -50,8 +49,8 @@ namespace DotNetNuke.Services.Search
     /// -----------------------------------------------------------------------------
     public class TabIndexer : IndexingProvider
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(TabIndexer));
-        private static readonly int TabSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("tab").SearchTypeId;
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(TabIndexer));
+        private static readonly int s_tabSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("tab").SearchTypeId;
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -78,7 +77,7 @@ namespace DotNetNuke.Services.Search
                 {
                     var searchDoc = new SearchDocument
                     {
-                        SearchTypeId = TabSearchTypeId,
+                        SearchTypeId = s_tabSearchTypeId,
                         UniqueKey = Constants.TabMetaDataPrefixTag + tab.TabID,
                         TabId = tab.TabID,
                         PortalId = tab.PortalID,
@@ -92,13 +91,13 @@ namespace DotNetNuke.Services.Search
                     //Using TabName for searchDoc.Title due to higher prevalence and relavency || TabTitle will be stored as a keyword
                     searchDoc.Title = tab.TabName;
                     searchDoc.Keywords.Add("title", tab.Title);
-                    
+
                     if (tab.Terms != null && tab.Terms.Count > 0)
                     {
                         searchDoc.Tags = tab.Terms.Select(t => t.Name);
                     }
 
-                    Logger.Trace("TabIndexer: Search document for metaData added for page [" + tab.Title + " tid:" + tab.TabID + "]");
+                    s_logger.Trace("TabIndexer: Search document for metaData added for page [" + tab.Title + " tid:" + tab.TabID + "]");
 
                     searchDocuments.Add(searchDoc);
                 }

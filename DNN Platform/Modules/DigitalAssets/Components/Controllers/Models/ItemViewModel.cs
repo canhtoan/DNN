@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 
@@ -27,17 +27,17 @@ namespace DotNetNuke.Modules.DigitalAssets.Components.Controllers.Models
     public class ItemViewModel : ItemBaseViewModel
     {
         public string ItemName { get; set; }
-        
+
         public string IconUrl { get; set; }
-        
+
         public string DisplayName { get; set; }
 
         public string LastModifiedOnDate { get; set; }
-        
+
         public int PortalID { get; set; }
 
         public IEnumerable<PermissionViewModel> Permissions { get; set; }
-        
+
         public string ParentFolder { get; set; }
 
         public int ParentFolderID { get; set; }

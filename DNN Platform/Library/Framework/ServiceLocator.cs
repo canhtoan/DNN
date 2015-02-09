@@ -1,4 +1,4 @@
-// // DotNetNuke� - http://www.dotnetnuke.com
+﻿// // DotNetNuke® - http://www.dotnetnuke.com
 // // Copyright (c) 2002-2014
 // // by DotNetNuke Corporation
 // // 
@@ -15,6 +15,7 @@
 // // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // // DEALINGS IN THE SOFTWARE.
+
 using System;
 
 namespace DotNetNuke.Framework
@@ -26,13 +27,13 @@ namespace DotNetNuke.Framework
     /// <typeparam name="TSelf">The type of the controller itself, used to call the GetFactory override</typeparam>
     public abstract class ServiceLocator<TContract, TSelf> where TSelf : ServiceLocator<TContract, TSelf>, new()
     {
-// ReSharper disable StaticFieldInGenericType
-// ReSharper disable InconsistentNaming
-        private static Lazy<TContract> _instance = new Lazy<TContract>(InitInstance, true);
-// ReSharper restore InconsistentNaming
-        private static TContract _testableInstance;
-        private static bool _useTestable;
-// ReSharper restore StaticFieldInGenericType
+        // ReSharper disable StaticFieldInGenericType
+        // ReSharper disable InconsistentNaming
+        private static Lazy<TContract> s_instance = new Lazy<TContract>(InitInstance, true);
+        // ReSharper restore InconsistentNaming
+        private static TContract s_testableInstance;
+        private static bool s_useTestable;
+        // ReSharper restore StaticFieldInGenericType
 
         protected static Func<TContract> Factory { get; set; }
 
@@ -54,12 +55,12 @@ namespace DotNetNuke.Framework
         {
             get
             {
-                if(_useTestable)
+                if (s_useTestable)
                 {
-                    return _testableInstance;
+                    return s_testableInstance;
                 }
 
-                return _instance.Value;
+                return s_instance.Value;
             }
         }
 
@@ -70,8 +71,8 @@ namespace DotNetNuke.Framework
         /// <param name="instance"></param>
         public static void SetTestableInstance(TContract instance)
         {
-            _testableInstance = instance;
-            _useTestable = true;
+            s_testableInstance = instance;
+            s_useTestable = true;
         }
 
         /// <summary>
@@ -80,9 +81,9 @@ namespace DotNetNuke.Framework
         /// <remarks>Intended for unit testing purposes, not thread safe</remarks>
         public static void ClearInstance()
         {
-            _useTestable = false;
-            _testableInstance = default(TContract);
-            _instance = new Lazy<TContract>(InitInstance, true);
+            s_useTestable = false;
+            s_testableInstance = default(TContract);
+            s_instance = new Lazy<TContract>(InitInstance, true);
         }
 
         protected abstract Func<TContract> GetFactory();

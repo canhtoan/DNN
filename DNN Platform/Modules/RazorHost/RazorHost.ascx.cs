@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Security;
@@ -27,12 +27,11 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Web.Razor;
 
 #endregion
-
 namespace DotNetNuke.Modules.RazorHost
 {
     public partial class RazorHost : RazorModuleBase, IActionable
     {
-        private string razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
+        private string _razorScriptFileFormatString = "~/DesktopModules/RazorModules/RazorHost/Scripts/{0}";
 
         protected override string RazorScriptFile
         {
@@ -40,9 +39,9 @@ namespace DotNetNuke.Modules.RazorHost
             {
                 string m_RazorScriptFile = base.RazorScriptFile;
                 var scriptFileSetting = ModuleContext.Settings["ScriptFile"] as string;
-                if (! (string.IsNullOrEmpty(scriptFileSetting)))
+                if (!(string.IsNullOrEmpty(scriptFileSetting)))
                 {
-                    m_RazorScriptFile = string.Format(razorScriptFileFormatString, scriptFileSetting);
+                    m_RazorScriptFile = string.Format(_razorScriptFileFormatString, scriptFileSetting);
                 }
                 return m_RazorScriptFile;
             }

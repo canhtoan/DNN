@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace DotNetNuke.Services.Localization.Internal
     {
         public string BestCultureCodeBasedOnBrowserLanguages(IEnumerable<string> cultureCodes, string fallback)
         {
-            if(cultureCodes == null)
+            if (cultureCodes == null)
             {
                 throw new ArgumentException("cultureCodes cannot be null");
             }
@@ -42,7 +43,7 @@ namespace DotNetNuke.Services.Localization.Internal
             }
 
             var values = cultureCodes.ToList();
-            
+
             foreach (string langHeader in HttpContextSource.Current.Request.UserLanguages ?? new string[0])
             {
                 string lang = langHeader;
@@ -53,7 +54,7 @@ namespace DotNetNuke.Services.Localization.Internal
                 if (lang.Contains('-'))
                 {
                     var match = values.FirstOrDefault(x => x == lang);
-                    if(match != null)
+                    if (match != null)
                     {
                         return match;
                     }

@@ -11,7 +11,6 @@ using System.Security.Cryptography;
 
 namespace ClientDependency.Core.CompositeFiles.Providers
 {
-
     /// <summary>
     /// Creates an XML file to map a saved composite file to the URL requested for the 
     /// dependency handler. 
@@ -22,7 +21,6 @@ namespace ClientDependency.Core.CompositeFiles.Providers
     /// </summary>
     public class XmlFileMapper : BaseFileMapProvider
     {
-
         public const string DefaultName = "XmlFileMap";
 
         private const string MapFileName = "map.xml";
@@ -31,7 +29,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         private FileInfo _xmlFile;
         private DirectoryInfo _xmlMapFolder;
         private string _fileMapVirtualFolder = "~/App_Data/ClientDependency";
-        private static readonly object Locker = new object();
+        private static readonly object s_locker = new object();
 
         public override void Initialize(HttpContextBase http)
         {
@@ -44,7 +42,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
 
             EnsureXmlFile();
 
-            lock (Locker)
+            lock (s_locker)
             {
                 try
                 {
@@ -73,7 +71,6 @@ namespace ClientDependency.Core.CompositeFiles.Providers
             {
                 _fileMapVirtualFolder = config["mapPath"];
             }
-
         }
 
         /// <summary>
@@ -96,7 +93,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
                     (string)x.Attribute("compression"),
                     (string)x.Attribute("file"),
                     x.Descendants("file")
-                        .Select(f => ((string)f.Attribute("name"))).ToArray(), 
+                        .Select(f => ((string)f.Attribute("name"))).ToArray(),
                         int.Parse((string)x.Attribute("version"))));
             }
             catch
@@ -117,15 +114,15 @@ namespace ClientDependency.Core.CompositeFiles.Providers
 
             var x = FindItem(fileKey, version);
             try
-            {                
+            {
                 if (x != null)
                 {
                     var file = new CompositeFileMap(fileKey,
-                                                    (string) x.Attribute("compression"),
-                                                    (string) x.Attribute("file"),
+                                                    (string)x.Attribute("compression"),
+                                                    (string)x.Attribute("file"),
                                                     x.Descendants("file")
-                                                        .Select(f => ((string) f.Attribute("name"))).ToArray(),
-                                                    int.Parse((string) x.Attribute("version")));
+                                                        .Select(f => ((string)f.Attribute("name"))).ToArray(),
+                                                    int.Parse((string)x.Attribute("version")));
                     return file.DependentFiles;
                 }
             }
@@ -172,7 +169,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
             var fileKey = (combinedFiles + version).GenerateHash();
 
             var x = FindItem(fileKey, version);
-            
+
             //if no map exists, create one
             if (x == null)
             {
@@ -219,7 +216,7 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         {
             if (string.IsNullOrEmpty(fileKey)) throw new ArgumentNullException("fileKey");
 
-            lock (Locker)
+            lock (s_locker)
             {
                 //see if we can find an item with the key/version/compression that exists
                 var x = FindItem(fileKey, version, compressionType);
@@ -256,11 +253,11 @@ namespace ClientDependency.Core.CompositeFiles.Providers
         /// <returns></returns>
         private XElement FindItem(string key, int version, string compression)
         {
-            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");           
+            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
 
             var items = _doc.Root.Elements("item")
-                .Where(e => (string) e.Attribute("key") == key
-                            && (string) e.Attribute("version") == version.ToString());
+                .Where(e => (string)e.Attribute("key") == key
+                            && (string)e.Attribute("version") == version.ToString());
             return items.Where(e => (string)e.Attribute("compression") == compression).SingleOrDefault();
         }
 
@@ -333,21 +330,20 @@ namespace ClientDependency.Core.CompositeFiles.Providers
             {
                 _doc = new XDocument(new XDeclaration("1.0", "UTF-8", "yes"),
                                                 new XElement("map"));
-                _doc.Save(_xmlFile.FullName);    
+                _doc.Save(_xmlFile.FullName);
             }
             else
             {
                 //if there's xml in memory, then the file has been deleted so write out the file
                 _doc.Save(_xmlFile.FullName);
             }
-            
         }
 
         private void EnsureXmlFile()
         {
             if (!File.Exists(_xmlFile.FullName))
             {
-                lock (Locker)
+                lock (s_locker)
                 {
                     //double check
                     if (!File.Exists(_xmlFile.FullName))

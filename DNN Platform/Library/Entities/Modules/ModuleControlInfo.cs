@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml;
@@ -30,21 +30,20 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Security;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
-	/// -----------------------------------------------------------------------------
-	/// Project	 : DotNetNuke
-	/// Namespace: DotNetNuke.Entities.Modules
-	/// Class	 : ModuleControlInfo
-	/// -----------------------------------------------------------------------------
-	/// <summary>
-	/// ModuleControlInfo provides the Entity Layer for Module Controls
-	/// </summary>
-	/// <history>
-	/// 	[cnurse]	01/14/2008   Documented
-	/// </history>
-	/// -----------------------------------------------------------------------------
+    /// -----------------------------------------------------------------------------
+    /// Project	 : DotNetNuke
+    /// Namespace: DotNetNuke.Entities.Modules
+    /// Class	 : ModuleControlInfo
+    /// -----------------------------------------------------------------------------
+    /// <summary>
+    /// ModuleControlInfo provides the Entity Layer for Module Controls
+    /// </summary>
+    /// <history>
+    /// 	[cnurse]	01/14/2008   Documented
+    /// </history>
+    /// -----------------------------------------------------------------------------
     [Serializable]
     public class ModuleControlInfo : ControlInfo, IXmlSerializable, IHydratable
     {
@@ -99,8 +98,8 @@ namespace DotNetNuke.Entities.Modules
         /// </history>
         /// -----------------------------------------------------------------------------
         public string IconFile { get; set; }
-		
-		/// -----------------------------------------------------------------------------
+
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets and sets the Module Control ID
         /// </summary>
@@ -110,8 +109,8 @@ namespace DotNetNuke.Entities.Modules
         /// </history>
         /// -----------------------------------------------------------------------------
         public int ModuleControlID { get; set; }
-		
-		/// -----------------------------------------------------------------------------
+
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets and sets the Module Definition ID
         /// </summary>
@@ -160,10 +159,10 @@ namespace DotNetNuke.Entities.Modules
             ControlTitle = Null.SetNullString(dr["ControlTitle"]);
             IconFile = Null.SetNullString(dr["IconFile"]);
             HelpURL = Null.SetNullString(dr["HelpUrl"]);
-            ControlType = (SecurityAccessLevel) Enum.Parse(typeof (SecurityAccessLevel), Null.SetNullString(dr["ControlType"]));
+            ControlType = (SecurityAccessLevel)Enum.Parse(typeof(SecurityAccessLevel), Null.SetNullString(dr["ControlType"]));
             ViewOrder = Null.SetNullInteger(dr["ViewOrder"]);
             SupportsPopUps = Null.SetNullBoolean(dr["SupportsPopUps"]);
-			//Call the base classes fill method to populate base class proeprties
+            //Call the base classes fill method to populate base class proeprties
             base.FillInternal(dr);
         }
 
@@ -233,7 +232,7 @@ namespace DotNetNuke.Entities.Modules
                         ControlTitle = reader.ReadElementContentAsString();
                         break;
                     case "controlType":
-                        ControlType = (SecurityAccessLevel) Enum.Parse(typeof (SecurityAccessLevel), reader.ReadElementContentAsString());
+                        ControlType = (SecurityAccessLevel)Enum.Parse(typeof(SecurityAccessLevel), reader.ReadElementContentAsString());
                         break;
                     case "iconFile":
                         IconFile = reader.ReadElementContentAsString();
@@ -252,7 +251,7 @@ namespace DotNetNuke.Entities.Modules
                         }
                         break;
                     default:
-                        if(reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
+                        if (reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
                         {
                             reader.ReadElementContentAsString();
                         }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Web;
 using System.Web.UI;
@@ -33,7 +33,6 @@ using DotNetNuke.Services.Analytics;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.Analytics
 {
     /// -----------------------------------------------------------------------------
@@ -43,7 +42,7 @@ namespace DotNetNuke.HttpModules.Analytics
     /// -----------------------------------------------------------------------------
     public class AnalyticsModule : IHttpModule
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (AnalyticsModule));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(AnalyticsModule));
 
         public string ModuleName
         {
@@ -71,7 +70,7 @@ namespace DotNetNuke.HttpModules.Analytics
             try
             {
                 //First check if we are upgrading/installing or if it is a non-page request
-                var app = (HttpApplication) sender;
+                var app = (HttpApplication)sender;
                 HttpRequest request = app.Request;
 
                 if (!Initialize.ProcessHttpModule(request, false, false))
@@ -96,12 +95,11 @@ namespace DotNetNuke.HttpModules.Analytics
             }
             catch (Exception ex)
             {
-                var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString()};
+                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString() };
                 log.AddProperty("Analytics.AnalyticsModule", "OnPreRequestHandlerExecute");
                 log.AddProperty("ExceptionMessage", ex.Message);
                 LogController.Instance.AddLog(log);
-                Logger.Error(log);
-
+                s_logger.Error(log);
             }
         }
 
@@ -114,7 +112,7 @@ namespace DotNetNuke.HttpModules.Analytics
                 {
                     return;
                 }
-                var page = (Page) sender;
+                var page = (Page)sender;
                 if ((page == null))
                 {
                     return;
@@ -127,10 +125,10 @@ namespace DotNetNuke.HttpModules.Analytics
                         if ((!String.IsNullOrEmpty(engine.EngineType)))
                         {
                             Type engineType = Type.GetType(engine.EngineType);
-                            if (engineType == null) 
+                            if (engineType == null)
                                 objEngine = new GenericAnalyticsEngine();
                             else
-                                objEngine = (AnalyticsEngineBase) Activator.CreateInstance(engineType);
+                                objEngine = (AnalyticsEngineBase)Activator.CreateInstance(engineType);
                         }
                         else
                         {
@@ -144,7 +142,7 @@ namespace DotNetNuke.HttpModules.Analytics
                                 script = objEngine.RenderScript(script);
                                 if ((!String.IsNullOrEmpty(script)))
                                 {
-                                    var element = (HtmlContainerControl) page.FindControl(engine.ElementId);
+                                    var element = (HtmlContainerControl)page.FindControl(engine.ElementId);
                                     if (element != null)
                                     {
                                         var scriptControl = new LiteralControl();
@@ -166,12 +164,11 @@ namespace DotNetNuke.HttpModules.Analytics
             }
             catch (Exception ex)
             {
-                var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString()};
+                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString() };
                 log.AddProperty("Analytics.AnalyticsModule", "OnPageLoad");
                 log.AddProperty("ExceptionMessage", ex.Message);
                 LogController.Instance.AddLog(log);
-                Logger.Error(ex);
-
+                s_logger.Error(ex);
             }
         }
     }

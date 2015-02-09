@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -29,10 +29,8 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins.Controls
 {
-
     /// <summary></summary>
     /// <remarks></remarks>
     /// <history>
@@ -52,16 +50,16 @@ namespace DotNetNuke.UI.Skins.Controls
         }
 
         #endregion
-		#region "Private Members"
-		
+        #region "Private Members"
+
         protected Panel dnnSkinMessage;
         protected Label lblHeading;
         protected Label lblMessage;
-    	protected Control scrollScript;
-		
-		#endregion
-		
-		#region "Public Members"
+        protected Control scrollScript;
+
+        #endregion
+
+        #region "Public Members"
 
         public string Text { get; set; }
 
@@ -71,34 +69,34 @@ namespace DotNetNuke.UI.Skins.Controls
 
         public string IconImage { get; set; }
 
-		/// <summary>
-		/// Check this message is shown as page message or module message.
-		/// </summary>
-    	public bool IsModuleMessage
-    	{
-    		get
-    		{
-    			return this.Parent.ID == "MessagePlaceHolder";
-    		}
-    	}
+        /// <summary>
+        /// Check this message is shown as page message or module message.
+        /// </summary>
+        public bool IsModuleMessage
+        {
+            get
+            {
+                return this.Parent.ID == "MessagePlaceHolder";
+            }
+        }
 
         #endregion
 
-		#region "Protected Methods"
+        #region "Protected Methods"
 
-		/// <summary>
-		/// The Page_Load server event handler on this page is used
-		/// to populate the role information for the page
-		/// </summary>
-		protected override void OnLoad(EventArgs e)
+        /// <summary>
+        /// The Page_Load server event handler on this page is used
+        /// to populate the role information for the page
+        /// </summary>
+        protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
             try
             {
                 var strMessage = "";
-				
-				//check to see if a url
+
+                //check to see if a url
                 //was passed in for an icon
                 if (!String.IsNullOrEmpty(IconImage))
                 {
@@ -141,14 +139,14 @@ namespace DotNetNuke.UI.Skins.Controls
             }
         }
 
-		protected override void OnPreRender(EventArgs e)
-		{
-			base.OnPreRender(e);
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
 
-			//set the scroll js only shown for module message and in postback mode.
-			scrollScript.Visible = IsPostBack && IsModuleMessage;
-		}
-		
-		#endregion
+            //set the scroll js only shown for module message and in postback mode.
+            scrollScript.Visible = IsPostBack && IsModuleMessage;
+        }
+
+        #endregion
     }
 }

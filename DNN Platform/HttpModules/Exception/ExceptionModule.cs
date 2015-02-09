@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 using DotNetNuke.Common;
@@ -27,7 +27,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.Exceptions
 {
     /// <summary>
@@ -35,7 +34,7 @@ namespace DotNetNuke.HttpModules.Exceptions
     /// </summary>
     public class ExceptionModule : IHttpModule
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ExceptionModule));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ExceptionModule));
         /// <summary>
         /// Gets the name of the module.
         /// </summary>
@@ -76,10 +75,10 @@ namespace DotNetNuke.HttpModules.Exceptions
         {
             try
             {
-				if(HttpContext.Current == null)
-				{
-					return;
-				}
+                if (HttpContext.Current == null)
+                {
+                    return;
+                }
 
                 HttpContext contxt = HttpContext.Current;
                 HttpServerUtility srver = contxt.Server;
@@ -101,17 +100,17 @@ namespace DotNetNuke.HttpModules.Exceptions
                     {
                         objExceptionLog.AddLog(lex);
                     }
-					catch (Exception ex)
-					{
-						Logger.Error(ex);
-					}
+                    catch (Exception ex)
+                    {
+                        s_logger.Error(ex);
+                    }
                 }
             }
             catch (Exception exc)
             {
                 //it is possible when terminating the request for the context not to exist
                 //in this case we just want to exit since there is nothing else we can do
-				Logger.Error(exc);
+                s_logger.Error(exc);
             }
         }
     }

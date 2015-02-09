@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Xml;
 using System.Xml.Serialization;
 using DotNetNuke.Services.Tokens;
@@ -32,16 +32,16 @@ using DotNetNuke.Security.Roles.Internal;
 using System;
 
 #endregion
-
 namespace DotNetNuke.Entities.Groups
 {
-    public class GroupInfo : RoleInfo, IPropertyAccess 
+    public class GroupInfo : RoleInfo, IPropertyAccess
     {
         //private RoleInfo roleInfo;
-        public GroupInfo() {
-        
+        public GroupInfo()
+        {
         }
-        public GroupInfo(RoleInfo roleInfo) {
+        public GroupInfo(RoleInfo roleInfo)
+        {
             RoleID = roleInfo.RoleID;
             RoleName = roleInfo.RoleName;
             Description = roleInfo.Description;
@@ -49,11 +49,6 @@ namespace DotNetNuke.Entities.Groups
             SecurityMode = roleInfo.SecurityMode;
             ServiceFee = roleInfo.ServiceFee;
             RSVPCode = roleInfo.RSVPCode;
-
-          
-
-
-
         }
         //public RoleInfo Role {
         //    get {
@@ -68,93 +63,122 @@ namespace DotNetNuke.Entities.Groups
         //        return RoleID;
         //    }
         //}
-       
+
         //public int ModuleId { get; set; }
 
-           
-        public string Street {
-            get {
+
+        public string Street
+        {
+            get
+            {
                 return GetString("Street", string.Empty);
             }
-            set {
-                SetString("Street",value);
+            set
+            {
+                SetString("Street", value);
             }
         }
-        public string City {
-            get {
+        public string City
+        {
+            get
+            {
                 return GetString("City", string.Empty);
             }
-            set {
+            set
+            {
                 SetString("City", value);
             }
         }
 
-        public string Region {
-            get {
+        public string Region
+        {
+            get
+            {
                 return GetString("Region", string.Empty);
             }
-            set {
-                SetString("Region",value);
+            set
+            {
+                SetString("Region", value);
             }
         }
 
-        public string Country {
-            get {
+        public string Country
+        {
+            get
+            {
                 return GetString("Country", string.Empty);
             }
-            set {
-                SetString("Country",value);
+            set
+            {
+                SetString("Country", value);
             }
         }
 
-        public string PostalCode {
-            get {
+        public string PostalCode
+        {
+            get
+            {
                 return GetString("PostalCode", string.Empty);
             }
-            set {
-                SetString("PostalCode",value);
+            set
+            {
+                SetString("PostalCode", value);
             }
         }
 
-        public string Website {
-            get {
+        public string Website
+        {
+            get
+            {
                 return GetString("Website", string.Empty);
             }
-            set {
-                SetString("Website",value);
+            set
+            {
+                SetString("Website", value);
             }
         }
 
-  
-        public bool Featured {
-            get {
-                return Convert.ToBoolean(GetString("Featured","false"));
+
+        public bool Featured
+        {
+            get
+            {
+                return Convert.ToBoolean(GetString("Featured", "false"));
             }
-            set {
+            set
+            {
                 SetString("Featured", value.ToString());
             }
         }
 
 
-      
-       
-        private string GetString(string keyName, string defaultValue) {
-            if (Settings == null) {
+
+
+        private string GetString(string keyName, string defaultValue)
+        {
+            if (Settings == null)
+            {
                 return defaultValue;
             }
-            if (Settings.ContainsKey(keyName)) {
+            if (Settings.ContainsKey(keyName))
+            {
                 return Settings[keyName];
-            } else {
+            }
+            else
+            {
                 return defaultValue;
             }
         }
-        private void SetString(string keyName, string value) {
-            if (Settings.ContainsKey(keyName)) {
+        private void SetString(string keyName, string value)
+        {
+            if (Settings.ContainsKey(keyName))
+            {
                 Settings[keyName] = value;
-            } else {
+            }
+            else
+            {
                 Settings.Add(keyName, value);
             }
         }
-       
     }
 }

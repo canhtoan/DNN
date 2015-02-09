@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Specialized;
@@ -54,27 +55,27 @@ namespace UnitTests.Subtext
             }
         }
 
-		////[Test]
-		public void CanGetSetSession()
-		{
-			using (new HttpSimulator("/", @"c:\inetpub\").SimulateRequest())
-			{
-				HttpContext.Current.Session["Test"] = "Success";
-				Assert.AreEqual("Success", HttpContext.Current.Session["Test"], "Was not able to retrieve session variable.");
-			}
-		}
+        ////[Test]
+        public void CanGetSetSession()
+        {
+            using (new HttpSimulator("/", @"c:\inetpub\").SimulateRequest())
+            {
+                HttpContext.Current.Session["Test"] = "Success";
+                Assert.AreEqual("Success", HttpContext.Current.Session["Test"], "Was not able to retrieve session variable.");
+            }
+        }
 
-		////[Test]
-		public void CanGetSetApplicationVariables()
-		{
-			using (new HttpSimulator("/", @"c:\inetpub\").SimulateRequest())
-			{
-				HttpContext.Current.Application["Test"] = "Success";
-				Assert.AreEqual("Success", HttpContext.Current.Application["Test"], "Was not able to retrieve application variable.");
-			}
-		}
+        ////[Test]
+        public void CanGetSetApplicationVariables()
+        {
+            using (new HttpSimulator("/", @"c:\inetpub\").SimulateRequest())
+            {
+                HttpContext.Current.Application["Test"] = "Success";
+                Assert.AreEqual("Success", HttpContext.Current.Application["Test"], "Was not able to retrieve application variable.");
+            }
+        }
 
-    	////[Test]
+        ////[Test]
         public void TestHttpHandlerWritesCorrectResponse()
         {
             using (var simulator = new HttpSimulator("/", @"c:\inetpub\"))
@@ -159,19 +160,19 @@ namespace UnitTests.Subtext
             simulator.SimulateRequest(new Uri("http://localhost/Test.aspx"));
             Assert.AreEqual(string.Empty, HttpContext.Current.Request.QueryString.ToString());
             Assert.AreEqual(0, HttpContext.Current.Request.QueryString.Count);
-            
+
             simulator.SimulateRequest(new Uri("http://localhost/Test.aspx?param-name"));
             Assert.AreEqual("param-name", HttpContext.Current.Request.QueryString.ToString());
             Assert.AreEqual(1, HttpContext.Current.Request.QueryString.Count);
             Assert.IsNull(HttpContext.Current.Request.QueryString["param-name"]);
         }
 
-       // //[Test]
+        // //[Test]
         public void CanSimulateFormPost()
         {
             using (var simulator = new HttpSimulator())
             {
-                var form = new NameValueCollection {{"Test1", "Value1"}, {"Test2", "Value2"}};
+                var form = new NameValueCollection { { "Test1", "Value1" }, { "Test2", "Value2" } };
                 simulator.SimulateRequest(new Uri("http://localhost/Test.aspx"), form);
 
                 Assert.AreEqual("Value1", HttpContext.Current.Request.Form["Test1"]);
@@ -189,7 +190,7 @@ namespace UnitTests.Subtext
             }
         }
 
-       // //[Test]
+        // //[Test]
         public void CanGetResponse()
         {
             var simulator = new HttpSimulator();
@@ -199,7 +200,7 @@ namespace UnitTests.Subtext
             Assert.AreEqual("Hello World!", simulator.ResponseText);
         }
 
-       // //[Test]
+        // //[Test]
         public void CanGetReferer()
         {
             var simulator = new HttpSimulator();

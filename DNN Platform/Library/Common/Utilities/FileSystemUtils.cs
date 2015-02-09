@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,12 +49,11 @@ using Telerik.Web.UI;
 using FileInfo = DotNetNuke.Services.FileSystem.FileInfo;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     public class FileSystemUtils
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (FileSystemUtils));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FileSystemUtils));
         #region Private Methods
 
         private static string CreateFile(IFolderInfo folder, string fileName, string contentType, Stream fileContent, bool unzip, bool overwrite, bool checkPermissions)
@@ -84,7 +83,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
 
                 strMessage += "<br />" + string.Format(Localization.GetString("SaveFileError"), fileName);
             }
@@ -157,10 +156,10 @@ namespace DotNetNuke.Common.Utilities
                 //Read the bytes.
                 while (lngDataToRead > 0)
                 {
-					//Verify that the client is connected.
+                    //Verify that the client is connected.
                     if (objResponse.IsClientConnected)
                     {
-						//Read the data in buffer
+                        //Read the data in buffer
                         intLength = objStream.Read(bytBuffer, 0, 10000);
 
                         //Write the data to the current output stream.
@@ -179,7 +178,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 objResponse.Write("Error : " + ex.Message);
             }
             finally
@@ -330,7 +329,7 @@ namespace DotNetNuke.Common.Utilities
             var fileName = GetFileName(strFile);
 
             var file = (FileInfo)fileManager.GetFile(folder, fileName);
-            
+
             if (file == null)
             {
                 file = new FileInfo { PortalId = PortalId, FolderId = folder.FolderID, FileName = fileName };
@@ -418,24 +417,24 @@ namespace DotNetNuke.Common.Utilities
                     folderMapping = FolderMappingController.Instance.GetDefaultFolderMapping(portalSettings.PortalId);
                     break;
             }
-            
+
             if (folderMapping != null)
             {
                 var folderManager = FolderManager.Instance;
 
-				//get relative folder path.
+                //get relative folder path.
                 var folderPath = PathUtils.Instance.GetRelativePath(folderMapping.PortalID, parentFolder) + newFolder;
 
-				if (Path.IsPathRooted(folderPath))
-				{
-					folderPath = folderPath.TrimStart(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar });
-				}
+                if (Path.IsPathRooted(folderPath))
+                {
+                    folderPath = folderPath.TrimStart(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar });
+                }
 
-				folderPath = folderPath.Replace("\\", "/");
-                
+                folderPath = folderPath.Replace("\\", "/");
+
                 var folder = folderManager.AddFolder(folderMapping, folderPath);
                 folder.UniqueId = uniqueId;
-                
+
                 folderManager.UpdateFolder(folder);
             }
         }
@@ -485,11 +484,11 @@ namespace DotNetNuke.Common.Utilities
             FileStream fs = null;
             try
             {
-				//Open File Stream
+                //Open File Stream
                 var crc = new Crc32();
                 fs = File.OpenRead(filePath);
-				
-				//Read file into byte array buffer
+
+                //Read file into byte array buffer
                 var buffer = new byte[fs.Length];
 
                 fs.Read(buffer, 0, buffer.Length);
@@ -636,7 +635,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 returnValue = ex.Message;
             }
             finally
@@ -710,7 +709,7 @@ namespace DotNetNuke.Common.Utilities
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
                     fileDeleted = false;
                 }
                 if (fileDeleted == false)
@@ -787,7 +786,7 @@ namespace DotNetNuke.Common.Utilities
             var fileName = GetFileName(sourceFile);
             var portalID = GetFolderPortalID(settings);
             var folderPath = Globals.GetSubFolderPath(sourceFile, portalID);
-            
+
             var folder = folderManager.GetFolder(portalID, folderPath);
 
             if (folder != null)
@@ -798,7 +797,7 @@ namespace DotNetNuke.Common.Utilities
                 {
                     try
                     {
-						//try and delete the Insecure file
+                        //try and delete the Insecure file
                         fileManager.DeleteFile(file);
                     }
                     catch (PermissionsNotMetException)
@@ -807,7 +806,7 @@ namespace DotNetNuke.Common.Utilities
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(ex);
+                        s_logger.Error(ex);
 
                         if (ex.InnerException != null && ex.InnerException.GetType() == typeof(IOException))
                         {
@@ -820,7 +819,7 @@ namespace DotNetNuke.Common.Utilities
                     }
                 }
             }
-            
+
             return retValue;
         }
 
@@ -931,9 +930,9 @@ namespace DotNetNuke.Common.Utilities
                     fileManager.WriteFileToResponse(file, contentDisposition);
                     download = true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-					Logger.Error(ex);
+                    s_logger.Error(ex);
                 }
             }
 
@@ -1067,16 +1066,16 @@ namespace DotNetNuke.Common.Utilities
         public static ArrayList GetFoldersByUser(int portalID, bool includeSecure, bool includeDatabase, string permissions)
         {
             var userFoldersArray = new ArrayList();
-            
+
             var user = UserController.Instance.GetCurrentUserInfo();
 
             //Create Home folder if it doesn't exist
-            var userFolders = (!includeSecure && !includeDatabase) ? FolderManager.Instance.GetFileSystemFolders(user, permissions) : 
+            var userFolders = (!includeSecure && !includeDatabase) ? FolderManager.Instance.GetFileSystemFolders(user, permissions) :
                 FolderManager.Instance.GetFolders(user, permissions);
 
             foreach (var userFolder in userFolders)
             {
-				//Add User folder
+                //Add User folder
                 userFoldersArray.Add((FolderInfo)userFolder);
             }
 
@@ -1124,7 +1123,6 @@ namespace DotNetNuke.Common.Utilities
                         fileManager.MoveFile(file, destFolder);
 
                         fileManager.RenameFile(file, destFileName);
-                        
                     }
                 }
             }
@@ -1294,16 +1292,16 @@ namespace DotNetNuke.Common.Utilities
             FolderManager.Instance.Synchronize(PortalId, relativePath, isRecursive, true);
         }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="PortalId"></param>
-		/// <param name="physicalPath"></param>
-		/// <param name="relativePath"></param>
-		/// <param name="isRecursive"></param>
-		/// <param name="syncFiles"></param>
-		/// <param name="forceFolderSync"></param>
-		/// <param name="hideSystemFolders"></param>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PortalId"></param>
+        /// <param name="physicalPath"></param>
+        /// <param name="relativePath"></param>
+        /// <param name="isRecursive"></param>
+        /// <param name="syncFiles"></param>
+        /// <param name="forceFolderSync"></param>
+        /// <param name="hideSystemFolders"></param>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Deprecated in DNN 6.0.  It has been replaced by FolderManager.Instance.Synchronize(int portalID, string relativePath, bool isRecursive, bool syncFiles) ")]
         public static void SynchronizeFolder(int PortalId, string physicalPath, string relativePath, bool isRecursive, bool syncFiles, bool forceFolderSync, bool hideSystemFolders)
@@ -1386,9 +1384,9 @@ namespace DotNetNuke.Common.Utilities
                                 }
                             }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
-							Logger.Error(ex);
+                            s_logger.Error(ex);
                         }
                     }
                     objZipEntry = zipStream.GetNextEntry();
@@ -1490,7 +1488,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 objResponse.Write("Error : " + ex.Message);
             }
             finally
@@ -1526,7 +1524,7 @@ namespace DotNetNuke.Common.Utilities
                             }
                             catch (Exception ex)
                             {
-                                Logger.Error(ex);
+                                s_logger.Error(ex);
                                 strExceptions += "Error: " + ex.Message + Environment.NewLine;
                             }
                         }
@@ -1542,7 +1540,7 @@ namespace DotNetNuke.Common.Utilities
                             }
                             catch (Exception ex)
                             {
-                                Logger.Error(ex);
+                                s_logger.Error(ex);
                                 strExceptions += "Error: " + ex.Message + Environment.NewLine;
                             }
                         }
@@ -1564,7 +1562,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 strMessage = ex.Message;
             }
             return strMessage;
@@ -1586,7 +1584,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 strMessage = ex.Message;
             }
             return strMessage;
@@ -1604,7 +1602,7 @@ namespace DotNetNuke.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 strMessage = ex.Message;
             }
             return strMessage;

@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
@@ -28,7 +28,6 @@ using System.Collections.Generic;
 using DotNetNuke.Services.Authentication.OAuth;
 
 #endregion
-
 namespace DotNetNuke.Authentication.LiveConnect.Components
 {
     [DataContract]

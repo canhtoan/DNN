@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.ComponentModel;
 using System.Reflection;
 using System.Web.UI.WebControls;
@@ -29,7 +29,6 @@ using DotNetNuke.Entities.Profile;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -48,13 +47,13 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class StandardEditorInfoAdapter : IEditorInfoAdapter
     {
-        private readonly object DataSource;
-        private readonly string FieldName;
+        private readonly object _dataSource;
+        private readonly string _fieldName;
 
         public StandardEditorInfoAdapter(object dataSource, string fieldName)
         {
-            DataSource = dataSource;
-            FieldName = fieldName;
+            _dataSource = dataSource;
+            _fieldName = fieldName;
         }
 
         #region IEditorInfoAdapter Members
@@ -62,10 +61,10 @@ namespace DotNetNuke.UI.WebControls
         public EditorInfo CreateEditControl()
         {
             EditorInfo editInfo = null;
-            PropertyInfo objProperty = GetProperty(DataSource, FieldName);
+            PropertyInfo objProperty = GetProperty(_dataSource, _fieldName);
             if (objProperty != null)
             {
-                editInfo = GetEditorInfo(DataSource, objProperty);
+                editInfo = GetEditorInfo(_dataSource, objProperty);
             }
             return editInfo;
         }
@@ -76,14 +75,14 @@ namespace DotNetNuke.UI.WebControls
             object oldValue = e.OldValue;
             object newValue = e.Value;
             bool _IsDirty = Null.NullBoolean;
-            if (DataSource != null)
+            if (_dataSource != null)
             {
-                PropertyInfo objProperty = DataSource.GetType().GetProperty(e.Name);
+                PropertyInfo objProperty = _dataSource.GetType().GetProperty(e.Name);
                 if (objProperty != null)
                 {
                     if ((!(ReferenceEquals(newValue, oldValue))) || changed)
                     {
-                        objProperty.SetValue(DataSource, newValue, null);
+                        objProperty.SetValue(_dataSource, newValue, null);
                         _IsDirty = true;
                     }
                 }
@@ -124,13 +123,13 @@ namespace DotNetNuke.UI.WebControls
 
             //Get Category Field
             editInfo.Category = string.Empty;
-            object[] categoryAttributes = objProperty.GetCustomAttributes(typeof (CategoryAttribute), true);
+            object[] categoryAttributes = objProperty.GetCustomAttributes(typeof(CategoryAttribute), true);
             if (categoryAttributes.Length > 0)
             {
-                var category = (CategoryAttribute) categoryAttributes[0];
+                var category = (CategoryAttribute)categoryAttributes[0];
                 editInfo.Category = category.Category;
             }
-			
+
             //Get EditMode Field
 
             if (!objProperty.CanWrite)
@@ -139,28 +138,28 @@ namespace DotNetNuke.UI.WebControls
             }
             else
             {
-                object[] readOnlyAttributes = objProperty.GetCustomAttributes(typeof (IsReadOnlyAttribute), true);
+                object[] readOnlyAttributes = objProperty.GetCustomAttributes(typeof(IsReadOnlyAttribute), true);
                 if (readOnlyAttributes.Length > 0)
                 {
-                    var readOnlyMode = (IsReadOnlyAttribute) readOnlyAttributes[0];
+                    var readOnlyMode = (IsReadOnlyAttribute)readOnlyAttributes[0];
                     if (readOnlyMode.IsReadOnly)
                     {
                         editInfo.EditMode = PropertyEditorMode.View;
                     }
                 }
             }
-			
+
             //Get Editor Field
             editInfo.Editor = "UseSystemType";
-            object[] editorAttributes = objProperty.GetCustomAttributes(typeof (EditorAttribute), true);
+            object[] editorAttributes = objProperty.GetCustomAttributes(typeof(EditorAttribute), true);
             if (editorAttributes.Length > 0)
             {
                 EditorAttribute editor = null;
                 for (int i = 0; i <= editorAttributes.Length - 1; i++)
                 {
-                    if (((EditorAttribute) editorAttributes[i]).EditorBaseTypeName.IndexOf("DotNetNuke.UI.WebControls.EditControl") >= 0)
+                    if (((EditorAttribute)editorAttributes[i]).EditorBaseTypeName.IndexOf("DotNetNuke.UI.WebControls.EditControl") >= 0)
                     {
-                        editor = (EditorAttribute) editorAttributes[i];
+                        editor = (EditorAttribute)editorAttributes[i];
                         break;
                     }
                 }
@@ -169,57 +168,57 @@ namespace DotNetNuke.UI.WebControls
                     editInfo.Editor = editor.EditorTypeName;
                 }
             }
-			
+
             //Get Required Field
             editInfo.Required = false;
-            object[] requiredAttributes = objProperty.GetCustomAttributes(typeof (RequiredAttribute), true);
+            object[] requiredAttributes = objProperty.GetCustomAttributes(typeof(RequiredAttribute), true);
             if (requiredAttributes.Length > 0)
             {
                 //The property may contain multiple edit mode types, so make sure we only use DotNetNuke editors.
-                var required = (RequiredAttribute) requiredAttributes[0];
+                var required = (RequiredAttribute)requiredAttributes[0];
                 if (required.Required)
                 {
                     editInfo.Required = true;
                 }
             }
-			
+
             //Get Css Style
             editInfo.ControlStyle = new Style();
-            object[] StyleAttributes = objProperty.GetCustomAttributes(typeof (ControlStyleAttribute), true);
+            object[] StyleAttributes = objProperty.GetCustomAttributes(typeof(ControlStyleAttribute), true);
             if (StyleAttributes.Length > 0)
             {
-                var attribute = (ControlStyleAttribute) StyleAttributes[0];
+                var attribute = (ControlStyleAttribute)StyleAttributes[0];
                 editInfo.ControlStyle.CssClass = attribute.CssClass;
                 editInfo.ControlStyle.Height = attribute.Height;
                 editInfo.ControlStyle.Width = attribute.Width;
             }
-			
+
             //Get LabelMode Field
             editInfo.LabelMode = LabelMode.Left;
-            object[] labelModeAttributes = objProperty.GetCustomAttributes(typeof (LabelModeAttribute), true);
+            object[] labelModeAttributes = objProperty.GetCustomAttributes(typeof(LabelModeAttribute), true);
             if (labelModeAttributes.Length > 0)
             {
-                var mode = (LabelModeAttribute) labelModeAttributes[0];
+                var mode = (LabelModeAttribute)labelModeAttributes[0];
                 editInfo.LabelMode = mode.Mode;
             }
-			
+
             //Set ResourceKey Field
             editInfo.ResourceKey = string.Format("{0}_{1}", dataSource.GetType().Name, objProperty.Name);
 
             //Get Validation Expression Field
             editInfo.ValidationExpression = string.Empty;
-            object[] regExAttributes = objProperty.GetCustomAttributes(typeof (RegularExpressionValidatorAttribute), true);
+            object[] regExAttributes = objProperty.GetCustomAttributes(typeof(RegularExpressionValidatorAttribute), true);
             if (regExAttributes.Length > 0)
             {
-                var regExAttribute = (RegularExpressionValidatorAttribute) regExAttributes[0];
+                var regExAttribute = (RegularExpressionValidatorAttribute)regExAttributes[0];
                 editInfo.ValidationExpression = regExAttribute.Expression;
             }
-			
+
             //Set Visibility
             editInfo.ProfileVisibility = new ProfileVisibility
-                                             {
-                                                 VisibilityMode = UserVisibilityMode.AllUsers
-                                             };
+            {
+                VisibilityMode = UserVisibilityMode.AllUsers
+            };
 
             return editInfo;
         }

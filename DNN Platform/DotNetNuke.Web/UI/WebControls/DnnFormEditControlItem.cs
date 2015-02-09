@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,38 +28,37 @@ using DotNetNuke.Framework;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnFormEditControlItem : DnnFormItemBase
     {
-        private EditControl control;
+        private EditControl _control;
 
         public string ControlType { get; set; }
 
         protected override WebControl CreateControlInternal(Control container)
         {
-            control = Reflection.CreateObject(ControlType, ControlType) as EditControl;
+            _control = Reflection.CreateObject(ControlType, ControlType) as EditControl;
 
-            if (control != null)
+            if (_control != null)
             {
-                control.ID = ID + "_Control";
-                control.Name = ID;
-                control.EditMode = PropertyEditorMode.Edit;
-                control.Required = false;
-                control.Value = Value;
-                control.OldValue = Value;
-                control.ValueChanged += ValueChanged;
+                _control.ID = ID + "_Control";
+                _control.Name = ID;
+                _control.EditMode = PropertyEditorMode.Edit;
+                _control.Required = false;
+                _control.Value = Value;
+                _control.OldValue = Value;
+                _control.ValueChanged += ValueChanged;
 
-                control.CssClass = "dnnFormInput";
+                _control.CssClass = "dnnFormInput";
 
-                container.Controls.Add(control);
+                container.Controls.Add(_control);
             }
 
-            return control;
+            return _control;
         }
 
-        void ValueChanged(object sender, PropertyEditorEventArgs e)
+        private void ValueChanged(object sender, PropertyEditorEventArgs e)
         {
             UpdateDataSource(Value, e.Value, DataField);
         }

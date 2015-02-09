@@ -5,7 +5,6 @@ using DotNetNuke.Common.Utilities;
 
 namespace DotNetNuke.Web.UI.WebControls
 {
-
     [DataContract]
     public class DnnFileUploadResources
     {

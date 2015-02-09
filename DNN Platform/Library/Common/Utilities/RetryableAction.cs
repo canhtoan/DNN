@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace DotNetNuke.Common.Utilities.Internal
     /// </summary>
     public class RetryableAction
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (RetryableAction));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(RetryableAction));
         /// <summary>
         /// The Action to execute
         /// </summary>
@@ -80,15 +81,15 @@ namespace DotNetNuke.Common.Utilities.Internal
             Thread.Sleep(delay);
         }
 
-        public RetryableAction(Action action, string description, int maxRetries, TimeSpan delay) : this(action, description, maxRetries, delay, 1) {}
+        public RetryableAction(Action action, string description, int maxRetries, TimeSpan delay) : this(action, description, maxRetries, delay, 1) { }
 
         public RetryableAction(Action action, string description, int maxRetries, TimeSpan delay, float delayMultiplier)
         {
-            if(delay.TotalMilliseconds > int.MaxValue)
+            if (delay.TotalMilliseconds > int.MaxValue)
             {
                 throw new ArgumentException(string.Format("delay must be less than {0} milliseconds", int.MaxValue));
             }
-            
+
             Action = action;
             Description = description;
             MaxRetries = maxRetries;
@@ -98,7 +99,7 @@ namespace DotNetNuke.Common.Utilities.Internal
 
         public void TryIt()
         {
-            var currentDelay = (int) Delay.TotalMilliseconds;
+            var currentDelay = (int)Delay.TotalMilliseconds;
             int retrysRemaining = MaxRetries;
 
             do
@@ -106,22 +107,22 @@ namespace DotNetNuke.Common.Utilities.Internal
                 try
                 {
                     Action();
-                    Logger.TraceFormat("Action succeeded - {0}", Description);
+                    s_logger.TraceFormat("Action succeeded - {0}", Description);
                     return;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     if (retrysRemaining <= 0)
                     {
-                        Logger.WarnFormat("All retries of action failed - {0}", Description);
+                        s_logger.WarnFormat("All retries of action failed - {0}", Description);
                         throw;
                     }
 
-                    Logger.TraceFormat("Retrying action {0} - {1}", retrysRemaining, Description);
+                    s_logger.TraceFormat("Retrying action {0} - {1}", retrysRemaining, Description);
                     SleepAction.Invoke(currentDelay);
 
                     const double epsilon = 0.0001;
-                    if(Math.Abs(DelayMultiplier - 1) > epsilon)
+                    if (Math.Abs(DelayMultiplier - 1) > epsilon)
                     {
                         currentDelay = (int)(currentDelay * DelayMultiplier);
                     }

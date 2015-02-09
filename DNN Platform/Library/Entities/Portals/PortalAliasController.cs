@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,17 +38,16 @@ using DotNetNuke.Framework;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Portals
 {
-	/// <summary>
-	/// PortalAliasController provides method to manage portal alias.
-	/// </summary>
-	/// <remarks>
-	/// For DotNetNuke to know what site a request should load, it uses a system of portal aliases. 
-	/// When a request is recieved by DotNetNuke from IIS, it extracts the domain name portion and does a comparison against 
-	/// the list of portal aliases and then redirects to the relevant portal to load the approriate page. 
-	/// </remarks>
+    /// <summary>
+    /// PortalAliasController provides method to manage portal alias.
+    /// </summary>
+    /// <remarks>
+    /// For DotNetNuke to know what site a request should load, it uses a system of portal aliases. 
+    /// When a request is recieved by DotNetNuke from IIS, it extracts the domain name portion and does a comparison against 
+    /// the list of portal aliases and then redirects to the relevant portal to load the approriate page. 
+    /// </remarks>
     public partial class PortalAliasController : ServiceLocator<IPortalAliasController, PortalAliasController>, IPortalAliasController
     {
         protected override Func<IPortalAliasController> GetFactory()
@@ -70,13 +69,13 @@ namespace DotNetNuke.Entities.Portals
             }
         }
 
-	    private PortalAliasInfo GetPortalAliasLookupInternal(string alias)
-	    {
+        private PortalAliasInfo GetPortalAliasLookupInternal(string alias)
+        {
             return GetPortalAliasesInternal().SingleOrDefault(pa => pa.Key == alias).Value;
         }
 
         private PortalAliasInfo GetPortalAliasInternal(string httpAlias)
-	    {
+        {
             string strPortalAlias;
 
             //try the specified alias first
@@ -141,8 +140,7 @@ namespace DotNetNuke.Entities.Portals
                 }
             }
             return portalAlias;
-	        
-	    }
+        }
 
         private static void LogEvent(PortalAliasInfo portalAlias, EventLogController.EventLogType logType)
         {
@@ -228,7 +226,7 @@ namespace DotNetNuke.Entities.Portals
             return GetPortalAliasesInternal().SingleOrDefault(pa => pa.Value.PortalAliasID == portalAliasId).Value;
         }
 
-	    internal Dictionary<string, PortalAliasInfo> GetPortalAliasesInternal()
+        internal Dictionary<string, PortalAliasInfo> GetPortalAliasesInternal()
         {
             return CBO.GetCachedObject<Dictionary<string, PortalAliasInfo>>(new CacheItemArgs(DataCache.PortalAliasCacheKey,
                                                                                         DataCache.PortalAliasCacheTimeOut,
@@ -242,13 +240,13 @@ namespace DotNetNuke.Entities.Portals
                                                                 true);
         }
 
-	    public PortalAliasCollection GetPortalAliases()
-	    {
-	        var aliasCollection = new PortalAliasCollection();
-	        foreach (var alias in GetPortalAliasesInternal().Values)
-	        {
-	            aliasCollection.Add(alias.HTTPAlias, alias);
-	        }
+        public PortalAliasCollection GetPortalAliases()
+        {
+            var aliasCollection = new PortalAliasCollection();
+            foreach (var alias in GetPortalAliasesInternal().Values)
+            {
+                aliasCollection.Add(alias.HTTPAlias, alias);
+            }
 
             return aliasCollection;
         }

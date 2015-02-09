@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections;
 using System.Globalization;
 
 #endregion
-
 namespace DotNetNuke.Services.Localization
 {
     public class CultureInfoComparer : IComparer
@@ -43,11 +42,11 @@ namespace DotNetNuke.Services.Localization
             switch (_compare.ToUpperInvariant())
             {
                 case "ENGLISH":
-                    return ((CultureInfo) x).EnglishName.CompareTo(((CultureInfo) y).EnglishName);
+                    return ((CultureInfo)x).EnglishName.CompareTo(((CultureInfo)y).EnglishName);
                 case "NATIVE":
-                    return ((CultureInfo) x).NativeName.CompareTo(((CultureInfo) y).NativeName);
+                    return ((CultureInfo)x).NativeName.CompareTo(((CultureInfo)y).NativeName);
                 default:
-                    return ((CultureInfo) x).Name.CompareTo(((CultureInfo) y).Name);
+                    return ((CultureInfo)x).Name.CompareTo(((CultureInfo)y).Name);
             }
         }
 

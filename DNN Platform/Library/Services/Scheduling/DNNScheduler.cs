@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Linq;
 using System.Collections;
@@ -34,12 +34,10 @@ using Microsoft.VisualBasic;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
-
 namespace DotNetNuke.Services.Scheduling
 {
     public class DNNScheduler : SchedulingProvider
     {
-
         #region Public Properties
 
         public override Dictionary<string, string> Settings
@@ -252,7 +250,7 @@ namespace DotNetNuke.Services.Scheduling
         {
             if (Enabled)
             {
-                var newThread = new Thread(Start) {IsBackground = true};
+                var newThread = new Thread(Start) { IsBackground = true };
                 newThread.Start();
 
                 //wait for up to 30 seconds for thread

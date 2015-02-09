@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using DotNetNuke.Instrumentation;
@@ -30,7 +31,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.Steps
     /// ------------------------------------------------------------------------------------------------  
     public class ActivateLicenseStep : BaseInstallationStep
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ActivateLicenseStep));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ActivateLicenseStep));
 
         public override void Execute()
         {
@@ -39,7 +40,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.Steps
 
             Details = Localization.Localization.GetString("LicenseActivation", LocalInstallResourceFile);
             var installConfig = InstallController.Instance.GetInstallConfig();
-            var licenseConfig = (installConfig != null) ? installConfig.License : null;            
+            var licenseConfig = (installConfig != null) ? installConfig.License : null;
 
             if (licenseConfig != null && (!string.IsNullOrEmpty(licenseConfig.AccountEmail) && !string.IsNullOrEmpty(licenseConfig.InvoiceNumber)
                                 && !string.IsNullOrEmpty(licenseConfig.LicenseType) && !string.IsNullOrEmpty(licenseConfig.WebServer)))
@@ -52,13 +53,13 @@ namespace DotNetNuke.Services.Upgrade.Internals.Steps
                     if (!activationResult.ToLower().Contains("success"))
                     {
                         Errors.Add(Localization.Localization.GetString("LicenseActivation", LocalInstallResourceFile) + ": " + activationResult);
-                        Logger.TraceFormat("ActivateLicense Status - {0}", activationResult);
+                        s_logger.TraceFormat("ActivateLicense Status - {0}", activationResult);
                     }
                 }
                 catch (Exception ex)
                 {
                     Errors.Add(Localization.Localization.GetString("LicenseActivation", LocalInstallResourceFile) + ": " + ex.Message);
-                    Logger.TraceFormat("ActivateLicense Status - {0}", ex.Message);
+                    s_logger.TraceFormat("ActivateLicense Status - {0}", ex.Message);
                 }
             }
 

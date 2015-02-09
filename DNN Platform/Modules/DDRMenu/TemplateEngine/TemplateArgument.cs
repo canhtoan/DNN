@@ -1,4 +1,5 @@
-﻿namespace DotNetNuke.Web.DDRMenu.TemplateEngine
+﻿
+namespace DotNetNuke.Web.DDRMenu.TemplateEngine
 {
     public class TemplateArgument
     {

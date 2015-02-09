@@ -12,7 +12,6 @@ using ClientDependency.Core.Config;
 using ClientDependency.Core;
 using System.Net;
 
-
 namespace ClientDependency.Core.Module
 {
     /// <summary>
@@ -24,32 +23,32 @@ namespace ClientDependency.Core.Module
     /// the output into a memory stream and so increases memory usage.
     /// </remarks>
     /// </summary>    
-    public class 
+    public class
         ResponseFilterStream : Stream
     {
         /// <summary>
         /// The original stream
         /// </summary>
-        readonly Stream _stream;
+        private readonly Stream _stream;
 
         private readonly HttpContextBase _http;
 
         /// <summary>
         /// Current position in the original stream
         /// </summary>
-        long _position;
+        private long _position;
 
         /// <summary>
         /// Stream that original content is read into
         /// and then passed to TransformStream function
         /// </summary>
-        MemoryStream _cacheStream = new MemoryStream(5000);
+        private MemoryStream _cacheStream = new MemoryStream(5000);
 
         /// <summary>
         /// Internal pointer that that keeps track of the size
         /// of the cacheStream
         /// </summary>
-        int _cachePointer = 0;
+        private int _cachePointer = 0;
 
 
         /// <summary>
@@ -71,7 +70,6 @@ namespace ClientDependency.Core.Module
         {
             get
             {
-
                 if (CaptureStream != null || CaptureString != null ||
                     TransformStream != null || TransformString != null)
                     return true;
@@ -317,7 +315,6 @@ namespace ClientDependency.Core.Module
         /// </summary>
         public override void Flush()
         {
-
             if (IsCaptured && _cacheStream.Length > 0)
             {
                 // Check for transform implementations
@@ -377,9 +374,6 @@ namespace ClientDependency.Core.Module
 
             if (!IsOutputDelayed)
                 _stream.Write(buffer, offset, count);
-
         }
-
     }
-
 }

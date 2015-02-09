@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -214,20 +214,20 @@ namespace DotNetNuke.Entities.Users
                     objUserInfo.Email = Null.SetNullString(dr["Email"]);
                     objUserInfo.Membership.UpdatePassword = Null.SetNullBoolean(dr["UpdatePassword"]);
 
-					var schema = dr.GetSchemaTable();
-					if (schema != null)
-					{
-						if (schema.Select("ColumnName = 'PasswordResetExpiration'").Length > 0)
-						{
-							objUserInfo.PasswordResetExpiration = Null.SetNullDateTime(dr["PasswordResetExpiration"]);
-						}
-						if (schema.Select("ColumnName = 'PasswordResetToken'").Length > 0)
-						{
-							objUserInfo.PasswordResetToken = Null.SetNullGuid(dr["PasswordResetToken"]);
-						}
-					}
+                    var schema = dr.GetSchemaTable();
+                    if (schema != null)
+                    {
+                        if (schema.Select("ColumnName = 'PasswordResetExpiration'").Length > 0)
+                        {
+                            objUserInfo.PasswordResetExpiration = Null.SetNullDateTime(dr["PasswordResetExpiration"]);
+                        }
+                        if (schema.Select("ColumnName = 'PasswordResetToken'").Length > 0)
+                        {
+                            objUserInfo.PasswordResetToken = Null.SetNullGuid(dr["PasswordResetToken"]);
+                        }
+                    }
 
-	                if (!objUserInfo.IsSuperUser)
+                    if (!objUserInfo.IsSuperUser)
                     {
                         objUserInfo.Membership.Approved = Null.SetNullBoolean(dr["Authorised"]);
                     }

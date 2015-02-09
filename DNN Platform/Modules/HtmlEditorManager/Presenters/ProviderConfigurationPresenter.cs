@@ -16,28 +16,27 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web.UI;
+using System.Xml;
+
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Users;
+using DotNetNuke.Modules.HtmlEditorManager.ViewModels;
+using DotNetNuke.Modules.HtmlEditorManager.Views;
+using DotNetNuke.Web.Mvp;
+using DotNetNuke.Web.UI;
+using DotNetNuke.Web.UI.WebControls;
+
 
 namespace DotNetNuke.Modules.HtmlEditorManager.Presenters
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Web.UI;
-    using System.Xml;
-
-    using DotNetNuke.Common.Utilities;
-    using DotNetNuke.Entities.Modules;
-    using DotNetNuke.Entities.Users;
-    using DotNetNuke.Modules.HtmlEditorManager.ViewModels;
-    using DotNetNuke.Modules.HtmlEditorManager.Views;
-    using DotNetNuke.Web.Mvp;
-    using DotNetNuke.Web.UI;
-    using DotNetNuke.Web.UI.WebControls;
-
-
-
     /// <summary>
     /// Presenter for Provider Configuration
     /// </summary>
@@ -47,7 +46,7 @@ namespace DotNetNuke.Modules.HtmlEditorManager.Presenters
         private const string HtmlEditorNode = "/configuration/dotnetnuke/htmlEditor";
 
         /// <summary>The dot net nuke document</summary>
-        private XmlDocument dotnetNukeDocument;
+        private XmlDocument _dotnetNukeDocument;
 
         /// <summary>Initializes a new instance of the <see cref="ProviderConfigurationPresenter" /> class.</summary>
         /// <param name="view">the interface provider view.</param>
@@ -65,16 +64,16 @@ namespace DotNetNuke.Modules.HtmlEditorManager.Presenters
         {
             get
             {
-                if (this.dotnetNukeDocument == null)
+                if (_dotnetNukeDocument == null)
                 {
                     UserInfo currentUser = UserController.Instance.GetCurrentUserInfo();
                     if (currentUser != null && currentUser.IsSuperUser)
                     {
-                        this.dotnetNukeDocument = Config.Load();
+                        _dotnetNukeDocument = Config.Load();
                     }
                 }
 
-                return this.dotnetNukeDocument;
+                return _dotnetNukeDocument;
             }
         }
 

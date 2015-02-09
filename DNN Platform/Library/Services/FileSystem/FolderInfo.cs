@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +36,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.Services.FileSystem
 {
     [XmlRoot("folder", IsNullable = false)]
@@ -51,8 +50,8 @@ namespace DotNetNuke.Services.FileSystem
 
         #region Constructors
 
-        public FolderInfo(): this(false)
-        {            
+        public FolderInfo() : this(false)
+        {
         }
 
         internal FolderInfo(bool initialiseEmptyPermissions)
@@ -60,11 +59,11 @@ namespace DotNetNuke.Services.FileSystem
             FolderID = Null.NullInteger;
             UniqueId = Guid.NewGuid();
             VersionGuid = Guid.NewGuid();
-            WorkflowID = Null.NullInteger;            
+            WorkflowID = Null.NullInteger;
             if (initialiseEmptyPermissions)
             {
-                _folderPermissions = new FolderPermissionCollection();   
-            }            
+                _folderPermissions = new FolderPermissionCollection();
+            }
         }
         #endregion
 
@@ -219,7 +218,7 @@ namespace DotNetNuke.Services.FileSystem
         [XmlElement("folderpermissions")]
         public FolderPermissionCollection FolderPermissions
         {
-            get 
+            get
             {
                 return _folderPermissions ?? (_folderPermissions = new FolderPermissionCollection(FolderPermissionController.GetFolderPermissionsCollectionByFolder(PortalID, FolderPath)));
             }
@@ -262,7 +261,7 @@ namespace DotNetNuke.Services.FileSystem
             {
                 var folderMapping = FolderMappingController.Instance.GetFolderMapping(PortalID, FolderMappingID);
                 return FolderProvider.Instance(folderMapping.FolderProviderType).IsStorageSecure;
-            }   
+            }
         }
 
         #endregion
@@ -296,7 +295,7 @@ namespace DotNetNuke.Services.FileSystem
             IsVersioned = Null.SetNullBoolean(dr["IsVersioned"]);
             WorkflowID = Null.SetNullInteger(dr["WorkflowID"]);
             ParentID = Null.SetNullInteger(dr["ParentID"]);
-            FillBaseProperties(dr);            
+            FillBaseProperties(dr);
         }
 
         /// -----------------------------------------------------------------------------

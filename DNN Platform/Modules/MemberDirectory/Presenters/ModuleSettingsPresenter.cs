@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Collections.Generic;
 
 using DotNetNuke.Common.Lists;
@@ -34,7 +34,6 @@ using DotNetNuke.Security.Roles.Internal;
 using DotNetNuke.Web.Mvp;
 
 #endregion
-
 namespace DotNetNuke.Modules.MemberDirectory.Presenters
 {
     public class ModuleSettingsPresenter : ModuleSettingsPresenter<ISettingsView<MemberDirectorySettingsModel>, MemberDirectorySettingsModel>
@@ -42,7 +41,6 @@ namespace DotNetNuke.Modules.MemberDirectory.Presenters
         public ModuleSettingsPresenter(ISettingsView<MemberDirectorySettingsModel> view)
             : base(view)
         {
-            
         }
 
         protected override void OnLoad()

@@ -12,21 +12,19 @@ namespace ClientDependency.Core.FileRegistration.Providers
 {
     public abstract class BaseRenderer : BaseFileRegistrationProvider
     {
-
-
-        public virtual void RegisterDependencies(List<IClientDependencyFile> allDependencies, 
+        public virtual void RegisterDependencies(List<IClientDependencyFile> allDependencies,
             HashSet<IClientDependencyPath> paths,
             out string jsOutput,
             out string cssOutput,
             HttpContextBase http)
-        {            
+        {
             var folderPaths = paths;
 
             UpdateFilePaths(allDependencies, folderPaths, http);
             EnsureNoDuplicates(allDependencies, folderPaths);
 
             var cssBuilder = new StringBuilder();
-			var jsBuilder = new StringBuilder();
+            var jsBuilder = new StringBuilder();
 
             // find the groups
             var groups = allDependencies
@@ -54,8 +52,7 @@ namespace ClientDependency.Core.FileRegistration.Providers
 
                 //render
                 WriteStaggeredDependencies(cssDependencies, http, cssBuilder, RenderCssDependencies, RenderSingleCssFile);
-                WriteStaggeredDependencies(jsDependencies, http, jsBuilder, RenderJsDependencies, RenderSingleJsFile);                
-                
+                WriteStaggeredDependencies(jsDependencies, http, jsBuilder, RenderJsDependencies, RenderSingleJsFile);
             }
             cssOutput = cssBuilder.ToString();
             jsOutput = jsBuilder.ToString();

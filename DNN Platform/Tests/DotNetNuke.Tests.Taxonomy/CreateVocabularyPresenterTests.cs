@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Web;
 
@@ -45,7 +45,7 @@ namespace DotNetNuke.Tests.Taxonomy
     [TestFixture]
     public class CreateVocabularyPresenterTests
     {
-        private Mock<CachingProvider> mockCache;
+        private Mock<CachingProvider> _mockCache;
 
         #region SetUp and TearDown
 
@@ -53,7 +53,7 @@ namespace DotNetNuke.Tests.Taxonomy
         public void SetUp()
         {
             //Register MockCachingProvider
-            mockCache = MockComponentProvider.CreateNew<CachingProvider>();
+            _mockCache = MockComponentProvider.CreateNew<CachingProvider>();
             MockComponentProvider.CreateDataProvider().Setup(c => c.GetProviderPath()).Returns(String.Empty);
         }
 
@@ -158,7 +158,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<ICreateVocabularyView>();
-            var model = new CreateVocabularyModel {Vocabulary = new Vocabulary {VocabularyId = Null.NullInteger, ScopeTypeId = 1}};
+            var model = new CreateVocabularyModel { Vocabulary = new Vocabulary { VocabularyId = Null.NullInteger, ScopeTypeId = 1 } };
             mockView.Setup(v => v.Model).Returns(model);
 
             var presenter = CreatePresenter(mockView);
@@ -176,7 +176,7 @@ namespace DotNetNuke.Tests.Taxonomy
         public void CreateVocabularyPresenter_SaveVocabulary_Does_Not_Save_If_Vocabulary_Invalid()
         {
             var mockView = new Mock<ICreateVocabularyView>();
-            var model = new CreateVocabularyModel {Vocabulary = new Vocabulary {VocabularyId = Null.NullInteger, ScopeTypeId = 1}};
+            var model = new CreateVocabularyModel { Vocabulary = new Vocabulary { VocabularyId = Null.NullInteger, ScopeTypeId = 1 } };
             mockView.Setup(v => v.Model).Returns(model);
 
             var presenter = CreatePresenter(mockView);
@@ -243,7 +243,7 @@ namespace DotNetNuke.Tests.Taxonomy
             mockHttpContext.Setup(h => h.Response).Returns(mockHttpResponse.Object);
 
             var presenter = new CreateVocabularyPresenter(mockView.Object, MockHelper.CreateMockVocabularyController().Object, MockHelper.CreateMockScopeTypeController().Object)
-                                {HttpContext = mockHttpContext.Object};
+            { HttpContext = mockHttpContext.Object };
 
             return presenter;
         }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -41,6 +41,7 @@ using DotNetNuke.Entities.Tabs;
 #endregion
 
 // ReSharper disable once CheckNamespace
+
 namespace DotNetNuke.Entities.Portals
 {
     /// <summary>
@@ -64,7 +65,7 @@ namespace DotNetNuke.Entities.Portals
                 LastName = lastName,
                 Username = username,
                 DisplayName = firstName + " " + lastName,
-                Membership = {Password = password},
+                Membership = { Password = password },
                 Email = email,
                 IsSuperUser = false
             };
@@ -125,7 +126,7 @@ namespace DotNetNuke.Entities.Portals
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
 
                 size = int.MaxValue;
             }
@@ -225,7 +226,7 @@ namespace DotNetNuke.Entities.Portals
                             int administratorId, double hostFee, double hostSpace, int pageQuota, int userQuota, string paymentProcessor, string processorUserId, string processorPassword,
                             string description, string keyWords, string backgroundFile, int siteLogHistory, int splashTabId, int homeTabId, int loginTabId, int registerTabId, int userTabId,
                             int searchTabId, string defaultLanguage, string homeDirectory, string cultureCode)
-{
+        {
             var portal = new PortalInfo
             {
                 PortalID = portalId,
@@ -260,5 +261,5 @@ namespace DotNetNuke.Entities.Portals
             };
             UpdatePortalInfo(portal);
         }
- 	}
+    }
 }

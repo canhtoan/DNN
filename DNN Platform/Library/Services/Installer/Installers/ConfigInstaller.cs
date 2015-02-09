@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Xml;
@@ -28,7 +28,6 @@ using System.Xml.XPath;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -43,7 +42,7 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class ConfigInstaller : ComponentInstallerBase
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private string _FileName = Null.NullString;
         private string _InstallConfig = Null.NullString;
@@ -53,9 +52,9 @@ namespace DotNetNuke.Services.Installer.Installers
         private string _UninstallFileName = Null.NullString;
         private XmlMerge _xmlMerge;
 
-		#endregion
+        #endregion
 
-		#region "Protected Properties"
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -124,10 +123,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return _UnInstallConfig;
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
 
         /// -----------------------------------------------------------------------------
@@ -177,7 +176,7 @@ namespace DotNetNuke.Services.Installer.Installers
             {
                 if (string.IsNullOrEmpty(_FileName))
                 {
-					//First backup the config file
+                    //First backup the config file
                     Util.BackupFile(TargetFile, PhysicalSitePath, Log);
 
                     //Create an XmlDocument for the config file
@@ -194,11 +193,11 @@ namespace DotNetNuke.Services.Installer.Installers
                 }
                 else
                 {
-					//Process external file
+                    //Process external file
                     string strConfigFile = Path.Combine(Package.InstallerInfo.TempInstallFolder, _FileName);
                     if (File.Exists(strConfigFile))
                     {
-						//Create XmlMerge instance from config file source
+                        //Create XmlMerge instance from config file source
                         using (var stream = File.OpenText(strConfigFile))
                         {
                             _xmlMerge = new XmlMerge(stream, Package.Version.ToString(3), Package.Name + " Install");
@@ -263,7 +262,7 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void Rollback()
         {
-			//Do nothing as the changes are all in memory
+            //Do nothing as the changes are all in memory
             Log.AddInfo(Util.CONFIG_RolledBack + " - " + TargetFile.Name);
         }
 
@@ -279,7 +278,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             if (string.IsNullOrEmpty(_UninstallFileName))
             {
-				//Create an XmlDocument for the config file
+                //Create an XmlDocument for the config file
                 _TargetConfig = new XmlDocument();
                 TargetConfig.Load(Path.Combine(PhysicalSitePath, TargetFile.FullName));
 
@@ -291,11 +290,11 @@ namespace DotNetNuke.Services.Installer.Installers
             }
             else
             {
-				//Process external file
+                //Process external file
                 string strConfigFile = Path.Combine(Package.InstallerInfo.TempInstallFolder, _UninstallFileName);
                 if (File.Exists(strConfigFile))
                 {
-					//Create XmlMerge instance from config file source
+                    //Create XmlMerge instance from config file source
                     StreamReader stream = File.OpenText(strConfigFile);
                     var merge = new XmlMerge(stream, Package.Version.ToString(3), Package.Name + " UnInstall");
 
@@ -307,7 +306,7 @@ namespace DotNetNuke.Services.Installer.Installers
                 }
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

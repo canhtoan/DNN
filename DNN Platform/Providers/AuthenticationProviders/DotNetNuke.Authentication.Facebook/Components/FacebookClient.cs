@@ -21,22 +21,21 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Services.Authentication;
 using DotNetNuke.Services.Authentication.OAuth;
 
 #endregion
-
 namespace DotNetNuke.Authentication.Facebook.Components
 {
     public class FacebookClient : OAuthClientBase
     {
         #region Constructors
 
-        public FacebookClient(int portalId, AuthMode mode) 
+        public FacebookClient(int portalId, AuthMode mode)
             : base(portalId, mode, "Facebook")
         {
             TokenEndpoint = new Uri("https://graph.facebook.com/oauth/access_token");

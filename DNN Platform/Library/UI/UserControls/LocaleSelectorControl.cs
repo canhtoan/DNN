@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI.WebControls;
 
@@ -28,7 +28,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Personalization;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     /// -----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ namespace DotNetNuke.UI.UserControls
 
         #endregion
 
-        private string MyFileName = "LocaleSelectorControl.ascx";
+        private string _myFileName = "LocaleSelectorControl.ascx";
         private string _ViewType = "";
 
         private CultureDropDownTypes DisplayType
@@ -121,13 +120,13 @@ namespace DotNetNuke.UI.UserControls
             {
                 ListItem item = default(ListItem);
 
-                item = new ListItem(Localization.GetString("NativeName.Text", Localization.GetResourceFile(this, MyFileName)), "NATIVE");
+                item = new ListItem(Localization.GetString("NativeName.Text", Localization.GetResourceFile(this, _myFileName)), "NATIVE");
                 rbViewType.Items.Add(item);
                 if (ViewType == "NATIVE")
                 {
                     item.Selected = true;
                 }
-                item = new ListItem(Localization.GetString("EnglishName.Text", Localization.GetResourceFile(this, MyFileName)), "ENGLISH");
+                item = new ListItem(Localization.GetString("EnglishName.Text", Localization.GetResourceFile(this, _myFileName)), "ENGLISH");
                 rbViewType.Items.Add(item);
                 if (ViewType == "ENGLISH")
                 {

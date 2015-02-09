@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Reflection;
@@ -37,7 +37,6 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 
 #endregion
-
 namespace DotNetNuke.Modules.MemberDirectory
 {
     public partial class View : ProfileModuleUserControlBase
@@ -53,7 +52,7 @@ namespace DotNetNuke.Modules.MemberDirectory
             AddIe7StyleSheet();
 
             searchBar.Visible = DisplaySearch != "None";
-	        advancedSearchBar.Visible = DisplaySearch == "Both";
+            advancedSearchBar.Visible = DisplaySearch == "Both";
             popUpPanel.Visible = EnablePopUp;
             loadMore.Visible = !DisablePaging;
 

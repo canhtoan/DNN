@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -30,14 +30,13 @@ using DotNetNuke.Framework;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     [ToolboxData("<{0}:DNNTimeZoneEditControl runat=server></{0}:DNNTimeZoneEditControl>")]
     [Obsolete("Deprecated in DNN 6.0. Replaced by new DnnTimeZoneComboBox control and use of .NET TimeZoneInfo class")]
     public class DNNTimeZoneEditControl : IntegerEditControl
     {
-		#region "Protected Methods"
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -56,7 +55,7 @@ namespace DotNetNuke.UI.WebControls
             var cboTimeZones = new DropDownList();
 
             //Load the List with Time Zones
-            Localization.LoadTimeZoneDropDownList(cboTimeZones, ((PageBase) Page).PageCulture.Name, Convert.ToString(_portalSettings.TimeZoneOffset));
+            Localization.LoadTimeZoneDropDownList(cboTimeZones, ((PageBase)Page).PageCulture.Name, Convert.ToString(_portalSettings.TimeZoneOffset));
 
             //Select the relevant item
             if (cboTimeZones.Items.FindByValue(StringValue) != null)
@@ -87,7 +86,7 @@ namespace DotNetNuke.UI.WebControls
             var cboTimeZones = new DropDownList();
 
             //Load the List with Time Zones
-            Localization.LoadTimeZoneDropDownList(cboTimeZones, ((PageBase) Page).PageCulture.Name, Convert.ToString(_portalSettings.TimeZoneOffset));
+            Localization.LoadTimeZoneDropDownList(cboTimeZones, ((PageBase)Page).PageCulture.Name, Convert.ToString(_portalSettings.TimeZoneOffset));
 
             //Select the relevant item
             if (cboTimeZones.Items.FindByValue(StringValue) != null)
@@ -95,7 +94,7 @@ namespace DotNetNuke.UI.WebControls
                 cboTimeZones.ClearSelection();
                 cboTimeZones.Items.FindByValue(StringValue).Selected = true;
             }
-			
+
             //Render the Select Tag
             ControlStyle.AddAttributesToRender(writer);
             writer.AddAttribute(HtmlTextWriterAttribute.Name, UniqueID);
@@ -112,20 +111,20 @@ namespace DotNetNuke.UI.WebControls
 
                 if (isSelected)
                 {
-					//Add the Selected Attribute
+                    //Add the Selected Attribute
                     writer.AddAttribute(HtmlTextWriterAttribute.Selected, "selected");
                 }
-				
+
                 //Render Option Tag
                 writer.RenderBeginTag(HtmlTextWriterTag.Option);
                 writer.Write(timeZoneName.PadRight(100).Substring(0, 50));
                 writer.RenderEndTag();
             }
-			
+
             //Close Select Tag
             writer.RenderEndTag();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

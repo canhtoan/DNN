@@ -1,4 +1,4 @@
-#region Copyright
+﻿#region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Configuration;
 using System.Web;
@@ -34,27 +34,25 @@ using DotNetNuke;
 using ClientDependency.Core.Config;
 
 using DotNetNuke.Instrumentation;
-
+using System.IO;
+using System.Web.UI;
+using ClientDependency.Core;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace DotNetNuke.Web.Client.ClientResourceManagement
 {
-    using System.IO;
-	using System.Web.UI;
-	using ClientDependency.Core;
-    using System.Collections.Generic;
-    using System.Threading;
-
     /// <summary>
     /// Provides the ability to request that client resources (JavaScript and CSS) be loaded on the client browser.
     /// </summary>
     public class ClientResourceManager
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ClientResourceManager));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ClientResourceManager));
         internal const string DefaultCssProvider = "DnnPageHeaderProvider";
         internal const string DefaultJsProvider = "DnnBodyProvider";
 
-        static Dictionary<string, bool> _fileExistsCache = new Dictionary<string, bool>();
-        static ReaderWriterLockSlim _lockFileExistsCache = new ReaderWriterLockSlim();
+        private static Dictionary<string, bool> s_fileExistsCache = new Dictionary<string, bool>();
+        private static ReaderWriterLockSlim s_lockFileExistsCache = new ReaderWriterLockSlim();
 
         #region Private Methods
 
@@ -64,22 +62,29 @@ namespace DotNetNuke.Web.Client.ClientResourceManagement
             filePath = RemoveQueryString(filePath);
 
             // cache css file paths
-            if (!_fileExistsCache.ContainsKey(filePath)) {
+            if (!s_fileExistsCache.ContainsKey(filePath))
+            {
                 // appply lock after IF, locking is more expensive than worst case scenario (check disk twice)
-                _lockFileExistsCache.EnterWriteLock();
-                try {
-                    _fileExistsCache[filePath] = IsAbsoluteUrl(filePath) || File.Exists(page.Server.MapPath(filePath));
-                } finally {
-                    _lockFileExistsCache.ExitWriteLock();
+                s_lockFileExistsCache.EnterWriteLock();
+                try
+                {
+                    s_fileExistsCache[filePath] = IsAbsoluteUrl(filePath) || File.Exists(page.Server.MapPath(filePath));
+                }
+                finally
+                {
+                    s_lockFileExistsCache.ExitWriteLock();
                 }
             }
 
             // return if file exists from cache
-            _lockFileExistsCache.EnterReadLock();
-            try {
-                return _fileExistsCache[filePath];
-            } finally {
-                _lockFileExistsCache.ExitReadLock();
+            s_lockFileExistsCache.EnterReadLock();
+            try
+            {
+                return s_fileExistsCache[filePath];
+            }
+            finally
+            {
+                s_lockFileExistsCache.ExitReadLock();
             }
         }
 
@@ -296,7 +301,7 @@ namespace DotNetNuke.Web.Client.ClientResourceManagement
         /// <param name="provider">The name of the provider responsible for rendering the script output.</param>
         public static void RegisterScript(Page page, string filePath, FileOrder.Js priority, string provider)
         {
-            RegisterScript(page, filePath, (int) priority, provider);
+            RegisterScript(page, filePath, (int)priority, provider);
         }
 
         /// <summary>
@@ -373,7 +378,7 @@ namespace DotNetNuke.Web.Client.ClientResourceManagement
 
             if (fileExists || FileExists(page, filePath))
             {
-                var include = new DnnCssInclude {ForceProvider = provider, Priority = priority, FilePath = filePath, AddTag = false};
+                var include = new DnnCssInclude { ForceProvider = provider, Priority = priority, FilePath = filePath, AddTag = false };
                 var loader = page.FindControl("ClientResourceIncludes");
 
                 if (loader != null)
@@ -424,33 +429,32 @@ namespace DotNetNuke.Web.Client.ClientResourceManagement
             }
         }
 
-		/// <summary>
-		/// Clear the default compisite files so that it can be generated next time.
-		/// </summary>
-		public static void ClearCache()
-		{
-			var provider = ClientDependencySettings.Instance.DefaultCompositeFileProcessingProvider;
-			if(provider is CompositeFileProcessingProvider)
-			{
-				try
-				{
-					var folder = provider.CompositeFilePath;
-					if (folder.Exists)
-					{
-						var files = folder.GetFiles("*.cd?");
-						foreach (var file in files)
-						{
-							file.Delete();
-						}
-					}
-				}
-				catch (Exception ex)
-				{
-					Logger.Error(ex);
-				}
-
-			}
-		}
+        /// <summary>
+        /// Clear the default compisite files so that it can be generated next time.
+        /// </summary>
+        public static void ClearCache()
+        {
+            var provider = ClientDependencySettings.Instance.DefaultCompositeFileProcessingProvider;
+            if (provider is CompositeFileProcessingProvider)
+            {
+                try
+                {
+                    var folder = provider.CompositeFilePath;
+                    if (folder.Exists)
+                    {
+                        var files = folder.GetFiles("*.cd?");
+                        foreach (var file in files)
+                        {
+                            file.Delete();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    s_logger.Error(ex);
+                }
+            }
+        }
 
         public static void EnableAsyncPostBackHandler()
         {
@@ -461,6 +465,5 @@ namespace DotNetNuke.Web.Client.ClientResourceManagement
         }
 
         #endregion
-
     }
 }

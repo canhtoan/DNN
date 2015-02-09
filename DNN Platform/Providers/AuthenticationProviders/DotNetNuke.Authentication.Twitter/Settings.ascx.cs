@@ -20,8 +20,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Services.Authentication;
@@ -29,7 +29,6 @@ using DotNetNuke.Services.Authentication.OAuth;
 using DotNetNuke.Services.Exceptions;
 
 #endregion
-
 namespace DotNetNuke.Authentication.Twitter
 {
     public partial class Settings : OAuthSettingsBase

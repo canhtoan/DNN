@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Globalization;
@@ -27,27 +27,26 @@ using System.Globalization;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Services.Tokens
 {
     public class DataRowPropertyAccess : IPropertyAccess
     {
-        private readonly DataRow dr;
+        private readonly DataRow _dr;
 
         public DataRowPropertyAccess(DataRow row)
         {
-            dr = row;
+            _dr = row;
         }
 
         #region IPropertyAccess Members
 
         public string GetProperty(string propertyName, string format, CultureInfo formatProvider, UserInfo AccessingUser, Scope AccessLevel, ref bool PropertyNotFound)
         {
-            if (dr == null)
+            if (_dr == null)
             {
                 return string.Empty;
             }
-            object valueObject = dr[propertyName];
+            object valueObject = _dr[propertyName];
             string OutputFormat = format;
             if (string.IsNullOrEmpty(format))
             {
@@ -66,7 +65,7 @@ namespace DotNetNuke.Services.Tokens
                     case "Single":
                     case "Int32":
                     case "Int64":
-                        return (((IFormattable) valueObject).ToString(OutputFormat, formatProvider));
+                        return (((IFormattable)valueObject).ToString(OutputFormat, formatProvider));
                     default:
                         return PropertyAccess.FormatString(valueObject.ToString(), format);
                 }

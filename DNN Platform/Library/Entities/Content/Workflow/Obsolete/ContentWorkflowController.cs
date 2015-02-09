@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,29 +36,30 @@ using DotNetNuke.Services.Mail;
 using DotNetNuke.Services.Social.Notifications;
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Entities.Content.Workflow
 // ReSharper enable CheckNamespace
 {
     [Obsolete("Deprecated in Platform 7.4.0.")]
     public class ContentWorkflowController : ComponentBase<IContentWorkflowController, ContentWorkflowController>, IContentWorkflowController
     {
-        private readonly ContentController contentController;
+        private readonly ContentController _contentController;
         private const string ContentWorkflowNotificationType = "ContentWorkflowNotification";
 
         private ContentWorkflowController()
-        {            
-            contentController = new ContentController();
+        {
+            _contentController = new ContentController();
         }
 
         #region Public Methods
         #region Obsolete Methods
-        
+
         #region Engine
 
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowEngine")]
         public void DiscardWorkflow(int contentItemId, string comment, int portalId, int userId)
         {
-            var item = contentController.GetContentItem(contentItemId);
+            var item = _contentController.GetContentItem(contentItemId);
             var workflow = GetWorkflow(item);
             var stateId = GetLastWorkflowStateID(workflow);
             AddWorkflowCommentLog(item, comment, userId);
@@ -69,7 +70,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowEngine")]
         public void CompleteWorkflow(int contentItemId, string comment, int portalId, int userId)
         {
-            var item = contentController.GetContentItem(contentItemId);
+            var item = _contentController.GetContentItem(contentItemId);
             var workflow = GetWorkflow(item);
             var lastStateId = GetLastWorkflowStateID(workflow);
             AddWorkflowCommentLog(item, comment, userId);
@@ -101,7 +102,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowEngine")]
         public void StartWorkflow(int workflowID, int itemID, int userID)
         {
-            var item = contentController.GetContentItem(itemID);
+            var item = _contentController.GetContentItem(itemID);
             var workflow = GetWorkflow(item);
 
             //If already exists a started workflow
@@ -126,7 +127,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowEngine")]
         public void CompleteState(int itemID, string subject, string body, string comment, int portalID, int userID, string source, params string[] parameters)
         {
-            var item = contentController.GetContentItem(itemID);
+            var item = _contentController.GetContentItem(itemID);
             var workflow = GetWorkflow(item);
             if (workflow == null)
                 return;
@@ -158,7 +159,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowEngine")]
         public void DiscardState(int itemID, string subject, string body, string comment, int portalID, int userID)
         {
-            var item = contentController.GetContentItem(itemID);
+            var item = _contentController.GetContentItem(itemID);
             var workflow = GetWorkflow(item);
             if (workflow == null)
                 return;
@@ -182,7 +183,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowEngine")]
         public bool IsWorkflowCompleted(int itemID)
         {
-            var item = contentController.GetContentItem(itemID); //Ensure DB values
+            var item = _contentController.GetContentItem(itemID); //Ensure DB values
             var workflow = GetWorkflow(item);
             if (workflow == null) return true; // If item has not workflow, then it is considered as completed
             return IsWorkflowCompleted(workflow, item);
@@ -191,7 +192,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowEngine")]
         public bool IsWorkflowOnDraft(int itemID)
         {
-            var item = contentController.GetContentItem(itemID); //Ensure DB values
+            var item = _contentController.GetContentItem(itemID); //Ensure DB values
             var workflow = GetWorkflow(item);
             if (workflow == null) return false; // If item has not workflow, then it is not on Draft
             return item.StateID == GetFirstWorkflowStateID(workflow);
@@ -490,14 +491,14 @@ namespace DotNetNuke.Entities.Content.Workflow
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowSecurity")]
         public bool IsCurrentReviewer(int portalID, int userID, int itemID)
         {
-            var item = contentController.GetContentItem(itemID);
+            var item = _contentController.GetContentItem(itemID);
             return IsReviewer(portalID, userID, item.StateID);
         }
 
         [Obsolete("Deprecated in Platform 7.4.0. Use instead IWorkflowSecurity")]
         public bool IsCurrentReviewer(int itemID)
         {
-            var item = contentController.GetContentItem(itemID);
+            var item = _contentController.GetContentItem(itemID);
             return IsReviewer(item.StateID);
         }
         #endregion
@@ -525,7 +526,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         {
             var workflow = GetWorkflow(item);
 
-            var logComment = ReplaceNotificationTokens(GetWorkflowActionComment(ContentWorkflowLogType.CommentProvided), workflow, item, workflow.States.FirstOrDefault(s => s.StateID == item.StateID), workflow.PortalID, userID, userComment);            
+            var logComment = ReplaceNotificationTokens(GetWorkflowActionComment(ContentWorkflowLogType.CommentProvided), workflow, item, workflow.States.FirstOrDefault(s => s.StateID == item.StateID), workflow.PortalID, userID, userComment);
             AddWorkflowLog(workflow.WorkflowID, item, GetWorkflowActionText(ContentWorkflowLogType.CommentProvided), logComment, userID);
         }
 
@@ -549,7 +550,7 @@ namespace DotNetNuke.Entities.Content.Workflow
             var roles = GetRolesFromPermissions(settings, permissions);
             var replacedSubject = ReplaceNotificationTokens(subject, workflow, item, GetWorkflowStateByID(destinationStateID), settings.PortalId, actionUserID);
             var replacedBody = ReplaceNotificationTokens(body, workflow, item, GetWorkflowStateByID(destinationStateID), settings.PortalId, actionUserID);
-            
+
             SendNotification(state.SendEmail, state.SendMessage, settings, roles, users, replacedSubject, replacedBody, comment, actionUserID, source, parameters);
         }
 
@@ -564,7 +565,7 @@ namespace DotNetNuke.Entities.Content.Workflow
             }
 
             var notification = new Notification
-            {                
+            {
                 NotificationTypeID = NotificationsController.Instance.GetNotificationType(ContentWorkflowNotificationType).NotificationTypeId,
                 Subject = subject,
                 Body = fullbody,
@@ -602,7 +603,7 @@ namespace DotNetNuke.Entities.Content.Workflow
             }
 
             foreach (var userMail in emailUsers.Select(u => u.Email).Distinct())
-            {                
+            {
                 Mail.SendEmail(settings.Email, userMail, subject, fullbody);
             }
         }
@@ -610,7 +611,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         private IEnumerable<RoleInfo> GetRolesFromPermissions(PortalSettings settings, IEnumerable<ContentWorkflowStatePermission> permissions)
         {
             var roles = new List<RoleInfo>();
-            
+
             foreach (var permission in permissions)
             {
                 if (permission.AllowAccess && permission.RoleID > Null.NullInteger)
@@ -619,7 +620,7 @@ namespace DotNetNuke.Entities.Content.Workflow
                 }
             }
 
-            if(!IsAdministratorRoleAlreadyIncluded(settings, roles))
+            if (!IsAdministratorRoleAlreadyIncluded(settings, roles))
             {
                 var adminRole = RoleController.Instance.GetRoleByName(settings.PortalId, settings.AdministratorRoleName);
                 roles.Add(adminRole);
@@ -650,7 +651,7 @@ namespace DotNetNuke.Entities.Content.Workflow
             var superUsers = UserController.GetUsers(false, true, Null.NullInteger);
             foreach (UserInfo superUser in superUsers)
             {
-                if(IsSuperUserNotIncluded(users, superUser))
+                if (IsSuperUserNotIncluded(users, superUser))
                 {
                     users.Add(superUser);
                 }
@@ -806,7 +807,7 @@ namespace DotNetNuke.Entities.Content.Workflow
         private void SetWorkflowState(int stateID, ContentItem item)
         {
             item.StateID = stateID;
-            contentController.UpdateContentItem(item);
+            _contentController.UpdateContentItem(item);
         }
 
         private bool IsWorkflowCompleted(ContentWorkflow workflow, ContentItem item)

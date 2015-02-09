@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,35 +17,34 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Globalization;
 
 using DotNetNuke.Services.Tokens;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users
 {
     public class MembershipPropertyAccess : IPropertyAccess
     {
-        private readonly UserInfo objUser;
+        private readonly UserInfo _objUser;
 
         public MembershipPropertyAccess(UserInfo User)
         {
-            objUser = User;
+            _objUser = User;
         }
 
         #region IPropertyAccess Members
 
         public string GetProperty(string propertyName, string format, CultureInfo formatProvider, UserInfo AccessingUser, Scope CurrentScope, ref bool PropertyNotFound)
         {
-            UserMembership objMembership = objUser.Membership;
-            bool UserQueriesHimself = (objUser.UserID == AccessingUser.UserID && objUser.UserID != -1);
+            UserMembership objMembership = _objUser.Membership;
+            bool UserQueriesHimself = (_objUser.UserID == AccessingUser.UserID && _objUser.UserID != -1);
             if (CurrentScope < Scope.DefaultSettings || (CurrentScope == Scope.DefaultSettings && !UserQueriesHimself) ||
-                ((CurrentScope != Scope.SystemMessages || objUser.IsSuperUser) 
+                ((CurrentScope != Scope.SystemMessages || _objUser.IsSuperUser)
                     && (propertyName.ToLower() == "password" || propertyName.ToLower() == "passwordanswer" || propertyName.ToLower() == "passwordquestion")
                 ))
             {
@@ -84,15 +83,15 @@ namespace DotNetNuke.Entities.Users
                 case "passwordquestion":
                     return PropertyAccess.FormatString(objMembership.PasswordQuestion, format);
                 case "passwordresettoken":
-                    return PropertyAccess.FormatString(Convert.ToString(objUser.PasswordResetToken), format);
+                    return PropertyAccess.FormatString(Convert.ToString(_objUser.PasswordResetToken), format);
                 case "passwordresetexpiration":
-                    return PropertyAccess.FormatString(objUser.PasswordResetExpiration.ToString(formatProvider), format);
+                    return PropertyAccess.FormatString(_objUser.PasswordResetExpiration.ToString(formatProvider), format);
                 case "updatepassword":
                     return (PropertyAccess.Boolean2LocalizedYesNo(objMembership.UpdatePassword, formatProvider));
                 case "username":
-                    return (PropertyAccess.FormatString(objUser.Username, format));
+                    return (PropertyAccess.FormatString(_objUser.Username, format));
                 case "email":
-                    return (PropertyAccess.FormatString(objUser.Email, format));
+                    return (PropertyAccess.FormatString(_objUser.Email, format));
             }
             return PropertyAccess.GetObjectProperty(objMembership, propertyName, format, formatProvider, ref PropertyNotFound);
         }

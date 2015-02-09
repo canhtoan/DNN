@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -29,7 +29,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Instrumentation;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -44,14 +43,14 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class CleanupInstaller : FileInstaller
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (CleanupInstaller));
-		#region "Private Members"
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(CleanupInstaller));
+        #region "Private Members"
 
         private string _FileName;
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -69,10 +68,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "*";
             }
         }
-		
-		#endregion
 
-	#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         private bool ProcessCleanupFile()
         {
@@ -94,10 +93,10 @@ namespace DotNetNuke.Services.Installer.Installers
             }
             return bSuccess;
         }
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -112,19 +111,19 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             try
             {
-				//Backup File
+                //Backup File
                 if (File.Exists(PhysicalBasePath + insFile.FullName))
                 {
                     Util.BackupFile(insFile, PhysicalBasePath, Log);
                 }
-				
-				//Delete file
+
+                //Delete file
                 Util.DeleteFile(insFile, PhysicalBasePath, Log);
                 return true;
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
 
                 return false;
             }
@@ -169,10 +168,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 Util.RestoreFile(installFile, PhysicalBasePath, Log);
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
 
         /// -----------------------------------------------------------------------------
@@ -186,7 +185,7 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void Commit()
         {
-			//Do nothing
+            //Do nothing
             base.Commit();
         }
 
@@ -244,7 +243,7 @@ namespace DotNetNuke.Services.Installer.Installers
         public override void UnInstall()
         {
         }
-		
-		#endregion
+
+        #endregion
     }
 }

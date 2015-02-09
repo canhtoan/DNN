@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.IO;
@@ -29,7 +29,6 @@ using System.Xml;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Services.EventQueue
 {
     public enum MessagePriority
@@ -42,8 +41,8 @@ namespace DotNetNuke.Services.EventQueue
     [Serializable]
     public class EventMessage
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         private NameValueCollection _attributes;
         private string _authorizedRoles = Null.NullString;
         private string _body = Null.NullString;
@@ -56,19 +55,19 @@ namespace DotNetNuke.Services.EventQueue
         private string _sender = Null.NullString;
         private DateTime _sentDate;
         private string _subscribers = Null.NullString;
-		
-		#endregion
 
-		#region "Constructors"
+        #endregion
+
+        #region "Constructors"
 
         public EventMessage()
         {
             _attributes = new NameValueCollection();
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public int EventMessageID
         {
@@ -262,10 +261,10 @@ namespace DotNetNuke.Services.EventQueue
                 _attributes = value;
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         public void DeserializeAttributes(string configXml)
         {
@@ -277,7 +276,7 @@ namespace DotNetNuke.Services.EventQueue
             reader.ReadStartElement("Attributes");
             if (!reader.IsEmptyElement)
             {
-				//Loop throug the Attributes
+                //Loop throug the Attributes
                 do
                 {
                     reader.ReadStartElement("Attribute");
@@ -296,7 +295,7 @@ namespace DotNetNuke.Services.EventQueue
                     {
                         reader.Read();
                     }
-					
+
                     //Add attribute to the collection
                     _attributes.Add(attName, attValue);
                 } while (reader.ReadToNextSibling("Attribute"));
@@ -330,15 +329,15 @@ namespace DotNetNuke.Services.EventQueue
                 }
                 else
                 {
-					//Write value
+                    //Write value
                     writer.WriteElementString("Value", Attributes[key]);
                 }
-				
+
                 //Close the Attribute node
                 writer.WriteEndElement();
             }
-			
-			//Close the Attributes node
+
+            //Close the Attributes node
             writer.WriteEndElement();
 
             //Close Writer
@@ -346,7 +345,7 @@ namespace DotNetNuke.Services.EventQueue
 
             return sb.ToString();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

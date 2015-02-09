@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,19 +36,17 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Host
 {
     public class ServerController
     {
-
         public const string DefaultUrlAdapter = "DotNetNuke.Entities.Host.ServerWebRequestAdapter, DotNetNuke";
 
         private const string cacheKey = "WebServers";
         private const int cacheTimeout = 20;
         private const CacheItemPriority cachePriority = CacheItemPriority.High;
-        private static readonly DataProvider dataProvider = DataProvider.Instance();
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(ServerController));
+        private static readonly DataProvider s_dataProvider = DataProvider.Instance();
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ServerController));
 
         public static bool UseAppName
         {
@@ -98,7 +96,7 @@ namespace DotNetNuke.Entities.Host
             {
                 executingServerName += "-" + Globals.IISAppName;
             }
-            Logger.Debug("GetExecutingServerName:" + executingServerName);
+            s_logger.Debug("GetExecutingServerName:" + executingServerName);
             return executingServerName;
         }
 
@@ -109,7 +107,7 @@ namespace DotNetNuke.Entities.Host
             {
                 serverName += "-" + webServer.IISAppName;
             }
-            Logger.Debug("GetServerName:" + serverName);
+            s_logger.Debug("GetServerName:" + serverName);
             return serverName;
         }
 
@@ -129,7 +127,7 @@ namespace DotNetNuke.Entities.Host
         {
             var existServer = GetServers().FirstOrDefault(s => s.ServerName == server.ServerName && s.IISAppName == server.IISAppName);
             var serverId = DataProvider.Instance().UpdateServerActivity(server.ServerName, server.IISAppName, server.CreatedDate, server.LastActivityDate, server.PingFailureCount, server.Enabled);
-            
+
             server.ServerID = serverId;
             if (existServer == null
                 || string.IsNullOrEmpty(existServer.Url)
@@ -143,13 +141,13 @@ namespace DotNetNuke.Entities.Host
                 UpdateServer(server);
             }
 
-            
+
             //log the server info
             var log = new LogInfo();
             log.AddProperty(existServer != null ? "Server Updated" : "Add New Server", server.ServerName);
             log.AddProperty("IISAppName", server.IISAppName);
             log.AddProperty("Last Activity Date", server.LastActivityDate.ToString());
-            log.LogTypeKey = existServer != null ? EventLogController.EventLogType.WEBSERVER_UPDATED.ToString() 
+            log.LogTypeKey = existServer != null ? EventLogController.EventLogType.WEBSERVER_UPDATED.ToString()
                                         : EventLogController.EventLogType.WEBSERVER_CREATED.ToString();
             LogController.Instance.AddLog(log);
 
@@ -165,7 +163,7 @@ namespace DotNetNuke.Entities.Host
 
         private static object GetServersCallBack(CacheItemArgs cacheItemArgs)
         {
-            return CBO.FillCollection<ServerInfo>(dataProvider.GetServers());
+            return CBO.FillCollection<ServerInfo>(s_dataProvider.GetServers());
         }
 
         private static string GetServerUrl()
@@ -182,7 +180,7 @@ namespace DotNetNuke.Entities.Host
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 return string.Empty;
             }
         }
@@ -201,7 +199,7 @@ namespace DotNetNuke.Entities.Host
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 return string.Empty;
             }
         }

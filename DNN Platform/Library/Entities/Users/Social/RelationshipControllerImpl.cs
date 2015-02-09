@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,7 +35,6 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Services.Social.Notifications;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users.Social
 {
     internal class RelationshipControllerImpl : IRelationshipController
@@ -176,7 +175,7 @@ namespace DotNetNuke.Entities.Users.Social
                                                             c =>
                                                             CBO.FillCollection<Relationship>(
                                                                 _dataService.GetRelationshipsByPortalId(
-                                                                    (int) c.ParamList[0])));
+                                                                    (int)c.ParamList[0])));
         }
 
         public void SaveRelationship(Relationship relationship)
@@ -237,7 +236,6 @@ namespace DotNetNuke.Entities.Users.Social
                                                                                       Direction));
             }
             return userRelationship;
-
         }
 
         public IList<UserRelationship> GetUserRelationships(UserInfo user)
@@ -405,13 +403,13 @@ namespace DotNetNuke.Entities.Users.Social
             }
 
             var userRelationship = new UserRelationship
-                                       {
-                                           UserRelationshipId = Null.NullInteger,
-                                           UserId = initiatingUser.UserID,
-                                           RelatedUserId = targetUser.UserID,
-                                           RelationshipId = relationship.RelationshipId,
-                                           Status = status
-                                       };
+            {
+                UserRelationshipId = Null.NullInteger,
+                UserId = initiatingUser.UserID,
+                RelatedUserId = targetUser.UserID,
+                RelationshipId = relationship.RelationshipId,
+                Status = status
+            };
 
             SaveUserRelationship(userRelationship);
 
@@ -453,7 +451,7 @@ namespace DotNetNuke.Entities.Users.Social
         #endregion
 
         #region Easy Wrapper APIs
-        
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// GetFollowerRelationship - Get the UserRelationship between Current User and the Target Users in Follower Relationship
@@ -567,16 +565,16 @@ namespace DotNetNuke.Entities.Users.Social
             if (GetFriendsRelationshipByPortal(portalId) == null)
             {
                 var friendRelationship = new Relationship
-                                             {
-                                                 RelationshipId = Null.NullInteger,
-                                                 Name = DefaultRelationshipTypes.Friends.ToString(),
-                                                 Description = DefaultRelationshipTypes.Friends.ToString(),
-                                                 PortalId = portalId,
-                                                 UserId = Null.NullInteger,
-                                                 DefaultResponse = RelationshipStatus.None,
-                                                 //default response is None
-                                                 RelationshipTypeId = (int) DefaultRelationshipTypes.Friends
-                                             };
+                {
+                    RelationshipId = Null.NullInteger,
+                    Name = DefaultRelationshipTypes.Friends.ToString(),
+                    Description = DefaultRelationshipTypes.Friends.ToString(),
+                    PortalId = portalId,
+                    UserId = Null.NullInteger,
+                    DefaultResponse = RelationshipStatus.None,
+                    //default response is None
+                    RelationshipTypeId = (int)DefaultRelationshipTypes.Friends
+                };
                 SaveRelationship(friendRelationship);
             }
 
@@ -584,28 +582,27 @@ namespace DotNetNuke.Entities.Users.Social
             if (GetFollowersRelationshipByPortal(portalId) == null)
             {
                 var followerRelationship = new Relationship
-                                               {
-                                                   RelationshipId = Null.NullInteger,
-                                                   Name = DefaultRelationshipTypes.Followers.ToString(),
-                                                   Description = DefaultRelationshipTypes.Followers.ToString(),
-                                                   PortalId = portalId,
-                                                   UserId = Null.NullInteger,
-                                                   DefaultResponse = RelationshipStatus.Accepted,
-                                                   //default response is Accepted
-                                                   RelationshipTypeId = (int) DefaultRelationshipTypes.Followers
-                                               };
+                {
+                    RelationshipId = Null.NullInteger,
+                    Name = DefaultRelationshipTypes.Followers.ToString(),
+                    Description = DefaultRelationshipTypes.Followers.ToString(),
+                    PortalId = portalId,
+                    UserId = Null.NullInteger,
+                    DefaultResponse = RelationshipStatus.Accepted,
+                    //default response is Accepted
+                    RelationshipTypeId = (int)DefaultRelationshipTypes.Followers
+                };
                 SaveRelationship(followerRelationship);
             }
         }
 
         public Relationship GetFriendsRelationshipByPortal(int portalId)
         {
-           return GetRelationshipsByPortalId(portalId).FirstOrDefault(re => re.RelationshipTypeId == (int)DefaultRelationshipTypes.Friends);
+            return GetRelationshipsByPortalId(portalId).FirstOrDefault(re => re.RelationshipTypeId == (int)DefaultRelationshipTypes.Friends);
         }
 
         public Relationship GetFollowersRelationshipByPortal(int portalId)
         {
-            
             return GetRelationshipsByPortalId(portalId).FirstOrDefault(re => re.RelationshipTypeId == (int)DefaultRelationshipTypes.Followers);
         }
 

@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace DotNetNuke.Web.Api
         /// <summary>
         /// Initialize a formatter that can handle text/plain and text/html
         /// </summary>
-        public StringPassThroughMediaTypeFormatter() : this(new [] {"text/plain", "text/html"}) {}
+        public StringPassThroughMediaTypeFormatter() : this(new[] { "text/plain", "text/html" }) { }
 
         /// <summary>
         /// Initialize a formatter that can handle the specified media types
@@ -49,12 +50,12 @@ namespace DotNetNuke.Web.Api
             }
         }
 
-    	public override bool CanReadType(Type type)
+        public override bool CanReadType(Type type)
         {
             return type == typeof(string);
         }
 
-    	public override bool CanWriteType(Type type)
+        public override bool CanWriteType(Type type)
         {
             return type == typeof(string);
         }

@@ -17,8 +17,8 @@ namespace ClientDependency.Core.Config
         /// <summary>
         /// used for singleton
         /// </summary>
-        private static ClientDependencySettings _settings;
-        private static readonly object Lock = new object();
+        private static ClientDependencySettings s_settings;
+        private static readonly object s_lock = new object();
 
         /// <summary>
         /// Default constructor, for use with a web context app
@@ -32,14 +32,13 @@ namespace ClientDependency.Core.Config
             }
 
             LoadProviders((ClientDependencySection)ConfigurationManager.GetSection("clientDependency"), new HttpContextWrapper(HttpContext.Current));
-            
         }
 
         internal ClientDependencySettings(FileInfo configFile, HttpContextBase ctx)
         {
             var fileMap = new ExeConfigurationFileMap { ExeConfigFilename = configFile.FullName };
             var configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
-            LoadProviders((ClientDependencySection)configuration.GetSection("clientDependency"), ctx);            
+            LoadProviders((ClientDependencySection)configuration.GetSection("clientDependency"), ctx);
         }
 
         /// <summary>
@@ -49,18 +48,18 @@ namespace ClientDependency.Core.Config
         {
             get
             {
-                if (_settings == null)
+                if (s_settings == null)
                 {
-                    lock(Lock)
+                    lock (s_lock)
                     {
                         //double check
-                        if (_settings == null)
+                        if (s_settings == null)
                         {
-                            _settings = new ClientDependencySettings();
+                            s_settings = new ClientDependencySettings();
                         }
                     }
                 }
-                return _settings;
+                return s_settings;
             }
         }
 
@@ -76,7 +75,7 @@ namespace ClientDependency.Core.Config
         /// If this is not explicitly set, then the extensions 'js' and 'css' are the defaults.
         /// </remarks>
         public List<string> FileBasedDependencyExtensionList { get; set; }
-        
+
         public int Version { get; set; }
 
         public ILogger Logger { get; private set; }
@@ -122,12 +121,11 @@ namespace ClientDependency.Core.Config
         public FileMapProviderCollection FileMapProviderCollection { get; private set; }
 
         public ClientDependencySection ConfigSection { get; private set; }
-       
+
         public string CompositeFileHandlerPath { get; set; }
-       
+
         internal void LoadProviders(ClientDependencySection section, HttpContextBase http)
         {
-         
             ConfigSection = section;
 
             FileRegistrationProviderCollection = new FileRegistrationProviderCollection();
@@ -139,7 +137,7 @@ namespace ClientDependency.Core.Config
             if (ConfigSection == null)
             {
                 //create a new section with the default settings
-                ConfigSection = new ClientDependencySection();                            
+                ConfigSection = new ClientDependencySection();
             }
 
             //need to check if it's an http path or a lambda path
@@ -152,7 +150,7 @@ namespace ClientDependency.Core.Config
 
             //load the providers from the config, if there isn't config sections then add default providers
             // and then load the defaults.
-            
+
             LoadDefaultCompositeFileConfig(ConfigSection, http);
 
             DefaultCompositeFileProcessingProvider = CompositeFileProcessingProviderCollection[ConfigSection.CompositeFileElement.DefaultFileProcessingProvider];
@@ -191,7 +189,6 @@ namespace ClientDependency.Core.Config
 
                 Logger = (ILogger)Activator.CreateInstance(t);
             }
-                    
         }
 
         private void LoadDefaultFileRegConfig(ClientDependencySection section)
@@ -215,7 +212,6 @@ namespace ClientDependency.Core.Config
             {
                 ProvidersHelper.InstantiateProviders(section.FileRegistrationElement.Providers, FileRegistrationProviderCollection, typeof(BaseFileRegistrationProvider));
             }
-
         }
 
         private void LoadDefaultFileMapConfig(ClientDependencySection section, HttpContextBase http)
@@ -237,7 +233,6 @@ namespace ClientDependency.Core.Config
                     p.Initialize(http);
                 }
             }
-
         }
 
         private void LoadDefaultCompositeFileConfig(ClientDependencySection section, HttpContextBase http)
@@ -253,12 +248,11 @@ namespace ClientDependency.Core.Config
             {
                 ProvidersHelper.InstantiateProviders(section.CompositeFileElement.FileProcessingProviders, CompositeFileProcessingProviderCollection, typeof(BaseCompositeFileProcessingProvider));
                 //since the BaseCompositeFileProcessingProvider is an IHttpProvider, we need to do the http init
-                foreach(var p in CompositeFileProcessingProviderCollection.Cast<BaseCompositeFileProcessingProvider>())
+                foreach (var p in CompositeFileProcessingProviderCollection.Cast<BaseCompositeFileProcessingProvider>())
                 {
                     p.Initialize(http);
                 }
             }
-            
         }
 
         private void LoadDefaultMvcFileConfig(ClientDependencySection section)
@@ -273,7 +267,6 @@ namespace ClientDependency.Core.Config
             {
                 ProvidersHelper.InstantiateProviders(section.MvcElement.Renderers, MvcRendererCollection, typeof(BaseRenderer));
             }
-
         }
     }
 }

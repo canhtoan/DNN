@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Common.Internal;
@@ -28,7 +28,6 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Search.Entities;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Controllers
 {
     /// <summary>
@@ -52,7 +51,7 @@ namespace DotNetNuke.Services.Search.Controllers
 
             return viewable;
         }
-        
+
         public override string GetDocUrl(SearchResult searchResult)
         {
             var url = Localization.Localization.GetString("SEARCH_NoLink");
@@ -62,7 +61,7 @@ namespace DotNetNuke.Services.Search.Controllers
             {
                 url = TestableGlobals.Instance.NavigateURL(searchResult.TabId, string.Empty, searchResult.QueryString);
             }
-            
+
             return url;
         }
 

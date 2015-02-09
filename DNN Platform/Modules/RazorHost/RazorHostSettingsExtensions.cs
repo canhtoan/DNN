@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System.Web.UI;
 using DotNetNuke.Entities.Modules;
@@ -28,7 +29,7 @@ namespace DotNetNuke.Modules.RazorHost
     {
         public static Settings LoadRazorSettingsControl(this UserControl parent, ModuleInfo configuration, string localResourceFile)
         {
-            var control = (Settings) parent.LoadControl("~/DesktopModules/RazorModules/RazorHost/Settings.ascx");
+            var control = (Settings)parent.LoadControl("~/DesktopModules/RazorModules/RazorHost/Settings.ascx");
             control.ModuleConfiguration = configuration;
             control.LocalResourceFile = localResourceFile;
             EnsureEditScriptControlIsRegistered(configuration.ModuleDefID);
@@ -40,13 +41,13 @@ namespace DotNetNuke.Modules.RazorHost
         {
             if (ModuleControlController.GetModuleControlByControlKey("EditRazorScript", moduleDefId) != null) return;
             var m = new ModuleControlInfo
-                        {
-                            ControlKey = "EditRazorScript",
-                            ControlSrc = "DesktopModules/RazorModules/RazorHost/EditScript.ascx",
-                            ControlTitle = "Edit Script",
-                            ControlType = SecurityAccessLevel.Host,
-                            ModuleDefID = moduleDefId
-                        };
+            {
+                ControlKey = "EditRazorScript",
+                ControlSrc = "DesktopModules/RazorModules/RazorHost/EditScript.ascx",
+                ControlTitle = "Edit Script",
+                ControlType = SecurityAccessLevel.Host,
+                ModuleDefID = moduleDefId
+            };
             ModuleControlController.UpdateModuleControl(m);
         }
     }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -88,13 +87,13 @@ namespace DotNetNuke.UI.WebControls
             }
             else
             {
-				//Use Editor
+                //Use Editor
                 Type editType = Type.GetType(editorInfo.Editor, true, true);
-                propEditor = (EditControl) Activator.CreateInstance(editType);
+                propEditor = (EditControl)Activator.CreateInstance(editType);
             }
             propEditor.ID = editorInfo.Name;
             propEditor.Name = editorInfo.Name;
-			propEditor.Category = editorInfo.Category;
+            propEditor.Category = editorInfo.Category;
 
             propEditor.EditMode = editorInfo.EditMode;
             propEditor.Required = editorInfo.Required;

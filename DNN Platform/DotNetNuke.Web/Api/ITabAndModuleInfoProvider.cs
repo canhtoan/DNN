@@ -1,4 +1,4 @@
-using System.Net.Http;
+﻿using System.Net.Http;
 using DotNetNuke.Entities.Modules;
 
 namespace DotNetNuke.Web.Api

@@ -10,7 +10,6 @@ namespace ClientDependency.Core.FileRegistration.Providers
 {
     public class StandardRenderer : BaseRenderer
     {
-
         public const string DefaultName = "StandardRenderer";
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
@@ -42,7 +41,7 @@ namespace ClientDependency.Core.FileRegistration.Providers
                 foreach (var s in comp)
                 {
                     sb.Append(RenderSingleJsFile(s, htmlAttributes));
-                }                
+                }
             }
 
             return sb.ToString();
@@ -68,7 +67,7 @@ namespace ClientDependency.Core.FileRegistration.Providers
                 foreach (var s in comp)
                 {
                     sb.Append(RenderSingleCssFile(s, htmlAttributes));
-                }    
+                }
             }
 
             return sb.ToString();
@@ -83,6 +82,5 @@ namespace ClientDependency.Core.FileRegistration.Providers
         {
             return string.Format(HtmlEmbedContants.CssEmbedWithSource, css, htmlAttributes.ToHtmlAttributes());
         }
-
     }
 }

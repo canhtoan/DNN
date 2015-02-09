@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,14 +40,13 @@ using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     public class CacheController
     {
-        private static CacheItemRemovedReason cacheItemRemovedReason;
-        private static bool LogRemovedReason;
-        private CacheItemRemovedCallback onRemovePageIndex;
+        private static CacheItemRemovedReason s_cacheItemRemovedReason;
+        private static bool s_logRemovedReason;
+        private CacheItemRemovedCallback _onRemovePageIndex;
 
         #region Cache Keys
 
@@ -79,7 +78,7 @@ namespace DotNetNuke.Entities.Urls
 
         private static CacheDependency GetPortalsCacheDependency()
         {
-            var keys = new List<string> {"DNN_PortalDictionary"};
+            var keys = new List<string> { "DNN_PortalDictionary" };
             var portalsDepedency = new CacheDependency(null, keys.ToArray());
             return portalsDepedency;
         }
@@ -131,10 +130,10 @@ namespace DotNetNuke.Entities.Urls
             //857 : use cache dependency for portal alias cache
             if (settings != null)
             {
-                DataCache.SetCache(key, 
-                                    value, 
-                                    new DNNCacheDependency(GetPortalsCacheDependency()), 
-                                    absoluteExpiration, 
+                DataCache.SetCache(key,
+                                    value,
+                                    new DNNCacheDependency(GetPortalsCacheDependency()),
+                                    absoluteExpiration,
                                     Cache.NoSlidingExpiration);
             }
             else
@@ -533,23 +532,22 @@ namespace DotNetNuke.Entities.Urls
         {
             if (settings.LogCacheMessages)
             {
-                onRemovePageIndex = RemovedPageIndexCallBack;
+                _onRemovePageIndex = RemovedPageIndexCallBack;
             }
             else
             {
-                onRemovePageIndex = null;
+                _onRemovePageIndex = null;
             }
 
-            LogRemovedReason = settings.LogCacheMessages;
+            s_logRemovedReason = settings.LogCacheMessages;
 
-            SetPageCache(UrlDictKey, urlDict, new DNNCacheDependency(GetTabsCacheDependency(urlPortals)), settings, onRemovePageIndex);
+            SetPageCache(UrlDictKey, urlDict, new DNNCacheDependency(GetTabsCacheDependency(urlPortals)), settings, _onRemovePageIndex);
 
             SetPageCache(UrlPortalsKey, urlPortals, settings);
             SetPageCache(CustomAliasTabsKey, customAliasTabs, settings);
 
             if (settings.LogCacheMessages)
             {
-
                 var log = new LogInfo { LogTypeKey = "HOST_ALERT" };
                 log.AddProperty("Url Rewriting Caching Message", "Friendly Url Index built and Stored in Cache.");
                 log.AddProperty("Build Reason", reason);
@@ -723,7 +721,7 @@ namespace DotNetNuke.Entities.Urls
                                              FriendlyUrlSettings settings,
                                              string reason)
         {
-            onRemovePageIndex = settings.LogCacheMessages ? (CacheItemRemovedCallback) RemovedPageIndexCallBack : null;
+            _onRemovePageIndex = settings.LogCacheMessages ? (CacheItemRemovedCallback)RemovedPageIndexCallBack : null;
 
             //get list of portal ids for the portals we are storing in the page index
             var portalIds = new List<int>();
@@ -733,15 +731,15 @@ namespace DotNetNuke.Entities.Urls
             }
 
             //783 : use cache dependency to manage page index instead of triggerDictionaryRebuild regex.
-            SetPageCache(PageIndexKey, tabDictionary, new DNNCacheDependency(GetTabsCacheDependency(portalIds)), settings, onRemovePageIndex);
+            SetPageCache(PageIndexKey, tabDictionary, new DNNCacheDependency(GetTabsCacheDependency(portalIds)), settings, _onRemovePageIndex);
 
             SetPageCache(PageIndexDepthKey, portalDepthInfo, settings);
 
-            LogRemovedReason = settings.LogCacheMessages;
+            s_logRemovedReason = settings.LogCacheMessages;
 
             if (settings.LogCacheMessages)
             {
-                var log = new LogInfo {LogTypeKey = "HOST_ALERT"};
+                var log = new LogInfo { LogTypeKey = "HOST_ALERT" };
 
                 log.AddProperty("Url Rewriting Caching Message", "Page Index built and Stored in Cache");
                 log.AddProperty("Reason", reason);
@@ -767,10 +765,10 @@ namespace DotNetNuke.Entities.Urls
 
         internal void StoreTabPathsInCache(int portalId, SharedDictionary<string, string> tabPathDictionary, FriendlyUrlSettings settings)
         {
-            SetPageCache(string.Format(TabPathsKey, portalId), 
-                        tabPathDictionary, 
-                        new DNNCacheDependency(GetTabsCacheDependency(new List<int> { portalId })), 
-                        settings, 
+            SetPageCache(string.Format(TabPathsKey, portalId),
+                        tabPathDictionary,
+                        new DNNCacheDependency(GetTabsCacheDependency(new List<int> { portalId })),
+                        settings,
                         null);
         }
 
@@ -855,9 +853,9 @@ namespace DotNetNuke.Entities.Urls
                             DataCache.SetCache(PortalsKey, portals); //store back in dictionary
                         }
                     }
-// ReSharper disable EmptyGeneralCatchClause
+                    // ReSharper disable EmptyGeneralCatchClause
                     catch
-// ReSharper restore EmptyGeneralCatchClause
+                    // ReSharper restore EmptyGeneralCatchClause
                     {
                         //912: capture as fall back any exception resulting from doing a portal lookup in 6.x
                         //this happens when portalId = -1
@@ -875,7 +873,7 @@ namespace DotNetNuke.Entities.Urls
 
         public void RemovedPageIndexCallBack(string k, object v, CacheItemRemovedReason r)
         {
-            cacheItemRemovedReason = r;
+            s_cacheItemRemovedReason = r;
 #if (DEBUG)
             if (LogRemovedReason)
             {

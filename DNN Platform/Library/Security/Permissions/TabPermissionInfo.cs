@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     /// -----------------------------------------------------------------------------
@@ -47,17 +46,17 @@ namespace DotNetNuke.Security.Permissions
     [XmlRoot("permission")]
     public class TabPermissionInfo : PermissionInfoBase, IHydratable
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         private int _TabID;
         //local property declarations
-		private int _TabPermissionID;
-		
-		#endregion
-		
-		#region "Constructors"
+        private int _TabPermissionID;
 
-         /// -----------------------------------------------------------------------------
+        #endregion
+
+        #region "Constructors"
+
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Constructs a new TabPermissionInfo
         /// </summary>
@@ -65,7 +64,7 @@ namespace DotNetNuke.Security.Permissions
         /// 	[cnurse]	01/14/2008   Documented
         /// </history>
         /// -----------------------------------------------------------------------------
-       public TabPermissionInfo()
+        public TabPermissionInfo()
         {
             _TabPermissionID = Null.NullInteger;
             _TabID = Null.NullInteger;
@@ -88,10 +87,10 @@ namespace DotNetNuke.Security.Permissions
             PermissionKey = permission.PermissionKey;
             PermissionName = permission.PermissionName;
         }
-		
-		#endregion
-		
-		#region "Public Properties"
+
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -136,8 +135,8 @@ namespace DotNetNuke.Security.Permissions
                 _TabID = value;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IHydratable Members
 
@@ -153,7 +152,7 @@ namespace DotNetNuke.Security.Permissions
         public void Fill(IDataReader dr)
         {
             //Call the base classes fill method to ppoulate base class proeprties
-			base.FillInternal(dr);
+            base.FillInternal(dr);
             TabPermissionID = Null.SetNullInteger(dr["TabPermissionID"]);
             TabID = Null.SetNullInteger(dr["TabID"]);
         }

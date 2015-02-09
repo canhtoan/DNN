@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Data;
@@ -35,12 +35,11 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Security;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.SiteLog
 {
     public class SiteLogController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SiteLogController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SiteLogController));
         public void AddSiteLog(int PortalId, int UserId, string Referrer, string URL, string UserAgent, string UserHostAddress, string UserHostName, int TabId, int AffiliateId, int SiteLogBuffer,
                                string SiteLogStorage)
         {
@@ -86,15 +85,15 @@ namespace DotNetNuke.Services.Log.SiteLog
                         break;
                     default: //buffered logging
                         string key = "SiteLog" + PortalId;
-                        var arrSiteLog = (ArrayList) DataCache.GetCache(key);
-                        
-						//get buffered site log records from the cache
-						if (arrSiteLog == null)
+                        var arrSiteLog = (ArrayList)DataCache.GetCache(key);
+
+                        //get buffered site log records from the cache
+                        if (arrSiteLog == null)
                         {
                             arrSiteLog = new ArrayList();
                             DataCache.SetCache(key, arrSiteLog);
                         }
-						
+
                         //create new sitelog object
                         var objSiteLog = new SiteLogInfo();
                         objSiteLog.DateTime = DateTime.Now;
@@ -113,7 +112,7 @@ namespace DotNetNuke.Services.Log.SiteLog
 
                         if (arrSiteLog.Count >= SiteLogBuffer)
                         {
-							//create the buffered sitelog object
+                            //create the buffered sitelog object
                             var objBufferedSiteLog = new BufferedSiteLog();
                             objBufferedSiteLog.SiteLogStorage = SiteLogStorage;
                             objBufferedSiteLog.SiteLog = arrSiteLog;
@@ -130,8 +129,7 @@ namespace DotNetNuke.Services.Log.SiteLog
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
-
+                s_logger.Error(exc);
             }
         }
 
@@ -158,7 +156,7 @@ namespace DotNetNuke.Services.Log.SiteLog
             {
                 try
                 {
-					//create log file
+                    //create log file
                     Directory.CreateDirectory(LogFilePath);
 
                     //open log file for append ( position the stream at the end of the file )
@@ -174,14 +172,14 @@ namespace DotNetNuke.Services.Log.SiteLog
                     objStream.Flush();
                     objStream.Close();
                 }
-				catch (Exception ex) //can not create file
-				{
-					Logger.Error(ex);
-				}
+                catch (Exception ex) //can not create file
+                {
+                    s_logger.Error(ex);
+                }
             }
             try
             {
-				//open log file for append ( position the stream at the end of the file )
+                //open log file for append ( position the stream at the end of the file )
                 objStream = File.AppendText(LogFilePath + LogFileName);
 
                 //declare a string builder
@@ -208,10 +206,10 @@ namespace DotNetNuke.Services.Log.SiteLog
                 objStream.Flush();
                 objStream.Close();
             }
-			catch (Exception ex) //can not open file
-			{
-				Logger.Error(ex);
-			}
+            catch (Exception ex) //can not open file
+            {
+                s_logger.Error(ex);
+            }
         }
     }
 }

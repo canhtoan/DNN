@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using DotNetNuke.UI.WebControls;
 using System.Web.UI;
@@ -27,15 +27,11 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Web.UI.WebControls.Extensions;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
-
     public class DnnTimeZoneEditControl : TextEditControl
     {
-
-
-        private DnnTimeZoneComboBox TimeZones;
+        private DnnTimeZoneComboBox _timeZones;
         #region "Constructors"
 
         public DnnTimeZoneEditControl()
@@ -46,11 +42,11 @@ namespace DotNetNuke.Web.UI.WebControls
 
         protected override void CreateChildControls()
         {
-            TimeZones = new DnnTimeZoneComboBox();
-            TimeZones.ViewStateMode = ViewStateMode.Disabled;
+            _timeZones = new DnnTimeZoneComboBox();
+            _timeZones.ViewStateMode = ViewStateMode.Disabled;
 
             Controls.Clear();
-            Controls.Add(TimeZones);
+            Controls.Add(_timeZones);
 
             base.CreateChildControls();
         }
@@ -59,7 +55,7 @@ namespace DotNetNuke.Web.UI.WebControls
         {
             bool dataChanged = false;
             string presentValue = StringValue;
-            string postedValue = TimeZones.SelectedValue;
+            string postedValue = _timeZones.SelectedValue;
             if (!presentValue.Equals(postedValue))
             {
                 Value = postedValue;
@@ -88,7 +84,7 @@ namespace DotNetNuke.Web.UI.WebControls
         {
             base.OnPreRender(e);
 
-            TimeZones.DataBind(StringValue);
+            _timeZones.DataBind(StringValue);
 
             if ((Page != null) && this.EditMode == PropertyEditorMode.Edit)
             {
@@ -109,7 +105,5 @@ namespace DotNetNuke.Web.UI.WebControls
             writer.Write(propValue);
             writer.RenderEndTag();
         }
-
     }
-
 }

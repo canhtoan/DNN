@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.IO;
@@ -93,7 +94,7 @@ namespace DotNetNuke.UI
 
             if (slaveModule == null)
             {
-                slaveModule = (new ModuleInfo {ModuleID = moduleId, ModuleDefID = -1, TabID = tabId, InheritViewPermissions = true});
+                slaveModule = (new ModuleInfo { ModuleID = moduleId, ModuleDefID = -1, TabID = tabId, InheritViewPermissions = true });
             }
 
             if (request.QueryString["moduleid"] != null && (key.ToLower() == "module" || key.ToLower() == "help"))
@@ -124,8 +125,8 @@ namespace DotNetNuke.UI
         {
             var key = GetControlKey();
             var moduleId = GetModuleId(key);
-            
-            ModuleInfo slaveModule =  GetSlaveModule(moduleId, key, tabId);
+
+            ModuleInfo slaveModule = GetSlaveModule(moduleId, key, tabId);
             if (slaveModule != null)
             {
                 var moduleControl = ModuleControlController.GetModuleControlByControlKey(key, slaveModule.ModuleDefID) ??

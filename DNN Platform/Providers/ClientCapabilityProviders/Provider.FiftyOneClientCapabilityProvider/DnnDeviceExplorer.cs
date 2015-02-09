@@ -17,15 +17,16 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+using System;
+using System.Collections.Specialized;
+using System.Web.UI.WebControls;
+using Common;
+
 
 namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
 {
-    using System;
-    using System.Collections.Specialized;
-    using System.Web.UI.WebControls;
-    using Common;
-
     /// <summary>
     /// Inherits from DeviceExplorer, overrides URL generation methods and UI building methods to add DNN specific functionality.
     /// </summary>
@@ -53,7 +54,7 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
         {
             var tabIdSetting = parameters["TabID"];
             int tabId;
-            
+
             if (int.TryParse(tabIdSetting, out tabId))
             {
                 if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
@@ -79,7 +80,7 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
 
             return string.Empty;
         }
-        
+
         /// <summary>
         /// Builds a label (conditionally using the dnnTooltip) and adds it to the provided panel.
         /// </summary>
@@ -90,7 +91,7 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
         /// <param name="anchor">The name of the anchor.</param>
         protected override void AddLabel(WebControl panel, string text, string tooltip, Uri url, string anchor)
         {
-            var toolTip = new Literal {Text = string.Format("<span>{0}</span>", text)};
+            var toolTip = new Literal { Text = string.Format("<span>{0}</span>", text) };
 
             panel.Controls.Add(toolTip);
         }

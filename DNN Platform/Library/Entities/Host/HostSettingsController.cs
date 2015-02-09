@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Data;
 using DotNetNuke.Entities.Controllers;
 
 #endregion
-
 namespace DotNetNuke.Entities.Host
 {
     [Obsolete("Replaced in DotNetNuke 5.5 by HostController")]
@@ -60,7 +59,7 @@ namespace DotNetNuke.Entities.Host
         [Obsolete("Replaced in DotNetNuke 5.5 by HostController.UpdateHostSetting()")]
         public void UpdateHostSetting(string SettingName, string SettingValue, bool SettingIsSecure, bool clearCache)
         {
-            HostController.Instance.Update(new ConfigurationSetting {Key = SettingName, Value = SettingValue, IsSecure = SettingIsSecure});
+            HostController.Instance.Update(new ConfigurationSetting { Key = SettingName, Value = SettingValue, IsSecure = SettingIsSecure });
         }
     }
 }

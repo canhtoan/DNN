@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.CodeDom;
 using System.ComponentModel;
@@ -30,7 +30,6 @@ using System.Web.UI;
 using System.Web.UI.Design;
 
 #endregion
-
 namespace DotNetNuke.Services.Localization
 {
     [ExpressionPrefix("dnnLoc"), ExpressionEditor("DotNetNuke.Services.Localization.LocalizationExpressionBuilderEditor")]
@@ -48,8 +47,8 @@ namespace DotNetNuke.Services.Localization
         {
             var inputParams = new CodeExpression[]
                                   {
-                                      new CodePrimitiveExpression(entry.Expression.Trim()), 
-                                      new CodeTypeOfExpression(entry.DeclaringType), 
+                                      new CodePrimitiveExpression(entry.Expression.Trim()),
+                                      new CodeTypeOfExpression(entry.DeclaringType),
                                       new CodePrimitiveExpression(entry.PropertyInfo.Name),
                                       new CodePrimitiveExpression(context.VirtualPath)
                                   };

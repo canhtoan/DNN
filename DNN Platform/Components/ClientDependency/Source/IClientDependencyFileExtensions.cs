@@ -25,10 +25,10 @@ namespace ClientDependency.Core
             {
                 return http.ResolveUrl(file.FilePath);
             }
-            if (trimmedPath.StartsWith("http://", StringComparison.InvariantCultureIgnoreCase) 
+            if (trimmedPath.StartsWith("http://", StringComparison.InvariantCultureIgnoreCase)
                 || trimmedPath.StartsWith("https://", StringComparison.InvariantCultureIgnoreCase))
             {
-                return file.FilePath; 
+                return file.FilePath;
             }
             if (!http.IsAbsolute(file.FilePath))
             {
@@ -38,8 +38,5 @@ namespace ClientDependency.Core
             }
             return file.FilePath;
         }
-
-        
-
     }
 }

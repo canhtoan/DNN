@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Linq;
 
@@ -44,7 +44,7 @@ namespace DotNetNuke.Tests.Content
     [TestFixture]
     public class TermControllerTests
     {
-        private Mock<CachingProvider> mockCache;
+        private Mock<CachingProvider> _mockCache;
 
         #region Test Initialize
 
@@ -54,7 +54,7 @@ namespace DotNetNuke.Tests.Content
             Mock<IVocabularyController> vocabularyController = MockHelper.CreateMockVocabularyController();
             MockComponentProvider.CreateDataProvider().Setup(c => c.GetProviderPath()).Returns(String.Empty);
             //Register MockCachingProvider
-            mockCache = MockComponentProvider.CreateNew<CachingProvider>();
+            _mockCache = MockComponentProvider.CreateNew<CachingProvider>();
         }
 
         [TearDown]
@@ -218,7 +218,7 @@ namespace DotNetNuke.Tests.Content
             termController.AddTerm(term);
 
             //Assert
-            mockCache.Verify(cache => cache.Remove(String.Format(Constants.TERM_CacheKey, Constants.VOCABULARY_ValidVocabularyId)));
+            _mockCache.Verify(cache => cache.Remove(String.Format(Constants.TERM_CacheKey, Constants.VOCABULARY_ValidVocabularyId)));
         }
 
         #endregion
@@ -338,13 +338,13 @@ namespace DotNetNuke.Tests.Content
             var mockDataService = new Mock<IDataService>();
             var termController = new TermController(mockDataService.Object);
 
-            var term = new Term(Constants.VOCABULARY_ValidVocabularyId) {TermId = Constants.TERM_DeleteTermId};
+            var term = new Term(Constants.VOCABULARY_ValidVocabularyId) { TermId = Constants.TERM_DeleteTermId };
 
             //Act
             termController.DeleteTerm(term);
 
             //Assert
-            mockCache.Verify(cache => cache.Remove(String.Format(Constants.TERM_CacheKey, Constants.VOCABULARY_ValidVocabularyId)));
+            _mockCache.Verify(cache => cache.Remove(String.Format(Constants.TERM_CacheKey, Constants.VOCABULARY_ValidVocabularyId)));
         }
 
         #endregion
@@ -475,7 +475,7 @@ namespace DotNetNuke.Tests.Content
         {
             //Arrange
             var mockDataService = new Mock<IDataService>();
-            MockComponentProvider.CreateDataProvider().Setup(c=>c.GetProviderPath()).Returns(String.Empty);
+            MockComponentProvider.CreateDataProvider().Setup(c => c.GetProviderPath()).Returns(String.Empty);
             var termController = new TermController(mockDataService.Object);
 
             //Act, Arrange
@@ -658,7 +658,7 @@ namespace DotNetNuke.Tests.Content
             termController.UpdateTerm(term);
 
             //Assert
-            mockCache.Verify(cache => cache.Remove(String.Format(Constants.TERM_CacheKey, Constants.VOCABULARY_ValidVocabularyId)));
+            _mockCache.Verify(cache => cache.Remove(String.Format(Constants.TERM_CacheKey, Constants.VOCABULARY_ValidVocabularyId)));
         }
 
         #endregion

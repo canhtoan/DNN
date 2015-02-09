@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Web.UI.WebControls;
 
@@ -54,13 +54,12 @@ namespace DotNetNuke.Modules.UrlManagement
                     imageColumn.NavigateURLFormatString = formatString;
                 }
             }
-
         }
 
         public void BindAction(int portalId, int tabId, int moduleId)
         {
             var providers = ExtensionUrlProviderController.GetProviders(portalId);
-			Localization.LocalizeDataGrid(ref providersGrid, LocalResourceFile);
+            Localization.LocalizeDataGrid(ref providersGrid, LocalResourceFile);
             providersGrid.DataSource = providers;
             providersGrid.DataBind();
 
@@ -82,8 +81,6 @@ namespace DotNetNuke.Modules.UrlManagement
                     providersWarningLabel.Text = LocalizeString("NoProvidersInstalled.Text");
                 }
             }
-            
-            
         }
 
         public void CancelAction(int portalId, int tabId, int moduleId)
@@ -95,18 +92,18 @@ namespace DotNetNuke.Modules.UrlManagement
             UrlSettingsExtensionControl.SaveAction(portalId, tabId, moduleId);
         }
 
-	    protected void OnChangeProviderStatus(object sender, EventArgs e)
-	    {
-		    var checkbox = (sender as CheckBox);
-		    var providerId = Convert.ToInt32((checkbox.Parent.FindControl("urlProviderId") as HiddenField).Value);
-		    if (checkbox.Checked)
-		    {
-			    ExtensionUrlProviderController.EnableProvider(providerId, ModuleContext.PortalId);
-		    }
-		    else
-		    {
-				ExtensionUrlProviderController.DisableProvider(providerId, ModuleContext.PortalId);
-		    }
-	    }
+        protected void OnChangeProviderStatus(object sender, EventArgs e)
+        {
+            var checkbox = (sender as CheckBox);
+            var providerId = Convert.ToInt32((checkbox.Parent.FindControl("urlProviderId") as HiddenField).Value);
+            if (checkbox.Checked)
+            {
+                ExtensionUrlProviderController.EnableProvider(providerId, ModuleContext.PortalId);
+            }
+            else
+            {
+                ExtensionUrlProviderController.DisableProvider(providerId, ModuleContext.PortalId);
+            }
+        }
     }
 }

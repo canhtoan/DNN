@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,19 +17,17 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 
 #endregion
-
 namespace DotNetNuke.Modules.Html
 {
-
     /// <summary>
     ///   MyWork allows a user to view any outstanding workflow items
     /// </summary>
@@ -39,12 +37,11 @@ namespace DotNetNuke.Modules.Html
     /// </history>
     public partial class MyWork : PortalModuleBase
     {
-
         #region Protected Methods
 
         public string FormatURL(object dataItem)
         {
-            var objHtmlTextUser = (HtmlTextUserInfo) dataItem;
+            var objHtmlTextUser = (HtmlTextUserInfo)dataItem;
             return "<a href=\"" + Globals.NavigateURL(objHtmlTextUser.TabID) + "#" + objHtmlTextUser.ModuleID + "\">" + objHtmlTextUser.ModuleTitle + " ( " + objHtmlTextUser.StateName + " )</a>";
         }
 
@@ -80,6 +77,5 @@ namespace DotNetNuke.Modules.Html
         }
 
         #endregion
-
     }
 }

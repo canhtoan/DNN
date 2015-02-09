@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
@@ -31,7 +31,6 @@ using System;
 using DotNetNuke.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.Modules.Groups
 {
     public class GroupsModuleBase : PortalModuleBase
@@ -84,7 +83,7 @@ namespace DotNetNuke.Modules.Groups
         {
             get
             {
-	            var roleGroupId = Null.NullInteger;
+                var roleGroupId = Null.NullInteger;
                 if (Settings.ContainsKey(Constants.DefaultRoleGroupSetting))
                 {
                     int id;

@@ -3,6 +3,7 @@
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
+
 #endregion
 using System;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace DotNetNuke.Modules.MobileManagement
         {
             base.OnLoad(e);
             lblHomePage.Text = TabController.Instance.GetTab(ModuleContext.PortalSettings.HomeTabId, ModuleContext.PortalId, false).TabName;
-            
+
             if (!IsPostBack) BindSettingControls();
         }
 
@@ -50,7 +51,7 @@ namespace DotNetNuke.Modules.MobileManagement
             else
             {
                 UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("DuplicateNameError.Text", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
-            }          
+            }
         }
 
         private void lnkCancel_OnClick(object sender, EventArgs e)
@@ -70,8 +71,8 @@ namespace DotNetNuke.Modules.MobileManagement
 
         private void BindSettingControls()
         {
-			// Toggle fields if a redirect already exists for the Portal Home Page
-			var defaultRedirect = HomePageRedirectExists();
+            // Toggle fields if a redirect already exists for the Portal Home Page
+            var defaultRedirect = HomePageRedirectExists();
 
             // Populating Portals dropdown
             var portals = PortalController.Instance.GetPortals().Cast<PortalInfo>().Where(p => p.PortalID != ModuleContext.PortalId).ToList();
@@ -113,7 +114,7 @@ namespace DotNetNuke.Modules.MobileManagement
             redirection.SourceTabId = (cboSourcePage.Visible) ? cboSourcePage.SelectedItemValueAsInt : ModuleContext.PortalSettings.HomeTabId;
 
             redirection.Type = RedirectionType.MobilePhone;
-            redirection.TargetType = (TargetType) Enum.Parse(typeof (TargetType), optRedirectTarget.SelectedValue);
+            redirection.TargetType = (TargetType)Enum.Parse(typeof(TargetType), optRedirectTarget.SelectedValue);
 
             switch (redirection.TargetType)
             {

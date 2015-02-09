@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.EventLog
 {
     [Serializable]
@@ -51,13 +50,13 @@ namespace DotNetNuke.Services.Log.EventLog
                 switch (NotificationThresholdTimeType)
                 {
                     case NotificationThresholdTimeTypes.Seconds:
-                        return DateTime.Now.AddSeconds(NotificationThresholdTime*-1);
+                        return DateTime.Now.AddSeconds(NotificationThresholdTime * -1);
                     case NotificationThresholdTimeTypes.Minutes:
-                        return DateTime.Now.AddMinutes(NotificationThresholdTime*-1);
+                        return DateTime.Now.AddMinutes(NotificationThresholdTime * -1);
                     case NotificationThresholdTimeTypes.Hours:
-                        return DateTime.Now.AddHours(NotificationThresholdTime*-1);
+                        return DateTime.Now.AddHours(NotificationThresholdTime * -1);
                     case NotificationThresholdTimeTypes.Days:
-                        return DateTime.Now.AddDays(NotificationThresholdTime*-1);
+                        return DateTime.Now.AddDays(NotificationThresholdTime * -1);
                     default:
                         return Null.NullDate;
                 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +29,6 @@ using System.Linq;
 using DotNetNuke.ComponentModel;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.EventLog
 {
     public abstract class LoggingProvider
@@ -43,18 +42,18 @@ namespace DotNetNuke.Services.Log.EventLog
         }
 
         #endregion
-		
-		#region "Shared/Static Methods"
+
+        #region "Shared/Static Methods"
 
         //return the provider
-		public static LoggingProvider Instance()
+        public static LoggingProvider Instance()
         {
             return ComponentFactory.GetComponent<LoggingProvider>();
         }
-		
-		#endregion
 
-		#region "Abstract Methods"
+        #endregion
+
+        #region "Abstract Methods"
 
         public abstract void AddLog(LogInfo logInfo);
 
@@ -134,7 +133,7 @@ namespace DotNetNuke.Services.Log.EventLog
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Deprecated in 6.0. Replaced by GetLogs().")]
         public abstract LogInfoArray GetLog(int portalID, string logType, int pageSize, int pageIndex, ref int totalRecords);
-		
-		#endregion
+
+        #endregion
     }
 }

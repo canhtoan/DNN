@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,14 +35,13 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Localization.Internal;
 
 #endregion
-
 namespace DotNetNuke.Services.UserProfile
 {
     public class UserProfilePicHandler : IHttpHandler
     {
         #region Private Fields
 
-        private static object _locker = new object();
+        private static object s_locker = new object();
 
         #endregion
 
@@ -76,7 +75,6 @@ namespace DotNetNuke.Services.UserProfile
                 {
                     size = context.Request.QueryString["size"];
                 }
-
             }
             catch (Exception)
             {
@@ -86,7 +84,7 @@ namespace DotNetNuke.Services.UserProfile
             if (height > 128) { height = 128; }
             if (width > 128) { width = 128; }
 
-           
+
             CalculateSize(ref height, ref width, ref size);
 
             PortalSettings settings = PortalController.Instance.GetCurrentPortalSettings();
@@ -106,7 +104,7 @@ namespace DotNetNuke.Services.UserProfile
                 var sizedPhoto = photoFile.FileName.Replace(extension, "_" + size + extension);
                 if (!FileManager.Instance.FileExists(folder, sizedPhoto))
                 {
-                    lock (_locker)
+                    lock (s_locker)
                     {
                         if (!FileManager.Instance.FileExists(folder, sizedPhoto))
                         {
@@ -133,7 +131,6 @@ namespace DotNetNuke.Services.UserProfile
                         case "gif":
                             context.Response.ContentType = "image/gif";
                             break;
-
                     }
 
                     var memoryStream = new MemoryStream();
@@ -174,16 +171,16 @@ namespace DotNetNuke.Services.UserProfile
                     switch (photoProperty.ProfileVisibility.VisibilityMode)
                     {
                         case UserVisibilityMode.AllUsers:
-                        isVisible = true;
-                        break;
+                            isVisible = true;
+                            break;
                         case UserVisibilityMode.MembersOnly:
-                        isVisible = user.UserID > 0;
-                        break;
+                            isVisible = user.UserID > 0;
+                            break;
                         case UserVisibilityMode.AdminOnly:
-                        isVisible = user.IsInRole(settings.AdministratorRoleName);
-                        break;
+                            isVisible = user.IsInRole(settings.AdministratorRoleName);
+                            break;
                         case UserVisibilityMode.FriendsAndGroups:
-                        break;
+                            break;
                     }
                 }
 
@@ -271,6 +268,5 @@ namespace DotNetNuke.Services.UserProfile
         }
 
         #endregion
-
     }
 }

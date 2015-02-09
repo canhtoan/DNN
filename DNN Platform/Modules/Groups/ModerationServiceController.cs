@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -45,7 +44,7 @@ namespace DotNetNuke.Modules.Groups
     [DnnAuthorize]
     public class ModerationServiceController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ModerationServiceController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ModerationServiceController));
         private int _tabId;
         private int _moduleId;
         private int _roleId;
@@ -70,7 +69,7 @@ namespace DotNetNuke.Modules.Groups
                 ParseKey(notification.Context);
                 if (_roleInfo == null)
                 {
-                    return  Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to locate role");
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to locate role");
                 }
                 if (!IsMod())
                 {
@@ -88,11 +87,11 @@ namespace DotNetNuke.Modules.Groups
                 notifications.AddGroupNotification(Constants.GroupApprovedNotification, _tabId, _moduleId, _roleInfo, siteAdmin, new List<RoleInfo> { _roleInfo });
                 NotificationsController.Instance.DeleteAllNotificationRecipients(postData.NotificationId);
 
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -124,11 +123,11 @@ namespace DotNetNuke.Modules.Groups
                 var role = RoleController.Instance.GetRole(PortalSettings.PortalId, r => r.RoleID == _roleId);
                 RoleController.Instance.DeleteRole(role);
                 NotificationsController.Instance.DeleteAllNotificationRecipients(postData.NotificationId);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -146,10 +145,9 @@ namespace DotNetNuke.Modules.Groups
                     _roleInfo = RoleController.Instance.GetRoleById(PortalSettings.PortalId, postData.RoleId);
                     if (_roleInfo != null)
                     {
-
                         var requireApproval = false;
 
-                        if(_roleInfo.Settings.ContainsKey("ReviewMembers"))
+                        if (_roleInfo.Settings.ContainsKey("ReviewMembers"))
                             requireApproval = Convert.ToBoolean(_roleInfo.Settings["ReviewMembers"]);
 
 
@@ -160,7 +158,6 @@ namespace DotNetNuke.Modules.Groups
 
                             var url = Globals.NavigateURL(postData.GroupViewTabId, "", new[] { "groupid=" + _roleInfo.RoleID });
                             return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success", URL = url });
-                        
                         }
                         if (_roleInfo.IsPublic && requireApproval)
                         {
@@ -174,7 +171,7 @@ namespace DotNetNuke.Modules.Groups
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
 
@@ -213,18 +210,18 @@ namespace DotNetNuke.Modules.Groups
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
 
-            if(success)
+            if (success)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
-            
+
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unknown Error");
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public HttpResponseMessage ApproveMember(NotificationDTO postData)
@@ -253,17 +250,18 @@ namespace DotNetNuke.Modules.Groups
                     var memberRoleInfo = RoleController.Instance.GetUserRole(PortalSettings.PortalId, _memberId, _roleInfo.RoleID);
                     memberRoleInfo.Status = RoleStatus.Approved;
                     RoleController.Instance.UpdateUserRole(PortalSettings.PortalId, _memberId, _roleInfo.RoleID, RoleStatus.Approved, false, false);
-                    
+
                     var notifications = new Notifications();
                     var groupOwner = UserController.GetUserById(PortalSettings.PortalId, _roleInfo.CreatedByUserID);
                     notifications.AddMemberNotification(Constants.MemberApprovedNotification, _tabId, _moduleId, _roleInfo, groupOwner, member);
                     NotificationsController.Instance.DeleteAllNotificationRecipients(postData.NotificationId);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                    return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
                 }
-            } catch (Exception exc)
+            }
+            catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
 
@@ -295,23 +293,24 @@ namespace DotNetNuke.Modules.Groups
 
                 if (member != null)
                 {
-                    RoleController.DeleteUserRole(member, _roleInfo, PortalSettings, false) ;
+                    RoleController.DeleteUserRole(member, _roleInfo, PortalSettings, false);
                     var notifications = new Notifications();
                     var groupOwner = UserController.GetUserById(PortalSettings.PortalId, _roleInfo.CreatedByUserID);
                     notifications.AddMemberNotification(Constants.MemberRejectedNotification, _tabId, _moduleId, _roleInfo, groupOwner, member);
                     NotificationsController.Instance.DeleteAllNotificationRecipients(postData.NotificationId);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                    return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
                 }
-            } catch (Exception exc)
+            }
+            catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unknown Error");
         }
-        
+
         private void ParseKey(string key)
         {
             _tabId = -1;

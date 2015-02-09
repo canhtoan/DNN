@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
@@ -34,7 +34,7 @@ namespace DotNetNuke.Modules.DigitalAssets
 {
     public partial class Settings : ModuleSettingsBase
     {
-        private static readonly DigitalAssetsSettingsRepository SettingsRepository = new DigitalAssetsSettingsRepository();
+        private static readonly DigitalAssetsSettingsRepository s_settingsRepository = new DigitalAssetsSettingsRepository();
 
         private DigitalAssestsMode SelectedDigitalAssestsMode
         {
@@ -84,7 +84,7 @@ namespace DotNetNuke.Modules.DigitalAssets
                     DefaultFolderTypeComboBox.SelectedValue = defaultFolderTypeId.ToString();
                 }
 
-                ModeComboBox.SelectedValue = SettingsRepository.GetMode(ModuleId).ToString();
+                ModeComboBox.SelectedValue = s_settingsRepository.GetMode(ModuleId).ToString();
 
                 LoadFilterViewSettings();
             }
@@ -106,9 +106,9 @@ namespace DotNetNuke.Modules.DigitalAssets
 
             try
             {
-                SettingsRepository.SaveDefaultFolderTypeId(ModuleId, Convert.ToInt32(DefaultFolderTypeComboBox.SelectedValue));
-                
-                SettingsRepository.SaveMode(ModuleId, SelectedDigitalAssestsMode);
+                s_settingsRepository.SaveDefaultFolderTypeId(ModuleId, Convert.ToInt32(DefaultFolderTypeComboBox.SelectedValue));
+
+                s_settingsRepository.SaveMode(ModuleId, SelectedDigitalAssestsMode);
 
                 UpdateFilterViewSettings();
             }
@@ -132,14 +132,14 @@ namespace DotNetNuke.Modules.DigitalAssets
         private void LoadFilterViewSettings()
         {
             //handle upgrades where FilterCondition didn't exist
-            SettingsRepository.SetDefaultFilterCondition(ModuleId);
+            s_settingsRepository.SetDefaultFilterCondition(ModuleId);
 
-            FilterOptionsRadioButtonsList.SelectedValue = SettingsRepository.GetFilterCondition(ModuleId).ToString();
-            SubfolderFilterRadioButtonList.SelectedValue = SettingsRepository.GetSubfolderFilter(ModuleId).ToString();
-            
+            FilterOptionsRadioButtonsList.SelectedValue = s_settingsRepository.GetFilterCondition(ModuleId).ToString();
+            SubfolderFilterRadioButtonList.SelectedValue = s_settingsRepository.GetSubfolderFilter(ModuleId).ToString();
+
             if (FilterOptionsRadioButtonsList.SelectedValue == FilterCondition.FilterByFolder.ToString())
             {
-                var folderId = SettingsRepository.GetRootFolderId(ModuleId);
+                var folderId = s_settingsRepository.GetRootFolderId(ModuleId);
                 if (folderId.HasValue)
                 {
                     var folder = FolderManager.Instance.GetFolder(folderId.Value);
@@ -152,18 +152,18 @@ namespace DotNetNuke.Modules.DigitalAssets
         {
             var filterCondition = SelectedDigitalAssestsMode != DigitalAssestsMode.Normal ? FilterCondition.NotSet : SelectedFilterCondition;
 
-            SettingsRepository.SaveFilterCondition(ModuleId, filterCondition);
+            s_settingsRepository.SaveFilterCondition(ModuleId, filterCondition);
 
             switch (filterCondition)
             {
                 case FilterCondition.NotSet:
-                    SettingsRepository.SaveExcludeSubfolders(ModuleId, SubfolderFilter.IncludeSubfoldersFolderStructure);
+                    s_settingsRepository.SaveExcludeSubfolders(ModuleId, SubfolderFilter.IncludeSubfoldersFolderStructure);
                     break;
                 case FilterCondition.FilterByFolder:
                     SubfolderFilter subfolderFilter;
                     Enum.TryParse(SubfolderFilterRadioButtonList.SelectedValue, true, out subfolderFilter);
-                    SettingsRepository.SaveExcludeSubfolders(ModuleId, subfolderFilter);
-                    SettingsRepository.SaveRootFolderId(ModuleId, FilterByFolderDropDownList.SelectedFolder.FolderID);
+                    s_settingsRepository.SaveExcludeSubfolders(ModuleId, subfolderFilter);
+                    s_settingsRepository.SaveRootFolderId(ModuleId, FilterByFolderDropDownList.SelectedFolder.FolderID);
                     break;
             }
         }

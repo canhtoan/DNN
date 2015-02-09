@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 
 namespace DotNetNuke.Services.Social.Subscriptions.Entities
@@ -48,7 +48,7 @@ namespace DotNetNuke.Services.Social.Subscriptions.Entities
         /// The type of subscription.
         /// </summary>
         public int SubscriptionTypeId { get; set; }
-        
+
         /// <summary>
         /// Object key that represent the content which user is subscribed to.
         /// The format of the ObjectKey is up to the consumer. (i.e.: blog:12, where 12 represents the post identifier).
@@ -70,7 +70,7 @@ namespace DotNetNuke.Services.Social.Subscriptions.Entities
         /// The date the user subscribed.
         /// </summary>
         public DateTime CreatedOnDate { get; set; }
-        
+
         /// <summary>
         /// Associates the subscription with an instance of a module.
         /// If set it uses to apply to Security Trimming. 

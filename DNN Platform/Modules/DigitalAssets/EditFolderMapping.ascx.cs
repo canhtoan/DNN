@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Linq;
 
@@ -122,7 +122,7 @@ namespace DotNetNuke.Modules.DigitalAssets
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
             Page.Validate("vgEditFolderMapping");
-            
+
             if (!Page.IsValid) return;
 
             try
@@ -195,7 +195,7 @@ namespace DotNetNuke.Modules.DigitalAssets
                     return;
                 }
 
-                if (!Response.IsRequestBeingRedirected) 
+                if (!Response.IsRequestBeingRedirected)
                     Response.Redirect(Globals.NavigateURL(TabId, "FolderMappings", "mid=" + ModuleId, "popUp=true"));
             }
             catch (Exception exc)
@@ -249,7 +249,7 @@ namespace DotNetNuke.Modules.DigitalAssets
             }
 
             if (string.IsNullOrEmpty(folderProviderType)) return;
-            
+
             var settingsControlVirtualPath = FolderProvider.Instance(folderProviderType).GetSettingsControlVirtualPath();
             if (String.IsNullOrEmpty(settingsControlVirtualPath)) return;
 
@@ -268,5 +268,5 @@ namespace DotNetNuke.Modules.DigitalAssets
         }
 
         #endregion
-    }    
+    }
 }

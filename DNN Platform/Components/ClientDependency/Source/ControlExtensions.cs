@@ -10,9 +10,6 @@ namespace ClientDependency.Core
 {
     public static class ControlExtensions
     {
-
-   
-
         public static IEnumerable<Control> FlattenChildren(this Control control)
         {
             var children = control.Controls.Cast<Control>();
@@ -26,8 +23,5 @@ namespace ClientDependency.Core
                 .Where(x => x is T);
             return children.SelectMany(c => FlattenChildren(c)).Concat(children);
         }
-
-
-
     }
 }

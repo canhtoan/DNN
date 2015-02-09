@@ -4,18 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Text.RegularExpressions;
 
-namespace DotNetNuke.Modules.Groups {
-    public class Utilities {
-        static internal string ParseTokenWrapper(string Template, string Token, bool Condition) {
-
+namespace DotNetNuke.Modules.Groups
+{
+    public class Utilities
+    {
+        static internal string ParseTokenWrapper(string Template, string Token, bool Condition)
+        {
             string pattern = "(\\[" + Token + "\\](.*?)\\[\\/" + Token + "\\])";
             Regex regExp = new Regex(pattern, RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Multiline);
             MatchCollection matches = default(MatchCollection);
             matches = regExp.Matches(Template);
-            foreach (Match match in matches) {
-                if (Condition) {
+            foreach (Match match in matches)
+            {
+                if (Condition)
+                {
                     Template = Template.Replace(match.Value, match.Groups[2].Value);
-                } else {
+                }
+                else
+                {
                     Template = Template.Replace(match.Value, string.Empty);
                 }
             }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Data;
@@ -90,7 +91,7 @@ namespace DotNetNuke.Services.Social.Messaging.Internal.Views
         /// <summary>
         /// ReplyAllAllowed is a bit value to indicate if the reply to the message can be sent to all the recipients or just the sender
         /// </summary>
-        
+
         public bool ReplyAllAllowed { get; set; }
 
         /// <summary>

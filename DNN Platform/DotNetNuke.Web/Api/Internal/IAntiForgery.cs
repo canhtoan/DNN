@@ -1,4 +1,5 @@
-﻿namespace DotNetNuke.Web.Api.Internal
+﻿
+namespace DotNetNuke.Web.Api.Internal
 {
     public interface IAntiForgery
     {

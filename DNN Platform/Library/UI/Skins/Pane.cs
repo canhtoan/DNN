@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,7 +42,6 @@ using DotNetNuke.UI.WebControls;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins
 {
     /// -----------------------------------------------------------------------------
@@ -338,7 +337,7 @@ namespace DotNetNuke.UI.Skins
             }
             return container;
         }
-        
+
         private Containers.Container LoadModuleContainer(ModuleInfo module)
         {
             var containerSrc = Null.NullString;
@@ -445,11 +444,11 @@ namespace DotNetNuke.UI.Skins
 
         private bool IsVesionableModule(ModuleInfo moduleInfo)
         {
-             if (String.IsNullOrEmpty(moduleInfo.DesktopModule.BusinessControllerClass))
+            if (String.IsNullOrEmpty(moduleInfo.DesktopModule.BusinessControllerClass))
             {
                 return false;
             }
-            
+
             object controller = Reflection.CreateObject(moduleInfo.DesktopModule.BusinessControllerClass, "");
             return controller is IVersionable;
         }

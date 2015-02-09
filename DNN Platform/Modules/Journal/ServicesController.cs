@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -48,7 +49,7 @@ namespace DotNetNuke.Modules.Journal
     [ValidateAntiForgeryToken]
     public class ServicesController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ServicesController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ServicesController));
 
         private const int MentionNotificationLength = 100;
         private const string MentionNotificationSuffix = "...";
@@ -74,14 +75,14 @@ namespace DotNetNuke.Modules.Journal
 
         private static bool IsImageFile(string relativePath)
         {
-            var acceptedExtensions = new List<string> { "jpg", "png", "gif", "jpe", "jpeg", "tiff","bmp" };
+            var acceptedExtensions = new List<string> { "jpg", "png", "gif", "jpe", "jpeg", "tiff", "bmp" };
             var extension = relativePath.Substring(relativePath.LastIndexOf(".",
             StringComparison.Ordinal) + 1).ToLower();
             return acceptedExtensions.Contains(extension);
         }
 
         [HttpPost]
-		[DnnAuthorize(DenyRoles = "Unverified Users")]
+        [DnnAuthorize(DenyRoles = "Unverified Users")]
         public HttpResponseMessage Create(CreateDTO postData)
         {
             try
@@ -109,7 +110,7 @@ namespace DotNetNuke.Modules.Journal
                 {
                     postData.ProfileId = -1;
                 }
-                
+
                 var ji = new JournalItem
                 {
                     JournalId = -1,
@@ -134,7 +135,7 @@ namespace DotNetNuke.Modules.Journal
                 ji.Summary = Utilities.RemoveHTML(ji.Summary);
                 ji.Summary = ps.InputFilter(ji.Summary, PortalSecurity.FilterFlag.NoMarkup);
 
-				//parse the mentions context in post data
+                //parse the mentions context in post data
                 var originalSummary = ji.Summary;
                 IDictionary<string, UserInfo> mentionedUsers = new Dictionary<string, UserInfo>();
                 ji.Summary = ParseMentions(ji.Summary, postData.Mentions, ref mentionedUsers);
@@ -157,7 +158,7 @@ namespace DotNetNuke.Modules.Journal
                         var fileId = Convert.ToInt32(ji.ItemData.Url.Replace("fileid=", string.Empty).Trim());
                         var file = FileManager.Instance.GetFile(fileId);
                         ji.ItemData.Title = file.FileName;
-						ji.ItemData.Url = Globals.LinkClick(ji.ItemData.Url, Null.NullInteger, Null.NullInteger);
+                        ji.ItemData.Url = Globals.LinkClick(ji.ItemData.Url, Null.NullInteger, Null.NullInteger);
                     }
                 }
 
@@ -169,7 +170,7 @@ namespace DotNetNuke.Modules.Journal
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -193,7 +194,7 @@ namespace DotNetNuke.Modules.Journal
         //                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
         //            }
         //        }
-        
+
         public class JournalIdDTO
         {
             public int JournalId { get; set; }
@@ -223,7 +224,7 @@ namespace DotNetNuke.Modules.Journal
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -245,14 +246,14 @@ namespace DotNetNuke.Modules.Journal
                 if (ji.UserId == UserInfo.UserID || ji.ProfileId == UserInfo.UserID || UserInfo.IsInRole(PortalSettings.AdministratorRoleName))
                 {
                     jc.SoftDeleteJournalItem(PortalSettings.PortalId, UserInfo.UserID, postData.JournalId);
-                    return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                    return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
                 }
 
                 return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "access denied");
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -311,7 +312,7 @@ namespace DotNetNuke.Modules.Journal
         }
 
         [HttpPost]
-		[DnnAuthorize]
+        [DnnAuthorize]
         public HttpResponseMessage PreviewUrl(PreviewDTO postData)
         {
             try
@@ -321,51 +322,51 @@ namespace DotNetNuke.Modules.Journal
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
 
-//        [DnnAuthorize]
-//        public HttpResponseMessage Upload()
-//        {
-//            var sourceFile = Request.Files[0];
-//            if (sourceFile == null)
-//            {
-//                throw new HttpException(400, Localization.GetString("SaveFileError", "''"));
-//            }
-//
-//            var userFolder = FolderManager.Instance.GetUserFolder(UserInfo);
-//
-//            var message = string.Empty;
-//            IFileInfo fi = null;
-//            try
-//            {
-//                fi = FileManager.Instance.AddFile(userFolder, sourceFile.FileName, sourceFile.InputStream, true);
-//            }
-//            catch (PermissionsNotMetException)
-//            {
-//                message = string.Format(Localization.GetString("InsufficientFolderPermission"), userFolder.FolderPath);
-//            }
-//            catch (NoSpaceAvailableException)
-//            {
-//                message = string.Format(Localization.GetString("DiskSpaceExceeded"), sourceFile.FileName);
-//            }
-//            catch (InvalidFileExtensionException)
-//            {
-//                message = string.Format(Localization.GetString("RestrictedFileType"), sourceFile.FileName, Host.AllowedExtensionWhitelist.ToDisplayString());
-//            }
-//            catch
-//            {
-//                message = string.Format(Localization.GetString("SaveFileError"), sourceFile.FileName);
-//            }
-//            if (String.IsNullOrEmpty(message) && fi != null)
-//            {
-//                return Json(fi);
-//            }
-//
-//            return Json(new { Result = message });
-//        }
+        //        [DnnAuthorize]
+        //        public HttpResponseMessage Upload()
+        //        {
+        //            var sourceFile = Request.Files[0];
+        //            if (sourceFile == null)
+        //            {
+        //                throw new HttpException(400, Localization.GetString("SaveFileError", "''"));
+        //            }
+        //
+        //            var userFolder = FolderManager.Instance.GetUserFolder(UserInfo);
+        //
+        //            var message = string.Empty;
+        //            IFileInfo fi = null;
+        //            try
+        //            {
+        //                fi = FileManager.Instance.AddFile(userFolder, sourceFile.FileName, sourceFile.InputStream, true);
+        //            }
+        //            catch (PermissionsNotMetException)
+        //            {
+        //                message = string.Format(Localization.GetString("InsufficientFolderPermission"), userFolder.FolderPath);
+        //            }
+        //            catch (NoSpaceAvailableException)
+        //            {
+        //                message = string.Format(Localization.GetString("DiskSpaceExceeded"), sourceFile.FileName);
+        //            }
+        //            catch (InvalidFileExtensionException)
+        //            {
+        //                message = string.Format(Localization.GetString("RestrictedFileType"), sourceFile.FileName, Host.AllowedExtensionWhitelist.ToDisplayString());
+        //            }
+        //            catch
+        //            {
+        //                message = string.Format(Localization.GetString("SaveFileError"), sourceFile.FileName);
+        //            }
+        //            if (String.IsNullOrEmpty(message) && fi != null)
+        //            {
+        //                return Json(fi);
+        //            }
+        //
+        //            return Json(new { Result = message });
+        //        }
 
         public class GetListForProfileDTO
         {
@@ -380,13 +381,12 @@ namespace DotNetNuke.Modules.Journal
         {
             try
             {
-                
                 var jp = new JournalParser(PortalSettings, ActiveModule.ModuleID, postData.ProfileId, postData.GroupId, UserInfo);
                 return Request.CreateResponse(HttpStatusCode.OK, jp.GetList(postData.RowIndex, postData.MaxRows), "text/html");
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 throw new HttpException(500, exc.Message);
             }
         }
@@ -407,7 +407,7 @@ namespace DotNetNuke.Modules.Journal
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -416,7 +416,7 @@ namespace DotNetNuke.Modules.Journal
         {
             public int JournalId { get; set; }
             public string Comment { get; set; }
-            public IList<MentionDTO> Mentions { get; set; } 
+            public IList<MentionDTO> Mentions { get; set; }
         }
 
         [HttpPost]
@@ -443,7 +443,7 @@ namespace DotNetNuke.Modules.Journal
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -483,7 +483,7 @@ namespace DotNetNuke.Modules.Journal
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -496,46 +496,46 @@ namespace DotNetNuke.Modules.Journal
             public string key { get; set; }
         }
 
-		[HttpGet]
-		[DnnAuthorize(DenyRoles = "Unverified Users")]
-		public HttpResponseMessage GetSuggestions(string keyword)
-		{
-			try
-			{
+        [HttpGet]
+        [DnnAuthorize(DenyRoles = "Unverified Users")]
+        public HttpResponseMessage GetSuggestions(string keyword)
+        {
+            try
+            {
                 var findedUsers = new List<SuggestDTO>();
-				var relations = RelationshipController.Instance.GetUserRelationships(UserInfo);
-				foreach (var ur in relations)
-				{
-					var targetUserId = ur.UserId == UserInfo.UserID ? ur.RelatedUserId : ur.UserId;
-					var targetUser = UserController.GetUserById(PortalSettings.PortalId, targetUserId);
-					var relationship = RelationshipController.Instance.GetRelationship(ur.RelationshipId);
-					if (ur.Status == RelationshipStatus.Accepted && targetUser != null
-						&& ((relationship.RelationshipTypeId == (int)DefaultRelationshipTypes.Followers && ur.RelatedUserId == UserInfo.UserID)
-								|| relationship.RelationshipTypeId == (int)DefaultRelationshipTypes.Friends
-							)
-						&& (targetUser.DisplayName.ToLowerInvariant().Contains(keyword.ToLowerInvariant())
+                var relations = RelationshipController.Instance.GetUserRelationships(UserInfo);
+                foreach (var ur in relations)
+                {
+                    var targetUserId = ur.UserId == UserInfo.UserID ? ur.RelatedUserId : ur.UserId;
+                    var targetUser = UserController.GetUserById(PortalSettings.PortalId, targetUserId);
+                    var relationship = RelationshipController.Instance.GetRelationship(ur.RelationshipId);
+                    if (ur.Status == RelationshipStatus.Accepted && targetUser != null
+                        && ((relationship.RelationshipTypeId == (int)DefaultRelationshipTypes.Followers && ur.RelatedUserId == UserInfo.UserID)
+                                || relationship.RelationshipTypeId == (int)DefaultRelationshipTypes.Friends
+                            )
+                        && (targetUser.DisplayName.ToLowerInvariant().Contains(keyword.ToLowerInvariant())
                                 || targetUser.DisplayName.ToLowerInvariant().Contains(keyword.Replace("-", " ").ToLowerInvariant())
-							)
+                            )
                         && findedUsers.All(s => s.userId != targetUser.UserID)
-						)
-					{
-						findedUsers.Add(new SuggestDTO
-							                {
-                                                displayName = targetUser.DisplayName.Replace(" ", "-"),
-											    userId = targetUser.UserID,
-											    avatar = targetUser.Profile.PhotoURL,
-                                                key = keyword
-							                });
-					}
-				}
+                        )
+                    {
+                        findedUsers.Add(new SuggestDTO
+                        {
+                            displayName = targetUser.DisplayName.Replace(" ", "-"),
+                            userId = targetUser.UserID,
+                            avatar = targetUser.Profile.PhotoURL,
+                            key = keyword
+                        });
+                    }
+                }
 
-				return Request.CreateResponse(HttpStatusCode.OK, findedUsers.Cast<object>().Take(5));
-			}
-			catch (Exception exc)
-			{
-				Logger.Error(exc);
-				return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
-			}
+                return Request.CreateResponse(HttpStatusCode.OK, findedUsers.Cast<object>().Take(5));
+            }
+            catch (Exception exc)
+            {
+                s_logger.Error(exc);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+            }
         }
 
         #endregion

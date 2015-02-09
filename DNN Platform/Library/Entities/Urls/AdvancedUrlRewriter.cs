@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,7 +48,6 @@ using DotNetNuke.Framework;
 using DotNetNuke.Services.EventQueue;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     public class AdvancedUrlRewriter : UrlRewriterBase
@@ -69,7 +68,7 @@ namespace DotNetNuke.Entities.Urls
             const bool debug = true;
             bool failedInitialization = false;
             bool ignoreForInstall = false;
-            var app = (HttpApplication) sender;
+            var app = (HttpApplication)sender;
             try
             {
                 //875 : completely ignore install/upgrade requests immediately
@@ -81,7 +80,6 @@ namespace DotNetNuke.Entities.Urls
 
                     SecurityCheck(app);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -105,11 +103,11 @@ namespace DotNetNuke.Entities.Urls
 
                 //829 : change constructor to stop using physical path
                 var result = new UrlAction(request)
-                                        {
-                                            IsSecureConnection = request.IsSecureConnection,
-                                            IsSSLOffloaded = IsSSLOffloadEnabled(request),
-                                            RawUrl = request.RawUrl
-                                        };
+                {
+                    IsSecureConnection = request.IsSecureConnection,
+                    IsSSLOffloaded = IsSSLOffloadEnabled(request),
+                    RawUrl = request.RawUrl
+                };
                 ProcessRequest(app.Context,
                                     app.Context.Request.Url,
                                      Host.Host.UseFriendlyUrls,
@@ -124,20 +122,20 @@ namespace DotNetNuke.Entities.Urls
 
         #region Public Methods
 
-        public void ProcessTestRequestWithContext(HttpContext context, 
+        public void ProcessTestRequestWithContext(HttpContext context,
                                                     Uri requestUri,
-                                                    bool useFriendlyUrls, 
-                                                    UrlAction result, 
+                                                    bool useFriendlyUrls,
+                                                    UrlAction result,
                                                     FriendlyUrlSettings settings)
         {
             Guid parentTraceId = Guid.Empty;
             _settings = settings;
-            ProcessRequest(context, 
+            ProcessRequest(context,
                                 requestUri,
-                                useFriendlyUrls, 
+                                useFriendlyUrls,
                                 result,
-                                settings, 
-                                false, 
+                                settings,
+                                false,
                                 parentTraceId);
         }
 
@@ -192,7 +190,6 @@ namespace DotNetNuke.Entities.Urls
 
             try
             {
-
                 string fullUrl, querystring;
                 //699: get the full url based on the request and the quersytring, rather than the requestUri.ToString()
                 //there is a difference in encoding, which can corrupt results when an encoded value is in the querystring
@@ -221,7 +218,7 @@ namespace DotNetNuke.Entities.Urls
                     string wrongAlias;
                     bool isPrimaryAlias;
                     var requestedAlias = GetPortalAlias(settings, fullUrl, out redirectAlias, out isPrimaryAlias, out wrongAlias);
-                    
+
                     if (requestedAlias != null)
                     {
                         //827 : now get the correct settings for this portal (if not a test request)
@@ -267,14 +264,13 @@ namespace DotNetNuke.Entities.Urls
                                     result.PortalAlias = wrongAliasInfo;
                                     result.PrimaryAlias = requestedAlias;
                                 }
-                                
                             }
                         }
                     }
                 }
                 ignoreRegex = settings.IgnoreRegex;
                 ignoreRequest = IgnoreRequest(result, fullUrl, ignoreRegex, request);
-                if (!ignoreRequest) 
+                if (!ignoreRequest)
                 {
                     //check to see if a post request
                     if (request.RequestType == "POST")
@@ -349,7 +345,7 @@ namespace DotNetNuke.Entities.Urls
                             string skin;
                             BrowserTypes browserType;
                             primaryAliases.GetSettingsByPortalIdAndAlias(result.PortalId, result.HttpAlias,
-                                                                                            out culture, 
+                                                                                            out culture,
                                                                                             out browserType,
                                                                                             out skin);
                             //add language code to path if it exists (not null) and if it's not already there
@@ -420,7 +416,7 @@ namespace DotNetNuke.Entities.Urls
                             }
                         }
                     }
-                    
+
                     if (!finished)
                     {
                         //check to see if this tab has an external url that should be forwared or not
@@ -436,7 +432,7 @@ namespace DotNetNuke.Entities.Urls
                         && !result.CustomParmRewrite && /* not custom rewritten parms */
                         ((settings.EnableCustomProviders &&
                           RedirectController.CheckForModuleProviderRedirect(requestUri, ref result, queryStringCol, settings, parentTraceId))
-                        //894 : allow disable of all custom providers
+                         //894 : allow disable of all custom providers
                          ||
                          RedirectController.CheckForParameterRedirect(requestUri, ref result, queryStringCol, settings)))
                     {
@@ -763,7 +759,7 @@ namespace DotNetNuke.Entities.Urls
                 }
                 if (context.Items.Contains("PortalSettings"))
                 {
-                    var ps = (PortalSettings) context.Items["PortalSettings"];
+                    var ps = (PortalSettings)context.Items["PortalSettings"];
                     if (ps != null)
                     {
                         portalSettings = ps.PortalId.ToString();
@@ -833,11 +829,11 @@ namespace DotNetNuke.Entities.Urls
                     if (autoaddAlias)
                     {
                         var portalAliasInfo = new PortalAliasInfo
-                                                  {
-                                                      PortalID = portalId, 
-                                                      HTTPAlias = result.DomainName,
-                                                      IsPrimary = isPrimary
-                                                  };
+                        {
+                            PortalID = portalId,
+                            HTTPAlias = result.DomainName,
+                            IsPrimary = isPrimary
+                        };
                         PortalAliasController.Instance.AddPortalAlias(portalAliasInfo);
 
                         context.Response.Redirect(context.Request.Url.ToString(), true);
@@ -859,11 +855,11 @@ namespace DotNetNuke.Entities.Urls
                 //876 : security catch for custom error reading
                 try
                 {
-                    ceSection = (CustomErrorsSection) WebConfigurationManager.GetSection("system.web/customErrors");
+                    ceSection = (CustomErrorsSection)WebConfigurationManager.GetSection("system.web/customErrors");
                 }
-// ReSharper disable EmptyGeneralCatchClause
+                // ReSharper disable EmptyGeneralCatchClause
                 catch (Exception)
-// ReSharper restore EmptyGeneralCatchClause
+                // ReSharper restore EmptyGeneralCatchClause
                 {
                     //on some medium trust environments, this will throw an exception for trying to read the custom Errors
                     //do nothing
@@ -920,7 +916,7 @@ namespace DotNetNuke.Entities.Urls
                             errTabId = settings.TabId404;
                         }
                         if (!String.IsNullOrEmpty(settings.Regex404))
-                            //with 404 errors, there's an option to catch certain urls and use an external url for extra processing.
+                        //with 404 errors, there's an option to catch certain urls and use an external url for extra processing.
                         {
                             try
                             {
@@ -933,7 +929,7 @@ namespace DotNetNuke.Entities.Urls
                                 if (Regex.IsMatch(requestedUrl, settings.Regex404, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
                                 {
                                     useDNNTab = false;
-                                        //if we have a match in the 404 regex value, then don't use the tabid
+                                    //if we have a match in the 404 regex value, then don't use the tabid
                                 }
                             }
                             catch (Exception regexEx)
@@ -988,7 +984,7 @@ namespace DotNetNuke.Entities.Urls
                             else
                             {
                                 redirect = true;
-                                    //redirect postbacks as you can't postback successfully to a server.transfer
+                                //redirect postbacks as you can't postback successfully to a server.transfer
                             }
                             errUrl = Globals.glbDefaultPage + TabIndexController.CreateRewritePath(errTab.TabID, "");
                             //have to update the portal settings with the new tabid
@@ -997,7 +993,7 @@ namespace DotNetNuke.Entities.Urls
                             {
                                 if (context.Items.Contains("PortalSettings"))
                                 {
-                                    ps = (PortalSettings) context.Items["PortalSettings"];
+                                    ps = (PortalSettings)context.Items["PortalSettings"];
                                     context.Items.Remove("PortalSettings"); //nix it from the context
                                 }
                             }
@@ -1022,7 +1018,7 @@ namespace DotNetNuke.Entities.Urls
                                     if (portals != null && portals.Count == 1)
                                     {
                                         //single portal install, load up portal settings for this portal
-                                        var singlePortal = (PortalInfo) portals[0];
+                                        var singlePortal = (PortalInfo)portals[0];
                                         //list of aliases from database
                                         var aliases = PortalAliasController.Instance.GetPortalAliasesByPortalId(singlePortal.PortalID).ToList();
                                         //list of aliases from Advanced Url settings
@@ -1260,9 +1256,9 @@ namespace DotNetNuke.Entities.Urls
             return retVal;
         }
 
-        private static bool CheckForTabExternalForwardOrRedirect(HttpContext context, 
+        private static bool CheckForTabExternalForwardOrRedirect(HttpContext context,
                                                                     ref UrlAction result,
-                                                                    HttpResponse response, 
+                                                                    HttpResponse response,
                                                                     FriendlyUrlSettings settings,
                                                                     Guid parentTraceId)
         {
@@ -1275,111 +1271,55 @@ namespace DotNetNuke.Entities.Urls
 
             try
             {
-                            //check for external forwarding or a permanent redirect request
-            //592 : check for permanent redirect (823 : moved location from 'checkForRedirects')
-            if (result.TabId > -1 && result.PortalId > -1 &&
-                (settings.ForwardExternalUrlsType != DNNPageForwardType.NoForward ||
-                 result.Reason == RedirectReason.Tab_Permanent_Redirect))
-            {
-                bool allowRedirect = !(result.RewritePath != null && result.RewritePath.ToLower().Contains("&ctl=tab"));
-                //594 : do not redirect settings pages for external urls
-                if (allowRedirect)
+                //check for external forwarding or a permanent redirect request
+                //592 : check for permanent redirect (823 : moved location from 'checkForRedirects')
+                if (result.TabId > -1 && result.PortalId > -1 &&
+                    (settings.ForwardExternalUrlsType != DNNPageForwardType.NoForward ||
+                     result.Reason == RedirectReason.Tab_Permanent_Redirect))
                 {
-                    TabInfo tab;
-                    allowRedirect = CheckFor301RedirectExclusion(result.TabId, result.PortalId, false, out tab, settings);
+                    bool allowRedirect = !(result.RewritePath != null && result.RewritePath.ToLower().Contains("&ctl=tab"));
+                    //594 : do not redirect settings pages for external urls
                     if (allowRedirect)
                     {
-                        //772 : not redirecting file type Urls when requested.
-                        bool permanentRedirect = false;
-                        string redirectUrl = null;
-                        string cleanPath = null;
-                        bool doRedirect = false;
-                        switch (tab.TabType)
+                        TabInfo tab;
+                        allowRedirect = CheckFor301RedirectExclusion(result.TabId, result.PortalId, false, out tab, settings);
+                        if (allowRedirect)
                         {
-                            case TabType.File:
-                                //have to fudge in a portal settings object for this to work - shortcoming of LinkClick URl generation
-                                var portalSettings = new PortalSettings(result.TabId, result.PortalAlias);
-                                if (context != null)
-                                {
-                                    context.Items.Add("PortalSettings", portalSettings);
-                                    result.Reason = RedirectReason.File_Url;
-                                    string fileUrl = Globals.LinkClick(tab.Url, tab.TabID, -1);
-                                    context.Items.Remove("PortalSettings");
-                                    //take back out again, because it will be done further downstream
-                                    //do a check to make sure we're not repeating the Url again, because the tabid is set but we don't want to touch
-                                    //a linkclick url
-                                    if (!result.OriginalPathNoAlias.EndsWith(HttpUtility.UrlDecode(fileUrl), true, CultureInfo.InvariantCulture))
+                            //772 : not redirecting file type Urls when requested.
+                            bool permanentRedirect = false;
+                            string redirectUrl = null;
+                            string cleanPath = null;
+                            bool doRedirect = false;
+                            switch (tab.TabType)
+                            {
+                                case TabType.File:
+                                    //have to fudge in a portal settings object for this to work - shortcoming of LinkClick URl generation
+                                    var portalSettings = new PortalSettings(result.TabId, result.PortalAlias);
+                                    if (context != null)
                                     {
-                                        redirectUrl = fileUrl;
+                                        context.Items.Add("PortalSettings", portalSettings);
+                                        result.Reason = RedirectReason.File_Url;
+                                        string fileUrl = Globals.LinkClick(tab.Url, tab.TabID, -1);
+                                        context.Items.Remove("PortalSettings");
+                                        //take back out again, because it will be done further downstream
+                                        //do a check to make sure we're not repeating the Url again, because the tabid is set but we don't want to touch
+                                        //a linkclick url
+                                        if (!result.OriginalPathNoAlias.EndsWith(HttpUtility.UrlDecode(fileUrl), true, CultureInfo.InvariantCulture))
+                                        {
+                                            redirectUrl = fileUrl;
+                                        }
                                     }
-                                }
-                                if (redirectUrl != null)
-                                {
-                                    doRedirect = true;
-                                }
-                                break;
-                            case TabType.Url:
-                                result.Reason = RedirectReason.Tab_External_Url;
-                                redirectUrl = tab.Url;
-                                if (redirectUrl != null)
-                                {
-                                    doRedirect = true;
-                                    if (settings.ForwardExternalUrlsType == DNNPageForwardType.Redirect301)
+                                    if (redirectUrl != null)
                                     {
-                                        result.Action = ActionType.Redirect301;
-                                        result.Reason = RedirectReason.Tab_External_Url;
+                                        doRedirect = true;
                                     }
-                                    else if (settings.ForwardExternalUrlsType == DNNPageForwardType.Redirect302)
+                                    break;
+                                case TabType.Url:
+                                    result.Reason = RedirectReason.Tab_External_Url;
+                                    redirectUrl = tab.Url;
+                                    if (redirectUrl != null)
                                     {
-                                        result.Action = ActionType.Redirect302;
-                                        result.Reason = RedirectReason.Tab_External_Url;
-                                    }
-                                }
-                                break;
-                            case TabType.Tab:
-                                // if a tabType.tab is specified, it's either an external url or a permanent redirect
-
-                                //get the redirect path of the specific tab, as long as we have a valid request to work from
-                                if (request != null)
-                                {
-                                    //get the rewrite or requested path in a clean format, suitable for input to the friendly url provider
-                                    cleanPath = RewriteController.GetRewriteOrRequestedPath(result, request.Url);
-                                    //727 prevent redirectLoop with do301 in querystring
-                                    if (result.Action == ActionType.Redirect301 ||
-                                        result.Action == ActionType.Redirect302)
-                                    {
-                                        cleanPath = RedirectTokens.RemoveAnyRedirectTokens(cleanPath,
-                                                                                           request.QueryString);
-                                    }
-                                    //get the redirect Url from the friendly url provider using the tab, path and settings
-                                    redirectUrl = RedirectController.GetTabRedirectUrl(tab, settings, cleanPath, result,
-                                                                                       out permanentRedirect,
-                                                                                       parentTraceId);
-                                }
-                                //check to make sure there isn't a blank redirect Url
-                                if (redirectUrl == null)
-                                {
-                                    //problem : no redirect Url to redirect to
-                                    //solution : cancel the redirect
-                                    string message = "Permanent Redirect chosen for Tab " +
-                                                     tab.TabPath.Replace("//", "/") +
-                                                     " but forwarding Url was not valid";
-                                    RedirectController.CancelRedirect(ref result, context, settings, message);
-                                }
-                                else
-                                {
-                                    //if there was a redirect Url, set the redirect action and set the type of redirect going to use
-                                    doRedirect = true;
-                                    if (permanentRedirect)
-                                    {
-                                        result.Action = ActionType.Redirect301;
-                                        result.Reason = RedirectReason.Tab_Permanent_Redirect;
-                                        //should be already set, anyway
-                                        result.RewritePath = cleanPath;
-                                    }
-                                    else
-                                    {
-                                        //not a permanent redirect, check if the page forwarding is set
+                                        doRedirect = true;
                                         if (settings.ForwardExternalUrlsType == DNNPageForwardType.Redirect301)
                                         {
                                             result.Action = ActionType.Redirect301;
@@ -1391,60 +1331,115 @@ namespace DotNetNuke.Entities.Urls
                                             result.Reason = RedirectReason.Tab_External_Url;
                                         }
                                     }
-                                }
-                                break;
-                            default:
-                                //only concern here is if permanent redirect is requested, but there is no external url specified
-                                if (result.Reason == RedirectReason.Tab_Permanent_Redirect)
-                                {
-                                    bool permRedirect = tab.PermanentRedirect;
-                                    if (permRedirect)
+                                    break;
+                                case TabType.Tab:
+                                    // if a tabType.tab is specified, it's either an external url or a permanent redirect
+
+                                    //get the redirect path of the specific tab, as long as we have a valid request to work from
+                                    if (request != null)
                                     {
-                                        //problem : permanent redirect marked, but no forwarding url supplied
-                                        //solution : cancel redirect
+                                        //get the rewrite or requested path in a clean format, suitable for input to the friendly url provider
+                                        cleanPath = RewriteController.GetRewriteOrRequestedPath(result, request.Url);
+                                        //727 prevent redirectLoop with do301 in querystring
+                                        if (result.Action == ActionType.Redirect301 ||
+                                            result.Action == ActionType.Redirect302)
+                                        {
+                                            cleanPath = RedirectTokens.RemoveAnyRedirectTokens(cleanPath,
+                                                                                               request.QueryString);
+                                        }
+                                        //get the redirect Url from the friendly url provider using the tab, path and settings
+                                        redirectUrl = RedirectController.GetTabRedirectUrl(tab, settings, cleanPath, result,
+                                                                                           out permanentRedirect,
+                                                                                           parentTraceId);
+                                    }
+                                    //check to make sure there isn't a blank redirect Url
+                                    if (redirectUrl == null)
+                                    {
+                                        //problem : no redirect Url to redirect to
+                                        //solution : cancel the redirect
                                         string message = "Permanent Redirect chosen for Tab " +
                                                          tab.TabPath.Replace("//", "/") +
-                                                         " but no forwarding Url Supplied";
+                                                         " but forwarding Url was not valid";
                                         RedirectController.CancelRedirect(ref result, context, settings, message);
                                     }
-                                }
-                                break;
-                        }
-
-                        //do the redirect we have specified
-                        if (doRedirect &&
-                            (result.Action == ActionType.Redirect301 || result.Action == ActionType.Redirect302))
-                        {
-                            result.FinalUrl = redirectUrl;
-                            if (result.Action == ActionType.Redirect301)
-                            {
-                                if (response != null)
-                                {
-                                    //perform a 301 redirect to the external url of the tab
-                                    response.AppendHeader("X-Redirect-Reason",
-                                                          result.Reason.ToString().Replace("_", " ") + " Requested");
-                                    response.RedirectPermanent(result.FinalUrl);
-                                }
+                                    else
+                                    {
+                                        //if there was a redirect Url, set the redirect action and set the type of redirect going to use
+                                        doRedirect = true;
+                                        if (permanentRedirect)
+                                        {
+                                            result.Action = ActionType.Redirect301;
+                                            result.Reason = RedirectReason.Tab_Permanent_Redirect;
+                                            //should be already set, anyway
+                                            result.RewritePath = cleanPath;
+                                        }
+                                        else
+                                        {
+                                            //not a permanent redirect, check if the page forwarding is set
+                                            if (settings.ForwardExternalUrlsType == DNNPageForwardType.Redirect301)
+                                            {
+                                                result.Action = ActionType.Redirect301;
+                                                result.Reason = RedirectReason.Tab_External_Url;
+                                            }
+                                            else if (settings.ForwardExternalUrlsType == DNNPageForwardType.Redirect302)
+                                            {
+                                                result.Action = ActionType.Redirect302;
+                                                result.Reason = RedirectReason.Tab_External_Url;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    //only concern here is if permanent redirect is requested, but there is no external url specified
+                                    if (result.Reason == RedirectReason.Tab_Permanent_Redirect)
+                                    {
+                                        bool permRedirect = tab.PermanentRedirect;
+                                        if (permRedirect)
+                                        {
+                                            //problem : permanent redirect marked, but no forwarding url supplied
+                                            //solution : cancel redirect
+                                            string message = "Permanent Redirect chosen for Tab " +
+                                                             tab.TabPath.Replace("//", "/") +
+                                                             " but no forwarding Url Supplied";
+                                            RedirectController.CancelRedirect(ref result, context, settings, message);
+                                        }
+                                    }
+                                    break;
                             }
-                            else
+
+                            //do the redirect we have specified
+                            if (doRedirect &&
+                                (result.Action == ActionType.Redirect301 || result.Action == ActionType.Redirect302))
                             {
-                                if (result.Action == ActionType.Redirect302)
+                                result.FinalUrl = redirectUrl;
+                                if (result.Action == ActionType.Redirect301)
                                 {
                                     if (response != null)
                                     {
                                         //perform a 301 redirect to the external url of the tab
                                         response.AppendHeader("X-Redirect-Reason",
                                                               result.Reason.ToString().Replace("_", " ") + " Requested");
-                                        response.Redirect(result.FinalUrl);
+                                        response.RedirectPermanent(result.FinalUrl);
                                     }
                                 }
+                                else
+                                {
+                                    if (result.Action == ActionType.Redirect302)
+                                    {
+                                        if (response != null)
+                                        {
+                                            //perform a 301 redirect to the external url of the tab
+                                            response.AppendHeader("X-Redirect-Reason",
+                                                                  result.Reason.ToString().Replace("_", " ") + " Requested");
+                                            response.Redirect(result.FinalUrl);
+                                        }
+                                    }
+                                }
+                                finished = true;
                             }
-                            finished = true;
                         }
                     }
                 }
-            }
-
             }
             catch (ThreadAbortException)
             {
@@ -1454,9 +1449,9 @@ namespace DotNetNuke.Entities.Urls
             return finished;
         }
 
-        private bool CheckForSecureRedirect(PortalSettings portalSettings, 
-                                                Uri requestUri, 
-                                                UrlAction result, 
+        private bool CheckForSecureRedirect(PortalSettings portalSettings,
+                                                Uri requestUri,
+                                                UrlAction result,
                                                 NameValueCollection queryStringCol,
                                                 FriendlyUrlSettings settings)
         {
@@ -1464,7 +1459,7 @@ namespace DotNetNuke.Entities.Urls
             string url = requestUri.ToString();
             //889 : don't run secure redirect code for physical resources or requests that aren't a rewritten Url
             if (result.IsPhysicalResource == false && result.TabId >= 0)
-                // no secure redirection for physical resources, only tab-specific requests can be redirected for ssl connections
+            // no secure redirection for physical resources, only tab-specific requests can be redirected for ssl connections
             {
                 if (portalSettings.ActiveTab != null)
                 {
@@ -1580,12 +1575,12 @@ namespace DotNetNuke.Entities.Urls
             return false;
         }
 
-        protected bool IsPortalAliasIncorrect(HttpContext context, 
-                                                    HttpRequest request, 
+        protected bool IsPortalAliasIncorrect(HttpContext context,
+                                                    HttpRequest request,
                                                     Uri requestUri,
-                                                    UrlAction result, 
+                                                    UrlAction result,
                                                     NameValueCollection queryStringCol,
-                                                    FriendlyUrlSettings settings, 
+                                                    FriendlyUrlSettings settings,
                                                     Guid parentTraceId,
                                                     out string httpAlias)
         {
@@ -1662,7 +1657,7 @@ namespace DotNetNuke.Entities.Urls
                                         string cultureCode = pi.DefaultLanguage;
                                         if (!string.IsNullOrEmpty(cultureCode))
                                         {
-                                            var primaryPortalAlias = portalAliases.GetAliasByPortalIdAndSettings(result.PortalId, result,cultureCode,settings);
+                                            var primaryPortalAlias = portalAliases.GetAliasByPortalIdAndSettings(result.PortalId, result, cultureCode, settings);
                                             if (primaryPortalAlias != null)
                                             {
                                                 httpAlias = primaryPortalAlias.HTTPAlias;
@@ -1674,7 +1669,7 @@ namespace DotNetNuke.Entities.Urls
                         }
                     }
 
-                    
+
                     //check to see if it is a custom tab alais - in that case, it is allowed to be requested for the tab
                     if (CheckIfAliasIsCustomTabAlias(ref result, httpAlias, settings))
                     {
@@ -1683,9 +1678,9 @@ namespace DotNetNuke.Entities.Urls
                     }
                     else
                         if (httpAlias != null && String.Compare(httpAlias, result.HttpAlias, StringComparison.OrdinalIgnoreCase) != 0)
-                        {
-                            incorrectAlias = true;
-                        }
+                    {
+                        incorrectAlias = true;
+                    }
                 }
             }
             return incorrectAlias;
@@ -1718,19 +1713,19 @@ namespace DotNetNuke.Entities.Urls
             return redirected;
         }
 
-        private static bool ConfigurePortalAliasRedirect(ref UrlAction result, 
-                                                            string wrongAlias, 
+        private static bool ConfigurePortalAliasRedirect(ref UrlAction result,
+                                                            string wrongAlias,
                                                             string rightAlias,
-                                                            bool ignoreCustomAliasTabs, 
+                                                            bool ignoreCustomAliasTabs,
                                                             List<InternalAlias> internalAliases,
                                                             FriendlyUrlSettings settings)
         {
-            return ConfigurePortalAliasRedirect(ref result, 
-                                                    wrongAlias, 
-                                                    rightAlias, 
+            return ConfigurePortalAliasRedirect(ref result,
+                                                    wrongAlias,
+                                                    rightAlias,
                                                     ignoreCustomAliasTabs,
-                                                    RedirectReason.Wrong_Portal_Alias, 
-                                                    internalAliases, 
+                                                    RedirectReason.Wrong_Portal_Alias,
+                                                    internalAliases,
                                                     settings);
         }
         /// <summary>
@@ -1770,10 +1765,10 @@ namespace DotNetNuke.Entities.Urls
         /// <param name="internalAliases"></param>
         /// <param name="settings"></param>
         /// <returns></returns>
-        private static bool ConfigurePortalAliasRedirect(ref UrlAction result, 
-                                                            string wrongAlias, 
+        private static bool ConfigurePortalAliasRedirect(ref UrlAction result,
+                                                            string wrongAlias,
                                                             string rightAlias,
-                                                            bool ignoreCustomAliasTabs, 
+                                                            bool ignoreCustomAliasTabs,
                                                             RedirectReason redirectReason,
                                                             List<InternalAlias> internalAliases,
                                                             FriendlyUrlSettings settings)
@@ -1784,7 +1779,7 @@ namespace DotNetNuke.Entities.Urls
             if (ignoreCustomAliasTabs == false) //check out custom alias tabs collection
             {
                 //if an alias is a custom tab alias for a specific tab, then don't redirect
-                if (CheckIfAliasIsCustomTabAlias(ref result, wrongAlias, settings)) 
+                if (CheckIfAliasIsCustomTabAlias(ref result, wrongAlias, settings))
                     doRedirect = false;
                 else
                 {
@@ -1835,10 +1830,10 @@ namespace DotNetNuke.Entities.Urls
             return doRedirect;
         }
 
-        private void IdentifyPortalAlias(HttpContext context, 
-                                            HttpRequest request, 
+        private void IdentifyPortalAlias(HttpContext context,
+                                            HttpRequest request,
                                             Uri requestUri, UrlAction result,
-                                            NameValueCollection queryStringCol, 
+                                            NameValueCollection queryStringCol,
                                             FriendlyUrlSettings settings,
                                             Guid parentTraceId)
         {
@@ -2130,8 +2125,8 @@ namespace DotNetNuke.Entities.Urls
             }
         }
 
-        internal static void RewriteAsChildAliasRoot(HttpContext context, 
-                                                        UrlAction result, 
+        internal static void RewriteAsChildAliasRoot(HttpContext context,
+                                                        UrlAction result,
                                                         string aliasQueryString,
                                                         FriendlyUrlSettings settings)
         {
@@ -2143,7 +2138,7 @@ namespace DotNetNuke.Entities.Urls
                 culture = primaryAliases.GetCultureByPortalIdAndAlias(result.PortalId, result.HttpAlias);
             }
             if (string.IsNullOrEmpty(culture))
-                //732 : when no culture returned can be "" as well as null : no culture causes no rewrite, which results in redirect to parent alias
+            //732 : when no culture returned can be "" as well as null : no culture causes no rewrite, which results in redirect to parent alias
             {
                 //set the default culture code here
                 //735 : switch to custom method for getting portal
@@ -2276,7 +2271,7 @@ namespace DotNetNuke.Entities.Urls
             //Get the root
             var rootPath = requestedPath.Substring(0, requestedPath.LastIndexOf("/", StringComparison.Ordinal));
             rootPath = rootPath.Substring(rootPath.IndexOf("://", StringComparison.Ordinal) + 3);
-                
+
             //Check if this is a WebServer and not a portalalias.
             //if can auto add portal alias enabled, then return false, alias will add later.
             var alias = PortalAliasController.Instance.GetPortalAlias(rootPath);
@@ -2353,25 +2348,25 @@ namespace DotNetNuke.Entities.Urls
             return retVal;
         }
 
-        private static void CheckForRewrite(string fullUrl, 
-                                                string querystring, 
-                                                UrlAction result, 
+        private static void CheckForRewrite(string fullUrl,
+                                                string querystring,
+                                                UrlAction result,
                                                 bool useFriendlyUrls,
-                                                NameValueCollection queryStringCol, 
+                                                NameValueCollection queryStringCol,
                                                 FriendlyUrlSettings settings,
-                                                out bool isPhysicalResource, 
+                                                out bool isPhysicalResource,
                                                 Guid parentTraceId)
         {
             bool checkForRewrites;
             //just check to make sure it isn't a physical resource on the server
-            RewriteController.IdentifyByPhysicalResource(result.PhysicalPath, 
-                                                            fullUrl, 
-                                                            queryStringCol, 
+            RewriteController.IdentifyByPhysicalResource(result.PhysicalPath,
+                                                            fullUrl,
+                                                            queryStringCol,
                                                             ref result,
-                                                            useFriendlyUrls, 
-                                                            settings, 
+                                                            useFriendlyUrls,
+                                                            settings,
                                                             out isPhysicalResource,
-                                                            out checkForRewrites, 
+                                                            out checkForRewrites,
                                                             parentTraceId);
 
             if (checkForRewrites && RewriteController.CanRewriteRequest(result, fullUrl, settings))
@@ -2384,7 +2379,7 @@ namespace DotNetNuke.Entities.Urls
                 }
 
                 if (!doSiteUrlProcessing)
-                    //if a virtual request, and not starting with the siteUrls.config file, go on to find the rewritten path
+                //if a virtual request, and not starting with the siteUrls.config file, go on to find the rewritten path
                 {
                     //looks up the page index to find the correct Url
                     bool doRewrite = RewriteController.IdentifyByTabPathEx(fullUrl, querystring, result, queryStringCol, settings, parentTraceId);
@@ -2420,11 +2415,11 @@ namespace DotNetNuke.Entities.Urls
             }
         }
 
-        private static bool CheckForRedirects(Uri requestUri, 
-                                                string fullUrl, 
+        private static bool CheckForRedirects(Uri requestUri,
+                                                string fullUrl,
                                                 NameValueCollection queryStringCol,
-                                                UrlAction result, 
-                                                string requestType, 
+                                                UrlAction result,
+                                                string requestType,
                                                 FriendlyUrlSettings settings,
                                                 int portalHomeTabId)
         {
@@ -2484,11 +2479,11 @@ namespace DotNetNuke.Entities.Urls
                                 TabInfo homeTab = TabController.Instance.GetTab(portalHomeTabId, result.PortalId, false);
                                 if (homeTab != null)
                                 {
-                                    string homePageUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(homeTab, 
+                                    string homePageUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(homeTab,
                                                                                                          pathOnly,
                                                                                                          Globals.glbDefaultPage,
                                                                                                          result.HttpAlias,
-                                                                                                         false, 
+                                                                                                         false,
                                                                                                          settings,
                                                                                                          Guid.Empty);
                                     result.Action = ActionType.Redirect301;
@@ -2510,11 +2505,11 @@ namespace DotNetNuke.Entities.Urls
                                 }
 
                                 //get best friendly url from friendly url provider
-                                string bestFriendlyUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(tab, 
+                                string bestFriendlyUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(tab,
                                                                                                          cleanPath,
                                                                                                          Globals.glbDefaultPage,
                                                                                                          result.HttpAlias,
-                                                                                                         false, 
+                                                                                                         false,
                                                                                                          settings,
                                                                                                          Guid.Empty);
 
@@ -2578,11 +2573,11 @@ namespace DotNetNuke.Entities.Urls
                             {
                                 rewritePathOnly = rewritePathOnly.Substring(pathAliasEnd + result.PortalAlias.HTTPAlias.Length);
                             }
-                            
+
                             rewritePathOnly = HttpUtility.UrlDecode(rewritePathOnly, Encoding.UTF8);
                             //now check to see if need to remove /default.aspx from the end of the requested Url
                             string requestedUrl = fullUrl;
-                            int requestedUrlAliasEnd = requestedUrl.IndexOf(result.PortalAlias.HTTPAlias, StringComparison.InvariantCultureIgnoreCase) 
+                            int requestedUrlAliasEnd = requestedUrl.IndexOf(result.PortalAlias.HTTPAlias, StringComparison.InvariantCultureIgnoreCase)
                                                         + (result.PortalAlias.HTTPAlias + "/").Length;
                             if (requestedUrlAliasEnd > Null.NullInteger)
                             {
@@ -2615,21 +2610,21 @@ namespace DotNetNuke.Entities.Urls
                                 //remove the last parameter from the path
 
                                 //generate teh friendly URl name with the last parameter as the page name, not a query string parameter
-                                bestFriendlyUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(tab, 
+                                bestFriendlyUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(tab,
                                                                                                     cleanPath,
                                                                                                     pageName + settings.PageExtension,
                                                                                                     result.HttpAlias,
-                                                                                                    false, 
+                                                                                                    false,
                                                                                                     settings,
                                                                                                     Guid.Empty);
                             }
                             else
                             {
-                                bestFriendlyUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(tab, 
+                                bestFriendlyUrl = AdvancedFriendlyUrlProvider.ImprovedFriendlyUrl(tab,
                                                                                                     cleanPath,
                                                                                                     Globals.glbDefaultPage,
                                                                                                     result.HttpAlias,
-                                                                                                    false, 
+                                                                                                    false,
                                                                                                     settings,
                                                                                                     Guid.Empty);
                             }
@@ -2663,9 +2658,9 @@ namespace DotNetNuke.Entities.Urls
                                             {
                                                 //an internal alias has been used.
                                                 //replace this in the comparison charts to do a 'fair' comparison
-                                                requestedPathNoScheme = requestedPathNoScheme.Replace(internalAlias,chosenAlias);
-                                                rawUrlWithHost = rawUrlWithHost.Replace(scheme + internalAlias,scheme + chosenAlias);
-                                                rawUrlWithHostNoScheme = rawUrlWithHostNoScheme.Replace(internalAlias,chosenAlias);
+                                                requestedPathNoScheme = requestedPathNoScheme.Replace(internalAlias, chosenAlias);
+                                                rawUrlWithHost = rawUrlWithHost.Replace(scheme + internalAlias, scheme + chosenAlias);
+                                                rawUrlWithHostNoScheme = rawUrlWithHostNoScheme.Replace(internalAlias, chosenAlias);
                                                 rawUrlLowerCase = rawUrlLowerCase.Replace(internalAlias, chosenAlias);
                                                 break;
                                             }

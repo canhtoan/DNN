@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Framework.JavaScriptLibraries
 {
     /// <summary>
@@ -68,8 +67,5 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
         ///     knockout mapping LibraryName
         /// </summary>
         public const string HoverIntent = "HoverIntent";
-        
-        
-
     }
 }

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -152,8 +152,8 @@ namespace DotNetNuke.Services.Social.Notifications
         [XmlAttribute]
         public bool IncludeDismissAction { get; set; }
 
-		[XmlAttribute]
-		public bool SendToast { get; set; }
+        [XmlAttribute]
+        public bool SendToast { get; set; }
 
         #endregion
 
@@ -185,18 +185,18 @@ namespace DotNetNuke.Services.Social.Notifications
             ExpirationDate = Null.SetNullDateTime(dr["ExpirationDate"]);
             IncludeDismissAction = Null.SetNullBoolean(dr["IncludeDismissAction"]);
 
-			var schema = dr.GetSchemaTable();
-			if (schema != null)
-			{
-				if (schema.Select("ColumnName = 'SendToast'").Length > 0)
-				{
-					SendToast = Null.SetNullBoolean(dr["SendToast"]);
-				}
-				else
-				{
+            var schema = dr.GetSchemaTable();
+            if (schema != null)
+            {
+                if (schema.Select("ColumnName = 'SendToast'").Length > 0)
+                {
+                    SendToast = Null.SetNullBoolean(dr["SendToast"]);
+                }
+                else
+                {
                     SendToast = false;
-				}
-			}
+                }
+            }
 
             //add audit column data
             FillInternal(dr);

@@ -14,10 +14,8 @@ using System.Runtime.CompilerServices;
 
 namespace ClientDependency.Core
 {
-    
     public class BaseLoader
     {
-
         public BaseLoader(HttpContextBase http)
         {
             CurrentContext = http;
@@ -57,7 +55,7 @@ namespace ClientDependency.Core
         {
             Paths.Add(path);
             return this;
-        }		
+        }
 
         /// <summary>
         /// Registers dependencies with the specified provider.
@@ -76,14 +74,14 @@ namespace ClientDependency.Core
                 .Where(x => x.ProviderIs(provider))
                 .DefaultIfEmpty(new ProviderDependencyList(provider))
                 .SingleOrDefault();
-            
+
             //add the dependencies that don't have a provider specified
             currList.AddDependencies(dependencies
                 .Where(x => string.IsNullOrEmpty(x.ForceProvider)));
-            
+
             //add the list if it is new
             if (!Dependencies.Contains(currList) && currList.Dependencies.Count > 0)
-                Dependencies.Add(currList); 
+                Dependencies.Add(currList);
 
             //we need to look up all of the dependencies that have forced providers, 
             //check if we've got a provider list for it, create one if not and add the dependencies
@@ -94,7 +92,7 @@ namespace ClientDependency.Core
                 .Distinct();
             var forceProviders = (from provName in allProviderNamesInList
                                   where currProviders[provName] != null
-                                  select (BaseFileRegistrationProvider) currProviders[provName]).ToList();
+                                  select (BaseFileRegistrationProvider)currProviders[provName]).ToList();
             foreach (var prov in forceProviders)
             {
                 //find or create the ProviderDependencyList for the prov
@@ -189,16 +187,14 @@ namespace ClientDependency.Core
             var file = new BasicFile(type) { Group = group, Priority = priority, FilePath = filePath, PathNameAlias = pathNameAlias };
 
             //now add the attributes to the list
-            foreach(var d in htmlAttributes.ToDictionary())
+            foreach (var d in htmlAttributes.ToDictionary())
             {
                 file.HtmlAttributes.Add(d.Key, d.Value.ToString());
             }
 
             RegisterClientDependencies(new List<IClientDependencyFile> { file }, new List<IClientDependencyPath>()); //send an empty paths collection
-        } 
+        }
 
         #endregion
-
-
     }
 }

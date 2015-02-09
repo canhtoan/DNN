@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -83,7 +82,7 @@ namespace DotNetNuke.Web.Api
                 }
             }
 
-            if(matches.Count == 1)
+            if (matches.Count == 1)
             {
                 return matches.First();
             }

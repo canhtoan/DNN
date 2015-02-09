@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,19 +37,18 @@ using DotNetNuke.Security.Roles.Internal;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     public class PermissionController
     {
-        private static readonly DataProvider provider = DataProvider.Instance();
+        private static readonly DataProvider s_provider = DataProvider.Instance();
 
         private static IEnumerable<PermissionInfo> GetPermissions()
         {
             return CBO.GetCachedObject<IEnumerable<PermissionInfo>>(new CacheItemArgs(DataCache.PermissionsCacheKey,
                                                                                 DataCache.PermissionsCacheTimeout,
                                                                                 DataCache.PermissionsCachePriority),
-                                                                c => CBO.FillCollection<PermissionInfo>(provider.ExecuteReader("GetPermissions")));
+                                                                c => CBO.FillCollection<PermissionInfo>(s_provider.ExecuteReader("GetPermissions")));
         }
 
         private void ClearCache()
@@ -58,11 +57,11 @@ namespace DotNetNuke.Security.Permissions
         }
 
         #region Public Methods
-		
+
         public int AddPermission(PermissionInfo permission)
         {
             EventLogController.Instance.AddLog(permission, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", EventLogController.EventLogType.PERMISSION_CREATED);
-            var permissionId =  Convert.ToInt32(provider.AddPermission(permission.PermissionCode,
+            var permissionId = Convert.ToInt32(s_provider.AddPermission(permission.PermissionCode,
                                                        permission.ModuleDefID,
                                                        permission.PermissionKey,
                                                        permission.PermissionName,
@@ -79,7 +78,7 @@ namespace DotNetNuke.Security.Permissions
                                PortalController.Instance.GetCurrentPortalSettings(),
                                UserController.Instance.GetCurrentUserInfo().UserID,
                                EventLogController.EventLogType.PERMISSION_DELETED);
-            provider.DeletePermission(permissionID);
+            s_provider.DeletePermission(permissionID);
             ClearCache();
         }
 
@@ -109,7 +108,7 @@ namespace DotNetNuke.Security.Permissions
         public void UpdatePermission(PermissionInfo permission)
         {
             EventLogController.Instance.AddLog(permission, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", EventLogController.EventLogType.PERMISSION_UPDATED);
-            provider.UpdatePermission(permission.PermissionID,
+            s_provider.UpdatePermission(permission.PermissionID,
                                       permission.PermissionCode,
                                       permission.ModuleDefID,
                                       permission.PermissionKey,
@@ -117,10 +116,10 @@ namespace DotNetNuke.Security.Permissions
                                       UserController.Instance.GetCurrentUserInfo().UserID);
             ClearCache();
         }
-		
-		#endregion
-		
-		#region Shared Methods
+
+        #endregion
+
+        #region Shared Methods
 
         public static string BuildPermissions(IList Permissions, string PermissionKey)
         {
@@ -130,9 +129,9 @@ namespace DotNetNuke.Security.Permissions
             {
                 if (PermissionKey.Equals(permission.PermissionKey, StringComparison.InvariantCultureIgnoreCase))
                 {
-					//Deny permissions are prefixed with a "!"
+                    //Deny permissions are prefixed with a "!"
                     string prefix = !permission.AllowAccess ? "!" : "";
-					
+
                     //encode permission
                     string permissionString;
                     if (Null.IsNull(permission.UserID))
@@ -143,7 +142,7 @@ namespace DotNetNuke.Security.Permissions
                     {
                         permissionString = prefix + "[" + permission.UserID + "];";
                     }
-					
+
                     //build permissions string ensuring that Deny permissions are inserted at the beginning and Grant permissions at the end
                     if (prefix == "!")
                     {
@@ -155,7 +154,7 @@ namespace DotNetNuke.Security.Permissions
                     }
                 }
             }
-			
+
             //get string
             string permissionsString = permissionsBuilder.ToString();
 
@@ -238,8 +237,8 @@ namespace DotNetNuke.Security.Permissions
 
             return result;
         }
-		
-		#endregion
+
+        #endregion
 
         [Obsolete("Deprecated in DNN 5.0.1. Replaced by GetPermissionsByFolder()")]
         public ArrayList GetPermissionsByFolder(int portalID, string folder)

@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Web.Components.Controllers.Models
 {
     public class UpgradeIndicatorViewModel

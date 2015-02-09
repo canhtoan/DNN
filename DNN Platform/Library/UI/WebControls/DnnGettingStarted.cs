@@ -10,7 +10,6 @@ namespace DotNetNuke.UI.WebControls
 {
     public class DnnGettingStarted : Control, INamingContainer
     {
-
         private readonly Lazy<DnnGettingStartedOptions> _options =
             new Lazy<DnnGettingStartedOptions>(() => new DnnGettingStartedOptions());
 
@@ -89,8 +88,6 @@ namespace DotNetNuke.UI.WebControls
             {
                 Page.ClientScript.RegisterStartupScript(GetType(), ClientID + "DnnGettingStarted", script, true);
             }
-
         }
-
     }
 }

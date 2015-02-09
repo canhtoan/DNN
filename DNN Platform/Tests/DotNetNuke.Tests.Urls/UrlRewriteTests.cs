@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ using NUnit.Framework;
 namespace DotNetNuke.Tests.Urls
 {
     [TestFixture]
-    public class UrlRewriteTests : UrlTestBase 
+    public class UrlRewriteTests : UrlTestBase
     {
         private const string _defaultPage = Globals.glbDefaultPage;
         private int _tabId;
@@ -121,7 +121,7 @@ namespace DotNetNuke.Tests.Urls
             DeleteTab(_testPage);
             CreateTab(_testPage);
             UpdateTabName(_tabId, "About Us");
-            UpdateTabSkin(_tabId,  "");
+            UpdateTabSkin(_tabId, "");
             CacheController.FlushPageIndexFromCache();
             GetDefaultAlias();
             _redirectMode = PortalController.GetPortalSetting("PortalAliasMapping", PortalId, "CANONICALURL");
@@ -171,7 +171,6 @@ namespace DotNetNuke.Tests.Urls
             {
                 TabController.Instance.DeleteTabUrl(tabUrl, PortalId, true);
             }
-
         }
 
         [TestFixtureSetUp]
@@ -229,7 +228,6 @@ namespace DotNetNuke.Tests.Urls
 
                                 TestUtil.DeleteUser(PortalId, fields[0]);
                             });
-
         }
 
         #endregion
@@ -266,16 +264,16 @@ namespace DotNetNuke.Tests.Urls
 
             var request = HttpContext.Current.Request;
             var testHelper = new UrlTestHelper
-                    {
-                        HttpAliasFull = scheme + httpAlias + "/",
-                        Result = new UrlAction(request)
-                                        {
-                                            IsSecureConnection = request.IsSecureConnection,
-                                            RawUrl = request.RawUrl
-                                        },
-                        RequestUri = new Uri(testurl),
-                        QueryStringCol = new NameValueCollection()
-                    };
+            {
+                HttpAliasFull = scheme + httpAlias + "/",
+                Result = new UrlAction(request)
+                {
+                    IsSecureConnection = request.IsSecureConnection,
+                    RawUrl = request.RawUrl
+                },
+                RequestUri = new Uri(testurl),
+                QueryStringCol = new NameValueCollection()
+            };
 
             ProcessRequest(settings, testHelper);
 
@@ -319,7 +317,6 @@ namespace DotNetNuke.Tests.Urls
             {
                 TabController.Instance.UpdateTab(tab);
             }
-            
         }
 
         private void UpdateTabName(int tabId, string newName)
@@ -581,7 +578,6 @@ namespace DotNetNuke.Tests.Urls
                 _customLocale.Text = CultureInfo.GetCultureInfo(_customLocale.Code).NativeName;
                 Localization.SaveLanguage(_customLocale);
                 Localization.AddLanguageToPortals(_customLocale.LanguageId);
-
             }
 
             if (testFields.ContainsKey("Final Url"))
@@ -604,7 +600,7 @@ namespace DotNetNuke.Tests.Urls
                     alias.CultureCode = language;
                     alias.Skin = skin;
                 }
-               PortalAliasController.Instance.AddPortalAlias(alias);
+                PortalAliasController.Instance.AddPortalAlias(alias);
             }
             SetDefaultAlias(defaultAlias);
             ExecuteTest(settings, testFields, false);
@@ -700,7 +696,6 @@ namespace DotNetNuke.Tests.Urls
             {
                 UpdateHomeTab(homeTabId);
             }
-
         }
 
         private int UpdateHomeTab(int homeTabId)

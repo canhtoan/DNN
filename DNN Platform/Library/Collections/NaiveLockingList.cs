@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -28,13 +29,13 @@ namespace DotNetNuke.Collections.Internal
     {
         private readonly SharedList<T> _list = new SharedList<T>();
         //TODO is no recursion the correct policy
-        
-        void DoInReadLock(Action action)
+
+        private void DoInReadLock(Action action)
         {
-            DoInReadLock(() =>{ action.Invoke(); return true; });
+            DoInReadLock(() => { action.Invoke(); return true; });
         }
 
-        TRet DoInReadLock<TRet>(Func<TRet> func)
+        private TRet DoInReadLock<TRet>(Func<TRet> func)
         {
             using (_list.GetReadLock())
             {
@@ -42,7 +43,7 @@ namespace DotNetNuke.Collections.Internal
             }
         }
 
-        void DoInWriteLock(Action action)
+        private void DoInWriteLock(Action action)
         {
             DoInWriteLock(() => { action.Invoke(); return true; });
         }

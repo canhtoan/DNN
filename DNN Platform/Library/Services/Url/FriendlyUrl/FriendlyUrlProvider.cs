@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,30 +17,29 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using DotNetNuke.ComponentModel;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 
 #endregion
-
 namespace DotNetNuke.Services.Url.FriendlyUrl
 {
     public abstract class FriendlyUrlProvider
     {
-		#region "Shared/Static Methods"
+        #region "Shared/Static Methods"
 
         //return the provider
         public static FriendlyUrlProvider Instance()
         {
             return ComponentFactory.GetComponent<FriendlyUrlProvider>();
         }
-		
-		#endregion
 
-		#region "Abstract Methods"
+        #endregion
+
+        #region "Abstract Methods"
 
         public abstract string FriendlyUrl(TabInfo tab, string path);
 
@@ -49,7 +48,7 @@ namespace DotNetNuke.Services.Url.FriendlyUrl
         public abstract string FriendlyUrl(TabInfo tab, string path, string pageName, PortalSettings settings);
 
         public abstract string FriendlyUrl(TabInfo tab, string path, string pageName, string portalAlias);
-		
-		#endregion
+
+        #endregion
     }
 }

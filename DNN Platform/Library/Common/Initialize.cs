@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.IO;
@@ -46,7 +46,6 @@ using DotNetNuke.Services.Upgrade;
 using DotNetNuke.UI.Modules;
 
 #endregion
-
 namespace DotNetNuke.Common
 {
     /// <summary>
@@ -54,9 +53,9 @@ namespace DotNetNuke.Common
     /// </summary>
     public class Initialize
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(Initialize));
-        private static bool InitializedAlready;
-        private static readonly object InitializeLock = new object();
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Initialize));
+        private static bool s_initializedAlready;
+        private static readonly object s_initializeLock = new object();
 
         private static void CacheMappedDirectory()
         {
@@ -93,7 +92,7 @@ namespace DotNetNuke.Common
                     {
                         CreateUnderConstructionPage(Server);
                         retValue = "~/Install/UnderConstruction.htm";
-                        Logger.Info("UnderConstruction page was shown because application needs to be installed, and both the AutoUpgrade and UseWizard AppSettings in web.config are false. Use /install/install.aspx?mode=install to install application. ");
+                        s_logger.Info("UnderConstruction page was shown because application needs to be installed, and both the AutoUpgrade and UseWizard AppSettings in web.config are false. Use /install/install.aspx?mode=install to install application. ");
                     }
                     break;
                 case Globals.UpgradeStatus.Upgrade:
@@ -105,7 +104,7 @@ namespace DotNetNuke.Common
                     {
                         CreateUnderConstructionPage(Server);
                         retValue = "~/Install/UnderConstruction.htm";
-                        Logger.Info("UnderConstruction page was shown because application needs to be upgraded, and both the AutoUpgrade and UseInstallWizard AppSettings in web.config are false. Use /install/install.aspx?mode=upgrade to upgrade application. ");
+                        s_logger.Info("UnderConstruction page was shown because application needs to be upgraded, and both the AutoUpgrade and UseInstallWizard AppSettings in web.config are false. Use /install/install.aspx?mode=upgrade to upgrade application. ");
                     }
                     break;
                 case Globals.UpgradeStatus.Error:
@@ -119,7 +118,7 @@ namespace DotNetNuke.Common
                         // app has never been installed, and either Wizard or Autoupgrade is configured
                         CreateUnderConstructionPage(Server);
                         retValue = "~/Install/UnderConstruction.htm";
-                        Logger.Error("UnderConstruction page was shown because we cannot ascertain the application was ever installed, and there is no working database connection. Check database connectivity before continuing. ");
+                        s_logger.Error("UnderConstruction page was shown because we cannot ascertain the application was ever installed, and there is no working database connection. Check database connectivity before continuing. ");
                     }
                     else
                     {
@@ -128,11 +127,11 @@ namespace DotNetNuke.Common
                         {
                             if (!isInstalled)
                             {
-                                Logger.Error("The connection to the database has failed, the application is not installed yet, and both AutoUpgrade and UseInstallWizard are not set in web.config, a 500 error page will be shown to visitors");
+                                s_logger.Error("The connection to the database has failed, the application is not installed yet, and both AutoUpgrade and UseInstallWizard are not set in web.config, a 500 error page will be shown to visitors");
                             }
                             else
                             {
-                                Logger.Error("The connection to the database has failed, however, the application is already completely installed, a 500 error page will be shown to visitors");
+                                s_logger.Error("The connection to the database has failed, however, the application is already completely installed, a 500 error page will be shown to visitors");
                             }
                             string url = "~/ErrorPage.aspx?status=500&error=Site Unavailable&error2=Connection To The Database Failed";
                             HttpContext.Current.Response.Clear();
@@ -175,7 +174,7 @@ namespace DotNetNuke.Common
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
                 }
                 //Try and load a 3.5 Assembly
                 try
@@ -185,7 +184,7 @@ namespace DotNetNuke.Common
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
+                    s_logger.Error(exc);
                 }
             }
             return new Version(version);
@@ -196,7 +195,7 @@ namespace DotNetNuke.Common
             var request = app.Request;
             var redirect = Null.NullString;
 
-            Logger.Trace("Request " + request.Url.LocalPath);
+            s_logger.Trace("Request " + request.Url.LocalPath);
 
             //Don't process some of the AppStart methods if we are installing
             if (!IsUpgradeOrInstallRequest(app.Request))
@@ -205,7 +204,7 @@ namespace DotNetNuke.Common
                 redirect = CheckVersion(app);
                 if (string.IsNullOrEmpty(redirect))
                 {
-                    Logger.Info("Application Initializing");
+                    s_logger.Info("Application Initializing");
 
                     //Cache Mapped Directory(s)
                     CacheMappedDirectory();
@@ -233,7 +232,7 @@ namespace DotNetNuke.Common
                     //Set Flag so we can determine the first Page Request after Application Start
                     app.Context.Items.Add("FirstRequest", true);
 
-                    Logger.Info("Application Initialized");
+                    s_logger.Info("Application Initialized");
 
                     initialized = true;
                 }
@@ -265,19 +264,19 @@ namespace DotNetNuke.Common
         {
             string redirect;
             //Check if app is initialised
-            if (InitializedAlready && Globals.Status == Globals.UpgradeStatus.None)
+            if (s_initializedAlready && Globals.Status == Globals.UpgradeStatus.None)
             {
                 return;
             }
-            lock (InitializeLock)
+            lock (s_initializeLock)
             {
                 //Double-Check if app was initialised by another request
-                if (InitializedAlready && Globals.Status == Globals.UpgradeStatus.None)
+                if (s_initializedAlready && Globals.Status == Globals.UpgradeStatus.None)
                 {
                     return;
                 }
                 //Initialize ...
-                redirect = InitializeApp(app, ref InitializedAlready);
+                redirect = InitializeApp(app, ref s_initializedAlready);
             }
             if (!string.IsNullOrEmpty(redirect))
             {
@@ -367,7 +366,7 @@ namespace DotNetNuke.Common
                 log.AddProperty("Shutdown Details", shutdownDetail);
                 LogController.Instance.AddLog(log);
 
-                Logger.InfoFormat("Application shutting down. Reason: {0}", shutdownDetail);
+                s_logger.InfoFormat("Application shutting down. Reason: {0}", shutdownDetail);
             }
             catch (Exception exc)
             {
@@ -420,9 +419,9 @@ namespace DotNetNuke.Common
                 {
                     if (SchedulingProvider.SchedulerMode == SchedulerMode.REQUEST_METHOD && SchedulingProvider.ReadyForPoll)
                     {
-                        Logger.Trace("Running Schedule " + (SchedulingProvider.SchedulerMode));
+                        s_logger.Trace("Running Schedule " + (SchedulingProvider.SchedulerMode));
                         var scheduler = SchedulingProvider.Instance();
-                        var requestScheduleThread = new Thread(scheduler.ExecuteTasks) {IsBackground = true};
+                        var requestScheduleThread = new Thread(scheduler.ExecuteTasks) { IsBackground = true };
                         requestScheduleThread.Start();
                         SchedulingProvider.ScheduleLastPolled = DateTime.Now;
                     }
@@ -449,7 +448,7 @@ namespace DotNetNuke.Common
             //instantiate APPLICATION_START scheduled jobs
             if (SchedulingProvider.SchedulerMode == SchedulerMode.TIMER_METHOD)
             {
-                Logger.Trace("Running Schedule " + SchedulingProvider.SchedulerMode);
+                s_logger.Trace("Running Schedule " + SchedulingProvider.SchedulerMode);
                 var newThread = new Thread(scheduler.Start)
                 {
                     IsBackground = true,

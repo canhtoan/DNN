@@ -1,6 +1,6 @@
-#region Copyright
+ï»¿#region Copyright
 // 
-// DotNetNuke® - http://www.dotnetnuke.com
+// DotNetNukeÂ® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Reflection;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
 #endregion
-
 namespace DotNetNuke.Application
 {
     /// <summary>
@@ -37,7 +36,7 @@ namespace DotNetNuke.Application
     /// </remarks>
     public class Application
     {
-        private static ReleaseMode _status = ReleaseMode.None;
+        private static ReleaseMode s_status = ReleaseMode.None;
 
         protected internal Application()
         {
@@ -95,12 +94,12 @@ namespace DotNetNuke.Application
         /// <summary>
         /// Gets the legal copyright.
         /// </summary>
-        /// <value>Dynamic: DotNetNuke® is copyright 2002-todays year by DotNetNuke Corporation"</value>
+        /// <value>Dynamic: DotNetNukeÂ® is copyright 2002-todays year by DotNetNuke Corporation"</value>
         public string LegalCopyright
         {
             get
             {
-                return "DotNetNuke® is copyright 2002-" + DateTime.Today.ToString("yyyy") + " by DotNetNuke Corporation";
+                return "DotNetNuke\u00AE is copyright 2002-" + DateTime.Today.ToString("yyyy") + " by DotNetNuke Corporation";
             }
         }
 
@@ -141,19 +140,19 @@ namespace DotNetNuke.Application
         {
             get
             {
-                if (_status == ReleaseMode.None)
+                if (s_status == ReleaseMode.None)
                 {
                     Assembly assy = Assembly.GetExecutingAssembly();
-                    if (Attribute.IsDefined(assy, typeof (AssemblyStatusAttribute)))
+                    if (Attribute.IsDefined(assy, typeof(AssemblyStatusAttribute)))
                     {
-                        Attribute attr = Attribute.GetCustomAttribute(assy, typeof (AssemblyStatusAttribute));
+                        Attribute attr = Attribute.GetCustomAttribute(assy, typeof(AssemblyStatusAttribute));
                         if (attr != null)
                         {
-                            _status = ((AssemblyStatusAttribute) attr).Status;
+                            s_status = ((AssemblyStatusAttribute)attr).Status;
                         }
                     }
                 }
-                return _status;
+                return s_status;
             }
         }
 
@@ -201,12 +200,12 @@ namespace DotNetNuke.Application
         {
             get
             {
-	            var url = Config.GetSetting("UpdateServiceUrl");
-				if (string.IsNullOrEmpty(url))
-				{
-					return "http://update.dotnetnuke.com";
-				}
-	            return url;
+                var url = Config.GetSetting("UpdateServiceUrl");
+                if (string.IsNullOrEmpty(url))
+                {
+                    return "http://update.dotnetnuke.com";
+                }
+                return url;
             }
         }
 

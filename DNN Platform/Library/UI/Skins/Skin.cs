@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,7 +61,6 @@ using Microsoft.VisualBasic;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
-
 namespace DotNetNuke.UI.Skins
 {
     /// -----------------------------------------------------------------------------
@@ -88,7 +87,7 @@ namespace DotNetNuke.UI.Skins
         public static string MODULEADD_ERROR = Localization.GetString("ModuleAdd.Error");
 
         public const string OnInitMessage = "Skin_InitMessage";
-		public const string OnInitMessageType = "Skin_InitMessageType";
+        public const string OnInitMessageType = "Skin_InitMessageType";
 
         private readonly ModuleCommunicate _communicator = new ModuleCommunicate();
         // ReSharper restore InconsistentNaming
@@ -127,7 +126,7 @@ namespace DotNetNuke.UI.Skins
         #endregion
 
         #region Friend Properties
-        
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets the ModuleCommunicate instance for the skin
@@ -293,7 +292,7 @@ namespace DotNetNuke.UI.Skins
             //if querystring dnnprintmode=true, controlpanel will not be shown
             if (Request.QueryString["dnnprintmode"] != "true" && !UrlUtils.InPopUp() && Request.QueryString["hidecommandbar"] != "true")
             {
-                if (Host.AllowControlPanelToDetermineVisibility || (ControlPanelBase.IsPageAdminInternal() || ControlPanelBase.IsModuleAdminInternal())) 
+                if (Host.AllowControlPanelToDetermineVisibility || (ControlPanelBase.IsPageAdminInternal() || ControlPanelBase.IsModuleAdminInternal()))
                 {
                     //ControlPanel processing
                     var controlPanel = ControlUtilities.LoadControl<ControlPanelBase>(this, Host.ControlPanel);
@@ -542,7 +541,7 @@ namespace DotNetNuke.UI.Skins
             {
                 slaveModule.ModuleControlId = moduleControl.ModuleControlID;
                 slaveModule.IconFile = moduleControl.IconFile;
-                
+
                 string permissionKey;
                 switch (slaveModule.ModuleControl.ControlSrc)
                 {
@@ -626,12 +625,12 @@ namespace DotNetNuke.UI.Skins
 
             if (HttpContext.Current != null && HttpContext.Current.Items.Contains(OnInitMessage))
             {
-	            var messageType = ModuleMessage.ModuleMessageType.YellowWarning;
-				if (HttpContext.Current.Items.Contains(OnInitMessageType))
-				{
-					messageType = (ModuleMessage.ModuleMessageType)Enum.Parse(typeof (ModuleMessage.ModuleMessageType), HttpContext.Current.Items[OnInitMessageType].ToString(), true);
-				}
-				AddPageMessage(this, string.Empty, HttpContext.Current.Items[OnInitMessage].ToString(), messageType);
+                var messageType = ModuleMessage.ModuleMessageType.YellowWarning;
+                if (HttpContext.Current.Items.Contains(OnInitMessageType))
+                {
+                    messageType = (ModuleMessage.ModuleMessageType)Enum.Parse(typeof(ModuleMessage.ModuleMessageType), HttpContext.Current.Items[OnInitMessageType].ToString(), true);
+                }
+                AddPageMessage(this, string.Empty, HttpContext.Current.Items[OnInitMessage].ToString(), messageType);
             }
 
             //Process the Panes attributes
@@ -699,7 +698,6 @@ namespace DotNetNuke.UI.Skins
                     Page.ClientScript.RegisterStartupScript(GetType(), "DragAndDrop", script, true);
                 }
             }
-
         }
 
         /// -----------------------------------------------------------------------------
@@ -878,7 +876,6 @@ namespace DotNetNuke.UI.Skins
         /// -----------------------------------------------------------------------------
         public static ModuleMessage GetModuleMessageControl(string heading, string message, ModuleMessage.ModuleMessageType moduleMessageType, string iconImage)
         {
-
             //Use this to get a module message control
             //with a standard DotNetNuke icon
             var s = new Skin();
@@ -1039,19 +1036,18 @@ namespace DotNetNuke.UI.Skins
             //try to inject the module into the pane
             try
             {
-                if(PortalSettings.ActiveTab.TabID == PortalSettings.UserTabId || PortalSettings.ActiveTab.ParentId == PortalSettings.UserTabId)
+                if (PortalSettings.ActiveTab.TabID == PortalSettings.UserTabId || PortalSettings.ActiveTab.ParentId == PortalSettings.UserTabId)
                 {
                     var profileModule = ModuleControlFactory.LoadModuleControl(Page, module) as IProfileModule;
                     if (profileModule == null || profileModule.DisplayModule)
                     {
                         pane.InjectModule(module);
-                    }                    
+                    }
                 }
                 else
                 {
-                    pane.InjectModule(module);                   
+                    pane.InjectModule(module);
                 }
-
             }
             catch (Exception ex)
             {
@@ -1075,8 +1071,6 @@ namespace DotNetNuke.UI.Skins
         {
             ActionEventListeners.Add(new ModuleActionEventListener(moduleId, e));
         }
-
-
 
         #endregion
     }

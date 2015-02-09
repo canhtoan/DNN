@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,22 +17,19 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Linq;
 using System.Web.UI;
 using DotNetNuke.Entities.Content.Taxonomy;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Modules.Taxonomy.Views.Controls
 {
-
     public partial class EditVocabularyControl : UserControl
     {
-
         #region Public Properties
 
         public bool IsAddMode { get; set; }
@@ -63,7 +60,7 @@ namespace DotNetNuke.Modules.Taxonomy.Views.Controls
                 typeList.Items.FindByValue(vocabulary.Type.ToString()).Selected = true;
                 if (vocabulary.ScopeType != null)
                 {
-					scopeLabel.Text = Localization.GetString(vocabulary.ScopeType.ScopeType, LocalResourceFile);
+                    scopeLabel.Text = Localization.GetString(vocabulary.ScopeType.ScopeType, LocalResourceFile);
                     scopeList.Items.FindByValue(vocabulary.ScopeType.ScopeType).Selected = true;
                 }
                 typeLabel.Text = vocabulary.Type.ToString();
@@ -77,6 +74,5 @@ namespace DotNetNuke.Modules.Taxonomy.Views.Controls
             typeList.Visible = IsAddMode;
             typeLabel.Visible = !IsAddMode;
         }
-
     }
 }

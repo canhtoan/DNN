@@ -1,5 +1,5 @@
-#region Copyright
-// DotNetNuke� - http://www.dotnetnuke.com
+﻿#region Copyright
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -16,8 +16,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -34,7 +34,7 @@ namespace DotNetNuke.Entities.Content
     /// <summary>Implementation of <see cref="IAttachmentController"/>.</summary>
     public class AttachmentController : IAttachmentController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (AttachmentController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(AttachmentController));
         public AttachmentController()
             : this(Util.GetContentController())
         {
@@ -54,7 +54,7 @@ namespace DotNetNuke.Entities.Content
             var contentItem = _contentController.GetContentItem(contentItemId);
 
             action(contentItem);
-            
+
             _contentController.UpdateContentItem(contentItem);
         }
 
@@ -67,7 +67,7 @@ namespace DotNetNuke.Entities.Content
         {
             AddToContent(contentItemId, contentItem => contentItem.Files.AddRange(fileInfo));
         }
-        
+
         public void AddVideoToContent(int contentItemId, IFileInfo fileInfo)
         {
             AddVideosToContent(contentItemId, new[] { fileInfo });
@@ -175,7 +175,7 @@ namespace DotNetNuke.Entities.Content
             {
                 yield break;
             }
-            
+
             foreach (var file in content.FromJson<int[]>().ToArray())
             {
                 IFileInfo fileInfo = null;
@@ -191,7 +191,7 @@ namespace DotNetNuke.Entities.Content
                     // has been deleted or is otherwise unavailable, there's really no reason we can't continue on handling the
                     // ContentItem without its attachment.  Better than the yellow screen of death? --cbond
 
-                    Logger.WarnFormat("Unable to load file properties for File ID {0}", file);
+                    s_logger.WarnFormat("Unable to load file properties for File ID {0}", file);
                 }
 
                 if (fileInfo != null)

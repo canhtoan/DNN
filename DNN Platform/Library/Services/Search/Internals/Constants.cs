@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using Version = Lucene.Net.Util.Version;
-#endregion
 
+#endregion
 namespace DotNetNuke.Services.Search.Internals
 {
     /// <summary>
@@ -91,16 +91,16 @@ namespace DotNetNuke.Services.Search.Internals
 
         internal readonly static string[] FieldsNeedAnalysis = { TitleTag, SubjectTag, CommentsTag, AuthorNameTag, StatusTag, CategoryTag };
 
-        internal readonly static string[] KeyWordSearchFields = { TitleTag, 
-                                                                Tag, 
-                                                                DescriptionTag, 
-                                                                BodyTag, 
-                                                                ContentTag, 
+        internal readonly static string[] KeyWordSearchFields = { TitleTag,
+                                                                Tag,
+                                                                DescriptionTag,
+                                                                BodyTag,
+                                                                ContentTag,
                                                                 KeywordsPrefixTag + TitleTag,
                                                                 KeywordsPrefixTag + SubjectTag,
                                                                 KeywordsPrefixTag + CommentsTag,
                                                                 KeywordsPrefixTag + AuthorNameTag};
-        
+
         // search index tokenizers word lengths
         internal const int MinimumMinLen = 1;
         internal const int DefaultMinLen = 3;

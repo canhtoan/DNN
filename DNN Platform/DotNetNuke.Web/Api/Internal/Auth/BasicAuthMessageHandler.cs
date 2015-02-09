@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Net;
@@ -38,7 +39,7 @@ namespace DotNetNuke.Web.Api.Internal.Auth
 
         public override HttpResponseMessage OnInboundRequest(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if(NeedsAuthentication())
+            if (NeedsAuthentication())
             {
                 var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
                 if (portalSettings != null)
@@ -106,7 +107,7 @@ namespace DotNetNuke.Web.Api.Internal.Auth
 
             string decoded = _encoding.GetString(Convert.FromBase64String(authorization));
 
-            string[] parts = decoded.Split(new[] {':'}, 2);
+            string[] parts = decoded.Split(new[] { ':' }, 2);
             if (parts.Length < 2)
             {
                 return null;

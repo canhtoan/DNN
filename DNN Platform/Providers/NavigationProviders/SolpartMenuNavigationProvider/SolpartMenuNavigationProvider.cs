@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Drawing;
 using System.Web.UI;
@@ -33,34 +33,33 @@ using DotNetNuke.UI.WebControls;
 using Solpart.WebControls;
 
 #endregion
-
 namespace DotNetNuke.NavigationControl
 {
     public class SolpartMenuNavigationProvider : NavigationProvider
     {
-        private SolpartMenu m_objMenu;
-        private string m_strControlID;
-        private string m_strNodeLeftHTMLBreadCrumbRoot = "";
-        private string m_strNodeLeftHTMLBreadCrumbSub = "";
-        private string m_strNodeLeftHTMLRoot = "";
-        private string m_strNodeLeftHTMLSub = "";
-        private string m_strNodeRightHTMLBreadCrumbRoot = "";
-        private string m_strNodeRightHTMLBreadCrumbSub = "";
-        private string m_strNodeRightHTMLRoot = "";
-        private string m_strNodeRightHTMLSub = "";
-        private string m_strSeparatorHTML = "";
-        private string m_strSeparatorLeftHTML = "";
-        private string m_strSeparatorLeftHTMLActive = "";
-        private string m_strSeparatorLeftHTMLBreadCrumb = "";
-        private string m_strSeparatorRightHTML = "";
-        private string m_strSeparatorRightHTMLActive = "";
-        private string m_strSeparatorRightHTMLBreadCrumb = "";
+        private SolpartMenu _objMenu;
+        private string _strControlID;
+        private string _strNodeLeftHTMLBreadCrumbRoot = "";
+        private string _strNodeLeftHTMLBreadCrumbSub = "";
+        private string _strNodeLeftHTMLRoot = "";
+        private string _strNodeLeftHTMLSub = "";
+        private string _strNodeRightHTMLBreadCrumbRoot = "";
+        private string _strNodeRightHTMLBreadCrumbSub = "";
+        private string _strNodeRightHTMLRoot = "";
+        private string _strNodeRightHTMLSub = "";
+        private string _strSeparatorHTML = "";
+        private string _strSeparatorLeftHTML = "";
+        private string _strSeparatorLeftHTMLActive = "";
+        private string _strSeparatorLeftHTMLBreadCrumb = "";
+        private string _strSeparatorRightHTML = "";
+        private string _strSeparatorRightHTMLActive = "";
+        private string _strSeparatorRightHTMLBreadCrumb = "";
 
         public SolpartMenu Menu
         {
             get
             {
-                return m_objMenu;
+                return _objMenu;
             }
         }
 
@@ -144,11 +143,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strControlID;
+                return _strControlID;
             }
             set
             {
-                m_strControlID = value;
+                _strControlID = value;
             }
         }
 
@@ -497,11 +496,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeLeftHTMLSub;
+                return _strNodeLeftHTMLSub;
             }
             set
             {
-                m_strNodeLeftHTMLSub = value;
+                _strNodeLeftHTMLSub = value;
             }
         }
 
@@ -509,11 +508,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeLeftHTMLBreadCrumbSub;
+                return _strNodeLeftHTMLBreadCrumbSub;
             }
             set
             {
-                m_strNodeLeftHTMLBreadCrumbSub = value;
+                _strNodeLeftHTMLBreadCrumbSub = value;
             }
         }
 
@@ -521,11 +520,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeLeftHTMLBreadCrumbRoot;
+                return _strNodeLeftHTMLBreadCrumbRoot;
             }
             set
             {
-                m_strNodeLeftHTMLBreadCrumbRoot = value;
+                _strNodeLeftHTMLBreadCrumbRoot = value;
             }
         }
 
@@ -533,11 +532,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeLeftHTMLRoot;
+                return _strNodeLeftHTMLRoot;
             }
             set
             {
-                m_strNodeLeftHTMLRoot = value;
+                _strNodeLeftHTMLRoot = value;
             }
         }
 
@@ -545,11 +544,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLSub;
+                return _strNodeRightHTMLSub;
             }
             set
             {
-                m_strNodeRightHTMLSub = value;
+                _strNodeRightHTMLSub = value;
             }
         }
 
@@ -557,11 +556,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLBreadCrumbSub;
+                return _strNodeRightHTMLBreadCrumbSub;
             }
             set
             {
-                m_strNodeRightHTMLBreadCrumbSub = value;
+                _strNodeRightHTMLBreadCrumbSub = value;
             }
         }
 
@@ -569,11 +568,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLBreadCrumbRoot;
+                return _strNodeRightHTMLBreadCrumbRoot;
             }
             set
             {
-                m_strNodeRightHTMLBreadCrumbRoot = value;
+                _strNodeRightHTMLBreadCrumbRoot = value;
             }
         }
 
@@ -581,11 +580,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLRoot;
+                return _strNodeRightHTMLRoot;
             }
             set
             {
-                m_strNodeRightHTMLRoot = value;
+                _strNodeRightHTMLRoot = value;
             }
         }
 
@@ -593,11 +592,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSeparatorHTML;
+                return _strSeparatorHTML;
             }
             set
             {
-                m_strSeparatorHTML = value;
+                _strSeparatorHTML = value;
             }
         }
 
@@ -605,11 +604,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSeparatorLeftHTML;
+                return _strSeparatorLeftHTML;
             }
             set
             {
-                m_strSeparatorLeftHTML = value;
+                _strSeparatorLeftHTML = value;
             }
         }
 
@@ -617,11 +616,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSeparatorLeftHTMLActive;
+                return _strSeparatorLeftHTMLActive;
             }
             set
             {
-                m_strSeparatorLeftHTMLActive = value;
+                _strSeparatorLeftHTMLActive = value;
             }
         }
 
@@ -629,11 +628,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSeparatorLeftHTMLBreadCrumb;
+                return _strSeparatorLeftHTMLBreadCrumb;
             }
             set
             {
-                m_strSeparatorLeftHTMLBreadCrumb = value;
+                _strSeparatorLeftHTMLBreadCrumb = value;
             }
         }
 
@@ -641,11 +640,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSeparatorRightHTML;
+                return _strSeparatorRightHTML;
             }
             set
             {
-                m_strSeparatorRightHTML = value;
+                _strSeparatorRightHTML = value;
             }
         }
 
@@ -653,11 +652,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSeparatorRightHTMLActive;
+                return _strSeparatorRightHTMLActive;
             }
             set
             {
-                m_strSeparatorRightHTMLActive = value;
+                _strSeparatorRightHTMLActive = value;
             }
         }
 
@@ -665,11 +664,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSeparatorRightHTMLBreadCrumb;
+                return _strSeparatorRightHTMLBreadCrumb;
             }
             set
             {
-                m_strSeparatorRightHTMLBreadCrumb = value;
+                _strSeparatorRightHTMLBreadCrumb = value;
             }
         }
 
@@ -876,11 +875,11 @@ namespace DotNetNuke.NavigationControl
 
         public override void Initialize()
         {
-            m_objMenu = new SolpartMenu();
-            Menu.ID = m_strControlID;
+            _objMenu = new SolpartMenu();
+            Menu.ID = _strControlID;
             Menu.SeparateCSS = true;
             StyleSelectionBorderColor = null;
-            m_objMenu.MenuClick += ctlActions_MenuClick;
+            _objMenu.MenuClick += ctlActions_MenuClick;
         }
 
         private void ctlActions_MenuClick(string ID)

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Globalization;
 using System.Linq;
@@ -42,7 +42,6 @@ using DotNetNuke.UI.Skins.EventListeners;
 using DotNetNuke.Security.Roles.Internal;
 
 #endregion
-
 namespace DotNetNuke.HttpModules.Membership
 {
     /// <summary>
@@ -50,7 +49,7 @@ namespace DotNetNuke.HttpModules.Membership
     /// </summary>
     public class MembershipModule : IHttpModule
     {
-        private static string _cultureCode;
+        private static string s_cultureCode;
         /// <summary>
         /// Gets the name of the module.
         /// </summary>
@@ -69,12 +68,12 @@ namespace DotNetNuke.HttpModules.Membership
         {
             get
             {
-                if (string.IsNullOrEmpty(_cultureCode))
+                if (string.IsNullOrEmpty(s_cultureCode))
                 {
-                    _cultureCode = Localization.GetPageLocale(PortalSettings.Current).Name; 
+                    s_cultureCode = Localization.GetPageLocale(PortalSettings.Current).Name;
                 }
 
-                return _cultureCode;
+                return s_cultureCode;
             }
         }
 
@@ -100,7 +99,7 @@ namespace DotNetNuke.HttpModules.Membership
 
         private void OnAuthenticateRequest(object sender, EventArgs e)
         {
-            var application = (HttpApplication) sender;
+            var application = (HttpApplication)sender;
             AuthenticateRequest(new HttpContextWrapper(application.Context), false);
         }
 
@@ -136,9 +135,9 @@ namespace DotNetNuke.HttpModules.Membership
 
             bool isActiveDirectoryAuthHeaderPresent = false;
             var auth = request.Headers.Get("Authorization");
-            if(!string.IsNullOrEmpty(auth))
+            if (!string.IsNullOrEmpty(auth))
             {
-                if(auth.StartsWith("Negotiate"))
+                if (auth.StartsWith("Negotiate"))
                 {
                     isActiveDirectoryAuthHeaderPresent = true;
                 }

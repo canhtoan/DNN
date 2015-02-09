@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +42,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Tabs
 {
     /// <summary>
@@ -61,7 +60,7 @@ namespace DotNetNuke.Entities.Tabs
         {
             foreach (TabInfo tab in tabs)
             {
-                Provider.UpdateTab(tab.TabID,
+                s_provider.UpdateTab(tab.TabID,
                                    tab.ContentItemId,
                                    tab.PortalID,
                                    tab.VersionGuid,
@@ -182,14 +181,14 @@ namespace DotNetNuke.Entities.Tabs
         [Obsolete("Deprecated in DNN 7.3. Method is not scalable. Use GetTabasByPortal")]
         public ArrayList GetAllTabs()
         {
-            return CBO.FillCollection(Provider.GetAllTabs(), typeof(TabInfo));
+            return CBO.FillCollection(s_provider.GetAllTabs(), typeof(TabInfo));
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Deprecated in DNN 6.2. Method is not scalable. Use GetTabasByPortal")]
         public ArrayList GetAllTabs(bool checkLegacyFields)
         {
-            return CBO.FillCollection(Provider.GetAllTabs(), typeof(TabInfo));
+            return CBO.FillCollection(s_provider.GetAllTabs(), typeof(TabInfo));
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -231,7 +230,7 @@ namespace DotNetNuke.Entities.Tabs
         [Obsolete("Deprecated in DNN 7.3. Use LINQ queries on tab collections thata re cached")]
         public TabInfo GetTabByUniqueID(Guid uniqueID)
         {
-            return CBO.FillObject<TabInfo>(Provider.GetTabByUniqueID(uniqueID));
+            return CBO.FillObject<TabInfo>(s_provider.GetTabByUniqueID(uniqueID));
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -360,7 +359,7 @@ namespace DotNetNuke.Entities.Tabs
         [Obsolete("Deprecated in DNN 6.2.  Tab Ordering is handled in the DB ")]
         public void UpdateTabOrder(TabInfo objTab)
         {
-            Provider.UpdateTabOrder(objTab.TabID, objTab.TabOrder, objTab.ParentId,
+            s_provider.UpdateTabOrder(objTab.TabID, objTab.TabOrder, objTab.ParentId,
                                     UserController.Instance.GetCurrentUserInfo().UserID);
             UpdateTabVersion(objTab.TabID);
             EventLogController.Instance.AddLog(objTab, PortalController.Instance.GetCurrentPortalSettings(),

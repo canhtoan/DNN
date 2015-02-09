@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +30,6 @@ using DotNetNuke.Data;
 using DotNetNuke.Framework.Providers;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -45,16 +44,16 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class ScriptInstaller : FileInstaller
     {
-		#region Private Members
+        #region Private Members
 
         private readonly SortedList<Version, InstallFile> _installScripts = new SortedList<Version, InstallFile>();
         private readonly SortedList<Version, InstallFile> _unInstallScripts = new SortedList<Version, InstallFile>();
         private InstallFile _installScript;
         private InstallFile _upgradeScript;
 
-		#endregion
+        #endregion
 
-		#region Protected Properties
+        #region Protected Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -165,10 +164,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return _upgradeScript;
             }
         }
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -186,10 +185,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "*dataprovider, sql";
             }
         }
-		
-		#endregion
 
-		#region Private Methods
+        #endregion
+
+        #region Private Methods
 
         private bool ExecuteSql(InstallFile scriptFile)
         {
@@ -227,14 +226,14 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             return ProviderConfiguration.DefaultProvider.ToLower() == fileExtension.ToLower() || fileExtension.ToLower() == "sql";
         }
-		
-		#endregion
 
-		#region Protected Methods
+        #endregion
+
+        #region Protected Methods
 
         private bool InstallScriptFile(InstallFile scriptFile)
         {
-			//Call base InstallFile method to copy file
+            //Call base InstallFile method to copy file
             bool bSuccess = InstallFile(scriptFile);
 
             //Process the file if it is an Install Script
@@ -282,7 +281,7 @@ namespace DotNetNuke.Services.Installer.Installers
             {
                 if (file.Name.ToLower().StartsWith("install."))
                 {
-					//This is the initial script when installing
+                    //This is the initial script when installing
                     _installScript = file;
                 }
                 else if (file.Name.ToLower().StartsWith("upgrade."))
@@ -291,42 +290,42 @@ namespace DotNetNuke.Services.Installer.Installers
                 }
                 else if (type.ToLower() == "install")
                 {
-					//These are the Install/Upgrade scripts
+                    //These are the Install/Upgrade scripts
                     InstallScripts[file.Version] = file;
                 }
                 else
                 {
-					//These are the Uninstall scripts
+                    //These are the Uninstall scripts
                     UnInstallScripts[file.Version] = file;
                 }
             }
-			
+
             //Call base method to set up for file processing
             base.ProcessFile(file, nav);
         }
 
         protected override void UnInstallFile(InstallFile scriptFile)
         {
-			//Process the file if it is an UnInstall Script
+            //Process the file if it is an UnInstall Script
             var extension = Path.GetExtension(scriptFile.Name.ToLower());
-            if (extension != null && (UnInstallScripts.ContainsValue(scriptFile) ))
+            if (extension != null && (UnInstallScripts.ContainsValue(scriptFile)))
             {
                 string fileExtension = extension.Substring(1);
                 if (scriptFile.Name.ToLower().StartsWith("uninstall.") && IsValidScript(fileExtension))
                 {
-					//Install Script
+                    //Install Script
                     Log.AddInfo(Util.SQL_Executing + scriptFile.Name);
                     ExecuteSql(scriptFile);
                 }
             }
-			
+
             //Call base method to delete file
             base.UnInstallFile(scriptFile);
         }
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -367,7 +366,7 @@ namespace DotNetNuke.Services.Installer.Installers
                         installedVersion = InstallScript.Version;
                     }
                 }
-				
+
                 //Then process remain Install/Upgrade Scripts
                 if (bSuccess)
                 {
@@ -383,14 +382,14 @@ namespace DotNetNuke.Services.Installer.Installers
                         }
                     }
                 }
-				
+
                 //Next process UpgradeScript - this script always runs if present
                 if (UpgradeScript != null)
                 {
                     bSuccess = InstallScriptFile(UpgradeScript);
                     installedVersion = UpgradeScript.Version;
                 }
-				
+
                 //Then process uninstallScripts - these need to be copied but not executed
                 if (bSuccess)
                 {
@@ -443,7 +442,7 @@ namespace DotNetNuke.Services.Installer.Installers
 
             Log.AddInfo(Util.SQL_EndUnInstall);
         }
-		
-		#endregion
+
+        #endregion
     }
 }

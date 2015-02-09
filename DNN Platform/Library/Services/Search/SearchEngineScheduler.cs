@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data.SqlTypes;
 using System.Linq;
@@ -30,7 +30,6 @@ using DotNetNuke.Services.Scheduling;
 using DotNetNuke.Services.Search.Internals;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ namespace DotNetNuke.Services.Search
     /// -----------------------------------------------------------------------------
     public class SearchEngineScheduler : SchedulerClient
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(Globals));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Globals));
 
         public SearchEngineScheduler(ScheduleHistoryItem objScheduleHistoryItem)
         {
@@ -73,7 +72,7 @@ namespace DotNetNuke.Services.Search
             try
             {
                 var lastSuccessFulDateTime = SearchHelper.Instance.GetLastSuccessfulIndexingDateTime(ScheduleHistoryItem.ScheduleID);
-                Logger.Trace("Search: Site Crawler - Starting. Content change start time " + lastSuccessFulDateTime.ToString("g"));
+                s_logger.Trace("Search: Site Crawler - Starting. Content change start time " + lastSuccessFulDateTime.ToString("g"));
                 ScheduleHistoryItem.AddLogNote(string.Format("Starting. Content change start time <b>{0:g}</b>", lastSuccessFulDateTime));
 
                 var searchEngine = new SearchEngine();
@@ -102,7 +101,7 @@ namespace DotNetNuke.Services.Search
                 ScheduleHistoryItem.AddLogNote("<br/><b>Indexing Successful</b>");
                 SearchHelper.Instance.SetLastSuccessfulIndexingDateTime(ScheduleHistoryItem.ScheduleID, ScheduleHistoryItem.StartDate);
 
-                Logger.Trace("Search: Site Crawler - Indexing Successful");
+                s_logger.Trace("Search: Site Crawler - Indexing Successful");
             }
             catch (Exception ex)
             {

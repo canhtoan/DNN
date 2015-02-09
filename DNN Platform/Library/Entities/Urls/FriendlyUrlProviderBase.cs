@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Specialized;
 
@@ -30,7 +30,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     public abstract class FriendlyUrlProviderBase

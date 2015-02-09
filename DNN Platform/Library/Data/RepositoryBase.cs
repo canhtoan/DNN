@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +67,7 @@ namespace DotNetNuke.Data
         {
             CheckIfScoped();
 
-            if(IsCacheable)
+            if (IsCacheable)
             {
                 CacheArgs.CacheKey = String.Format(CacheArgs.CacheKey, scopeValue);
             }
@@ -146,7 +145,7 @@ namespace DotNetNuke.Data
 
         private void Initialize()
         {
-            var type = typeof (T);
+            var type = typeof(T);
             Scope = String.Empty;
             IsCacheable = false;
             IsScoped = false;
@@ -201,9 +200,9 @@ namespace DotNetNuke.Data
             var firstComparable = first as IComparable;
             var secondComparable = second as IComparable;
 
-// ReSharper disable PossibleNullReferenceException
+            // ReSharper disable PossibleNullReferenceException
             return firstComparable.CompareTo(secondComparable);
-// ReSharper restore PossibleNullReferenceException
+            // ReSharper restore PossibleNullReferenceException
         }
 
         protected TProperty GetPropertyValue<TProperty>(T item, string propertyName)
@@ -249,5 +248,4 @@ namespace DotNetNuke.Data
 
         #endregion
     }
-
 }

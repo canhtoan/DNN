@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,40 +17,39 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using DotNetNuke.ComponentModel;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Security.Profile
 {
     public abstract class ProfileProvider
     {
         #region "Abstract Properties"
-		
-		public abstract bool CanEditProviderProperties { get; }
-		
-		#endregion
+
+        public abstract bool CanEditProviderProperties { get; }
+
+        #endregion
 
         #region "Shared/Static Methods"
 
         //return the provider		
-		public static ProfileProvider Instance()
+        public static ProfileProvider Instance()
         {
             return ComponentFactory.GetComponent<ProfileProvider>();
         }
-		
-		#endregion
+
+        #endregion
 
         #region "Abstract Methods"
-		
-		public abstract void GetUserProfile(ref UserInfo user);
+
+        public abstract void GetUserProfile(ref UserInfo user);
 
         public abstract void UpdateUserProfile(UserInfo user);
-		
-		#endregion
+
+        #endregion
     }
 }

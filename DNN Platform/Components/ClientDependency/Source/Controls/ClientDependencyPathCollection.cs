@@ -4,8 +4,7 @@ using System.Text;
 
 namespace ClientDependency.Core.Controls
 {
-	public class ClientDependencyPathCollection : List<ClientDependencyPath>
-	{
-
-	}
+    public class ClientDependencyPathCollection : List<ClientDependencyPath>
+    {
+    }
 }

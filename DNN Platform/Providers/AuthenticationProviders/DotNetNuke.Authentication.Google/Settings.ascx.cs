@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Authentication.Google.Components;
@@ -31,7 +31,6 @@ using DotNetNuke.Services.Authentication.OAuth;
 using DotNetNuke.Services.Exceptions;
 
 #endregion
-
 namespace DotNetNuke.Authentication.Google
 {
     public partial class Settings : OAuthSettingsBase

@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Linq;
@@ -35,15 +36,15 @@ namespace DotNetNuke.Tests.Web.Api
         public void LocateAllMatchingTypes()
         {
             var assembly = new Mock<IAssembly>();
-            assembly.Setup(x => x.GetTypes()).Returns(new[] {typeof(TypeLocatorTests), typeof(ServiceRoutingManagerTests)});
+            assembly.Setup(x => x.GetTypes()).Returns(new[] { typeof(TypeLocatorTests), typeof(ServiceRoutingManagerTests) });
             var assemblyLocator = new Mock<IAssemblyLocator>();
-            assemblyLocator.Setup(x => x.Assemblies).Returns(new[] {assembly.Object});
+            assemblyLocator.Setup(x => x.Assemblies).Returns(new[] { assembly.Object });
 
-            var typeLocator = new TypeLocator {AssemblyLocator = assemblyLocator.Object};
+            var typeLocator = new TypeLocator { AssemblyLocator = assemblyLocator.Object };
 
             var types = typeLocator.GetAllMatchingTypes(x => true).ToList();
 
-            CollectionAssert.AreEquivalent(new[]{typeof(TypeLocatorTests), typeof(ServiceRoutingManagerTests)}, types);
+            CollectionAssert.AreEquivalent(new[] { typeof(TypeLocatorTests), typeof(ServiceRoutingManagerTests) }, types);
             assembly.Verify(x => x.GetTypes(), Times.Once());
             assemblyLocator.Verify(x => x.Assemblies, Times.Once());
         }

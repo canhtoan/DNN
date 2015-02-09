@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -34,7 +34,6 @@ using DotNetNuke.Services.Localization;
 using Calendar = DotNetNuke.Common.Utilities.Calendar;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -55,11 +54,11 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:DateEditControl runat=server></{0}:DateEditControl>")]
     public class DateEditControl : EditControl
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (DateEditControl));
-        private TextBox dateField;
-        private HyperLink linkCalendar;
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(DateEditControl));
+        private TextBox _dateField;
+        private HyperLink _linkCalendar;
 
-		#region "Protected Properties"
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -82,8 +81,7 @@ namespace DotNetNuke.UI.WebControls
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return dteValue;
             }
@@ -129,7 +127,7 @@ namespace DotNetNuke.UI.WebControls
                     {
                         if (attribute is FormatAttribute)
                         {
-                            var formatAtt = (FormatAttribute) attribute;
+                            var formatAtt = (FormatAttribute)attribute;
                             _Format = formatAtt.Format;
                             break;
                         }
@@ -155,14 +153,13 @@ namespace DotNetNuke.UI.WebControls
                 DateTime dteValue = Null.NullDate;
                 try
                 {
-					//Try and cast the value to an DateTime
+                    //Try and cast the value to an DateTime
                     var dteString = OldValue as string;
                     dteValue = DateTime.Parse(dteString, CultureInfo.InvariantCulture);
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return dteValue;
             }
@@ -187,32 +184,32 @@ namespace DotNetNuke.UI.WebControls
                 Value = DateTime.Parse(value);
             }
         }
-		
-		#endregion
+
+        #endregion
 
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
 
-            dateField = new TextBox();
-            dateField.ControlStyle.CopyFrom(ControlStyle);
-            dateField.ID = ID + "date";
-            Controls.Add(dateField);
+            _dateField = new TextBox();
+            _dateField.ControlStyle.CopyFrom(ControlStyle);
+            _dateField.ID = ID + "date";
+            Controls.Add(_dateField);
 
             Controls.Add(new LiteralControl("&nbsp;"));
 
-            linkCalendar = new HyperLink();
-            linkCalendar.CssClass = "CommandButton";
-            linkCalendar.Text = "<img src=\"" + Globals.ApplicationPath + "/images/calendar.png\" border=\"0\" />&nbsp;&nbsp;" + Localization.GetString("Calendar");
-            linkCalendar.NavigateUrl = Calendar.InvokePopupCal(dateField);
-            Controls.Add(linkCalendar);
+            _linkCalendar = new HyperLink();
+            _linkCalendar.CssClass = "CommandButton";
+            _linkCalendar.Text = "<img src=\"" + Globals.ApplicationPath + "/images/calendar.png\" border=\"0\" />&nbsp;&nbsp;" + Localization.GetString("Calendar");
+            _linkCalendar.NavigateUrl = Calendar.InvokePopupCal(_dateField);
+            Controls.Add(_linkCalendar);
         }
 
         protected virtual void LoadDateControls()
         {
             if (DateValue != Null.NullDate)
             {
-                dateField.Text = DateValue.Date.ToString("d");
+                _dateField.Text = DateValue.Date.ToString("d");
             }
         }
 

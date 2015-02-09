@@ -2,7 +2,6 @@
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     /// <summary>
@@ -11,7 +10,6 @@ namespace DotNetNuke.Web.UI.WebControls
     /// <remarks></remarks>
     public class DnnUnsortedListItem : WebControl
     {
-
         public DnnUnsortedListItem() : base(HtmlTextWriterTag.Li)
         {
         }
@@ -39,7 +37,5 @@ namespace DotNetNuke.Web.UI.WebControls
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, ToolTip);
             }
         }
-
     }
-
 }

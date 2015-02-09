@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 #endregion
-
 namespace DotNetNuke.ComponentModel
 {
     public abstract class ComponentBase<TContract, TType> where TType : class, TContract
@@ -36,7 +35,7 @@ namespace DotNetNuke.ComponentModel
 
                 if (component == null)
                 {
-                    component = (TContract) Activator.CreateInstance(typeof (TType), true);
+                    component = (TContract)Activator.CreateInstance(typeof(TType), true);
                     ComponentFactory.RegisterComponentInstance<TContract>(component);
                 }
 

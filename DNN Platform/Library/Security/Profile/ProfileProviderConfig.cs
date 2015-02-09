@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,12 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.ComponentModel;
 
 #endregion
-
 namespace DotNetNuke.Security.Profile
 {
     /// -----------------------------------------------------------------------------
@@ -43,7 +42,7 @@ namespace DotNetNuke.Security.Profile
     /// -----------------------------------------------------------------------------
     public class ProfileProviderConfig
     {
-        private static readonly ProfileProvider profileProvider = ProfileProvider.Instance();
+        private static readonly ProfileProvider s_profileProvider = ProfileProvider.Instance();
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -59,7 +58,7 @@ namespace DotNetNuke.Security.Profile
         {
             get
             {
-                return profileProvider.CanEditProviderProperties;
+                return s_profileProvider.CanEditProviderProperties;
             }
         }
     }

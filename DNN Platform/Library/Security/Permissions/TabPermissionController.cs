@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +32,6 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     /// -----------------------------------------------------------------------------
@@ -45,24 +44,24 @@ namespace DotNetNuke.Security.Permissions
     /// </summary>
     /// -----------------------------------------------------------------------------
     public class TabPermissionController
-	{
-		#region "Private Shared Methods"
+    {
+        #region "Private Shared Methods"
 
-		private static void ClearPermissionCache(int tabId)
-		{
+        private static void ClearPermissionCache(int tabId)
+        {
             var objTab = TabController.Instance.GetTab(tabId, Null.NullInteger, false);
-			DataCache.ClearTabPermissionsCache(objTab.PortalID);
-		}
+            DataCache.ClearTabPermissionsCache(objTab.PortalID);
+        }
 
-		#endregion
-		
-		#region Private Members
-		
-        private static readonly PermissionProvider _provider = PermissionProvider.Instance();
-		
-		#endregion
-		
-		#region Public Shared Methods
+        #endregion
+
+        #region Private Members
+
+        private static readonly PermissionProvider s_provider = PermissionProvider.Instance();
+
+        #endregion
+
+        #region Public Shared Methods
 
         /// <summary>
         /// Returns a list with all roles with implicit permissions on Tabs
@@ -71,7 +70,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A List with the implicit roles</returns>
         public static IEnumerable<RoleInfo> ImplicitRoles(int portalId)
         {
-            return _provider.ImplicitRolesForPages(portalId);
+            return s_provider.ImplicitRolesForPages(portalId);
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanAddContentToPage(TabInfo tab)
         {
-            return _provider.CanAddContentToPage(tab);
+            return s_provider.CanAddContentToPage(tab);
         }
 
         /// <summary>
@@ -109,7 +108,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanAddPage(TabInfo tab)
         {
-            return _provider.CanAddPage(tab);
+            return s_provider.CanAddPage(tab);
         }
 
         /// <summary>
@@ -128,7 +127,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanAdminPage(TabInfo tab)
         {
-            return _provider.CanAdminPage(tab);
+            return s_provider.CanAdminPage(tab);
         }
 
         /// <summary>
@@ -147,7 +146,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanCopyPage(TabInfo tab)
         {
-            return _provider.CanCopyPage(tab);
+            return s_provider.CanCopyPage(tab);
         }
 
         /// <summary>
@@ -166,7 +165,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanDeletePage(TabInfo tab)
         {
-            return _provider.CanDeletePage(tab);
+            return s_provider.CanDeletePage(tab);
         }
 
         /// <summary>
@@ -185,7 +184,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanExportPage(TabInfo tab)
         {
-            return _provider.CanExportPage(tab);
+            return s_provider.CanExportPage(tab);
         }
 
         /// <summary>
@@ -204,7 +203,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanImportPage(TabInfo tab)
         {
-            return _provider.CanImportPage(tab);
+            return s_provider.CanImportPage(tab);
         }
 
         /// <summary>
@@ -223,7 +222,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanManagePage(TabInfo tab)
         {
-            return _provider.CanManagePage(tab);
+            return s_provider.CanManagePage(tab);
         }
 
         /// <summary>
@@ -242,7 +241,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanNavigateToPage(TabInfo tab)
         {
-            return _provider.CanNavigateToPage(tab);
+            return s_provider.CanNavigateToPage(tab);
         }
 
         /// <summary>
@@ -261,7 +260,7 @@ namespace DotNetNuke.Security.Permissions
         /// <returns>A flag indicating whether the user has permission</returns>
         public static bool CanViewPage(TabInfo tab)
         {
-            return _provider.CanViewPage(tab);
+            return s_provider.CanViewPage(tab);
         }
 
         /// -----------------------------------------------------------------------------
@@ -272,7 +271,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public static void DeleteTabPermissionsByUser(UserInfo user)
         {
-            _provider.DeleteTabPermissionsByUser(user);
+            s_provider.DeleteTabPermissionsByUser(user);
             EventLogController.Instance.AddLog(user, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", EventLogController.EventLogType.TABPERMISSION_DELETED);
             DataCache.ClearTabPermissionsCache(user.PortalID);
         }
@@ -286,7 +285,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public static TabPermissionCollection GetTabPermissions(int tabId, int portalId)
         {
-            return _provider.GetTabPermissions(tabId, portalId);
+            return s_provider.GetTabPermissions(tabId, portalId);
         }
 
         /// -----------------------------------------------------------------------------
@@ -313,7 +312,7 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public static bool HasTabPermission(TabPermissionCollection tabPermissions, string permissionKey)
         {
-            return _provider.HasTabPermission(tabPermissions, permissionKey);
+            return s_provider.HasTabPermission(tabPermissions, permissionKey);
         }
 
         /// -----------------------------------------------------------------------------
@@ -324,102 +323,102 @@ namespace DotNetNuke.Security.Permissions
         /// -----------------------------------------------------------------------------
         public static void SaveTabPermissions(TabInfo tab)
         {
-            _provider.SaveTabPermissions(tab);
+            s_provider.SaveTabPermissions(tab);
             EventLogController.Instance.AddLog(tab, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", EventLogController.EventLogType.TABPERMISSION_UPDATED);
             DataCache.ClearTabPermissionsCache(tab.PortalID);
         }
 
-		#endregion
+        #endregion
 
-		#region Obsolete Methods
+        #region Obsolete Methods
 
-		[Obsolete("Deprecated in DNN 5.1.")]
-		public int AddTabPermission(TabPermissionInfo objTabPermission)
-		{
-			int id = Convert.ToInt32(DataProvider.Instance().AddTabPermission(objTabPermission.TabID, objTabPermission.PermissionID, objTabPermission.RoleID, objTabPermission.AllowAccess, objTabPermission.UserID, UserController.Instance.GetCurrentUserInfo().UserID));
-			ClearPermissionCache(objTabPermission.TabID);
-			return id;
-		}
+        [Obsolete("Deprecated in DNN 5.1.")]
+        public int AddTabPermission(TabPermissionInfo objTabPermission)
+        {
+            int id = Convert.ToInt32(DataProvider.Instance().AddTabPermission(objTabPermission.TabID, objTabPermission.PermissionID, objTabPermission.RoleID, objTabPermission.AllowAccess, objTabPermission.UserID, UserController.Instance.GetCurrentUserInfo().UserID));
+            ClearPermissionCache(objTabPermission.TabID);
+            return id;
+        }
 
-		[Obsolete("Deprecated in DNN 5.1.")]
-		public void DeleteTabPermission(int tabPermissionID)
-		{
-			DataProvider.Instance().DeleteTabPermission(tabPermissionID);
-		}
+        [Obsolete("Deprecated in DNN 5.1.")]
+        public void DeleteTabPermission(int tabPermissionID)
+        {
+            DataProvider.Instance().DeleteTabPermission(tabPermissionID);
+        }
 
-		[Obsolete("Deprecated in DNN 5.1.")]
-		public void DeleteTabPermissionsByTabID(int tabID)
-		{
-			DataProvider.Instance().DeleteTabPermissionsByTabID(tabID);
-			ClearPermissionCache(tabID);
-		}
+        [Obsolete("Deprecated in DNN 5.1.")]
+        public void DeleteTabPermissionsByTabID(int tabID)
+        {
+            DataProvider.Instance().DeleteTabPermissionsByTabID(tabID);
+            ClearPermissionCache(tabID);
+        }
 
-		[Obsolete("Deprecated in DNN 5.0.  Use DeleteTabPermissionsByUser(UserInfo) ")]
-		public void DeleteTabPermissionsByUserID(UserInfo objUser)
-		{
-			DataProvider.Instance().DeleteTabPermissionsByUserID(objUser.PortalID, objUser.UserID);
-			DataCache.ClearTabPermissionsCache(objUser.PortalID);
-		}
+        [Obsolete("Deprecated in DNN 5.0.  Use DeleteTabPermissionsByUser(UserInfo) ")]
+        public void DeleteTabPermissionsByUserID(UserInfo objUser)
+        {
+            DataProvider.Instance().DeleteTabPermissionsByUserID(objUser.PortalID, objUser.UserID);
+            DataCache.ClearTabPermissionsCache(objUser.PortalID);
+        }
 
-		[Obsolete("Deprecated in DNN 5.0. Please use TabPermissionCollection.ToString(String)")]
-		public string GetTabPermissions(TabPermissionCollection tabPermissions, string permissionKey)
-		{
-			return tabPermissions.ToString(permissionKey);
-		}
+        [Obsolete("Deprecated in DNN 5.0. Please use TabPermissionCollection.ToString(String)")]
+        public string GetTabPermissions(TabPermissionCollection tabPermissions, string permissionKey)
+        {
+            return tabPermissions.ToString(permissionKey);
+        }
 
-		[Obsolete("Deprecated in DNN 5.0.  This should have been declared as Friend as it was never meant to be used outside of the core.")]
-		public ArrayList GetTabPermissionsByPortal(int PortalID)
-		{
-			return CBO.FillCollection(DataProvider.Instance().GetTabPermissionsByPortal(PortalID), typeof(TabPermissionInfo));
-		}
+        [Obsolete("Deprecated in DNN 5.0.  This should have been declared as Friend as it was never meant to be used outside of the core.")]
+        public ArrayList GetTabPermissionsByPortal(int PortalID)
+        {
+            return CBO.FillCollection(DataProvider.Instance().GetTabPermissionsByPortal(PortalID), typeof(TabPermissionInfo));
+        }
 
-		[Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
-		public ArrayList GetTabPermissionsByTabID(int TabID)
-		{
-			return CBO.FillCollection(DataProvider.Instance().GetTabPermissionsByTabID(TabID, -1), typeof(TabPermissionInfo));
-		}
+        [Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
+        public ArrayList GetTabPermissionsByTabID(int TabID)
+        {
+            return CBO.FillCollection(DataProvider.Instance().GetTabPermissionsByTabID(TabID, -1), typeof(TabPermissionInfo));
+        }
 
-		[Obsolete("Deprecated in DNN 5.0. Please use TabPermissionCollection.ToString(String)")]
-		public string GetTabPermissionsByTabID(ArrayList arrTabPermissions, int TabID, string PermissionKey)
-		{
-			//Create a Tab Permission Collection from the ArrayList
-			TabPermissionCollection tabPermissions = new TabPermissionCollection(arrTabPermissions, TabID);
+        [Obsolete("Deprecated in DNN 5.0. Please use TabPermissionCollection.ToString(String)")]
+        public string GetTabPermissionsByTabID(ArrayList arrTabPermissions, int TabID, string PermissionKey)
+        {
+            //Create a Tab Permission Collection from the ArrayList
+            TabPermissionCollection tabPermissions = new TabPermissionCollection(arrTabPermissions, TabID);
 
-			//Return the permission string for permissions with specified TabId
-			return tabPermissions.ToString(PermissionKey);
-		}
+            //Return the permission string for permissions with specified TabId
+            return tabPermissions.ToString(PermissionKey);
+        }
 
-		[Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
-		public TabPermissionCollection GetTabPermissionsByTabID(ArrayList arrTabPermissions, int TabID)
-		{
-			return new TabPermissionCollection(arrTabPermissions, TabID);
-		}
+        [Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
+        public TabPermissionCollection GetTabPermissionsByTabID(ArrayList arrTabPermissions, int TabID)
+        {
+            return new TabPermissionCollection(arrTabPermissions, TabID);
+        }
 
-		[Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
-		public TabPermissionCollection GetTabPermissionsCollectionByTabID(int TabID)
-		{
-			return new TabPermissionCollection(CBO.FillCollection(DataProvider.Instance().GetTabPermissionsByTabID(TabID, -1), typeof(TabPermissionInfo)));
-		}
+        [Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
+        public TabPermissionCollection GetTabPermissionsCollectionByTabID(int TabID)
+        {
+            return new TabPermissionCollection(CBO.FillCollection(DataProvider.Instance().GetTabPermissionsByTabID(TabID, -1), typeof(TabPermissionInfo)));
+        }
 
-		[Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
-		public TabPermissionCollection GetTabPermissionsCollectionByTabID(ArrayList arrTabPermissions, int TabID)
-		{
-			return new TabPermissionCollection(arrTabPermissions, TabID);
-		}
+        [Obsolete("Deprecated in DNN 5.0.  Please use GetTabPermissions(TabId, PortalId)")]
+        public TabPermissionCollection GetTabPermissionsCollectionByTabID(ArrayList arrTabPermissions, int TabID)
+        {
+            return new TabPermissionCollection(arrTabPermissions, TabID);
+        }
 
-		[Obsolete("Deprecated in DNN 5.1.  Please use GetTabPermissions(TabId, PortalId)")]
-		public TabPermissionCollection GetTabPermissionsCollectionByTabID(int tabID, int portalID)
-		{
-			return GetTabPermissions(tabID, portalID);
-		}
+        [Obsolete("Deprecated in DNN 5.1.  Please use GetTabPermissions(TabId, PortalId)")]
+        public TabPermissionCollection GetTabPermissionsCollectionByTabID(int tabID, int portalID)
+        {
+            return GetTabPermissions(tabID, portalID);
+        }
 
-		[Obsolete("Deprecated in DNN 5.1.")]
-		public void UpdateTabPermission(TabPermissionInfo objTabPermission)
-		{
-			DataProvider.Instance().UpdateTabPermission(objTabPermission.TabPermissionID, objTabPermission.TabID, objTabPermission.PermissionID, objTabPermission.RoleID, objTabPermission.AllowAccess, objTabPermission.UserID, UserController.Instance.GetCurrentUserInfo().UserID);
-			ClearPermissionCache(objTabPermission.TabID);
-		}
+        [Obsolete("Deprecated in DNN 5.1.")]
+        public void UpdateTabPermission(TabPermissionInfo objTabPermission)
+        {
+            DataProvider.Instance().UpdateTabPermission(objTabPermission.TabPermissionID, objTabPermission.TabID, objTabPermission.PermissionID, objTabPermission.RoleID, objTabPermission.AllowAccess, objTabPermission.UserID, UserController.Instance.GetCurrentUserInfo().UserID);
+            ClearPermissionCache(objTabPermission.TabID);
+        }
 
-		#endregion
+        #endregion
     }
 }

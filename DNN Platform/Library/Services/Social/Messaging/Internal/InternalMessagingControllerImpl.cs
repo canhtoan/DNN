@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +34,6 @@ using DotNetNuke.Services.Social.Messaging.Exceptions;
 using DotNetNuke.Services.Social.Messaging.Internal.Views;
 
 #endregion
-
 namespace DotNetNuke.Services.Social.Messaging.Internal
 {
     /// -----------------------------------------------------------------------------
@@ -184,7 +183,7 @@ namespace DotNetNuke.Services.Social.Messaging.Internal
 
             // Mark reply as read and dispatched by the sender
             var recipient = GetMessageRecipient(messageId, sender.UserID);
-            
+
             MarkMessageAsDispatched(messageId, recipient.RecipientID);
             MarkRead(conversationId, sender.UserID);
 
@@ -260,7 +259,7 @@ namespace DotNetNuke.Services.Social.Messaging.Internal
         public virtual MessageBoxView GetInbox(int userId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending, MessageReadStatus readStatus, MessageArchivedStatus archivedStatus)
         {
             var reader = _dataService.GetInBoxView(userId, PortalController.GetEffectivePortalId(GetCurrentUserInfo().PortalID), afterMessageId, numberOfRecords, sortColumn, sortAscending, readStatus, archivedStatus, MessageSentStatus.Received);
-            return new MessageBoxView { Conversations = CBO.FillCollection<MessageConversationView>(reader) };         
+            return new MessageBoxView { Conversations = CBO.FillCollection<MessageConversationView>(reader) };
         }
 
         public virtual MessageThreadsView GetMessageThread(int conversationId, int userId, int afterMessageId, int numberOfRecords, ref int totalRecords)
@@ -296,7 +295,7 @@ namespace DotNetNuke.Services.Social.Messaging.Internal
                 CBO.CloseDataReader(dr, true);
             }
 
-            return messageThreadsView;            
+            return messageThreadsView;
         }
 
         public virtual MessageBoxView GetRecentInbox(int userId)
@@ -378,7 +377,7 @@ namespace DotNetNuke.Services.Social.Messaging.Internal
         {
             return _dataService.CountArchivedConversations(userId, portalId);
         }
-        
+
         #endregion
 
         #region Internal Methods
@@ -454,7 +453,7 @@ namespace DotNetNuke.Services.Social.Messaging.Internal
 
         public IList<MessageRecipient> GetNextMessagesForDigestDispatch(Frequency frequency, Guid schedulerInstance, int batchSize)
         {
-            return CBO.FillCollection<MessageRecipient>(_dataService.GetNextMessagesForDigestDispatch(Convert.ToInt32(frequency), schedulerInstance, batchSize));            
+            return CBO.FillCollection<MessageRecipient>(_dataService.GetNextMessagesForDigestDispatch(Convert.ToInt32(frequency), schedulerInstance, batchSize));
         }
 
 

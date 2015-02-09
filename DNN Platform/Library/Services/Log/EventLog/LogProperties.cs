@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.IO;
@@ -29,13 +29,12 @@ using System.Xml;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Services.Log.EventLog
 {
     public class LogProperties : ArrayList
     {
-		#region "Public Properties"
-		
+        #region "Public Properties"
+
         public string Summary
         {
             get
@@ -48,10 +47,10 @@ namespace DotNetNuke.Services.Log.EventLog
                 return summary;
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         public void Deserialize(string content)
         {
@@ -80,7 +79,6 @@ namespace DotNetNuke.Services.Log.EventLog
 
                 //Add to the collection
                 Add(logDetail);
-
             } while (reader.ReadToNextSibling("LogProperty"));
         }
 
@@ -115,7 +113,7 @@ namespace DotNetNuke.Services.Log.EventLog
             }
             writer.WriteEndElement();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,6 @@ using DotNetNuke.Tests.Utilities;
 using NUnit.Framework;
 
 #endregion
-
 namespace DotNetNuke.Tests.Core.Collections
 {
     [TestFixture]
@@ -121,7 +120,7 @@ namespace DotNetNuke.Tests.Core.Collections
 
             Assert.Throws<IndexOutOfRangeException>(() => new PagedList<int>(list, totalCount, pageIndex, -1));
         }
-        
+
         [Test]
         public void PagedList_Constructor_Throws_When_Given_Negative_Index()
         {
@@ -253,7 +252,7 @@ namespace DotNetNuke.Tests.Core.Collections
             //Assert
             for (int i = 0; i < pageSize; i++)
             {
-                Assert.AreEqual(index*pageSize + i, pagedList[i]);
+                Assert.AreEqual(index * pageSize + i, pagedList[i]);
             }
         }
 

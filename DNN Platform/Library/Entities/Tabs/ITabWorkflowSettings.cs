@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 namespace DotNetNuke.Entities.Tabs
 {
     /// <summary>
@@ -33,7 +33,7 @@ namespace DotNetNuke.Entities.Tabs
         /// <remarks>If no default workflow is defined for a portal the method returns the Direct Publish system workflow</remarks>
         /// <returns>The workflow Id of the portal default workflow</returns>
         int GetDefaultTabWorkflowId(int portalId);
-        
+
         /// <summary>
         /// This method sets the default workflow for a portal
         /// </summary>

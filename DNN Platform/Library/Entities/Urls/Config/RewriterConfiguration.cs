@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Xml.Serialization;
@@ -32,13 +32,12 @@ using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls.Config
 {
     [Serializable, XmlRoot("RewriterConfig")]
     public class RewriterConfiguration
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (RewriterConfiguration));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(RewriterConfiguration));
         private RewriterRuleCollection _rules;
 
         public RewriterRuleCollection Rules
@@ -55,12 +54,12 @@ namespace DotNetNuke.Entities.Urls.Config
 
         public static RewriterConfiguration GetConfig()
         {
-            var config = new RewriterConfiguration {Rules = new RewriterRuleCollection()};
+            var config = new RewriterConfiguration { Rules = new RewriterRuleCollection() };
             FileStream fileReader = null;
             string filePath = "";
             try
             {
-                config = (RewriterConfiguration) DataCache.GetCache("RewriterConfig");
+                config = (RewriterConfiguration)DataCache.GetCache("RewriterConfig");
                 if ((config == null))
                 {
                     filePath = Common.Utilities.Config.GetPathToFile(Common.Utilities.Config.ConfigFileType.SiteUrls);
@@ -68,34 +67,34 @@ namespace DotNetNuke.Entities.Urls.Config
                     //Create a FileStream for the Config file
                     fileReader = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                     var doc = new XPathDocument(fileReader);
-                    config = new RewriterConfiguration {Rules = new RewriterRuleCollection()};
+                    config = new RewriterConfiguration { Rules = new RewriterRuleCollection() };
                     foreach (XPathNavigator nav in doc.CreateNavigator().Select("RewriterConfig/Rules/RewriterRule"))
                     {
-                        var rule = new RewriterRule {LookFor = nav.SelectSingleNode("LookFor").Value, SendTo = nav.SelectSingleNode("SendTo").Value};
+                        var rule = new RewriterRule { LookFor = nav.SelectSingleNode("LookFor").Value, SendTo = nav.SelectSingleNode("SendTo").Value };
                         config.Rules.Add(rule);
                     }
                     if (File.Exists(filePath))
                     {
-						//Set back into Cache
+                        //Set back into Cache
                         DataCache.SetCache("RewriterConfig", config, new DNNCacheDependency(filePath));
                     }
                 }
             }
             catch (Exception ex)
             {
-				//log it
-                var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString()};
+                //log it
+                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString() };
                 log.AddProperty("UrlRewriter.RewriterConfiguration", "GetConfig Failed");
                 log.AddProperty("FilePath", filePath);
                 log.AddProperty("ExceptionMessage", ex.Message);
                 LogController.Instance.AddLog(log);
-                Logger.Error(log);
+                s_logger.Error(log);
             }
             finally
             {
                 if (fileReader != null)
                 {
-					//Close the Reader
+                    //Close the Reader
                     fileReader.Close();
                 }
             }
@@ -106,16 +105,16 @@ namespace DotNetNuke.Entities.Urls.Config
         {
             if (rules != null)
             {
-                var config = new RewriterConfiguration {Rules = rules};
-                
-				//Create a new Xml Serializer
-				var ser = new XmlSerializer(typeof (RewriterConfiguration));
-                
-				//Create a FileStream for the Config file
-				string filePath = Globals.ApplicationMapPath + "\\SiteUrls.config";
+                var config = new RewriterConfiguration { Rules = rules };
+
+                //Create a new Xml Serializer
+                var ser = new XmlSerializer(typeof(RewriterConfiguration));
+
+                //Create a FileStream for the Config file
+                string filePath = Globals.ApplicationMapPath + "\\SiteUrls.config";
                 if (File.Exists(filePath))
                 {
-					//make sure file is not read-only
+                    //make sure file is not read-only
                     File.SetAttributes(filePath, FileAttributes.Normal);
                 }
                 var fileWriter = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Write);

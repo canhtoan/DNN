@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,7 +43,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
     [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.View)]
     public class MemberDirectoryController : DnnApiController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (MemberDirectoryController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(MemberDirectoryController));
         #region Private Methods
 
         private static void AddSearchTerm(ref string propertyNames, ref string propertyValues, string name, string value)
@@ -59,7 +58,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
         private bool CanViewGroupMembers(int portalId, int groupId)
         {
             var group = RoleController.Instance.GetRole(portalId, r => r.RoleID == groupId);
-            if(group == null)
+            if (group == null)
             {
                 return false;
             }
@@ -68,11 +67,11 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
                                ? (PortalSettings.UserInfo.IsInRole(PortalSettings.AdministratorRoleName))
                                : (PortalSettings.UserInfo.IsInRole(group.RoleName));
 
-			//if current user can view the group page and group is public, then should be able to view members.
-			if (!canView)
-			{
-				canView = ModulePermissionController.CanViewModule(ActiveModule) && group.IsPublic;
-			}
+            //if current user can view the group page and group is public, then should be able to view members.
+            if (!canView)
+            {
+                canView = ModulePermissionController.CanViewModule(ActiveModule) && group.IsPublic;
+            }
             return canView;
         }
 
@@ -93,7 +92,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
 
         private IEnumerable<UserInfo> GetUsers(int userId, int groupId, string searchTerm, int pageIndex, int pageSize, string propertyNames, string propertyValues)
         {
-            var portalId = PortalSettings.PortalId;            
+            var portalId = PortalSettings.PortalId;
             var isAdmin = PortalSettings.UserInfo.IsInRole(PortalSettings.AdministratorRoleName);
 
             var filterBy = GetSetting(ActiveModule.ModuleSettings, "FilterBy", String.Empty);
@@ -166,7 +165,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
                     break;
             }
             if (excludeHostUsers)
-            {                
+            {
                 return FilterExcludedUsers(users);
             }
             return users;
@@ -187,7 +186,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             try
             {
                 if (userId < 0) userId = PortalSettings.UserId;
-                
+
                 var searchField1 = GetSetting(ActiveModule.TabModuleSettings, "SearchField1", "DisplayName");
                 var searchField2 = GetSetting(ActiveModule.TabModuleSettings, "SearchField2", "Email");
                 var searchField3 = GetSetting(ActiveModule.TabModuleSettings, "SearchField3", "City");
@@ -205,7 +204,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -220,7 +219,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -238,7 +237,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -256,7 +255,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -269,11 +268,11 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             {
                 var friend = UserController.GetUserById(PortalSettings.PortalId, postData.FriendId);
                 FriendsController.Instance.AcceptFriend(friend);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -286,11 +285,11 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             {
                 var friend = UserController.GetUserById(PortalSettings.PortalId, postData.FriendId);
                 FriendsController.Instance.AddFriend(friend);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -303,11 +302,11 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             {
                 var follow = UserController.GetUserById(PortalSettings.PortalId, postData.FollowId);
                 FollowersController.Instance.FollowUser(follow);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -320,11 +319,11 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             {
                 var friend = UserController.GetUserById(PortalSettings.PortalId, postData.FriendId);
                 FriendsController.Instance.DeleteFriend(friend);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }
@@ -337,11 +336,11 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
             {
                 var follow = UserController.GetUserById(PortalSettings.PortalId, postData.FollowId);
                 FollowersController.Instance.UnFollowUser(follow);
-                return Request.CreateResponse(HttpStatusCode.OK, new {Result = "success"});
+                return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
             }
         }

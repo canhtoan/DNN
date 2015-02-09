@@ -17,31 +17,28 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
+    public class FileManagerException : Exception
+    {
+        public FileManagerException() : base()
+        {
+        }
 
-	public class FileManagerException : Exception
-	{
+        public FileManagerException(string message) : base(message)
+        {
+        }
 
-		public FileManagerException() : base()
-		{
-		}
+        public FileManagerException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
 
-		public FileManagerException(string message) : base(message)
-		{
-		}
-
-		public FileManagerException(string message, Exception innerException) : base(message, innerException)
-		{
-		}
-
-		public FileManagerException(ref System.Runtime.Serialization.SerializationInfo info, ref System.Runtime.Serialization.StreamingContext context) : base(info, context)
-		{
-		}
-
-	}
-
+        public FileManagerException(ref System.Runtime.Serialization.SerializationInfo info, ref System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }

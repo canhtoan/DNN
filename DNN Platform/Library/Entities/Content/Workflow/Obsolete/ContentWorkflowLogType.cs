@@ -17,17 +17,18 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Entities.Content.Workflow
 // ReSharper enable CheckNamespace
 {
     /// <summary>
     /// This enum represents the possible list of WorkflowLogType
     /// </summary>
-    [Obsolete("Deprecated in Platform 7.4.0")]   
+    [Obsolete("Deprecated in Platform 7.4.0")]
     public enum ContentWorkflowLogType
     {
         WorkflowStarted = 0,

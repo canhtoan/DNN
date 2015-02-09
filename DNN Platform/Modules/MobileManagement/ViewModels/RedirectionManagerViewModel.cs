@@ -3,15 +3,14 @@
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using DotNetNuke.Services.Mobile;
 using DotNetNuke.Web.Mvp;
 
 #endregion
-
 namespace DotNetNuke.Modules.MobileManagement.ViewModels
 {
     public class RedirectionManagerViewModel

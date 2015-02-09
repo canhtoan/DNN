@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -44,13 +44,12 @@ using DotNetNuke.Web.UI.WebControls.Extensions;
 using WebFormsMvp;
 
 #endregion
-
 namespace DotNetNuke.Modules.MemberDirectory
 {
     [PresenterBinding(typeof(ModuleSettingsPresenter))]
     public partial class Settings : SettingsView<MemberDirectorySettingsModel>
     {
-        private static string templatePath = "~/DesktopModules/MemberDirectory/Templates/";
+        private static string s_templatePath = "~/DesktopModules/MemberDirectory/Templates/";
 
         private string _defaultSearchField1 = "DisplayName";
         private string _defaultSearchField2 = "Email";
@@ -74,7 +73,7 @@ namespace DotNetNuke.Modules.MemberDirectory
             get
             {
                 string template;
-                using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath(templatePath + "AlternateItemTemplate.htm"))) 
+                using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath(s_templatePath + "AlternateItemTemplate.htm")))
                 {
                     template = sr.ReadToEnd();
                 }
@@ -87,7 +86,7 @@ namespace DotNetNuke.Modules.MemberDirectory
             get
             {
                 string template;
-                using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath(templatePath + "ItemTemplate.htm")))
+                using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath(s_templatePath + "ItemTemplate.htm")))
                 {
                     template = sr.ReadToEnd();
                 }
@@ -102,7 +101,7 @@ namespace DotNetNuke.Modules.MemberDirectory
             get
             {
                 string template;
-                using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath(templatePath + "PopUpTemplate.htm")))
+                using (StreamReader sr = new StreamReader(HttpContext.Current.Server.MapPath(s_templatePath + "PopUpTemplate.htm")))
                 {
                     template = sr.ReadToEnd();
                 }
@@ -121,13 +120,13 @@ namespace DotNetNuke.Modules.MemberDirectory
         {
             base.OnLoad(e);
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 if (Model.Groups.Count > 0)
                 {
                     groupList.DataSource = Model.Groups;
                     groupList.DataBind();
-					groupList.Items.Insert(0, new ListItem(Localization.GetString("None_Specified"), Null.NullInteger.ToString()));
+                    groupList.Items.Insert(0, new ListItem(Localization.GetString("None_Specified"), Null.NullInteger.ToString()));
                 }
                 else
                 {
@@ -136,22 +135,22 @@ namespace DotNetNuke.Modules.MemberDirectory
 
                 foreach (var rel in Model.Relationships)
                 {
-                    relationShipList.AddItem(Localization.GetString(rel.Name,Localization.SharedResourceFile),rel.RelationshipId.ToString());
+                    relationShipList.AddItem(Localization.GetString(rel.Name, Localization.SharedResourceFile), rel.RelationshipId.ToString());
                 }
 
 
                 var profileResourceFile = "~/DesktopModules/Admin/Security/App_LocalResources/Profile.ascx";
 
-                
+
                 System.Web.UI.WebControls.ListItemCollection propertiesCollection = GetPropertiesCollection(profileResourceFile);
-                    
-                
+
+
                 //Bind the ListItemCollection to the list
                 propertyList.DataSource = propertiesCollection;
                 propertyList.DataBind();
 
                 //Insert custom properties to the Search field lists
-                propertiesCollection.Insert(0,new ListItem(Localization.GetString("Username",LocalResourceFile),"Username"));
+                propertiesCollection.Insert(0, new ListItem(Localization.GetString("Username", LocalResourceFile), "Username"));
                 propertiesCollection.Insert(1, new ListItem(Localization.GetString("DisplayName", LocalResourceFile), "DisplayName"));
                 propertiesCollection.Insert(2, new ListItem(Localization.GetString("Email", LocalResourceFile), "Email"));
 
@@ -200,9 +199,9 @@ namespace DotNetNuke.Modules.MemberDirectory
             var result = new ListItemCollection();
             foreach (var property in Model.ProfileProperties)
             {
-                result.Add(new ListItem(GetLocalizeName(property.PropertyName,profileResourceFile),property.PropertyName));
+                result.Add(new ListItem(GetLocalizeName(property.PropertyName, profileResourceFile), property.PropertyName));
             }
-            
+
             return result;
         }
 
@@ -210,7 +209,7 @@ namespace DotNetNuke.Modules.MemberDirectory
         {
             base.OnSettingsLoaded();
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 BindSortList();
 
@@ -268,7 +267,7 @@ namespace DotNetNuke.Modules.MemberDirectory
 
             Model.TabModuleSettings["DisablePaging"] = disablePager.Checked.ToString(CultureInfo.InvariantCulture);
             Model.TabModuleSettings["PageSize"] = pageSize.Text;
-            
+
             Model.TabModuleSettings["ExcludeHostUsers"] = ExcludeHostUsersCheckBox.Checked.ToString(CultureInfo.InvariantCulture);
 
             base.OnSavingSettings();

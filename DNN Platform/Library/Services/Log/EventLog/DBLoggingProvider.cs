@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,18 +37,16 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Scheduling;
 
 #endregion
-
-
 namespace DotNetNuke.Services.Log.EventLog
 {
     public class DBLoggingProvider : LoggingProvider
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (DBLoggingProvider));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(DBLoggingProvider));
         private const int ReaderLockTimeout = 10000;
         private const int WriterLockTimeout = 10000;
-        private static readonly IList<LogQueueItem> LogQueue = new List<LogQueueItem>();
-        private static readonly ReaderWriterLock LockNotif = new ReaderWriterLock();
-        private static readonly ReaderWriterLock LockQueueLog = new ReaderWriterLock();
+        private static readonly IList<LogQueueItem> s_logQueue = new List<LogQueueItem>();
+        private static readonly ReaderWriterLock s_lockNotif = new ReaderWriterLock();
+        private static readonly ReaderWriterLock s_lockQueueLog = new ReaderWriterLock();
 
         private static Hashtable FillLogTypeConfigInfoByKey(ArrayList arr)
         {
@@ -56,7 +54,7 @@ namespace DotNetNuke.Services.Log.EventLog
             int i;
             for (i = 0; i <= arr.Count - 1; i++)
             {
-                var logTypeConfigInfo = (LogTypeConfigInfo) arr[i];
+                var logTypeConfigInfo = (LogTypeConfigInfo)arr[i];
                 if (String.IsNullOrEmpty(logTypeConfigInfo.LogTypeKey))
                 {
                     logTypeConfigInfo.LogTypeKey = "*";
@@ -73,17 +71,17 @@ namespace DotNetNuke.Services.Log.EventLog
 
         private LogTypeConfigInfo GetLogTypeConfigInfoByKey(string logTypeKey, string logTypePortalID)
         {
-            var configInfoByKey = (Hashtable) DataCache.GetCache("GetLogTypeConfigInfoByKey") ?? FillLogTypeConfigInfoByKey(GetLogTypeConfigInfo());
-            var logTypeConfigInfo = (LogTypeConfigInfo) configInfoByKey[logTypeKey + "|" + logTypePortalID];
+            var configInfoByKey = (Hashtable)DataCache.GetCache("GetLogTypeConfigInfoByKey") ?? FillLogTypeConfigInfoByKey(GetLogTypeConfigInfo());
+            var logTypeConfigInfo = (LogTypeConfigInfo)configInfoByKey[logTypeKey + "|" + logTypePortalID];
             if (logTypeConfigInfo == null)
             {
-                logTypeConfigInfo = (LogTypeConfigInfo) configInfoByKey["*|" + logTypePortalID];
+                logTypeConfigInfo = (LogTypeConfigInfo)configInfoByKey["*|" + logTypePortalID];
                 if (logTypeConfigInfo == null)
                 {
-                    logTypeConfigInfo = (LogTypeConfigInfo) configInfoByKey[logTypeKey + "|*"];
+                    logTypeConfigInfo = (LogTypeConfigInfo)configInfoByKey[logTypeKey + "|*"];
                     if (logTypeConfigInfo == null)
                     {
-                        logTypeConfigInfo = (LogTypeConfigInfo) configInfoByKey["*|*"];
+                        logTypeConfigInfo = (LogTypeConfigInfo)configInfoByKey["*|*"];
                     }
                     else
                     {
@@ -141,7 +139,7 @@ namespace DotNetNuke.Services.Log.EventLog
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
             }
             return obj;
         }
@@ -189,7 +187,6 @@ namespace DotNetNuke.Services.Log.EventLog
                     response.End();
                 }
             }
-            
         }
 
         private static void WriteLog(LogQueueItem logQueueItem)
@@ -212,10 +209,10 @@ namespace DotNetNuke.Services.Log.EventLog
                                                    objLogInfo.LogServerName,
                                                    logProperties,
                                                    Convert.ToInt32(objLogInfo.LogConfigID),
-												   objLogInfo.Exception);
+                                                   objLogInfo.Exception);
                     if (logTypeConfigInfo.EmailNotificationIsActive)
                     {
-                        LockNotif.AcquireWriterLock(ReaderLockTimeout);
+                        s_lockNotif.AcquireWriterLock(ReaderLockTimeout);
                         try
                         {
                             if (logTypeConfigInfo.NotificationThreshold == 0)
@@ -226,27 +223,27 @@ namespace DotNetNuke.Services.Log.EventLog
                         }
                         finally
                         {
-                            LockNotif.ReleaseWriterLock();
+                            s_lockNotif.ReleaseWriterLock();
                         }
                     }
                 }
             }
             catch (SqlException exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 WriteError(logTypeConfigInfo, exc, "SQL Exception", SqlUtils.TranslateSQLException(exc));
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
                 WriteError(logTypeConfigInfo, exc, "Unhandled Error", exc.Message);
             }
         }
 
         public override void AddLog(LogInfo logInfo)
         {
-            string configPortalID = logInfo.LogPortalID != Null.NullInteger 
-                                        ? logInfo.LogPortalID.ToString() 
+            string configPortalID = logInfo.LogPortalID != Null.NullInteger
+                                        ? logInfo.LogPortalID.ToString()
                                         : "*";
             var logTypeConfigInfo = GetLogTypeConfigInfoByKey(logInfo.LogTypeKey, configPortalID);
             if (logTypeConfigInfo == null || logTypeConfigInfo.LoggingIsActive == false)
@@ -254,16 +251,16 @@ namespace DotNetNuke.Services.Log.EventLog
                 return;
             }
             logInfo.LogConfigID = logTypeConfigInfo.ID;
-            var logQueueItem = new LogQueueItem {LogInfo = logInfo, LogTypeConfigInfo = logTypeConfigInfo};
+            var logQueueItem = new LogQueueItem { LogInfo = logInfo, LogTypeConfigInfo = logTypeConfigInfo };
             SchedulingProvider scheduler = SchedulingProvider.Instance();
-            if (scheduler == null || logInfo.BypassBuffering || SchedulingProvider.Enabled == false 
+            if (scheduler == null || logInfo.BypassBuffering || SchedulingProvider.Enabled == false
                 || scheduler.GetScheduleStatus() == ScheduleStatus.STOPPED || !Host.EventLogBuffer)
             {
                 WriteLog(logQueueItem);
             }
             else
             {
-                LogQueue.Add(logQueueItem);
+                s_logQueue.Add(logQueueItem);
             }
         }
 
@@ -340,14 +337,14 @@ namespace DotNetNuke.Services.Log.EventLog
 
         public override ArrayList GetLogTypeConfigInfo()
         {
-            var list = (ArrayList) DataCache.GetCache("GetLogTypeConfigInfo");
+            var list = (ArrayList)DataCache.GetCache("GetLogTypeConfigInfo");
             if (list == null)
             {
                 IDataReader dr = null;
                 try
                 {
                     dr = DataProvider.Instance().GetLogTypeConfigInfo();
-                    list = CBO.FillCollection(dr, typeof (LogTypeConfigInfo));
+                    list = CBO.FillCollection(dr, typeof(LogTypeConfigInfo));
                     DataCache.SetCache("GetLogTypeConfigInfo", list);
                     FillLogTypeConfigInfoByKey(list);
                 }
@@ -373,7 +370,7 @@ namespace DotNetNuke.Services.Log.EventLog
 
         public override ArrayList GetLogTypeInfo()
         {
-            return CBO.FillCollection(DataProvider.Instance().GetLogTypeInfo(), typeof (LogTypeInfo));
+            return CBO.FillCollection(DataProvider.Instance().GetLogTypeInfo(), typeof(LogTypeInfo));
         }
 
         public override object GetSingleLog(LogInfo logInfo, ReturnType returnType)
@@ -421,24 +418,24 @@ namespace DotNetNuke.Services.Log.EventLog
 
         public override void PurgeLogBuffer()
         {
-            LockQueueLog.AcquireWriterLock(WriterLockTimeout);
+            s_lockQueueLog.AcquireWriterLock(WriterLockTimeout);
             try
             {
-                for (int i = LogQueue.Count - 1; i >= 0; i += -1)
+                for (int i = s_logQueue.Count - 1; i >= 0; i += -1)
                 {
-                    LogQueueItem logQueueItem = LogQueue[i];
+                    LogQueueItem logQueueItem = s_logQueue[i];
                     //in case the log was removed
                     //by another thread simultaneously
                     if (logQueueItem != null)
                     {
                         WriteLog(logQueueItem);
-                        LogQueue.Remove(logQueueItem);
+                        s_logQueue.Remove(logQueueItem);
                     }
                 }
             }
             finally
             {
-                LockQueueLog.ReleaseWriterLock();
+                s_lockQueueLog.ReleaseWriterLock();
             }
             DataProvider.Instance().PurgeLog();
         }
@@ -533,7 +530,7 @@ namespace DotNetNuke.Services.Log.EventLog
         public override LogInfoArray GetLog()
         {
             var logs = new LogInfoArray();
-            int totalRecords = 0; 
+            int totalRecords = 0;
             FillLogs(DataProvider.Instance().GetLogs(Null.NullInteger, Null.NullString, 10, 0), logs, ref totalRecords);
             return logs;
         }
@@ -596,6 +593,5 @@ namespace DotNetNuke.Services.Log.EventLog
             FillLogs(DataProvider.Instance().GetLogs(portalID, logType, pageSize, pageIndex), logs, ref totalRecords);
             return logs;
         }
-
     }
 }

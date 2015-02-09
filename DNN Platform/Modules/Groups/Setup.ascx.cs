@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Globalization;
@@ -42,7 +42,6 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.UI.Skins;
 
 #endregion
-
 namespace DotNetNuke.Modules.Groups
 {
     public partial class Setup : GroupsModuleBase
@@ -77,21 +76,21 @@ namespace DotNetNuke.Modules.Groups
             ModuleController.Instance.UpdateTabModuleSetting(TabModuleId, Constants.GroupLoadView, GroupMode.List.ToString());
             ModuleController.Instance.UpdateTabModuleSetting(TabModuleId, Constants.GroupViewPage, tab.TabID.ToString(CultureInfo.InvariantCulture));
 
-			//Default Social Groups
-	        var defaultGroup = RoleController.GetRoleGroupByName(PortalId, Constants.DefaultGroupName);
-	        var groupId = -2;
-			if (defaultGroup != null)
-			{
-				groupId = defaultGroup.RoleGroupID;
-			}
-			else
-			{
-				var groupInfo = new RoleGroupInfo();
+            //Default Social Groups
+            var defaultGroup = RoleController.GetRoleGroupByName(PortalId, Constants.DefaultGroupName);
+            var groupId = -2;
+            if (defaultGroup != null)
+            {
+                groupId = defaultGroup.RoleGroupID;
+            }
+            else
+            {
+                var groupInfo = new RoleGroupInfo();
                 groupInfo.PortalID = PortalId;
                 groupInfo.RoleGroupName = Constants.DefaultGroupName;
                 groupInfo.Description = Constants.DefaultGroupName;
-				groupId = RoleController.AddRoleGroup(groupInfo);
-			}
+                groupId = RoleController.AddRoleGroup(groupInfo);
+            }
             ModuleController.Instance.UpdateTabModuleSetting(TabModuleId, Constants.DefaultRoleGroupSetting, groupId.ToString());
 
             Response.Redirect(Request.RawUrl);
@@ -265,7 +264,7 @@ namespace DotNetNuke.Modules.Groups
                     {
                         // create the module permission
                         PermissionInfo objSystemModulePermission = default(PermissionInfo);
-                        objSystemModulePermission = (PermissionInfo) arrSystemModulePermissions[j];
+                        objSystemModulePermission = (PermissionInfo)arrSystemModulePermissions[j];
                         if (objSystemModulePermission.PermissionKey == "VIEW" && permissionType == 1 && objTabPermission.PermissionKey != "EDIT")
                         {
                             //Only Page Editors get View permissions if "Page Editors Only"
@@ -282,7 +281,7 @@ namespace DotNetNuke.Modules.Groups
                         if (objModulePermission.PermissionKey == "EDIT" & objModulePermission.AllowAccess)
                         {
                             ModulePermissionInfo objModuleViewperm = AddModulePermission(objModule,
-                                                                                         (PermissionInfo) arrSystemModuleViewPermissions[0],
+                                                                                         (PermissionInfo)arrSystemModuleViewPermissions[0],
                                                                                          objModulePermission.RoleID,
                                                                                          objModulePermission.UserID,
                                                                                          true);

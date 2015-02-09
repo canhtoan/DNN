@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 
@@ -32,7 +32,6 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     internal static class CustomUrlDictController
@@ -53,9 +52,9 @@ namespace DotNetNuke.Entities.Urls
         ///    only one culture for the Url, it will be that culture.
         /// </remarks>
         /// <returns></returns>
-        private static SharedDictionary<int, SharedDictionary<string, string>> BuildUrlDictionary(SharedDictionary<int, SharedDictionary<string, string>> existingTabs, 
+        private static SharedDictionary<int, SharedDictionary<string, string>> BuildUrlDictionary(SharedDictionary<int, SharedDictionary<string, string>> existingTabs,
                                                     int portalId,
-                                                    FriendlyUrlSettings settings, 
+                                                    FriendlyUrlSettings settings,
                                                     ref SharedDictionary<string, string> customAliasTabs)
         {
             //fetch tabs with redirects
@@ -68,7 +67,7 @@ namespace DotNetNuke.Entities.Urls
             {
                 customAliasTabs = new SharedDictionary<string, string>();
             }
-            
+
 
             //go through each tab in the found list            
             foreach (TabInfo tab in tabs.Values)
@@ -172,11 +171,11 @@ namespace DotNetNuke.Entities.Urls
         /// <param name="customAliasForTabs"></param>
         /// <param name="parentTraceId"></param>
         /// <returns></returns>
-        internal static SharedDictionary<int, SharedDictionary<string, string>> FetchCustomUrlDictionary(int portalId, 
-                                    bool forceRebuild, 
-                                    bool bypassCache, 
+        internal static SharedDictionary<int, SharedDictionary<string, string>> FetchCustomUrlDictionary(int portalId,
+                                    bool forceRebuild,
+                                    bool bypassCache,
                                     FriendlyUrlSettings settings,
-                                    out SharedDictionary<string, string> customAliasForTabs, 
+                                    out SharedDictionary<string, string> customAliasForTabs,
                                     Guid parentTraceId)
         {
             SharedDictionary<int, SharedDictionary<string, string>> urlDict;

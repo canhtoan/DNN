@@ -21,13 +21,12 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Data;
 
 #endregion
-
 namespace DotNetNuke.Services.Journal
 {
     public interface IJournalDataService

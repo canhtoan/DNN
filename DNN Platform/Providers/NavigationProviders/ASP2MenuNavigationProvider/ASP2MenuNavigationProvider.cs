@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,37 +28,36 @@ using DotNetNuke.Modules.NavigationProvider;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.NavigationControl
 {
     public class ASP2MenuNavigationProvider : NavigationProvider
     {
-		#region "Member Variables"
-		
-        private Menu m_objMenu;
-        private string m_strControlID;
-        private string m_strNodeLeftHTMLBreadCrumbRoot = "";
-        private string m_strNodeLeftHTMLBreadCrumbSub = "";
-        private string m_strNodeLeftHTMLRoot = "";
-        private string m_strNodeLeftHTMLSub = "";
-        private string m_strNodeRightHTMLBreadCrumbRoot = "";
-        private string m_strNodeRightHTMLBreadCrumbSub = "";
-        private string m_strNodeRightHTMLRoot = "";
-        private string m_strNodeRightHTMLSub = "";
-        private string m_strPathImage = "";
-        private string m_strSystemPathImage = "";
-		
-		#endregion
-		
-		#region "Properties"
-		
-		#region "General"
-		
+        #region "Member Variables"
+
+        private Menu _objMenu;
+        private string _strControlID;
+        private string _strNodeLeftHTMLBreadCrumbRoot = "";
+        private string _strNodeLeftHTMLBreadCrumbSub = "";
+        private string _strNodeLeftHTMLRoot = "";
+        private string _strNodeLeftHTMLSub = "";
+        private string _strNodeRightHTMLBreadCrumbRoot = "";
+        private string _strNodeRightHTMLBreadCrumbSub = "";
+        private string _strNodeRightHTMLRoot = "";
+        private string _strNodeRightHTMLSub = "";
+        private string _strPathImage = "";
+        private string _strSystemPathImage = "";
+
+        #endregion
+
+        #region "Properties"
+
+        #region "General"
+
         public Menu Menu
         {
             get
             {
-                return m_objMenu;
+                return _objMenu;
             }
         }
 
@@ -82,27 +81,27 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strControlID;
+                return _strControlID;
             }
             set
             {
-                m_strControlID = value;
+                _strControlID = value;
             }
         }
 
-		#endregion
-		
-		#region "Paths"
-		
+        #endregion
+
+        #region "Paths"
+
         public override string PathImage
         {
             get
             {
-                return m_strPathImage;
+                return _strPathImage;
             }
             set
             {
-                m_strPathImage = value;
+                _strPathImage = value;
             }
         }
 
@@ -110,17 +109,17 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strSystemPathImage;
+                return _strSystemPathImage;
             }
             set
             {
-                m_strSystemPathImage = value;
+                _strSystemPathImage = value;
             }
         }
-		
-		#endregion
-		
-		#region "Rendering"
+
+        #endregion
+
+        #region "Rendering"
 
         public override string ForceDownLevel
         {
@@ -166,10 +165,10 @@ namespace DotNetNuke.NavigationControl
                 }
             }
         }
-		
-		#endregion
 
-		#region "Mouse Properties"
+        #endregion
+
+        #region "Mouse Properties"
 
         public override decimal MouseOutHideDelay
         {
@@ -182,10 +181,10 @@ namespace DotNetNuke.NavigationControl
                 Menu.DisappearAfter = Convert.ToInt32(value);
             }
         }
-		
-		#endregion
-		
-		#region "Indicate Children"
+
+        #endregion
+
+        #region "Indicate Children"
 
         public override bool IndicateChildren
         {
@@ -222,20 +221,20 @@ namespace DotNetNuke.NavigationControl
                 Menu.StaticPopOutImageUrl = value;
             }
         }
-		
-		#endregion
-		
-		#region "Custom HTML"
+
+        #endregion
+
+        #region "Custom HTML"
 
         public override string NodeLeftHTMLRoot
         {
             get
             {
-                return m_strNodeLeftHTMLRoot;
+                return _strNodeLeftHTMLRoot;
             }
             set
             {
-                m_strNodeLeftHTMLRoot = value;
+                _strNodeLeftHTMLRoot = value;
             }
         }
 
@@ -243,11 +242,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLRoot;
+                return _strNodeRightHTMLRoot;
             }
             set
             {
-                m_strNodeRightHTMLRoot = value;
+                _strNodeRightHTMLRoot = value;
             }
         }
 
@@ -255,11 +254,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeLeftHTMLSub;
+                return _strNodeLeftHTMLSub;
             }
             set
             {
-                m_strNodeLeftHTMLSub = value;
+                _strNodeLeftHTMLSub = value;
             }
         }
 
@@ -267,11 +266,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLSub;
+                return _strNodeRightHTMLSub;
             }
             set
             {
-                m_strNodeRightHTMLSub = value;
+                _strNodeRightHTMLSub = value;
             }
         }
 
@@ -279,11 +278,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeLeftHTMLBreadCrumbSub;
+                return _strNodeLeftHTMLBreadCrumbSub;
             }
             set
             {
-                m_strNodeLeftHTMLBreadCrumbSub = value;
+                _strNodeLeftHTMLBreadCrumbSub = value;
             }
         }
 
@@ -291,11 +290,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLBreadCrumbSub;
+                return _strNodeRightHTMLBreadCrumbSub;
             }
             set
             {
-                m_strNodeRightHTMLBreadCrumbSub = value;
+                _strNodeRightHTMLBreadCrumbSub = value;
             }
         }
 
@@ -303,11 +302,11 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeLeftHTMLBreadCrumbRoot;
+                return _strNodeLeftHTMLBreadCrumbRoot;
             }
             set
             {
-                m_strNodeLeftHTMLBreadCrumbRoot = value;
+                _strNodeLeftHTMLBreadCrumbRoot = value;
             }
         }
 
@@ -315,18 +314,18 @@ namespace DotNetNuke.NavigationControl
         {
             get
             {
-                return m_strNodeRightHTMLBreadCrumbRoot;
+                return _strNodeRightHTMLBreadCrumbRoot;
             }
             set
             {
-                m_strNodeRightHTMLBreadCrumbRoot = value;
+                _strNodeRightHTMLBreadCrumbRoot = value;
             }
         }
 
-		#endregion
-		
-		#region "CSS"
-		
+        #endregion
+
+        #region "CSS"
+
         public override string CSSControl
         {
             get
@@ -431,13 +430,13 @@ namespace DotNetNuke.NavigationControl
                 Menu.StaticHoverStyle.CssClass = value;
             }
         }
-		
-		#endregion
 
-		#endregion
+        #endregion
 
-		#region "Event Handlers"
-		
+        #endregion
+
+        #region "Event Handlers"
+
         /// <summary>
         /// This method is called by the provider to allow for the control to default values and set up
         /// event handlers
@@ -445,11 +444,11 @@ namespace DotNetNuke.NavigationControl
         /// <remarks></remarks>
         public override void Initialize()
         {
-            m_objMenu = new Menu();
-            Menu.ID = m_strControlID;
-            Menu.EnableViewState = false;	//Not sure why, but when we disable viewstate the menuitemclick does not fire...
-            
-			//default properties to match DNN defaults 
+            _objMenu = new Menu();
+            Menu.ID = _strControlID;
+            Menu.EnableViewState = false;   //Not sure why, but when we disable viewstate the menuitemclick does not fire...
+
+            //default properties to match DNN defaults 
             Menu.DynamicPopOutImageUrl = "";
             Menu.StaticPopOutImageUrl = "";
             ControlOrientation = Orientation.Horizontal;
@@ -457,8 +456,8 @@ namespace DotNetNuke.NavigationControl
             //add event handlers
             Menu.MenuItemClick += Menu_NodeClick;
             Menu.PreRender += Menu_PreRender;
-			
-			//add how many levels worth of styles???
+
+            //add how many levels worth of styles???
             for (int i = 0; i <= 6; i++)
             {
                 Menu.LevelMenuItemStyles.Add(new MenuItemStyle());
@@ -550,7 +549,7 @@ namespace DotNetNuke.NavigationControl
                     }
                     if (objMenuItem != null)
                     {
-						//Append LeftHTML/RightHTML to menu's text property
+                        //Append LeftHTML/RightHTML to menu's text property
                         if (!String.IsNullOrEmpty(strLeftHTML))
                         {
                             objMenuItem.Text = strLeftHTML + objMenuItem.Text;
@@ -560,8 +559,8 @@ namespace DotNetNuke.NavigationControl
                             objMenuItem.Text = objMenuItem.Text + strRightHTML;
                         }
                     }
-					
-					//Figure out image paths
+
+                    //Figure out image paths
                     if (!String.IsNullOrEmpty(objNode.Image))
                     {
                         if (objNode.Image.StartsWith("~/images/"))
@@ -597,11 +596,11 @@ namespace DotNetNuke.NavigationControl
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
-		/// <summary>
+        /// <summary>
         /// Loops through each of the nodes parents and concatenates the keys to derive its valuepath
         /// </summary>
         /// <param name="objNode">DNNNode object to obtain valuepath from</param>
@@ -658,8 +657,8 @@ namespace DotNetNuke.NavigationControl
             objItem.Selected = objNode.Selected;
             objItem.ToolTip = objNode.ToolTip;
             return objItem;
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

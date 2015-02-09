@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,21 +17,20 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
 #endregion
-
 namespace DotNetNuke.Common.Controls
 {
-	/// <summary>
-	/// The Form will reset action to raw url instead of rewrite url.
-	/// </summary>
+    /// <summary>
+    /// The Form will reset action to raw url instead of rewrite url.
+    /// </summary>
     public class Form : HtmlForm
     {
         protected override void RenderAttributes(HtmlTextWriter writer)
@@ -50,7 +49,7 @@ namespace DotNetNuke.Common.Controls
             }
             if (base.ID != null)
             {
-            // Locate and replace id attribute
+                // Locate and replace id attribute
                 StartPoint = html.IndexOf("id=\"");
                 if (StartPoint >= 0)
                 {

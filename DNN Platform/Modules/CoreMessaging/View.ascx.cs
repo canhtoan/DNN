@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,7 +38,6 @@ using DotNetNuke.Web.Client.ClientResourceManagement;
 using DotNetNuke.Common;
 
 #endregion
-
 namespace DotNetNuke.Modules.CoreMessaging
 {
     /// -----------------------------------------------------------------------------
@@ -72,14 +71,14 @@ namespace DotNetNuke.Modules.CoreMessaging
             }
         }
 
-	    public bool ShowSubscriptionTab
-	    {
-		    get
-		    {
-			    return !Settings.ContainsKey("ShowSubscriptionTab") ||
-			           Settings["ShowSubscriptionTab"].ToString().Equals("true", StringComparison.InvariantCultureIgnoreCase);
-		    }
-	    }
+        public bool ShowSubscriptionTab
+        {
+            get
+            {
+                return !Settings.ContainsKey("ShowSubscriptionTab") ||
+                       Settings["ShowSubscriptionTab"].ToString().Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
 
         #endregion
 
@@ -96,11 +95,11 @@ namespace DotNetNuke.Modules.CoreMessaging
             }
             if (UserId != ProfileUserId && (PortalSettings.ActiveTab.ParentId == PortalSettings.UserTabId || TabId == PortalSettings.UserTabId))
             {
-				// Do not redirect but hide the content of the module.
-				CoreMessagingContainer.Visible = false;
-				return;
+                // Do not redirect but hide the content of the module.
+                CoreMessagingContainer.Visible = false;
+                return;
             }
-            
+
             if (IsEditable && PermissionsNotProperlySet())
             {
                 UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("PermissionsNotProperlySet", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);

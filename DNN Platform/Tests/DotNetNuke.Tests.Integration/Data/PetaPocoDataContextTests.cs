@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Configuration;
 using DotNetNuke.Data;
@@ -34,7 +34,6 @@ using NUnit.Framework;
 using PetaPoco;
 
 #endregion
-
 namespace DotNetNuke.Tests.Data
 {
     [TestFixture]

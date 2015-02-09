@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -36,27 +37,27 @@ using Telerik.Web.UI;
 
 namespace DotNetNuke.Web.UI.WebControls
 {
-	public class DnnFormLabel : Panel
-	{
-		public string AssociatedControlID { get; set; }
+    public class DnnFormLabel : Panel
+    {
+        public string AssociatedControlID { get; set; }
 
-		public string LocalResourceFile { get; set; }
+        public string LocalResourceFile { get; set; }
 
-		public string ResourceKey { get; set; }
+        public string ResourceKey { get; set; }
 
-		public string ToolTipKey { get; set; }
+        public string ToolTipKey { get; set; }
 
         public bool RequiredField { get; set; }
 
-		protected override void CreateChildControls()
-		{
-			string toolTipText = LocalizeString(ToolTipKey);
+        protected override void CreateChildControls()
+        {
+            string toolTipText = LocalizeString(ToolTipKey);
             if (string.IsNullOrEmpty(CssClass))
                 CssClass = "dnnLabel";
 
-            else if (!CssClass.Contains("dnnLabel"))                           
+            else if (!CssClass.Contains("dnnLabel"))
                 CssClass += " dnnLabel";
-            
+
 
             //var outerPanel = new Panel();
             //outerPanel.CssClass = "dnnLabel";
@@ -64,43 +65,43 @@ namespace DotNetNuke.Web.UI.WebControls
 
             var outerLabel = new System.Web.UI.HtmlControls.HtmlGenericControl { TagName = "label" };
             Controls.Add(outerLabel);
-            
+
             var label = new Label { ID = "Label", Text = LocalizeString(ResourceKey) };
             if (RequiredField)
             {
                 label.CssClass += " dnnFormRequired";
             }
-		    outerLabel.Controls.Add(label);			
+            outerLabel.Controls.Add(label);
 
             var link = new LinkButton { ID = "Link", CssClass = "dnnFormHelp", TabIndex = -1 };
             Controls.Add(link);
-			
-			if (!String.IsNullOrEmpty(toolTipText))
-			{
-				//CssClass += "dnnLabel";
 
-			    var tooltipPanel = new Panel() { CssClass = "dnnTooltip"};
+            if (!String.IsNullOrEmpty(toolTipText))
+            {
+                //CssClass += "dnnLabel";
+
+                var tooltipPanel = new Panel() { CssClass = "dnnTooltip" };
                 Controls.Add(tooltipPanel);
 
-				var panel = new Panel { ID = "Help", CssClass = "dnnFormHelpContent dnnClear" };				
+                var panel = new Panel { ID = "Help", CssClass = "dnnFormHelpContent dnnClear" };
                 tooltipPanel.Controls.Add(panel);
-				
-				var helpLabel = new Label { ID = "Text", CssClass="dnnHelpText", Text = LocalizeString(ToolTipKey) };
-				panel.Controls.Add(helpLabel);
 
-				var pinLink = new HyperLink {CssClass = "pinHelp"};
-			    pinLink.Attributes.Add("href", "#");
-				panel.Controls.Add(pinLink);
+                var helpLabel = new Label { ID = "Text", CssClass = "dnnHelpText", Text = LocalizeString(ToolTipKey) };
+                panel.Controls.Add(helpLabel);
+
+                var pinLink = new HyperLink { CssClass = "pinHelp" };
+                pinLink.Attributes.Add("href", "#");
+                panel.Controls.Add(pinLink);
 
                 JavaScript.RegisterClientReference(Page, ClientAPI.ClientNamespaceReferences.dnn);
                 JavaScript.RequestRegistration(CommonJs.DnnPlugins);
                 //ClientResourceManager.RegisterScript(this.Page, "~/Resources/Shared/Scripts/initTooltips.js");
-			}
-		}
+            }
+        }
 
-		protected string LocalizeString(string key)
-		{
-			return Localization.GetString(key, LocalResourceFile);
-		}
-	}
+        protected string LocalizeString(string key)
+        {
+            return Localization.GetString(key, LocalResourceFile);
+        }
+    }
 }

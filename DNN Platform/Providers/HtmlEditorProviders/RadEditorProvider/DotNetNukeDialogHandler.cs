@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -33,32 +33,31 @@ using System.Globalization;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
+    public class DotNetNukeDialogHandler : Telerik.Web.UI.DialogHandler
+    {
+        private const string ResourceFile = "~/DesktopModules/Admin/RadEditorProvider/App_LocalResources/RadEditor.Dialogs.resx";
+        private static Regex s_localizeRegex = new Regex("\\[\\$LocalizeString\\(['\"](.+?)['\"]\\)\\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-	public class DotNetNukeDialogHandler : Telerik.Web.UI.DialogHandler
-	{
-	    private const string ResourceFile = "~/DesktopModules/Admin/RadEditorProvider/App_LocalResources/RadEditor.Dialogs.resx";
-        private static Regex LocalizeRegex = new Regex("\\[\\$LocalizeString\\(['\"](.+?)['\"]\\)\\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-		
         protected override void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
+        {
+            base.OnInit(e);
 
-			PortalSettings settings = PortalController.Instance.GetCurrentPortalSettings();
-			CultureInfo pageLocale = Localization.GetPageLocale(settings);
-			if (settings != null && pageLocale != null)
-			{
-				Localization.SetThreadCultures(pageLocale, settings);
-			}
-		}
+            PortalSettings settings = PortalController.Instance.GetCurrentPortalSettings();
+            CultureInfo pageLocale = Localization.GetPageLocale(settings);
+            if (settings != null && pageLocale != null)
+            {
+                Localization.SetThreadCultures(pageLocale, settings);
+            }
+        }
 
         protected override void Render(HtmlTextWriter writer)
         {
-            var  content = new StringBuilder();
+            var content = new StringBuilder();
             var stringWriter = new StringWriter(content);
             var htmlWriter = new HtmlTextWriter(stringWriter);
             base.Render(htmlWriter);
 
-            var matches = LocalizeRegex.Matches(content.ToString());
+            var matches = s_localizeRegex.Matches(content.ToString());
             foreach (Match match in matches)
             {
                 var key = match.Groups[1].Value;
@@ -67,7 +66,7 @@ namespace DotNetNuke.Providers.RadEditorProvider
                 content.Replace(match.Value, string.IsNullOrEmpty(localizedContent) ? key : localizedContent);
             }
 
-	        content.Replace("[$protocol$]", Request.IsSecureConnection ? "https://" : "http://");
+            content.Replace("[$protocol$]", Request.IsSecureConnection ? "https://" : "http://");
 
             writer.Write(content);
         }
@@ -75,13 +74,12 @@ namespace DotNetNuke.Providers.RadEditorProvider
         private string GetLocalizeContent(string key)
         {
             var content = Localization.GetString(string.Format("{0}_{1}", DialogName, key), ResourceFile);
-            if(string.IsNullOrEmpty(content))
+            if (string.IsNullOrEmpty(content))
             {
                 content = Localization.GetString(string.Format("Common_{0}", key), ResourceFile);
             }
 
             return content;
         }
-	}
-
+    }
 }

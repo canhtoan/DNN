@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,30 +29,29 @@ using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.Search.Internals;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     [Obsolete("Deprecated in DNN 7.1.  No longer used in the Search infrastructure.")]
     public abstract class SearchDataStoreProvider
     {
-		#region "Shared/Static Methods"
+        #region "Shared/Static Methods"
 
         //return the provider
         public static SearchDataStoreProvider Instance()
         {
             return ComponentFactory.GetComponent<SearchDataStoreProvider>();
         }
-		
-		#endregion
 
-		#region "Abstract Methods"
+        #endregion
+
+        #region "Abstract Methods"
 
         public abstract void StoreSearchItems(SearchItemInfoCollection searchItems);
 
         public abstract SearchResultsInfoCollection GetSearchResults(int portalId, string criteria);
 
         public abstract SearchResultsInfoCollection GetSearchItems(int portalId, int tabId, int moduleId);
-		
-		#endregion
+
+        #endregion
     }
 }

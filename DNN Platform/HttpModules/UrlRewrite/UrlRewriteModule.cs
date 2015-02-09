@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Web;
 
 using DotNetNuke.Entities.Urls;
@@ -30,7 +30,6 @@ using DotNetNuke.Framework.Providers;
 using DotNetNuke.HttpModules.UrlRewrite;
 
 #endregion
-
 namespace DotNetNuke.HttpModules
 {
     public class UrlRewriteModule : IHttpModule

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web.UI.WebControls;
@@ -35,13 +35,12 @@ using DotNetNuke.Services.Localization;
 using Calendar = DotNetNuke.Common.Utilities.Calendar;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     public abstract class URLTrackingControl : UserControlBase
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         protected Label Label1;
         protected Label Label2;
         protected Label Label3;
@@ -70,10 +69,10 @@ namespace DotNetNuke.UI.UserControls
         protected TextBox txtStartDate;
         protected CompareValidator valEndDate;
         protected CompareValidator valStartDate;
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public string FormattedURL
         {
@@ -151,10 +150,10 @@ namespace DotNetNuke.UI.UserControls
                 _localResourceFile = value;
             }
         }
-		
-		#endregion
 
-		#region "Event Handlers"
+        #endregion
+
+        #region "Event Handlers"
 
         protected override void OnLoad(EventArgs e)
         {
@@ -164,7 +163,7 @@ namespace DotNetNuke.UI.UserControls
 
             try
             {
-				//this needs to execute always to the client script code is registred in InvokePopupCal
+                //this needs to execute always to the client script code is registred in InvokePopupCal
                 cmdStartCalendar.NavigateUrl = Calendar.InvokePopupCal(txtStartDate);
                 cmdEndCalendar.NavigateUrl = Calendar.InvokePopupCal(txtEndDate);
                 if (!Page.IsPostBack)
@@ -270,7 +269,7 @@ namespace DotNetNuke.UI.UserControls
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

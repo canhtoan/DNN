@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Xml.XPath;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -43,14 +42,14 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class SkinControlInstaller : ComponentInstallerBase
     {
-		#region "Private Properties"
+        #region "Private Properties"
 
-        private SkinControlInfo InstalledSkinControl;
-        private SkinControlInfo SkinControl;
-		
-		#endregion
+        private SkinControlInfo _installedSkinControl;
+        private SkinControlInfo _skinControl;
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
 
         /// -----------------------------------------------------------------------------
@@ -69,10 +68,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "ascx, vb, cs, js, resx, xml, vbproj, csproj, sln";
             }
         }
-		
-		#endregion
 
-		#region "Private Methods"
+        #endregion
+
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -86,7 +85,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             try
             {
-				//Attempt to get the SkinControl
+                //Attempt to get the SkinControl
                 SkinControlInfo skinControl = SkinControlController.GetSkinControlByPackageID(Package.PackageID);
                 if (skinControl != null)
                 {
@@ -99,10 +98,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 Log.AddFailure(ex);
             }
         }
-		
-		#endregion
 
-		#region "Public Methods"
+        #endregion
+
+        #region "Public Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -129,20 +128,20 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             try
             {
-				//Attempt to get the SkinControl
-                InstalledSkinControl = SkinControlController.GetSkinControlByKey(SkinControl.ControlKey);
+                //Attempt to get the SkinControl
+                _installedSkinControl = SkinControlController.GetSkinControlByKey(_skinControl.ControlKey);
 
-                if (InstalledSkinControl != null)
+                if (_installedSkinControl != null)
                 {
-                    SkinControl.SkinControlID = InstalledSkinControl.SkinControlID;
+                    _skinControl.SkinControlID = _installedSkinControl.SkinControlID;
                 }
-				
+
                 //Save SkinControl
-                SkinControl.PackageID = Package.PackageID;
-                SkinControl.SkinControlID = SkinControlController.SaveSkinControl(SkinControl);
+                _skinControl.PackageID = Package.PackageID;
+                _skinControl.SkinControlID = SkinControlController.SaveSkinControl(_skinControl);
 
                 Completed = true;
-                Log.AddInfo(string.Format(Util.MODULE_Registered, SkinControl.ControlKey));
+                Log.AddInfo(string.Format(Util.MODULE_Registered, _skinControl.ControlKey));
             }
             catch (Exception ex)
             {
@@ -161,7 +160,7 @@ namespace DotNetNuke.Services.Installer.Installers
         public override void ReadManifest(XPathNavigator manifestNav)
         {
             //Load the SkinControl from the manifest
-            SkinControl = CBO.DeserializeObject<SkinControlInfo>(new StringReader(manifestNav.InnerXml));
+            _skinControl = CBO.DeserializeObject<SkinControlInfo>(new StringReader(manifestNav.InnerXml));
 
             if (Log.Valid)
             {
@@ -180,16 +179,16 @@ namespace DotNetNuke.Services.Installer.Installers
         /// -----------------------------------------------------------------------------
         public override void Rollback()
         {
-			//If Temp SkinControl exists then we need to update the DataStore with this 
-            if (InstalledSkinControl == null)
+            //If Temp SkinControl exists then we need to update the DataStore with this 
+            if (_installedSkinControl == null)
             {
-				//No Temp SkinControl - Delete newly added SkinControl
+                //No Temp SkinControl - Delete newly added SkinControl
                 DeleteSkinControl();
             }
             else
             {
-				//Temp SkinControl - Rollback to Temp
-                SkinControlController.SaveSkinControl(InstalledSkinControl);
+                //Temp SkinControl - Rollback to Temp
+                SkinControlController.SaveSkinControl(_installedSkinControl);
             }
         }
 
@@ -205,7 +204,7 @@ namespace DotNetNuke.Services.Installer.Installers
         {
             DeleteSkinControl();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

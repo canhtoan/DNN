@@ -81,14 +81,12 @@ namespace ClientDependency.Core.FileRegistration.Providers
         /// <param name="renderCompositeFiles"></param>
         /// <param name="renderSingle"></param>
         protected void WriteStaggeredDependencies(
-            IEnumerable<IClientDependencyFile> dependencies, 
-            HttpContextBase http, 
+            IEnumerable<IClientDependencyFile> dependencies,
+            HttpContextBase http,
             StringBuilder builder,
             Func<IEnumerable<IClientDependencyFile>, HttpContextBase, IDictionary<string, string>, string> renderCompositeFiles,
             Func<string, IDictionary<string, string>, string> renderSingle)
         {
-
-
             //This action will stagger the output based on whether or not the html attribute declarations are the same for each dependency
             Action<IEnumerable<IClientDependencyFile>> staggerOnDifferentAttributes = (list) =>
             {
@@ -248,14 +246,10 @@ namespace ClientDependency.Core.FileRegistration.Providers
                     //if there's only one found, then just add it to our output
                     toKeep.Add(d);
                 }
-
-
             }
 
             dependencies.Clear();
             dependencies.AddRange(toKeep);
-
-
         }
 
         private string AppendVersion(string url, HttpContextBase http)
@@ -326,12 +320,12 @@ namespace ClientDependency.Core.FileRegistration.Providers
                 if (file is IRequiresHtmlAttributesParsing)
                 {
                     //we need to parse the attributes into the dictionary
-                    HtmlAttributesStringParser.ParseIntoDictionary(((IRequiresHtmlAttributesParsing)file).HtmlAttributesAsString, attributes);                    
-                }                
+                    HtmlAttributesStringParser.ParseIntoDictionary(((IRequiresHtmlAttributesParsing)file).HtmlAttributesAsString, attributes);
+                }
             }
 
             //now we must ensure that the correct js/css attribute exist!
-            switch(file.DependencyType)
+            switch (file.DependencyType)
             {
                 case ClientDependencyType.Javascript:
                     if (!attributes.ContainsKey("type"))

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,8 +20,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,7 +43,6 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Scheduling;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     /// <summary>
@@ -51,22 +50,22 @@ namespace DotNetNuke.Common.Utilities
     /// </summary>
     public partial class CBO : ServiceLocator<ICBO, CBO>, ICBO
     {
-		#region Private Constants
-		
+        #region Private Constants
+
         private const string defaultPrimaryKey = "ItemID";
 
         private const string objectMapCacheKey = "ObjectMap_";
 
-		#endregion
+        #endregion
 
         protected override Func<ICBO> GetFactory()
         {
             return () => new CBO();
         }
 
-		#region Private Shared Methods
+        #region Private Shared Methods
 
-		#region Object Creation/Hydration Helper Methods
+        #region Object Creation/Hydration Helper Methods
 
         private static object CreateObjectInternal(Type objType, bool initialise)
         {
@@ -77,7 +76,6 @@ namespace DotNetNuke.Common.Utilities
                 InitializeObject(objObject);
             }
             return objObject;
-           
         }
 
         private static object CreateObjectFromReader(Type objType, IDataReader dr, bool closeReader)
@@ -99,7 +97,7 @@ namespace DotNetNuke.Common.Utilities
             {
                 if (canRead)
                 {
-					//Create the Object
+                    //Create the Object
                     objObject = CreateObjectInternal(objType, false);
 
                     //hydrate the custom business object
@@ -109,7 +107,7 @@ namespace DotNetNuke.Common.Utilities
             }
             finally
             {
-				//Ensure DataReader is closed
+                //Ensure DataReader is closed
                 if ((!isSuccess))
                 {
                     closeReader = true;
@@ -133,31 +131,31 @@ namespace DotNetNuke.Common.Utilities
                 //iterate datareader
                 while (dr.Read())
                 {
-					//Create the Object
-                    objObject = (TValue) CreateObjectFromReader(typeof (TValue), dr, false);
+                    //Create the Object
+                    objObject = (TValue)CreateObjectFromReader(typeof(TValue), dr, false);
                     if (keyField == "KeyID" && objObject is IHydratable)
                     {
-						//Get the value of the key field from the KeyID
-                        keyValue = (TKey) Null.SetNull(((IHydratable) objObject).KeyID, keyValue);
+                        //Get the value of the key field from the KeyID
+                        keyValue = (TKey)Null.SetNull(((IHydratable)objObject).KeyID, keyValue);
                     }
                     else
                     {
-						//Get the value of the key field from the DataReader
-                        if (typeof (TKey).Name == "Int32" && dr[keyField].GetType().Name == "Decimal")
+                        //Get the value of the key field from the DataReader
+                        if (typeof(TKey).Name == "Int32" && dr[keyField].GetType().Name == "Decimal")
                         {
-                            keyValue = (TKey) Convert.ChangeType(Null.SetNull(dr[keyField], keyValue), typeof (TKey));
+                            keyValue = (TKey)Convert.ChangeType(Null.SetNull(dr[keyField], keyValue), typeof(TKey));
                         }
-                        else if (typeof (TKey).Name.ToLower() == "string" &&
+                        else if (typeof(TKey).Name.ToLower() == "string" &&
                                  dr[keyField].GetType().Name.ToLower() == "dbnull")
                         {
-                            keyValue = (TKey) Convert.ChangeType(Null.SetNull(dr[keyField], ""), typeof (TKey));
+                            keyValue = (TKey)Convert.ChangeType(Null.SetNull(dr[keyField], ""), typeof(TKey));
                         }
                         else
                         {
-                            keyValue = (TKey) Convert.ChangeType(Null.SetNull(dr[keyField], ""), typeof (TKey));
+                            keyValue = (TKey)Convert.ChangeType(Null.SetNull(dr[keyField], ""), typeof(TKey));
                         }
                     }
-					//add to dictionary
+                    //add to dictionary
                     if (objObject != null)
                     {
                         objDictionary[keyValue] = objObject;
@@ -167,14 +165,14 @@ namespace DotNetNuke.Common.Utilities
             }
             finally
             {
-				//Ensure DataReader is closed
+                //Ensure DataReader is closed
                 if ((!isSuccess))
                 {
                     closeReader = true;
                 }
                 CloseDataReader(dr, closeReader);
             }
-			
+
             //Return the dictionary
             return objDictionary;
         }
@@ -188,16 +186,16 @@ namespace DotNetNuke.Common.Utilities
                 //iterate datareader
                 while (dr.Read())
                 {
-					//Create the Object
+                    //Create the Object
                     objObject = CreateObjectFromReader(objType, dr, false);
-					//add to collection
+                    //add to collection
                     objList.Add(objObject);
                 }
                 isSuccess = true;
             }
             finally
             {
-				//Ensure DataReader is closed
+                //Ensure DataReader is closed
                 if ((!isSuccess))
                 {
                     closeReader = true;
@@ -213,19 +211,19 @@ namespace DotNetNuke.Common.Utilities
             bool isSuccess = Null.NullBoolean;
             try
             {
-				//iterate datareader
+                //iterate datareader
                 while (dr.Read())
                 {
-					//Create the Object
-                    objObject = (TItem) CreateObjectFromReader(typeof (TItem), dr, false);
-					//add to collection
+                    //Create the Object
+                    objObject = (TItem)CreateObjectFromReader(typeof(TItem), dr, false);
+                    //add to collection
                     objList.Add(objObject);
                 }
                 isSuccess = true;
             }
             finally
             {
-				//Ensure DataReader is closed
+                //Ensure DataReader is closed
                 if ((!isSuccess))
                 {
                     closeReader = true;
@@ -239,10 +237,10 @@ namespace DotNetNuke.Common.Utilities
         {
             try
             {
-				//Determine if object is IHydratable
+                //Determine if object is IHydratable
                 if (objObject is IHydratable)
                 {
-					//Use IHydratable's Fill
+                    //Use IHydratable's Fill
                     var objHydratable = objObject as IHydratable;
                     if (objHydratable != null)
                     {
@@ -251,13 +249,13 @@ namespace DotNetNuke.Common.Utilities
                 }
                 else
                 {
-					//Use Reflection
+                    //Use Reflection
                     HydrateObject(objObject, dr);
                 }
             }
             catch (IndexOutOfRangeException iex)
             {
-				//Call to GetOrdinal is being made with a bad column name
+                //Call to GetOrdinal is being made with a bad column name
                 if (Host.ThrowCBOExceptions)
                 {
                     throw new ObjectHydrationException("Error Reading DataReader", iex, objObject.GetType(), dr);
@@ -281,20 +279,20 @@ namespace DotNetNuke.Common.Utilities
             if (hydratedObject is BaseEntityInfo && !(hydratedObject is ScheduleItem))
             {
                 //Call the base classes fill method to populate base class properties
-                ((BaseEntityInfo) hydratedObject).FillBaseProperties(dr);
+                ((BaseEntityInfo)hydratedObject).FillBaseProperties(dr);
             }
             //fill object with values from datareader
             for (intIndex = 0; intIndex <= dr.FieldCount - 1; intIndex++)
             {
-				//If the Column matches a Property in the Object Map's PropertyInfo Dictionary
+                //If the Column matches a Property in the Object Map's PropertyInfo Dictionary
                 if (objMappingInfo.Properties.TryGetValue(dr.GetName(intIndex).ToUpperInvariant(), out objPropertyInfo))
                 {
-					//Get its type
+                    //Get its type
                     propType = objPropertyInfo.PropertyType;
                     //If property can be set
                     if (objPropertyInfo.CanWrite)
                     {
-						//Get the Data Value from the data reader
+                        //Get the Data Value from the data reader
                         coloumnValue = dr.GetValue(intIndex);
                         //Get the Data Value's type
                         objDataType = coloumnValue.GetType();
@@ -305,16 +303,16 @@ namespace DotNetNuke.Common.Utilities
                         }
                         else if (propType.Equals(objDataType))
                         {
-							//Property and data objects are the same type
+                            //Property and data objects are the same type
                             objPropertyInfo.SetValue(hydratedObject, coloumnValue, null);
                         }
                         else
                         {
-							//business object info class member data type does not match datareader member data type
-							//need to handle enumeration conversions differently than other base types
-                            if (propType.BaseType.Equals(typeof (Enum)))
+                            //business object info class member data type does not match datareader member data type
+                            //need to handle enumeration conversions differently than other base types
+                            if (propType.BaseType.Equals(typeof(Enum)))
                             {
-								//check if value is numeric and if not convert to integer ( supports databases like Oracle )
+                                //check if value is numeric and if not convert to integer ( supports databases like Oracle )
                                 if (Regex.IsMatch(coloumnValue.ToString(), "^\\d+$"))
                                 {
                                     objPropertyInfo.SetValue(hydratedObject,
@@ -326,14 +324,14 @@ namespace DotNetNuke.Common.Utilities
                                     objPropertyInfo.SetValue(hydratedObject, Enum.ToObject(propType, coloumnValue), null);
                                 }
                             }
-                            else if (propType == typeof (Guid))
+                            else if (propType == typeof(Guid))
                             {
-								//guid is not a datatype common across all databases ( ie. Oracle )
+                                //guid is not a datatype common across all databases ( ie. Oracle )
                                 objPropertyInfo.SetValue(hydratedObject,
                                                          Convert.ChangeType(new Guid(coloumnValue.ToString()), propType),
                                                          null);
                             }
-                            else if (propType == typeof (Version))
+                            else if (propType == typeof(Version))
                             {
                                 objPropertyInfo.SetValue(hydratedObject, new Version(coloumnValue.ToString()), null);
                             }
@@ -352,35 +350,35 @@ namespace DotNetNuke.Common.Utilities
             }
         }
 
-         static object ChangeType(object obj, Type type)
-         {
-             Type u = Nullable.GetUnderlyingType(type);
- 
-             if (u != null) 
-             {
-                 if (obj == null)
-                 {
-                     return GetDefault(type);
-                 }
- 
-                 return Convert.ChangeType(obj, u);
-             }
-             return Convert.ChangeType(obj, type);
-         }
- 
-         static object GetDefault(Type type)
-         {
-             if (type.IsValueType)
-             {
-                 return Activator.CreateInstance(type);
-             }
- 
-             return null;
-         }
- 
-		#endregion
+        private static object ChangeType(object obj, Type type)
+        {
+            Type u = Nullable.GetUnderlyingType(type);
 
-		#region Object Mapping Helper Methods
+            if (u != null)
+            {
+                if (obj == null)
+                {
+                    return GetDefault(type);
+                }
+
+                return Convert.ChangeType(obj, u);
+            }
+            return Convert.ChangeType(obj, type);
+        }
+
+        private static object GetDefault(Type type)
+        {
+            if (type.IsValueType)
+            {
+                return Activator.CreateInstance(type);
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region Object Mapping Helper Methods
 
         private static string GetColumnName(PropertyInfo objProperty)
         {
@@ -391,7 +389,7 @@ namespace DotNetNuke.Common.Utilities
         private static ObjectMappingInfo GetObjectMapping(Type objType)
         {
             string cacheKey = objectMapCacheKey + objType.FullName;
-            var objMap = (ObjectMappingInfo) DataCache.GetCache(cacheKey);
+            var objMap = (ObjectMappingInfo)DataCache.GetCache(cacheKey);
             if (objMap == null)
             {
                 //Create an ObjectMappingInfo instance
@@ -409,7 +407,7 @@ namespace DotNetNuke.Common.Utilities
                 //Persist to Cache
                 DataCache.SetCache(cacheKey, objMap);
             }
-			
+
             //Return Object Map
             return objMap;
         }
@@ -429,7 +427,7 @@ namespace DotNetNuke.Common.Utilities
                 tableName = objType.Name;
                 if (tableName.EndsWith("Info"))
                 {
-					//Remove Info ending
+                    //Remove Info ending
                     tableName.Replace("Info", string.Empty);
                 }
             }
@@ -440,10 +438,10 @@ namespace DotNetNuke.Common.Utilities
             }
             return tableName;
         }
-		
-		#endregion
 
-		#endregion
+        #endregion
+
+        #endregion
 
         #region Public Methods
 
@@ -532,22 +530,22 @@ namespace DotNetNuke.Common.Utilities
             }
         }
 
-		#endregion
+        #endregion
 
-		#region CloseDataReader
+        #region CloseDataReader
 
         public static void CloseDataReader(IDataReader dr, bool closeReader)
         {
-			//close datareader
+            //close datareader
             if (dr != null && closeReader)
             {
                 dr.Close();
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Create Object
+        #region Create Object
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -565,9 +563,9 @@ namespace DotNetNuke.Common.Utilities
             return (TObject)CreateObjectInternal(typeof(TObject), initialise);
         }
 
-		#endregion
+        #endregion
 
-		#region DeserializeObject
+        #region DeserializeObject
 
         public static TObject DeserializeObject<TObject>(string fileName)
         {
@@ -591,27 +589,27 @@ namespace DotNetNuke.Common.Utilities
 
         public static TObject DeserializeObject<TObject>(XmlReader reader)
         {
-			//First Create the Object
+            //First Create the Object
             var objObject = CreateObject<TObject>(true);
             //Try to cast the Object as IXmlSerializable
             var xmlSerializableObject = objObject as IXmlSerializable;
             if (xmlSerializableObject == null)
             {
-				//Use XmlSerializer
+                //Use XmlSerializer
                 var serializer = new XmlSerializer(objObject.GetType());
-                objObject = (TObject) serializer.Deserialize(reader);
+                objObject = (TObject)serializer.Deserialize(reader);
             }
             else
             {
-				//Use XmlReader
+                //Use XmlReader
                 xmlSerializableObject.ReadXml(reader);
             }
             return objObject;
         }
-		
-		#endregion
 
-		#region FillCollection
+        #endregion
+
+        #region FillCollection
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -625,7 +623,7 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static ArrayList FillCollection(IDataReader dr, Type objType)
         {
-            return (ArrayList) FillListFromReader(objType, dr, new ArrayList(), true);
+            return (ArrayList)FillListFromReader(objType, dr, new ArrayList(), true);
         }
 
         /// -----------------------------------------------------------------------------
@@ -641,7 +639,7 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static ArrayList FillCollection(IDataReader dr, Type objType, bool closeReader)
         {
-            return (ArrayList) FillListFromReader(objType, dr, new ArrayList(), closeReader);
+            return (ArrayList)FillListFromReader(objType, dr, new ArrayList(), closeReader);
         }
 
         /// -----------------------------------------------------------------------------
@@ -672,7 +670,7 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static List<TItem> FillCollection<TItem>(IDataReader dr)
         {
-            return (List<TItem>) FillListFromReader(dr, new List<TItem>(), true);
+            return (List<TItem>)FillListFromReader(dr, new List<TItem>(), true);
         }
 
         /// -----------------------------------------------------------------------------
@@ -724,12 +722,12 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static ArrayList FillCollection(IDataReader dr, ref Type objType, ref int totalRecords)
         {
-            var objFillCollection = (ArrayList) FillListFromReader(objType, dr, new ArrayList(), false);
+            var objFillCollection = (ArrayList)FillListFromReader(objType, dr, new ArrayList(), false);
             try
             {
                 if (dr.NextResult())
                 {
-					//Get the total no of records from the second result
+                    //Get the total no of records from the second result
                     totalRecords = Globals.GetTotalRecords(ref dr);
                 }
             }
@@ -739,7 +737,7 @@ namespace DotNetNuke.Common.Utilities
             }
             finally
             {
-				//Ensure DataReader is closed
+                //Ensure DataReader is closed
                 CloseDataReader(dr, true);
             }
             return objFillCollection;
@@ -766,7 +764,7 @@ namespace DotNetNuke.Common.Utilities
             {
                 if (dr.NextResult())
                 {
-					//Get the total no of records from the second result
+                    //Get the total no of records from the second result
                     totalRecords = Globals.GetTotalRecords(ref dr);
                 }
             }
@@ -776,15 +774,15 @@ namespace DotNetNuke.Common.Utilities
             }
             finally
             {
-				//Ensure DataReader is closed
+                //Ensure DataReader is closed
                 CloseDataReader(dr, true);
             }
-            return (List<T>) objFillCollection;
+            return (List<T>)objFillCollection;
         }
-		
-		#endregion
 
-		#region FillDictionary
+        #endregion
+
+        #region FillDictionary
 
         /// <summary>
         /// FillDictionary fills a Dictionary of objects from a DataReader
@@ -796,7 +794,7 @@ namespace DotNetNuke.Common.Utilities
         public static Dictionary<TKey, TValue> FillDictionary<TKey, TValue>(string keyField, IDataReader dr)
         {
             return
-                (Dictionary<TKey, TValue>) FillDictionaryFromReader(keyField, dr, new Dictionary<TKey, TValue>(), true);
+                (Dictionary<TKey, TValue>)FillDictionaryFromReader(keyField, dr, new Dictionary<TKey, TValue>(), true);
         }
 
         /// <summary>
@@ -809,7 +807,7 @@ namespace DotNetNuke.Common.Utilities
         /// <param name="closeReader">A flag indicating whether to close the reader.</param>
         public static Dictionary<TKey, TValue> FillDictionary<TKey, TValue>(string keyField, IDataReader dr, bool closeReader)
         {
-            return (Dictionary<TKey, TValue>) FillDictionaryFromReader(keyField, dr, new Dictionary<TKey, TValue>(), closeReader);
+            return (Dictionary<TKey, TValue>)FillDictionaryFromReader(keyField, dr, new Dictionary<TKey, TValue>(), closeReader);
         }
 
         /// -----------------------------------------------------------------------------
@@ -827,12 +825,12 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static Dictionary<TKey, TValue> FillDictionary<TKey, TValue>(string keyField, IDataReader dr, IDictionary<TKey, TValue> objDictionary)
         {
-            return (Dictionary<TKey, TValue>) FillDictionaryFromReader(keyField, dr, objDictionary, true);
+            return (Dictionary<TKey, TValue>)FillDictionaryFromReader(keyField, dr, objDictionary, true);
         }
-		
-		#endregion
 
-		#region FillObject
+        #endregion
+
+        #region FillObject
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -846,7 +844,7 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static TObject FillObject<TObject>(IDataReader dr)
         {
-            return (TObject) CreateObjectFromReader(typeof (TObject), dr, true);
+            return (TObject)CreateObjectFromReader(typeof(TObject), dr, true);
         }
 
         /// -----------------------------------------------------------------------------
@@ -862,10 +860,10 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static TObject FillObject<TObject>(IDataReader dr, bool closeReader)
         {
-            return (TObject) CreateObjectFromReader(typeof (TObject), dr, closeReader);
+            return (TObject)CreateObjectFromReader(typeof(TObject), dr, closeReader);
         }
 
-		#endregion
+        #endregion
 
         public static IQueryable<TItem> FillQueryable<TItem>(IDataReader dr)
         {
@@ -887,7 +885,7 @@ namespace DotNetNuke.Common.Utilities
         public static SortedList<TKey, TValue> FillSortedList<TKey, TValue>(string keyField, IDataReader dr)
         {
             return
-                (SortedList<TKey, TValue>) FillDictionaryFromReader(keyField, dr, new SortedList<TKey, TValue>(), true);
+                (SortedList<TKey, TValue>)FillDictionaryFromReader(keyField, dr, new SortedList<TKey, TValue>(), true);
         }
 
         public static void DeserializeSettings(IDictionary dictionary, XmlNode rootNode, string elementName)
@@ -941,15 +939,15 @@ namespace DotNetNuke.Common.Utilities
 
                     nodeSettingValue = nodeSetting.AppendChild(document.CreateElement("settingvalue"));
                     nodeSettingValue.InnerText = dictionary[sKey].ToString();
-        }
+                }
             }
             else
             {
                 throw new ArgumentException("Invalid Target Path");
             }
         }
-		
-		#region "GetCachedObject"
+
+        #region "GetCachedObject"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -973,10 +971,10 @@ namespace DotNetNuke.Common.Utilities
         {
             return DataCache.GetCachedData<TObject>(cacheItemArgs, cacheItemExpired, saveInDictionary);
         }
-		
-		#endregion
 
-		#region "GetProperties"
+        #endregion
+
+        #region "GetProperties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -989,7 +987,7 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static Dictionary<string, PropertyInfo> GetProperties<TObject>()
         {
-            return GetObjectMapping(typeof (TObject)).Properties;
+            return GetObjectMapping(typeof(TObject)).Properties;
         }
 
         /// -----------------------------------------------------------------------------
@@ -1005,10 +1003,10 @@ namespace DotNetNuke.Common.Utilities
         {
             return GetObjectMapping(objType).Properties;
         }
-		
-		#endregion
 
-		#region "InitializeObject"
+        #endregion
+
+        #region "InitializeObject"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -1022,7 +1020,7 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static void InitializeObject(object objObject)
         {
-			//initialize properties
+            //initialize properties
             foreach (PropertyInfo objPropertyInfo in GetObjectMapping(objObject.GetType()).Properties.Values)
             {
                 if (objPropertyInfo.CanWrite)
@@ -1045,7 +1043,7 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static object InitializeObject(object objObject, Type objType)
         {
-			//initialize properties
+            //initialize properties
             foreach (PropertyInfo objPropertyInfo in GetObjectMapping(objType).Properties.Values)
             {
                 if (objPropertyInfo.CanWrite)
@@ -1055,10 +1053,10 @@ namespace DotNetNuke.Common.Utilities
             }
             return objObject;
         }
-		
-		#endregion
 
-		#region "SerializeObject"
+        #endregion
+
+        #region "SerializeObject"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -1152,23 +1150,23 @@ namespace DotNetNuke.Common.Utilities
         /// -----------------------------------------------------------------------------
         public static void SerializeObject(object objObject, XmlWriter writer)
         {
-			//Try to cast the Object as IXmlSerializable
+            //Try to cast the Object as IXmlSerializable
             var xmlSerializableObject = objObject as IXmlSerializable;
             if (xmlSerializableObject == null)
             {
-				//Use XmlSerializer
+                //Use XmlSerializer
                 var serializer = new XmlSerializer(objObject.GetType());
                 serializer.Serialize(writer, objObject);
             }
             else
             {
-				//Use XmlWriter
+                //Use XmlWriter
                 xmlSerializableObject.WriteXml(writer);
             }
         }
 
-		#endregion
-		
-		#endregion
+        #endregion
+
+        #endregion
     }
 }

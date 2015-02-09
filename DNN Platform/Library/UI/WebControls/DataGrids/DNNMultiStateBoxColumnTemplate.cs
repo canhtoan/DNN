@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -27,7 +27,6 @@ using System.Web.UI.WebControls;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -44,14 +43,14 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class DNNMultiStateBoxColumnTemplate : ITemplate
     {
-        private string mDataField = Null.NullString;
-        private bool mEnabled = true;
-        private string mEnabledField = Null.NullString;
-        private string mImagePath = "";
-        private ListItemType mItemType = ListItemType.Item;
-        private string mSelectedStateKey = "";
-        private DNNMultiStateCollection mStates;
-        private string mText = "";
+        private string _mDataField = Null.NullString;
+        private bool _mEnabled = true;
+        private string _mEnabledField = Null.NullString;
+        private string _mImagePath = "";
+        private ListItemType _mItemType = ListItemType.Item;
+        private string _mSelectedStateKey = "";
+        private DNNMultiStateCollection _mStates;
+        private string _mText = "";
 
         public DNNMultiStateBoxColumnTemplate() : this(ListItemType.Item)
         {
@@ -62,15 +61,15 @@ namespace DotNetNuke.UI.WebControls
             ItemType = itemType;
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets and sets whether the column fires a postback when the control changes
-		/// </summary>
-		/// <value>A Boolean</value>
-		/// <history>
-		/// 	[cnurse]	02/16/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets and sets whether the column fires a postback when the control changes
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/16/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool AutoPostBack { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -86,11 +85,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mSelectedStateKey;
+                return _mSelectedStateKey;
             }
             set
             {
-                mSelectedStateKey = value;
+                _mSelectedStateKey = value;
             }
         }
 
@@ -107,23 +106,23 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mDataField;
+                return _mDataField;
             }
             set
             {
-                mDataField = value;
+                _mDataField = value;
             }
         }
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// Gets or sets the Design Mode of the Column
-		/// </summary>
-		/// <value>A Boolean</value>
-		/// <history>
-		/// 	[cnurse]	02/24/2006	Created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Design Mode of the Column
+        /// </summary>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	02/24/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool DesignMode { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -141,11 +140,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabled;
+                return _mEnabled;
             }
             set
             {
-                mEnabled = value;
+                _mEnabled = value;
             }
         }
 
@@ -163,11 +162,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mEnabledField;
+                return _mEnabledField;
             }
             set
             {
-                mEnabledField = value;
+                _mEnabledField = value;
             }
         }
 
@@ -184,11 +183,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mItemType;
+                return _mItemType;
             }
             set
             {
-                mItemType = value;
+                _mItemType = value;
             }
         }
 
@@ -205,11 +204,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mText;
+                return _mText;
             }
             set
             {
-                mText = value;
+                _mText = value;
             }
         }
 
@@ -226,11 +225,11 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return mImagePath;
+                return _mImagePath;
             }
             set
             {
-                mImagePath = value;
+                _mImagePath = value;
             }
         }
 
@@ -247,15 +246,15 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                if (mStates == null)
+                if (_mStates == null)
                 {
-                    mStates = new DNNMultiStateCollection(new DNNMultiStateBox());
+                    _mStates = new DNNMultiStateCollection(new DNNMultiStateBox());
                 }
-                return mStates;
+                return _mStates;
             }
             set
             {
-                mStates = value;
+                _mStates = value;
             }
         }
 
@@ -302,8 +301,8 @@ namespace DotNetNuke.UI.WebControls
         /// -----------------------------------------------------------------------------
         private void Item_DataBinding(object sender, EventArgs e)
         {
-            var box = (DNNMultiStateBox) sender;
-            var container = (DataGridItem) box.NamingContainer;
+            var box = (DNNMultiStateBox)sender;
+            var container = (DataGridItem)box.NamingContainer;
             if (!String.IsNullOrEmpty(DataField) && ItemType != ListItemType.Header)
             {
                 if (DesignMode)

@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -32,7 +32,6 @@ using System.Xml.Serialization;
 using DotNetNuke.Security.Roles;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users.Social
 {
     /// -----------------------------------------------------------------------------
@@ -52,7 +51,7 @@ namespace DotNetNuke.Entities.Users.Social
 
         private IList<Relationship> _relationships;
         private IList<UserRelationship> _userRelationships;
-        private  IList<UserRoleInfo> _roles;
+        private IList<UserRoleInfo> _roles;
         private readonly UserInfo _userInfo;
 
         #endregion
@@ -78,7 +77,7 @@ namespace DotNetNuke.Entities.Users.Social
                 var _friendsRelationship = RelationshipController.Instance.GetFriendsRelationshipByPortal(_userInfo.PortalID);
                 var currentUser = UserController.Instance.GetCurrentUserInfo();
                 return UserRelationships.SingleOrDefault(ur => (ur.RelationshipId == _friendsRelationship.RelationshipId
-                                                                && 
+                                                                &&
                                                                 (ur.UserId == _userInfo.UserID &&
                                                                  ur.RelatedUserId == currentUser.UserID
                                                                  ||
@@ -158,12 +157,12 @@ namespace DotNetNuke.Entities.Users.Social
         [XmlAttribute]
         public IList<UserRoleInfo> Roles
         {
-            get 
+            get
             {
                 return _roles ?? (_roles = (_userInfo.PortalID == -1 && _userInfo.UserID == -1)
                                             ? new List<UserRoleInfo>(0)
                                             : RoleController.Instance.GetUserRoles(_userInfo, true)
-                                ); 
+                                );
             }
         }
 

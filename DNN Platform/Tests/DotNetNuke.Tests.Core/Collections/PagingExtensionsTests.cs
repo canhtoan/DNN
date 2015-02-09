@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,7 +32,6 @@ using DotNetNuke.Tests.Utilities;
 using NUnit.Framework;
 
 #endregion
-
 namespace DotNetNuke.Tests.Core.Collections
 {
     [TestFixture]

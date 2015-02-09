@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,7 +32,6 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Social.Messaging.Internal.Views;
 
 #endregion
-
 namespace DotNetNuke.Services.Social.Messaging.Data
 {
     internal class DataService : ComponentBase<IDataService, DataService>, IDataService
@@ -44,7 +43,7 @@ namespace DotNetNuke.Services.Social.Messaging.Data
         public int SaveMessage(Message message, int portalId, int createUpdateUserId)
         {
             //need to fix groupmail
-            return _provider.ExecuteScalar<int>("CoreMessaging_SaveMessage", message.MessageID, portalId ,message.To, message.From, message.Subject, message.Body, message.ConversationId, message.ReplyAllAllowed, message.SenderUserID, createUpdateUserId);
+            return _provider.ExecuteScalar<int>("CoreMessaging_SaveMessage", message.MessageID, portalId, message.To, message.From, message.Subject, message.Body, message.ConversationId, message.ReplyAllAllowed, message.SenderUserID, createUpdateUserId);
         }
 
         public IDataReader GetMessage(int messageId)
@@ -72,9 +71,9 @@ namespace DotNetNuke.Services.Social.Messaging.Data
             _provider.ExecuteNonQuery("CoreMessaging_DeleteUserFromConversation", conversationId, userId);
         }
 
-        public int CreateMessageReply(int conversationId, int portalId,string body, int senderUserId, string from, int createUpdateUserId)
+        public int CreateMessageReply(int conversationId, int portalId, string body, int senderUserId, string from, int createUpdateUserId)
         {
-            return _provider.ExecuteScalar<int>("CoreMessaging_CreateMessageReply", conversationId, portalId,body, senderUserId, from, createUpdateUserId);
+            return _provider.ExecuteScalar<int>("CoreMessaging_CreateMessageReply", conversationId, portalId, body, senderUserId, from, createUpdateUserId);
         }
 
         /// <summary>
@@ -124,12 +123,12 @@ namespace DotNetNuke.Services.Social.Messaging.Data
                     break;
             }
 
-            return _provider.ExecuteReader("CoreMessaging_GetMessageConversations", userId, portalId , afterMessageId, numberOfRecords, sortColumn, sortAscending, read, archived, sent);
+            return _provider.ExecuteReader("CoreMessaging_GetMessageConversations", userId, portalId, afterMessageId, numberOfRecords, sortColumn, sortAscending, read, archived, sent);
         }
 
         public IDataReader GetSentBoxView(int userId, int portalId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending)
         {
-            return _provider.ExecuteReader("CoreMessaging_GetSentBox", userId, portalId, afterMessageId, numberOfRecords, sortColumn, sortAscending);            
+            return _provider.ExecuteReader("CoreMessaging_GetSentBox", userId, portalId, afterMessageId, numberOfRecords, sortColumn, sortAscending);
         }
 
         public IDataReader GetArchiveBoxView(int userId, int portalId, int afterMessageId, int numberOfRecords, string sortColumn, bool sortAscending)
@@ -138,7 +137,7 @@ namespace DotNetNuke.Services.Social.Messaging.Data
         }
 
         public IDataReader GetMessageThread(int conversationId, int userId, int afterMessageId, int numberOfRecords, string sortColumn, bool @sortAscending, ref int totalRecords)
-        {            
+        {
             return _provider.ExecuteReader("CoreMessaging_GetMessageThread", conversationId, userId, afterMessageId, numberOfRecords, sortColumn, sortAscending);
         }
 
@@ -265,11 +264,11 @@ namespace DotNetNuke.Services.Social.Messaging.Data
                     if (file == null) continue;
 
                     var attachment = new MessageFileView
-                                         {
-                                             Name = file.FileName,
-                                             Size = file.Size.ToString(CultureInfo.InvariantCulture),
-                                             Url = FileManager.Instance.GetUrl(file)
-                                         };
+                    {
+                        Name = file.FileName,
+                        Size = file.Size.ToString(CultureInfo.InvariantCulture),
+                        Url = FileManager.Instance.GetUrl(file)
+                    };
 
                     attachments.Add(attachment);
                 }
@@ -290,7 +289,7 @@ namespace DotNetNuke.Services.Social.Messaging.Data
         #endregion
 
         #region Upgrade APIs
-        
+
         public void ConvertLegacyMessages(int pageIndex, int pageSize)
         {
             _provider.ExecuteNonQuery("CoreMessaging_ConvertLegacyMessages", pageIndex, pageSize);
@@ -307,7 +306,7 @@ namespace DotNetNuke.Services.Social.Messaging.Data
 
         public IDataReader GetNextMessagesForInstantDispatch(Guid schedulerInstance, int batchSize)
         {
-            return _provider.ExecuteReader("CoreMessaging_GetNextMessagesForInstantDispatch", schedulerInstance,batchSize);
+            return _provider.ExecuteReader("CoreMessaging_GetNextMessagesForInstantDispatch", schedulerInstance, batchSize);
         }
 
         public IDataReader GetNextMessagesForDigestDispatch(int frequecy, Guid schedulerInstance, int batchSize)
@@ -315,7 +314,7 @@ namespace DotNetNuke.Services.Social.Messaging.Data
             return _provider.ExecuteReader("CoreMessaging_GetNextMessagesForDigestDispatch", frequecy, schedulerInstance, batchSize);
         }
 
-        public void MarkMessageAsDispatched(int messageId,int recipientId)
+        public void MarkMessageAsDispatched(int messageId, int recipientId)
         {
             _provider.ExecuteNonQuery("CoreMessaging_MarkMessageAsDispatched", messageId, recipientId);
         }

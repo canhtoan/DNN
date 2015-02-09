@@ -7,7 +7,6 @@ namespace ClientDependency.Core
     /// </summary>
     public interface IHaveHtmlAttributes
     {
-
         /// <summary>
         /// Used to store additional attributes in the HTML markup for the item
         /// </summary>
@@ -15,6 +14,5 @@ namespace ClientDependency.Core
         /// Mostly used for CSS Media, but could be for anything
         /// </remarks>
         IDictionary<string, string> HtmlAttributes { get; }
-
     }
 }

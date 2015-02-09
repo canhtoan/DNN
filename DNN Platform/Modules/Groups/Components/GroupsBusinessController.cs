@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using System.Linq;
 using DotNetNuke.Entities.Modules;
@@ -58,7 +58,6 @@ namespace DotNetNuke.Modules.Groups.Components
 
                 if (actions.Any())
                 {
-
                     foreach (var action in actions)
                     {
                         action.APICall = action.APICall.Replace(".ashx", "");
@@ -73,13 +72,13 @@ namespace DotNetNuke.Modules.Groups.Components
         private void RemoveRejectActionForCreatedNotification()
         {
             var notificationType = NotificationsController.Instance.GetNotificationType(Constants.GroupCreatedNotification);
-            if(notificationType == null)
+            if (notificationType == null)
             {
                 return;
             }
 
             var action = NotificationsController.Instance.GetNotificationTypeAction(notificationType.NotificationTypeId, "RejectGroup");
-            if(action == null)
+            if (action == null)
             {
                 return;
             }
@@ -89,26 +88,26 @@ namespace DotNetNuke.Modules.Groups.Components
         private void AddNotificationTypes()
         {
             var actions = new List<NotificationTypeAction>();
-            
+
             //DesktopModule should not be null
             var deskModuleId = DesktopModuleController.GetDesktopModuleByFriendlyName("Social Groups").DesktopModuleID;
 
             //GroupPendingNotification
-            var type = new NotificationType { Name = "GroupPendingNotification", Description = "Group Pending Notification", DesktopModuleId = deskModuleId};
+            var type = new NotificationType { Name = "GroupPendingNotification", Description = "Group Pending Notification", DesktopModuleId = deskModuleId };
             if (NotificationsController.Instance.GetNotificationType(type.Name) == null)
             {
                 actions.Add(new NotificationTypeAction
-                                {
-                                    NameResourceKey = "Approve",
-                                    DescriptionResourceKey = "ApproveGroup",
-                                    APICall = "DesktopModules/SocialGroups/API/ModerationService/ApproveGroup"
-                                });
+                {
+                    NameResourceKey = "Approve",
+                    DescriptionResourceKey = "ApproveGroup",
+                    APICall = "DesktopModules/SocialGroups/API/ModerationService/ApproveGroup"
+                });
                 actions.Add(new NotificationTypeAction
-                                {
-                                    NameResourceKey = "RejectGroup",
-                                    DescriptionResourceKey = "RejectGroup",
-                                    APICall = "DesktopModules/SocialGroups/API/ModerationService/RejectGroup"
-                                });
+                {
+                    NameResourceKey = "RejectGroup",
+                    DescriptionResourceKey = "RejectGroup",
+                    APICall = "DesktopModules/SocialGroups/API/ModerationService/RejectGroup"
+                });
                 NotificationsController.Instance.CreateNotificationType(type);
                 NotificationsController.Instance.SetNotificationTypeActions(actions, type.NotificationTypeId);
             }
@@ -126,12 +125,12 @@ namespace DotNetNuke.Modules.Groups.Components
             {
                 actions.Clear();
                 actions.Add(new NotificationTypeAction
-                                {
-                                    NameResourceKey = "RejectGroup",
-                                    DescriptionResourceKey = "RejectGroup",
-                                    ConfirmResourceKey = "DeleteItem",
-                                    APICall = "DesktopModules/SocialGroups/API/ModerationService/RejectGroup"
-                                });
+                {
+                    NameResourceKey = "RejectGroup",
+                    DescriptionResourceKey = "RejectGroup",
+                    ConfirmResourceKey = "DeleteItem",
+                    APICall = "DesktopModules/SocialGroups/API/ModerationService/RejectGroup"
+                });
                 NotificationsController.Instance.CreateNotificationType(type);
                 NotificationsController.Instance.SetNotificationTypeActions(actions, type.NotificationTypeId);
             }
@@ -149,18 +148,18 @@ namespace DotNetNuke.Modules.Groups.Components
             {
                 actions.Clear();
                 actions.Add(new NotificationTypeAction
-                                {
-                                    NameResourceKey = "Approve",
-                                    DescriptionResourceKey = "ApproveGroupMember",
-                                    ConfirmResourceKey = "",
-                                    APICall = "DesktopModules/SocialGroups/API/ModerationService/ApproveMember"
-                                });
+                {
+                    NameResourceKey = "Approve",
+                    DescriptionResourceKey = "ApproveGroupMember",
+                    ConfirmResourceKey = "",
+                    APICall = "DesktopModules/SocialGroups/API/ModerationService/ApproveMember"
+                });
                 actions.Add(new NotificationTypeAction
-                                {
-                                    NameResourceKey = "RejectMember",
-                                    DescriptionResourceKey = "RejectGroupMember",
-                                    APICall = "DesktopModules/SocialGroups/API/ModerationService/RejectMember"
-                                });
+                {
+                    NameResourceKey = "RejectMember",
+                    DescriptionResourceKey = "RejectGroupMember",
+                    APICall = "DesktopModules/SocialGroups/API/ModerationService/RejectMember"
+                });
                 NotificationsController.Instance.CreateNotificationType(type);
                 NotificationsController.Instance.SetNotificationTypeActions(actions, type.NotificationTypeId);
             }

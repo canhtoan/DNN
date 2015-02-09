@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Common.Utilities;
@@ -30,12 +30,11 @@ using DotNetNuke.Services.Upgrade;
 
 
 #endregion
-
 namespace DotNetNuke.Modules.Taxonomy
 {
     public class TaxonomyController : IUpgradeable
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (TaxonomyController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(TaxonomyController));
         #region IUpgradeable Members
 
         public string UpgradeModule(string Version)
@@ -72,7 +71,7 @@ namespace DotNetNuke.Modules.Taxonomy
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
 
                 return "Failed";
             }

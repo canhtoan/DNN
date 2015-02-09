@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,13 +30,10 @@ using DotNetNuke.Entities.Content.Taxonomy;
 using DotNetNuke.Web.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Modules.Taxonomy.Views.Controls
 {
-
     public partial class EditTermControl : UserControl
     {
-
         #region Public Properties
 
         public string LocalResourceFile { get; set; }
@@ -61,22 +58,22 @@ namespace DotNetNuke.Modules.Taxonomy.Views.Controls
             else
             {
                 nameTextBox.Text = term.Name;
-				nameTextBox.Attributes.Add("data-termid", term.TermId.ToString());
-				nameTextBox.Attributes.Add("data-vocabularyid", term.VocabularyId.ToString());
+                nameTextBox.Attributes.Add("data-termid", term.TermId.ToString());
+                nameTextBox.Attributes.Add("data-vocabularyid", term.VocabularyId.ToString());
                 descriptionTextBox.Text = term.Description;
 
                 //Remove this term (and its descendants) from the collection, so we don't get wierd heirarchies
                 var termsList = (from t in terms where !(t.Left >= term.Left && t.Right <= term.Right) select t).ToList();
-				parentTermCombo.Items.Clear();
-	            foreach (var t in termsList)
-	            {
-		            var item = new DnnComboBoxItem(t.Name, t.TermId.ToString());
-					if (term.ParentTermId.HasValue && term.ParentTermId == t.TermId)
-					{
-						item.Selected = true;
-					}
-					parentTermCombo.Items.Add(item);
-	            }
+                parentTermCombo.Items.Clear();
+                foreach (var t in termsList)
+                {
+                    var item = new DnnComboBoxItem(t.Name, t.TermId.ToString());
+                    if (term.ParentTermId.HasValue && term.ParentTermId == t.TermId)
+                    {
+                        item.Selected = true;
+                    }
+                    parentTermCombo.Items.Add(item);
+                }
 
                 divParentTerm.Visible = isHeirarchical && termsList.Count > 0;
                 nameTextBox.Enabled = editEnabled;
@@ -86,6 +83,5 @@ namespace DotNetNuke.Modules.Taxonomy.Views.Controls
         }
 
         #endregion
-
     }
 }

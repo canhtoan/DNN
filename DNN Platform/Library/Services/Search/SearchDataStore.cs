@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +38,6 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Search.Internals;
 
 #endregion
-
 namespace DotNetNuke.Services.Search
 {
     /// -----------------------------------------------------------------------------
@@ -59,8 +58,8 @@ namespace DotNetNuke.Services.Search
     [Obsolete("Deprecated in DNN 7.1.  No longer used in the Search infrastructure.")]
     public class SearchDataStore : SearchDataStoreProvider
     {
-		#region Private Methods
-        
+        #region Private Methods
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// GetCommonWords gets a list of the Common Words for the locale
@@ -76,7 +75,7 @@ namespace DotNetNuke.Services.Search
         private Hashtable GetCommonWords(string locale)
         {
             string strCacheKey = "CommonWords" + locale;
-            var objWords = (Hashtable) DataCache.GetCache(strCacheKey);
+            var objWords = (Hashtable)DataCache.GetCache(strCacheKey);
             if (objWords == null)
             {
                 objWords = new Hashtable();
@@ -100,7 +99,7 @@ namespace DotNetNuke.Services.Search
 
         #endregion
 
-		#region Public Methods
+        #region Public Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -169,7 +168,7 @@ namespace DotNetNuke.Services.Search
                     {
                         foreach (SearchResultsInfo result in searchResults[criterion.Criteria])
                         {
-							//Add results to dicResults
+                            //Add results to dicResults
                             if (!criterion.MustExclude)
                             {
                                 if (dicResults.ContainsKey(result.SearchItemID))
@@ -184,13 +183,13 @@ namespace DotNetNuke.Services.Search
                                     }
                                     else
                                     {
-										//Add Entry to Sub-Dictionary
+                                        //Add Entry to Sub-Dictionary
                                         dic.Add(result.TabId, result);
                                     }
                                 }
                                 else
                                 {
-									//Create new TabId keyed Dictionary
+                                    //Create new TabId keyed Dictionary
                                     var dic = new Dictionary<int, SearchResultsInfo>();
                                     dic.Add(result.TabId, result);
 
@@ -212,13 +211,13 @@ namespace DotNetNuke.Services.Search
                     {
                         if (criterion.MustInclude)
                         {
-							//Add to mandatory results lookup
+                            //Add to mandatory results lookup
                             mandatoryResults[result.SearchItemID] = true;
                             hasMandatory = true;
                         }
                         else if (criterion.MustExclude)
                         {
-							//Add to exclude results lookup
+                            //Add to exclude results lookup
                             excludedResults[result.SearchItemID] = true;
                             hasExcluded = true;
                         }
@@ -245,7 +244,7 @@ namespace DotNetNuke.Services.Search
                     }
                 }
             }
-			
+
             //Process results against permissions and mandatory and excluded results
             var results = new SearchResultsInfoCollection();
             foreach (KeyValuePair<int, Dictionary<int, SearchResultsInfo>> kvpResults in dicResults)
@@ -254,11 +253,11 @@ namespace DotNetNuke.Services.Search
                 {
                     if (!result.Delete)
                     {
-						//Check If authorised to View Tab
+                        //Check If authorised to View Tab
                         TabInfo objTab = TabController.Instance.GetTab(result.TabId, portalId, false);
                         if (TabPermissionController.CanViewPage(objTab))
                         {
-							//Check If authorised to View Module
+                            //Check If authorised to View Module
                             ModuleInfo objModule = ModuleController.Instance.GetModule(result.ModuleId, result.TabId, false);
                             if (ModulePermissionController.CanViewModule(objModule))
                             {
@@ -268,7 +267,7 @@ namespace DotNetNuke.Services.Search
                     }
                 }
             }
-			
+
             //Return Search Results Collection
             return results;
         }
@@ -290,35 +289,34 @@ namespace DotNetNuke.Services.Search
         public override void StoreSearchItems(SearchItemInfoCollection searchItems)
         {
             var indexer = new ModuleIndexer();
-            
+
             var modulesDic = new Dictionary<int, string>();
             foreach (SearchItemInfo item in searchItems)
-            {                
+            {
                 if (!modulesDic.ContainsKey(item.ModuleId))
                 {
                     var module = ModuleController.Instance.GetModule(item.ModuleId, Null.NullInteger, true);
                     modulesDic.Add(item.ModuleId, module.CultureCode);
-                    
+
                     //Remove all indexed items for this module
                     InternalSearchController.Instance.DeleteSearchDocumentsByModule(module.PortalID, module.ModuleID, module.ModuleDefID);
                 }
             }
-          
+
             //Process the SearchItems by Module to reduce Database hits
             foreach (var kvp in modulesDic)
             {
                 //Get the Module's SearchItems
                 var moduleSearchItems = searchItems.ModuleItems(kvp.Key);
-                
+
                 //Convert SearchItemInfo objects to SearchDocument objects
                 var searchDocuments = (from SearchItemInfo item in moduleSearchItems select indexer.ConvertSearchItemInfoToSearchDocument(item)).ToList();
-                
+
                 //Index
-                InternalSearchController.Instance.AddSearchDocuments(searchDocuments);                
+                InternalSearchController.Instance.AddSearchDocuments(searchDocuments);
             }
-        } 
+        }
 
         #endregion
-
     }
 }

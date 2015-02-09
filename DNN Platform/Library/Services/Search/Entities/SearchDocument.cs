@@ -1,6 +1,6 @@
-#region Copyright
+Ôªø#region Copyright
 // 
-// DotNetNukeÆ - http://www.dotnetnuke.com
+// DotNetNuke¬Æ - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Entities
 {
     /// <summary>
@@ -78,12 +77,12 @@ namespace DotNetNuke.Services.Search.Entities
         /// <summary>
         /// A string representation of roles and users who have view (or denied view) permissions
         /// </summary>
-        /// <remarks>The Permission property is same as how itís implement internally in the Platform. Allow or Deny permission can be specified for RoleNamess and / or UserIds. 
+        /// <remarks>The Permission property is same as how it‚Äôs implement internally in the Platform. Allow or Deny permission can be specified for RoleNamess and / or UserIds. 
         /// A semicolon must be specified to separate two RoleName or UserId.
         ///     "!Translator (en-US);![3];[5];Administrators; ContentEditorRole"
         ///     ! -- identifies denied permission
         ///     [n] -- identifies UserId
-        ///Above example denies permission to Role ìTranslator (en-Us)î and UserId 3, but allows permission to Roles ìAdministratorsî and ìContentEditorRoleî and UserId</remarks>
+        ///Above example denies permission to Role ‚ÄúTranslator (en-Us)‚Äù and UserId 3, but allows permission to Roles ‚ÄúAdministrators‚Äù and ‚ÄúContentEditorRole‚Äù and UserId</remarks>
         public string Permissions { get; set; }
 
         /// <summary>

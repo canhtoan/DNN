@@ -19,14 +19,13 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Collections.Generic;
 using DotNetNuke.Data;
 using System.Linq;
 
 #endregion
-
 namespace DotNetNuke.Modules.SQL.Components
 {
     public class SqlQueryController

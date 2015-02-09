@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,7 +30,6 @@ using Lucene.Net.Index;
 using Lucene.Net.Search;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Internals
 {
     internal delegate bool SecurityCheckerDelegate(Document luceneResult, SearchQuery searchQuery);
@@ -104,7 +103,7 @@ namespace DotNetNuke.Services.Search.Internals
 
             long data;
             if (long.TryParse(field.StringValue, out data) && data >= 0) return data;
-            
+
             return 0;
         }
 
@@ -135,7 +134,7 @@ namespace DotNetNuke.Services.Search.Internals
                     var field = fields[0];
                     if (field.Type == SortField.INT || field.Type == SortField.LONG)
                     {
-                        if(field.Reverse)
+                        if (field.Reverse)
                             tempDocs = _hitDocs.Select(d => new { SDoc = d, Document = _searcher.Doc(d.Doc) })
                                        .OrderByDescending(rec => GetLongFromField(rec.Document, field))
                                        .ThenByDescending(rec => rec.Document.Boost)
@@ -149,7 +148,7 @@ namespace DotNetNuke.Services.Search.Internals
                     else
                     {
                         if (field.Reverse)
-                            tempDocs = _hitDocs.Select(d => new {SDoc = d, Document = _searcher.Doc(d.Doc)})
+                            tempDocs = _hitDocs.Select(d => new { SDoc = d, Document = _searcher.Doc(d.Doc) })
                                            .OrderByDescending(rec => GetStringFromField(rec.Document, field))
                                            .ThenByDescending(rec => rec.Document.Boost)
                                            .Select(rec => rec.SDoc);
@@ -168,7 +167,7 @@ namespace DotNetNuke.Services.Search.Internals
             var scoreDocSize = Math.Min(tempDocs.Count(), pageSize);
             _scoreDocs = new List<ScoreDoc>(scoreDocSize);
 
-           foreach (var scoreDoc in tempDocs)
+            foreach (var scoreDoc in tempDocs)
             {
                 if (_securityChecker == null || _securityChecker(_searcher.Doc(scoreDoc.Doc), _searchQuery))
                 {

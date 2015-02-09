@@ -1,4 +1,5 @@
-﻿namespace ClientDependency.Core
+﻿
+namespace ClientDependency.Core
 {
     /// <summary>
     /// interface defining that an IClientDependencyFile has html attributes applied as a string which require parsing

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Threading;
 using System.Web;
 using System.Web.WebPages;
@@ -35,7 +35,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
     internal static class TabVersionUtils
     {
         #region Internal Methods
-        
+
         /// <summary>
         /// Try to get the version number from the current URL
         /// </summary>
@@ -88,8 +88,8 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         private static string GetTabVersionQueryStringValue()
         {
             var currentPortal = PortalController.Instance.GetCurrentPortalSettings();
-            return currentPortal == null ? 
-                string.Empty : 
+            return currentPortal == null ?
+                string.Empty :
                 HttpContext.Current.Request.QueryString[TabVersionSettings.Instance.GetTabVersionQueryStringParameter(currentPortal.PortalId)];
         }
         #endregion

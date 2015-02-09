@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.Internals.Steps
 {
     /// -----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.Steps
         {
             Percentage = 0;
             Errors = new List<string>();
-        }        
+        }
 
         #region Implementation of IInstallationStep
 
@@ -67,7 +66,7 @@ namespace DotNetNuke.Services.Upgrade.Internals.Steps
             set
             {
                 _details = value;
-				DnnInstallLogger.InstallLogInfo(_details);
+                DnnInstallLogger.InstallLogInfo(_details);
                 if (Activity != null)
                     Activity(_details);
             }

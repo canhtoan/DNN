@@ -7,7 +7,6 @@ namespace ClientDependency.Core
 {
     public static class StringExtensions
     {
-
         public static string EncodeTo64Url(this string toEncode)
         {
             string returnValue = EncodeTo64(toEncode);
@@ -118,6 +117,5 @@ namespace ClientDependency.Core
         {
             return text ?? string.Empty;
         }
-
     }
 }

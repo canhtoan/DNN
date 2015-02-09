@@ -7,8 +7,8 @@ using System.Web.UI;
 
 namespace ClientDependency.Core
 {
-	public class BasicPath : IClientDependencyPath
-	{
+    public class BasicPath : IClientDependencyPath
+    {
         public BasicPath() { }
         public BasicPath(string name, string path)
         {
@@ -16,9 +16,9 @@ namespace ClientDependency.Core
             Path = path;
         }
 
-		public string Name { get; set; }
-		public string Path { get; set; }
-		public bool ForceBundle { get; set; }
-	}
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public bool ForceBundle { get; set; }
+    }
 }
 

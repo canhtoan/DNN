@@ -21,14 +21,13 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     /// <summary>
@@ -37,8 +36,8 @@ namespace DotNetNuke.Entities.Urls
     [Serializable]
     public class FriendlyUrlOptions
     {
-        private static readonly object _regexLookupLock = new object();
-        private static readonly Dictionary<string, Regex> _regexLookup = new Dictionary<string, Regex>(StringComparer.OrdinalIgnoreCase);
+        private static readonly object s_regexLookupLock = new object();
+        private static readonly Dictionary<string, Regex> s_regexLookup = new Dictionary<string, Regex>(StringComparer.OrdinalIgnoreCase);
 
         public bool ConvertDiacriticChars;
         public string IllegalChars;
@@ -84,36 +83,36 @@ namespace DotNetNuke.Entities.Urls
         private static Regex GetRegex(string regexText)
         {
             Regex compiledRegex;
-            if (_regexLookup.TryGetValue(regexText, out compiledRegex))
+            if (s_regexLookup.TryGetValue(regexText, out compiledRegex))
             {
                 return compiledRegex;
             }
 
-            lock (_regexLookupLock)
+            lock (s_regexLookupLock)
             {
-                if (_regexLookup.TryGetValue(regexText, out compiledRegex))
+                if (s_regexLookup.TryGetValue(regexText, out compiledRegex))
                 {
                     return compiledRegex;
                 }
 
-                return _regexLookup[regexText] = new Regex(regexText, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+                return s_regexLookup[regexText] = new Regex(regexText, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
             }
         }
 
         public FriendlyUrlOptions Clone()
         {
             var cloned = new FriendlyUrlOptions
-                {
-                    PunctuationReplacement = PunctuationReplacement,
-                    SpaceEncoding = SpaceEncoding,
-                    MaxUrlPathLength = MaxUrlPathLength,
-                    ConvertDiacriticChars = ConvertDiacriticChars,
-                    PageExtension = PageExtension,
-                    RegexMatch = RegexMatch,
-                    ReplaceCharWithChar = ReplaceCharWithChar,
-                    IllegalChars = IllegalChars,
-                    ReplaceChars = ReplaceChars
-                };
+            {
+                PunctuationReplacement = PunctuationReplacement,
+                SpaceEncoding = SpaceEncoding,
+                MaxUrlPathLength = MaxUrlPathLength,
+                ConvertDiacriticChars = ConvertDiacriticChars,
+                PageExtension = PageExtension,
+                RegexMatch = RegexMatch,
+                ReplaceCharWithChar = ReplaceCharWithChar,
+                IllegalChars = IllegalChars,
+                ReplaceChars = ReplaceChars
+            };
             return cloned;
         }
     }

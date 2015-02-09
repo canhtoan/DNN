@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,13 +36,11 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Installer.Writers;
 using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Web.Client.ClientResourceManagement;
+using Entities.Controllers;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer
 {
-    using Entities.Controllers;
-
     /// -----------------------------------------------------------------------------
     /// <summary>
     /// The Installer class provides a single entrypoint for Package Installation
@@ -53,12 +51,12 @@ namespace DotNetNuke.Services.Installer
     /// -----------------------------------------------------------------------------
     public class Installer
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Installer));
-		#region Private Members
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Installer));
+        #region Private Members
 
         #endregion
 
-		#region Constructors
+        #region Constructors
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -142,10 +140,10 @@ namespace DotNetNuke.Services.Installer
                 ReadManifest(new FileStream(manifest, FileMode.Open, FileAccess.Read));
             }
         }
-		
-		#endregion
 
-		#region Public Properties
+        #endregion
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -191,9 +189,9 @@ namespace DotNetNuke.Services.Installer
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Private Methods
+        #region Private Methods
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -202,11 +200,11 @@ namespace DotNetNuke.Services.Installer
         /// -----------------------------------------------------------------------------
         private void InstallPackages(ref bool clearClientCache)
         {
-			//Iterate through all the Packages
+            //Iterate through all the Packages
             for (int index = 0; index <= Packages.Count - 1; index++)
             {
                 PackageInstaller installer = Packages.Values[index];
-				//Check if package is valid
+                //Check if package is valid
                 if (installer.Package.IsValid)
                 {
                     if (installer.Package.InstallerInfo.Installed || installer.Package.InstallerInfo.RepairInstall)
@@ -243,14 +241,14 @@ namespace DotNetNuke.Services.Installer
         {
             try
             {
-                var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString()};
+                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString() };
 
                 if (InstallerInfo.ManifestFile != null)
-	            {
-		            log.LogProperties.Add(new LogDetailInfo(eventType + " " + package + ":", InstallerInfo.ManifestFile.Name.Replace(".dnn", "")));
-	            }
+                {
+                    log.LogProperties.Add(new LogDetailInfo(eventType + " " + package + ":", InstallerInfo.ManifestFile.Name.Replace(".dnn", "")));
+                }
 
-	            foreach (LogEntry objLogEntry in InstallerInfo.Log.Logs)
+                foreach (LogEntry objLogEntry in InstallerInfo.Log.Logs)
                 {
                     log.LogProperties.Add(new LogDetailInfo("Info:", objLogEntry.Description));
                 }
@@ -258,8 +256,7 @@ namespace DotNetNuke.Services.Installer
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
-
+                s_logger.Error(exc);
             }
         }
 
@@ -270,7 +267,7 @@ namespace DotNetNuke.Services.Installer
         /// -----------------------------------------------------------------------------
         private void ProcessPackages(XPathNavigator rootNav)
         {
-			//Parse the package nodes
+            //Parse the package nodes
             foreach (XPathNavigator nav in rootNav.Select("packages/package"))
             {
                 int order = Packages.Count;
@@ -410,10 +407,10 @@ namespace DotNetNuke.Services.Installer
 
             return nav;
         }
-		
-		#endregion
 
-		#region Public Methods
+        #endregion
+
+        #region Public Methods
 
         public void DeleteTempFolder()
         {
@@ -444,13 +441,12 @@ namespace DotNetNuke.Services.Installer
             }
             catch (Exception ex)
             {
-            
                 InstallerInfo.Log.AddFailure(ex);
                 bStatus = false;
             }
             finally
             {
-				//Delete Temp Folder
+                //Delete Temp Folder
                 if (!string.IsNullOrEmpty(TempInstallFolder))
                 {
                     Globals.DeleteFolderRecursive(TempInstallFolder);
@@ -466,7 +462,7 @@ namespace DotNetNuke.Services.Installer
                 InstallerInfo.Log.EndJob(Util.INSTALL_Failed);
                 bStatus = false;
             }
-			
+
             //log installation event
             LogInstallEvent("Package", "Install");
 
@@ -494,7 +490,7 @@ namespace DotNetNuke.Services.Installer
             }
             else if (deleteTemp)
             {
-				//Delete Temp Folder
+                //Delete Temp Folder
                 DeleteTempFolder();
             }
         }
@@ -515,7 +511,6 @@ namespace DotNetNuke.Services.Installer
             }
             catch (Exception ex)
             {
-
                 InstallerInfo.Log.AddFailure(ex);
                 return false;
             }
@@ -531,7 +526,7 @@ namespace DotNetNuke.Services.Installer
             LogInstallEvent("Package", "UnInstall");
             return true;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -57,11 +56,11 @@ using DotNetNuke.Web.Api.Internal;
 
 namespace DotNetNuke.Web.InternalServices
 {
-    [DnnAuthorize]    
+    [DnnAuthorize]
     public class FileUploadController : DnnApiController
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(FileUploadController));
-        private static readonly Regex UserFolderEx = new Regex("users/\\d+/\\d+/(\\d+)/", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(FileUploadController));
+        private static readonly Regex s_userFolderEx = new Regex("users/\\d+/\\d+/(\\d+)/", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public class FolderItemDTO
         {
@@ -80,7 +79,7 @@ namespace DotNetNuke.Web.InternalServices
         public HttpResponseMessage LoadFiles(FolderItemDTO folderItem)
         {
             int effectivePortalId = PortalSettings.PortalId;
-            
+
 
             if (folderItem.FolderId <= 0)
             {
@@ -138,7 +137,7 @@ namespace DotNetNuke.Web.InternalServices
 
             if (!request.Content.IsMimeMultipartContent())
             {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType); 
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
             var provider = new MultipartMemoryStreamProvider();
@@ -200,15 +199,14 @@ namespace DotNetNuke.Web.InternalServices
                         if (!string.IsNullOrEmpty(fileName) && stream != null)
                         {
                             // Everything ready
-                            
+
                             // The SynchronizationContext keeps the main thread context. Send method is synchronous
                             currentSynchronizationContext.Send(
                                 delegate
                                     {
                                         returnFileDto = SaveFile(stream, portalSettings, userInfo, folder, filter, fileName, overwrite, isHostMenu, extract, out alreadyExists, out errorMessage);
-                                    },null
+                                    }, null
                                 );
-                            
                         }
 
                         /* Response Content Type cannot be application/json 
@@ -228,11 +226,11 @@ namespace DotNetNuke.Web.InternalServices
                                     Message = string.Format(GetLocalizedString("ErrorMessage"), fileName, errorMessage)
                                 }, mediaTypeFormatter, "text/plain");
                         }
-                        
+
                         return Request.CreateResponse(HttpStatusCode.OK, returnFileDto, mediaTypeFormatter, "text/plain");
                     });
 
-            return task; 
+            return task;
         }
 
         private static SavedFileDTO SaveFile(
@@ -280,7 +278,7 @@ namespace DotNetNuke.Web.InternalServices
                     }
                 }
 
-                if (!PortalSecurity.IsInRoles(userInfo, portalSettings, folderInfo.FolderPermissions.ToString("WRITE")) 
+                if (!PortalSecurity.IsInRoles(userInfo, portalSettings, folderInfo.FolderPermissions.ToString("WRITE"))
                     && !PortalSecurity.IsInRoles(userInfo, portalSettings, folderInfo.FolderPermissions.ToString("ADD")))
                 {
                     errorMessage = GetLocalizedString("NoPermission");
@@ -314,7 +312,7 @@ namespace DotNetNuke.Web.InternalServices
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.Message);
+                s_logger.Error(ex.Message);
                 errorMessage = ex.Message;
                 return savedFileDto;
             }
@@ -377,7 +375,7 @@ namespace DotNetNuke.Web.InternalServices
 
         private static bool IsUserFolder(string folderPath, out int userId)
         {
-            var match = UserFolderEx.Match(folderPath);
+            var match = s_userFolderEx.Match(folderPath);
             userId = match.Success ? int.Parse(match.Groups[1].Value) : Null.NullInteger;
 
             return match.Success;
@@ -396,17 +394,17 @@ namespace DotNetNuke.Web.InternalServices
             return null;
         }
 
-        private static readonly List<string> ImageExtensions = new List<string> { "JPG", "JPE", "BMP", "GIF", "PNG", "JPEG", "ICO" }; 
+        private static readonly List<string> s_imageExtensions = new List<string> { "JPG", "JPE", "BMP", "GIF", "PNG", "JPEG", "ICO" };
 
         private static bool IsImageExtension(string extension)
         {
-            return ImageExtensions.Contains(extension.ToUpper());
+            return s_imageExtensions.Contains(extension.ToUpper());
         }
 
         private static bool IsImage(string fileName)
         {
             var name = fileName.ToUpper();
-            return ImageExtensions.Any(extension => name.EndsWith("." + extension));
+            return s_imageExtensions.Any(extension => name.EndsWith("." + extension));
         }
 
         private static bool IsAllowedExtension(string extension)
@@ -559,7 +557,7 @@ namespace DotNetNuke.Web.InternalServices
                         }
                         catch (ArgumentException exc)
                         {
-                            Logger.Warn("Unable to get image dimensions for image file", exc);
+                            s_logger.Warn("Unable to get image dimensions for image file", exc);
                             size = new Size(32, 32);
                         }
                     }
@@ -583,7 +581,7 @@ namespace DotNetNuke.Web.InternalServices
             }
             catch (Exception exe)
             {
-                Logger.Error(exe.Message);
+                s_logger.Error(exe.Message);
                 result.Message = exe.Message;
                 return result;
             }
@@ -708,7 +706,7 @@ namespace DotNetNuke.Web.InternalServices
             mediaTypeFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/plain"));
             try
             {
-                var request = (HttpWebRequest) WebRequest.Create(dto.Url);
+                var request = (HttpWebRequest)WebRequest.Create(dto.Url);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 response = request.GetResponse();
                 responseStream = response.GetResponseStream();
@@ -766,7 +764,5 @@ namespace DotNetNuke.Web.InternalServices
                 }
             }
         }
-
     }
-
 }

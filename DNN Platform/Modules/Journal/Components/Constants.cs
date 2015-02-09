@@ -1,7 +1,9 @@
 ﻿using DotNetNuke.Services.Search.Internals;
 
-namespace DotNetNuke.Modules.Journal.Components {
-    public class Constants {
+namespace DotNetNuke.Modules.Journal.Components
+{
+    public class Constants
+    {
         internal const string SharedResourcesPath = "~/DesktopModules/Journal/App_LocalResources/SharedResources.resx";
         internal const string DefaultPageSize = "Journal_PageSize";
         internal const string AllowFiles = "Journal_AllowFiles";

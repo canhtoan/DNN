@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System.Linq;
 
@@ -32,9 +33,9 @@ namespace DotNetNuke.Tests.UI.Validation
     [TestFixture]
     public class ValidatorTests
     {
-        private static readonly ValidationResult FailedResult = new ValidationResult(new[] {new ValidationError()});
+        private static readonly ValidationResult s_failedResult = new ValidationResult(new[] { new ValidationError() });
 
-        private static readonly ValidationResult AnotherFailedResult = new ValidationResult(new[] {new ValidationError()});
+        private static readonly ValidationResult s_anotherFailedResult = new ValidationResult(new[] { new ValidationError() });
 
         #region Tests
 
@@ -59,7 +60,7 @@ namespace DotNetNuke.Tests.UI.Validation
             // Arrange
             var validator = new Validator();
             object target = new object();
-            SetupValidators(validator, target, ValidationResult.Successful, ValidationResult.Successful, FailedResult, ValidationResult.Successful);
+            SetupValidators(validator, target, ValidationResult.Successful, ValidationResult.Successful, s_failedResult, ValidationResult.Successful);
 
             // Act
             ValidationResult result = validator.ValidateObject(target);
@@ -74,7 +75,7 @@ namespace DotNetNuke.Tests.UI.Validation
             // Arrange
             var validator = new Validator();
             object target = new object();
-            SetupValidators(validator, target, ValidationResult.Successful, FailedResult, AnotherFailedResult, ValidationResult.Successful);
+            SetupValidators(validator, target, ValidationResult.Successful, s_failedResult, s_anotherFailedResult, ValidationResult.Successful);
 
             // Act
             ValidationResult result = validator.ValidateObject(target);
@@ -82,7 +83,7 @@ namespace DotNetNuke.Tests.UI.Validation
             // Assert
             Assert.IsFalse(result.IsValid);
             Assert.AreEqual(2, result.Errors.Count());
-            EnumerableAssert.ElementsMatch(new[] {FailedResult, AnotherFailedResult}, result.Errors, (e, a) => ReferenceEquals(e.Errors.First(), a));
+            EnumerableAssert.ElementsMatch(new[] { s_failedResult, s_anotherFailedResult }, result.Errors, (e, a) => ReferenceEquals(e.Errors.First(), a));
         }
 
         #endregion

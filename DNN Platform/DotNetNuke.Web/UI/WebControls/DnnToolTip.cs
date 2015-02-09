@@ -1,5 +1,5 @@
-// 
-// DotNetNuke� - http://www.dotnetnuke.com
+﻿// 
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -18,67 +18,65 @@
 // DEALINGS IN THE SOFTWARE.
 
 #region Usings
-
 using System;
 using System.Web.UI;
 using DotNetNuke.Web.UI;
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
-   public class DnnToolTip : RadToolTip, ILocalizable
-   {
-      private bool _localize = true;
+    public class DnnToolTip : RadToolTip, ILocalizable
+    {
+        private bool _localize = true;
 
-      protected override void Render(HtmlTextWriter writer)
-      {
-         LocalizeStrings();
-         base.Render(writer);
-      }
+        protected override void Render(HtmlTextWriter writer)
+        {
+            LocalizeStrings();
+            base.Render(writer);
+        }
 
-      public string ResourceKey { get; set; }
+        public string ResourceKey { get; set; }
 
-#region ILocalizable Implementation
-      public bool Localize
-      {
-         get
-         {
-            if (base.DesignMode)
+        #region ILocalizable Implementation
+        public bool Localize
+        {
+            get
             {
-               return false;
+                if (base.DesignMode)
+                {
+                    return false;
+                }
+                return _localize;
             }
-            return _localize;
-         }
-         set
-         {
-            _localize = value;
-         }
-      }
-
-      public string LocalResourceFile { get; set; }
-
-      public virtual void LocalizeStrings()
-      {
-         if ((this.Localize) && (!(String.IsNullOrEmpty(this.ResourceKey))))
-         {
-            if (!(String.IsNullOrEmpty(base.ManualCloseButtonText)))
+            set
             {
-               base.ManualCloseButtonText = Utilities.GetLocalizedStringFromParent(String.Format("{0}.ManualCloseButtonText", this.ResourceKey), this);
+                _localize = value;
             }
+        }
 
-            if (!(String.IsNullOrEmpty(base.Text)))
-            {
-               base.Text = Utilities.GetLocalizedStringFromParent(String.Format("{0}.Text", this.ResourceKey), this);
-            }
+        public string LocalResourceFile { get; set; }
 
-            if (!(String.IsNullOrEmpty(base.ToolTip)))
+        public virtual void LocalizeStrings()
+        {
+            if ((this.Localize) && (!(String.IsNullOrEmpty(this.ResourceKey))))
             {
-               base.ToolTip = Utilities.GetLocalizedStringFromParent(String.Format("{0}.ToolTip", this.ResourceKey), this);
+                if (!(String.IsNullOrEmpty(base.ManualCloseButtonText)))
+                {
+                    base.ManualCloseButtonText = Utilities.GetLocalizedStringFromParent(String.Format("{0}.ManualCloseButtonText", this.ResourceKey), this);
+                }
+
+                if (!(String.IsNullOrEmpty(base.Text)))
+                {
+                    base.Text = Utilities.GetLocalizedStringFromParent(String.Format("{0}.Text", this.ResourceKey), this);
+                }
+
+                if (!(String.IsNullOrEmpty(base.ToolTip)))
+                {
+                    base.ToolTip = Utilities.GetLocalizedStringFromParent(String.Format("{0}.ToolTip", this.ResourceKey), this);
+                }
             }
-         }
-      }
-#endregion
-   }
+        }
+        #endregion
+    }
 }

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -46,6 +46,7 @@ using Moq;
 using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
+
 namespace DotNetNuke.Tests.Core.Controllers.Messaging
 {
     /// <summary>
@@ -86,7 +87,6 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
         [SetUp]
         public void SetUp()
         {
-
             ComponentFactory.Container = new SimpleContainer();
             _mockDataService = new Mock<IDataService>();
             _dataProvider = MockComponentProvider.CreateDataProvider();
@@ -154,9 +154,9 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
         private void SetupPortalSettings()
         {
             var portalSettings = new PortalSettings
-                                    {
-                                        AdministratorRoleName = Constants.RoleName_Administrators
-                                    };
+            {
+                AdministratorRoleName = Constants.RoleName_Administrators
+            };
 
             _portalController.Setup(pc => pc.GetCurrentPortalSettings()).Returns(portalSettings);
         }
@@ -509,7 +509,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             //Arrange            
             var message = new Message { Subject = "subject", Body = "body" };
             var user = new UserInfo { DisplayName = Constants.USER_ElevenName, UserID = Constants.USER_ElevenId };
-			var role = new RoleInfo { RoleName = Constants.RoleName_FirstSocialGroup, RoleID = Constants.RoleID_FirstSocialGroup };
+            var role = new RoleInfo { RoleName = Constants.RoleName_FirstSocialGroup, RoleID = Constants.RoleID_FirstSocialGroup };
 
             var mockDataService = new Mock<IDataService>();
             var messagingController = new MessagingController(mockDataService.Object);
@@ -1317,7 +1317,7 @@ namespace DotNetNuke.Tests.Core.Controllers.Messaging
             _mockMessagingController.Setup(mc => mc.GetPortalSettingAsInteger(It.IsAny<string>(), _user12UserInfo.PortalID, Null.NullInteger)).Returns(1);
             _mockMessagingController.Setup(mc => mc.IsAdminOrHost(_adminUserInfo)).Returns(false);
 
-            _mockInternalMessagingController.Setup(mc => mc.GetLastSentMessage(_user12UserInfo)).Returns((Message) null);
+            _mockInternalMessagingController.Setup(mc => mc.GetLastSentMessage(_user12UserInfo)).Returns((Message)null);
 
             var result = _mockInternalMessagingController.Object.WaitTimeForNextMessage(_user12UserInfo);
 

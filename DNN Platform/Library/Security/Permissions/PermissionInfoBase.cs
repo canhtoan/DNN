@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -28,7 +28,6 @@ using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     /// -----------------------------------------------------------------------------
@@ -56,7 +55,7 @@ namespace DotNetNuke.Security.Permissions
     [Serializable]
     public abstract class PermissionInfoBase : PermissionInfo
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private bool _AllowAccess;
         private string _DisplayName;
@@ -64,10 +63,10 @@ namespace DotNetNuke.Security.Permissions
         private string _RoleName;
         private int _UserID;
         private string _Username;
-		
-		#endregion
-		
-		#region "Constructors"
+
+        #endregion
+
+        #region "Constructors"
 
         public PermissionInfoBase()
         {
@@ -78,10 +77,10 @@ namespace DotNetNuke.Security.Permissions
             _Username = Null.NullString;
             _DisplayName = Null.NullString;
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -214,10 +213,10 @@ namespace DotNetNuke.Security.Permissions
                 _Username = value;
             }
         }
-		
-		#endregion
-		
-		#region "Protected Methods"
+
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -248,7 +247,7 @@ namespace DotNetNuke.Security.Permissions
             }
             AllowAccess = Null.SetNullBoolean(dr["AllowAccess"]);
         }
-		
-		#endregion
+
+        #endregion
     }
 }

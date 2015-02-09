@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +31,7 @@ namespace DotNetNuke.Entities.Portals
     /// Do not implement.  This interface is meant for reference and unit test purposes only.
     /// There is no guarantee that this interface will not change.
     /// </summary>
-    public interface IPortalController    
+    public interface IPortalController
     {
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -219,5 +218,5 @@ namespace DotNetNuke.Entities.Portals
         void UpdatePortalSetting(int portalID, string settingName, string settingValue, bool clearCache, string cultureCode);
     }
 }
-        
-    
+
+

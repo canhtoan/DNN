@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Web.UI;
@@ -29,7 +29,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -50,8 +49,8 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:TrueFalseEditControl runat=server></{0}:TrueFalseEditControl>")]
     public class TrueFalseEditControl : EditControl
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (TrueFalseEditControl));
-		#region "Constructors"
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(TrueFalseEditControl));
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -66,9 +65,9 @@ namespace DotNetNuke.UI.WebControls
             SystemType = "System.Boolean";
         }
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -86,13 +85,12 @@ namespace DotNetNuke.UI.WebControls
                 bool boolValue = Null.NullBoolean;
                 try
                 {
-					//Try and cast the value to an Boolean
+                    //Try and cast the value to an Boolean
                     boolValue = Convert.ToBoolean(Value);
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return boolValue;
             }
@@ -114,13 +112,12 @@ namespace DotNetNuke.UI.WebControls
                 bool boolValue = Null.NullBoolean;
                 try
                 {
-					//Try and cast the value to an Boolean
+                    //Try and cast the value to an Boolean
                     boolValue = Convert.ToBoolean(OldValue);
                 }
                 catch (Exception exc)
                 {
-                    Logger.Error(exc);
-
+                    s_logger.Error(exc);
                 }
                 return boolValue;
             }
@@ -148,9 +145,9 @@ namespace DotNetNuke.UI.WebControls
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Protected Methods"
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -225,7 +222,6 @@ namespace DotNetNuke.UI.WebControls
             }
         }
 
-		
-		#endregion
+        #endregion
     }
 }

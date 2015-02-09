@@ -1,4 +1,4 @@
-#region Copyright
+﻿#region Copyright
 // 
 // DotNetNuke� - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -35,7 +35,6 @@ using DotNetNuke.Entities.Content.Taxonomy;
 using DotNetNuke.Entities.Modules.Definitions;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     /// -----------------------------------------------------------------------------
@@ -66,7 +65,7 @@ namespace DotNetNuke.Entities.Modules
             Shareable = ModuleSharing.Unknown;
         }
 
-		#region "Public Properties"
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -107,13 +106,13 @@ namespace DotNetNuke.Entities.Modules
             {
                 Term term = (from Term t in Terms select t).FirstOrDefault();
                 return (term != null) ? term.Name : String.Empty;
-            } 
+            }
             set
             {
                 Terms.Clear();
                 ITermController termController = Util.GetTermController();
-                var term = (from Term t in termController.GetTermsByVocabulary("Module_Categories") 
-                            where t.Name == value 
+                var term = (from Term t in termController.GetTermsByVocabulary("Module_Categories")
+                            where t.Name == value
                             select t)
                             .FirstOrDefault();
                 if (term != null)
@@ -281,7 +280,7 @@ namespace DotNetNuke.Entities.Modules
         public ModuleSharing Shareable
         {
             get;
-            set; 
+            set;
         }
 
         /// -----------------------------------------------------------------------------
@@ -356,11 +355,11 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         public string Version { get; set; }
 
-		#endregion
+        #endregion
 
-		#region IHydratable Members
+        #region IHydratable Members
 
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Fills a DesktopModuleInfo from a Data Reader
         /// </summary>
@@ -386,7 +385,7 @@ namespace DotNetNuke.Entities.Modules
             CompatibleVersions = Null.SetNullString(dr["CompatibleVersions"]);
             Dependencies = Null.SetNullString(dr["Dependencies"]);
             Permissions = Null.SetNullString(dr["Permissions"]);
-		    Shareable = (ModuleSharing)Null.SetNullInteger(dr["Shareable"]);
+            Shareable = (ModuleSharing)Null.SetNullInteger(dr["Shareable"]);
             //Call the base classes fill method to populate base class proeprties
             base.FillInternal(dr);
         }
@@ -470,7 +469,7 @@ namespace DotNetNuke.Entities.Modules
                             IsPremium = isPremium;
                             break;
                         default:
-                            if(reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
+                            if (reader.NodeType == XmlNodeType.Element && !String.IsNullOrEmpty(reader.Name))
                             {
                                 reader.ReadElementContentAsString();
                             }
@@ -479,8 +478,8 @@ namespace DotNetNuke.Entities.Modules
                 }
             }
         }
-		
-		/// -----------------------------------------------------------------------------
+
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Writes a DesktopModuleInfo to an XmlWriter
         /// </summary>
@@ -503,7 +502,7 @@ namespace DotNetNuke.Entities.Modules
             {
                 writer.WriteElementString("codeSubDirectory", CodeSubDirectory);
             }
-			
+
             //Write out Supported Features
             writer.WriteStartElement("supportedFeatures");
             if (IsPortable)
@@ -530,7 +529,7 @@ namespace DotNetNuke.Entities.Modules
 
             // Module sharing
 
-            if(Shareable != ModuleSharing.Unknown)
+            if (Shareable != ModuleSharing.Unknown)
             {
                 writer.WriteStartElement("shareable");
                 switch (Shareable)
@@ -562,7 +561,7 @@ namespace DotNetNuke.Entities.Modules
 
         #endregion
 
-		#region "Private Helper Methods"
+        #region "Private Helper Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -575,8 +574,8 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         private void ClearFeature(DesktopModuleSupportedFeature feature)
         {
-			//And with the 1's complement of Feature to Clear the Feature flag
-            SupportedFeatures = SupportedFeatures & ~((int) feature);
+            //And with the 1's complement of Feature to Clear the Feature flag
+            SupportedFeatures = SupportedFeatures & ~((int)feature);
         }
 
         /// -----------------------------------------------------------------------------
@@ -590,7 +589,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         private bool GetFeature(DesktopModuleSupportedFeature feature)
         {
-            return SupportedFeatures > Null.NullInteger && (SupportedFeatures & (int) feature) == (int) feature;
+            return SupportedFeatures > Null.NullInteger && (SupportedFeatures & (int)feature) == (int)feature;
         }
 
         /// -----------------------------------------------------------------------------
@@ -604,7 +603,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         private void SetFeature(DesktopModuleSupportedFeature feature)
         {
-            SupportedFeatures |= (int) feature;
+            SupportedFeatures |= (int)feature;
         }
 
         /// -----------------------------------------------------------------------------
@@ -705,17 +704,17 @@ namespace DotNetNuke.Entities.Modules
             {
                 reader.ReadStartElement("moduleDefinition");
 
-				//Create new ModuleDefinition object
+                //Create new ModuleDefinition object
                 var moduleDefinition = new ModuleDefinitionInfo();
 
-				//Load it from the Xml
+                //Load it from the Xml
                 moduleDefinition.ReadXml(reader);
 
-				//Add to the collection
+                //Add to the collection
                 ModuleDefinitions.Add(moduleDefinition.FriendlyName, moduleDefinition);
             } while (reader.ReadToNextSibling("moduleDefinition"));
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

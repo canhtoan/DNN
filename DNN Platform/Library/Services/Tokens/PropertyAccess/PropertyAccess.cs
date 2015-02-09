@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Services.Tokens
 {
     /// <summary>
@@ -37,11 +36,11 @@ namespace DotNetNuke.Services.Tokens
     /// <remarks></remarks>
     public class PropertyAccess : IPropertyAccess
     {
-        private readonly object obj;
+        private readonly object _obj;
 
         public PropertyAccess(object TokenSource)
         {
-            obj = TokenSource;
+            _obj = TokenSource;
         }
 
         public static string ContentLocked
@@ -56,11 +55,11 @@ namespace DotNetNuke.Services.Tokens
 
         public string GetProperty(string propertyName, string format, CultureInfo formatProvider, UserInfo AccessingUser, Scope AccessLevel, ref bool PropertyNotFound)
         {
-            if (obj == null)
+            if (_obj == null)
             {
                 return string.Empty;
             }
-            return GetObjectProperty(obj, propertyName, format, formatProvider, ref PropertyNotFound);
+            return GetObjectProperty(_obj, propertyName, format, formatProvider, ref PropertyNotFound);
         }
 
         public CacheLevel Cacheability
@@ -126,7 +125,7 @@ namespace DotNetNuke.Services.Tokens
             if (CBO.GetProperties(objObject.GetType()).TryGetValue(strPropertyName, out objProperty))
             {
                 object propValue = objProperty.GetValue(objObject, null);
-                Type t = typeof (string);
+                Type t = typeof(string);
                 if (propValue != null)
                 {
                     switch (objProperty.PropertyType.Name)
@@ -144,7 +143,7 @@ namespace DotNetNuke.Services.Tokens
                             {
                                 strFormat = "g";
                             }
-                            return (((IFormattable) propValue).ToString(strFormat, formatProvider));
+                            return (((IFormattable)propValue).ToString(strFormat, formatProvider));
                     }
                 }
                 else

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Services.FileSystem;
 
 #endregion
-
 namespace DotNetNuke.Services.Vendors
 {
     [Serializable]
@@ -54,16 +53,19 @@ namespace DotNetNuke.Services.Vendors
         public int Width { get; set; }
         public int Height { get; set; }
         public string ImageFileRaw { get; set; }
-        public string ImageFileUrl { get
+        public string ImageFileUrl
         {
-            if(ImageFileRaw.StartsWith("FileID="))
+            get
             {
-                int fileId = int.Parse(ImageFileRaw.Substring("FileID=".Length));
-                var file = FileManager.Instance.GetFile(fileId);                
-                return file != null ? FileManager.Instance.GetUrl(file) : "";
-            }
+                if (ImageFileRaw.StartsWith("FileID="))
+                {
+                    int fileId = int.Parse(ImageFileRaw.Substring("FileID=".Length));
+                    var file = FileManager.Instance.GetFile(fileId);
+                    return file != null ? FileManager.Instance.GetUrl(file) : "";
+                }
 
-            return ImageFileRaw;
-        } }
+                return ImageFileRaw;
+            }
+        }
     }
 }

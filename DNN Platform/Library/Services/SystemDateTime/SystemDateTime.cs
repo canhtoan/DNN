@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +46,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Services.SystemDateTime
 {
     /// <summary>
@@ -58,12 +57,12 @@ namespace DotNetNuke.Services.SystemDateTime
     /// </remarks>
     public class SystemDateTime
     {
-        private static readonly DataProvider Provider = DataProvider.Instance();
+        private static readonly DataProvider s_provider = DataProvider.Instance();
 
         [Obsolete("Deprecated in DNN 7.1.2.  Replaced by DateUtils.GetDatabaseTime, which includes caching")]
         public static DateTime GetCurrentTimeUtc()
         {
-            return Provider.GetDatabaseTimeUtc();
+            return s_provider.GetDatabaseTimeUtc();
         }
 
         /// -----------------------------------------------------------------------------
@@ -74,8 +73,7 @@ namespace DotNetNuke.Services.SystemDateTime
         /// -----------------------------------------------------------------------------
         public static DateTime GetCurrentTime()
         {
-            return Provider.GetDatabaseTime();
+            return s_provider.GetDatabaseTime();
         }
-
     }
 }

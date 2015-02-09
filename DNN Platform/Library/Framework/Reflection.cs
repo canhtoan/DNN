@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Reflection;
 using System.Web.Compilation;
@@ -30,7 +30,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Exceptions;
 
 #endregion
-
 namespace DotNetNuke.Framework
 {
     /// -----------------------------------------------------------------------------
@@ -50,9 +49,9 @@ namespace DotNetNuke.Framework
     /// -----------------------------------------------------------------------------
     public class Reflection
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Reflection));
-		#region Public Shared Methods
-		
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(Reflection));
+        #region Public Shared Methods
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Creates an object
@@ -191,26 +190,26 @@ namespace DotNetNuke.Framework
             ProviderConfiguration objProviderConfiguration = ProviderConfiguration.GetProviderConfiguration(ObjectProviderType);
             if (!String.IsNullOrEmpty(ObjectNamespace) && !String.IsNullOrEmpty(ObjectAssemblyName))
             {
-            	//if both the Namespace and AssemblyName are provided then we will construct an "assembly qualified typename" - ie. "NameSpace.ClassName, AssemblyName" 
+                //if both the Namespace and AssemblyName are provided then we will construct an "assembly qualified typename" - ie. "NameSpace.ClassName, AssemblyName" 
                 if (String.IsNullOrEmpty(ObjectProviderName))
                 {
-					//dynamically create the typename from the constants ( this enables private assemblies to share the same configuration as the base provider ) 
+                    //dynamically create the typename from the constants ( this enables private assemblies to share the same configuration as the base provider ) 
                     TypeName = ObjectNamespace + "." + objProviderConfiguration.DefaultProvider + ", " + ObjectAssemblyName + (fixAssemblyName ? "." + objProviderConfiguration.DefaultProvider : string.Empty);
                 }
                 else
                 {
-					//dynamically create the typename from the constants ( this enables private assemblies to share the same configuration as the base provider ) 
+                    //dynamically create the typename from the constants ( this enables private assemblies to share the same configuration as the base provider ) 
                     TypeName = ObjectNamespace + "." + ObjectProviderName + ", " + ObjectAssemblyName + (fixAssemblyName ? "." + ObjectProviderName : string.Empty);
                 }
             }
             else
             {
-				//if only the Namespace is provided then we will construct an "full typename" - ie. "NameSpace.ClassName" 
+                //if only the Namespace is provided then we will construct an "full typename" - ie. "NameSpace.ClassName" 
                 if (!String.IsNullOrEmpty(ObjectNamespace))
                 {
                     if (String.IsNullOrEmpty(ObjectProviderName))
                     {
-						//dynamically create the typename from the constants ( this enables private assemblies to share the same configuration as the base provider ) 
+                        //dynamically create the typename from the constants ( this enables private assemblies to share the same configuration as the base provider ) 
                         TypeName = ObjectNamespace + "." + objProviderConfiguration.DefaultProvider;
                     }
                     else
@@ -225,12 +224,12 @@ namespace DotNetNuke.Framework
                     if (String.IsNullOrEmpty(ObjectProviderName))
                     {
                         //get the typename of the default Provider from web.config
-                        TypeName = ((Provider) objProviderConfiguration.Providers[objProviderConfiguration.DefaultProvider]).Type;
+                        TypeName = ((Provider)objProviderConfiguration.Providers[objProviderConfiguration.DefaultProvider]).Type;
                     }
                     else
                     {
                         //get the typename of the specified ProviderName from web.config 
-                        TypeName = ((Provider) objProviderConfiguration.Providers[ObjectProviderName]).Type;
+                        TypeName = ((Provider)objProviderConfiguration.Providers[ObjectProviderName]).Type;
                     }
                 }
             }
@@ -324,9 +323,9 @@ namespace DotNetNuke.Framework
             //use the cache for performance
             if (UseCache)
             {
-                type = (Type) DataCache.GetCache(CacheKey);
+                type = (Type)DataCache.GetCache(CacheKey);
             }
-			
+
             //is the type in the cache?
             if (type == null)
             {
@@ -344,7 +343,7 @@ namespace DotNetNuke.Framework
                 {
                     if (!IgnoreErrors)
                     {
-                        Logger.Error(TypeName, exc);                        ;
+                        s_logger.Error(TypeName, exc); ;
                     }
                 }
             }
@@ -402,7 +401,7 @@ namespace DotNetNuke.Framework
             ProviderConfiguration objProviderConfiguration = ProviderConfiguration.GetProviderConfiguration(ObjectProviderType);
 
             //get the typename of the Base DataProvider from web.config
-            TypeName = ((Provider) objProviderConfiguration.Providers[objProviderConfiguration.DefaultProvider]).Type;
+            TypeName = ((Provider)objProviderConfiguration.Providers[objProviderConfiguration.DefaultProvider]).Type;
             try
             {
                 //use reflection to get the type of the class
@@ -416,8 +415,8 @@ namespace DotNetNuke.Framework
 
             //dynamically create the object
             return Activator.CreateInstance(objType);
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

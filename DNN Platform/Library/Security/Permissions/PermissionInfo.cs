@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
@@ -28,7 +28,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     /// -----------------------------------------------------------------------------
@@ -43,11 +42,11 @@ namespace DotNetNuke.Security.Permissions
     [Serializable]
     public class PermissionInfo : BaseEntityInfo
     {
-		#region Private Members
+        #region Private Members
 
         #endregion
-		
-		#region Public Properties
+
+        #region Public Properties
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -98,8 +97,8 @@ namespace DotNetNuke.Security.Permissions
         public string PermissionName { get; set; }
 
         #endregion
-		
-		#region "Protected methods"
+
+        #region "Protected methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -115,8 +114,8 @@ namespace DotNetNuke.Security.Permissions
             PermissionCode = Null.SetNullString(dr["PermissionCode"]);
             PermissionKey = Null.SetNullString(dr["PermissionKey"]);
             PermissionName = Null.SetNullString(dr["PermissionName"]);
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

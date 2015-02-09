@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 
 using DotNetNuke.Data;
@@ -53,10 +53,10 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             //Register MockCachingProvider
             MockComponentProvider.CreateNew<CachingProvider>();
-			_mockPermission = MockComponentProvider.CreateNew<PermissionProvider>();
+            _mockPermission = MockComponentProvider.CreateNew<PermissionProvider>();
 
-			var mockData = MockComponentProvider.CreateNew<DataProvider>();
-	        mockData.Setup(d => d.GetProviderPath()).Returns(string.Empty);
+            var mockData = MockComponentProvider.CreateNew<DataProvider>();
+            mockData.Setup(d => d.GetProviderPath()).Returns(string.Empty);
         }
 
         [TearDown]
@@ -65,8 +65,8 @@ namespace DotNetNuke.Tests.Taxonomy
             MockComponentProvider.ResetContainer();
         }
 
-        #endregion       
-        
+        #endregion
+
         #region Constructor Tests
 
         [Test]
@@ -120,7 +120,7 @@ namespace DotNetNuke.Tests.Taxonomy
 
         #endregion
 
- 
+
         #region AddVocabulary Tests
 
         //[Test]
@@ -146,15 +146,15 @@ namespace DotNetNuke.Tests.Taxonomy
 
         #endregion
 
-		private ModuleInstanceContext CreateModuleContext(bool isEditable)
-		{
-			var context = new ModuleInstanceContext { Configuration = new ModuleInfo() };
-			context.Configuration.ModulePermissions = new ModulePermissionCollection();
-			if (isEditable)
-			{
+        private ModuleInstanceContext CreateModuleContext(bool isEditable)
+        {
+            var context = new ModuleInstanceContext { Configuration = new ModuleInfo() };
+            context.Configuration.ModulePermissions = new ModulePermissionCollection();
+            if (isEditable)
+            {
                 context.Configuration.ModulePermissions.Add(new ModulePermissionInfo { PermissionKey = "Edit" });
             }
-			return context;
-		}
+            return context;
+        }
     }
 }

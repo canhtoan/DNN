@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Web;
 using DotNetNuke.Services.Localization;
@@ -34,7 +34,7 @@ namespace DotNetNuke.Tests.Core.Services.Localization
     {
         private Mock<HttpContextBase> _mockHttpContext;
         private HttpContextBase _httpContext;
-        private readonly string[] _standardCultureCodes = new[] { "en-US", "de-DE", "fr-CA", "Lt-sr-SP", "kok-IN"};
+        private readonly string[] _standardCultureCodes = new[] { "en-US", "de-DE", "fr-CA", "Lt-sr-SP", "kok-IN" };
 
         [SetUp]
         public void Setup()
@@ -48,9 +48,9 @@ namespace DotNetNuke.Tests.Core.Services.Localization
         {
             const string fallback = "fallback";
             //Arrange
-            
+
             //Act
-            var ret  = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(new string[0], fallback);
+            var ret = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(new string[0], fallback);
 
             //Assert
             Assert.AreEqual(ret, fallback);
@@ -61,7 +61,7 @@ namespace DotNetNuke.Tests.Core.Services.Localization
         public void CultureCodesCannotBeNull()
         {
             //Arrange
-            
+
 
             //Act
             TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(null);
@@ -74,7 +74,7 @@ namespace DotNetNuke.Tests.Core.Services.Localization
         public void FallBackCannotBeNull()
         {
             //Arrange
-            
+
 
             //Act
             TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(new string[0], null);
@@ -86,7 +86,7 @@ namespace DotNetNuke.Tests.Core.Services.Localization
         public void PerfectMatchPossible()
         {
             //Arrange
-            _mockHttpContext.Setup(x => x.Request.UserLanguages).Returns(new[] {"de-DE"});
+            _mockHttpContext.Setup(x => x.Request.UserLanguages).Returns(new[] { "de-DE" });
 
             //Act
             var ret = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(_standardCultureCodes);
@@ -128,7 +128,7 @@ namespace DotNetNuke.Tests.Core.Services.Localization
             _mockHttpContext.Setup(x => x.Request.UserLanguages).Returns(new[] { "fr-FR" });
 
             //Act
-            var ret = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(new[] {"fr-CA", "fr-FR"});
+            var ret = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(new[] { "fr-CA", "fr-FR" });
 
             //Assert
             Assert.AreEqual(ret, "fr-FR");
@@ -143,7 +143,7 @@ namespace DotNetNuke.Tests.Core.Services.Localization
             foreach (var standardCultureCode in _standardCultureCodes)
             {
                 var f = fileName + "." + standardCultureCode + ".resx";
-                Assert.AreEqual(f.GetLocaleCodeFromFileName(), standardCultureCode);               
+                Assert.AreEqual(f.GetLocaleCodeFromFileName(), standardCultureCode);
             }
         }
 

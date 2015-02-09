@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -34,7 +34,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Services.Tokens
 {
     /// <summary>
@@ -48,17 +47,17 @@ namespace DotNetNuke.Services.Tokens
     /// <remarks></remarks>
     public class TokenReplace : BaseCustomTokenReplace
     {
-		#region "Private Fields "
+        #region "Private Fields "
 
         private Dictionary<string, string> _Hostsettings;
         private int _ModuleId = int.MinValue;
         private ModuleInfo _ModuleInfo;
         private PortalSettings _PortalSettings;
         private UserInfo _User;
-		
-		#endregion
-		
-		#region "Constructors"
+
+        #endregion
+
+        #region "Constructors"
 
         /// <summary>
         /// creates a new TokenReplace object for default context
@@ -151,7 +150,7 @@ namespace DotNetNuke.Services.Tokens
                 {
                     if (HttpContext.Current != null)
                     {
-                        this.User = (UserInfo) HttpContext.Current.Items["UserInfo"];
+                        this.User = (UserInfo)HttpContext.Current.Items["UserInfo"];
                     }
                     else
                     {
@@ -164,7 +163,7 @@ namespace DotNetNuke.Services.Tokens
                     this.User = User;
                     if (HttpContext.Current != null)
                     {
-                        AccessingUser = (UserInfo) HttpContext.Current.Items["UserInfo"];
+                        AccessingUser = (UserInfo)HttpContext.Current.Items["UserInfo"];
                     }
                     else
                     {
@@ -189,10 +188,10 @@ namespace DotNetNuke.Services.Tokens
             PropertySource["ticks"] = new TicksPropertyAccess();
             PropertySource["culture"] = new CulturePropertyAccess();
         }
-		
-		#endregion
-		
-		#region "Public Properties "
+
+        #endregion
+
+        #region "Public Properties "
 
         /// <summary>
         /// Gets the Host settings from Portal
@@ -284,11 +283,11 @@ namespace DotNetNuke.Services.Tokens
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Public Replace Methods"
+        #region "Public Replace Methods"
 
-		/// <summary>
+        /// <summary>
         /// Replaces tokens in strSourceText parameter with the property values
         /// </summary>
         /// <param name="strSourceText">String with [Object:Property] tokens</param>
@@ -355,11 +354,11 @@ namespace DotNetNuke.Services.Tokens
         {
             foreach (var customCaption in CustomCaptions)
             {
-                PropertySource[customCaption.ToLower()] = new DictionaryPropertyAccess(Custom);    
-            }           
+                PropertySource[customCaption.ToLower()] = new DictionaryPropertyAccess(Custom);
+            }
             return ReplaceTokens(strSourceText);
         }
-        
+
         /// <summary>
         /// Replaces tokens in strSourceText parameter with the property values
         /// </summary>
@@ -393,10 +392,10 @@ namespace DotNetNuke.Services.Tokens
             InitializePropertySources();
             return base.ReplaceTokens(strSourceText);
         }
-		
-		#endregion
 
-		#region "Private methods"
+        #endregion
+
+        #region "Private methods"
 
         /// <summary>
         /// setup context by creating appropriate objects
@@ -440,7 +439,7 @@ namespace DotNetNuke.Services.Tokens
                 PropertySource["profile"] = new ProfilePropertyAccess(User);
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

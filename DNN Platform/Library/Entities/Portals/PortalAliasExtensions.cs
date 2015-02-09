@@ -207,7 +207,5 @@ namespace DotNetNuke.Entities.Portals
                 }
             }
         }
-
-
     }
 }

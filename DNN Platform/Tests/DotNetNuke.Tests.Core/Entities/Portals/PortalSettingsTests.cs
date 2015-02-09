@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Tests.Utilities.Mocks;
@@ -168,7 +168,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
         public void Constructor_Calls_PortalSettingsController_LoadPortal_When_Passed_Portal()
         {
             //Arrange
-             var mockPortalSettingsController = MockComponentProvider.CreateNew<IPortalSettingsController>("PortalSettingsController");
+            var mockPortalSettingsController = MockComponentProvider.CreateNew<IPortalSettingsController>("PortalSettingsController");
 
             var portal = CreatePortal(ValidPortalId);
 
@@ -206,7 +206,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
             var mockPortalSettingsController = MockComponentProvider.CreateNew<IPortalSettingsController>("PortalSettingsController");
 
             //Act
-            var settings = new PortalSettings(ValidTabId, (PortalInfo) null);
+            var settings = new PortalSettings(ValidTabId, (PortalInfo)null);
 
             //Assert
             mockPortalSettingsController.Verify(c => c.LoadPortal(It.IsAny<PortalInfo>(), settings), Times.Never);
@@ -326,7 +326,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
             var settings = new PortalSettings(ValidTabId, (PortalInfo)null);
 
             //Assert
-            mockPortalSettingsController.Verify(c => c.GetActiveTab(ValidTabId,settings), Times.Never);
+            mockPortalSettingsController.Verify(c => c.GetActiveTab(ValidTabId, settings), Times.Never);
         }
 
         [Test]
@@ -346,7 +346,7 @@ namespace DotNetNuke.Tests.Core.Entities.Portals
             var settings = new PortalSettings(ValidTabId, portalAlias);
 
             //Assert
-            mockPortalSettingsController.Verify(c => c.GetActiveTab(ValidTabId,settings), Times.Never);
+            mockPortalSettingsController.Verify(c => c.GetActiveTab(ValidTabId, settings), Times.Never);
         }
 
         [Test]

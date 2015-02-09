@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Data;
 
@@ -30,7 +30,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Entities.Tabs
 {
     ///<summary>
@@ -49,9 +48,9 @@ namespace DotNetNuke.Entities.Tabs
 
         #endregion
 
-        public int KeyID 
-        { 
-            get { return TabAliasSkinId; } 
+        public int KeyID
+        {
+            get { return TabAliasSkinId; }
             set { TabAliasSkinId = value; }
         }
 

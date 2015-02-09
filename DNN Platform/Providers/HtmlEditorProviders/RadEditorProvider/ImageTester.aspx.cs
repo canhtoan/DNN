@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using DotNetNuke;
 using DotNetNuke.Common;
@@ -53,38 +54,35 @@ using System.Web.UI.HtmlControls;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
-	public partial class ImageTester : System.Web.UI.Page
-	{
+    public partial class ImageTester : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, System.EventArgs e)
+        {
+            string strResult = "NOTFOUND";
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
+            string strFile = Request.QueryString["file"];
+            if (strFile != null)
+            {
+                string path = strFile.Replace("http://", "");
+                path = path.Substring(path.IndexOf("/"));
+                strFile = Server.MapPath(path);
+                if (System.IO.File.Exists(strFile))
+                {
+                    strResult = "OK";
+                }
+            }
 
-			string strResult = "NOTFOUND";
-
-			string strFile = Request.QueryString["file"];
-			if (strFile != null)
-			{
-				string path = strFile.Replace("http://", "");
-				path = path.Substring(path.IndexOf("/"));
-				strFile = Server.MapPath(path);
-				if (System.IO.File.Exists(strFile))
-				{
-					strResult = "OK";
-				}
-			}
-
-			Response.Write(strResult);
-			Response.Flush();
-
-		}
+            Response.Write(strResult);
+            Response.Flush();
+        }
 
 
-	override protected void OnInit(EventArgs e)
-	{
-		base.OnInit(e);
+        override protected void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
 
-//INSTANT C# NOTE: Converted event handler wireups:
-		this.Load += new System.EventHandler(Page_Load);
-	}
-	}
+            //INSTANT C# NOTE: Converted event handler wireups:
+            this.Load += new System.EventHandler(Page_Load);
+        }
+    }
 }

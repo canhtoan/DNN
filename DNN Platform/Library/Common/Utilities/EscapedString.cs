@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections;
@@ -86,20 +87,20 @@ namespace DotNetNuke.Common.Utilities
         {
             var result = new List<string>();
 
-            if(String.IsNullOrEmpty(combinedString))
+            if (String.IsNullOrEmpty(combinedString))
             {
                 return result;
             }
-             
-            var segments = combinedString.Split(new[] {seperator});
 
-            for(int i = 0; i < segments.Length; i++)
+            var segments = combinedString.Split(new[] { seperator });
+
+            for (int i = 0; i < segments.Length; i++)
             {
                 var current = segments[i];
 
-                while(current.EndsWith(EscapeSequence.ToString()))
+                while (current.EndsWith(EscapeSequence.ToString()))
                 {
-                    if(EndsInEscapeMode(current))
+                    if (EndsInEscapeMode(current))
                     {
                         i++;
                         current = current.Substring(0, current.Length - 1) + seperator + segments[i];
@@ -112,7 +113,7 @@ namespace DotNetNuke.Common.Utilities
 
                 result.Add(current.Replace(DoubleEscapseSequence, EscapeSequence.ToString()));
             }
-            
+
             return result;
         }
 
@@ -121,9 +122,9 @@ namespace DotNetNuke.Common.Utilities
             int escapeCount = 0;
 
             //count the number of escape chars on end of string
-            for(int i = s.Length - 1; i > -1; i--)
+            for (int i = s.Length - 1; i > -1; i--)
             {
-                if(s.Substring(i, 1) == EscapeSequence.ToString())
+                if (s.Substring(i, 1) == EscapeSequence.ToString())
                 {
                     escapeCount++;
                 }
@@ -133,7 +134,7 @@ namespace DotNetNuke.Common.Utilities
                 }
             }
 
-            return escapeCount%2 == 1; //odd count means escape mode is active
+            return escapeCount % 2 == 1; //odd count means escape mode is active
         }
     }
 }

@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Linq;
 using System.Net;
@@ -67,12 +66,12 @@ namespace DotNetNuke.Web.InternalServices
                     string[] parameters = notification.Context.Split(':');
 
                     var stateTransiction = new StateTransaction
-                                           {
-                                               ContentItemId = int.Parse(parameters[0]),
-                                               CurrentStateId = int.Parse(parameters[2]),
-                                               Message = new StateTransactionMessage (),
-                                               UserId = UserInfo.UserID
-                                           };
+                    {
+                        ContentItemId = int.Parse(parameters[0]),
+                        CurrentStateId = int.Parse(parameters[2]),
+                        Message = new StateTransactionMessage(),
+                        UserId = UserInfo.UserID
+                    };
                     _workflowEngine.DiscardState(stateTransiction);
 
                     return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
@@ -103,12 +102,12 @@ namespace DotNetNuke.Web.InternalServices
                     string[] parameters = notification.Context.Split(':');
 
                     var stateTransiction = new StateTransaction
-                                            {
-                                                ContentItemId = int.Parse(parameters[0]),
-                                                CurrentStateId = int.Parse(parameters[2]),
-                                                Message = new StateTransactionMessage(),
-                                                UserId = UserInfo.UserID
-                                            };
+                    {
+                        ContentItemId = int.Parse(parameters[0]),
+                        CurrentStateId = int.Parse(parameters[2]),
+                        Message = new StateTransactionMessage(),
+                        UserId = UserInfo.UserID
+                    };
                     _workflowEngine.CompleteState(stateTransiction);
 
                     return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
@@ -120,7 +119,6 @@ namespace DotNetNuke.Web.InternalServices
             }
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "unable to process notification");
-
         }
 
         [Obsolete("Obsolted in Platform 7.4.0")]
@@ -136,7 +134,7 @@ namespace DotNetNuke.Web.InternalServices
                 {
                     if (string.IsNullOrEmpty(notification.Context))
                     {
-                        return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success"});
+                        return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
                     }
 
                     var source = notification.Context;
@@ -161,7 +159,7 @@ namespace DotNetNuke.Web.InternalServices
                         return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
                     }
 
-                    return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success", Link = sourceAction.GetAction(parameters) }); 
+                    return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success", Link = sourceAction.GetAction(parameters) });
                 }
             }
             catch (Exception exc)
@@ -170,7 +168,6 @@ namespace DotNetNuke.Web.InternalServices
             }
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "unable to process notification");
-
         }
         #endregion
     }

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -50,8 +50,8 @@ namespace DotNetNuke.Tests.Taxonomy
     [TestFixture]
     public class EditVocabularyPresenterTests
     {
-        private Mock<CachingProvider> mockCache;
-        private Mock<DataProvider> mockData;
+        private Mock<CachingProvider> _mockCache;
+        private Mock<DataProvider> _mockData;
 
         #region SetUp and TearDown
 
@@ -59,11 +59,11 @@ namespace DotNetNuke.Tests.Taxonomy
         public void SetUp()
         {
             //Register MockCachingProvider
-            mockCache = MockComponentProvider.CreateNew<CachingProvider>();
+            _mockCache = MockComponentProvider.CreateNew<CachingProvider>();
 
             //Register MockCachingProvider
-            mockData = MockComponentProvider.CreateNew<DataProvider>();
-            mockData.Setup(c => c.GetProviderPath()).Returns(String.Empty);
+            _mockData = MockComponentProvider.CreateNew<DataProvider>();
+            _mockData.Setup(c => c.GetProviderPath()).Returns(String.Empty);
         }
 
         [TearDown]
@@ -164,14 +164,14 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             Mock<IEditVocabularyView> mockView = new Mock<IEditVocabularyView>();
             EditVocabularyModel editModel = new EditVocabularyModel
-                                                {
-                                                    Vocabulary = new Vocabulary
-                                                                     {
-                                                                         VocabularyId = Constants.VOCABULARY_UpdateVocabularyId,
-                                                                         ScopeTypeId = 1,
-                                                                         IsSystem = isSystem // Set the IsSytem property
-                                                                     }
-                                                };
+            {
+                Vocabulary = new Vocabulary
+                {
+                    VocabularyId = Constants.VOCABULARY_UpdateVocabularyId,
+                    ScopeTypeId = 1,
+                    IsSystem = isSystem // Set the IsSytem property
+                }
+            };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, false);
@@ -326,7 +326,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_DeleteTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_DeleteTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -436,7 +436,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_UpdateTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_UpdateTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -456,7 +456,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_UpdateTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_UpdateTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -476,7 +476,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term()};
+            var editModel = new EditVocabularyModel { Term = new Term() };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -494,7 +494,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_UpdateTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_UpdateTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -511,7 +511,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_UpdateTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_UpdateTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -528,7 +528,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_UpdateTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_UpdateTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -545,7 +545,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_UpdateTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_UpdateTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -566,7 +566,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
-            var editModel = new EditVocabularyModel {Vocabulary = new Vocabulary {VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1}};
+            var editModel = new EditVocabularyModel { Vocabulary = new Vocabulary { VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1 } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, Constants.VOCABULARY_UpdateVocabularyId, true);
@@ -585,7 +585,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
-            var editModel = new EditVocabularyModel {Vocabulary = new Vocabulary {VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1}};
+            var editModel = new EditVocabularyModel { Vocabulary = new Vocabulary { VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1 } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, Constants.VOCABULARY_UpdateVocabularyId, true);
@@ -604,7 +604,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
-            var editModel = new EditVocabularyModel {Vocabulary = new Vocabulary {VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1}};
+            var editModel = new EditVocabularyModel { Vocabulary = new Vocabulary { VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1 } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, Constants.VOCABULARY_UpdateVocabularyId, true);
@@ -621,7 +621,7 @@ namespace DotNetNuke.Tests.Taxonomy
         {
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
-            var editModel = new EditVocabularyModel {Vocabulary = new Vocabulary {VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1}};
+            var editModel = new EditVocabularyModel { Vocabulary = new Vocabulary { VocabularyId = Constants.VOCABULARY_UpdateVocabularyId, ScopeTypeId = 1 } };
             mockView.Setup(v => v.Model).Returns(editModel);
             var destinationUrl = Globals.NavigateURL(Constants.TAB_ValidId);
             var mockHttpResponse = new Mock<HttpResponseBase>();
@@ -649,7 +649,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_ValidTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_ValidTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -667,7 +667,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_ValidTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_ValidTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -685,7 +685,7 @@ namespace DotNetNuke.Tests.Taxonomy
             // Arrange
             var mockView = new Mock<IEditVocabularyView>();
 
-            var editModel = new EditVocabularyModel {Term = new Term {TermId = Constants.TERM_ValidTermId}};
+            var editModel = new EditVocabularyModel { Term = new Term { TermId = Constants.TERM_ValidTermId } };
             mockView.Setup(v => v.Model).Returns(editModel);
 
             EditVocabularyPresenter presenter = CreatePresenter(mockView, true);
@@ -735,7 +735,7 @@ namespace DotNetNuke.Tests.Taxonomy
             mockHttpContext.Setup(h => h.Request).Returns(mockHttpRequest.Object);
 
             var presenter = new EditVocabularyPresenter(mockView.Object, MockHelper.CreateMockVocabularyController().Object, MockHelper.CreateMockTermController().Object)
-                                {HttpContext = mockHttpContext.Object};
+            { HttpContext = mockHttpContext.Object };
 
             if (initialize)
             {

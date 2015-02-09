@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Web;
 
@@ -32,7 +32,6 @@ using DotNetNuke.Entities.Controllers;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Entities.Urls
 {
     /// <summary>

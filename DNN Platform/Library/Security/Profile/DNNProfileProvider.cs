@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Globalization;
@@ -36,6 +36,7 @@ using DotNetNuke.Services.Log.EventLog;
 #endregion
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Security.Profile
 // ReSharper restore CheckNamespace
 {
@@ -129,7 +130,7 @@ namespace DotNetNuke.Security.Profile
                 {
                     while (dr.Read())
                     {
-						//Ensure the data reader returned is valid
+                        //Ensure the data reader returned is valid
                         if (!string.Equals(dr.GetName(0), "ProfileID", StringComparison.InvariantCultureIgnoreCase))
                         {
                             break;
@@ -145,9 +146,9 @@ namespace DotNetNuke.Security.Profile
                                 extendedVisibility = Convert.ToString(dr["ExtendedVisibility"]);
                             }
                             profProperty.ProfileVisibility = new ProfileVisibility(portalId, extendedVisibility)
-                                                                 {
-                                                                     VisibilityMode = (UserVisibilityMode)dr["Visibility"]
-                                                                 };
+                            {
+                                VisibilityMode = (UserVisibilityMode)dr["Visibility"]
+                            };
                         }
                     }
                 }
@@ -156,12 +157,12 @@ namespace DotNetNuke.Security.Profile
                     CBO.CloseDataReader(dr, true);
                 }
             }
-                      
+
             //Clear the profile
             user.Profile.ProfileProperties.Clear();
-            
-			//Add the properties to the profile
-			foreach (ProfilePropertyDefinition property in properties)
+
+            //Add the properties to the profile
+            foreach (ProfilePropertyDefinition property in properties)
             {
                 profProperty = property;
                 if (string.IsNullOrEmpty(profProperty.PropertyValue) && !string.IsNullOrEmpty(profProperty.DefaultValue))
@@ -206,18 +207,18 @@ namespace DotNetNuke.Security.Profile
                 {
                     int oldOffset;
                     int.TryParse(oldTimeZone.PropertyValue, out oldOffset);
-                    newTimeZone.PropertyValue = Localization.ConvertLegacyTimeZoneOffsetToTimeZoneInfo(oldOffset).Id;                    
+                    newTimeZone.PropertyValue = Localization.ConvertLegacyTimeZoneOffsetToTimeZoneInfo(oldOffset).Id;
                 }
             }
-            
+
             foreach (ProfilePropertyDefinition profProperty in properties)
             {
                 if ((profProperty.PropertyValue != null) && (profProperty.IsDirty))
                 {
                     var objSecurity = new PortalSecurity();
                     string propertyValue = objSecurity.InputFilter(profProperty.PropertyValue, PortalSecurity.FilterFlag.NoScripting);
-                    _dataProvider.UpdateProfileProperty(Null.NullInteger, user.UserID, profProperty.PropertyDefinitionId, 
-                                                propertyValue, (int) profProperty.ProfileVisibility.VisibilityMode, 
+                    _dataProvider.UpdateProfileProperty(Null.NullInteger, user.UserID, profProperty.PropertyDefinitionId,
+                                                propertyValue, (int)profProperty.ProfileVisibility.VisibilityMode,
                                                 profProperty.ProfileVisibility.ExtendedVisibilityString(), DateTime.Now);
                     EventLogController.Instance.AddLog(user, PortalController.Instance.GetCurrentPortalSettings(), UserController.Instance.GetCurrentUserInfo().UserID, "", "USERPROFILE_UPDATED");
                 }

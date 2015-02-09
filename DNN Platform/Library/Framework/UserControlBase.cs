@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.ComponentModel;
 using System.Web.UI;
 
@@ -29,7 +29,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 
 #endregion
-
 namespace DotNetNuke.Framework
 {
     /// -----------------------------------------------------------------------------
@@ -46,7 +45,7 @@ namespace DotNetNuke.Framework
         {
             get
             {
-            	return Globals.IsHostTab(PortalSettings.ActiveTab.TabID);
+                return Globals.IsHostTab(PortalSettings.ActiveTab.TabID);
             }
         }
 

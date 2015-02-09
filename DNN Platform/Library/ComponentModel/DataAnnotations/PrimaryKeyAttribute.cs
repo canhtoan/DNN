@@ -21,12 +21,11 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 #endregion
-
 namespace DotNetNuke.ComponentModel.DataAnnotations
 {
     public class PrimaryKeyAttribute : Attribute
@@ -45,6 +44,5 @@ namespace DotNetNuke.ComponentModel.DataAnnotations
         public bool AutoIncrement { get; set; }
         public string ColumnName { get; set; }
         public string PropertyName { get; set; }
-
     }
 }

@@ -3,8 +3,8 @@
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
-#endregion
 
+#endregion
 using System;
 using System.Linq;
 
@@ -39,9 +39,9 @@ namespace DotNetNuke.Modules.UrlManagement
 
                 providerSettingsPlaceHolder.Controls.Add(settingsControl);
 
-// ReSharper disable SuspiciousTypeConversion.Global
+                // ReSharper disable SuspiciousTypeConversion.Global
                 _providerSettingsControl = settingsControl as IExtensionUrlProviderSettingsControl;
-// ReSharper restore SuspiciousTypeConversion.Global
+                // ReSharper restore SuspiciousTypeConversion.Global
                 if (_providerSettingsControl != null)
                 {
                     _providerSettingsControl.Provider = provider.ProviderConfig;
@@ -58,12 +58,12 @@ namespace DotNetNuke.Modules.UrlManagement
             }
         }
 
-        void cmdCancel_Click(object sender, EventArgs e)
+        private void cmdCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(Globals.NavigateURL(ModuleContext.PortalSettings.ActiveTab.TabID));
         }
 
-        void cmdUpdate_Click(object sender, EventArgs e)
+        private void cmdUpdate_Click(object sender, EventArgs e)
         {
             if (!this.Page.IsValid)
             {

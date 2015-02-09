@@ -52,7 +52,6 @@ namespace DotNetNuke.Web.UI.WebControls
 
                 ExpandPath = folderLevel.TrimEnd(',');
             }
-            
         }
 
         /// <summary>
@@ -77,6 +76,5 @@ namespace DotNetNuke.Web.UI.WebControls
                 SelectedItem = (value != null) ? new ListItem() { Text = folderName, Value = value.FolderID.ToString(CultureInfo.InvariantCulture) } : null;
             }
         }
-
     }
 }

@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -34,7 +33,7 @@ namespace DotNetNuke.Web.InternalServices
     [DnnAuthorize]
     [DnnExceptionFilter]
     public class NewUserNotificationServiceController : DnnApiController
-    {        
+    {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public HttpResponseMessage Authorize(NotificationDTO postData)
@@ -48,7 +47,7 @@ namespace DotNetNuke.Web.InternalServices
 
             user.Membership.Approved = true;
             UserController.UpdateUser(PortalSettings.PortalId, user);
-            
+
             return Request.CreateResponse(HttpStatusCode.OK, new { Result = "success" });
         }
 
@@ -78,7 +77,7 @@ namespace DotNetNuke.Web.InternalServices
                 return null;
             }
 
-            return UserController.GetUserById(PortalSettings.PortalId, userId);            
+            return UserController.GetUserById(PortalSettings.PortalId, userId);
         }
     }
 }

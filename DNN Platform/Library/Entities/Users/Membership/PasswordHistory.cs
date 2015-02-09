@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using DotNetNuke.Common.Utilities;
 using System;
@@ -29,8 +30,8 @@ namespace DotNetNuke.Entities.Users.Membership
     {
         public int PasswordHistoryId { get; set; }
         public int UserId { get; set; }
-        public string Password  { get; set; }
-        public string PasswordSalt  { get; set; }
+        public string Password { get; set; }
+        public string PasswordSalt { get; set; }
 
         /// <summary>
         /// Fill the object with data from database.
@@ -46,6 +47,5 @@ namespace DotNetNuke.Entities.Users.Membership
             //add audit column data
             FillInternal(dr);
         }
-
     }
 }

@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 namespace DotNetNuke.Tests.Core.ComponentModel.Helpers
 {
     public class Service2Impl : IService2

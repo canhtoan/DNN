@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -46,7 +46,6 @@ using DotNetNuke.Web.Client.ClientResourceManagement;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
-
 namespace DotNetNuke.Framework.JavaScriptLibraries
 {
     public class JavaScript
@@ -111,7 +110,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
 
             RequestRegistration(jsname, null, SpecificVersion.Latest);
         }
-        
+
         /// <summary>Requests a script to be added to the page</summary>
         /// <param name="jsname">the library name</param>
         /// <param name="version">the library's version</param>
@@ -139,7 +138,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
                     return;
                 case SpecificVersion.LatestMajor:
                 case SpecificVersion.LatestMinor:
-                    if (RequestLooseVersionLibraryRegistration(jsname, version, specific)) 
+                    if (RequestLooseVersionLibraryRegistration(jsname, version, specific))
                     {
                         return;
                     }
@@ -196,7 +195,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
             }
         }
 
-        private static bool RequestLooseVersionLibraryRegistration(string jsname, Version version, SpecificVersion specific) 
+        private static bool RequestLooseVersionLibraryRegistration(string jsname, Version version, SpecificVersion specific)
         {
             Func<JavaScriptLibrary, bool> isValidLibrary = specific == SpecificVersion.LatestMajor
                 ? (Func<JavaScriptLibrary, bool>)(l => l.Version.Major == version.Major && l.Version.Minor >= version.Minor)
@@ -292,7 +291,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
             {
                 return JavaScriptLibraryController.Instance.GetLibraries(l => l.LibraryName.Equals(jsname, StringComparison.OrdinalIgnoreCase))
                                                            .OrderByDescending(l => l.Version)
-                                                           .FirstOrDefault(); 
+                                                           .FirstOrDefault();
             }
             catch (Exception)
             {
@@ -441,8 +440,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
                 case CommonJs.HoverIntent:
                     return (int)FileOrder.Js.HoverIntent;
                 default:
-                    return jsl.PackageID + (int) FileOrder.Js.DefaultPriority;
-
+                    return jsl.PackageID + (int)FileOrder.Js.DefaultPriority;
             }
         }
 
@@ -491,7 +489,6 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
                         //such as call jQuery.RegisterDnnJQueryPlugins in Control.OnInit.
                         if (page.Form != null)
                         {
-                            
                         }
 
                         //register dependency
@@ -590,7 +587,7 @@ namespace DotNetNuke.Framework.JavaScriptLibraries
 
                     if (!ClientAPI.UseExternalScripts)
                     {
-                        ClientAPI.RegisterEmbeddedResource(page, "dnn.scripts.js", typeof (ClientAPI));
+                        ClientAPI.RegisterEmbeddedResource(page, "dnn.scripts.js", typeof(ClientAPI));
                     }
                     break;
                 case ClientAPI.ClientNamespaceReferences.dnn_dom_positioning:

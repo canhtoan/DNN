@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,30 +17,29 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.Services.Exceptions
 {
     public class PageLoadException : BasePortalException
     {
         //default constructor
-		public PageLoadException()
+        public PageLoadException()
         {
         }
 
-		//constructor with exception message
+        //constructor with exception message
         public PageLoadException(string message) : base(message)
         {
         }
 
-		//constructor with message and inner exception
+        //constructor with message and inner exception
         public PageLoadException(string message, Exception inner) : base(message, inner)
         {
         }

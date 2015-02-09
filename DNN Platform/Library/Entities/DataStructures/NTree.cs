@@ -23,7 +23,5 @@ namespace DotNetNuke.Entities.DataStructures
         {
             return Children != null && Children.Count > 0;
         }
-
     }
-
 }

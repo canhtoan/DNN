@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Data;
 
@@ -29,7 +29,6 @@ using DotNetNuke.Entities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Services.Authentication
 {
     /// <summary>
@@ -40,7 +39,6 @@ namespace DotNetNuke.Services.Authentication
     [Serializable]
     public class UserAuthenticationInfo : BaseEntityInfo, IHydratable
     {
-
         #region Private Members
 
         public UserAuthenticationInfo()

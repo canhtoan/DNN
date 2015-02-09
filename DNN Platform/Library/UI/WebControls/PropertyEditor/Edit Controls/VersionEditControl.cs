@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Specialized;
 using System.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -44,7 +43,7 @@ namespace DotNetNuke.UI.WebControls
     [ToolboxData("<{0}:VersionEditControl runat=server></{0}:VersionEditControl>")]
     public class VersionEditControl : EditControl
     {
-		#region "Public Properties"
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -74,8 +73,8 @@ namespace DotNetNuke.UI.WebControls
                 return Value as Version;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         protected void RenderDropDownList(HtmlTextWriter writer, string type, int val)
         {
@@ -93,18 +92,18 @@ namespace DotNetNuke.UI.WebControls
                     //Add the Selected Attribute
                     writer.AddAttribute(HtmlTextWriterAttribute.Selected, "selected");
                 }
-				
+
                 //Render Option Tag
                 writer.RenderBeginTag(HtmlTextWriterTag.Option);
                 writer.Write(i.ToString("00"));
                 writer.RenderEndTag();
             }
-			
+
             //Close Select Tag
             writer.RenderEndTag();
         }
-		
-		#region "Protected Methods"
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -211,7 +210,7 @@ namespace DotNetNuke.UI.WebControls
             }
             return dataChanged;
         }
-		
-		#endregion
+
+        #endregion
     }
 }

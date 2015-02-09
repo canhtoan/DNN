@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -40,7 +40,6 @@ using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 
 #endregion
-
 namespace DotNetNuke.Services.Search.Controllers
 {
     /// -----------------------------------------------------------------------------
@@ -53,17 +52,17 @@ namespace DotNetNuke.Services.Search.Controllers
         #region Private Properties
 
         private const string SeacrchContollersCacheKey = "SearchControllers";
-        
+
         private readonly int _moduleSearchTypeId = SearchHelper.Instance.GetSearchTypeByName("module").SearchTypeId;
 
         #endregion
-        
+
         #region Core Search APIs
 
         public SearchResults SiteSearch(SearchQuery searchQuery)
         {
             var results = GetResults(searchQuery);
-            return new SearchResults{TotalHits = results.Item1, Results = results.Item2};
+            return new SearchResults { TotalHits = results.Item1, Results = results.Item2 };
         }
 
         public SearchResults ModuleSearch(SearchQuery searchQuery)
@@ -82,10 +81,10 @@ namespace DotNetNuke.Services.Search.Controllers
             Requires.NotNull("Query", searchQuery);
             Requires.PropertyNotEqualTo("searchQuery", "SearchTypeIds", searchQuery.SearchTypeIds.Count(), 0);
 
-            if((searchQuery.ModuleId > 0) && (searchQuery.SearchTypeIds.Count() > 1 || !searchQuery.SearchTypeIds.Contains(_moduleSearchTypeId)))
+            if ((searchQuery.ModuleId > 0) && (searchQuery.SearchTypeIds.Count() > 1 || !searchQuery.SearchTypeIds.Contains(_moduleSearchTypeId)))
                 throw new ArgumentException(Localization.Localization.GetExceptionMessage("ModuleIdMustHaveSearchTypeIdForModule", "ModuleId based search must have SearchTypeId for a module only"));
 
-            if(searchQuery.SortField == SortFields.CustomStringField || searchQuery.SortField == SortFields.CustomNumericField
+            if (searchQuery.SortField == SortFields.CustomStringField || searchQuery.SortField == SortFields.CustomNumericField
                 || searchQuery.SortField == SortFields.NumericKey || searchQuery.SortField == SortFields.Keyword)
                 Requires.NotNullOrEmpty("CustomSortField", searchQuery.CustomSortField);
 
@@ -122,7 +121,7 @@ namespace DotNetNuke.Services.Search.Controllers
             var portalIdQuery = new BooleanQuery();
             foreach (var portalId in searchQuery.PortalIds)
             {
-                portalIdQuery.Add(NumericRangeQuery.NewIntRange(Constants.PortalIdTag, portalId, portalId, true, true), Occur.SHOULD);                
+                portalIdQuery.Add(NumericRangeQuery.NewIntRange(Constants.PortalIdTag, portalId, portalId, true, true), Occur.SHOULD);
             }
             if (searchQuery.PortalIds.Any()) query.Add(portalIdQuery, Occur.MUST);
 
@@ -133,8 +132,8 @@ namespace DotNetNuke.Services.Search.Controllers
                 query.Add(NumericRangeQuery.NewLongRange(Constants.ModifiedTimeTag, long.Parse(searchQuery.BeginModifiedTimeUtc.ToString(Constants.DateTimeFormat)), long.Parse(searchQuery.EndModifiedTimeUtc.ToString(Constants.DateTimeFormat)), true, true), Occur.MUST);
             }
 
-            if(searchQuery.RoleId > 0)
-                query.Add(NumericRangeQuery.NewIntRange(Constants.RoleIdTag, searchQuery.RoleId, searchQuery.RoleId, true, true), Occur.MUST);  
+            if (searchQuery.RoleId > 0)
+                query.Add(NumericRangeQuery.NewIntRange(Constants.RoleIdTag, searchQuery.RoleId, searchQuery.RoleId, true, true), Occur.MUST);
 
             foreach (var tag in searchQuery.Tags)
             {
@@ -149,7 +148,7 @@ namespace DotNetNuke.Services.Search.Controllers
 
             foreach (var kvp in searchQuery.NumericKeys)
             {
-                query.Add(NumericRangeQuery.NewIntRange(Constants.NumericKeyPrefixTag + kvp.Key, kvp.Value, kvp.Value, true, true), Occur.MUST); 
+                query.Add(NumericRangeQuery.NewIntRange(Constants.NumericKeyPrefixTag + kvp.Key, kvp.Value, kvp.Value, true, true), Occur.MUST);
             }
 
             if (!string.IsNullOrEmpty(searchQuery.CultureCode))
@@ -245,16 +244,16 @@ namespace DotNetNuke.Services.Search.Controllers
                 {
                     if (searchTypeId == _moduleSearchTypeId)
                     {
-			foreach (var moduleDefId in searchQuery.ModuleDefIds.OrderBy(id => id))
+                        foreach (var moduleDefId in searchQuery.ModuleDefIds.OrderBy(id => id))
                         {
                             searchTypeIdQuery.Add(NumericRangeQuery.NewIntRange(Constants.ModuleDefIdTag, moduleDefId, moduleDefId, true, true), Occur.SHOULD);
                         }
                         if (!searchQuery.ModuleDefIds.Any())
-                            searchTypeIdQuery.Add(NumericRangeQuery.NewIntRange(Constants.SearchTypeTag, searchTypeId, searchTypeId, true, true), Occur.SHOULD);  
+                            searchTypeIdQuery.Add(NumericRangeQuery.NewIntRange(Constants.SearchTypeTag, searchTypeId, searchTypeId, true, true), Occur.SHOULD);
                     }
                     else
                     {
-                        searchTypeIdQuery.Add(NumericRangeQuery.NewIntRange(Constants.SearchTypeTag, searchTypeId, searchTypeId, true, true), Occur.SHOULD);       
+                        searchTypeIdQuery.Add(NumericRangeQuery.NewIntRange(Constants.SearchTypeTag, searchTypeId, searchTypeId, true, true), Occur.SHOULD);
                     }
                 }
                 query.Add(searchTypeIdQuery, Occur.MUST);
@@ -267,7 +266,7 @@ namespace DotNetNuke.Services.Search.Controllers
             var doc = luceneResult.Document;
             result.DisplayScore = luceneResult.DisplayScore;
             result.Score = luceneResult.Score;
-            
+
             // set culture code of result
             result.CultureCode = string.Empty;
             var localeField = luceneResult.Document.GetField(Constants.LocaleTag);
@@ -325,7 +324,7 @@ namespace DotNetNuke.Services.Search.Controllers
                         result.Url = field.StringValue;
                         break;
                     case Constants.SearchTypeTag:
-                        if(int.TryParse(field.StringValue, out intField)) result.SearchTypeId = intField;
+                        if (int.TryParse(field.StringValue, out intField)) result.SearchTypeId = intField;
                         break;
                     case Constants.ModuleIdTag:
                         if (int.TryParse(field.StringValue, out intField)) result.ModuleId = intField;
@@ -386,7 +385,7 @@ namespace DotNetNuke.Services.Search.Controllers
             if (!string.IsNullOrEmpty(luceneResult.ContentSnippet)) sb.Append(luceneResult.ContentSnippet + "...");
 
             var snippet = sb.ToString();
-           if (string.IsNullOrEmpty(snippet)) snippet = searchResult.Title;
+            if (string.IsNullOrEmpty(snippet)) snippet = searchResult.Title;
 
             return snippet;
         }
@@ -419,7 +418,7 @@ namespace DotNetNuke.Services.Search.Controllers
 
             return resultControllers;
         }
-        
+
         private Tuple<int, IList<SearchResult>> GetSecurityTrimmedResults(SearchQuery searchQuery, LuceneQuery luceneQuery)
         {
             var results = new List<SearchResult>();
@@ -431,11 +430,11 @@ namespace DotNetNuke.Services.Search.Controllers
             if (searchQuery.PageSize > 0)
             {
                 var luceneResults = LuceneController.Instance.Search(new LuceneSearchContext
-                    {
-                        LuceneQuery = luceneQuery,
-                        SearchQuery = searchQuery,
-                        SecurityCheckerDelegate = HasPermissionToViewDoc
-                    });
+                {
+                    LuceneQuery = luceneQuery,
+                    SearchQuery = searchQuery,
+                    SecurityCheckerDelegate = HasPermissionToViewDoc
+                });
                 results = luceneResults.Results.Select(GetSearchResultFromLuceneResult).ToList();
                 totalHits = luceneResults.TotalHits;
 
@@ -454,7 +453,7 @@ namespace DotNetNuke.Services.Search.Controllers
 
             return new Tuple<int, IList<SearchResult>>(totalHits, results);
         }
-        
+
         private bool HasPermissionToViewDoc(Document document, SearchQuery searchQuery)
         {
             // others LuceneResult fields are not impotrant at this moment
@@ -465,7 +464,7 @@ namespace DotNetNuke.Services.Search.Controllers
 
         private static SearchResult GetPartialSearchResult(Document doc, SearchQuery searchQuery)
         {
-            var result = new SearchResult {SearchContext = searchQuery.SearchContext};
+            var result = new SearchResult { SearchContext = searchQuery.SearchContext };
             var localeField = doc.GetField(Constants.LocaleTag);
 
             if (localeField != null)
@@ -478,7 +477,6 @@ namespace DotNetNuke.Services.Search.Controllers
             FillTagsValues(doc, result);
             return result;
         }
-
 
         #endregion
     }

@@ -8,7 +8,6 @@ namespace ClientDependency.Core
 {
     public static class ClientDependencyPathExtensions
     {
-
         public static string ResolvePath(this IClientDependencyPath path, HttpContextBase http)
         {
             if (string.IsNullOrEmpty(path.Path))
@@ -19,8 +18,7 @@ namespace ClientDependency.Core
             {
                 return http.ResolveUrl(path.Path);
             }
-            return path.Path;            
+            return path.Path;
         }
-
     }
 }

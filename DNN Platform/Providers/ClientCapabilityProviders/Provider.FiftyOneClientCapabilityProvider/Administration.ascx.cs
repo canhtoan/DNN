@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Configuration;
 using System.Diagnostics;
 using DotNetNuke.Common.Utilities;
@@ -26,22 +26,22 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Framework;
 using FiftyOne.Foundation.Mobile.Configuration;
 using FiftyOne.Foundation.Mobile.Detection.Entities;
+using System;
+using System.Linq;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using FiftyOne.Foundation.Mobile.Detection;
+using FiftyOne.Foundation.UI;
+using FiftyOne.Foundation.UI.Web;
+using System.Xml;
 
 namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
 {
-    using System;
-    using System.Linq;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-    using FiftyOne.Foundation.Mobile.Detection;
-    using FiftyOne.Foundation.UI;
-    using FiftyOne.Foundation.UI.Web;
-    using System.Xml;
-/// <summary>
+    /// <summary>
     /// Administration control is used as the main control off the hosts
     /// page to activate 51Degrees.mobi.
     /// </summary>
-    partial class Administration : PortalModuleBase
+    public partial class Administration : PortalModuleBase
     {
         /// <summary>
         ///  Records if premium data is in use when the control is first loaded.
@@ -65,7 +65,7 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
             cbDetectionEnabledPremium.CheckedChanged += DetectionEnabledChanged;
             cbAutoUpdatesEnabledPremium.CheckedChanged += AutoUpdatesEnabledChanged;
             cbShareUsageEnabledPremium.CheckedChanged += ShareUsageEnabledChanged;
-            
+
             NoResultsMessage.Visible = false;
             PremiumUploadSuccess.Visible = false;
             PremiumUploadError.Visible = false;
@@ -140,30 +140,29 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
 
             if (hasModel)
                 DeviceExplorer.Model = model;
-            
+
             if (hasDeviceId)
                 DeviceExplorer.DeviceID = deviceId;
-            
+
             if (hasSearchQuery)
                 SearchTextBox.Text = Server.UrlDecode(searchQuery);
 
             NoResultsMessage.Visible = hasSearchQuery && !hasDeviceId && !hasModel && !hasVendor;
         }
 
-    protected override void OnLoad(EventArgs e)
-    {
-        base.OnLoad(e);
-
-        if (!IsPostBack)
+        protected override void OnLoad(EventArgs e)
         {
-            cbDetectionEnabled.Checked = cbDetectionEnabledPremium.Checked = GetDetectionConfig("enabled", true);
-            cbAutoUpdatesEnabled.Checked = cbAutoUpdatesEnabledPremium.Checked = GetDetectionConfig("autoUpdate", true);
-            cbShareUsageEnabled.Checked = cbShareUsageEnabledPremium.Checked = GetDetectionConfig("shareUsage", true);
+            base.OnLoad(e);
 
+            if (!IsPostBack)
+            {
+                cbDetectionEnabled.Checked = cbDetectionEnabledPremium.Checked = GetDetectionConfig("enabled", true);
+                cbAutoUpdatesEnabled.Checked = cbAutoUpdatesEnabledPremium.Checked = GetDetectionConfig("autoUpdate", true);
+                cbShareUsageEnabled.Checked = cbShareUsageEnabledPremium.Checked = GetDetectionConfig("shareUsage", true);
+            }
         }
-    }
 
-    protected override void OnPreRender(EventArgs e)
+        protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
             PremiumUpload.Visible = DataProvider.IsPremium;
@@ -202,7 +201,6 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
 
         private void SearchButtonClick(object sender, EventArgs e)
         {
-
             string additionalParams = string.Empty;
             if (DataProvider.IsPremium)
             {
@@ -220,18 +218,18 @@ namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
                     additionalParams = "DeviceID=" + deviceId;
                 }
             }
-            
+
             var url = EditUrl(TabId, string.Empty, false, "Query=" + Server.UrlEncode(SearchTextBox.Text), additionalParams);
             Response.Redirect(url);
         }
 
-		protected string GetLicenseFormatString(string key)
-		{
-			var content = LocalizeString(key);
-			var licenseType = DataProvider.IsPremium ? LocalizeString("LicenseType_Premium.Text") 
-				: (DataProvider.IsCms ? LocalizeString("LicenseType_CMS.Text") : LocalizeString("LicenseType_Lite.Text"));
-			return string.Format(content, licenseType);
-		}
+        protected string GetLicenseFormatString(string key)
+        {
+            var content = LocalizeString(key);
+            var licenseType = DataProvider.IsPremium ? LocalizeString("LicenseType_Premium.Text")
+                : (DataProvider.IsCms ? LocalizeString("LicenseType_CMS.Text") : LocalizeString("LicenseType_Lite.Text"));
+            return string.Format(content, licenseType);
+        }
 
         private void DetectionEnabledChanged(object sender, EventArgs e)
         {

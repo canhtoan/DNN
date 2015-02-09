@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Web;
@@ -25,24 +26,21 @@ using DotNetNuke.Common.Utilities;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
+    public class HtmTemplateFileHandler : IHttpHandler
+    {
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.Clear();
+            context.Response.ContentType = "text/html";
+            context.Response.Write(FileSystemUtils.ReadFile(context.Request.PhysicalPath));
+        }
 
-	public class HtmTemplateFileHandler : IHttpHandler
-	{
-
-		public void ProcessRequest(HttpContext context)
-		{
-		    context.Response.Clear();
-		    context.Response.ContentType = "text/html";
-		    context.Response.Write(FileSystemUtils.ReadFile(context.Request.PhysicalPath));
-		}
-
-		public bool IsReusable
-		{
-			get
-			{
-				return false;
-			}
-		}
-	}
-
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
 }

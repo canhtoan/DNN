@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Data;
@@ -26,7 +27,7 @@ using DotNetNuke.Security.Permissions;
 
 namespace DotNetNuke.UI.WebControls.Internal
 {
-    class PermissionTriStateTemplate : ITemplate
+    internal class PermissionTriStateTemplate : ITemplate
     {
         private readonly PermissionInfo _permission;
 
@@ -40,11 +41,11 @@ namespace DotNetNuke.UI.WebControls.Internal
             triState.DataBinding += BindToTriState;
             container.Controls.Add(triState);
         }
-        
+
         public void BindToTriState(object sender, EventArgs e)
         {
-            var triState = (PermissionTriState) sender;
-            var dataRowView = ((DataRowView) ((DataGridItem)triState.NamingContainer).DataItem);
+            var triState = (PermissionTriState)sender;
+            var dataRowView = ((DataRowView)((DataGridItem)triState.NamingContainer).DataItem);
 
             triState.Value = dataRowView[_permission.PermissionName].ToString();
             triState.Locked = !bool.Parse(dataRowView[_permission.PermissionName + "_Enabled"].ToString());

@@ -1,4 +1,5 @@
-﻿namespace DotNetNuke.Services.Search.Entities
+﻿
+namespace DotNetNuke.Services.Search.Entities
 {
     /// <summary>
     /// Sorting direction to be used for Querying

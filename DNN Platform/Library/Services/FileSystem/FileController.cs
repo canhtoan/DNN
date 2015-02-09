@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -31,7 +31,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
 #endregion
-
 namespace DotNetNuke.Services.FileSystem
 {
     /// -----------------------------------------------------------------------------
@@ -62,7 +61,7 @@ namespace DotNetNuke.Services.FileSystem
             var fileManager = FileManager.Instance;
 
             var folder = FolderManager.Instance.GetFolder(file.FolderId);
-            
+
             var existingFile = fileManager.GetFile(folder, file.FileName);
 
             if (existingFile == null)
@@ -143,7 +142,7 @@ namespace DotNetNuke.Services.FileSystem
         [Obsolete("Deprecated in DNN 6.0.")]
         public DataTable GetAllFiles()
         {
-            var dt = (DataTable) DataCache.GetCache("GetAllFiles");
+            var dt = (DataTable)DataCache.GetCache("GetAllFiles");
             if (dt == null)
             {
                 dt = DataProvider.Instance().GetAllFiles();
@@ -233,7 +232,7 @@ namespace DotNetNuke.Services.FileSystem
         public static FileInfo DeserializeFile(XmlNode nodeFile, int portalId, int folderId)
         {
             var node = nodeFile.SelectSingleNode("file");
-            
+
             var newFile = new FileInfo
             {
                 UniqueId = new Guid(XmlUtils.GetNodeValue(node.CreateNavigator(), "uniqueid")),
@@ -407,7 +406,7 @@ namespace DotNetNuke.Services.FileSystem
             {
                 return null;
             }
-            return CBO.FillCollection(GetFiles(portalId, objFolder.FolderID), typeof (FileInfo));
+            return CBO.FillCollection(GetFiles(portalId, objFolder.FolderID), typeof(FileInfo));
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

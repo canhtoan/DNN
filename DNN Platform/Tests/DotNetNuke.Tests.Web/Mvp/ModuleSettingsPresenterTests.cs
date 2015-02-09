@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 
@@ -56,10 +55,9 @@ namespace DotNetNuke.Tests.Web.Mvp
             public TestSettingsPresenter(ISettingsView<SettingsModel> view)
                 : base(view)
             {
-
             }
         }
-        
+
         #endregion
 
         #region Tests
@@ -180,7 +178,7 @@ namespace DotNetNuke.Tests.Web.Mvp
 
         private ModuleInstanceContext CreateModuleContext()
         {
-            var context = new ModuleInstanceContext {Configuration = new ModuleInfo()};
+            var context = new ModuleInstanceContext { Configuration = new ModuleInfo() };
             for (int i = 1; i <= _moduleSettingCount; i++)
             {
                 context.Configuration.ModuleSettings.Add(String.Format(_moduleSettingName, i), String.Format(_moduleSettingValue, i));

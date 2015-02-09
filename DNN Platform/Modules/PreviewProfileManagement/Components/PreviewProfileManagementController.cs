@@ -1,12 +1,12 @@
-#region Copyright
-// DotNetNuke� - http://www.dotnetnuke.com
+﻿#region Copyright
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // All Rights Reserved
 #endregion
 
-#region "Usings"
 
+#region "Usings"
 using System;
 using System.Collections.Generic;
 
@@ -21,21 +21,20 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Upgrade;
 
 #endregion
-
 namespace DotNetNuke.Modules.PreviewProfileManagement.Components
 {
-	/// <summary>
-	/// Business controller of device profile management.
-	/// </summary>
-	public class PreviewProfileManagementController : IUpgradeable
+    /// <summary>
+    /// Business controller of device profile management.
+    /// </summary>
+    public class PreviewProfileManagementController : IUpgradeable
     {
         #region IUpgradable Implementation
 
-		/// <summary>
-		/// IUpgradable.UpgradeModule.
-		/// </summary>
-		/// <param name="version">upgrade in version.</param>
-		/// <returns></returns>
+        /// <summary>
+        /// IUpgradable.UpgradeModule.
+        /// </summary>
+        /// <param name="version">upgrade in version.</param>
+        /// <returns></returns>
         public string UpgradeModule(string version)
         {
             switch (version)
@@ -44,7 +43,7 @@ namespace DotNetNuke.Modules.PreviewProfileManagement.Components
                     RemoveProVersion();
                     break;
             }
-			return "Success";
+            return "Success";
         }
 
         private void RemoveProVersion()

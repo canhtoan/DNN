@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web;
 
@@ -28,7 +28,6 @@ using DotNetNuke.Services.SystemDateTime;
 using DotNetNuke.Entities.Portals;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users
 {
     public class UserTime
@@ -39,7 +38,7 @@ namespace DotNetNuke.Entities.Users
             get
             {
                 HttpContext context = HttpContext.Current;
-            	//Obtain PortalSettings from Current Context
+                //Obtain PortalSettings from Current Context
                 PortalSettings objSettings = PortalController.Instance.GetCurrentPortalSettings();
                 if (!context.Request.IsAuthenticated)
                 {
@@ -79,13 +78,13 @@ namespace DotNetNuke.Entities.Users
         public DateTime ConvertToUserTime(DateTime dt, double clientTimeZone)
         {
             PortalSettings portalSettings = PortalController.Instance.GetCurrentPortalSettings();
-            return dt.AddMinutes(FromClientToServerFactor(clientTimeZone, portalSettings.TimeZone.BaseUtcOffset.TotalMinutes));            
+            return dt.AddMinutes(FromClientToServerFactor(clientTimeZone, portalSettings.TimeZone.BaseUtcOffset.TotalMinutes));
         }
 
         [Obsolete("Deprecated in DNN 6.0.")]
         public DateTime ConvertToServerTime(DateTime dt, double clientTimeZone)
         {
-        	//Obtain PortalSettings from Current Context
+            //Obtain PortalSettings from Current Context
             PortalSettings portalSettings = PortalController.Instance.GetCurrentPortalSettings();
             return dt.AddMinutes(FromServerToClientFactor(clientTimeZone, portalSettings.TimeZone.BaseUtcOffset.TotalMinutes));
         }
@@ -95,7 +94,7 @@ namespace DotNetNuke.Entities.Users
         {
             if (userInfo == null || userInfo.UserID == -1)
             {
-				//Obtain PortalSettings from Current Context             
+                //Obtain PortalSettings from Current Context             
                 PortalSettings objSettings = PortalController.Instance.GetCurrentPortalSettings();
                 return TimeZoneInfo.ConvertTime(DateUtils.GetDatabaseTime(), TimeZoneInfo.Utc, objSettings.TimeZone);
             }

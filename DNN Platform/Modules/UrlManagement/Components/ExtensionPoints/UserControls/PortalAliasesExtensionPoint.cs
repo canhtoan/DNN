@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.ComponentModel.Composition;
 
 using DotNetNuke.ExtensionPoints;
@@ -30,7 +30,7 @@ namespace DotNetNuke.Modules.UrlManagement.Components.ExtensionPoints.UserContro
     [ExportMetadata("Name", "PortalAliasesExtensionPoint")]
     [ExportMetadata("Group", "PortalAliases")]
     [ExportMetadata("Priority", 2)]
-    public class PortalAliasesExtensionPoint: IUserControlExtensionPoint
+    public class PortalAliasesExtensionPoint : IUserControlExtensionPoint
     {
         public string UserControlSrc
         {

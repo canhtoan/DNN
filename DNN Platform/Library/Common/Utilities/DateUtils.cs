@@ -18,6 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+
 #region Usings
 using System;
 
@@ -25,7 +26,6 @@ using DotNetNuke.Data;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     /// <summary>
@@ -33,10 +33,9 @@ namespace DotNetNuke.Common.Utilities
     /// </summary>
     public class DateUtils
     {
+        private static DateTime s_lastUpdate = DateTime.MinValue;
 
-        private static DateTime _lastUpdate = DateTime.MinValue;
-
-        private static TimeSpan _drift = TimeSpan.MinValue;
+        private static TimeSpan s_drift = TimeSpan.MinValue;
 
         /// <summary>
         /// Gets the database time.
@@ -48,19 +47,19 @@ namespace DotNetNuke.Common.Utilities
             try
             {
                 // Also We check that drift is not the initial value and it is not out of the maximum UTC offset
-                if (DateTime.UtcNow >= _lastUpdate + TimeSpan.FromMinutes(5) || !(TimeSpan.FromHours(-26) <= _drift && _drift <= TimeSpan.FromHours(26)) || _drift == TimeSpan.MinValue)
+                if (DateTime.UtcNow >= s_lastUpdate + TimeSpan.FromMinutes(5) || !(TimeSpan.FromHours(-26) <= s_drift && s_drift <= TimeSpan.FromHours(26)) || s_drift == TimeSpan.MinValue)
                 {
-                    _lastUpdate = DateTime.UtcNow;
-                    _drift = DateTime.UtcNow - DataProvider.Instance().GetDatabaseTimeUtc();
+                    s_lastUpdate = DateTime.UtcNow;
+                    s_drift = DateTime.UtcNow - DataProvider.Instance().GetDatabaseTimeUtc();
                 }
 
-                result = DateTime.UtcNow + _drift;
+                result = DateTime.UtcNow + s_drift;
             }
             catch (ArgumentOutOfRangeException)
             {
-                _lastUpdate = DateTime.UtcNow;
-                _drift = DateTime.UtcNow - DataProvider.Instance().GetDatabaseTimeUtc();
-                result = DateTime.UtcNow + _drift;
+                s_lastUpdate = DateTime.UtcNow;
+                s_drift = DateTime.UtcNow - DataProvider.Instance().GetDatabaseTimeUtc();
+                result = DateTime.UtcNow + s_drift;
             }
 
             return result;
@@ -77,14 +76,14 @@ namespace DotNetNuke.Common.Utilities
 
             if (utcTimeDifference.TotalSeconds < 60)
             {
-                return String.Format(Localization.GetString("SecondsAgo"), (int) utcTimeDifference.TotalSeconds);
+                return String.Format(Localization.GetString("SecondsAgo"), (int)utcTimeDifference.TotalSeconds);
             }
 
             if (utcTimeDifference.TotalMinutes < 60)
             {
                 if (utcTimeDifference.TotalMinutes < 2)
                 {
-                    return String.Format(Localization.GetString("MinuteAgo"), (int) utcTimeDifference.TotalMinutes);
+                    return String.Format(Localization.GetString("MinuteAgo"), (int)utcTimeDifference.TotalMinutes);
                 }
 
                 return String.Format(Localization.GetString("MinutesAgo"), (int)utcTimeDifference.TotalMinutes);

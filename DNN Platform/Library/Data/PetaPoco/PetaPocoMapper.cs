@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Reflection;
 using System.Threading;
@@ -30,13 +30,12 @@ using DotNetNuke.ComponentModel.DataAnnotations;
 using PetaPoco;
 
 #endregion
-
 namespace DotNetNuke.Data.PetaPoco
 {
     public class PetaPocoMapper : IMapper
     {
         private readonly string _tablePrefix;
-        private static ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
+        private static ReaderWriterLockSlim s_lock = new ReaderWriterLockSlim();
 
         public PetaPocoMapper(string tablePrefix)
         {
@@ -50,9 +49,9 @@ namespace DotNetNuke.Data.PetaPoco
             bool includeColumn = true;
 
             //Check if the class has the ExplictColumnsAttribute
-            bool declareColumns = pocoProperty.DeclaringType != null 
+            bool declareColumns = pocoProperty.DeclaringType != null
                             && pocoProperty.DeclaringType.GetCustomAttributes(typeof(DeclareColumnsAttribute), true).Length > 0;
-            
+
             if (declareColumns)
             {
                 if (pocoProperty.GetCustomAttributes(typeof(IncludeColumnAttribute), true).Length == 0)
@@ -66,7 +65,7 @@ namespace DotNetNuke.Data.PetaPoco
                 {
                     includeColumn = false;
                 }
-             }
+            }
 
             ColumnInfo ci = null;
             if (includeColumn)
@@ -111,20 +110,18 @@ namespace DotNetNuke.Data.PetaPoco
 
         public static void SetMapper<T>(IMapper mapper)
         {
-            _lock.EnterWriteLock();
+            s_lock.EnterWriteLock();
             try
             {
-                if (Mappers.GetMapper(typeof (T)) is StandardMapper)
+                if (Mappers.GetMapper(typeof(T)) is StandardMapper)
                 {
-                    Mappers.Register(typeof (T), mapper);
+                    Mappers.Register(typeof(T), mapper);
                 }
-
             }
             finally
             {
-                _lock.ExitWriteLock();
+                s_lock.ExitWriteLock();
             }
-
         }
     }
 }

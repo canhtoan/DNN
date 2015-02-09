@@ -17,49 +17,49 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Social.Subscriptions.Entities;
 
 namespace DotNetNuke.Tests.Core.Controllers.Messaging.Builders
 {
-    class SubscriptionTypeBuilder
+    internal class SubscriptionTypeBuilder
     {
-        private int subscriptionTypeId;
-        private string subscriptionName;
-        private string friendlyName;
-        private int desktopModuleId;
+        private int _subscriptionTypeId;
+        private string _subscriptionName;
+        private string _friendlyName;
+        private int _desktopModuleId;
 
         internal SubscriptionTypeBuilder()
         {
-            subscriptionTypeId = 1;
-            subscriptionName = "MySubscriptionType";
-            friendlyName = "My Subscription Type";
-            desktopModuleId = Null.NullInteger;
+            _subscriptionTypeId = 1;
+            _subscriptionName = "MySubscriptionType";
+            _friendlyName = "My Subscription Type";
+            _desktopModuleId = Null.NullInteger;
         }
 
         internal SubscriptionTypeBuilder WithSubscriptionTypeId(int subscriptionTypeId)
         {
-            this.subscriptionTypeId = subscriptionTypeId;
+            _subscriptionTypeId = subscriptionTypeId;
             return this;
         }
 
         internal SubscriptionTypeBuilder WithSubscriptionName(string subscriptionName)
         {
-            this.subscriptionName = subscriptionName;
+            _subscriptionName = subscriptionName;
             return this;
         }
 
         internal SubscriptionType Build()
         {
             return new SubscriptionType
-                       {
-                           SubscriptionTypeId = subscriptionTypeId,
-                           SubscriptionName = subscriptionName,
-                           DesktopModuleId = desktopModuleId,
-                           FriendlyName = friendlyName
-                       };
+            {
+                SubscriptionTypeId = _subscriptionTypeId,
+                SubscriptionName = _subscriptionName,
+                DesktopModuleId = _desktopModuleId,
+                FriendlyName = _friendlyName
+            };
         }
     }
 }

@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +36,6 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public abstract class DnnFormItemBase : WebControl, INamingContainer
@@ -44,7 +43,7 @@ namespace DotNetNuke.Web.UI.WebControls
         private object _value;
         private string _requiredMessageSuffix = ".Required";
         private string _validationMessageSuffix = ".RegExError";
-        
+
         protected DnnFormItemBase()
         {
             FormMode = DnnFormMode.Inherit;
@@ -76,8 +75,8 @@ namespace DotNetNuke.Web.UI.WebControls
             {
                 Type type = DataSource.GetType();
                 IList<PropertyInfo> props = new List<PropertyInfo>(type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static));
-                return !String.IsNullOrEmpty(DataMember) 
-                           ? props.SingleOrDefault(p => p.Name == DataMember) 
+                return !String.IsNullOrEmpty(DataMember)
+                           ? props.SingleOrDefault(p => p.Name == DataMember)
                            : props.SingleOrDefault(p => p.Name == DataField);
             }
         }
@@ -160,21 +159,21 @@ namespace DotNetNuke.Web.UI.WebControls
             if (Required)
             {
                 var requiredValidator = new RequiredFieldValidator
-                                            {
-                                                ID = ID + "_Required", 
-                                                ErrorMessage = ResourceKey + RequiredMessageSuffix
-                                            };
+                {
+                    ID = ID + "_Required",
+                    ErrorMessage = ResourceKey + RequiredMessageSuffix
+                };
                 Validators.Add(requiredValidator);
             }
 
             if (!String.IsNullOrEmpty(ValidationExpression))
             {
                 var regexValidator = new RegularExpressionValidator
-                                         {
-                                             ID = ID + "_RegEx", 
-                                             ErrorMessage = ResourceKey + ValidationMessageSuffix, 
-                                             ValidationExpression = ValidationExpression
-                                         };
+                {
+                    ID = ID + "_RegEx",
+                    ErrorMessage = ResourceKey + ValidationMessageSuffix,
+                    ValidationExpression = ValidationExpression
+                };
                 if (!String.IsNullOrEmpty(value))
                 {
                     regexValidator.IsValid = Regex.IsMatch(value, ValidationExpression);
@@ -190,7 +189,7 @@ namespace DotNetNuke.Web.UI.WebControls
                     validator.ControlToValidate = controlId;
                     validator.Display = ValidatorDisplay.Dynamic;
                     validator.ErrorMessage = LocalizeString(validator.ErrorMessage);
-                    validator.CssClass = "dnnFormMessage dnnFormError";                   
+                    validator.CssClass = "dnnFormMessage dnnFormError";
                     Controls.Add(validator);
                 }
             }
@@ -222,16 +221,16 @@ namespace DotNetNuke.Web.UI.WebControls
             }
 
             //Add Label
-            var label = new DnnFormLabel 
-                                {
-                                    LocalResourceFile = LocalResourceFile, 
-                                    ResourceKey = ResourceKey + ".Text", 
-                                    ToolTipKey = ResourceKey + ".Help",
-                                    ViewStateMode = ViewStateMode.Disabled
-                                };
+            var label = new DnnFormLabel
+            {
+                LocalResourceFile = LocalResourceFile,
+                ResourceKey = ResourceKey + ".Text",
+                ToolTipKey = ResourceKey + ".Help",
+                ViewStateMode = ViewStateMode.Disabled
+            };
 
-            if (Required) {
-
+            if (Required)
+            {
                 label.RequiredField = true;
             }
 
@@ -283,7 +282,7 @@ namespace DotNetNuke.Web.UI.WebControls
                             // ReSharper disable PossibleNullReferenceException
                             value = Property.GetValue(DataSource, null);
                             // ReSharper restore PossibleNullReferenceException
-                        } 
+                        }
                     }
                     else
                     {
@@ -342,7 +341,7 @@ namespace DotNetNuke.Web.UI.WebControls
                         dictionary[dataField] = newValue as string;
                     }
                 }
-                else if(DataSource is IIndexable)
+                else if (DataSource is IIndexable)
                 {
                     var indexer = DataSource as IIndexable;
                     indexer[dataField] = newValue;
@@ -401,7 +400,7 @@ namespace DotNetNuke.Web.UI.WebControls
                         }
                     }
                 }
-            }           
+            }
         }
 
         protected void UpdateDataSource(object oldValue, object newValue, string dataField)

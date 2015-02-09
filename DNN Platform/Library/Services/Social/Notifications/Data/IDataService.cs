@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Data;
 
@@ -57,29 +57,29 @@ namespace DotNetNuke.Services.Social.Notifications.Data
 
         #endregion
 
-		#region Toast
+        #region Toast
 
-		bool IsToastPending(int notificationId);
+        bool IsToastPending(int notificationId);
 
-		/// <summary>
-		/// Mark a Toast ready for sending
-		/// </summary>
-		/// <param name="notificationId">The notification Id </param>
-		/// <param name="userId">The Recipient User Id </param>
-		void MarkReadyForToast(int notificationId, int userId);
+        /// <summary>
+        /// Mark a Toast ready for sending
+        /// </summary>
+        /// <param name="notificationId">The notification Id </param>
+        /// <param name="userId">The Recipient User Id </param>
+        void MarkReadyForToast(int notificationId, int userId);
 
-		/// <summary>
-		/// Mark Toast being already sent
-		/// </summary>
-		/// <param name="notificationId">The notification Id </param>
-		/// <param name="userId">The Recipient User Id </param>
-		void MarkToastSent(int notificationId, int userId);
+        /// <summary>
+        /// Mark Toast being already sent
+        /// </summary>
+        /// <param name="notificationId">The notification Id </param>
+        /// <param name="userId">The Recipient User Id </param>
+        void MarkToastSent(int notificationId, int userId);
 
-		/// <summary>
-		/// Get a list of Toasts that have not been delivered yet.
-		/// </summary>
-		IDataReader GetToasts(int userId, int portalId);
+        /// <summary>
+        /// Get a list of Toasts that have not been delivered yet.
+        /// </summary>
+        IDataReader GetToasts(int userId, int portalId);
 
-		#endregion
+        #endregion
     }
 }

@@ -21,12 +21,11 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System.Collections.Generic;
 
 #endregion
-
 namespace DotNetNuke.Collections
 {
     // Taken from Rob Conery's Blog post on the ASP.Net MVC PagedList Helper

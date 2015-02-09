@@ -17,22 +17,22 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 namespace DotNetNuke.ExtensionPoints.Filters
 {
     public class FilterByUnauthenticated : IExtensionPointFilter
     {
-        private readonly bool isAuthenticated;
+        private readonly bool _isAuthenticated;
 
         public FilterByUnauthenticated(bool isAuthenticated)
         {
-            this.isAuthenticated = isAuthenticated;
+            _isAuthenticated = isAuthenticated;
         }
 
         public bool Condition(IExtensionPointData m)
         {
-            return isAuthenticated || !m.DisableUnauthenticated;
+            return _isAuthenticated || !m.DisableUnauthenticated;
         }
     }
 }

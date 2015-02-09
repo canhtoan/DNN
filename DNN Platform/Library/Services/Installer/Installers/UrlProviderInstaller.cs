@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Linq;
 using System.Xml.XPath;
@@ -29,7 +29,7 @@ using DotNetNuke.Entities.Urls;
 
 namespace DotNetNuke.Services.Installer.Installers
 {
-    class UrlProviderInstaller : ComponentInstallerBase
+    internal class UrlProviderInstaller : ComponentInstallerBase
     {
         private ExtensionUrlProviderInfo _extensionUrlProvider;
         private ExtensionUrlProviderInfo _installedExtensionUrlProvider;
@@ -137,15 +137,15 @@ namespace DotNetNuke.Services.Installer.Installers
         public override void ReadManifest(XPathNavigator manifestNav)
         {
             _extensionUrlProvider = new ExtensionUrlProviderInfo
-                {
-                    ProviderName = Util.ReadElement(manifestNav, "urlProvider/name", Log, Util.URLPROVIDER_NameMissing),
-                    ProviderType = Util.ReadElement(manifestNav, "urlProvider/type", Log, Util.URLPROVIDER_TypeMissing),
-                    SettingsControlSrc = Util.ReadElement(manifestNav, "urlProvider/settingsControlSrc"),
-                    IsActive = true,
-                    RedirectAllUrls = Convert.ToBoolean(Util.ReadElement(manifestNav, "urlProvider/redirectAllUrls", "false")),
-                    ReplaceAllUrls = Convert.ToBoolean(Util.ReadElement(manifestNav, "urlProvider/replaceAllUrls", "false")),
-                    RewriteAllUrls = Convert.ToBoolean(Util.ReadElement(manifestNav, "urlProvider/rewriteAllUrls", "false"))
-                };
+            {
+                ProviderName = Util.ReadElement(manifestNav, "urlProvider/name", Log, Util.URLPROVIDER_NameMissing),
+                ProviderType = Util.ReadElement(manifestNav, "urlProvider/type", Log, Util.URLPROVIDER_TypeMissing),
+                SettingsControlSrc = Util.ReadElement(manifestNav, "urlProvider/settingsControlSrc"),
+                IsActive = true,
+                RedirectAllUrls = Convert.ToBoolean(Util.ReadElement(manifestNav, "urlProvider/redirectAllUrls", "false")),
+                ReplaceAllUrls = Convert.ToBoolean(Util.ReadElement(manifestNav, "urlProvider/replaceAllUrls", "false")),
+                RewriteAllUrls = Convert.ToBoolean(Util.ReadElement(manifestNav, "urlProvider/rewriteAllUrls", "false"))
+            };
 
             _desktopModuleName = Util.ReadElement(manifestNav, "urlProvider/desktopModule");
             if (Log.Valid)

@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,7 +56,7 @@ namespace DotNetNuke.Tests.Utilities
                     result = (TMember)property.GetValue(instance, null);
                 }
             }
-            else if(member.MemberType == MemberTypes.Field)
+            else if (member.MemberType == MemberTypes.Field)
             {
                 var field = member as FieldInfo;
                 if (field != null)
@@ -105,7 +105,7 @@ namespace DotNetNuke.Tests.Utilities
         public static string ReadStream(string testFilesFolder, string fileName)
         {
             string text = String.Empty;
-            Stream stream = GetFileStream(testFilesFolder,fileName);
+            Stream stream = GetFileStream(testFilesFolder, fileName);
             if (stream != null)
             {
                 using (var reader = new StreamReader(GetFileStream(testFilesFolder, fileName)))
@@ -144,6 +144,5 @@ namespace DotNetNuke.Tests.Utilities
             }
         }
     }
-
 }
 

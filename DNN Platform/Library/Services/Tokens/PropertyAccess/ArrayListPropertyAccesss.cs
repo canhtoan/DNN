@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Globalization;
@@ -27,23 +27,22 @@ using System.Globalization;
 using DotNetNuke.Entities.Users;
 
 #endregion
-
 namespace DotNetNuke.Services.Tokens
 {
     public class ArrayListPropertyAccess : IPropertyAccess
     {
-        private readonly ArrayList custom;
+        private readonly ArrayList _custom;
 
         public ArrayListPropertyAccess(ArrayList list)
         {
-            custom = list;
+            _custom = list;
         }
 
         #region IPropertyAccess Members
 
         public string GetProperty(string propertyName, string format, CultureInfo formatProvider, UserInfo AccessingUser, Scope AccessLevel, ref bool PropertyNotFound)
         {
-            if (custom == null)
+            if (_custom == null)
             {
                 return string.Empty;
             }
@@ -54,24 +53,24 @@ namespace DotNetNuke.Services.Tokens
                 OutputFormat = "g";
             }
             int intIndex = int.Parse(propertyName);
-            if ((custom != null) && custom.Count > intIndex)
+            if ((_custom != null) && _custom.Count > intIndex)
             {
-                valueObject = custom[intIndex].ToString();
+                valueObject = _custom[intIndex].ToString();
             }
             if ((valueObject != null))
             {
                 switch (valueObject.GetType().Name)
                 {
                     case "String":
-                        return PropertyAccess.FormatString((string) valueObject, format);
+                        return PropertyAccess.FormatString((string)valueObject, format);
                     case "Boolean":
-                        return (PropertyAccess.Boolean2LocalizedYesNo((bool) valueObject, formatProvider));
+                        return (PropertyAccess.Boolean2LocalizedYesNo((bool)valueObject, formatProvider));
                     case "DateTime":
                     case "Double":
                     case "Single":
                     case "Int32":
                     case "Int64":
-                        return (((IFormattable) valueObject).ToString(OutputFormat, formatProvider));
+                        return (((IFormattable)valueObject).ToString(OutputFormat, formatProvider));
                     default:
                         return PropertyAccess.FormatString(valueObject.ToString(), format);
                 }

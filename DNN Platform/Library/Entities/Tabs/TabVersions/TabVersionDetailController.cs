@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using System.Linq;
 using DotNetNuke.Common;
@@ -28,48 +28,48 @@ using DotNetNuke.Framework;
 
 namespace DotNetNuke.Entities.Tabs.TabVersions
 {
-    public class TabVersionDetailController: ServiceLocator<ITabVersionDetailController, TabVersionDetailController>, ITabVersionDetailController
+    public class TabVersionDetailController : ServiceLocator<ITabVersionDetailController, TabVersionDetailController>, ITabVersionDetailController
     {
-        private static readonly DataProvider Provider = DataProvider.Instance();
+        private static readonly DataProvider s_provider = DataProvider.Instance();
 
         #region Public Methods
         public TabVersionDetail GetTabVersionDetail(int tabVersionDetailId, int tabVersionId, bool ignoreCache = false)
         {
             return GetTabVersionDetails(tabVersionId, ignoreCache).SingleOrDefault(tvd => tvd.TabVersionDetailId == tabVersionDetailId);
         }
-        
+
         public IEnumerable<TabVersionDetail> GetTabVersionDetails(int tabVersionId, bool ignoreCache = false)
         {
             //if we are not using the cache
             if (ignoreCache || Host.Host.PerformanceSetting == Globals.PerformanceSettings.NoCaching)
             {
-                return CBO.FillCollection<TabVersionDetail>(Provider.GetTabVersionDetails(tabVersionId));
+                return CBO.FillCollection<TabVersionDetail>(s_provider.GetTabVersionDetails(tabVersionId));
             }
 
             return CBO.GetCachedObject<List<TabVersionDetail>>(new CacheItemArgs(GetTabVersionDetailCacheKey(tabVersionId),
                                                                     DataCache.TabVersionDetailsCacheTimeOut,
                                                                     DataCache.TabVersionDetailsCachePriority),
-                                                            c => CBO.FillCollection<TabVersionDetail>(Provider.GetTabVersionDetails(tabVersionId)));            
+                                                            c => CBO.FillCollection<TabVersionDetail>(s_provider.GetTabVersionDetails(tabVersionId)));
         }
 
         public IEnumerable<TabVersionDetail> GetVersionHistory(int tabId, int version)
         {
-            return CBO.FillCollection<TabVersionDetail>(Provider.GetTabVersionDetailsHistory(tabId, version));
+            return CBO.FillCollection<TabVersionDetail>(s_provider.GetTabVersionDetailsHistory(tabId, version));
         }
 
         public void SaveTabVersionDetail(TabVersionDetail tabVersionDetail)
         {
-            SaveTabVersionDetail(tabVersionDetail, tabVersionDetail.CreatedByUserID, tabVersionDetail.LastModifiedByUserID);            
+            SaveTabVersionDetail(tabVersionDetail, tabVersionDetail.CreatedByUserID, tabVersionDetail.LastModifiedByUserID);
         }
 
         public void SaveTabVersionDetail(TabVersionDetail tabVersionDetail, int createdByUserID)
         {
             SaveTabVersionDetail(tabVersionDetail, createdByUserID, createdByUserID);
         }
-        
+
         public void SaveTabVersionDetail(TabVersionDetail tabVersionDetail, int createdByUserID, int modifiedByUserID)
         {
-            tabVersionDetail.TabVersionDetailId = Provider.SaveTabVersionDetail(tabVersionDetail.TabVersionDetailId,
+            tabVersionDetail.TabVersionDetailId = s_provider.SaveTabVersionDetail(tabVersionDetail.TabVersionDetailId,
                 tabVersionDetail.TabVersionId, tabVersionDetail.ModuleId, tabVersionDetail.ModuleVersion,
                 tabVersionDetail.PaneName, tabVersionDetail.ModuleOrder, (int)tabVersionDetail.Action, createdByUserID,
                 modifiedByUserID);
@@ -78,7 +78,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
 
         public void DeleteTabVersionDetail(int tabVersionId, int tabVersionDetailId)
         {
-            Provider.DeleteTabVersionDetail(tabVersionDetailId);
+            s_provider.DeleteTabVersionDetail(tabVersionDetailId);
             ClearCache(tabVersionId);
         }
         #endregion

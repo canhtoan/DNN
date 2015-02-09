@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -42,7 +42,6 @@ using DotNetNuke.Services.Installer;
 using DotNetNuke.Services.Upgrade.Internals.InstallConfiguration;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.Internals
 {
     /// -----------------------------------------------------------------------------
@@ -178,7 +177,7 @@ namespace DotNetNuke.Services.Upgrade.Internals
             //Set Folder Mappings Settings            
             if (!string.IsNullOrEmpty(installConfig.FolderMappingsSettings))
             {
-                XmlNode folderMappingsNode = installTemplate.SelectSingleNode("//dotnetnuke/"+FolderMappingsConfigController.Instance.ConfigNode);
+                XmlNode folderMappingsNode = installTemplate.SelectSingleNode("//dotnetnuke/" + FolderMappingsConfigController.Instance.ConfigNode);
 
                 if (folderMappingsNode == null)
                 {
@@ -404,12 +403,12 @@ namespace DotNetNuke.Services.Upgrade.Internals
                                 }
                             }
                         }
-                        installConfig.Settings.Add(new HostSettingConfig {Name = settingNode.Name, Value = settingNode.InnerText, IsSecure = settingIsSecure});
+                        installConfig.Settings.Add(new HostSettingConfig { Name = settingNode.Name, Value = settingNode.InnerText, IsSecure = settingIsSecure });
                     }
                 }
             }
-            var folderMappingsNode = installTemplate.SelectSingleNode("//dotnetnuke/"+FolderMappingsConfigController.Instance.ConfigNode);
-            installConfig.FolderMappingsSettings =  (folderMappingsNode != null)? folderMappingsNode.InnerXml : String.Empty;
+            var folderMappingsNode = installTemplate.SelectSingleNode("//dotnetnuke/" + FolderMappingsConfigController.Instance.ConfigNode);
+            installConfig.FolderMappingsSettings = (folderMappingsNode != null) ? folderMappingsNode.InnerXml : String.Empty;
 
             //Parse the portals node
             XmlNodeList portalsNode = installTemplate.SelectNodes("//dotnetnuke/portals/portal");
@@ -471,22 +470,22 @@ namespace DotNetNuke.Services.Upgrade.Internals
                 string serverVersion = sqlConnection.ServerVersion;
                 if (serverVersion != null)
                 {
-                    string[] serverVersionDetails = serverVersion.Split(new[] {"."}, StringSplitOptions.None);
+                    string[] serverVersionDetails = serverVersion.Split(new[] { "." }, StringSplitOptions.None);
 
                     int versionNumber = int.Parse(serverVersionDetails[0]);
 
                     switch (versionNumber)
                     {
                         case 8:
-                            //sql 2000
+                        //sql 2000
                         case 9:
                             //sql 2005
                             isValidVersion = false;
                             break;
                         case 10:
-                            //sql 2008
+                        //sql 2008
                         case 11:
-                            //sql 2010
+                        //sql 2010
                         case 12:
                             //sql 2012
                             isValidVersion = true;
@@ -635,7 +634,7 @@ namespace DotNetNuke.Services.Upgrade.Internals
             }
             return culture;
         }
-        
+
         private CultureInfo GetCultureFromQs()
         {
             if (HttpContext.Current == null || HttpContext.Current.Request["language"] == null)
@@ -658,13 +657,13 @@ namespace DotNetNuke.Services.Upgrade.Internals
                                                      null,
                                                      null,
                                                      -1,
-													 null,
-													 null,
+                                                     null,
+                                                     null,
                                                      false,
                                                      "DotNetNuke-Appgallery/1.0.0.0(Microsoft Windows NT 6.1.7600.0",
                                                      "wpi://2.1.0.0/Microsoft Windows NT 6.1.7600.0",
                                                      out myfile,
-													 10000);
+                                                     10000);
             //use fixed name for later installation
             myfile = "installlanguage.resources";
             Util.DeployExtension(wr, myfile, installFolder);

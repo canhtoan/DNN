@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -32,25 +32,24 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Syndication;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     [DefaultProperty("RssProxyUrl"), ToolboxData("<{0}:FeedBrowser runat=server></{0}:FeedBrowser>")]
     public class FeedBrowser : WebControlBase
     {
-		#region "Private Members"
+        #region "Private Members"
 
-        private readonly StringBuilder output = new StringBuilder("");
+        private readonly StringBuilder _output = new StringBuilder("");
         private bool _allowHtmlDescription = true;
         private string _defaultTemplate = "";
         private string _opmlFile = "";
         private string _opmlText = "";
         private string _opmlUrl = "";
         private string _rssProxyUrl = "";
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         public string DefaultTemplate
         {
@@ -128,13 +127,13 @@ namespace DotNetNuke.UI.WebControls
         {
             get
             {
-                return (output.ToString());
+                return (_output.ToString());
             }
         }
-		
-		#endregion
-		
-		#region "Protected Methods"
+
+        #endregion
+
+        #region "Protected Methods"
 
         protected override void OnLoad(EventArgs e)
         {
@@ -196,16 +195,16 @@ namespace DotNetNuke.UI.WebControls
 
             string renderScript = GetRenderingScript(instanceVarName, opmlFeed.Outlines);
             bool includeFallbackScript = false;
-            
-			//Is there any OPML structure to render?
-			if ((String.IsNullOrEmpty(renderScript)))
+
+            //Is there any OPML structure to render?
+            if ((String.IsNullOrEmpty(renderScript)))
             {
                 includeFallbackScript = true;
                 script.Append(instanceVarName + ".setTabs(defaultFeedBrowser());");
             }
             else
             {
-				//Javascript function that renders the OPML structure
+                //Javascript function that renders the OPML structure
                 script.Append("function " + instanceVarName + "customFeedBrowser() ");
                 script.Append("{");
                 script.Append("     var " + instanceVarName + "tabs = [];");
@@ -217,23 +216,23 @@ namespace DotNetNuke.UI.WebControls
                 script.Append("} ");
                 script.Append(instanceVarName + ".setTabs(" + instanceVarName + "customFeedBrowser());");
             }
-            		
+
             //NK 11/25/08
             //This code has a jQuery dependency so it can't be loaded using standard client script registration
             //It must come later in the page which is why it is inline; also ClientScript buggy when used in webcontrols
-			if (!Page.ClientScript.IsClientScriptBlockRegistered("FBHostUrl"))
+            if (!Page.ClientScript.IsClientScriptBlockRegistered("FBHostUrl"))
             {
                 Page.ClientScript.RegisterClientScriptBlock(GetType(),
                                                             "FBHostUrl",
                                                             "<script type=\"text/javascript\">var $dnn = new Object(); $dnn.hostUrl = '" + Globals.ResolveUrl("~/") + "';</script>");
-                output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/Shared/scripts/init.js") + "\"></script>");
-                output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/Shared/scripts/DotNetNukeAjaxShared.js") + "\"></script>");
-                output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/TabStrip/scripts/tabstrip.js") + "\"></script>");
-                output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/FeedBrowser/scripts/feedbrowser.js") + "\"></script>");
-                output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/FeedBrowser/scripts/templates.js") + "\"></script>");
+                _output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/Shared/scripts/init.js") + "\"></script>");
+                _output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/Shared/scripts/DotNetNukeAjaxShared.js") + "\"></script>");
+                _output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/TabStrip/scripts/tabstrip.js") + "\"></script>");
+                _output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/FeedBrowser/scripts/feedbrowser.js") + "\"></script>");
+                _output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/FeedBrowser/scripts/templates.js") + "\"></script>");
                 if ((includeFallbackScript))
                 {
-                    output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/FeedBrowser/scripts/fallback.js") + "\"></script>");
+                    _output.Append("<script type=\"text/javascript\" src=\"" + Globals.ResolveUrl("~/Resources/FeedBrowser/scripts/fallback.js") + "\"></script>");
                 }
                 if ((!String.IsNullOrEmpty(StyleSheetUrl)))
                 {
@@ -242,14 +241,14 @@ namespace DotNetNuke.UI.WebControls
                 }
             }
             script.Append(instanceVarName + ".render();");
-            output.Append("<script type=\"text/javascript\">" + script + "</script>");
+            _output.Append("<script type=\"text/javascript\">" + script + "</script>");
 
             base.OnLoad(e);
         }
 
-		#endregion
+        #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
         private Opml GetDefaultOpmlFeed()
         {
@@ -315,7 +314,7 @@ namespace DotNetNuke.UI.WebControls
                     //Create a call to the "addTab" method
                     //addTab accepts one parameter -- a TabInfo object
                     //Here the TabInfo object is dynamically created
-                	//with the parameters  Label, Url and Template
+                    //with the parameters  Label, Url and Template
                     js.Append("var " + tabVarName + " = new TabInfo('" + item.Text + "',");
 
                     if ((item.Type == "none"))
@@ -326,7 +325,7 @@ namespace DotNetNuke.UI.WebControls
                     {
                         js.Append("'" + item.XmlUrl.AbsoluteUri + "'");
                     }
-					
+
                     //Template detection
                     //The category field indicates if the outline node is a tab, section or category
                     //If the field value includes a / character, then portion of the value to the right of /
@@ -427,7 +426,7 @@ namespace DotNetNuke.UI.WebControls
             }
             return js.ToString();
         }
-		
-		#endregion
+
+        #endregion
     }
 }

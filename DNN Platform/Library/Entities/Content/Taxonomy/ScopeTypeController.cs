@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,13 +29,12 @@ using DotNetNuke.Entities.Content.Common;
 using DotNetNuke.Entities.Content.Data;
 
 #endregion
-
 namespace DotNetNuke.Entities.Content.Taxonomy
 {
-	/// <summary>
-	/// ScopeTypeController provides the business layer of ScopeType.
-	/// </summary>
-	/// <seealso cref="TermController"/>
+    /// <summary>
+    /// ScopeTypeController provides the business layer of ScopeType.
+    /// </summary>
+    /// <seealso cref="TermController"/>
     public class ScopeTypeController : IScopeTypeController
     {
         private readonly IDataService _DataService;

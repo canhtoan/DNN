@@ -1,4 +1,4 @@
-#region Copyright
+﻿#region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,7 +56,6 @@ using DotNetNuke.Services.ModuleCache;
 using DotNetNuke.Services.OutputCache;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     public partial class ModuleController
@@ -161,8 +160,8 @@ namespace DotNetNuke.Entities.Modules
         [Obsolete("Deprectaed in DNN 7.3.")]
         public void DeleteModuleSettings(int moduleId)
         {
-            dataProvider.DeleteModuleSettings(moduleId);
-            var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.MODULE_SETTING_DELETED.ToString()};
+            s_dataProvider.DeleteModuleSettings(moduleId);
+            var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.MODULE_SETTING_DELETED.ToString() };
             log.LogProperties.Add(new LogDetailInfo("ModuleId", moduleId.ToString()));
             LogController.Instance.AddLog(log);
             UpdateTabModuleVersionsByModuleID(moduleId);
@@ -180,7 +179,7 @@ namespace DotNetNuke.Entities.Modules
         [Obsolete("Deprectaed in DNN 7.3.")]
         public void DeleteTabModuleSettings(int tabModuleId)
         {
-            dataProvider.DeleteTabModuleSettings(tabModuleId);
+            s_dataProvider.DeleteTabModuleSettings(tabModuleId);
             UpdateTabModuleVersion(tabModuleId);
             EventLogController.Instance.AddLog("TabModuleID",
                                tabModuleId.ToString(),
@@ -198,7 +197,7 @@ namespace DotNetNuke.Entities.Modules
             IDataReader dr = null;
             try
             {
-                dr = dataProvider.GetModuleSettings(ModuleId);
+                dr = s_dataProvider.GetModuleSettings(ModuleId);
                 while (dr.Read())
                 {
                     if (!dr.IsDBNull(1))
@@ -239,7 +238,7 @@ namespace DotNetNuke.Entities.Modules
         [Obsolete("Replaced in DotNetNuke 5.0 by GetModules(Integer)")]
         public ArrayList GetModules(int portalID, bool includePermissions)
         {
-            return CBO.FillCollection(dataProvider.GetModules(portalID), typeof(ModuleInfo));
+            return CBO.FillCollection(s_dataProvider.GetModules(portalID), typeof(ModuleInfo));
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -264,7 +263,7 @@ namespace DotNetNuke.Entities.Modules
             IDataReader dr = null;
             try
             {
-                dr = dataProvider.GetTabModuleSettings(TabModuleId);
+                dr = s_dataProvider.GetTabModuleSettings(TabModuleId);
                 while (dr.Read())
                 {
                     if (!dr.IsDBNull(1))

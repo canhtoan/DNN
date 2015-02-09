@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI.WebControls;
 
@@ -28,7 +28,6 @@ using DotNetNuke.Services.Localization;
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnGridClientSelectColumn : GridClientSelectColumn
@@ -62,7 +61,7 @@ namespace DotNetNuke.Web.UI.WebControls
             base.InitializeCell(cell, columnIndex, inItem);
             if (inItem is GridHeaderItem && !String.IsNullOrEmpty(HeaderText))
             {
-                if (! inItem.OwnerTableView.OwnerGrid.AllowMultiRowSelection)
+                if (!inItem.OwnerTableView.OwnerGrid.AllowMultiRowSelection)
                 {
                     cell.Text = Localization.GetString(string.Format("{0}.Header", HeaderText), LocalResourceFile);
                 }

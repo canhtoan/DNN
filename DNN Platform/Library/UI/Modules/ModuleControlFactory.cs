@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web.UI;
@@ -28,7 +28,6 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.UI.Modules
 {
     public class ModuleControlFactory

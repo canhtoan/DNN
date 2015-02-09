@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -27,7 +27,6 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnFormToggleButtonItem : DnnFormItemBase
@@ -74,7 +73,7 @@ namespace DotNetNuke.Web.UI.WebControls
         protected override WebControl CreateControlInternal(Control container)
         {
             //_checkBox = new DnnRadButton {ID = ID + "_CheckBox", ButtonType = RadButtonType.ToggleButton, ToggleType = ButtonToggleType.CheckBox, AutoPostBack = false};
-            _checkBox = new CheckBox{ ID = ID + "_CheckBox", AutoPostBack = false };
+            _checkBox = new CheckBox { ID = ID + "_CheckBox", AutoPostBack = false };
 
             _checkBox.CheckedChanged += CheckedChanged;
             container.Controls.Add(_checkBox);

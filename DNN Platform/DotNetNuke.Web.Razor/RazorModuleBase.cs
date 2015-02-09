@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Web.UI;
@@ -27,7 +27,6 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.UI.Modules;
 
 #endregion
-
 namespace DotNetNuke.Web.Razor
 {
     public class RazorModuleBase : ModuleUserControlBase
@@ -40,7 +39,7 @@ namespace DotNetNuke.Web.Razor
                 var fileRoot = Path.GetFileNameWithoutExtension(AppRelativeVirtualPath);
                 var scriptFile = scriptFolder + "_" + fileRoot + ".cshtml";
 
-                if (! (File.Exists(Server.MapPath(scriptFile))))
+                if (!(File.Exists(Server.MapPath(scriptFile))))
                 {
                     //Try VB (vbhtml)
                     scriptFile = scriptFolder + "_" + fileRoot + ".vbhtml";
@@ -61,7 +60,7 @@ namespace DotNetNuke.Web.Razor
             base.OnPreRender(e);
             try
             {
-                if (! (string.IsNullOrEmpty(RazorScriptFile)))
+                if (!(string.IsNullOrEmpty(RazorScriptFile)))
                 {
                     var razorEngine = new RazorEngine(RazorScriptFile, ModuleContext, LocalResourceFile);
                     var writer = new StringWriter();

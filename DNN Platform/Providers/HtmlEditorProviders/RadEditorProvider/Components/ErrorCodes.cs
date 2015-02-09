@@ -17,32 +17,31 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 
 namespace DotNetNuke.Providers.RadEditorProvider
 {
-
-	public enum ErrorCodes: int
-	{
-		AddFolder_NoPermission,
-		AddFolder_NotInsecureFolder,
-		CopyFolder_NoPermission,
-		CopyFolder_NotInsecureFolder,
-		DeleteFolder_NoPermission,
-		DeleteFolder_NotInsecureFolder,
-		DeleteFolder_Protected,
-		DeleteFolder_Root,
-		RenameFolder_Root,
-		FileDoesNotExist,
-		FolderDoesNotExist,
-		CannotMoveFolder_ChildrenVisible,
-		CannotDeleteFolder_ChildrenVisible,
-		CannotCopyFolder_ChildrenVisible,
-		DirectoryAlreadyExists,
-		InvalidCharactersInPath,
-		NewFileAlreadyExists,
-		General_PermissionDenied
-	}
-
+    public enum ErrorCodes : int
+    {
+        AddFolder_NoPermission,
+        AddFolder_NotInsecureFolder,
+        CopyFolder_NoPermission,
+        CopyFolder_NotInsecureFolder,
+        DeleteFolder_NoPermission,
+        DeleteFolder_NotInsecureFolder,
+        DeleteFolder_Protected,
+        DeleteFolder_Root,
+        RenameFolder_Root,
+        FileDoesNotExist,
+        FolderDoesNotExist,
+        CannotMoveFolder_ChildrenVisible,
+        CannotDeleteFolder_ChildrenVisible,
+        CannotCopyFolder_ChildrenVisible,
+        DirectoryAlreadyExists,
+        InvalidCharactersInPath,
+        NewFileAlreadyExists,
+        General_PermissionDenied
+    }
 }

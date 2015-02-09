@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     [Serializable]
@@ -62,7 +61,7 @@ namespace DotNetNuke.Security.Permissions
         {
             get
             {
-                return (FolderPermissionInfo) List[index];
+                return (FolderPermissionInfo)List[index];
             }
             set
             {

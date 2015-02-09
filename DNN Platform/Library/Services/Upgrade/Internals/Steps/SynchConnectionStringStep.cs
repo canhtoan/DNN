@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
@@ -27,7 +27,6 @@ using DotNetNuke.Services.Upgrade.Internals;
 using DotNetNuke.Services.Upgrade.Internals.Steps;
 
 #endregion
-
 namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 {
     /// -----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
             Status = StepStatus.Running;
 
             var installConfig = InstallController.Instance.GetInstallConfig();
-            if(installConfig == null)
+            if (installConfig == null)
             {
                 Status = StepStatus.Done;
                 return;
@@ -64,14 +63,14 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
             }
 
             if (string.IsNullOrEmpty(connectionConfig.File) && string.IsNullOrEmpty(connectionConfig.Database))
-            {                    
+            {
                 Errors.Add(Localization.Localization.GetString("RequiresFileOrDatabase", LocalInstallResourceFile));
                 Status = StepStatus.Abort;
                 return;
             }
 
             var builder = DataProvider.Instance().GetConnectionStringBuilder();
-            
+
             if (!string.IsNullOrEmpty(connectionConfig.Server))
                 builder["Data Source"] = connectionConfig.Server;
 
@@ -103,7 +102,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
                                            ? connectionConfig.User + "."
                                            : GetUpgradeConnectionStringUserID();
             }
-                
+
             var connectionString = builder.ToString();
 
             //load web.config connection string for comparison
@@ -111,7 +110,7 @@ namespace DotNetNuke.Services.Upgrade.InternalController.Steps
 
             var modified = false;
             //save to web.config if different
-            if(appConnectionString.ToLower() != connectionString.ToLower())
+            if (appConnectionString.ToLower() != connectionString.ToLower())
             {
                 Config.UpdateConnectionString(connectionString);
                 modified = true;

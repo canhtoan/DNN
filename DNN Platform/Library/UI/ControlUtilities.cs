@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.UI
 {
     public class ControlUtilities
@@ -56,7 +55,7 @@ namespace DotNetNuke.UI
         public static T FindControl<T>(Control control, string id, bool recursive) where T : Control
         {
             T target = null;
-            if(control.Parent != null)
+            if (control.Parent != null)
             {
                 target = control.Parent.FindControl(id) as T;
 
@@ -65,27 +64,27 @@ namespace DotNetNuke.UI
                     target = FindControl<T>(control.Parent, id, true);
                 }
             }
- 
+
             return target;
         }
 
-        public static T FindFirstDescendent<T>(Control control)  where T : Control
+        public static T FindFirstDescendent<T>(Control control) where T : Control
         {
-          return FindFirstDescendent<T>(control, idx => idx is T);
+            return FindFirstDescendent<T>(control, idx => idx is T);
         }
 
         public static T FindFirstDescendent<T>(Control control, Predicate<Control> predicate) where T : Control
         {
-          if (predicate(control)) return control as T;
+            if (predicate(control)) return control as T;
 
-          foreach (Control childControl in control.Controls) 
-          {
-            T descendent = FindFirstDescendent<T>(childControl, predicate); 
-            if (descendent != null)      
-              return descendent; 
-          }
+            foreach (Control childControl in control.Controls)
+            {
+                T descendent = FindFirstDescendent<T>(childControl, predicate);
+                if (descendent != null)
+                    return descendent;
+            }
 
-          return null;
+            return null;
         }
 
         /// -----------------------------------------------------------------------------
@@ -108,14 +107,14 @@ namespace DotNetNuke.UI
             //load the control dynamically
             if (ControlSrc.ToLower().EndsWith(".ascx"))
             {
-				//load from a user control on the file system
-                ctrl = (T) containerControl.LoadControl("~/" + ControlSrc);
+                //load from a user control on the file system
+                ctrl = (T)containerControl.LoadControl("~/" + ControlSrc);
             }
             else
             {
-				//load from a typename in an assembly ( ie. server control )
+                //load from a typename in an assembly ( ie. server control )
                 Type objType = Reflection.CreateType(ControlSrc);
-                ctrl = (T) containerControl.LoadControl(objType, null);
+                ctrl = (T)containerControl.LoadControl(objType, null);
             }
             return ctrl;
         }

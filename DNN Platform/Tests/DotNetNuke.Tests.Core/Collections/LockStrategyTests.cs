@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace DotNetNuke.Tests.Core.Collections
             //no exception on 2nd dispose
         }
 
-        [Test, ExpectedException(typeof (LockRecursionException))]
+        [Test, ExpectedException(typeof(LockRecursionException))]
         public void DoubleReadLockThrows()
         {
             using (var strategy = GetLockStrategy())
@@ -57,7 +58,7 @@ namespace DotNetNuke.Tests.Core.Collections
             }
         }
 
-        [Test, ExpectedException(typeof (LockRecursionException))]
+        [Test, ExpectedException(typeof(LockRecursionException))]
         public void ReadAndWriteLockOnSameThreadThrows()
         {
             using (var strategy = GetLockStrategy())
@@ -72,7 +73,7 @@ namespace DotNetNuke.Tests.Core.Collections
             }
         }
 
-        [Test, ExpectedException(typeof (LockRecursionException))]
+        [Test, ExpectedException(typeof(LockRecursionException))]
         public void WriteAndReadLockOnSameThreadThrows()
         {
             using (var strategy = GetLockStrategy())
@@ -135,7 +136,7 @@ namespace DotNetNuke.Tests.Core.Collections
             }
         }
 
-        [Test, ExpectedException(typeof (LockRecursionException))]
+        [Test, ExpectedException(typeof(LockRecursionException))]
         public void DoubleWriteLockThrows()
         {
             using (ILockStrategy strategy = GetLockStrategy())
@@ -150,7 +151,7 @@ namespace DotNetNuke.Tests.Core.Collections
             }
         }
 
-        [Test, ExpectedException(typeof (ObjectDisposedException))]
+        [Test, ExpectedException(typeof(ObjectDisposedException))]
         [TestCaseSource("GetObjectDisposedExceptionMethods")]
         public void MethodsThrowAfterDisposed(Action<ILockStrategy> methodCall)
         {
@@ -255,7 +256,7 @@ namespace DotNetNuke.Tests.Core.Collections
 
         private static void GetReadLock(object obj)
         {
-            var strategy = (ILockStrategy) obj;
+            var strategy = (ILockStrategy)obj;
             using (var readLock = strategy.GetReadLock())
             {
                 //do nothing
@@ -264,7 +265,7 @@ namespace DotNetNuke.Tests.Core.Collections
 
         private static void GetWriteLock(object obj)
         {
-            var strategy = (ILockStrategy) obj;
+            var strategy = (ILockStrategy)obj;
             using (var writeLock = strategy.GetWriteLock())
             {
                 //do nothing

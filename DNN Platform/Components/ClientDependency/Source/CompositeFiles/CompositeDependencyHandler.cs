@@ -13,7 +13,7 @@ namespace ClientDependency.Core.CompositeFiles
 {
     public class CompositeDependencyHandler : IHttpHandler
     {
-        private readonly static object Lock = new object();
+        private readonly static object s_lock = new object();
 
         /// <summary>
         /// When building composite includes, it creates a Base64 encoded string of all of the combined dependency file paths
@@ -36,7 +36,7 @@ namespace ClientDependency.Core.CompositeFiles
         void IHttpHandler.ProcessRequest(HttpContext context)
         {
             var contextBase = new HttpContextWrapper(context);
-            
+
             ClientDependencyType type;
             string fileset;
             int version = 0;
@@ -58,7 +58,6 @@ namespace ClientDependency.Core.CompositeFiles
             }
             else
             {
-
                 // path format
                 var segs = context.Request.PathInfo.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 fileset = "";
@@ -85,7 +84,6 @@ namespace ClientDependency.Core.CompositeFiles
                     type = ClientDependencyType.Css;
                 else
                     throw new ArgumentException("Could not parse the type set in the request");
-                
             }
 
             fileset = context.Server.UrlDecode(fileset);
@@ -132,7 +130,7 @@ namespace ClientDependency.Core.CompositeFiles
             }
             else
             {
-                lock (Lock)
+                lock (s_lock)
                 {
                     //check again...
                     if (map != null && map.HasFileBytes)
@@ -163,7 +161,7 @@ namespace ClientDependency.Core.CompositeFiles
                         else
                         {
                             //need to do the combining, etc... and save the file map                            
-                            fileBytes = GetCombinedFiles(context, fileset, type, out fileDefinitions);                           
+                            fileBytes = GetCombinedFiles(context, fileset, type, out fileDefinitions);
                         }
 
                         //compress data                        
@@ -290,7 +288,6 @@ namespace ClientDependency.Core.CompositeFiles
             if (!string.IsNullOrEmpty(fileName))
                 context.Response.AddFileDependency(fileName);
         }
-
     }
 }
 

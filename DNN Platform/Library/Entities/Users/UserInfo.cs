@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +38,6 @@ using DotNetNuke.Services.Tokens;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Entities.Users
 {
     /// -----------------------------------------------------------------------------
@@ -269,7 +268,7 @@ namespace DotNetNuke.Entities.Users
                             (r.EffectiveDate < DateTime.Now || Null.IsNull(r.EffectiveDate)) &&
                             (r.ExpiryDate > DateTime.Now || Null.IsNull(r.ExpiryDate))
                         select r.RoleName
-                        ).ToArray();    
+                        ).ToArray();
             }
             set { }
         }

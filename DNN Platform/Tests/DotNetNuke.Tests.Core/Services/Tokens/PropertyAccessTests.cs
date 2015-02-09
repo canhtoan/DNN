@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Globalization;
 
@@ -54,7 +54,7 @@ namespace DotNetNuke.Tests.Core.Services.Tokens
             //Assert
             Assert.AreEqual(expected, propertyNotFound);
         }
-        
+
         [Test]
         [TestCase("today")]
         [TestCase("ticksperday")]
@@ -98,7 +98,7 @@ namespace DotNetNuke.Tests.Core.Services.Tokens
         {
             //Arrange
             var dtPropertyAccess = new DateTimePropertyAccess();
-            var accessingUser = new UserInfo {Profile = new UserProfile {PreferredTimeZone = TimeZoneInfo.Local}};
+            var accessingUser = new UserInfo { Profile = new UserProfile { PreferredTimeZone = TimeZoneInfo.Local } };
 
 
             //Act
@@ -154,50 +154,50 @@ namespace DotNetNuke.Tests.Core.Services.Tokens
             Assert.AreEqual(expected, propertyValue);
         }
 
-         [Test]
-         [TestCase("current", "", "D")]
-         [TestCase("now", "", "g")]
-         [TestCase("system", "", "g")]
-         [TestCase("utc", "", "g")]
-         [TestCase("current", "fr", "g")]
-         [TestCase("now", "de", "mmm yyyy")]
-         [TestCase("system", "en", "dd/mm/yy")]
-         [TestCase("utc", "it", "mmm dd, yyyy")]
-         public void DateTimePropertyAcccess_GetProperty_Returns_Correct_String_Given_Format_And_Culture(string propertyName, string cultureName, string format)
-         {
-             //Arrange
-             var dtPropertyAccess = new DateTimePropertyAccess();
-             var accessingUser = new UserInfo { Profile = new UserProfile { PreferredTimeZone = TimeZoneInfo.Local } };
-             var culture = new CultureInfo(cultureName);
+        [Test]
+        [TestCase("current", "", "D")]
+        [TestCase("now", "", "g")]
+        [TestCase("system", "", "g")]
+        [TestCase("utc", "", "g")]
+        [TestCase("current", "fr", "g")]
+        [TestCase("now", "de", "mmm yyyy")]
+        [TestCase("system", "en", "dd/mm/yy")]
+        [TestCase("utc", "it", "mmm dd, yyyy")]
+        public void DateTimePropertyAcccess_GetProperty_Returns_Correct_String_Given_Format_And_Culture(string propertyName, string cultureName, string format)
+        {
+            //Arrange
+            var dtPropertyAccess = new DateTimePropertyAccess();
+            var accessingUser = new UserInfo { Profile = new UserProfile { PreferredTimeZone = TimeZoneInfo.Local } };
+            var culture = new CultureInfo(cultureName);
 
 
-             string expected = String.Empty;
+            string expected = String.Empty;
 
-             switch (propertyName)
-             {
-                 case "current":
-                     expected = DateTime.Now.ToString(format, culture);
-                     break;
-                 case "now":
-                     expected = DateTime.Now.ToString(format, culture);
-                     break;
-                 case "system":
-                     expected = DateTime.Now.ToString(format, culture);
-                     break;
-                 case "utc":
-                     expected = DateTime.Now.ToUniversalTime().ToString(format, culture);
-                     break;
-             }
+            switch (propertyName)
+            {
+                case "current":
+                    expected = DateTime.Now.ToString(format, culture);
+                    break;
+                case "now":
+                    expected = DateTime.Now.ToString(format, culture);
+                    break;
+                case "system":
+                    expected = DateTime.Now.ToString(format, culture);
+                    break;
+                case "utc":
+                    expected = DateTime.Now.ToUniversalTime().ToString(format, culture);
+                    break;
+            }
 
 
-             //Act
-             bool propertyNotFound = false;
-             string propertyValue = dtPropertyAccess.GetProperty(propertyName, format, culture,
-                                                                    accessingUser, Scope.DefaultSettings, ref propertyNotFound);
+            //Act
+            bool propertyNotFound = false;
+            string propertyValue = dtPropertyAccess.GetProperty(propertyName, format, culture,
+                                                                   accessingUser, Scope.DefaultSettings, ref propertyNotFound);
 
-             //Assert
-             Assert.AreEqual(expected, propertyValue);
-         }
+            //Assert
+            Assert.AreEqual(expected, propertyValue);
+        }
 
         [Test]
         [TestCase("current", "Tokyo Standard Time")]
@@ -208,10 +208,10 @@ namespace DotNetNuke.Tests.Core.Services.Tokens
             var dtPropertyAccess = new DateTimePropertyAccess();
             var userTimeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
             var timeZoneProfileProperty = new ProfilePropertyDefinition(Constants.PORTAL_Zero)
-                                              {
-                                                  PropertyName = "PreferredTimeZone",
-                                                  PropertyValue = timeZoneId
-                                              };
+            {
+                PropertyName = "PreferredTimeZone",
+                PropertyValue = timeZoneId
+            };
             var userProfile = new UserProfile();
             userProfile.ProfileProperties.Add(timeZoneProfileProperty);
 

@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.Collections.Generic;
 using System.Data;
 
@@ -28,11 +27,11 @@ using DotNetNuke.Data;
 
 namespace DotNetNuke.Tests.Data.Fakes
 {
-    class FakeDataProvider : DataProvider
+    internal class FakeDataProvider : DataProvider
     {
         private Dictionary<string, string> _settings;
 
-        public FakeDataProvider(Dictionary<string, string> settings )
+        public FakeDataProvider(Dictionary<string, string> settings)
         {
             _settings = settings;
         }

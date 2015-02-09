@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -59,12 +58,12 @@ namespace DotNetNuke.Web.InternalServices
         public HttpResponseMessage PublishPage(PublishPageDto dto)
         {
             var tabId = Request.FindTabId();
-            
+
             TabPublishingController.Instance.SetTabPublishing(tabId, PortalId, dto.Publish);
-            
+
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public HttpResponseMessage UpdateCustomUrl(SaveUrlDto dto)
@@ -72,8 +71,8 @@ namespace DotNetNuke.Web.InternalServices
             var urlPath = dto.Path.ValueOrEmpty().TrimStart('/');
             bool modified;
             //Clean Url
-            var options = UrlRewriterUtils.ExtendOptionsForCustomURLs( UrlRewriterUtils.GetOptionsFromSettings(new FriendlyUrlSettings(PortalSettings.PortalId)) );
-            
+            var options = UrlRewriterUtils.ExtendOptionsForCustomURLs(UrlRewriterUtils.GetOptionsFromSettings(new FriendlyUrlSettings(PortalSettings.PortalId)));
+
             //now clean the path
             urlPath = FriendlyUrlController.CleanNameForUrl(urlPath, options, out modified);
             if (modified)
@@ -115,17 +114,17 @@ namespace DotNetNuke.Web.InternalServices
                 {
                     //Just create Url
                     tabUrl = new TabUrlInfo
-                                    {
-                                        TabId = tab.TabID,
-                                        SeqNum = dto.Id,
-                                        PortalAliasId = dto.SiteAliasKey,
-                                        PortalAliasUsage = (PortalAliasUsageType)dto.SiteAliasUsage,
-                                        QueryString = dto.QueryString.ValueOrEmpty(),
-                                        Url = dto.Path.ValueOrEmpty(),
-                                        CultureCode = cultureCode,
-                                        HttpStatus = dto.StatusCodeKey.ToString(CultureInfo.InvariantCulture),
-                                        IsSystem = dto.IsSystem // false
-                                    };
+                    {
+                        TabId = tab.TabID,
+                        SeqNum = dto.Id,
+                        PortalAliasId = dto.SiteAliasKey,
+                        PortalAliasUsage = (PortalAliasUsageType)dto.SiteAliasUsage,
+                        QueryString = dto.QueryString.ValueOrEmpty(),
+                        Url = dto.Path.ValueOrEmpty(),
+                        CultureCode = cultureCode,
+                        HttpStatus = dto.StatusCodeKey.ToString(CultureInfo.InvariantCulture),
+                        IsSystem = dto.IsSystem // false
+                    };
                     TabController.Instance.SaveTabUrl(tabUrl, PortalId, true);
                 }
                 else
@@ -146,17 +145,17 @@ namespace DotNetNuke.Web.InternalServices
             {
                 //Just update the url
                 var tabUrl = new TabUrlInfo
-                                    {
-                                        TabId = tab.TabID,
-                                        SeqNum = dto.Id,
-                                        PortalAliasId = dto.SiteAliasKey,
-                                        PortalAliasUsage = (PortalAliasUsageType)dto.SiteAliasUsage,
-                                        QueryString = dto.QueryString.ValueOrEmpty(),
-                                        Url = dto.Path.ValueOrEmpty(),
-                                        CultureCode = cultureCode,
-                                        HttpStatus = dto.StatusCodeKey.ToString(CultureInfo.InvariantCulture),
-                                        IsSystem = dto.IsSystem // false
-                                    };
+                {
+                    TabId = tab.TabID,
+                    SeqNum = dto.Id,
+                    PortalAliasId = dto.SiteAliasKey,
+                    PortalAliasUsage = (PortalAliasUsageType)dto.SiteAliasUsage,
+                    QueryString = dto.QueryString.ValueOrEmpty(),
+                    Url = dto.Path.ValueOrEmpty(),
+                    CultureCode = cultureCode,
+                    HttpStatus = dto.StatusCodeKey.ToString(CultureInfo.InvariantCulture),
+                    IsSystem = dto.IsSystem // false
+                };
                 TabController.Instance.SaveTabUrl(tabUrl, PortalId, true);
             }
 

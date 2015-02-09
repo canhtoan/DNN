@@ -1,5 +1,4 @@
-#region Usings
-
+﻿#region Usings
 using System;
 using System.Reflection;
 

@@ -6,7 +6,6 @@ namespace DotNetNuke.Web.UI.WebControls
     [DataContract]
     public class ItemListServicesOptions
     {
-
         [DataMember(Name = "moduleId")]
         public string ModuleId = string.Empty;
 
@@ -41,6 +40,5 @@ namespace DotNetNuke.Web.UI.WebControls
 
         [DataMember(Name = "rootId")]
         public string RootId = "Root"; // should not be (-1), as (-1) can be treated as Null.Integer
-
     }
 }

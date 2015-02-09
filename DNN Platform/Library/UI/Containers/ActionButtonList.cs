@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,7 +28,6 @@ using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.UI.Modules;
 
 #endregion
-
 namespace DotNetNuke.UI.Containers
 {
     /// -----------------------------------------------------------------------------
@@ -49,8 +48,8 @@ namespace DotNetNuke.UI.Containers
     /// -----------------------------------------------------------------------------
     public class ActionButtonList : CompositeControl, IActionControl
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         private ActionManager _ActionManager;
         private ModuleActionCollection _ModuleActions;
         private string _buttonSeparator = "&nbsp;&nbsp;";
@@ -58,9 +57,9 @@ namespace DotNetNuke.UI.Containers
         private bool _displayLink = true;
 
 
-		#endregion
+        #endregion
 
-		#region "Protected Members"
+        #region "Protected Members"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -82,10 +81,10 @@ namespace DotNetNuke.UI.Containers
                 return _ModuleActions;
             }
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -131,16 +130,16 @@ namespace DotNetNuke.UI.Containers
             }
         }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// Gets or sets whether the icon is displayed
- /// </summary>
- /// <remarks>Defaults to False</remarks>
- /// <value>A Boolean</value>
- /// <history>
- /// 	[cnurse]	12/23/2007	created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets whether the icon is displayed
+        /// </summary>
+        /// <remarks>Defaults to False</remarks>
+        /// <value>A Boolean</value>
+        /// <history>
+        /// 	[cnurse]	12/23/2007	created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public bool DisplayIcon { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -165,16 +164,16 @@ namespace DotNetNuke.UI.Containers
             }
         }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// Gets or sets the Icon used
- /// </summary>
- /// <remarks>Defaults to the icon defined in Action</remarks>
- /// <value>A String</value>
- /// <history>
- /// 	[cnurse]	12/23/2007	created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Icon used
+        /// </summary>
+        /// <remarks>Defaults to the icon defined in Action</remarks>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	12/23/2007	created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string ImageURL { get; set; }
 
         #region IActionControl Members
@@ -214,10 +213,10 @@ namespace DotNetNuke.UI.Containers
         public IModuleControl ModuleControl { get; set; }
 
         #endregion
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -255,7 +254,7 @@ namespace DotNetNuke.UI.Containers
             {
                 if (action != null && ActionManager.IsVisible(action))
                 {
-					//Create a new ActionCommandButton
+                    //Create a new ActionCommandButton
                     var actionButton = new ActionCommandButton();
 
                     //Set all the properties
@@ -277,10 +276,10 @@ namespace DotNetNuke.UI.Containers
             }
             Visible = (Controls.Count > 0);
         }
-		
-		#endregion
 
-		#region "Event Handlers"
+        #endregion
+
+        #region "Event Handlers"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -294,7 +293,7 @@ namespace DotNetNuke.UI.Containers
         {
             OnAction(e);
         }
-		
-		#endregion
+
+        #endregion
     }
 }

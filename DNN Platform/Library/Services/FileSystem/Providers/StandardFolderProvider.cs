@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,12 +32,13 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.FileSystem.Internal;
 
 // ReSharper disable CheckNamespace
+
 namespace DotNetNuke.Services.FileSystem
 // ReSharper restore CheckNamespace
 {
     public class StandardFolderProvider : FolderProvider
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (StandardFolderProvider));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(StandardFolderProvider));
 
         #region Public Properties
 
@@ -144,7 +145,7 @@ namespace DotNetNuke.Services.FileSystem
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
 
             return fileAttributes;
@@ -228,7 +229,7 @@ namespace DotNetNuke.Services.FileSystem
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
 
             return lastModificationTime;
@@ -247,7 +248,7 @@ namespace DotNetNuke.Services.FileSystem
         {
             Requires.NotNull("file", file);
 
-            return Convert.ToInt32((file.LastModificationTime - GetLastModificationTime(file)).TotalSeconds) == 0;                        
+            return Convert.ToInt32((file.LastModificationTime - GetLastModificationTime(file)).TotalSeconds) == 0;
         }
 
         public override void MoveFile(IFileInfo file, IFolderInfo destinationFolder)
@@ -265,7 +266,7 @@ namespace DotNetNuke.Services.FileSystem
 
         public override void MoveFolder(string folderPath, string newFolderPath, FolderMappingInfo folderMapping)
         {
-           // The folder has already been moved in filesystem
+            // The folder has already been moved in filesystem
         }
 
         public override void RenameFile(IFileInfo file, string newFileName)
@@ -318,7 +319,7 @@ namespace DotNetNuke.Services.FileSystem
 
             if (FileWrapper.Instance.Exists(actualPath))
             {
-				FileWrapper.Instance.SetAttributes(actualPath, FileAttributes.Normal);
+                FileWrapper.Instance.SetAttributes(actualPath, FileAttributes.Normal);
                 FileWrapper.Instance.Delete(actualPath);
             }
 
@@ -427,11 +428,11 @@ namespace DotNetNuke.Services.FileSystem
             }
             catch (IOException iex)
             {
-                Logger.Warn(iex.Message);
+                s_logger.Warn(iex.Message);
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
             }
 
             return stream;
@@ -449,6 +450,5 @@ namespace DotNetNuke.Services.FileSystem
         }
 
         #endregion
-
     }
 }

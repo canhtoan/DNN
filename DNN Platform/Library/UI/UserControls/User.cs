@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -29,7 +29,6 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 
 #endregion
-
 namespace DotNetNuke.UI.UserControls
 {
     /// -----------------------------------------------------------------------------
@@ -44,10 +43,10 @@ namespace DotNetNuke.UI.UserControls
     /// -----------------------------------------------------------------------------
     public abstract class User : UserControlBase
     {
-		#region "Private Members"
+        #region "Private Members"
 
         protected HtmlTableRow ConfirmPasswordRow;
-        private string MyFileName = "User.ascx";
+        private string _myFileName = "User.ascx";
         protected HtmlTableRow PasswordRow;
         private string _Confirm;
         private string _ControlColumnWidth = "";
@@ -64,11 +63,11 @@ namespace DotNetNuke.UI.UserControls
         private string _Website;
         protected Label lblUsername;
 
-		#endregion
+        #endregion
 
-		#region "Protected Members"
+        #region "Protected Members"
 
-		protected Label lblUsernameAsterisk;
+        protected Label lblUsernameAsterisk;
         protected LabelControl plConfirm;
         protected LabelControl plEmail;
         protected LabelControl plFirstName;
@@ -94,11 +93,11 @@ namespace DotNetNuke.UI.UserControls
         protected RequiredFieldValidator valPassword;
         protected RequiredFieldValidator valUsername;
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
-		public int ModuleId
+        public int ModuleId
         {
             get
             {
@@ -250,15 +249,15 @@ namespace DotNetNuke.UI.UserControls
         {
             get
             {
-                return Localization.GetResourceFile(this, MyFileName);
+                return Localization.GetResourceFile(this, _myFileName);
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Event Handlers"
+        #region "Event Handlers"
 
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Page_Load runs when the control is loaded
         /// </summary>
@@ -338,8 +337,8 @@ namespace DotNetNuke.UI.UserControls
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

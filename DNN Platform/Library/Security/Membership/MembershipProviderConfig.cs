@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,15 +17,14 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.ComponentModel;
 
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Security.Membership
 {
     /// -----------------------------------------------------------------------------
@@ -45,14 +44,14 @@ namespace DotNetNuke.Security.Membership
     /// -----------------------------------------------------------------------------
     public class MembershipProviderConfig
     {
-		#region "Private Shared Members"
-		
-        private static readonly MembershipProvider memberProvider = MembershipProvider.Instance();
-		
-		#endregion
-		
-		#region "Public Shared Properties"
-		
+        #region "Private Shared Members"
+
+        private static readonly MembershipProvider s_memberProvider = MembershipProvider.Instance();
+
+        #endregion
+
+        #region "Public Shared Properties"
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Gets whether the Provider Properties can be edited
@@ -67,7 +66,7 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.CanEditProviderProperties;
+                return s_memberProvider.CanEditProviderProperties;
             }
         }
 
@@ -85,11 +84,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.MaxInvalidPasswordAttempts;
+                return s_memberProvider.MaxInvalidPasswordAttempts;
             }
             set
             {
-                memberProvider.MaxInvalidPasswordAttempts = value;
+                s_memberProvider.MaxInvalidPasswordAttempts = value;
             }
         }
 
@@ -107,11 +106,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.MinNonAlphanumericCharacters;
+                return s_memberProvider.MinNonAlphanumericCharacters;
             }
             set
             {
-                memberProvider.MinNonAlphanumericCharacters = value;
+                s_memberProvider.MinNonAlphanumericCharacters = value;
             }
         }
 
@@ -129,11 +128,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.MinPasswordLength;
+                return s_memberProvider.MinPasswordLength;
             }
             set
             {
-                memberProvider.MinPasswordLength = value;
+                s_memberProvider.MinPasswordLength = value;
             }
         }
 
@@ -151,11 +150,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.PasswordAttemptWindow;
+                return s_memberProvider.PasswordAttemptWindow;
             }
             set
             {
-                memberProvider.PasswordAttemptWindow = value;
+                s_memberProvider.PasswordAttemptWindow = value;
             }
         }
 
@@ -173,11 +172,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.PasswordFormat;
+                return s_memberProvider.PasswordFormat;
             }
             set
             {
-                memberProvider.PasswordFormat = value;
+                s_memberProvider.PasswordFormat = value;
             }
         }
 
@@ -195,11 +194,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.PasswordResetEnabled;
+                return s_memberProvider.PasswordResetEnabled;
             }
             set
             {
-                memberProvider.PasswordResetEnabled = value;
+                s_memberProvider.PasswordResetEnabled = value;
             }
         }
 
@@ -217,10 +216,10 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                bool enabled = memberProvider.PasswordRetrievalEnabled;
+                bool enabled = s_memberProvider.PasswordRetrievalEnabled;
 
                 //If password format is hashed the password cannot be retrieved
-                if (memberProvider.PasswordFormat == PasswordFormat.Hashed)
+                if (s_memberProvider.PasswordFormat == PasswordFormat.Hashed)
                 {
                     enabled = false;
                 }
@@ -228,7 +227,7 @@ namespace DotNetNuke.Security.Membership
             }
             set
             {
-                memberProvider.PasswordRetrievalEnabled = value;
+                s_memberProvider.PasswordRetrievalEnabled = value;
             }
         }
 
@@ -246,11 +245,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.PasswordStrengthRegularExpression;
+                return s_memberProvider.PasswordStrengthRegularExpression;
             }
             set
             {
-                memberProvider.PasswordStrengthRegularExpression = value;
+                s_memberProvider.PasswordStrengthRegularExpression = value;
             }
         }
 
@@ -268,11 +267,11 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.RequiresQuestionAndAnswer;
+                return s_memberProvider.RequiresQuestionAndAnswer;
             }
             set
             {
-                memberProvider.RequiresQuestionAndAnswer = value;
+                s_memberProvider.RequiresQuestionAndAnswer = value;
             }
         }
 
@@ -290,14 +289,14 @@ namespace DotNetNuke.Security.Membership
         {
             get
             {
-                return memberProvider.RequiresUniqueEmail;
+                return s_memberProvider.RequiresUniqueEmail;
             }
             set
             {
-                memberProvider.RequiresUniqueEmail = value;
+                s_memberProvider.RequiresUniqueEmail = value;
             }
-			
-			#endregion
+
+            #endregion
         }
     }
 }

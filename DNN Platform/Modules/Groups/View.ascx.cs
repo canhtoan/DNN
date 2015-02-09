@@ -1,7 +1,7 @@
-#region Copyright
+﻿#region Copyright
 
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -21,8 +21,8 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 
 using DotNetNuke.Entities.Modules;
@@ -36,7 +36,6 @@ using DotNetNuke.Common;
 using DotNetNuke.Framework;
 
 #endregion
-
 namespace DotNetNuke.Modules.Groups
 {
     /// -----------------------------------------------------------------------------
@@ -70,16 +69,17 @@ namespace DotNetNuke.Modules.Groups
             try
             {
                 JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-                if (GroupId < 0) {
-                    if (TabId != GroupListTabId && !UserInfo.IsInRole(PortalSettings.AdministratorRoleName)) {
-                       Response.Redirect(Globals.NavigateURL(GroupListTabId));
+                if (GroupId < 0)
+                {
+                    if (TabId != GroupListTabId && !UserInfo.IsInRole(PortalSettings.AdministratorRoleName))
+                    {
+                        Response.Redirect(Globals.NavigateURL(GroupListTabId));
                     }
                 }
                 GroupsModuleBase ctl = (GroupsModuleBase)LoadControl(ControlPath);
                 ctl.ModuleConfiguration = this.ModuleConfiguration;
                 plhContent.Controls.Clear();
                 plhContent.Controls.Add(ctl);
-                
             }
             catch (Exception exc) //Module failed to load
             {
@@ -88,7 +88,5 @@ namespace DotNetNuke.Modules.Groups
         }
 
         #endregion
-      
-       
     }
 }

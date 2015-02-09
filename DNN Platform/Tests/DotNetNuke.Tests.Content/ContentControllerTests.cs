@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -64,7 +64,6 @@ namespace DotNetNuke.Tests.Content
 
             _mockSearchHelper.Setup(x => x.GetSearchTypeByName(It.IsAny<string>())).Returns<string>(
                 (string searchTypeName) => new SearchType { SearchTypeName = searchTypeName, SearchTypeId = ModuleSearchTypeId });
-
         }
 
         [TearDown]
@@ -93,7 +92,7 @@ namespace DotNetNuke.Tests.Content
         {
             //Arrange
             Mock<IDataService> mockDataService = new Mock<IDataService>();
-            
+
             ContentController controller = new ContentController(mockDataService.Object);
 
             ComponentFactory.RegisterComponentInstance<IContentController>(controller);
@@ -331,7 +330,7 @@ namespace DotNetNuke.Tests.Content
                 .Returns(MockHelper.CreateValidContentItemsReader(10, true, 0, null));
 
             var controller = new ContentController(mock.Object);
-            
+
             var items = controller.GetContentItemsByContentType(10).ToArray();
 
             Assert.AreEqual(items.Length, 10);
@@ -512,7 +511,7 @@ namespace DotNetNuke.Tests.Content
             //Arrange
             Mock<IDataService> mockDataService = new Mock<IDataService>();
             ContentController controller = new ContentController(mockDataService.Object);
- 
+
             ContentItem content = ContentTestHelper.CreateValidContentItem();
 
             //Act, Arrange
@@ -646,7 +645,7 @@ namespace DotNetNuke.Tests.Content
                      added.ToList().ForEach(
                          item => mockDataService.Object.AddMetaData(ci, item.Key, item.Value));
                  });
-            
+
             var controller = new ContentController(mockDataService.Object);
 
             //Act
@@ -664,7 +663,7 @@ namespace DotNetNuke.Tests.Content
         public void ContentController_Title_Is_Saved_On_Add()
         {
             var mockDataService = new Mock<IDataService>();
-            
+
             mockDataService.Setup(
                 ds =>
                     ds.AddContentItem(
@@ -751,7 +750,7 @@ namespace DotNetNuke.Tests.Content
             mockDataService.Verify(ds => ds.AddMetaData(content, AttachmentController.TitleKey, Constants.CONTENT_ValidTitle));
             mockDataService.Verify(ds => ds.AddMetaData(content, AttachmentController.TitleKey, Constants.CONTENT_ValidTitle2));
         }
-        
+
         #endregion
     }
 }

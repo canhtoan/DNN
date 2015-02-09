@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,11 +35,11 @@ namespace DotNetNuke.Services.Social.Subscriptions
     /// </summary>
     public class SubscriptionTypeController : ServiceLocator<ISubscriptionTypeController, SubscriptionTypeController>, ISubscriptionTypeController
     {
-        private readonly IDataService dataService;
+        private readonly IDataService _dataService;
 
         public SubscriptionTypeController()
         {
-            dataService = DataService.Instance;
+            _dataService = DataService.Instance;
         }
 
         protected override Func<ISubscriptionTypeController> GetFactory()
@@ -52,7 +52,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
         {
             Requires.NotNull("subscriptionType", subscriptionType);
 
-            subscriptionType.SubscriptionTypeId = dataService.AddSubscriptionType(
+            subscriptionType.SubscriptionTypeId = _dataService.AddSubscriptionType(
                 subscriptionType.SubscriptionName,
                 subscriptionType.FriendlyName,
                 subscriptionType.DesktopModuleId);
@@ -74,7 +74,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
                                              DataCache.SubscriptionTypesCachePriority);
 
             return CBO.GetCachedObject<IEnumerable<SubscriptionType>>(cacheArgs,
-                                                c => CBO.FillCollection<SubscriptionType>(dataService.GetSubscriptionTypes()));
+                                                c => CBO.FillCollection<SubscriptionType>(_dataService.GetSubscriptionTypes()));
         }
 
         public IEnumerable<SubscriptionType> GetSubscriptionTypes(Func<SubscriptionType, bool> predicate)
@@ -89,7 +89,7 @@ namespace DotNetNuke.Services.Social.Subscriptions
             Requires.NotNull("subscriptionType", subscriptionType);
             Requires.NotNegative("subscriptionType.SubscriptionTypeId", subscriptionType.SubscriptionTypeId);
 
-            dataService.DeleteSubscriptionType(subscriptionType.SubscriptionTypeId);
+            _dataService.DeleteSubscriptionType(subscriptionType.SubscriptionTypeId);
             CleanCache();
         }
         #endregion

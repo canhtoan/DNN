@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +32,6 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Log.EventLog;
 
 #endregion
-
 namespace DotNetNuke.Services.Analytics
 {
     /// -----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ namespace DotNetNuke.Services.Analytics
     /// -----------------------------------------------------------------------------
     public class GoogleAnalyticsController
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (GoogleAnalyticsController));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(GoogleAnalyticsController));
         /// -----------------------------------------------------------------------------
         /// <summary>
         ///   Handles module upgrades includes a new Google Analytics Asychronous script.
@@ -65,7 +64,7 @@ namespace DotNetNuke.Services.Analytics
         public void UpgradeModule(string Version)
         {
             // MD5 Hash value of the old synchronous script config file (from previous module versions)
-            string[] TRADITIONAL_FILEHASHES = {"aRUf9NsElvrpiASJHHlmZg==", "+R2k5mvFvVhWsCm4WinyAA=="};
+            string[] TRADITIONAL_FILEHASHES = { "aRUf9NsElvrpiASJHHlmZg==", "+R2k5mvFvVhWsCm4WinyAA==" };
 
             switch (Version)
             {
@@ -124,7 +123,7 @@ namespace DotNetNuke.Services.Analytics
             catch (Exception ex)
             {
                 //log it
-                var log = new LogInfo {LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString()};
+                var log = new LogInfo { LogTypeKey = EventLogController.EventLogType.HOST_ALERT.ToString() };
                 log.AddProperty("GoogleAnalytics.UpgradeModule", "GetConfigFile Failed");
                 log.AddProperty("FilePath", filePath);
                 log.AddProperty("ExceptionMessage", ex.Message);
@@ -133,8 +132,7 @@ namespace DotNetNuke.Services.Analytics
                 {
                     fileReader.Close();
                 }
-                Logger.Error(ex);
-
+                s_logger.Error(ex);
             }
 
             return fileReader;

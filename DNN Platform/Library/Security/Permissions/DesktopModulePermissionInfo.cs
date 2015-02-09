@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 
@@ -27,7 +27,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 
 #endregion
-
 namespace DotNetNuke.Security.Permissions
 {
     /// -----------------------------------------------------------------------------
@@ -46,15 +45,15 @@ namespace DotNetNuke.Security.Permissions
     [Serializable]
     public class DesktopModulePermissionInfo : PermissionInfoBase, IHydratable
     {
-		#region "Private Members"
+        #region "Private Members"
 
         //local property declarations
         private int _desktopModulePermissionID;
         private int _portalDesktopModuleID;
-		
-		#endregion
-		
-		#region "Constructors"
+
+        #endregion
+
+        #region "Constructors"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -64,7 +63,7 @@ namespace DotNetNuke.Security.Permissions
         /// 	[cnurse]	01/15/2008   Created
         /// </history>
         /// -----------------------------------------------------------------------------
-		public DesktopModulePermissionInfo()
+        public DesktopModulePermissionInfo()
         {
             _desktopModulePermissionID = Null.NullInteger;
             _portalDesktopModuleID = Null.NullInteger;
@@ -87,10 +86,10 @@ namespace DotNetNuke.Security.Permissions
             PermissionKey = permission.PermissionKey;
             PermissionName = permission.PermissionName;
         }
-		
-		#endregion
-		
-		#region "Public Properties"
+
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -133,8 +132,8 @@ namespace DotNetNuke.Security.Permissions
                 _portalDesktopModuleID = value;
             }
         }
-		
-		#endregion
+
+        #endregion
 
         #region IHydratable Members
 
@@ -177,8 +176,8 @@ namespace DotNetNuke.Security.Permissions
 
         #endregion
 
-		#region "Public Methods"
-				
+        #region "Public Methods"
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Compares if two DesktopModulePermissionInfo objects are equivalent/equal
@@ -236,21 +235,21 @@ namespace DotNetNuke.Security.Permissions
             {
                 return true;
             }
-            if (obj.GetType() != typeof (DesktopModulePermissionInfo))
+            if (obj.GetType() != typeof(DesktopModulePermissionInfo))
             {
                 return false;
             }
-            return Equals((DesktopModulePermissionInfo) obj);
+            return Equals((DesktopModulePermissionInfo)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (_desktopModulePermissionID*397) ^ _portalDesktopModuleID;
+                return (_desktopModulePermissionID * 397) ^ _portalDesktopModuleID;
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

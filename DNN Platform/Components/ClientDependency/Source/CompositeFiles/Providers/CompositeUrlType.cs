@@ -1,4 +1,5 @@
-﻿namespace ClientDependency.Core.CompositeFiles.Providers
+﻿
+namespace ClientDependency.Core.CompositeFiles.Providers
 {
     public enum CompositeUrlType
     {
@@ -13,7 +14,7 @@
         /// configuration property in the httpRuntime section in your web.config
         /// </summary>
         Base64Paths,
-        
+
         /// <summary>
         /// Uses the file map provider to store and map the dependency paths with a reference to an ID it generates
         /// </summary>

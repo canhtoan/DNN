@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System.Web;
 using System.Web.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.WebControls
 {
     /// -----------------------------------------------------------------------------
@@ -41,37 +40,37 @@ namespace DotNetNuke.UI.WebControls
     /// -----------------------------------------------------------------------------
     public class TextColumn : TemplateColumn
     {
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// The Data Field is the field that binds to the Text Column
- /// </summary>
- /// <value>A String</value>
- /// <history>
- /// 	[cnurse]	02/20/2006	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The Data Field is the field that binds to the Text Column
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/20/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string DataField { get; set; }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// Gets or sets the Text (for Header/Footer Templates)
- /// </summary>
- /// <value>A String</value>
- /// <history>
- /// 	[cnurse]	02/20/2006	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Text (for Header/Footer Templates)
+        /// </summary>
+        /// <value>A String</value>
+        /// <history>
+        /// 	[cnurse]	02/20/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public string Text { get; set; }
 
- /// -----------------------------------------------------------------------------
- /// <summary>
- /// Gets or sets the Width of the Column
- /// </summary>
- /// <value>A Unit</value>
- /// <history>
- /// 	[cnurse]	02/20/2006	Created
- /// </history>
- /// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the Width of the Column
+        /// </summary>
+        /// <value>A Unit</value>
+        /// <history>
+        /// 	[cnurse]	02/20/2006	Created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public Unit Width { get; set; }
 
         /// -----------------------------------------------------------------------------
@@ -123,10 +122,10 @@ namespace DotNetNuke.UI.WebControls
             HeaderTemplate = CreateTemplate(ListItemType.Header);
             if (HttpContext.Current == null)
             {
-                ItemStyle.Font.Names = new[] {"Tahoma, Verdana, Arial"};
+                ItemStyle.Font.Names = new[] { "Tahoma, Verdana, Arial" };
                 ItemStyle.Font.Size = new FontUnit("10pt");
                 ItemStyle.HorizontalAlign = HorizontalAlign.Left;
-                HeaderStyle.Font.Names = new[] {"Tahoma, Verdana, Arial"};
+                HeaderStyle.Font.Names = new[] { "Tahoma, Verdana, Arial" };
                 HeaderStyle.Font.Size = new FontUnit("10pt");
                 HeaderStyle.Font.Bold = true;
                 HeaderStyle.HorizontalAlign = HorizontalAlign.Left;

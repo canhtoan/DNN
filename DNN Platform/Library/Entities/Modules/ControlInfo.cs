@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Data;
 using System.Xml;
@@ -27,7 +27,6 @@ using System.Xml;
 using DotNetNuke.Common.Utilities;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     /// -----------------------------------------------------------------------------
@@ -95,7 +94,7 @@ namespace DotNetNuke.Entities.Modules
         /// -----------------------------------------------------------------------------
         protected override void FillInternal(IDataReader dr)
         {
-			//Call EntityBaseInfo's implementation
+            //Call EntityBaseInfo's implementation
             base.FillInternal(dr);
             ControlKey = Null.SetNullString(dr["ControlKey"]);
             ControlSrc = Null.SetNullString(dr["ControlSrc"]);
@@ -124,7 +123,7 @@ namespace DotNetNuke.Entities.Modules
 
         protected void WriteXmlInternal(XmlWriter writer)
         {
-			//write out properties
+            //write out properties
             writer.WriteElementString("controlKey", ControlKey);
             writer.WriteElementString("controlSrc", ControlSrc);
             writer.WriteElementString("supportsPartialRendering", SupportsPartialRendering.ToString());

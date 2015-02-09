@@ -21,14 +21,13 @@
 
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #endregion
-
 namespace DotNetNuke.Services.Authentication.OAuth
 {
     [DataContract]
@@ -71,7 +70,6 @@ namespace DotNetNuke.Services.Authentication.OAuth
                 return (!String.IsNullOrEmpty(Name) && Name.IndexOf(" ", StringComparison.Ordinal) > 0) ? Name.Substring(Name.IndexOf(" ", StringComparison.Ordinal) + 1) : Name;
             }
             set { Name = FirstName + " " + value; }
-
         }
 
         [DataMember(Name = "locale")]
@@ -80,8 +78,8 @@ namespace DotNetNuke.Services.Authentication.OAuth
         [DataMember(Name = "name")]
         public virtual string Name { get; set; }
 
-        public string PreferredEmail 
-        { 
+        public string PreferredEmail
+        {
             get
             {
                 if (Emails == null)

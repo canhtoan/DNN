@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,16 +35,15 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Security.Permissions;
 
 #endregion
-
 namespace DotNetNuke.Services.Sitemap
 {
     public class CoreSitemapProvider : SitemapProvider
     {
-        private bool includeHiddenPages;
-        private float minPagePriority;
+        private bool _includeHiddenPages;
+        private float _minPagePriority;
 
-        private PortalSettings ps;
-        private bool useLevelBasedPagePriority;
+        private PortalSettings _ps;
+        private bool _useLevelBasedPagePriority;
 
         /// <summary>
         ///   Includes page urls on the sitemap
@@ -61,18 +60,18 @@ namespace DotNetNuke.Services.Sitemap
             SitemapUrl pageUrl = null;
             var urls = new List<SitemapUrl>();
 
-            useLevelBasedPagePriority = bool.Parse(PortalController.GetPortalSetting("SitemapLevelMode", portalId, "False"));
-            minPagePriority = float.Parse(PortalController.GetPortalSetting("SitemapMinPriority", portalId, "0.1"), CultureInfo.InvariantCulture);
-            includeHiddenPages = bool.Parse(PortalController.GetPortalSetting("SitemapIncludeHidden", portalId, "True"));
+            _useLevelBasedPagePriority = bool.Parse(PortalController.GetPortalSetting("SitemapLevelMode", portalId, "False"));
+            _minPagePriority = float.Parse(PortalController.GetPortalSetting("SitemapMinPriority", portalId, "0.1"), CultureInfo.InvariantCulture);
+            _includeHiddenPages = bool.Parse(PortalController.GetPortalSetting("SitemapIncludeHidden", portalId, "True"));
 
-            this.ps = ps;
+            _ps = ps;
 
             foreach (TabInfo tab in TabController.Instance.GetTabsByPortal(portalId).Values.Where(t => !t.IsSystem))
             {
                 if (!tab.IsDeleted && !tab.DisableLink && tab.TabType == TabType.Normal && (Null.IsNull(tab.StartDate) || tab.StartDate < DateTime.Now) &&
                     (Null.IsNull(tab.EndDate) || tab.EndDate > DateTime.Now) && IsTabPublic(tab.TabPermissions))
                 {
-                    if ((includeHiddenPages || tab.IsVisible) && tab.HasBeenPublished)
+                    if ((_includeHiddenPages || tab.IsVisible) && tab.HasBeenPublished)
                     {
                         pageUrl = GetPageUrl(tab, (ps.ContentLocalizationEnabled) ? tab.CultureCode : null);
                         urls.Add(pageUrl);
@@ -94,7 +93,7 @@ namespace DotNetNuke.Services.Sitemap
         private SitemapUrl GetPageUrl(TabInfo objTab, string language)
         {
             var pageUrl = new SitemapUrl();
-            pageUrl.Url = TestableGlobals.Instance.NavigateURL(objTab.TabID, objTab.IsSuperTab, ps, "", language);
+            pageUrl.Url = TestableGlobals.Instance.NavigateURL(objTab.TabID, objTab.IsSuperTab, _ps, "", language);
             pageUrl.Priority = GetPriority(objTab);
             pageUrl.LastModified = objTab.LastModifiedOnDate;
             foreach (ModuleInfo m in ModuleController.Instance.GetTabModules(objTab.TabID).Values)
@@ -107,7 +106,7 @@ namespace DotNetNuke.Services.Sitemap
             pageUrl.ChangeFrequency = SitemapChangeFrequency.Daily;
 
             // support for alternate pages: https://support.google.com/webmasters/answer/2620865?hl=en
-            if (ps.ContentLocalizationEnabled && !objTab.IsNeutralCulture)
+            if (_ps.ContentLocalizationEnabled && !objTab.IsNeutralCulture)
             {
                 List<AlternateUrl> alternates = new List<AlternateUrl>();
                 TabInfo currentTab = objTab;
@@ -121,13 +120,13 @@ namespace DotNetNuke.Services.Sitemap
                         (Null.IsNull(localized.StartDate) || localized.StartDate < DateTime.Now) &&
                         (Null.IsNull(localized.EndDate) || localized.EndDate > DateTime.Now) &&
                         (IsTabPublic(localized.TabPermissions)) &&
-                        (includeHiddenPages || localized.IsVisible) && localized.HasBeenPublished)
+                        (_includeHiddenPages || localized.IsVisible) && localized.HasBeenPublished)
                     {
-                        string alternateUrl = TestableGlobals.Instance.NavigateURL(localized.TabID, localized.IsSuperTab, ps, "", localized.CultureCode);
-                        alternates.Add(new AlternateUrl() 
-                        { 
-                            Url = alternateUrl, 
-                            Language = localized.CultureCode 
+                        string alternateUrl = TestableGlobals.Instance.NavigateURL(localized.TabID, localized.IsSuperTab, _ps, "", localized.CultureCode);
+                        alternates.Add(new AlternateUrl()
+                        {
+                            Url = alternateUrl,
+                            Language = localized.CultureCode
                         });
                     }
                 }
@@ -135,13 +134,13 @@ namespace DotNetNuke.Services.Sitemap
                 if (alternates.Count > 0)
                 {
                     // add default language to the list
-                    string alternateUrl = TestableGlobals.Instance.NavigateURL(currentTab.TabID, currentTab.IsSuperTab, ps, "", currentTab.CultureCode);
+                    string alternateUrl = TestableGlobals.Instance.NavigateURL(currentTab.TabID, currentTab.IsSuperTab, _ps, "", currentTab.CultureCode);
                     alternates.Add(new AlternateUrl()
                     {
                         Url = alternateUrl,
                         Language = currentTab.CultureCode
                     });
-                    
+
                     pageUrl.AlternateUrls = alternates;
                 }
             }
@@ -162,7 +161,7 @@ namespace DotNetNuke.Services.Sitemap
         {
             float priority = objTab.SiteMapPriority;
 
-            if (useLevelBasedPagePriority)
+            if (_useLevelBasedPagePriority)
             {
                 if (objTab.Level >= 9)
                 {
@@ -173,9 +172,9 @@ namespace DotNetNuke.Services.Sitemap
                     priority = Convert.ToSingle(1 - (objTab.Level * 0.1));
                 }
 
-                if (priority < minPagePriority)
+                if (priority < _minPagePriority)
                 {
-                    priority = minPagePriority;
+                    priority = _minPagePriority;
                 }
             }
 

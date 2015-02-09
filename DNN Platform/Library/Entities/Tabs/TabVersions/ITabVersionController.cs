@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 
 namespace DotNetNuke.Entities.Tabs.TabVersions
@@ -59,7 +59,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <param name="createdByUserId">User Id who creates the TabVersion</param>   
         /// <param name="modifiedByUserId">User Id who modifies the TabVersion</param>
         void SaveTabVersion(TabVersion tabVersion, int createdByUserId, int modifiedByUserId);
-        
+
         /// <summary>
         /// Saves a Tab Version object. Adds or updates an existing one
         /// </summary>        
@@ -74,7 +74,7 @@ namespace DotNetNuke.Entities.Tabs.TabVersions
         /// <param name="isPublished">If true, the version is automatically published</param>
         /// <returns>TabVersion filled with the new version data</returns>
         TabVersion CreateTabVersion(int tabId, int createdByUserId, bool isPublished = false);
-        
+
         /// <summary>
         /// Deletes a Tab Version
         /// </summary>

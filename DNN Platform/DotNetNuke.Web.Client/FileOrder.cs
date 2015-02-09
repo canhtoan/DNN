@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 namespace DotNetNuke.Web.Client
 {
@@ -42,19 +43,19 @@ namespace DotNetNuke.Web.Client
             jQuery = 5,
             // ReSharper restore InconsistentNaming
 
-			/// <summary>
-			/// jQuery Migrate file has the priority of 6, it should appear just after jquery.
-			/// </summary>
-			// ReSharper disable InconsistentNaming
-			jQueryMigrate = 6,
-			// ReSharper restore InconsistentNaming
+            /// <summary>
+            /// jQuery Migrate file has the priority of 6, it should appear just after jquery.
+            /// </summary>
+            // ReSharper disable InconsistentNaming
+            jQueryMigrate = 6,
+            // ReSharper restore InconsistentNaming
 
             /// <summary>
             /// jQuery UI (CDN or local file) has the priority of 10
             /// </summary>
-// ReSharper disable InconsistentNaming
+            // ReSharper disable InconsistentNaming
             jQueryUI = 10,
-// ReSharper restore InconsistentNaming
+            // ReSharper restore InconsistentNaming
 
             /// <summary>
             /// /js/dnn.xml.js has the priority of 15
@@ -91,15 +92,15 @@ namespace DotNetNuke.Web.Client
             /// </summary>
             DnnControlsLabelEdit = 45,
 
-			/// <summary>
-			/// /js/dnn.modalpopup.js has the priority of 50
-			/// </summary>
-			DnnModalPopup = 50,
+            /// <summary>
+            /// /js/dnn.modalpopup.js has the priority of 50
+            /// </summary>
+            DnnModalPopup = 50,
 
-			/// <summary>
-			/// jQuery Hover Intent JS File has the priority of 55
-			/// </summary>
-			HoverIntent = 55
+            /// <summary>
+            /// jQuery Hover Intent JS File has the priority of 55
+            /// </summary>
+            HoverIntent = 55
         }
 
         /// <summary>

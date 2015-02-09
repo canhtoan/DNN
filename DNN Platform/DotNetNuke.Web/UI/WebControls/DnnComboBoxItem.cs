@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,21 +17,20 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using DotNetNuke.Services.Localization;
 using Telerik.Web.UI;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnComboBoxItem : RadComboBoxItem
     {
         public DnnComboBoxItem()
         {
-        }       
+        }
 
         public DnnComboBoxItem(string text) : base(text)
         {
@@ -41,7 +40,8 @@ namespace DotNetNuke.Web.UI.WebControls
         {
         }
 
-        public string ResourceKey { 
+        public string ResourceKey
+        {
             get
             {
                 if (ViewState["ResourceKey"] != null)

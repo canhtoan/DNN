@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -33,7 +33,6 @@ using log4net.Repository;
 using log4net.Util;
 
 #endregion
-
 namespace DotNetNuke.Instrumentation
 {
     /// <summary>
@@ -50,9 +49,9 @@ namespace DotNetNuke.Instrumentation
         internal static Level LevelError;
         internal static Level LevelFatal;
         //add custom logging levels (below trace value of 20000)
-        internal static Level LevelLogInfo = new Level(10001, "LogInfo"); 
+        internal static Level LevelLogInfo = new Level(10001, "LogInfo");
         internal static Level LevelLogError = new Level(10002, "LogError");
-           
+
 
         #endregion
 
@@ -70,9 +69,9 @@ namespace DotNetNuke.Instrumentation
             {
                 int frameDepth = 0;
                 Type methodType = stack[frameDepth].GetMethod().ReflectedType;
-				#pragma warning disable 612,618
+#pragma warning disable 612, 618
                 while (methodType == _dnnExceptionType || methodType == typeof(DnnLogger) || methodType == typeof(DnnLog) || methodType == typeof(Control))
-				#pragma warning restore 612,618
+#pragma warning restore 612, 618
                 {
                     frameDepth++;
                     methodType = stack[frameDepth].GetMethod().ReflectedType;
@@ -109,12 +108,11 @@ namespace DotNetNuke.Instrumentation
             LevelFatal = levelMap.LookupWithDefault(Level.Fatal);
             LevelLogError = levelMap.LookupWithDefault(LevelLogError);
             LevelLogInfo = levelMap.LookupWithDefault(LevelLogInfo);
-            
-            
+
+
             //// Register custom logging levels with the default LoggerRepository
             LogManager.GetRepository().LevelMap.Add(LevelLogInfo);
             LogManager.GetRepository().LevelMap.Add(LevelLogError);
-
         }
 
         public static DnnLogger GetClassLogger(Type type)
@@ -611,7 +609,7 @@ namespace DotNetNuke.Instrumentation
         {
             Logger.Log(_stackBoundary, LevelLogError, message, exception);
         }
-        
+
         public void InstallLogErrorFormat(string format, params object[] args)
         {
             Logger.Log(_stackBoundary, LevelLogError, new SystemStringFormat(CultureInfo.InvariantCulture, format, args), null);

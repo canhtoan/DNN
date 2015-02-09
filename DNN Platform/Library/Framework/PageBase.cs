@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -45,7 +45,6 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 
 #endregion
-
 namespace DotNetNuke.Framework
 {
     /// -----------------------------------------------------------------------------
@@ -62,9 +61,9 @@ namespace DotNetNuke.Framework
     /// -----------------------------------------------------------------------------
     public abstract class PageBase : Page
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (PageBase));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(PageBase));
 
-	    private PageStatePersister _persister;
+        private PageStatePersister _persister;
         #region Private Members
 
         private readonly NameValueCollection _htmlAttributes = new NameValueCollection();
@@ -107,25 +106,25 @@ namespace DotNetNuke.Framework
             get
             {
                 //Set ViewState Persister to default (as defined in Base Class)
-	            if (_persister == null)
-	            {
-		            _persister = base.PageStatePersister;
+                if (_persister == null)
+                {
+                    _persister = base.PageStatePersister;
 
-		            if (Globals.Status == Globals.UpgradeStatus.None)
-		            {
-			            switch (Host.PageStatePersister)
-			            {
-				            case "M":
-								_persister = new CachePageStatePersister(this);
-					            break;
-				            case "D":
-								_persister = new DiskPageStatePersister(this);
-					            break;
-			            }
-		            }
-	            }
+                    if (Globals.Status == Globals.UpgradeStatus.None)
+                    {
+                        switch (Host.PageStatePersister)
+                        {
+                            case "M":
+                                _persister = new CachePageStatePersister(this);
+                                break;
+                            case "D":
+                                _persister = new DiskPageStatePersister(this);
+                                break;
+                        }
+                    }
+                }
 
-				return _persister;
+                return _persister;
             }
         }
 
@@ -229,7 +228,6 @@ namespace DotNetNuke.Framework
                 Response.Write("404 Not Found");
                 Response.End();
             }
-            
         }
 
         #endregion
@@ -248,7 +246,7 @@ namespace DotNetNuke.Framework
         {
             base.OnError(e);
             Exception exc = Server.GetLastError();
-            Logger.Fatal("An error has occurred while loading page.", exc);
+            s_logger.Fatal("An error has occurred while loading page.", exc);
 
             string strURL = Globals.ApplicationURL();
             if (exc is HttpException && !IsViewStateFailure(exc))
@@ -278,8 +276,8 @@ namespace DotNetNuke.Framework
 
         protected override void OnInit(EventArgs e)
         {
-	        var isInstallPage = HttpContext.Current.Request.Url.LocalPath.ToLower().Contains("installwizard.aspx");
-			if (!isInstallPage)
+            var isInstallPage = HttpContext.Current.Request.Url.LocalPath.ToLower().Contains("installwizard.aspx");
+            if (!isInstallPage)
             {
                 Localization.SetThreadCultures(PageCulture, PortalSettings);
             }
@@ -325,7 +323,7 @@ namespace DotNetNuke.Framework
 
             JavaScript.Register(Page);
 
-            if(ServicesFrameworkInternal.Instance.IsAjaxAntiForgerySupportRequired)
+            if (ServicesFrameworkInternal.Instance.IsAjaxAntiForgerySupportRequired)
             {
                 ServicesFrameworkInternal.Instance.RegisterAjaxAntiForgery(Page);
             }
@@ -519,8 +517,7 @@ namespace DotNetNuke.Framework
                     {
                         textBox.ToolTip = value;
                     }
-                } 
-
+                }
             }
 
             //Translate listcontrol items here 
@@ -717,6 +714,5 @@ namespace DotNetNuke.Framework
         }
 
         #endregion
-
     }
 }

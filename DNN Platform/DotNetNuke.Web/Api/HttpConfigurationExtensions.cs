@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -17,7 +17,7 @@ namespace DotNetNuke.Web.Api
 
             var providers = configuration.Properties.GetOrAdd(Key, InitValue) as ConcurrentQueue<ITabAndModuleInfoProvider>;
 
-            if(providers == null)
+            if (providers == null)
             {
                 providers = new ConcurrentQueue<ITabAndModuleInfoProvider>();
                 configuration.Properties[Key] = providers;
@@ -40,7 +40,7 @@ namespace DotNetNuke.Web.Api
             if (providers == null)
             {
                 //shouldn't ever happen outside of unit tests
-                return new ITabAndModuleInfoProvider[]{};
+                return new ITabAndModuleInfoProvider[] { };
             }
 
             return providers.ToArray();

@@ -24,10 +24,10 @@ namespace ClientDependency.Core.FileRegistration.Providers
 
         /// <summary>Path to the dependency loader we need for adding control dependencies.</summary>
         protected const string DependencyLoaderResourceName = "ClientDependency.Core.Resources.LazyLoader.js";
-        
 
-        private static readonly object Locker = new object();
-        
+
+        private static readonly object s_locker = new object();
+
 
         /// <summary>
         /// This is silly to have to do this but MS don't give you a way in MVC to do this
@@ -54,14 +54,14 @@ namespace ClientDependency.Core.FileRegistration.Providers
         {
             if (http.Items["LazyLoaderLoaded"] == null || (bool)http.Items["LazyLoaderLoaded"] == false)
             {
-                lock (Locker)
+                lock (s_locker)
                 {
                     if (http.Items["LazyLoaderLoaded"] == null || (bool)http.Items["LazyLoaderLoaded"] == false)
                     {
                         http.Items["LazyLoaderLoaded"] = true;
 
                         var url = GetWebResourceUrl(typeof(LazyLoadProvider), DependencyLoaderResourceName);
-                        sb.Append(string.Format(HtmlEmbedContants.ScriptEmbedWithSource, url, ""));   
+                        sb.Append(string.Format(HtmlEmbedContants.ScriptEmbedWithSource, url, ""));
                     }
                 }
             }
@@ -70,28 +70,27 @@ namespace ClientDependency.Core.FileRegistration.Providers
         protected override string RenderJsDependencies(IEnumerable<IClientDependencyFile> jsDependencies, HttpContextBase http, IDictionary<string, string> htmlAttributes)
         {
             if (!jsDependencies.Any())
-				return string.Empty;
+                return string.Empty;
 
             var sb = new StringBuilder();
 
             if (http.IsDebuggingEnabled || !EnableCompositeFiles)
-			{
-				foreach (var dependency in jsDependencies)
-				{
+            {
+                foreach (var dependency in jsDependencies)
+                {
                     sb.Append(RenderSingleJsFile(string.Format("'{0}','{1}'", dependency.FilePath, string.Empty), htmlAttributes));
-				}
-			}
-			else
-			{
-
+                }
+            }
+            else
+            {
                 RegisterLazyLoadScript(sb, http);
 
                 var comp = ClientDependencySettings.Instance.DefaultCompositeFileProcessingProvider.ProcessCompositeList(jsDependencies, ClientDependencyType.Javascript, http);
                 foreach (var s in comp)
                 {
                     sb.Append(RenderSingleJsFile(string.Format("'{0}','{1}'", s, string.Empty), htmlAttributes));
-                }   
-			}
+                }
+            }
 
             return sb.ToString();
         }
@@ -119,7 +118,6 @@ namespace ClientDependency.Core.FileRegistration.Providers
             }
             else
             {
-
                 RegisterLazyLoadScript(sb, http);
 
                 var comp = ClientDependencySettings.Instance.DefaultCompositeFileProcessingProvider.ProcessCompositeList(cssDependencies, ClientDependencyType.Css, http);

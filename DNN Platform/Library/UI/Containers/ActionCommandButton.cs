@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Common.Utilities;
@@ -28,7 +28,6 @@ using DotNetNuke.UI.Modules;
 using DotNetNuke.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.UI.Containers
 {
     /// -----------------------------------------------------------------------------
@@ -48,14 +47,14 @@ namespace DotNetNuke.UI.Containers
     /// -----------------------------------------------------------------------------
     public class ActionCommandButton : CommandButton, IActionControl
     {
-		#region "Private Members"
+        #region "Private Members"
 
         private ActionManager _ActionManager;
         private ModuleAction _ModuleAction;
 
-		#endregion
+        #endregion
 
-		#region "Public Properties"
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -119,10 +118,10 @@ namespace DotNetNuke.UI.Containers
         public IModuleControl ModuleControl { get; set; }
 
         #endregion
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -134,7 +133,7 @@ namespace DotNetNuke.UI.Containers
         /// -----------------------------------------------------------------------------
         protected override void CreateChildControls()
         {
-			//Call base class method to ensure Control Tree is built
+            //Call base class method to ensure Control Tree is built
             base.CreateChildControls();
 
             //Set Causes Validation and Enables ViewState to false
@@ -217,7 +216,7 @@ namespace DotNetNuke.UI.Containers
                 Visible = false;
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

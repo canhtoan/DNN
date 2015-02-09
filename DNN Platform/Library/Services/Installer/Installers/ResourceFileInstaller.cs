@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,9 +17,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.IO;
 using System.Xml;
@@ -31,7 +31,6 @@ using DotNetNuke.Instrumentation;
 using ICSharpCode.SharpZipLib.Zip;
 
 #endregion
-
 namespace DotNetNuke.Services.Installer.Installers
 {
     /// -----------------------------------------------------------------------------
@@ -46,14 +45,14 @@ namespace DotNetNuke.Services.Installer.Installers
     /// -----------------------------------------------------------------------------
     public class ResourceFileInstaller : FileInstaller
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (ResourceFileInstaller));
-		#region "Public Contants"
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(ResourceFileInstaller));
+        #region "Public Contants"
         public const string DEFAULT_MANIFESTEXT = ".manifest";
         private string _Manifest;
-		
-		#endregion
-		
-		#region "Protected Properties"
+
+        #endregion
+
+        #region "Protected Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -97,10 +96,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return _Manifest;
             }
         }
-		
-		#endregion
 
-		#region "Public Properties"
+        #endregion
+
+        #region "Public Properties"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -118,10 +117,10 @@ namespace DotNetNuke.Services.Installer.Installers
                 return "resources, zip";
             }
         }
-		
-		#endregion
 
-		#region "Protected Methods"
+        #endregion
+
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -224,7 +223,7 @@ namespace DotNetNuke.Services.Installer.Installers
                     }
                     entry = unzip.GetNextEntry();
                 }
-				
+
                 //Close files Element
                 writer.WriteEndElement();
 
@@ -232,7 +231,7 @@ namespace DotNetNuke.Services.Installer.Installers
             }
             catch (Exception exc)
             {
-                Logger.Error(exc);
+                s_logger.Error(exc);
 
                 retValue = false;
             }
@@ -240,12 +239,12 @@ namespace DotNetNuke.Services.Installer.Installers
             {
                 if (writer != null)
                 {
-					//Close XmlWriter
+                    //Close XmlWriter
                     writer.Close();
                 }
                 if (fs != null)
                 {
-					//Close FileStreams
+                    //Close FileStreams
                     fs.Close();
                 }
                 if (unzip != null)
@@ -290,7 +289,7 @@ namespace DotNetNuke.Services.Installer.Installers
             {
                 _Manifest = insFile.FullName + DEFAULT_MANIFESTEXT;
             }
-			
+
             //Call base method
             return base.ReadManifestItem(nav, checkFileExists);
         }
@@ -314,15 +313,15 @@ namespace DotNetNuke.Services.Installer.Installers
             {
                 if (!entry.IsDirectory)
                 {
-					//Check for Backups
+                    //Check for Backups
                     if (File.Exists(insFile.BackupPath + entry.Name))
                     {
-						//Restore File
+                        //Restore File
                         Util.RestoreFile(new InstallFile(unzip, entry, Package.InstallerInfo), PhysicalBasePath, Log);
                     }
                     else
                     {
-						//Delete File
+                        //Delete File
                         Util.DeleteFile(entry.Name, PhysicalBasePath, Log);
                     }
                 }
@@ -357,7 +356,7 @@ namespace DotNetNuke.Services.Installer.Installers
                 Util.DeleteFile(Manifest, PhysicalBasePath, Log);
             }
         }
-		
-		#endregion
+
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Membership;
 
 #endregion
-
 namespace DotNetNuke.Entities.Modules
 {
     /// -----------------------------------------------------------------------------
@@ -356,27 +355,27 @@ namespace DotNetNuke.Entities.Modules
 
         #region Nested type: UserRestoredEventArgs
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// The UserRestoredEventArgs class provides a customised EventArgs class for
-		/// the UserRestored Event
-		/// </summary>
-		/// <history>
-		/// 	[cnurse]	02/07/2007  created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The UserRestoredEventArgs class provides a customised EventArgs class for
+        /// the UserRestored Event
+        /// </summary>
+        /// <history>
+        /// 	[cnurse]	02/07/2007  created
+        /// </history>
+        /// -----------------------------------------------------------------------------
         public class UserRestoredEventArgs : BaseUserEventArgs
         {
-			/// -----------------------------------------------------------------------------
-			/// <summary>
-			/// Constructs a new UserRestoredEventArgs
-			/// </summary>
-			/// <param name="id">The Id of the User</param>
-			/// <param name="name">The user name of the User</param>
-			/// <history>
-			/// 	[cnurse]	02/07/2007  created
-			/// </history>
-			/// -----------------------------------------------------------------------------
+            /// -----------------------------------------------------------------------------
+            /// <summary>
+            /// Constructs a new UserRestoredEventArgs
+            /// </summary>
+            /// <param name="id">The Id of the User</param>
+            /// <param name="name">The user name of the User</param>
+            /// <history>
+            /// 	[cnurse]	02/07/2007  created
+            /// </history>
+            /// -----------------------------------------------------------------------------
             public UserRestoredEventArgs(int id, string name)
             {
                 UserId = id;
@@ -388,29 +387,29 @@ namespace DotNetNuke.Entities.Modules
 
         #region Nested type: UserRemovedEventArgs
 
-		/// -----------------------------------------------------------------------------
-		/// <summary>
-		/// The UserRemovedEventArgs class provides a customised EventArgs class for
-		/// the UserRemoved Event
-		/// </summary>
-		/// <history>
-		/// 	[cnurse]	02/07/2007  created
-		/// </history>
-		/// -----------------------------------------------------------------------------
+        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// The UserRemovedEventArgs class provides a customised EventArgs class for
+        /// the UserRemoved Event
+        /// </summary>
+        /// <history>
+        /// 	[cnurse]	02/07/2007  created
+        /// </history>
+        /// -----------------------------------------------------------------------------
 
         public class UserRemovedEventArgs : BaseUserEventArgs
         {
-			/// -----------------------------------------------------------------------------
-			/// <summary>
-			/// Constructs a new UserRemovedEventArgs
-			/// </summary>
-			/// <param name="id">The Id of the User</param>
-			/// <param name="name">The user name of the User</param>
-			/// <history>
-			/// 	[cnurse]	02/07/2007  created
-			/// </history>
-			/// -----------------------------------------------------------------------------
-			public UserRemovedEventArgs(int id, string name)
+            /// -----------------------------------------------------------------------------
+            /// <summary>
+            /// Constructs a new UserRemovedEventArgs
+            /// </summary>
+            /// <param name="id">The Id of the User</param>
+            /// <param name="name">The user name of the User</param>
+            /// <history>
+            /// 	[cnurse]	02/07/2007  created
+            /// </history>
+            /// -----------------------------------------------------------------------------
+            public UserRemovedEventArgs(int id, string name)
             {
                 UserId = id;
                 UserName = name;

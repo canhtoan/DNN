@@ -20,7 +20,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -119,7 +118,7 @@ namespace DotNetNuke.Modules.MemberDirectory.Services
                 var properties = new Dictionary<string, string>();
                 bool propertyNotFound = false;
                 var propertyAccess = new ProfilePropertyAccess(_user);
-                foreach(ProfilePropertyDefinition property in _user.Profile.ProfileProperties)
+                foreach (ProfilePropertyDefinition property in _user.Profile.ProfileProperties)
                 {
                     string value = propertyAccess.GetProperty(property.PropertyName,
                                                              String.Empty,

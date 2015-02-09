@@ -16,27 +16,26 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 namespace DotNetNuke.Entities.Content.Taxonomy
 {
     public class TermUsage
     {
         public int TotalTermUsage { get; set; }
-        
+
         public int MonthTermUsage { get; set; }
 
         public int WeekTermUsage { get; set; }
 
         public int DayTermUsage { get; set; }
 
-		/// <summary>
-		/// parameterless constructor, so that it can be used in CBO.
-		/// </summary>
-		public TermUsage()
-		{
-			
-		}
+        /// <summary>
+        /// parameterless constructor, so that it can be used in CBO.
+        /// </summary>
+        public TermUsage()
+        {
+        }
 
         internal TermUsage(int total, int month, int week, int day)
         {

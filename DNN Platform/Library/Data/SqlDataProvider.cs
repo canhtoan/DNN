@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,8 +19,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#region Usings
 
+#region Usings
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -39,19 +39,18 @@ using DotNetNuke.Services.Log.EventLog;
 using Microsoft.ApplicationBlocks.Data;
 
 #endregion
-
 namespace DotNetNuke.Data
 {
     public sealed class SqlDataProvider : DataProvider
     {
-    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SqlDataProvider));
+        private static readonly ILog s_logger = LoggerSource.Instance.GetLogger(typeof(SqlDataProvider));
         #region Private Members
 
         private const string _scriptDelimiterRegex = "(?<=(?:[^\\w]+|^))GO(?=(?: |\\t)*?(?:\\r?\\n|$))";
 
-		private static readonly Regex ScriptWithRegex = new Regex("WITH\\s*\\([\\s\\S]*?((PAD_INDEX|ALLOW_ROW_LOCKS|ALLOW_PAGE_LOCKS)\\s*=\\s*(ON|OFF))+[\\s\\S]*?\\)", 
-															RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
-		private static readonly Regex ScriptOnPrimaryRegex = new Regex("(TEXTIMAGE_)*ON\\s*\\[\\s*PRIMARY\\s*\\]", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+        private static readonly Regex s_scriptWithRegex = new Regex("WITH\\s*\\([\\s\\S]*?((PAD_INDEX|ALLOW_ROW_LOCKS|ALLOW_PAGE_LOCKS)\\s*=\\s*(ON|OFF))+[\\s\\S]*?\\)",
+                                                            RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+        private static readonly Regex s_scriptOnPrimaryRegex = new Regex("(TEXTIMAGE_)*ON\\s*\\[\\s*PRIMARY\\s*\\]", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
         #endregion
 
@@ -106,12 +105,11 @@ namespace DotNetNuke.Data
                 var sql = statement.Trim();
                 if (!String.IsNullOrEmpty(sql))
                 {
-
                     // script dynamic substitution
                     sql = DataUtil.ReplaceTokens(sql);
 
                     //Clean up some SQL Azure incompatabilities
-	                var query = GetAzureCompactScript(sql);
+                    var query = GetAzureCompactScript(sql);
 
                     if (query != sql)
                     {
@@ -126,7 +124,7 @@ namespace DotNetNuke.Data
 
                     try
                     {
-                        Logger.Trace("Executing SQL Script " + query);
+                        s_logger.Trace("Executing SQL Script " + query);
 
                         //Create a new connection
                         using (var connection = new SqlConnection(connectionString))
@@ -141,7 +139,7 @@ namespace DotNetNuke.Data
                     }
                     catch (SqlException objException)
                     {
-                        Logger.Error(objException);
+                        s_logger.Error(objException);
                         exceptions += objException + Environment.NewLine + Environment.NewLine + query + Environment.NewLine + Environment.NewLine;
                     }
                 }
@@ -166,14 +164,14 @@ namespace DotNetNuke.Data
             catch (SqlException sqlException)
             {
                 //error in SQL query
-                Logger.Error(sqlException);
+                s_logger.Error(sqlException);
 
                 errorMessage = sqlException.Message + Environment.NewLine + Environment.NewLine + sql + Environment.NewLine + Environment.NewLine;
                 return null;
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                s_logger.Error(ex);
                 errorMessage = ex + Environment.NewLine + Environment.NewLine + sql + Environment.NewLine + Environment.NewLine;
                 return null;
             }
@@ -236,7 +234,7 @@ namespace DotNetNuke.Data
             }
             catch (SqlException objException)
             {
-                Logger.Error(objException);
+                s_logger.Error(objException);
 
                 Exceptions += objException + Environment.NewLine + Environment.NewLine + SQL + Environment.NewLine + Environment.NewLine;
             }
@@ -286,27 +284,27 @@ namespace DotNetNuke.Data
             }
             catch (SqlException objException)
             {
-                Logger.Error(objException);
+                s_logger.Error(objException);
 
                 Exceptions += objException + Environment.NewLine + Environment.NewLine + SQL + Environment.NewLine + Environment.NewLine;
             }
             return Exceptions;
         }
 
-		private string GetAzureCompactScript(string script)
-		{
-			if (ScriptWithRegex.IsMatch(script))
-			{
-				script = ScriptWithRegex.Replace(script, string.Empty);
-			}
+        private string GetAzureCompactScript(string script)
+        {
+            if (s_scriptWithRegex.IsMatch(script))
+            {
+                script = s_scriptWithRegex.Replace(script, string.Empty);
+            }
 
-			if (ScriptOnPrimaryRegex.IsMatch(script))
-			{
-				script = ScriptOnPrimaryRegex.Replace(script, string.Empty);
-			}
+            if (s_scriptOnPrimaryRegex.IsMatch(script))
+            {
+                script = s_scriptOnPrimaryRegex.Replace(script, string.Empty);
+            }
 
-			return script;
-		}
+            return script;
+        }
 
         private Regex SqlDelimiterRegex
         {
@@ -338,7 +336,7 @@ namespace DotNetNuke.Data
 
         public override T ExecuteScalar<T>(string procedureName, params object[] commandParameters)
         {
-            return PetaPocoHelper.ExecuteScalar<T>(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters); 
+            return PetaPocoHelper.ExecuteScalar<T>(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters);
         }
 
         public override string ExecuteScript(string script)
@@ -358,7 +356,7 @@ namespace DotNetNuke.Data
                 }
                 catch (SqlException objException)
                 {
-                    Logger.Error(objException);
+                    s_logger.Error(objException);
 
                     exceptions += objException + Environment.NewLine + Environment.NewLine + script + Environment.NewLine + Environment.NewLine;
                 }
@@ -374,7 +372,7 @@ namespace DotNetNuke.Data
                 }
                 catch (SqlException objException)
                 {
-                    Logger.Error(objException);
+                    s_logger.Error(objException);
 
                     exceptions += objException + Environment.NewLine + Environment.NewLine + script + Environment.NewLine + Environment.NewLine;
                 }
@@ -384,7 +382,7 @@ namespace DotNetNuke.Data
 
         public override string ExecuteScript(string connectionString, string script)
         {
-            return ExecuteScriptInternal(connectionString, script); 
+            return ExecuteScriptInternal(connectionString, script);
         }
 
         public override IDataReader ExecuteSQL(string sql)
@@ -402,8 +400,6 @@ namespace DotNetNuke.Data
             return ExecuteSQLInternal(connectionString, sql, out errorMessage);
         }
 
-
         #endregion
-
     }
 }

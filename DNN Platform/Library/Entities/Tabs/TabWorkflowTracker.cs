@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Content;
@@ -31,17 +31,17 @@ using DotNetNuke.Services.Exceptions;
 
 namespace DotNetNuke.Entities.Tabs
 {
-    class TabWorkflowTracker : ServiceLocator<ITabChangeTracker, TabWorkflowTracker>, ITabChangeTracker
+    internal class TabWorkflowTracker : ServiceLocator<ITabChangeTracker, TabWorkflowTracker>, ITabChangeTracker
     {
-        private static readonly DnnLogger Logger = DnnLogger.GetClassLogger(typeof(TabWorkflowTracker));
-       
+        private static readonly DnnLogger s_logger = DnnLogger.GetClassLogger(typeof(TabWorkflowTracker));
+
         #region Members
         private readonly ITabController _tabController;
         private readonly IWorkflowEngine _workflowEngine;
         private readonly IWorkflowManager _workflowManager;
         private readonly ITabWorkflowSettings _tabWorkflowSettings;
         #endregion
-        
+
         public TabWorkflowTracker()
         {
             _tabController = TabController.Instance;
@@ -66,7 +66,7 @@ namespace DotNetNuke.Entities.Tabs
         {
             NotifyWorkflowAboutChanges(module.PortalID, module.TabID, userId);
         }
-        
+
         /// <summary>
         /// Tracks a workflow instance when a module is modified on a page
         /// </summary>
@@ -126,7 +126,7 @@ namespace DotNetNuke.Entities.Tabs
                     var workflow = GetCurrentOrDefaultWorkflow(tabInfo, portalId);
                     if (workflow == null)
                     {
-                        Logger.Warn("Current Workflow and Default workflow are not found on NotifyWorkflowAboutChanges");
+                        s_logger.Warn("Current Workflow and Default workflow are not found on NotifyWorkflowAboutChanges");
                         return;
                     }
 
@@ -138,7 +138,6 @@ namespace DotNetNuke.Entities.Tabs
             {
                 Exceptions.LogException(ex);
             }
-            
         }
 
         private Workflow GetCurrentOrDefaultWorkflow(ContentItem item, int portalId)

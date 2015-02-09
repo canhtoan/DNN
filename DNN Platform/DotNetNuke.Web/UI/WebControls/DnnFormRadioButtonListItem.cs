@@ -17,16 +17,15 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 #endregion
-
 namespace DotNetNuke.Web.UI.WebControls
 {
     public class DnnFormRadioButtonListItem : DnnFormListItemBase
@@ -78,7 +77,7 @@ namespace DotNetNuke.Web.UI.WebControls
 
         protected override WebControl CreateControlInternal(Control container)
         {
-            _radioButtonList = new RadioButtonList  { ID = ID + "_RadioButtonList", RepeatColumns = 1, RepeatDirection = RepeatDirection.Vertical, RepeatLayout = RepeatLayout.Flow};
+            _radioButtonList = new RadioButtonList { ID = ID + "_RadioButtonList", RepeatColumns = 1, RepeatDirection = RepeatDirection.Vertical, RepeatLayout = RepeatLayout.Flow };
 
             container.Controls.Add(_radioButtonList);
 

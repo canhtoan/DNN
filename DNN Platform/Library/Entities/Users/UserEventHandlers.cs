@@ -19,7 +19,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 #endregion
-
 using System.ComponentModel.Composition;
 using System.Globalization;
 

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,13 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Data;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
-
 
 namespace DotNetNuke.Security.Permissions
 {
@@ -174,12 +174,12 @@ namespace DotNetNuke.Security.Permissions
             }
             return (AllowAccess == other.AllowAccess) && (StateID == other.StateID) && (RoleID == other.RoleID) && (PermissionID == other.PermissionID);
         }
-        
+
         public override int GetHashCode()
         {
             unchecked
             {
-                return (_StateID*397) ^ _WorkflowStatePermissionID;
+                return (_StateID * 397) ^ _WorkflowStatePermissionID;
             }
         }
 

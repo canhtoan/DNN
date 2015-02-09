@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,22 +26,22 @@ namespace DotNetNuke.ExtensionPoints.Filters
 {
     public class CompositeFilter : IExtensionPointFilter
     {
-        private readonly IList<IExtensionPointFilter> filters;
+        private readonly IList<IExtensionPointFilter> _filters;
 
         public CompositeFilter()
         {
-            filters = new List<IExtensionPointFilter>();
+            _filters = new List<IExtensionPointFilter>();
         }
 
         public CompositeFilter And(IExtensionPointFilter filter)
         {
-            filters.Add(filter);
+            _filters.Add(filter);
             return this;
         }
 
         public bool Condition(IExtensionPointData m)
         {
-            return filters.All(f => f.Condition(m));
+            return _filters.All(f => f.Condition(m));
         }
     }
 }

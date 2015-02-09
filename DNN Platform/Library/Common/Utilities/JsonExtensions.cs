@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -17,14 +17,13 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 #region Usings
-
 using System;
 using System.Web.Script.Serialization;
 
 #endregion
-
 namespace DotNetNuke.Common.Utilities
 {
     /// <summary>
@@ -35,7 +34,7 @@ namespace DotNetNuke.Common.Utilities
         private static JavaScriptSerializer SerializerFactory()
         {
             // Allow large JSON strings to be serialized and deserialized.
-            return new JavaScriptSerializer {MaxJsonLength = Int32.MaxValue};
+            return new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
         }
 
         /// <summary>
@@ -74,7 +73,7 @@ namespace DotNetNuke.Common.Utilities
             // *** Have to use Reflection with a 'dynamic' non constant type instance 
             var ser = SerializerFactory();
 
-            object result = ser.GetType().GetMethod("Deserialize").MakeGenericMethod(type).Invoke(ser, new object[1] {json});
+            object result = ser.GetType().GetMethod("Deserialize").MakeGenericMethod(type).Invoke(ser, new object[1] { json });
             return result;
         }
 

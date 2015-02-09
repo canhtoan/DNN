@@ -17,8 +17,8 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -208,10 +208,10 @@ namespace DotNetNuke.Services.FileSystem
             if (folderPath == newFolderPath) return;
 
             var sourceFolder = FolderManager.Instance.GetFolder(folderMapping.PortalID, folderPath);
-			var destinationFolder = FolderManager.Instance.GetFolder(folderMapping.PortalID, newFolderPath);
+            var destinationFolder = FolderManager.Instance.GetFolder(folderMapping.PortalID, newFolderPath);
 
-			Requires.NotNull("sourceFolder", sourceFolder);
-			Requires.NotNull("destinationFolder", destinationFolder);
+            Requires.NotNull("sourceFolder", sourceFolder);
+            Requires.NotNull("destinationFolder", destinationFolder);
 
             using (var fileContent = GetFileStream(sourceFolder, fileName))
             {

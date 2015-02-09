@@ -17,6 +17,7 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
 using System;
 using System.Linq;
@@ -60,12 +61,12 @@ namespace DotNetNuke.Web.UI.WebControls.Extensions
 
         public static void Select(this ListControl control, string initial, bool findByText, int fallbackIndex)
         {
-            control.ClearSelection(); 
+            control.ClearSelection();
             if (findByText)
             {
-				if (control.Items.FindByTextWithIgnoreCase(initial) != null)
+                if (control.Items.FindByTextWithIgnoreCase(initial) != null)
                 {
-					control.Items.FindByTextWithIgnoreCase(initial).Selected = true;
+                    control.Items.FindByTextWithIgnoreCase(initial).Selected = true;
                 }
                 else if (fallbackIndex > -1)
                 {
@@ -74,9 +75,9 @@ namespace DotNetNuke.Web.UI.WebControls.Extensions
             }
             else
             {
-				if (control.Items.FindByValueWithIgnoreCase(initial) != null)
+                if (control.Items.FindByValueWithIgnoreCase(initial) != null)
                 {
-					control.Items.FindByValueWithIgnoreCase(initial).Selected = true;
+                    control.Items.FindByValueWithIgnoreCase(initial).Selected = true;
                 }
                 else if (fallbackIndex > -1)
                 {
@@ -84,26 +85,26 @@ namespace DotNetNuke.Web.UI.WebControls.Extensions
                 }
             }
         }
-		/// <summary>
-		/// Use this method instead of ListItemCollection.FindByText to find the specific item with case-insensitive.
-		/// </summary>
-		/// <param name="listItems">the items.</param>
-		/// <param name="text">the item with this text want to find.</param>
-		/// <returns>the specific item or null if didn't match the text with any item.</returns>
-		public static ListItem FindByTextWithIgnoreCase(this ListItemCollection listItems, string text)
-		{
-			return listItems.Cast<ListItem>().FirstOrDefault(item => item.Text.Equals(text, StringComparison.InvariantCultureIgnoreCase));
-		}
+        /// <summary>
+        /// Use this method instead of ListItemCollection.FindByText to find the specific item with case-insensitive.
+        /// </summary>
+        /// <param name="listItems">the items.</param>
+        /// <param name="text">the item with this text want to find.</param>
+        /// <returns>the specific item or null if didn't match the text with any item.</returns>
+        public static ListItem FindByTextWithIgnoreCase(this ListItemCollection listItems, string text)
+        {
+            return listItems.Cast<ListItem>().FirstOrDefault(item => item.Text.Equals(text, StringComparison.InvariantCultureIgnoreCase));
+        }
 
-		/// <summary>
-		/// Use this method instead of ListItemCollection.FindBValue to find the specific item with case-insensitive.
-		/// </summary>
-		/// <param name="listItems">the items.</param>
-		/// <param name="value">the item with this value want to find.</param>
-		/// <returns>the specific item or null if didn't match the value with any item.</returns>
-		public static ListItem FindByValueWithIgnoreCase(this ListItemCollection listItems, string value)
-		{
-			return listItems.Cast<ListItem>().FirstOrDefault(item => item.Value.Equals(value, StringComparison.InvariantCultureIgnoreCase));
-		}
+        /// <summary>
+        /// Use this method instead of ListItemCollection.FindBValue to find the specific item with case-insensitive.
+        /// </summary>
+        /// <param name="listItems">the items.</param>
+        /// <param name="value">the item with this value want to find.</param>
+        /// <returns>the specific item or null if didn't match the value with any item.</returns>
+        public static ListItem FindByValueWithIgnoreCase(this ListItemCollection listItems, string value)
+        {
+            return listItems.Cast<ListItem>().FirstOrDefault(item => item.Value.Equals(value, StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 }

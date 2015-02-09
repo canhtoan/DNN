@@ -17,25 +17,25 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
-#endregion
 
+#endregion
 using DotNetNuke.Common;
 
 namespace DotNetNuke.Web.Api.Internal
 {
     public sealed class DnnPagePermissionAttribute : AuthorizeAttributeBase, IOverrideDefaultAuthLevel
     {
-        private string permissionKey = "EDIT";
+        private string _permissionKey = "EDIT";
 
         public string PermissionKey
         {
             get
             {
-                return permissionKey;
+                return _permissionKey;
             }
             set
             {
-                permissionKey = value;
+                _permissionKey = value;
             }
         }
         public override bool IsAuthorized(AuthFilterContext context)
