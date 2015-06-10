@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppliedDate.Header" xml:space="preserve">
+    <value>Application Date</value>
+  </data>
+  <data name="btnBack.Text" xml:space="preserve">
+    <value>Return to Job Listing</value>
+  </data>
+  <data name="DisplayName.Header" xml:space="preserve">
+    <value>Applicant</value>
+  </data>
+  <data name="JobTitle.Header" xml:space="preserve">
+    <value>Job Title</value>
+  </data>
+  <data name="DateAppliedHeaderLabel.Text" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ApplicantHeaderLabel.Text" xml:space="preserve">
+    <value>Applicant</value>
+  </data>
+  <data name="LocationHeaderLabel.Text" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="MessageHeaderLabel.Text" xml:space="preserve">
+    <value>Message: </value>
+  </data>
+  <data name="NameHeaderLabel.Text" xml:space="preserve">
+    <value>Applicant Name</value>
+  </data>
+  <data name="SalaryHeaderLabel.Text" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="ViewHeaderLabel.Text" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="NoStatus.Text" xml:space="preserve">
+    <value>Set a Status</value>
+  </data>
+  <data name="AnonymousUser.Text" xml:space="preserve">
+    <value>Anonymous Applicant</value>
+  </data>
+  <data name="Cover Letter.Text" xml:space="preserve">
+    <value>Cover Letter</value>
+  </data>
+  <data name="LeadHeaderLabel.Text" xml:space="preserve">
+    <value>Lead</value>
+  </data>
+  <data name="Resume.Text" xml:space="preserve">
+    <value>Resumé</value>
+  </data>
+  <data name="Location.Text" xml:space="preserve">
+    <value>{0}, {1}</value>
+    <comment>{0} is replaced by Location name, 
+{1} is replaced by region name, 
+{2} is replaced by region abbreviation</comment>
+  </data>
+  <data name="ManageStatuses.Text" xml:space="preserve">
+    <value>Manage User Statuses</value>
+  </data>
+  <data name="StatusHeaderLabel.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="NoApplicationStatus.Text" xml:space="preserve">
+    <value>Set a Status</value>
+  </data>
+  <data name="ManageApplicationStatuses.Text" xml:space="preserve">
+    <value>Manage Application Statuses</value>
+  </data>
+  <data name="ControlTitle_manageapplications.Text" xml:space="preserve">
+    <value>Manage Applications</value>
+  </data>
+  <data name="btnAll.Text" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="Change Page Size Button.Text" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Change Page Size Label.Text" xml:space="preserve">
+    <value>Page size:</value>
+  </data>
+  <data name="Collapse.ToolTip" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="Expand.ToolTip" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="Export To CSV.ToolTip" xml:space="preserve">
+    <value>Export to CSV</value>
+  </data>
+  <data name="Export To Excel.ToolTip" xml:space="preserve">
+    <value>Export To Excel</value>
+  </data>
+  <data name="First Page.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="First Page.ToolTip" xml:space="preserve">
+    <value>First Page</value>
+  </data>
+  <data name="Go to Page Button.Text" xml:space="preserve">
+    <value>GO</value>
+  </data>
+  <data name="Go to Page Label.Text" xml:space="preserve">
+    <value>Page:</value>
+  </data>
+  <data name="Jobs Export FileName.Format" xml:space="preserve">
+    <value>Jobs {0:yyyy'-'MM'-'dd' 'HH'-'mm}</value>
+    <comment>{0} is replaced by current date/time</comment>
+  </data>
+  <data name="JobTitleHeaderLabel.Text" xml:space="preserve">
+    <value>Job Title</value>
+  </data>
+  <data name="Last Page.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Last Page.ToolTip" xml:space="preserve">
+    <value>Last Page</value>
+  </data>
+  <data name="Next Page.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Next Page.ToolTip" xml:space="preserve">
+    <value>Next Page</value>
+  </data>
+  <data name="Page of.Format" xml:space="preserve">
+    <value>of {0}</value>
+    <comment>{0} is replaced by total number of pages</comment>
+  </data>
+  <data name="Pager.Format" xml:space="preserve">
+    <value>{4} &amp;nbsp;&lt;strong&gt;{5}&lt;/strong&gt; jobs in &lt;strong&gt;{1}&lt;/strong&gt; pages</value>
+    <comment>{0} = current page number
+{1} is replaced by total number of pages
+{2} is replaced by number of the first item in the current page
+{3} is replaced by number of the last item in the current page
+{4} is replaced by pager buttons
+{5} is replaced by total number of jobs</comment>
+  </data>
+  <data name="PostedDateHeaderLabel.Text" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="Previous Page.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Previous Page.ToolTip" xml:space="preserve">
+    <value>Previous Page</value>
+  </data>
+  <data name="Sort.ToolTip" xml:space="preserve">
+    <value>Click here to sort</value>
+  </data>
+  <data name="Sorted Ascending.ToolTip" xml:space="preserve">
+    <value>Sorted asc</value>
+  </data>
+  <data name="Sorted Descending.ToolTip" xml:space="preserve">
+    <value>Sorted desc</value>
+  </data>
+  <data name="No Applications After Filter.Text" xml:space="preserve">
+    <value>No applications have been received for this job matching your search criteria</value>
+  </data>
+  <data name="No Applications.Text" xml:space="preserve">
+    <value>No applications have been received for this job</value>
+  </data>
+  <data name="No Jobs After Filter.Text" xml:space="preserve">
+    <value>There are no jobs matching your search criteria</value>
+  </data>
+  <data name="No Jobs.Text" xml:space="preserve">
+    <value>No job openings have been created.  Go to the Manage Jobs page to create job openings.</value>
+  </data>
+  <data name="ApplicantStatusLabel-Export.Text" xml:space="preserve">
+    <value>Applicant Status</value>
+  </data>
+  <data name="Applications Export FileName.Format" xml:space="preserve">
+    <value>Applications for {1} as of {0:yyyy'-'MM'-'dd' 'HH'-'mm}</value>
+    <comment>{0} is replaced by current date/time
+{1} is replaced by job title
+{2} is replaced by location name, 
+{3} is replaced by region name, 
+{4} is replaced by region abbreviation</comment>
+  </data>
+  <data name="ApplicationsTableHeader.Text" xml:space="preserve">
+    <value>&lt;h5&gt;Applications&lt;/h5&gt;</value>
+  </data>
+  <data name="JobsTableHeader.Text" xml:space="preserve">
+    <value>&lt;h5&gt;Jobs&lt;/h5&gt;</value>
+  </data>
+  <data name="btnApplyFilter.Text" xml:space="preserve">
+    <value>Apply Filter</value>
+  </data>
+  <data name="FilterByApplicationStatusLabel.Text" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="FilterByDateFromLabel.Text" xml:space="preserve">
+    <value>From:</value>
+  </data>
+  <data name="FilterByJobTitleLabel.Text" xml:space="preserve">
+    <value>Job Title:</value>
+  </data>
+  <data name="FilterByLeadLabel.Text" xml:space="preserve">
+    <value>Lead:</value>
+  </data>
+  <data name="FilterByLocationLabel.Text" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="FilterBySalaryLabel.Text" xml:space="preserve">
+    <value>Salary:</value>
+  </data>
+  <data name="FilterByUserStatusLabel.Text" xml:space="preserve">
+    <value>Applicant:</value>
+  </data>
+  <data name="FilterByJobsLabel.Text" xml:space="preserve">
+    <value>Filter Jobs:</value>
+  </data>
+  <data name="FilterByDateFromCompareValidator.Text" xml:space="preserve">
+    <value>From date must occur before To date.</value>
+  </data>
+  <data name="FilterByDateFromTypeValidator.Text" xml:space="preserve">
+    <value>From date must be a valid date.</value>
+  </data>
+  <data name="FilterByDateToLabel.Text" xml:space="preserve">
+    <value>To:</value>
+  </data>
+  <data name="FilterByDateToTypeValidator.Text" xml:space="preserve">
+    <value>To date must b a valid date.</value>
+  </data>
+  <data name="DetailPager.Format" xml:space="preserve">
+    <value>{4} &amp;nbsp;&lt;strong&gt;{5}&lt;/strong&gt; applications in &lt;strong&gt;{1}&lt;/strong&gt; pages</value>
+    <comment>{0} = current page number
+{1} is replaced by total number of pages
+{2} is replaced by number of the first item in the current page
+{3} is replaced by number of the last item in the current page
+{4} is replaced by pager buttons
+{5} is replaced by total number of applications</comment>
+  </data>
+  <data name="FilterByApplicationsLabel.Text" xml:space="preserve">
+    <value>Filter Applications:</value>
+  </data>
+  <data name="FilterNoApplicationStatus.Text" xml:space="preserve">
+    <value>No Status</value>
+  </data>
+  <data name="FilterNoUserStatus.Text" xml:space="preserve">
+    <value>No Status</value>
+  </data>
+  <data name="DateStartHeaderLabel.Text" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="EmailHeaderLabel.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="PhoneHeaderLabel.Text" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+</root>

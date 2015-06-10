@@ -33,6 +33,7 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Security.Roles;
 using DotNetNuke.Security.Roles.Internal;
 
+
 #endregion
 namespace DotNetNuke.Entities.Portals
 {

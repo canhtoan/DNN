@@ -47,6 +47,7 @@ using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Search.Entities;
 using Microsoft.ApplicationBlocks.Data;
 
+
 #endregion
 namespace DotNetNuke.Data
 {

@@ -24,6 +24,7 @@ using System;
 
 using DotNetNuke.Collections.Internal;
 
+
 #endregion
 namespace DotNetNuke.ComponentModel
 {

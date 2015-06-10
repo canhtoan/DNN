@@ -27,6 +27,7 @@ using System.Text.RegularExpressions;
 
 using DotNetNuke.Entities.Users;
 
+
 #endregion
 namespace DotNetNuke.Services.Tokens
 {

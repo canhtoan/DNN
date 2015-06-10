@@ -98,9 +98,9 @@ Namespace DotNetNuke.UI.Utilities
         ''' -----------------------------------------------------------------------------
         ''' <summary>Private variable holding location of client side js files.  Shared by entire application.</summary>
         ''' -----------------------------------------------------------------------------
-        Private Shared m_sScriptPath As String
+        Private Shared s_sScriptPath As String
 
-        Private Shared m_ClientAPIDisabled As String = String.Empty
+        Private Shared s_clientAPIDisabled As String = String.Empty
 
 #End Region
 
@@ -240,8 +240,8 @@ Namespace DotNetNuke.UI.Utilities
         Public Shared Property ScriptPath() As String
             Get
                 Dim script As String = ""
-                If Len(m_sScriptPath) > 0 Then
-                    script = m_sScriptPath
+                If Len(s_sScriptPath) > 0 Then
+                    script = s_sScriptPath
                 ElseIf Not System.Web.HttpContext.Current Is Nothing Then
                     If System.Web.HttpContext.Current.Request.ApplicationPath.EndsWith("/") Then
                         script = System.Web.HttpContext.Current.Request.ApplicationPath & "js/"
@@ -252,7 +252,7 @@ Namespace DotNetNuke.UI.Utilities
                 Return script
             End Get
             Set(ByVal Value As String)
-                m_sScriptPath = Value
+                s_sScriptPath = Value
             End Set
         End Property
 
@@ -695,25 +695,25 @@ Namespace DotNetNuke.UI.Utilities
                 Case ClientNamespaceReferences.dnn_dom
                     RegisterClientReference(objPage, ClientNamespaceReferences.dnn)
                 Case ClientNamespaceReferences.dnn_dom_positioning
-                        RegisterClientReference(objPage, ClientNamespaceReferences.dnn)
+                    RegisterClientReference(objPage, ClientNamespaceReferences.dnn)
                     ClientResourceManager.RegisterScript(objPage, ScriptPath & "dnn.dom.positioning.js")
 
                 Case ClientNamespaceReferences.dnn_xml
-                        RegisterClientReference(objPage, ClientNamespaceReferences.dnn)
+                    RegisterClientReference(objPage, ClientNamespaceReferences.dnn)
                     ClientResourceManager.RegisterScript(objPage, ScriptPath & "dnn.xml.js", FileOrder.Js.DnnXml)
 
-                            If BrowserSupportsFunctionality(ClientFunctionality.XMLJS) Then
+                    If BrowserSupportsFunctionality(ClientFunctionality.XMLJS) Then
                         ClientResourceManager.RegisterScript(objPage, ScriptPath & "dnn.xml.jsparser.js", FileOrder.Js.DnnXmlJsParser)
-                        End If
+                    End If
                 Case ClientNamespaceReferences.dnn_xmlhttp
-                        RegisterClientReference(objPage, ClientNamespaceReferences.dnn)
+                    RegisterClientReference(objPage, ClientNamespaceReferences.dnn)
                     ClientResourceManager.RegisterScript(objPage, ScriptPath & "dnn.xmlhttp.js", FileOrder.Js.DnnXmlHttp)
 
-                            If BrowserSupportsFunctionality(ClientFunctionality.XMLHTTPJS) Then
+                    If BrowserSupportsFunctionality(ClientFunctionality.XMLHTTPJS) Then
                         ClientResourceManager.RegisterScript(objPage, ScriptPath & "dnn.xmlhttp.jsxmlhttprequest.js", FileOrder.Js.DnnXmlHttpJsXmlHttpRequest)
-                        End If
+                    End If
                 Case ClientNamespaceReferences.dnn_motion
-                        RegisterClientReference(objPage, ClientNamespaceReferences.dnn_dom_positioning)
+                    RegisterClientReference(objPage, ClientNamespaceReferences.dnn_dom_positioning)
                     ClientResourceManager.RegisterScript(objPage, ScriptPath & "dnn.motion.js")
 
             End Select
@@ -916,14 +916,14 @@ Namespace DotNetNuke.UI.Utilities
         Public Shared Function ClientAPIDisabled() As Boolean
             'jon
             Return False
-            If m_ClientAPIDisabled = String.Empty Then
+            If s_clientAPIDisabled = String.Empty Then
                 If System.Configuration.ConfigurationManager.AppSettings("ClientAPI") Is Nothing Then
-                    m_ClientAPIDisabled = "1"
+                    s_clientAPIDisabled = "1"
                 Else
-                    m_ClientAPIDisabled = System.Configuration.ConfigurationManager.AppSettings("ClientAPI")
+                    s_clientAPIDisabled = System.Configuration.ConfigurationManager.AppSettings("ClientAPI")
                 End If
             End If
-            Return m_ClientAPIDisabled = "0"
+            Return s_clientAPIDisabled = "0"
         End Function
 
         Public Shared Function GetPostBackClientEvent(ByVal objPage As Page, ByVal objControl As Control, ByVal arg As String) As String

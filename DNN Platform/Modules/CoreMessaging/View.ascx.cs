@@ -37,6 +37,7 @@ using DotNetNuke.UI.Skins.Controls;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 using DotNetNuke.Common;
 
+
 #endregion
 namespace DotNetNuke.Modules.CoreMessaging
 {

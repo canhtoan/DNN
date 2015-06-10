@@ -27,6 +27,7 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Search.Entities;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Controllers
 {

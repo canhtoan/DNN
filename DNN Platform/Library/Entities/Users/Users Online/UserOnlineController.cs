@@ -29,6 +29,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Instrumentation;
 using MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users
 {

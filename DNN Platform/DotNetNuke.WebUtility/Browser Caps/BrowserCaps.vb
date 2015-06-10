@@ -31,9 +31,9 @@ Namespace DotNetNuke.UI.Utilities
 
 #Region "Private Members"
 
-        Private m_objFunctionality As FunctionalityCollection
-        Private m_objFunctionalityDict As Hashtable
-        Private Const CLIENTAPI_CACHE_KEY As String = "ClientAPICaps"
+        Private _objFunctionality As FunctionalityCollection
+        Private _objFunctionalityDict As Hashtable
+        Private Const s_CLIENTAPI_CACHE_KEY As String = "ClientAPICaps"
 
 #End Region
 
@@ -42,19 +42,19 @@ Namespace DotNetNuke.UI.Utilities
         <XmlElement("functionality")> _
         Public Property Functionality() As FunctionalityCollection
             Get
-                Return m_objFunctionality
+                Return _objFunctionality
             End Get
             Set(ByVal Value As FunctionalityCollection)
-                m_objFunctionality = Value
+                _objFunctionality = Value
             End Set
         End Property
 
         Public ReadOnly Property FunctionalityDictionary() As Hashtable
             Get
-                If m_objFunctionalityDict Is Nothing Then
-                    m_objFunctionalityDict = New Hashtable
+                If _objFunctionalityDict Is Nothing Then
+                    _objFunctionalityDict = New Hashtable
                 End If
-                Return m_objFunctionalityDict
+                Return _objFunctionalityDict
             End Get
         End Property
 #End Region
@@ -79,7 +79,7 @@ Namespace DotNetNuke.UI.Utilities
 
         Public Shared Function GetBrowserCaps() As BrowserCaps
 
-            Dim objCaps As BrowserCaps = CType(DataCache.GetCache(CLIENTAPI_CACHE_KEY), BrowserCaps)
+            Dim objCaps As BrowserCaps = CType(DataCache.GetCache(s_CLIENTAPI_CACHE_KEY), BrowserCaps)
             Dim objFunc As FunctionalityInfo = Nothing
 
             If (objCaps Is Nothing) Then
@@ -140,7 +140,7 @@ Namespace DotNetNuke.UI.Utilities
 
                 ' Set back into Cache
                 If fileExists Then
-                    DataCache.SetCache(CLIENTAPI_CACHE_KEY, objCaps, New CacheDependency(strPath))
+                    DataCache.SetCache(s_CLIENTAPI_CACHE_KEY, objCaps, New CacheDependency(strPath))
                 End If
             End If
 

@@ -28,64 +28,64 @@ Namespace DotNetNuke.UI.Utilities
     Public Class MSAJAX
 
 #Region "Member Variables"
-        Private Shared m_ScriptManagerType As Type
-        Private Shared m_ScriptReferenceType As Type
-        Private Shared m_ScriptReferenceCollectionType As Type
-        Private Shared m_JavaScriptSerializerType As Type
-        Private Shared m_AlternateJavaScriptSerializerType As Type
-        Private Shared m_Installed As Integer = -1
+        Private Shared s_scriptManagerType As Type
+        Private Shared s_scriptReferenceType As Type
+        Private Shared s_scriptReferenceCollectionType As Type
+        Private Shared s_javaScriptSerializerType As Type
+        Private Shared s_alternateJavaScriptSerializerType As Type
+        Private Shared s_installed As Integer = -1
 #End Region
 
 #Region "Private Properties"
 
         Private Shared ReadOnly Property ScriptManagerType() As Type
             Get
-                If m_ScriptManagerType Is Nothing Then
-                    m_ScriptManagerType = Reflection.CreateType("System.Web.UI.ScriptManager", False)
+                If s_scriptManagerType Is Nothing Then
+                    s_scriptManagerType = Reflection.CreateType("System.Web.UI.ScriptManager", False)
                 End If
-                Return m_ScriptManagerType
+                Return s_scriptManagerType
             End Get
         End Property
 
         Private Shared ReadOnly Property ScriptReferenceCollectionType() As Type
             Get
-                If m_ScriptReferenceCollectionType Is Nothing Then
-                    m_ScriptReferenceCollectionType = Reflection.CreateType("System.Web.UI.ScriptReferenceCollection", True)
+                If s_scriptReferenceCollectionType Is Nothing Then
+                    s_scriptReferenceCollectionType = Reflection.CreateType("System.Web.UI.ScriptReferenceCollection", True)
                 End If
-                Return m_ScriptReferenceCollectionType
+                Return s_scriptReferenceCollectionType
             End Get
         End Property
 
         Private Shared ReadOnly Property ScriptReferenceType() As Type
             Get
-                If m_ScriptReferenceType Is Nothing Then
-                    m_ScriptReferenceType = Reflection.CreateType("System.Web.UI.ScriptReference", True)
+                If s_scriptReferenceType Is Nothing Then
+                    s_scriptReferenceType = Reflection.CreateType("System.Web.UI.ScriptReference", True)
                 End If
-                Return m_ScriptReferenceType
+                Return s_scriptReferenceType
             End Get
         End Property
 
         Private Shared ReadOnly Property JavaScriptSerializerType() As Type
             Get
-                If m_JavaScriptSerializerType Is Nothing Then
-                    m_JavaScriptSerializerType = Reflection.CreateType("System.Web.Script.Serialization.JavaScriptSerializer", True)
+                If s_javaScriptSerializerType Is Nothing Then
+                    s_javaScriptSerializerType = Reflection.CreateType("System.Web.Script.Serialization.JavaScriptSerializer", True)
                 End If
-                Return m_JavaScriptSerializerType
+                Return s_javaScriptSerializerType
             End Get
         End Property
 
         Private Shared ReadOnly Property AlternateJavaScriptSerializerType() As Type
             Get
-                If m_AlternateJavaScriptSerializerType Is Nothing Then
-                    m_AlternateJavaScriptSerializerType = Reflection.CreateType("Newtonsoft.Json.JavaScriptConvert", True)
+                If s_alternateJavaScriptSerializerType Is Nothing Then
+                    s_alternateJavaScriptSerializerType = Reflection.CreateType("Newtonsoft.Json.JavaScriptConvert", True)
                 End If
-                Return m_AlternateJavaScriptSerializerType
+                Return s_alternateJavaScriptSerializerType
             End Get
         End Property
 
         Public Shared ReadOnly Property IsInstalled() As Boolean
             Get
-                If m_Installed = -1 Then
+                If s_installed = -1 Then
                     'Dim capiPath As String = System.IO.Path.GetDirectoryName(GetType(ClientAPI.ClientFunctionality).Assembly.CodeBase)
                     'Dim msajaxPath As String = System.IO.Path.GetDirectoryName(ScriptManagerType.Assembly.CodeBase)
                     If ScriptManagerType.Assembly.GlobalAssemblyCache = False Then
@@ -96,16 +96,16 @@ Namespace DotNetNuke.UI.Utilities
                             'demand a high level permission
                             Dim perm As AspNetHostingPermission = New AspNetHostingPermission(AspNetHostingPermissionLevel.High)
                             perm.Demand()
-                            m_Installed = 1
+                            s_installed = 1
                         Catch ex As Exception
-                            m_Installed = 0
+                            s_installed = 0
                         End Try
                     Else
-                        m_Installed = 1
+                        s_installed = 1
                     End If
 
                 End If
-                Return m_Installed = 1
+                Return s_installed = 1
                 'Return Not ScriptManagerType() Is Nothing
             End Get
         End Property

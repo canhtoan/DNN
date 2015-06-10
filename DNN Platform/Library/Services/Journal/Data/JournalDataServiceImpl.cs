@@ -28,6 +28,7 @@ using System.Data;
 
 using DotNetNuke.Data;
 
+
 #endregion
 namespace DotNetNuke.Services.Journal
 {

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 
 using DotNetNuke.Services.Messaging.Data;
 
+
 #endregion
 namespace DotNetNuke.Services.Messaging
 {

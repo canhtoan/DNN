@@ -39,6 +39,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Log.EventLog;
 
+
 #endregion
 namespace DotNetNuke.Entities.Urls
 {

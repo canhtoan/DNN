@@ -27,6 +27,7 @@ using System.Web.UI;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Portals;
 
+
 #endregion
 namespace DotNetNuke.Framework
 {

@@ -29,6 +29,7 @@ using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Scheduling;
 using DotNetNuke.Services.Search.Internals;
 
+
 #endregion
 namespace DotNetNuke.Services.Search
 {

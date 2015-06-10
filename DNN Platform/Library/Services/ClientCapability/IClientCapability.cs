@@ -23,6 +23,7 @@
 using System.Collections.Generic;
 using System.Web;
 
+
 #endregion
 namespace DotNetNuke.Services.ClientCapability
 {

@@ -28,6 +28,7 @@ using System.Xml.Serialization;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Users;
 
+
 #endregion
 namespace DotNetNuke.Entities
 {

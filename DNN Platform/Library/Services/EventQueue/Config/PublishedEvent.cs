@@ -23,6 +23,7 @@
 using System;
 using System.Xml.Serialization;
 
+
 #endregion
 namespace DotNetNuke.Services.EventQueue.Config
 {

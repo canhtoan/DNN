@@ -22,6 +22,7 @@
 #region Usings
 using System.Data;
 
+
 #endregion
 namespace DotNetNuke.Entities.Portals.Data
 {

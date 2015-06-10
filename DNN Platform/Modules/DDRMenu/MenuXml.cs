@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Xml.Serialization;
 using DotNetNuke.Entities.Users;
 

@@ -26,6 +26,7 @@ using System.Collections;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Scheduling;
 
+
 #endregion
 namespace DotNetNuke.Services.Log.SiteLog
 {

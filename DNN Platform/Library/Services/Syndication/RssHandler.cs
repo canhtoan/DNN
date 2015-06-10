@@ -33,6 +33,7 @@ using DotNetNuke.Services.Search.Controllers;
 using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.Search.Internals;
 
+
 #endregion
 namespace DotNetNuke.Services.Syndication
 {

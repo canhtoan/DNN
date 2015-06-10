@@ -28,6 +28,7 @@ using DotNetNuke.Entities.Host;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Instrumentation;
 
+
 #endregion
 namespace DotNetNuke.Services.Search
 {

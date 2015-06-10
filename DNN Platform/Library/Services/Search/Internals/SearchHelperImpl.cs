@@ -39,6 +39,7 @@ using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Entities.Controllers;
 using System.IO;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Internals
 {

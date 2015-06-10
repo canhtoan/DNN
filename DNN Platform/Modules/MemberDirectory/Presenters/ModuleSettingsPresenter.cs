@@ -33,6 +33,7 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Security.Roles.Internal;
 using DotNetNuke.Web.Mvp;
 
+
 #endregion
 namespace DotNetNuke.Modules.MemberDirectory.Presenters
 {

@@ -43,6 +43,7 @@ using Lucene.Net.Store;
 using DotNetNuke.Instrumentation;
 using System.Web;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Internals
 {

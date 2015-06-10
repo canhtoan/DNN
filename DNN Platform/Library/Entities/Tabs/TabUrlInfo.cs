@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 
 namespace DotNetNuke.Entities.Tabs
 {

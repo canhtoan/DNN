@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
+
 #endregion
 namespace DotNetNuke.Services.Social.Messaging.Internal.Views
 {

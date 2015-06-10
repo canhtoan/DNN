@@ -23,6 +23,7 @@
 using DotNetNuke.ComponentModel;
 using DotNetNuke.Entities.Users;
 
+
 #endregion
 namespace DotNetNuke.Security.Profile
 {

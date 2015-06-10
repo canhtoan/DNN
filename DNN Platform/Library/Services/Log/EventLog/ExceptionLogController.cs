@@ -26,6 +26,7 @@ using DotNetNuke.Common;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Exceptions;
 
+
 #endregion
 namespace DotNetNuke.Services.Log.EventLog
 {

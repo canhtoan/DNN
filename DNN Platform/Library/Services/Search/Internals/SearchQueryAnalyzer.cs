@@ -28,6 +28,7 @@ using DotNetNuke.Entities.Controllers;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Internals
 {

@@ -30,6 +30,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Host;
 using DotNetNuke.Services.Cache;
 
+
 #endregion
 namespace DotNetNuke.HttpModules.Compression
 {

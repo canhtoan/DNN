@@ -22,6 +22,7 @@
 #region Usings
 using DotNetNuke.Common;
 
+
 #endregion
 namespace DotNetNuke.Entities.Portals
 {

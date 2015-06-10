@@ -30,6 +30,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.UI.Skins;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Installers
 {

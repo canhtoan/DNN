@@ -1,0 +1,61 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="Test.DNN6730" type="Module" version="1.0.0">
+  <friendlyName>DNN6730</friendlyName>
+  <description>
+
+When calling DataProvider.Instance().ExecuteReader (or any other Execute* method), you should be able to pass SqlParameter objects to include the parameter name with the value. This makes the calling code not have to be dependent on the order of parameters in the stored procedure.
+
+I'm fairly certain that this worked before PetaPoco was introduced, but it now ignores the parameter names.
+</description>
+  <iconFile />
+  <owner>
+    <name>Test</name>
+    <organization>Test</organization>
+    <url />
+    <email />
+  </owner>
+  <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+  <releaseNotes>This package has no Release Notes.</releaseNotes>
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>Test.DNN6730</moduleName>
+        <foldername>Test/DNN6730</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>Test.DNN6730</friendlyName>
+            <definitionName>Test.DNN6730</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/Test/DNN6730/View.ascx</controlSrc>
+                <supportsPartialRendering>False</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\Test\DNN6730</basePath>
+        <file>
+          <name>View.ascx</name>
+        </file>
+        <file>
+          <name>View.ascx.cs</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

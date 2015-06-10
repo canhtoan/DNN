@@ -29,6 +29,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Instrumentation;
 
+
 #endregion
 namespace DotNetNuke.Services.UserProfile
 {

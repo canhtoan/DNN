@@ -34,6 +34,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Services.Social.Notifications;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users.Social
 {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using DotNetNuke.Entities.Modules;
 
 namespace DotNetNuke.Web.DDRMenu

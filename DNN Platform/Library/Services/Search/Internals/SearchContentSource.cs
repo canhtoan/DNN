@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 
 using DotNetNuke.Services.Search.Entities;
 

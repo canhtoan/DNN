@@ -27,6 +27,7 @@ using Lucene.Net.Analysis;
 using Lucene.Net.Documents;
 using Lucene.Net.Search;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Internals
 {

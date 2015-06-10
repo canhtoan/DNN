@@ -30,6 +30,7 @@ using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Cache;
 
+
 #endregion
 namespace DotNetNuke.Services.EventQueue.Config
 {

@@ -54,6 +54,7 @@ using DotNetNuke.Services.ModuleCache;
 using DotNetNuke.Services.OutputCache;
 using DotNetNuke.Services.Search.Entities;
 
+
 #endregion
 namespace DotNetNuke.Entities.Modules
 {

@@ -38,6 +38,7 @@ using DotNetNuke.Services.FileSystem;
 using DotNetNuke.Services.Search.Entities;
 using DotNetNuke.Services.Search.Internals;
 
+
 #endregion
 namespace DotNetNuke.Entities.Content
 {

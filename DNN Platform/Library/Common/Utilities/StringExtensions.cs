@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Text;
 
 namespace DotNetNuke.Common.Utilities

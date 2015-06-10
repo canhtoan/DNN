@@ -38,6 +38,7 @@ using DotNetNuke.Services.Log.EventLog;
 
 using Microsoft.ApplicationBlocks.Data;
 
+
 #endregion
 namespace DotNetNuke.Data
 {

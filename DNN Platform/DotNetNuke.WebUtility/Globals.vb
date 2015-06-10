@@ -23,29 +23,29 @@ Imports System.Web.UI.HtmlControls
 Imports System.Web.UI.WebControls
 
 Namespace DotNetNuke.UI.Utilities
-	Public Class Globals
+    Public Class Globals
 
-		''' -----------------------------------------------------------------------------
-		''' <summary>
-		''' Searches control hierarchy from top down to find a control matching the passed in name
-		''' </summary>
-		''' <param name="objParent">Root control to begin searching</param>
-		''' <param name="strControlName">Name of control to look for</param>
-		''' <returns></returns>
-		''' <remarks>
-		''' This differs from FindControlRecursive in that it looks down the control hierarchy, whereas, the 
-		''' FindControlRecursive starts at the passed in control and walks the tree up.  Therefore, this function is 
-		''' more a expensive task.
-		''' </remarks>
-		''' <history>
-		''' 	[Jon Henning]	9/17/2004	Created
-		'''     [Jon Henning]   12/3/2004   Now checking if the control HasControls before calling FindControl.
-		'''                                 Using FindControl or accessing the controls collection on controls like
-		'''                                 the DataList can cause problems with ViewState
-		''' </history>
-		''' -----------------------------------------------------------------------------
-		Public Shared Function FindControlRecursive(ByVal objParent As Control, ByVal strControlName As String) As Control
-			Return FindControlRecursive(objParent, strControlName, "")
+        ''' -----------------------------------------------------------------------------
+        ''' <summary>
+        ''' Searches control hierarchy from top down to find a control matching the passed in name
+        ''' </summary>
+        ''' <param name="objParent">Root control to begin searching</param>
+        ''' <param name="strControlName">Name of control to look for</param>
+        ''' <returns></returns>
+        ''' <remarks>
+        ''' This differs from FindControlRecursive in that it looks down the control hierarchy, whereas, the 
+        ''' FindControlRecursive starts at the passed in control and walks the tree up.  Therefore, this function is 
+        ''' more a expensive task.
+        ''' </remarks>
+        ''' <history>
+        ''' 	[Jon Henning]	9/17/2004	Created
+        '''     [Jon Henning]   12/3/2004   Now checking if the control HasControls before calling FindControl.
+        '''                                 Using FindControl or accessing the controls collection on controls like
+        '''                                 the DataList can cause problems with ViewState
+        ''' </history>
+        ''' -----------------------------------------------------------------------------
+        Public Shared Function FindControlRecursive(ByVal objParent As Control, ByVal strControlName As String) As Control
+            Return FindControlRecursive(objParent, strControlName, "")
         End Function
 
         Public Shared Function FindControlRecursive(ByVal objParent As Control, ByVal strControlName As String, ByVal strClientID As String) As Control
@@ -98,22 +98,22 @@ Namespace DotNetNuke.UI.Utilities
         End Sub
 
         'hack... can we use a method to determine this
-        Private Shared m_aryScripts As Hashtable
+        Private Shared s_aryScripts As Hashtable
         Public Shared Function IsEmbeddedScript(ByVal key As String) As Boolean
-            If m_aryScripts Is Nothing Then
-                m_aryScripts = New Hashtable
-                m_aryScripts.Add("dnn.js", "")
-                m_aryScripts.Add("dnn.dom.positioning.js", "")
-                m_aryScripts.Add("dnn.diagnostics.js", "")
-                m_aryScripts.Add("dnn.scripts.js", "")
-                m_aryScripts.Add("dnn.util.tablereorder.js", "")
-                m_aryScripts.Add("dnn.xml.js", "")
-                m_aryScripts.Add("dnn.xml.jsparser.js", "")
-                m_aryScripts.Add("dnn.xmlhttp.js", "")
-                m_aryScripts.Add("dnn.xmlhttp.jsxmlhttprequest.js", "")
-                m_aryScripts.Add("dnn.motion.js", "")
+            If s_aryScripts Is Nothing Then
+                s_aryScripts = New Hashtable
+                s_aryScripts.Add("dnn.js", "")
+                s_aryScripts.Add("dnn.dom.positioning.js", "")
+                s_aryScripts.Add("dnn.diagnostics.js", "")
+                s_aryScripts.Add("dnn.scripts.js", "")
+                s_aryScripts.Add("dnn.util.tablereorder.js", "")
+                s_aryScripts.Add("dnn.xml.js", "")
+                s_aryScripts.Add("dnn.xml.jsparser.js", "")
+                s_aryScripts.Add("dnn.xmlhttp.js", "")
+                s_aryScripts.Add("dnn.xmlhttp.jsxmlhttprequest.js", "")
+                s_aryScripts.Add("dnn.motion.js", "")
             End If
-            Return m_aryScripts.ContainsKey(key)
+            Return s_aryScripts.ContainsKey(key)
         End Function
 
     End Class

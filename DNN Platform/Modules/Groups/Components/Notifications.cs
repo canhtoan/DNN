@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 
 using DotNetNuke.Services.Social.Notifications;

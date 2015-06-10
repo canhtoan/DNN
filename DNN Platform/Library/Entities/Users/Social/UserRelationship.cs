@@ -26,6 +26,7 @@ using System.Data;
 using System.Xml.Serialization;
 using DotNetNuke.Entities.Modules;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users.Social
 {

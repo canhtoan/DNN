@@ -34,6 +34,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Log.EventLog;
 
+
 #endregion
 namespace DotNetNuke.Services.Mobile
 {

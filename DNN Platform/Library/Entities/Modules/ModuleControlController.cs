@@ -30,6 +30,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 using DotNetNuke.Entities.Users;
 
+
 #endregion
 namespace DotNetNuke.Entities.Modules
 {

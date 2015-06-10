@@ -25,6 +25,7 @@ using System;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Scheduling;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users
 {

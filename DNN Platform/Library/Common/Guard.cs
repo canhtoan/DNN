@@ -26,6 +26,7 @@
 using System;
 using System.Globalization;
 
+
 #endregion
 namespace DotNetNuke.Common
 {

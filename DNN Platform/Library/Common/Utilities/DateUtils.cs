@@ -25,6 +25,7 @@ using System;
 using DotNetNuke.Data;
 using DotNetNuke.Services.Localization;
 
+
 #endregion
 namespace DotNetNuke.Common.Utilities
 {

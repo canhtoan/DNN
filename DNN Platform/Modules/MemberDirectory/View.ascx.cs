@@ -36,6 +36,7 @@ using DotNetNuke.Framework.JavaScriptLibraries;
 using DotNetNuke.UI.Modules;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 
+
 #endregion
 namespace DotNetNuke.Modules.MemberDirectory
 {

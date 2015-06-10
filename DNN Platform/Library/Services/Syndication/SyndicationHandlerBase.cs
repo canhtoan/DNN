@@ -27,6 +27,7 @@ using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Portals;
 
+
 #endregion
 namespace DotNetNuke.Services.Syndication
 {

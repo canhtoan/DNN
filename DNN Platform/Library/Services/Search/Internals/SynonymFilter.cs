@@ -30,6 +30,7 @@ using DotNetNuke.Services.Search.Entities;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Tokenattributes;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Internals
 {

@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿
+
+using System.Xml.Serialization;
 
 namespace DotNetNuke.Web.DDRMenu.TemplateEngine
 {

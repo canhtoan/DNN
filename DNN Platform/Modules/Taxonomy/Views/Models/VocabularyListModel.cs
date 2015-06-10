@@ -23,6 +23,7 @@
 using System.Collections.Generic;
 using DotNetNuke.Entities.Content.Taxonomy;
 
+
 #endregion
 namespace DotNetNuke.Modules.Taxonomy.Views.Models
 {

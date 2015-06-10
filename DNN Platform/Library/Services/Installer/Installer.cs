@@ -38,6 +38,7 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 using Entities.Controllers;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer
 {

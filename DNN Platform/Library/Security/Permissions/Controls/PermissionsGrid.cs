@@ -39,6 +39,7 @@ using DotNetNuke.UI.WebControls.Internal;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 using Globals = DotNetNuke.Common.Globals;
 
+
 #endregion
 namespace DotNetNuke.Security.Permissions.Controls
 {

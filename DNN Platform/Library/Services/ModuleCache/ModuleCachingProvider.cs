@@ -26,6 +26,7 @@ using System.Text;
 
 using DotNetNuke.ComponentModel;
 
+
 #endregion
 namespace DotNetNuke.Services.ModuleCache
 {

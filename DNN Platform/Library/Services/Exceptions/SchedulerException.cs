@@ -24,6 +24,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
+
 #endregion
 namespace DotNetNuke.Services.Exceptions
 {

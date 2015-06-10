@@ -1,0 +1,59 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="Test.DNN6662" type="Module" version="1.0.0">
+  <friendlyName>DNN6662</friendlyName>
+  <description />
+  <iconFile />
+  <owner>
+    <name>Test</name>
+    <organization>Test</organization>
+    <url />
+    <email />
+  </owner>
+  <license>http://bdukes.mit-license.org/</license>
+  <releaseNotes>Demonstrates DNN-6662</releaseNotes>
+  <dependencies>
+    <dependency type="managedPackage" version="2014.3.1424">kendo.mobile.actionsheet</dependency>
+  </dependencies>
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>Test.DNN6662</moduleName>
+        <foldername>Test/DNN6662</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>Test.DNN6662</friendlyName>
+            <definitionName>Test.DNN6662</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/Test/DNN6662/View.ascx</controlSrc>
+                <supportsPartialRendering>False</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\Test\DNN6662</basePath>
+        <file>
+          <name>readme.txt</name>
+        </file>
+        <file>
+          <name>View.ascx</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

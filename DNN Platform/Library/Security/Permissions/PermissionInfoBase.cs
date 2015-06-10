@@ -27,6 +27,7 @@ using System.Xml.Serialization;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 
+
 #endregion
 namespace DotNetNuke.Security.Permissions
 {

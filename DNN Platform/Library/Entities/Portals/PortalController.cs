@@ -66,6 +66,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using Assembly = System.Reflection.Assembly;
 using FileInfo = DotNetNuke.Services.FileSystem.FileInfo;
 
+
 #endregion
 namespace DotNetNuke.Entities.Portals
 {

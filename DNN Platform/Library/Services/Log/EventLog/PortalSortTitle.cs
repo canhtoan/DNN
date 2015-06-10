@@ -26,6 +26,7 @@ using System.ComponentModel;
 
 using DotNetNuke.Entities.Portals;
 
+
 #endregion
 namespace DotNetNuke.Services.Log.EventLog
 {

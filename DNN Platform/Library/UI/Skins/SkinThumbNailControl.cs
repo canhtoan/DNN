@@ -32,6 +32,7 @@ using DotNetNuke.Services.Localization;
 
 using Image = System.Drawing.Image;
 
+
 #endregion
 namespace DotNetNuke.UI.Skins
 {

@@ -26,6 +26,7 @@ using System.Data;
 using DotNetNuke.Data;
 using DotNetNuke.Services.Localization;
 
+
 #endregion
 namespace DotNetNuke.Modules.Dashboard.Data
 {

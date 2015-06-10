@@ -32,6 +32,7 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Log.EventLog;
 
+
 #endregion
 namespace DotNetNuke.Security.Permissions
 {

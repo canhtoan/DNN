@@ -39,8 +39,8 @@ Namespace DotNetNuke.UI.Utilities
     ''' </history>
     ''' -----------------------------------------------------------------------------
     Public Class ClientAPIPostBackControl : Inherits Control : Implements IPostBackEventHandler
-        Delegate Sub PostBackEvent(ByVal Args As ClientAPIPostBackEventArgs)
-        Private m_oEventHandlers As Hashtable = New Hashtable
+        Public Delegate Sub PostBackEvent(ByVal Args As ClientAPIPostBackEventArgs)
+        Private _oEventHandlers As Hashtable = New Hashtable
 
         ''' -----------------------------------------------------------------------------
         ''' <summary>
@@ -56,8 +56,8 @@ Namespace DotNetNuke.UI.Utilities
         ''' -----------------------------------------------------------------------------
         Public ReadOnly Property EventHandlers(ByVal strEventName As String) As PostBackEvent
             Get
-                If m_oEventHandlers.Contains(strEventName) Then
-                    Return CType(m_oEventHandlers(strEventName), PostBackEvent)
+                If _oEventHandlers.Contains(strEventName) Then
+                    Return CType(_oEventHandlers(strEventName), PostBackEvent)
                 Else
                     Return Nothing
                 End If
@@ -77,10 +77,10 @@ Namespace DotNetNuke.UI.Utilities
         ''' </history>
         ''' -----------------------------------------------------------------------------
         Public Sub AddEventHandler(ByVal strEventName As String, ByVal objDelegate As PostBackEvent)
-            If m_oEventHandlers.Contains(strEventName) = False Then
-                m_oEventHandlers.Add(strEventName, objDelegate)
+            If _oEventHandlers.Contains(strEventName) = False Then
+                _oEventHandlers.Add(strEventName, objDelegate)
             Else
-                m_oEventHandlers(strEventName) = CType(System.Delegate.Combine(CType(m_oEventHandlers(strEventName), ClientAPIPostBackControl.PostBackEvent), objDelegate), ClientAPIPostBackControl.PostBackEvent)
+                _oEventHandlers(strEventName) = CType(System.Delegate.Combine(CType(_oEventHandlers(strEventName), ClientAPIPostBackControl.PostBackEvent), objDelegate), ClientAPIPostBackControl.PostBackEvent)
             End If
         End Sub
 

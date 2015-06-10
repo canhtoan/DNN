@@ -28,6 +28,7 @@ using System.Configuration;
 using DotNetNuke.ComponentModel;
 using DotNetNuke.Data.PetaPoco;
 
+
 #endregion
 namespace DotNetNuke.Data
 {

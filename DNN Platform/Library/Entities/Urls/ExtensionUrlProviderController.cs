@@ -43,6 +43,7 @@ using DotNetNuke.Services.Log.EventLog;
 
 using Assembly = System.Reflection.Assembly;
 
+
 #endregion
 namespace DotNetNuke.Entities.Urls
 {

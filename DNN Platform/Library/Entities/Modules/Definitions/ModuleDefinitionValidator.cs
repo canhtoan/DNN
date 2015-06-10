@@ -29,6 +29,7 @@ using DotNetNuke.Common;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Localization;
 
+
 #endregion
 namespace DotNetNuke.Entities.Modules.Definitions
 {

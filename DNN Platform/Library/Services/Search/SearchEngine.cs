@@ -32,6 +32,7 @@ using DotNetNuke.Services.Search.Internals;
 using DotNetNuke.Services.Scheduling;
 using Newtonsoft.Json;
 
+
 #endregion
 namespace DotNetNuke.Services.Search
 {

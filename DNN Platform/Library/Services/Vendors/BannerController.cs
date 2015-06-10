@@ -32,6 +32,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 using DotNetNuke.Entities.Tabs;
 
+
 #endregion
 namespace DotNetNuke.Services.Vendors
 {

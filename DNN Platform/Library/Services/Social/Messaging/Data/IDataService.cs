@@ -26,6 +26,7 @@ using System.Data;
 
 using DotNetNuke.Services.Social.Messaging.Internal.Views;
 
+
 #endregion
 namespace DotNetNuke.Services.Social.Messaging.Data
 {

@@ -40,6 +40,7 @@ using DotNetNuke.Services.Tokens;
 
 using Localize = DotNetNuke.Services.Localization.Localization;
 
+
 #endregion
 namespace DotNetNuke.Services.Mail
 {

@@ -33,6 +33,7 @@ using DotNetNuke.Services.Social.Messaging.Data;
 using DotNetNuke.Services.Social.Messaging.Exceptions;
 using DotNetNuke.Services.Social.Messaging.Internal.Views;
 
+
 #endregion
 namespace DotNetNuke.Services.Social.Messaging.Internal
 {

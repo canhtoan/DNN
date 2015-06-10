@@ -25,6 +25,7 @@ using System.Web;
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Users;
 
+
 #endregion
 namespace DotNetNuke.HttpModules.UsersOnline
 {

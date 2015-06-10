@@ -31,6 +31,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Urls;
 
+
 #endregion
 namespace DotNetNuke.Entities.Portals
 {

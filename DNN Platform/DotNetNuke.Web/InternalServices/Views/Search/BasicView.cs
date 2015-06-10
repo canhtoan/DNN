@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using DotNetNuke.Services.Search.Internals;
 
+
 #endregion
 namespace DotNetNuke.Web.InternalServices.Views.Search
 {

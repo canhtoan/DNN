@@ -22,6 +22,7 @@
 #region Usings
 using System;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users
 {

@@ -29,6 +29,7 @@ using DotNetNuke.Framework;
 using DotNetNuke.Services.EventQueue.Config;
 using DotNetNuke.Services.Log.EventLog;
 
+
 #endregion
 namespace DotNetNuke.Services.EventQueue
 {

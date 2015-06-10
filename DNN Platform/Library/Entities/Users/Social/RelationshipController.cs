@@ -37,6 +37,7 @@ using DotNetNuke.Security.Roles.Internal;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users.Social
 {

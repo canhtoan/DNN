@@ -29,6 +29,7 @@ using DotNetNuke.Entities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Users.Social;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users.Social
 {

@@ -31,6 +31,7 @@ using System.Xml.Serialization;
 
 using DotNetNuke.Security.Roles;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users.Social
 {

@@ -38,6 +38,7 @@ using DotNetNuke.Tests.Utilities;
 
 using NUnit.Framework;
 
+
 #endregion
 namespace DotNetNuke.Tests.Data
 {

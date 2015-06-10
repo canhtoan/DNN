@@ -24,6 +24,7 @@ using System;
 
 using DotNetNuke.Security;
 
+
 #endregion
 namespace DotNetNuke.Services.EventQueue.Config
 {

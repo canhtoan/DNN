@@ -37,6 +37,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Web.Script.Serialization;
 
+
 #endregion
 namespace DotNetNuke.Services.Journal
 {

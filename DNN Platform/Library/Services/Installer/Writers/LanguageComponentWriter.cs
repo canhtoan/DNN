@@ -27,6 +27,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Localization;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Writers
 {

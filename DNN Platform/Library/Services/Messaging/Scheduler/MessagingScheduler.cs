@@ -28,6 +28,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Scheduling;
 
+
 #endregion
 namespace DotNetNuke.Services.Messaging.Scheduler
 {

@@ -41,6 +41,7 @@ using DotNetNuke.Services.EventQueue;
 using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Log.EventLog;
 
+
 #endregion
 namespace DotNetNuke.Entities.Modules
 {

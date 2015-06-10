@@ -25,6 +25,7 @@ using System.Data;
 using DotNetNuke.ComponentModel;
 using DotNetNuke.Data;
 
+
 #endregion
 namespace DotNetNuke.Entities.Portals.Data
 {

@@ -25,6 +25,7 @@ using System;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Membership;
 
+
 #endregion
 namespace DotNetNuke.Entities.Modules
 {

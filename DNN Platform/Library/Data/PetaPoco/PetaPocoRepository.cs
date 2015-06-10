@@ -31,6 +31,7 @@ using DotNetNuke.Common;
 
 using PetaPoco;
 
+
 #endregion
 namespace DotNetNuke.Data.PetaPoco
 {

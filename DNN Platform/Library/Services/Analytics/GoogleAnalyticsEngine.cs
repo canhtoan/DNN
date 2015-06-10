@@ -25,6 +25,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Analytics.Config;
 
+
 #endregion
 namespace DotNetNuke.Services.Analytics
 {

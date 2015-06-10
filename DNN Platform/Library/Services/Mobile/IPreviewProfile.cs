@@ -25,6 +25,7 @@ using System.Collections.Generic;
 
 using DotNetNuke.Entities.Modules;
 
+
 #endregion
 namespace DotNetNuke.Services.Mobile
 {

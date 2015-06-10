@@ -28,6 +28,7 @@ using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
+
 #endregion
 namespace DotNetNuke.Services.Personalization
 {

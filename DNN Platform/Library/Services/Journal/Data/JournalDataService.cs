@@ -30,6 +30,7 @@ using DotNetNuke.Entities.Content.Common;
 using DotNetNuke.Entities.Content;
 using DotNetNuke.Framework;
 
+
 #endregion
 namespace DotNetNuke.Services.Journal
 {

@@ -36,6 +36,7 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Security.Membership;
 
+
 #endregion
 namespace DotNetNuke.Security.Roles
 {

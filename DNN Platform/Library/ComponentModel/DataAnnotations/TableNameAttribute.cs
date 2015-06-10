@@ -25,6 +25,7 @@
 #region Usings
 using System;
 
+
 #endregion
 namespace DotNetNuke.ComponentModel.DataAnnotations
 {

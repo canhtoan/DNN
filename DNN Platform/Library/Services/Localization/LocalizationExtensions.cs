@@ -23,6 +23,7 @@
 #region Usings
 using System.Text.RegularExpressions;
 
+
 #endregion
 namespace DotNetNuke.Services.Localization
 {

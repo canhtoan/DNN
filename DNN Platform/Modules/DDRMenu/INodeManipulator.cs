@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
+
+using System.Collections.Generic;
 using DotNetNuke.Entities.Portals;
 
 namespace DotNetNuke.Web.DDRMenu

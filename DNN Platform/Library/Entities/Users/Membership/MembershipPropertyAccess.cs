@@ -25,6 +25,7 @@ using System.Globalization;
 
 using DotNetNuke.Services.Tokens;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users
 {

@@ -38,6 +38,7 @@ using DotNetNuke.Services.Search.Internals;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 
+
 #endregion
 namespace DotNetNuke.Services.Search
 {

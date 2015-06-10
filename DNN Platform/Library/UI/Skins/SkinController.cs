@@ -40,6 +40,7 @@ using DotNetNuke.Services.Log.EventLog;
 
 using ICSharpCode.SharpZipLib.Zip;
 
+
 #endregion
 namespace DotNetNuke.UI.Skins
 {

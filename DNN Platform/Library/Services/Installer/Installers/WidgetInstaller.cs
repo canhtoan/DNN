@@ -24,6 +24,7 @@ using System.IO;
 
 using DotNetNuke.Common;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Installers
 {

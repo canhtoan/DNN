@@ -26,6 +26,7 @@ using System.Collections;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
+
 #endregion
 namespace DotNetNuke.Services.Vendors
 {

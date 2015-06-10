@@ -28,6 +28,7 @@ using System.Xml.Serialization;
 
 using DotNetNuke.Common.Utilities;
 
+
 #endregion
 namespace DotNetNuke.Entities.Modules
 {

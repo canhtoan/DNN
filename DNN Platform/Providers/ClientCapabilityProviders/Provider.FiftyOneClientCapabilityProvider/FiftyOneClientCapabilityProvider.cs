@@ -36,6 +36,7 @@ using DotNetNuke.Services.ClientCapability;
 
 using FiftyOne.Foundation.UI;
 
+
 #endregion
 namespace DotNetNuke.Providers.FiftyOneClientCapabilityProvider
 {

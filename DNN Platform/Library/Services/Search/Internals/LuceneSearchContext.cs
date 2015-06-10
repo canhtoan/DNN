@@ -1,4 +1,6 @@
-﻿using DotNetNuke.Services.Search.Entities;
+﻿
+
+using DotNetNuke.Services.Search.Entities;
 
 namespace DotNetNuke.Services.Search.Internals
 {

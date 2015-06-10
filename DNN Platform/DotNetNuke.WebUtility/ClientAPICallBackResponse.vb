@@ -47,12 +47,12 @@ Namespace DotNetNuke.UI.Utilities
         Public Response As String = ""
         Public StatusCode As CallBackResponseStatusCode
         Public StatusDesc As String = ""
-        Private m_objPage As Page
+        Private _objPage As Page
         Public CallBackType As CallBackTypeCode
 
         Public ReadOnly Property TransportType() As TransportTypeCode
             Get
-                If Len(m_objPage.Request.Form("ctx")) > 0 Then
+                If Len(_objPage.Request.Form("ctx")) > 0 Then
                     Return TransportTypeCode.IFRAMEPost
                 Else
                     Return TransportTypeCode.XMLHTTP
@@ -61,27 +61,27 @@ Namespace DotNetNuke.UI.Utilities
         End Property
 
         Public Sub New(ByVal objPage As Page, ByVal eCallBackType As CallBackTypeCode)
-            m_objPage = objPage
+            _objPage = objPage
             CallBackType = eCallBackType
         End Sub
 
         Public Sub Write()
             Select Case Me.TransportType
                 Case TransportTypeCode.IFRAMEPost
-                    Dim strContextID As String = m_objPage.Request.Form("ctx")                    'if context passed in then we are using IFRAME Implementation
+                    Dim strContextID As String = _objPage.Request.Form("ctx")                    'if context passed in then we are using IFRAME Implementation
                     If IsNumeric(strContextID) Then
-                        m_objPage.Response.Write("<html><head></head><body onload=""window.parent.dnn.xmlhttp.requests['" & strContextID & "'].complete(window.parent.dnn.dom.getById('txt', document).value);""><form>")
-                        m_objPage.Response.Write("<input type=""hidden"" id=""" & ClientAPI.SCRIPT_CALLBACKSTATUSID & """ value=""" & CInt(Me.StatusCode).ToString & """>")
-                        m_objPage.Response.Write("<input type=""hidden"" id=""" & ClientAPI.SCRIPT_CALLBACKSTATUSDESCID & """ value=""" & Me.StatusDesc & """>")
-                        m_objPage.Response.Write("<textarea id=""txt"">")
-                        m_objPage.Response.Write(HttpUtility.HtmlEncode(MSAJAX.Serialize(New With {.d = Response})))
-                        m_objPage.Response.Write("</textarea></body></html>")
+                        _objPage.Response.Write("<html><head></head><body onload=""window.parent.dnn.xmlhttp.requests['" & strContextID & "'].complete(window.parent.dnn.dom.getById('txt', document).value);""><form>")
+                        _objPage.Response.Write("<input type=""hidden"" id=""" & ClientAPI.SCRIPT_CALLBACKSTATUSID & """ value=""" & CInt(Me.StatusCode).ToString & """>")
+                        _objPage.Response.Write("<input type=""hidden"" id=""" & ClientAPI.SCRIPT_CALLBACKSTATUSDESCID & """ value=""" & Me.StatusDesc & """>")
+                        _objPage.Response.Write("<textarea id=""txt"">")
+                        _objPage.Response.Write(HttpUtility.HtmlEncode(MSAJAX.Serialize(New With {.d = Response})))
+                        _objPage.Response.Write("</textarea></body></html>")
                     End If
                 Case TransportTypeCode.XMLHTTP
-                    m_objPage.Response.AppendHeader(ClientAPI.SCRIPT_CALLBACKSTATUSID, CInt(Me.StatusCode).ToString)
-                    m_objPage.Response.AppendHeader(ClientAPI.SCRIPT_CALLBACKSTATUSDESCID, Me.StatusDesc)
+                    _objPage.Response.AppendHeader(ClientAPI.SCRIPT_CALLBACKSTATUSID, CInt(Me.StatusCode).ToString)
+                    _objPage.Response.AppendHeader(ClientAPI.SCRIPT_CALLBACKSTATUSDESCID, Me.StatusDesc)
 
-                    m_objPage.Response.Write(MSAJAX.Serialize(New With {.d = Response}))    '//don't serialize straight html
+                    _objPage.Response.Write(MSAJAX.Serialize(New With {.d = Response}))    '//don't serialize straight html
             End Select
 
         End Sub

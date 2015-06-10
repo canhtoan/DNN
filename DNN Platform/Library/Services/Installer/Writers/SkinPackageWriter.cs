@@ -26,6 +26,7 @@ using System.Xml;
 using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.UI.Skins;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Writers
 {

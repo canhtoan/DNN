@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 using DotNetNuke.Services.Mobile;
 
+
 #endregion
 namespace DotNetNuke.Modules.PreviewProfileManagement.ViewModels
 {

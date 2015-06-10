@@ -38,6 +38,7 @@ using DotNetNuke.Services.Social.Messaging.Internal;
 
 using Message = DotNetNuke.Services.Messaging.Data.Message;
 
+
 #endregion
 namespace DotNetNuke.Services.Messaging
 {

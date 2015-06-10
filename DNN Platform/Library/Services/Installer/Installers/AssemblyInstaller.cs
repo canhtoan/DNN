@@ -22,6 +22,7 @@
 #region Usings
 using DotNetNuke.Data;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Installers
 {

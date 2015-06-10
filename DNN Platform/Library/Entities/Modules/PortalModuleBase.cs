@@ -36,6 +36,7 @@ using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Modules;
 
+
 #endregion
 namespace DotNetNuke.Entities.Modules
 {

@@ -26,6 +26,7 @@ using System.Xml;
 using DotNetNuke.Services.Authentication;
 using DotNetNuke.Services.Installer.Packages;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Writers
 {

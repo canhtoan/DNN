@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Writers
 {

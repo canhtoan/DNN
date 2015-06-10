@@ -43,6 +43,7 @@ using DotNetNuke.Security.Roles.Internal;
 using DotNetNuke.Services.Messaging.Data;
 using DotNetNuke.Services.Tokens;
 
+
 #endregion
 namespace DotNetNuke.Services.Mail
 {

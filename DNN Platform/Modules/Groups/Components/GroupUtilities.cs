@@ -30,6 +30,7 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles;
 using DotNetNuke.Services.Journal;
 
+
 #endregion
 namespace DotNetNuke.Modules.Groups.Components
 {

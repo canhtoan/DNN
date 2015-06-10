@@ -25,6 +25,7 @@ using System.ComponentModel;
 
 using DotNetNuke.Common.Utilities;
 
+
 #endregion
 namespace DotNetNuke.Services.Authentication
 {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Configuration.Provider;
 
 namespace ClientDependency.Core.CompositeFiles.Providers

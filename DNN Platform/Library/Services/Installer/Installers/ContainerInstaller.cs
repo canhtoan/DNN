@@ -22,6 +22,7 @@
 #region Usings
 using DotNetNuke.UI.Skins;
 
+
 #endregion
 namespace DotNetNuke.Services.Installer.Installers
 {

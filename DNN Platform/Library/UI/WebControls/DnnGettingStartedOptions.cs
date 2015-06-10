@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿
+
+using System.Runtime.Serialization;
 using DotNetNuke.Services.Localization;
 
 namespace DotNetNuke.UI.WebControls

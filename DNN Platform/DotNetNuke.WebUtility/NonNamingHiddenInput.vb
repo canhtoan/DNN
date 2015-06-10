@@ -4,17 +4,17 @@ Namespace DotNetNuke.UI.Utilities
     'do not want this control for dnnVariable to ever use a naming container
     'somewhat of a hack here...
     Public Class NonNamingHiddenInput : Inherits HtmlInputHidden
-        Private m_ValueSet As Boolean = False
+        Private _valueSet As Boolean = False
 
         Public Overrides Property Value() As String
             Get
-                If Len(Me.Page.Request.Form(Me.ID)) > 0 AndAlso m_ValueSet = False Then
+                If Len(Me.Page.Request.Form(Me.ID)) > 0 AndAlso _valueSet = False Then
                     Return Me.Page.Request.Form(Me.ID)
                 End If
                 Return MyBase.Value
             End Get
             Set(ByVal value As String)
-                m_ValueSet = True
+                _valueSet = True
                 MyBase.Value = value
             End Set
         End Property

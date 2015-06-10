@@ -27,6 +27,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Services.Personalization;
 
+
 #endregion
 namespace DotNetNuke.HttpModules.Personalization
 {

@@ -26,6 +26,7 @@ using System.Text;
 using System.Xml;
 using DotNetNuke.Services.Exceptions;
 
+
 #endregion
 namespace DotNetNuke.Services.Log.EventLog
 {

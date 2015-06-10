@@ -45,6 +45,7 @@ using DotNetNuke.Web.Client;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 using Globals = DotNetNuke.Common.Globals;
 
+
 #endregion
 namespace DotNetNuke.Framework.JavaScriptLibraries
 {

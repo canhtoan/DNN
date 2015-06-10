@@ -28,6 +28,7 @@ using System.Data;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 
+
 #endregion
 namespace DotNetNuke.Services.Search
 {

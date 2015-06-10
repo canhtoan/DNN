@@ -28,6 +28,7 @@ using System.Linq;
 using DotNetNuke.ComponentModel;
 using DotNetNuke.Data;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users.Social.Data
 {

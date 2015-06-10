@@ -27,6 +27,7 @@ using System;
 
 using DotNetNuke.Framework;
 
+
 #endregion
 namespace DotNetNuke.Services.Journal
 {

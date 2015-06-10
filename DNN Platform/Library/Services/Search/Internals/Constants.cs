@@ -23,6 +23,7 @@
 using System;
 using Version = Lucene.Net.Util.Version;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Internals
 {

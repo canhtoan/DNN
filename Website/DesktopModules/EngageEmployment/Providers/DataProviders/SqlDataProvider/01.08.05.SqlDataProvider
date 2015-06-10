@@ -1,0 +1,173 @@
+IF OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_fnParseCsvString', N'TF') IS NOT NULL
+    DROP FUNCTION {databaseOwner}{objectQualifier}EngageEmployment_fnParseCsvString
+GO
+
+CREATE FUNCTION {databaseOwner}{objectQualifier}EngageEmployment_fnParseCsvString
+(
+    @CSVString nvarchar(4000),
+    @Delimiter nvarchar(10)
+)
+RETURNS @tbl table ([Value] nvarchar(1000))
+AS
+/*
+    from http://www.mindsdoor.net/SQLTsql/ParseCSVString.html
+    Author Nigel Rivett
+*/
+BEGIN
+DECLARE @i int,
+	@j int
+	SELECT 	@i = 1
+	WHILE @i <= LEN(@CSVString)
+	BEGIN
+		SELECT	@j = CHARINDEX(@Delimiter, @CSVString, @i)
+		IF @j = 0
+		BEGIN
+			SELECT	@j = LEN(@CSVString) + 1
+		END
+		INSERT	@tbl SELECT SUBSTRING(@CSVString, @i, @j - @i)
+		SELECT	@i = @j + LEN(@Delimiter)
+	END
+	RETURN
+END
+GO
+
+IF OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_spGetJobs', N'P') IS NOT NULL
+    DROP PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spGetJobs
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spGetJobs (
+    @jobGroupId int,
+    @portalId int,
+    @index int, 
+    @pageSize int
+)
+AS
+BEGIN
+ 
+ 
+CREATE TABLE #results (
+[Id] int NOT NULL IDENTITY(1,1),
+[JobId] int
+)
+ 
+INSERT INTO #results ([JobId]) 
+SELECT A.JobId FROM
+    (SELECT DISTINCT j.JobId, j.SortOrder, j.CategoryName, j.JobTitle
+    FROM {databaseOwner}{objectQualifier}EngageEmployment_vwJobs j
+    LEFT JOIN {databaseOwner}{objectQualifier}EngageEmployment_JobJobGroup jjg on (j.JobId = jjg.JobId) 
+    WHERE j.PortalId = @portalId
+    AND (@jobGroupId IS NULL OR jjg.jobGroupId = @jobGroupId)) AS A
+ORDER BY A.SortOrder, A.CategoryName, A.JobTitle
+ 
+SELECT @@RowCount AS TotalRecords
+ 
+IF (@pageSize = 0 OR @pageSize IS NULL)
+    BEGIN
+        SELECT j.JobId, j.JobTitle, j.PositionId, j.LocationName, j.LocationId, j.StateName, j.StateAbbreviation, j.StateId, 
+               j.RequiredQualifications, j.DesiredQualifications, j.CategoryName, j.CategoryId, j.NotificationEmailAddress, j.ApplicationUrl, 
+               j.IsHot, j.IsFilled, j.PostedDate, j.JobDescription, j.SortOrder, j.RevisingUser, j.RevisionDate, j.StartDate, j.ExpireDate 
+        FROM #results r
+        JOIN {databaseOwner}{objectQualifier}EngageEmployment_vwJobs j ON (r.JobId = j.JobId)
+        ORDER BY r.Id
+    END
+ELSE
+    BEGIN
+        SELECT j.JobId, j.JobTitle, j.PositionId, j.LocationName, j.LocationId, j.StateName, j.StateAbbreviation, j.StateId, 
+               j.RequiredQualifications, j.DesiredQualifications, j.CategoryName, j.CategoryId, j.NotificationEmailAddress, j.ApplicationUrl, 
+               j.IsHot, j.IsFilled, j.PostedDate, j.JobDescription, j.SortOrder, j.RevisingUser, j.RevisionDate, j.StartDate, j.ExpireDate 
+        FROM #results r
+        JOIN {databaseOwner}{objectQualifier}EngageEmployment_vwJobs j ON (r.JobId = j.JobId)
+        WHERE (id >= @index * @pageSize + 1) AND id < (@index * @pageSize) + @pageSize + 1
+        ORDER BY r.Id
+    END
+END 
+GO
+
+IF OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_spGetApplicationsForJob', N'P') IS NOT NULL
+    DROP PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spGetApplicationsForJob
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spGetApplicationsForJob (
+    @jobId int,
+    @jobGroupId int,
+    @applicationStatusId int,
+    @userIds nvarchar(4000),
+    @index int, 
+    @pageSize int
+)
+AS
+BEGIN
+ 
+CREATE TABLE #results (
+[Id] int NOT NULL IDENTITY(1,1),
+[ApplicationId] int
+)
+ 
+INSERT INTO #results ([ApplicationId]) 
+SELECT B.ApplicationId FROM
+    (SELECT DISTINCT a.ApplicationId, a.AppliedDate
+    FROM {databaseOwner}{objectQualifier}EngageEmployment_vwApplications a
+    LEFT JOIN {databaseOwner}{objectQualifier}EngageEmployment_JobJobGroup jjg on (a.JobId = jjg.JobId) 
+    WHERE a.JobId = @jobId
+    AND (@jobGroupId IS NULL OR jjg.jobGroupId = @jobGroupId)
+    AND (@applicationStatusId IS NULL OR a.StatusId = @applicationStatusId)
+    AND (@userIds IS NULL OR a.UserId IN (SELECT [Value] FROM {objectQualifier}EngageEmployment_fnParseCsvString(@userIds, ',')))) AS B
+ORDER BY B.AppliedDate DESC
+ 
+SELECT @@RowCount AS TotalRecords
+ 
+IF (@pageSize = 0 OR @pageSize IS NULL)
+    BEGIN
+        SELECT a.AppliedDate, a.DisplayName, a.JobId, a.JobTitle, a.LocationName, a.ApplicationId, a.UserId, a.SalaryRequirement, a.Message, a.StatusId
+        FROM #results r
+        JOIN {databaseOwner}{objectQualifier}EngageEmployment_vwApplications a ON (r.ApplicationId = a.ApplicationId)
+        ORDER BY r.Id
+    END
+ELSE
+    BEGIN
+        SELECT a.AppliedDate, a.DisplayName, a.JobId, a.JobTitle, a.LocationName, a.ApplicationId, a.UserId, a.SalaryRequirement, a.Message, a.StatusId
+        FROM #results r
+        JOIN {databaseOwner}{objectQualifier}EngageEmployment_vwApplications a ON (r.ApplicationId = a.ApplicationId)
+        WHERE (id >= @index * @pageSize + 1) AND id < (@index * @pageSize) + @pageSize + 1
+        ORDER BY r.Id
+    END
+END 
+GO
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}EngageEmployment_spGetAdminData]') AND OBJECTPROPERTY(id, N'IsPROCEDURE') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}EngageEmployment_spGetAdminData]
+GO
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}EngageEmployment_spGetAdminData]
+@JobGroupId int,
+@PortalId int
+AS
+    DECLARE @jobsTable table (JobId int NOT NULL PRIMARY KEY);
+
+    INSERT INTO @jobsTable (JobId)
+	SELECT DISTINCT j.JobId
+    FROM {databaseOwner}[{objectQualifier}EngageEmployment_vwJobs] j
+	LEFT JOIN {databaseOwner}[{objectQualifier}EngageEmployment_JobJobGroup] jjg on (j.JobId = jjg.JobId)
+	WHERE (@JobGroupId IS NULL OR JobGroupId = @JobGroupId)
+	  AND PortalId = @PortalId
+	 
+	SELECT JobId, PostedDate, SortOrder, LocationId, LocationName, 
+		   StateId, StateName, StateAbbreviation, CategoryId, 
+		   CategoryName, PositionId, JobTitle, JobDescription,
+		   (SELECT COUNT(*) FROM {databaseOwner}[{objectQualifier}EngageEmployment_UserJob] uj WHERE uj.JobId = j.JobId) AS ApplicationCount
+	FROM {databaseOwner}[{objectQualifier}EngageEmployment_vwJobs] j
+	WHERE JobId IN (SELECT JobId FROM @jobsTable)
+	ORDER BY SortOrder, PostedDate
+
+    SELECT COUNT(*) AS Count, a.JobId, a.StatusId
+    FROM {databaseOwner}[{objectQualifier}EngageEmployment_vwApplications] a
+    WHERE a.JobId IN (SELECT JobId FROM @jobsTable)
+      AND a.StatusId IS NOT NULL
+    GROUP BY a.JobId, a.StatusId
+
+    SELECT a.JobId, a.UserId
+    FROM {databaseOwner}[{objectQualifier}EngageEmployment_vwApplications] a
+    WHERE a.JobId IN (SELECT JobId FROM @jobsTable)
+      AND a.UserId IS NOT NULL
+    GROUP BY a.JobId, a.UserId
+GO

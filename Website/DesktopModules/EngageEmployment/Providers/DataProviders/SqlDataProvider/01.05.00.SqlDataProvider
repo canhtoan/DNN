@@ -1,0 +1,108 @@
+﻿IF NOT EXISTS (SELECT NULL FROM syscolumns WHERE name = 'StartDate' AND id = OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_Job'))
+BEGIN
+    ALTER TABLE {databaseOwner}{objectQualifier}EngageEmployment_Job
+      ADD StartDate DateTime NULL,
+          ExpireDate DateTime NULL,
+          ApplicationUrl nvarchar(2000) NULL
+END
+GO
+
+IF EXISTS (SELECT NULL FROM syscolumns WHERE name = 'StartDate' AND id = OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_Job') AND isnullable = 1)
+BEGIN
+    UPDATE {databaseOwner}{objectQualifier}EngageEmployment_Job
+    SET StartDate = PostedDate
+    
+    ALTER TABLE {databaseOwner}{objectQualifier}EngageEmployment_Job
+    ALTER COLUMN StartDate DateTime NOT NULL
+END
+GO
+
+IF OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_vwJobs', N'V') IS NOT NULL
+    DROP VIEW {databaseOwner}{objectQualifier}EngageEmployment_vwJobs
+GO
+
+CREATE VIEW {databaseOwner}{objectQualifier}EngageEmployment_vwJobs
+AS  
+SELECT  
+j.JobId, p.JobTitle, p.JobPositionId AS PositionId, l.[Description] AS LocationName,   
+l.LocationId, s.[Name] AS StateName, s.Abbreviation AS StateAbbreviation, s.StateId,  
+j.RequiredQualifications, j.DesiredQualifications, jc.[Description] AS CategoryName,   
+jc.JobCategoryId AS CategoryId, j.IsHot, j.PostedDate, p.[Description] AS JobDescription,   
+j.IsFilled, j.SortOrder, j.RevisingUser, j.PortalId, j.NotificationEmailAddress,  
+j.RevisionDate, j.StartDate, j.ExpireDate, j.ApplicationUrl
+FROM  
+{objectQualifier}EngageEmployment_job j  
+JOIN {objectQualifier}EngageEmployment_lkpJobPosition p ON (j.JobPositionId = p.JobPositionId)  
+JOIN {objectQualifier}EngageEmployment_lkpLocation l ON (j.LocationId = l.LocationId)  
+JOIN {objectQualifier}EngageEmployment_lkpState s ON (l.StateId = s.StateId)  
+JOIN {objectQualifier}EngageEmployment_lkpJobCategory jc ON (j.JobCategoryId = jc.JobCategoryId)  
+GO
+
+IF OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_spInsertJob', N'P') IS NOT NULL
+    DROP PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spInsertJob
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spInsertJob
+@positionId int,   
+@locationId int,   
+@categoryId int,   
+@isHot bit,   
+@isFilled bit,   
+@requiredQualifications ntext,   
+@desiredQualifications ntext,    
+@revisingUser int,   
+@sortOrder int,   
+@portalId int,   
+@notificationEmailAddress nvarchar(320),
+@startDate datetime,
+@expireDate datetime,
+@applicationUrl nvarchar(2000)
+AS  
+ INSERT {objectQualifier}EngageEmployment_Job  
+ (JobPositionId, LocationId, JobCategoryId, PostedDate, IsHot, IsFilled, RequiredQualifications, 
+  DesiredQualifications, RevisingUser, RevisionDate, SortOrder, PortalId, NotificationEmailAddress,
+  StartDate, ExpireDate, ApplicationUrl)
+ VALUES (@positionId, @locationId, @categoryId, GETDATE(), @isHot, @isFilled, @requiredQualifications,
+         @desiredQualifications,  @revisingUser, GETDATE(), @sortOrder, @portalId, @NotificationEmailAddress,
+         @startDate, @expireDate, @applicationUrl)  
+ SELECT CONVERT(int, SCOPE_IDENTITY())
+GO
+
+IF OBJECT_ID(N'{databaseOwner}{objectQualifier}EngageEmployment_spUpdateJob', N'P') IS NOT NULL
+    DROP PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spUpdateJob
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}EngageEmployment_spUpdateJob
+@jobId int,  
+@positionId int,  
+@categoryId int,  
+@locationId int,  
+@isHot bit,  
+@isFilled bit,  
+@requiredQualifications ntext,  
+@desiredQualifications ntext,  
+@revisingUser int,  
+@sortOrder int,  
+@notificationEmailAddress nvarchar(320),
+@startDate datetime,
+@expireDate datetime,
+@applicationUrl nvarchar(2000)
+AS  
+ UPDATE {objectQualifier}EngageEmployment_Job  
+ SET JobPositionId = @positionId,   
+        LocationId = @locationId,   
+        JobCategoryId = @categoryId,   
+        IsHot = @isHot,   
+        IsFilled = @isFilled,   
+        RequiredQualifications = @requiredQualifications,   
+        DesiredQualifications = @desiredQualifications,   
+        RevisingUser = @revisingUser,   
+        RevisionDate = GETDATE(),   
+        SortOrder = @sortOrder,   
+        NotificationEmailAddress = @notificationEmailAddress,
+        StartDate = @startDate,
+        ExpireDate = @expireDate,
+        ApplicationUrl = @applicationUrl
+    WHERE JobId = @jobId  
+GO
+

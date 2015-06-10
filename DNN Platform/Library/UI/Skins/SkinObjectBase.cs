@@ -27,6 +27,7 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.UI.Modules;
 
+
 #endregion
 namespace DotNetNuke.UI.Skins
 {

@@ -1,0 +1,63 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="Test.DNN-6659" type="Module" version="1.0.0">
+  <friendlyName>DNN-6659</friendlyName>
+  <description />
+  <iconFile />
+  <owner>
+    <name>Test</name>
+    <organization>Test</organization>
+    <url />
+    <email />
+  </owner>
+  <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+  <releaseNotes>This package has no Release Notes.</releaseNotes>
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>Test.DNN-6659</moduleName>
+        <foldername>Test/DNN-6659</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>Test.DNN-6659</friendlyName>
+            <definitionName>Test.DNN-6659</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>desktopmodules/test/dnn-6659/View.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\Test\DNN-6659</basePath>
+        <file>
+          <path>App_LocalResources</path>
+          <name>View.ascx.resx</name>
+        </file>
+        <file>
+          <name>readme.txt</name>
+        </file>
+        <file>
+          <name>View.ascx</name>
+        </file>
+        <file>
+          <name>View.ascx.cs</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

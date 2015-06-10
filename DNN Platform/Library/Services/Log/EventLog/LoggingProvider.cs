@@ -28,6 +28,7 @@ using System.Linq;
 
 using DotNetNuke.ComponentModel;
 
+
 #endregion
 namespace DotNetNuke.Services.Log.EventLog
 {

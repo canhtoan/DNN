@@ -5,22 +5,22 @@ Namespace DotNetNuke.UI.Utilities
     Public NotInheritable Class ControlMethodClassAttribute : Inherits Attribute
 
         ' Fields
-        Private m_FriendlyNamespace As String = ""
+        Private _friendlyNamespace As String = ""
 
         ' Methods
         Public Sub New()
         End Sub
 
         Public Sub New(ByVal FriendlyNamespace As String)
-            m_FriendlyNamespace = FriendlyNamespace
+            _friendlyNamespace = FriendlyNamespace
         End Sub
 
         Public Property FriendlyNamespace() As String
             Get
-                Return m_FriendlyNamespace
+                Return _friendlyNamespace
             End Get
             Set(ByVal value As String)
-                m_FriendlyNamespace = value
+                _friendlyNamespace = value
             End Set
         End Property
 

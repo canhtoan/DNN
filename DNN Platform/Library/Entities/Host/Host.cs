@@ -39,6 +39,7 @@ using DotNetNuke.Entities.Portals;
 
 using Web.Client;
 
+
 #endregion
 namespace DotNetNuke.Entities.Host
 {

@@ -32,6 +32,7 @@ using DotNetNuke.Entities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Security.Roles.Internal;
 
+
 #endregion
 namespace DotNetNuke.Security.Roles
 {

@@ -28,6 +28,7 @@ using System;
 using DotNetNuke.Entities.Users.Social.Internal;
 using DotNetNuke.Framework;
 
+
 #endregion
 namespace DotNetNuke.Entities.Users.Social
 {

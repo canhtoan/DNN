@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using DotNetNuke.Services.Mobile;
 using DotNetNuke.Web.Mvp;
 
+
 #endregion
 namespace DotNetNuke.Modules.MobileManagement.ViewModels
 {

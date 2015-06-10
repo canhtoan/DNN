@@ -24,6 +24,7 @@ using System;
 
 using DotNetNuke.Services.Search.Entities;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Controllers
 {

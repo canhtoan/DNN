@@ -24,6 +24,7 @@ using System;
 
 using Microsoft.VisualBasic.CompilerServices;
 
+
 #endregion
 namespace DotNetNuke.Common
 {

@@ -1,4 +1,6 @@
-﻿using DotNetNuke.Services.Search.Internals;
+﻿
+
+using DotNetNuke.Services.Search.Internals;
 
 namespace DotNetNuke.Modules.Journal.Components
 {

@@ -29,6 +29,7 @@ using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
 
+
 #endregion
 namespace DotNetNuke.Services.Search.Internals
 {

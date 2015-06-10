@@ -31,6 +31,7 @@ using System.Collections;
 using DotNetNuke.Security.Roles.Internal;
 using System;
 
+
 #endregion
 namespace DotNetNuke.Entities.Groups
 {
