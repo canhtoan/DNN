@@ -44,6 +44,10 @@ namespace DotNetNuke.Web.Client
         private static readonly Type _hostControllerType;
         private static readonly Type _commonGlobalsType;
 
+	    private int? _portalId;
+		private IDictionary<string, string> _portalSettingsDictionary;
+		private IDictionary<string, string> _hostSettingsDictionary;
+
         static ClientResourceSettings()
         {
             try
@@ -117,7 +121,7 @@ namespace DotNetNuke.Web.Client
             return null;
         }
 
-        private static bool? GetBooleanSetting(string dictionaryKey, string settingKey)
+        private bool? GetBooleanSetting(string dictionaryKey, string settingKey)
         {
             var setting = GetSetting(dictionaryKey, settingKey);
             bool result;
@@ -128,7 +132,7 @@ namespace DotNetNuke.Web.Client
             return null;
         }
 
-        private static int? GetIntegerSetting(string dictionaryKey, string settingKey)
+        private int? GetIntegerSetting(string dictionaryKey, string settingKey)
         {
             var setting = GetSetting(dictionaryKey, settingKey);
             int version;
@@ -142,7 +146,7 @@ namespace DotNetNuke.Web.Client
             return null;
         }
 
-        private static string GetSetting(string dictionaryKey, string settingKey)
+        private string GetSetting(string dictionaryKey, string settingKey)
         {
             var settings = HttpContext.Current.Items[dictionaryKey];
             if (settings == null)
@@ -164,17 +168,22 @@ namespace DotNetNuke.Web.Client
             return null;
         }
 
-        private static string GetPortalSettingThroughReflection(string settingKey)
+        private string GetPortalSettingThroughReflection(string settingKey)
         {
             try
             {
+	            
                 int? portalId = GetPortalIdThroughReflection();
                 if (portalId.HasValue)
                 {
-                    var method = _portalControllerType.GetMethod("GetPortalSettingsDictionary");
-                    var dictionary = (Dictionary<string, string>)method.Invoke(null, new object[] { portalId.Value });
-                    string value;
-                    if (dictionary.TryGetValue(settingKey, out value))
+	                if (_portalSettingsDictionary == null)
+	                {
+			            var method = _portalControllerType.GetMethod("GetPortalSettingsDictionary");
+						_portalSettingsDictionary = (Dictionary<string, string>)method.Invoke(null, new object[] { portalId.Value });
+	                }
+
+	                string value;
+					if (_portalSettingsDictionary.TryGetValue(settingKey, out value))
                     {
                         return value;
                     }
@@ -186,17 +195,23 @@ namespace DotNetNuke.Web.Client
             return null;
         }
 
-        private static int? GetPortalIdThroughReflection()
+        private int? GetPortalIdThroughReflection()
         {
             try
             {
-                var method = _portalAliasControllerType.GetMethod("GetPortalAliasInfo");
-                var portalAliasInfo = method.Invoke(null, new object[] { HttpContext.Current.Request.Url.Host });
-                if (portalAliasInfo != null)
-                {
-                    object portalId = portalAliasInfo.GetType().GetProperty("PortalID").GetValue(portalAliasInfo, new object[] { });
-                    return (int)portalId;
-                }
+	            if (_portalId.HasValue)
+	            {
+		            return _portalId;
+	            }
+
+	            var method = _portalAliasControllerType.GetMethod("GetPortalAliasInfo");
+		        var portalAliasInfo = method.Invoke(null, new object[] {HttpContext.Current.Request.Url.Host});
+		        if (portalAliasInfo != null)
+		        {
+			        _portalId = Convert.ToInt32(portalAliasInfo.GetType().GetProperty("PortalID").GetValue(portalAliasInfo, new object[] {}));
+		        }
+
+	            return _portalId;
             }
             catch (Exception)
             {
@@ -204,16 +219,21 @@ namespace DotNetNuke.Web.Client
             return null;
         }
 
-        private static string GetHostSettingThroughReflection(string settingKey)
+        private string GetHostSettingThroughReflection(string settingKey)
         {
             try
             {
-                var method = _hostControllerType.GetMethod("GetSettingsDictionary");
-                var property = _hostControllerType.BaseType.GetProperty("Instance", BindingFlags.Static | BindingFlags.Public);
-                var instance = property.GetValue(null, Type.EmptyTypes);
-                var dictionary = (Dictionary<string, string>)method.Invoke(instance, Type.EmptyTypes);
-                string value;
-                if (dictionary.TryGetValue(settingKey, out value))
+	            if (_hostSettingsDictionary == null)
+	            {
+					var method = _hostControllerType.GetMethod("GetSettingsDictionary");
+			        var property = _hostControllerType.BaseType.GetProperty("Instance",
+				        BindingFlags.Static | BindingFlags.Public);
+			        var instance = property.GetValue(null, Type.EmptyTypes);
+					_hostSettingsDictionary = (Dictionary<string, string>)method.Invoke(instance, Type.EmptyTypes);
+	            }
+
+	            string value;
+				if (_hostSettingsDictionary.TryGetValue(settingKey, out value))
                 {
                     return value;
                 }
