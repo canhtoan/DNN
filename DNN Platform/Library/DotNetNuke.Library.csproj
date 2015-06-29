@@ -772,6 +772,12 @@
     <Compile Include="Services\Search\Controllers\SearchControllerImpl.cs" />
     <Compile Include="Services\Search\Entities\SearchQuery.cs" />
     <Compile Include="Services\Search\UserIndexer.cs" />
+    <Compile Include="Services\Settings\ISettingsStore.cs" />
+    <Compile Include="Services\Settings\ModuleScopedSettings.cs" />
+    <Compile Include="Services\Settings\PortalScopedSettings.cs" />
+    <Compile Include="Services\Settings\StringBasedSettings.cs" />
+    <Compile Include="Services\Settings\TabModuleScopedSettings.cs" />
+    <Compile Include="Services\Settings\tests.cs" />
     <Compile Include="Services\Social\Messaging\Frequency.cs" />
     <Compile Include="Services\Social\Subscriptions\Data\DataService.cs" />
     <Compile Include="Services\Social\Subscriptions\Data\IDataService.cs" />
