@@ -2364,6 +2364,11 @@ namespace DotNetNuke.Data
 									  lastModifiedByUserID);
 		}
 
+	    public virtual void UpdateUserLastIpAddress(int userId, string lastIpAddress)
+	    {
+	        ExecuteNonQuery("UpdateUserLastIpAddress", userId, lastIpAddress);
+	    }
+
 		#endregion
 
 		#region UserRole Methods
