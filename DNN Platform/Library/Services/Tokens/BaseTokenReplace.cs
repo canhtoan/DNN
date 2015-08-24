@@ -95,7 +95,7 @@ namespace DotNetNuke.Services.Tokens
                 var tokenizer = (Regex) DataCache.GetCache(TokenReplaceCacheKey);
                 if (tokenizer == null)
                 {
-                    tokenizer = new Regex(RegExpression, RegexOptions.Compiled);
+                    tokenizer = new Regex(RegExpression);
                     DataCache.SetCache(TokenReplaceCacheKey, tokenizer);
                 }
                 return tokenizer;
