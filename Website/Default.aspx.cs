@@ -429,14 +429,6 @@ namespace DotNetNuke.Framework
                 Title += versionString;
             }
 
-            //register DNN SkinWidgets Inititialization scripts
-            if (PortalSettings.EnableSkinWidgets & !UrlUtils.InPopUp())
-            {
-                jQuery.RequestRegistration();
-                // don't use the new API to register widgets until we better understand their asynchronous script loading requirements.
-                ClientAPI.RegisterStartUpScript(Page, "initWidgets", string.Format("<script type=\"text/javascript\" src=\"{0}\" ></script>", ResolveUrl("~/Resources/Shared/scripts/initWidgets.js")));
-            }
-
 			//register the custom stylesheet of current page
 			if (PortalSettings.ActiveTab.TabSettings.ContainsKey("CustomStylesheet") && !string.IsNullOrEmpty(PortalSettings.ActiveTab.TabSettings["CustomStylesheet"].ToString()))
 			{
