@@ -168,7 +168,7 @@ namespace DotNetNuke.Entities.Urls
             }
         }
 
-        public int PortalId { get; }
+        public int PortalId { get; private set; }
 
         public bool IsDirty { get; private set; }
 
