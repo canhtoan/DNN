@@ -55,5 +55,13 @@ namespace DotNetNuke.Entities.Urls.Config
                 _sendTo = value;
             }
         }
+        //HACK: we cache this in the first call assuming applicationPath never changes during the whole lifetime of the application
+        // also don't worry about locking; the worst case this will be created more than once
+        public Regex GetRuleRegex(string applicationPath)
+        {
+            return _matchRx ?? (_matchRx =
+                new Regex("^" + RewriterUtils.ResolveUrl(applicationPath, LookFor) + "$",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant));
+        }
     }
 }
