@@ -86,7 +86,7 @@ namespace DotNetNuke.Entities.Portals
 
         protected const string HttpContextKeyPortalSettingsDictionary = "PortalSettingsDictionary{0}{1}";
 
-        private static readonly IPortalController _controllerInstance = PortalController.Instance;
+        private event EventHandler<PortalCreatedEventArgs> PortalCreated;
 
         protected override Func<IPortalController> GetFactory()
         {
@@ -723,7 +723,7 @@ namespace DotNetNuke.Entities.Portals
 
         private static PortalInfo GetPortalInternal(int portalId, string cultureCode)
         {
-            return _controllerInstance.GetPortalList(cultureCode).SingleOrDefault(p => p.PortalID == portalId);
+            return PortalController.Instance.GetPortalList(cultureCode).SingleOrDefault(p => p.PortalID == portalId);
         }
 
         private static object GetPortalDefaultLanguageCallBack(CacheItemArgs cacheItemArgs)
@@ -1850,7 +1850,7 @@ namespace DotNetNuke.Entities.Portals
             }
             else
             {
-                var portalInfo = _controllerInstance.GetPortal(portalId);
+                var portalInfo = PortalController.Instance.GetPortal(portalId);
                 var defaultLocale = LocaleController.Instance.GetLocale(portalInfo.DefaultLanguage);
                 if (defaultLocale == null)
                 {
@@ -2912,7 +2912,7 @@ namespace DotNetNuke.Entities.Portals
         {
             if (portalId > Null.NullInteger && Globals.Status != Globals.UpgradeStatus.Upgrade)
             {
-                var portal = _controllerInstance.GetPortal(portalId);
+                var portal = PortalController.Instance.GetPortal(portalId);
                 var portalGroup = (from p in PortalGroupController.Instance.GetPortalGroups()
                                    where p.PortalGroupId == portal.PortalGroupID
                                    select p)
@@ -2967,7 +2967,7 @@ namespace DotNetNuke.Entities.Portals
 
         public static bool IsMemberOfPortalGroup(int portalId)
         {
-            var portal = _controllerInstance.GetPortal(portalId);
+            var portal = PortalController.Instance.GetPortal(portalId);
 
 			return portal != null && portal.PortalGroupID > Null.NullInteger;
         }
@@ -3091,7 +3091,7 @@ namespace DotNetNuke.Entities.Portals
             try
             {
                 string setting = Null.NullString;
-                _controllerInstance.GetPortalSettings(portalID).TryGetValue(key, out setting);
+                PortalController.Instance.GetPortalSettings(portalID).TryGetValue(key, out setting);
                 if (string.IsNullOrEmpty(setting))
                 {
                     retValue = defaultValue;
@@ -3152,7 +3152,7 @@ namespace DotNetNuke.Entities.Portals
             try
             {
                 string setting = Null.NullString;
-                _controllerInstance.GetPortalSettings(portalID).TryGetValue(key, out setting);
+                PortalController.Instance.GetPortalSettings(portalID).TryGetValue(key, out setting);
                 if (string.IsNullOrEmpty(setting))
                 {
                     retValue = defaultValue;
@@ -3416,7 +3416,7 @@ namespace DotNetNuke.Entities.Portals
 
         public static void IncrementOverridingPortalsCrmVersion()
         {
-            foreach (PortalInfo portal in _controllerInstance.GetPortals())
+            foreach (PortalInfo portal in PortalController.Instance.GetPortals())
             {
                 string setting = GetPortalSetting(ClientResourceSettings.OverrideDefaultSettingsKey, portal.PortalID, "False");
                 bool overriden;
