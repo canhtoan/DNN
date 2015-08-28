@@ -21,6 +21,7 @@
 #region Usings
 
 using System;
+using System.Text.RegularExpressions;
 
 #endregion
 
@@ -29,6 +30,7 @@ namespace DotNetNuke.Entities.Urls.Config
     [Serializable]
     public class RewriterRule
     {
+        private Regex _matchRx;
         private string _lookFor;
         private string _sendTo;
 
