@@ -216,6 +216,7 @@ namespace DotNetNuke.Services.Log.EventLog
                         var logType = new LogTypeInfo()
                                             {
                                                 LogTypeKey = logInfo.LogTypeKey,
+                                                LogTypeDescription = logInfo.LogTypeKey,
                                                 LogTypeFriendlyName = logInfo.LogTypeKey,
                                                 LogTypeOwner = "DotNetNuke.Logging.EventLogType",
                                                 LogTypeCSSClass = "GeneralAdminOperation"
