@@ -35,7 +35,7 @@ namespace DotNetNuke.Common.Internal
         private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(EventHandlersContainer<T>));
 
         [ImportMany]
-        private readonly IEnumerable<Lazy<T>> _eventHandlers = new List<Lazy<T>>();
+        private IEnumerable<Lazy<T>> eventHandlers = new List<Lazy<T>>();
 
         public EventHandlersContainer()
         {
@@ -57,7 +57,7 @@ namespace DotNetNuke.Common.Internal
         {
             get
             {
-                return _eventHandlers;
+                return eventHandlers;
             }
         }
 
