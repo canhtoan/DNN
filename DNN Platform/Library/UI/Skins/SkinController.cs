@@ -66,8 +66,12 @@ namespace DotNetNuke.UI.Skins
         private static readonly Regex SdirRegex = new Regex("\\[s]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static readonly Regex LdirRegex = new Regex("\\[l]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-		#region Public Shared Properties
-		
+        private const string GlobalSkinPrefix = "[G]";
+        private const string PortalSystemSkinPrefix = "[S]";
+        private const string PortalSkinPrefix = "[L]";
+
+        #region Public Shared Properties
+
         public static string RootSkin
         {
             get
