@@ -719,7 +719,7 @@ namespace Dnn.Tests.DynamicContent.UnitTests
         }
 
         [Test]
-        public void FromJson_Throws_If_Cant_Match_Field_From_Json_With_FieldDefinitions()
+        public void FromJson_DoesNotThrow_If_Cant_Match_Field_From_Json_With_FieldDefinitions()
         {
             //Arrange
             var contentTypeId = CONTENTTYPE_Simple;
@@ -737,7 +737,7 @@ namespace Dnn.Tests.DynamicContent.UnitTests
 
             var mockContentTypeController = new Mock<IDynamicContentTypeManager>();
             mockContentTypeController.Setup(c => c.GetContentType(contentTypeId, portalId, true))
-                        .Returns(new DynamicContentType() { ContentTypeId = contentTypeId });
+                        .Returns(new DynamicContentType { ContentTypeId = contentTypeId });
             DynamicContentTypeManager.SetTestableInstance(mockContentTypeController.Object);
 
             var mockDataTypeManager = new Mock<IDataTypeManager>();
@@ -745,7 +745,7 @@ namespace Dnn.Tests.DynamicContent.UnitTests
             DataTypeManager.SetTestableInstance(mockDataTypeManager.Object);
 
             //Act, Assert
-            Assert.Throws<JsonInvalidFieldException>(() => dynamicContent.FromJson(SimpleContentTypeJson.ToString()));
+            Assert.DoesNotThrow(() => dynamicContent.FromJson(SimpleContentTypeJson.ToString()));
         }
 
         [Test]
