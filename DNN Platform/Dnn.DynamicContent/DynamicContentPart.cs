@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dnn.DynamicContent.Exceptions;
 using Newtonsoft.Json.Linq;
 
 namespace Dnn.DynamicContent
@@ -99,7 +98,7 @@ namespace Dnn.DynamicContent
                                 : new DynamicContentField(definition) { Value = new TimeSpan(0, 0, 0) };
                         break;
                     case UnderlyingDataType.Uri:
-                        Uri uriResult = null;
+                        Uri uriResult;
                         field = Uri.TryCreate(stringValue, UriKind.Absolute, out uriResult)
                                 ? new DynamicContentField(definition) { Value = uriResult }
                                 : new DynamicContentField(definition) { Value = null };
@@ -118,35 +117,36 @@ namespace Dnn.DynamicContent
             var jFields = jContent["field"] as JArray;
 
             Fields = new Dictionary<string, DynamicContentField>();
-            if (jFields != null)
+            if (jFields == null)
             {
-                foreach (var jField in jFields)
+                return;
+            }
+
+            foreach (var jField in jFields)
+            {
+                var fieldName = jField["name"].Value<string>();
+                var definition = ContentType.FieldDefinitions.SingleOrDefault(d => string.Equals(d.Name, fieldName, StringComparison.InvariantCultureIgnoreCase));
+                if (definition == null)
                 {
-                    var fieldName = jField["name"].Value<string>();
-                    var definition = ContentType.FieldDefinitions.SingleOrDefault(d => d.Name.ToLowerInvariant() == fieldName.ToLowerInvariant());
-
-                    if (definition == null)
-                    {
-                        throw new JsonInvalidFieldException(fieldName);
-                    }
-
-                    DynamicContentField field = null;
-
-                    if (definition.IsList)
-                    {
-                        field = new DynamicContentField(definition);
-                        var jArray = jField["value"] as JArray;
-                        if (jArray != null)
-                        {
-                            field.Value = jArray.Select(jObject => FromJson(definition, jObject as JObject)).ToList();
-                        }
-                    }
-                    else
-                    {
-                        field = FromJson(definition, jField as JObject);
-                    }
-                    Fields.Add(definition.Name, field);
+                    continue;
                 }
+
+                DynamicContentField field;
+
+                if (definition.IsList)
+                {
+                    field = new DynamicContentField(definition);
+                    var jArray = jField["value"] as JArray;
+                    if (jArray != null)
+                    {
+                        field.Value = jArray.Select(jObject => FromJson(definition, jObject as JObject)).ToList();
+                    }
+                }
+                else
+                {
+                    field = FromJson(definition, jField as JObject);
+                }
+                Fields.Add(definition.Name, field);
             }
         }
 
