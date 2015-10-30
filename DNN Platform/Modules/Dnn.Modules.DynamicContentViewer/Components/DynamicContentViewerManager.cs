@@ -16,12 +16,14 @@ namespace Dnn.Modules.DynamicContentViewer.Components
 
         private readonly IDynamicContentTypeManager _dynamicContentTypeManager;
         private readonly IDynamicContentItemManager _dynamicContentItemManager;
+        private readonly IContentTemplateManager _contentTemplateManager;
         #endregion
 
         public DynamicContentViewerManager()
         {
             _dynamicContentTypeManager = DynamicContentTypeManager.Instance;
             _dynamicContentItemManager = DynamicContentItemManager.Instance;
+            _contentTemplateManager = ContentTemplateManager.Instance;
         }
 
         public  DynamicContentItem GetOrCreateContentItem(ModuleInfo moduleInfo, int contentTypeId)
@@ -62,12 +64,31 @@ namespace Dnn.Modules.DynamicContentViewer.Components
 
         public int GetContentTypeId(ModuleInfo moduleInfo)
         {
-            return moduleInfo.ModuleSettings.GetValueOrDefault(Settings.DCC_ContentTypeId, -1);
+            var contentTypeId = moduleInfo.ModuleSettings.GetValueOrDefault(Settings.DCC_ContentTypeId, -1);
+            if (contentTypeId == -1)
+            {
+                var contentType = _dynamicContentTypeManager.GetContentTypes(moduleInfo.PortalID, true).Single(ct => ct.Name == "HTML");
+                contentTypeId = contentType.ContentTypeId;
+            }
+
+            return contentTypeId;
         }
 
         public int GetViewTemplateId(ModuleInfo moduleInfo)
         {
-            return moduleInfo.ModuleSettings.GetValueOrDefault(Settings.DCC_ViewTemplateId, -1);
+            var templateId = moduleInfo.ModuleSettings.GetValueOrDefault(Settings.DCC_ViewTemplateId, -1);
+            if (templateId == -1)
+            {
+                var contentTypeId = moduleInfo.ModuleSettings.GetValueOrDefault(Settings.DCC_ContentTypeId, -1);
+                if (contentTypeId == -1)
+                {
+                    var contentType = _dynamicContentTypeManager.GetContentTypes(moduleInfo.PortalID, true).Single(ct => ct.Name == "HTML");
+                    var template = _contentTemplateManager.GetContentTemplates(contentType.ContentTypeId, moduleInfo.PortalID, true).Single(t => t.Name == "Getting Started");
+                    templateId = template.TemplateId;                    
+                }
+            }
+
+            return templateId;
         }
 
         public int GetEditTemplateId(ModuleInfo moduleInfo)

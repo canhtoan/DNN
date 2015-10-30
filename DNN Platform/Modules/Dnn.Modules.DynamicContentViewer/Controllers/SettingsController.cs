@@ -34,7 +34,7 @@ namespace Dnn.Modules.DynamicContentViewer.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var contentTypeId = _dynamicContentViewerManager.GetContentTypeId(ActiveModule);
+            var contentTypeId = _dynamicContentViewerManager.GetContentTypeId(ActiveModule);            
             var settings = new Settings
                                 {
                                     ModuleId = ActiveModule.ModuleID,
