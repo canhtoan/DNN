@@ -66,6 +66,8 @@
   <Target Name="CreateInstall" DependsOnTargets="Compile">
     <ItemGroup>
       <InstallPackage Include="$(WebsitePath)\**\*.*" Exclude="@(InstallExclude)" />
+      <InstallPackage Include="$(WebsitePath)\Install\InstallWizard.aspx.cs" />
+      <InstallPackage Include="$(WebsitePath)\Install\InstallWizard.aspx.designer.cs" />
       <InstallPackage Include="$(WebsitePath)\bin\*.dll" Exclude="@(InstallAssemblyExclude)" />
       <InstallPackage Include="$(WebsitePath)\bin\Providers\*.dll" Exclude="@(InstallAssemblyExclude)" />
     </ItemGroup>
@@ -77,6 +79,8 @@
   <Target Name="CreateUpgrade" DependsOnTargets="Compile">
     <ItemGroup>
       <UpgradePackage Include="$(WebsitePath)\**\*.*" Exclude="@(UpgradeExclude);" />
+      <UpgradePackage Include="$(WebsitePath)\Install\InstallWizard.aspx.cs" />
+      <UpgradePackage Include="$(WebsitePath)\Install\InstallWizard.aspx.designer.cs" />
       <UpgradePackage Include="$(WebsitePath)\bin\*.dll" Exclude="@(InstallAssemblyExclude)" />
       <UpgradePackage Include="$(WebsitePath)\bin\Providers\*.dll" Exclude="@(InstallAssemblyExclude)" />
     </ItemGroup>
