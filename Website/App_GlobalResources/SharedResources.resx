@@ -1948,4 +1948,7 @@ the modified URL.</value>
   <data name="NoRecords.Text" xml:space="preserve">
     <value>No records to display</value>
   </data>
+  <data name="ModuleAddedToMultiplePages.Text" xml:space="preserve">
+    <value>This module has been added to other pages.  Changes you make here will apply also to those pages.</value>
+  </data>
 </root>
