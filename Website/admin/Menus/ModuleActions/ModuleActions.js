@@ -385,7 +385,7 @@
                 }
 
                 if (isShared) {
-                    buildSharedMenu(menuRoot, "Shared Module", "dnn_shared");
+                    buildSharedMenu(menuRoot, opts.sharedText, "dnn_shared");
                 }
                 watchResize(moduleId);
             }
