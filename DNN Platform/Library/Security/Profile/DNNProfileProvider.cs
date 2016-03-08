@@ -23,13 +23,14 @@
 using System;
 using System.Data;
 using System.Globalization;
-
+using System.Web.Caching;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Profile;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Services.Cache;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 
@@ -115,6 +116,24 @@ namespace DotNetNuke.Security.Profile
         /// <param name="user">The user whose Profile information we are retrieving.</param>
         /// -----------------------------------------------------------------------------
         public override void GetUserProfile(ref UserInfo user)
+        {
+            var cacheKey = string.Format(DataCache.UserProfileAccessCacheKey, user.PortalID, user.Username);
+            var cache = CachingProvider.Instance();
+            var cacheObject = cache.GetItem(cacheKey);
+            var now = DateTime.Now;
+            if (cacheObject is DateTime)
+            {
+                var lastAccess = (DateTime)cacheObject;
+                if ((now - lastAccess).TotalSeconds < DataCache.UserProfileCacheTimeInSec)
+                    return;
+            }
+
+            GetUserProfileInternal(user);
+            cache.Insert(cacheKey, now, (DNNCacheDependency)null,
+                now.AddSeconds(DataCache.UserProfileCacheTimeInSec), Cache.NoSlidingExpiration);
+        }
+
+        public void GetUserProfileInternal(UserInfo user)
         {
             ProfilePropertyDefinition profProperty;
 

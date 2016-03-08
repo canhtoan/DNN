@@ -190,6 +190,9 @@ namespace DotNetNuke.Common.Utilities
         public const string ProfileDefinitionsCacheKey = "ProfileDefinitions{0}";
         public const int ProfileDefinitionsCacheTimeOut = 20;
 
+        public const string UserProfileAccessCacheKey = "UserProfileLastAccess|{0}|{1}";
+        public const int UserProfileCacheTimeInSec = 3; // very short one
+
         public const string UserCacheKey = "UserInfo|{0}|{1}";
         public const int UserCacheTimeOut = 1;
         public const CacheItemPriority UserCachePriority = CacheItemPriority.Normal;
@@ -458,6 +461,7 @@ namespace DotNetNuke.Common.Utilities
 
         public static void ClearUserCache(int PortalId, string username)
         {
+            RemoveCache(string.Format(UserProfileAccessCacheKey, PortalId, username));
             RemoveCache(string.Format(UserCacheKey, PortalId, username));
         }
 
