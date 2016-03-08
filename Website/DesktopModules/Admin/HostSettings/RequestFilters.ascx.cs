@@ -278,7 +278,8 @@ namespace DotNetNuke.Modules.Admin.Host
             }
             catch (UnauthorizedAccessException exc)
             {
-                Logger.Debug(exc);
+                if (Logger.IsDebugEnabled)
+                    Logger.Debug(exc);
 
                 lblErr.InnerText = Localization.GetString("unauthorized", LocalResourceFile);
                 lblErr.Visible = true;

@@ -98,7 +98,8 @@ namespace DotNetNuke.Entities.Host
             {
                 executingServerName += "-" + Globals.IISAppName;
             }
-            Logger.Debug("GetExecutingServerName:" + executingServerName);
+            if (Logger.IsDebugEnabled)
+                Logger.Debug("GetExecutingServerName:" + executingServerName);
             return executingServerName;
         }
 
@@ -109,7 +110,8 @@ namespace DotNetNuke.Entities.Host
             {
                 serverName += "-" + webServer.IISAppName;
             }
-            Logger.Debug("GetServerName:" + serverName);
+            if (Logger.IsDebugEnabled)
+                Logger.Debug("GetServerName:" + serverName);
             return serverName;
         }
 

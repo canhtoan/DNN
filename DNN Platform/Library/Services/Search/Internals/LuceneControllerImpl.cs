@@ -402,7 +402,8 @@ namespace DotNetNuke.Services.Search.Internals
             {
                 if (doWait)
                 {
-                    Logger.Debug("Compacting Search Index - started");
+                    if (Logger.IsDebugEnabled)
+                        Logger.Debug("Compacting Search Index - started");
                 }
 
                 CheckDisposed();
@@ -411,8 +412,8 @@ namespace DotNetNuke.Services.Search.Internals
                 
                 if (doWait)
                 {
-                    Commit();
-                    Logger.Debug("Compacting Search Index - finished");
+                    if (Logger.IsDebugEnabled)
+                        Logger.Debug("Compacting Search Index - finished");
                 }
 
                 return true;

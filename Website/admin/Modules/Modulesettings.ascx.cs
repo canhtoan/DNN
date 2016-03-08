@@ -642,7 +642,8 @@ namespace DotNetNuke.Modules.Admin.Modules
                         }
                         catch (ThreadAbortException exc)
                         {
-                            Logger.Debug(exc);
+                            if (Logger.IsDebugEnabled)
+                                Logger.Debug(exc);
 
                             Thread.ResetAbort(); //necessary
                         }

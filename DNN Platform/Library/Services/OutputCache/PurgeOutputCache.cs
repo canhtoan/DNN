@@ -58,8 +58,9 @@ namespace DotNetNuke.Services.OutputCache
                     }
                     catch (NotSupportedException exc)
                     {
-						//some output caching providers don't use this feature
-                        Logger.Debug(exc);
+                        //some output caching providers don't use this feature
+                        if (Logger.IsDebugEnabled)
+                            Logger.Debug(exc);
                     }
                 }
                 ScheduleHistoryItem.Succeeded = true; //REQUIRED

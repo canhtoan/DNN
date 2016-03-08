@@ -1289,7 +1289,8 @@ namespace DotNetNuke.Entities.Tabs
 
             if (tabId <= 0)
             {
-                Logger.WarnFormat("Invalid tabId {0} of portal {1}", tabId, portalId);
+                if (Logger.IsWarnEnabled)
+                    Logger.WarnFormat("Invalid tabId {0} of portal {1}", tabId, portalId);
             }
             else if (ignoreCache || Host.Host.PerformanceSetting == Globals.PerformanceSettings.NoCaching)
             {
@@ -1317,7 +1318,7 @@ namespace DotNetNuke.Entities.Tabs
                     {
                         ClearCache(tab.PortalID);
                     }
-                    else
+                    else if (Logger.IsWarnEnabled)
                     {
                         Logger.WarnFormat("Unable to find tabId {0} of portal {1}", tabId, portalId);
                     }

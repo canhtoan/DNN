@@ -208,7 +208,8 @@ namespace DotNetNuke.Modules.Admin.Extensions
             }
             catch (Exception ex)
             {
-                Logger.Debug(ex);
+                if (Logger.IsDebugEnabled)
+                    Logger.Debug(ex);
                 strErrorMessage = ex.StackTrace;
             }
             finally

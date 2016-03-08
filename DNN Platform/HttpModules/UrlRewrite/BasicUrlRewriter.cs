@@ -249,7 +249,8 @@ namespace DotNetNuke.HttpModules.UrlRewrite
             catch (ThreadAbortException exc)
             {
                 //Do nothing if Thread is being aborted - there are two response.redirect calls in the Try block
-                Logger.Debug(exc);
+                if (Logger.IsDebugEnabled)
+                    Logger.Debug(exc);
             }
             catch (Exception ex)
             {

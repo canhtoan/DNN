@@ -578,7 +578,8 @@ namespace DotNetNuke.Modules.Admin.Security
             }
             catch (ThreadAbortException exc) //Do nothing if ThreadAbort as this is caused by a redirect
             {
-                Logger.Debug(exc);
+                if (Logger.IsDebugEnabled)
+                    Logger.Debug(exc);
 
             }
             catch (Exception exc) //Module failed to load

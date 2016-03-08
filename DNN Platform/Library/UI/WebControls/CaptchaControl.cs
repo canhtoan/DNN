@@ -487,7 +487,8 @@ namespace DotNetNuke.UI.WebControls
 			}
 			catch (ArgumentException exc)
 			{
-				Logger.Debug(exc);
+                if (Logger.IsDebugEnabled)
+                    Logger.Debug(exc);
 
 			}
 			return decryptedText;

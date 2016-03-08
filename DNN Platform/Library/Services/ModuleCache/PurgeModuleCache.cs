@@ -57,8 +57,9 @@ namespace DotNetNuke.Services.ModuleCache
                     }
                     catch (NotSupportedException exc)
                     {
-						//some Module caching providers don't use this feature
-                        Logger.Debug(exc);
+                        //some Module caching providers don't use this feature
+                        if (Logger.IsDebugEnabled)
+                            Logger.Debug(exc);
 
                     }
                 }

@@ -217,19 +217,21 @@ namespace DotNetNuke.Framework
             foreach (Control c in controls)
             {
                 ProcessControl(c, affectedControls, true, resourceFileRoot);
-                LogDnnTrace("PageBase.IterateControls","Info", $"ControlId: {c.ID}");
+                LogDnnTrace("PageBase.IterateControls","Info", "ControlId: " + c.ID);
             }
         }
 
         private void LogDnnTrace(string origin, string action, string message)
         {
-            var tabId = -1;
-            if (PortalSettings?.ActiveTab != null)
-            {
-                tabId = PortalSettings.ActiveTab.TabID;
-            }
             if (_tracelLogger.IsDebugEnabled)
+            {
+                var tabId = -1;
+                if (PortalSettings?.ActiveTab != null)
+                {
+                    tabId = PortalSettings.ActiveTab.TabID;
+                }
                 _tracelLogger.Debug($"{origin} {action} (TabId:{tabId},{message})");
+            }
         }
 
         #endregion
@@ -343,14 +345,14 @@ namespace DotNetNuke.Framework
 
         protected override void Render(HtmlTextWriter writer)
         {
-            LogDnnTrace("PageBase.Render", "Start", $"{Page.Request.Url.AbsoluteUri}");
+            LogDnnTrace("PageBase.Render", "Start", Page.Request.Url.AbsoluteUri);
 
             IterateControls(Controls, _localizedControls, LocalResourceFile);
             RemoveKeyAttribute(_localizedControls);
             AJAX.RemoveScriptManager(this);
             base.Render(writer);
 
-            LogDnnTrace("PageBase.Render", "End", $"{Page.Request.Url.AbsoluteUri}");            
+            LogDnnTrace("PageBase.Render", "End", Page.Request.Url.AbsoluteUri);
         }
 
 
