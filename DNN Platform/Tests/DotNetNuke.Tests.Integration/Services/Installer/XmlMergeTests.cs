@@ -202,6 +202,24 @@ namespace DotNetNuke.Tests.Integration.Services.Installer
         }
 
         [Test]
+        public void UpdateInLocationWithDeeperTargetPath()
+        {
+            XmlDocument targetDoc = ExecuteMerge();
+
+            //children are in correct location
+            XmlNodeList nodes = targetDoc.SelectNodes("/configuration/location/parent/updateme/children/child");
+            Assert.AreEqual(2, nodes.Count);
+
+            //target path not duplicated
+            nodes = targetDoc.SelectNodes("//updateme");
+            Assert.AreEqual(1, nodes.Count);
+
+            //children only inserted once
+            nodes = targetDoc.SelectNodes("//child");
+            Assert.AreEqual(2, nodes.Count);
+        }
+
+        [Test]
         public void UpdateWithDistractingLocationAndTargetPath()
         {
             XmlDocument targetDoc = ExecuteMerge("UpdateWithTargetPath");

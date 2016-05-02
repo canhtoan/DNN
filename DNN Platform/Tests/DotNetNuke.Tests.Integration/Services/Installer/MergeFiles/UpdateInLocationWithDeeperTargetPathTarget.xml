@@ -1,0 +1,7 @@
+﻿<configuration>
+  <location>
+    <parent>
+      <updateme></updateme>
+    </parent>
+  </location>
+</configuration>
