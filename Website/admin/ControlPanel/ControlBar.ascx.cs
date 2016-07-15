@@ -52,6 +52,8 @@ using DotNetNuke.Web.Client;
 using DotNetNuke.Web.Components.Controllers;
 using DotNetNuke.Web.Components.Controllers.Models;
 using Globals = DotNetNuke.Common.Globals;
+using System.Security.Cryptography;
+using DotNetNuke.Entities.Controllers;
 
 #endregion
 
@@ -1103,6 +1105,29 @@ namespace DotNetNuke.UI.ControlPanels
         }
 
         #endregion
+
+        #region Beacon POC code
+
+        public string GetBeaconData() {
+            //h: Host GUID - hashed
+            //p: Portal ID
+            //a: Portal Alias
+            //r: Role(s) - bitmask
+            //f: Feature Path
+
+
+
+            return $"h={GetHostHash()}&p=&a=&r=&f=";
+        }
+
+        private string GetHostHash()
+        {
+            byte[] hostId = Encoding.ASCII.GetBytes(Host.GUID);
+            SHA256 crypto = SHA256Managed.Create();
+            return Encoding.ASCII.GetString(crypto.ComputeHash(hostId));
+        }
+
+        #endregion
     }
-    
+
 }

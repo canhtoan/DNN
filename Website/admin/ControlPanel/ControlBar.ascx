@@ -428,7 +428,9 @@
 
         loadingModulesId: 'ControlBar_ModuleListWaiter_LoadingMessage',
         loadingModulesMessage: '<%= Localization.GetSafeJSString(GetString("LoadingModule.Text"))%>',
-        loadingModulesOnNoDefaultCategoryMessage: "<%= Localization.GetSafeJSString(GetString("LoadingModuleOnNoDefaultCategory.Text"))%>"
+        loadingModulesOnNoDefaultCategoryMessage: "<%= Localization.GetSafeJSString(GetString("LoadingModuleOnNoDefaultCategory.Text"))%>",
+
+        beaconParams: '<%= GetBeaconData() %>' 
     };
 
     $(function() {
