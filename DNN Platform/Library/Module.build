@@ -20,7 +20,7 @@
       <RadSpell Include="..\Website\App_Data\RadSpell\*.tdf" />
       <ConfigFiles Include="..\Website\Config\*.*" />
       <CleanupFiles Include="..\Website\Install\Cleanup\*.*" />
-      <InstallFiles Include="..\Website\Install\InstallWizard*.*" />
+      <InstallFiles Include="..\Website\Install\*.*" />
       <ConfigMergeFiles Include="..\Website\Install\Config\*.*" />
       <ProviderFiles Include="..\Website\Install\Provider\*.*" />
       <ModuleFiles Include="..\Website\Install\Module\*.*" />

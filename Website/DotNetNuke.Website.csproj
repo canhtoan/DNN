@@ -1090,20 +1090,6 @@
     <Compile Include="ErrorPage.aspx.designer.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Install\Install.aspx.cs">
-      <DependentUpon>install.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Install\Install.aspx.designer.cs">
-      <DependentUpon>install.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Install\UpgradeWizard.aspx.cs">
-      <DependentUpon>UpgradeWizard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Install\UpgradeWizard.aspx.designer.cs">
-      <DependentUpon>UpgradeWizard.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Install\WizardUser.ascx.cs">
       <DependentUpon>WizardUser.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3351,7 +3337,6 @@
     <Content Include="Install\Cleanup\PlaceHolder.txt" />
     <Content Include="Install\Config\PlaceHolder.txt" />
     <Content Include="Install\Container\PlaceHolder.txt" />
-    <Content Include="Install\install.aspx" />
     <Content Include="Install\Install.css" />
     <Content Include="Install\Install.htm" />
     <Content Include="Install\Install.template.htm" />
@@ -3365,7 +3350,6 @@
     <Content Include="Install\Template\PlaceHolder.txt" />
     <Content Include="Install\UAC_shield.png" />
     <Content Include="Install\UnderConstruction.template.htm" />
-    <Content Include="Install\UpgradeWizard.aspx" />
     <Content Include="Install\WizardUser.ascx" />
     <Content Include="js\Debug\dnn.controls.dnninputtext.js" />
     <Content Include="js\Debug\dnn.controls.dnnlabeledit.js" />
