@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Support Projects", "Support Projects", "{1DFA65CE-5978-49F9-83BA-CFBD0C7A1814}"
 EndProject
@@ -304,9 +304,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{5467AF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{22307C17-79AA-48AF-B0DF-6EDDC13048F5}"
 	ProjectSection(SolutionItems) = preProject
+		DNN Platform\Website\Install\install.aspx = DNN Platform\Website\Install\install.aspx
+		DNN Platform\Website\Install\Install.aspx.cs = DNN Platform\Website\Install\Install.aspx.cs
+		DNN Platform\Website\Install\Install.aspx.designer.cs = DNN Platform\Website\Install\Install.aspx.designer.cs
 		DNN Platform\Website\Install\InstallWizard.aspx = DNN Platform\Website\Install\InstallWizard.aspx
 		DNN Platform\Website\Install\InstallWizard.aspx.cs = DNN Platform\Website\Install\InstallWizard.aspx.cs
 		DNN Platform\Website\Install\InstallWizard.aspx.designer.cs = DNN Platform\Website\Install\InstallWizard.aspx.designer.cs
+		DNN Platform\Website\Install\UpgradeWizard.aspx = DNN Platform\Website\Install\UpgradeWizard.aspx
+		DNN Platform\Website\Install\UpgradeWizard.aspx.cs = DNN Platform\Website\Install\UpgradeWizard.aspx.cs
+		DNN Platform\Website\Install\UpgradeWizard.aspx.designer.cs = DNN Platform\Website\Install\UpgradeWizard.aspx.designer.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cleanup", "Cleanup", "{3ABA7D78-1F99-45C6-BBFB-B53BA0C1DD2E}"
