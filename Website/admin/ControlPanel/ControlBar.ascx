@@ -428,15 +428,18 @@
 
         loadingModulesId: 'ControlBar_ModuleListWaiter_LoadingMessage',
         loadingModulesMessage: '<%= Localization.GetSafeJSString(GetString("LoadingModule.Text"))%>',
-        loadingModulesOnNoDefaultCategoryMessage: "<%= Localization.GetSafeJSString(GetString("LoadingModuleOnNoDefaultCategory.Text"))%>",
-
-        beaconParams: '<%= GetBeaconData() %>' 
+        loadingModulesOnNoDefaultCategoryMessage: "<%= Localization.GetSafeJSString(GetString("LoadingModuleOnNoDefaultCategory.Text"))%>"
     };
 
     $(function() {
         $('a#ControlBar_ViewInPreview').click(function() {
             <%=PreviewPopup() %>;
         });
+
+        <% if (IsBeaconEnabled()) { %>
+        // Hardcoded endpoint - this should be in web.config
+        (new Image()).src = "http://localhost:51033/beacon.axd?<%= GetBeaconData() %>";
+        <% } %>
     });
 
     function openFileUploader() {

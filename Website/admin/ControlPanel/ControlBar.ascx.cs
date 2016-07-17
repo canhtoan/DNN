@@ -1108,24 +1108,37 @@ namespace DotNetNuke.UI.ControlPanels
 
         #region Beacon POC code
 
-        public string GetBeaconData() {
+        protected string GetBeaconData() {
             //h: Host GUID - hashed
             //p: Portal ID
             //a: Portal Alias
-            //r: Role(s) - bitmask
-            //f: Feature Path
+            //r: Role(s) - bitmask - Host = 1, Admin = 2
+            //u: UserSession - hashed
 
-
-
-            return $"h={GetHostHash()}&p=&a=&r=&f=";
+            UserInfo user = UserController.Instance.GetCurrentUserInfo();
+            var roles = (user.IsSuperUser ? 1 : (user.IsInRole("Admin") ? 2 : 0));             
+            
+            return $"h={GetHash(Host.GUID)}&p={PortalSettings.PortalId}&a={Server.UrlEncode(PortalSettings.PortalAlias.HTTPAlias)}&r={roles}&u={GetHash(user.UserID.ToString())}";
         }
 
-        private string GetHostHash()
+        protected bool IsBeaconEnabled() {
+            //Check for Update Service Opt-in
+            //Check if a host or admin
+            //Check if currently on a host/admin page
+
+            UserInfo user = UserController.Instance.GetCurrentUserInfo();
+            var tabPath = TabController.CurrentPage.TabPath;
+
+            var enabled = Host.CheckUpgrade && (user.IsSuperUser || user.IsInRole("Admin")) && (tabPath.StartsWith("//Admin") || tabPath.StartsWith("//Host"));
+            return enabled;
+        }
+        private string GetHash(string data)
         {
-            byte[] hostId = Encoding.ASCII.GetBytes(Host.GUID);
+            byte[] dataBytes = Encoding.ASCII.GetBytes(data);
             SHA256 crypto = SHA256Managed.Create();
-            return Encoding.ASCII.GetString(crypto.ComputeHash(hostId));
+            return Server.UrlEncode(Convert.ToBase64String(crypto.ComputeHash(dataBytes)));
         }
+
 
         #endregion
     }
