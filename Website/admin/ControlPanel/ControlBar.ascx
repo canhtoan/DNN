@@ -438,7 +438,8 @@
 
         <% if (IsBeaconEnabled()) { %>
         // Hardcoded endpoint - this should be in web.config
-        (new Image()).src = "http://localhost:51033/beacon.axd?<%= GetBeaconData() %>";
+        // URL should hardcode HTTPS or should not include the protocol so it will not generate a mixed security warning on SSL pages 
+        (new Image()).src = "//localhost:51033/beacon.axd?<%= GetBeaconData() %>";
         <% } %>
     });
 
